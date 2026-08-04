@@ -25,13 +25,13 @@
   --accent-soft:#d8a066;
   --accent-deep:#8f5a2e;
 
-  /* barvy úrovní — POUZE pro tier karty / štítky / logo-mark */
-  --tier-green:#2f8f5b;
-  --tier-green-deep:#1f6941;
-  --tier-yellow:#d9a429;
-  --tier-yellow-deep:#a97815;
-  --tier-red:#d6503d;
-  --tier-red-deep:#a83a2b;
+  /* barvy úrovní baseline — POUZE pro tier karty / štítky / logo-mark */
+  --tier-green:#16b548;
+  --tier-green-deep:#076e1f;
+  --tier-yellow:#ffba19;
+  --tier-yellow-deep:#bf8208;
+  --tier-red:#f72338;
+  --tier-red-deep:#a31212;
 
   --radius:14px;
 }
