@@ -36,6 +36,27 @@
   --radius:14px;
 }
 
+#testBar {
+    width: 400px;
+    height: 30px;
+    background: #333;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px;
+}
+
+#testProgress {
+    height: 100%;
+    width: 0%;
+    background: green;
+    transition: width 0.05s linear;
+}
+
+#testButton {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{
