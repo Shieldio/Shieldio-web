@@ -5,40 +5,61 @@
    2) --tier-*    = barvy úrovní Zelená/Žlutá/Červená — používají se JEN
                      u prvků, které se skutečně váží k dané úrovni desky
    ========================================================================== */
+/* ==========================================================================
+   SHIELDIO — Apple inspired design system
+   ========================================================================== */
 
-:root{
-  /* povrchy */
-  --paper:#f2f3ee;
-  --paper-2:#e9ebe3;
-  --line:#c7cabf;
+:root {
+
+  /* surfaces */
+  --bg:#fbfbfd;
+  --surface:#ffffff;
+  --surface-soft:#f5f5f7;
+  --line:rgba(0,0,0,.08);
 
   /* text */
-  --ink:#131d17;
-  --ink-soft:#3c483f;
+  --text:#1d1d1f;
+  --text-secondary:#6e6e73;
 
-  /* tmavé sekce (hero, CTA, patička) */
-  --navy:#0f1a15;
-  --navy-2:#16241d;
+  /* dark sections */
+  --dark:#000000;
+  --dark-soft:#161617;
 
-  /* jediná brand akční barva (odkazy, tlačítka, zvýraznění) */
-  --accent:#b5713c;
-  --accent-soft:#d8a066;
-  --accent-deep:#8f5a2e;
 
-  /* barvy úrovní baseline — POUZE pro tier karty / štítky / logo-mark */
-  --tier-green:#16b548;
-  --tier-green-deep:#076e1f;
-  --tier-yellow:#ffba19;
-  --tier-yellow-deep:#bf8208;
-  --tier-red:#f72338;
-  --tier-red-deep:#a31212;
+  /* Shieldio brand */
+  --accent:#0071e3;
+  --accent-hover:#0077ed;
 
-  --radius:14px;
 
-   --pro-blue:#2463eb;
---pro-purple:#7c3aed;
---pro-black:#111;
---pro-white:#fff;
+  /* baseline */
+  --tier-green:#34c759;
+  --tier-yellow:#ffcc00;
+  --tier-red:#ff3b30;
+
+
+  /* proline */
+  --pro-blue:#007aff;
+  --pro-purple:#af52de;
+  --pro-black:#1c1c1e;
+
+
+  /* geometry */
+  --radius-sm:14px;
+  --radius:24px;
+  --radius-xl:32px;
+
+
+  /* shadows */
+  --shadow-soft:
+  0 20px 60px rgba(0,0,0,.08);
+
+  --shadow-card:
+  0 10px 40px rgba(0,0,0,.06);
+
+
+  /* animation */
+  --ease:
+  cubic-bezier(.2,.8,.2,1);
 }
 
 #testBar {
