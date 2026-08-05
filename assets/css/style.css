@@ -367,3 +367,13 @@ footer{ background:var(--navy); color:#7f8c82; padding:36px 0; }
 .delay-3 {
   transition-delay: 0.4s;
 }
+
+
+:root {
+
+--pro-blue:#2463eb;
+--pro-purple:#7c3aed;
+--pro-black:#111;
+--pro-white:#fff;
+
+}
