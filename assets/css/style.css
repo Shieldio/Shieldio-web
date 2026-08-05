@@ -13,13 +13,13 @@
 
   /* surfaces */
   --bg:#fbfbfd;
-  --surface:#ffffff;
+  --surface:#fefcfe;
   --surface-soft:#f5f5f7;
   --line:rgba(0,0,0,.08);
 
   /* text */
   --text:#1d1d1f;
-  --text-secondary:#6e6e73;
+  --text-secondary:#3c3c45;
 
   /* dark sections */
   --dark:#000000;
