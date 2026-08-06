@@ -48,10 +48,7 @@
     <div class="logo"><span class="logo-mark"></span>Shieldio</div>
     <div class="nav-links">
       <nav>
-        <a href="#reseni">Řešení</a>
-        <a href="#deska">deska RED </a>
-        <a href="#jak-to-funguje">Jak to funguje</a>
-        <a href="#pro-skoly">Pro školy</a>
+        <a href="index.html">Domů</a>
         <a href="instructions/index.html">Návody</a>
         <a href="company/about.html">O nás</a>
       </nav>
@@ -286,6 +283,23 @@
       <h3>Nezávazná zpráva</h3>
       <p class="form-sub">Ozveme se do dvou pracovních dnů.</p>
       <form action="mailto:info@shieldio.cz" method="post" enctype="text/plain">
+        <div class="field">
+          <label for="who">Píšeš za</label>
+          <select id="who" name="typ" class="field-select">
+            <option>Škola</option>
+            <option>Pedagog / vedoucí kroužku</option>
+            <option>Žák / student</option>
+            <option>Kutil / jednotlivec</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="reason">Co potřebuješ</label>
+          <select id="reason" name="duvod" class="field-select">
+            <option>Dotaz</option>
+            <option>Objednat / projevit zájem</option>
+            <option>Technická podpora</option>
+          </select>
+        </div>
         <div class="field">
           <label for="name">Jméno</label>
           <input id="name" name="jmeno" type="text" placeholder="Jana Nováková">

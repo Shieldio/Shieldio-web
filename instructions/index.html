@@ -37,11 +37,8 @@
     <div class="logo"><span class="logo-mark"></span>Shieldio</div>
     <div class="nav-links">
       <nav>
-        <a href="../index.html#reseni">Desky</a>
-        <a href="../index.html#deska">Deska RED</a>
-        <a href="../index.html#jak-to-funguje">Jak to funguje</a>
-        <a href="../index.html#pro-koho">Pro koho</a>
-        <a href="index.html">Návody</a>
+        <a href="../index.html">Domů</a>
+        <a href="../instructions/index.html">Návody</a>
         <a href="../company/about.html">O nás</a>
       </nav>
       <a class="cta-small" href="../index.html#kontakt">Napsat nám</a>
@@ -138,10 +135,19 @@
       <form action="mailto:info@shieldio.cz" method="post" enctype="text/plain">
         <div class="field">
           <label for="who">Píšeš za</label>
-          <select id="who" name="typ" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--line); font-family:inherit; font-size:14px; background:var(--paper); color:var(--ink);">
-            <option>Sebe / jako jednotlivec</option>
-            <option>Kroužek</option>
-            <option>Školu</option>
+          <select id="who" name="typ" class="field-select">
+            <option>Škola</option>
+            <option>Pedagog / vedoucí kroužku</option>
+            <option>Žák / student</option>
+            <option>Kutil / jednotlivec</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="reason">Co potřebuješ</label>
+          <select id="reason" name="duvod" class="field-select">
+            <option>Dotaz</option>
+            <option>Objednat / projevit zájem</option>
+            <option>Technická podpora</option>
           </select>
         </div>
         <div class="field">
