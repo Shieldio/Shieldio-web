@@ -295,6 +295,17 @@ section{ padding:140px 0; }
 }
 .dev-badge::before{ content:"●"; font-size:8px; }
 
+.tier-link{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'JetBrains Mono'; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;
+  margin-top:22px; text-decoration:none;
+  transition:gap .2s var(--ease);
+}
+.tier-link:hover{ gap:10px; }
+.tier-green .tier-link{ color:var(--tier-green-deep); }
+.tier-yellow .tier-link{ color:var(--tier-yellow-deep); }
+.tier-red .tier-link{ color:var(--tier-red-deep); }
+
 /* ---------- red board deep-dive ---------- */
 .deepdive{ background:var(--navy); color:#f5f5f7; }
 .deepdive .section-head p{ color:#86868b; }
