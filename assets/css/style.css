@@ -497,11 +497,11 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 }
 .board-pick-card.selected{ box-shadow:0 0 0 2px var(--ink), var(--shadow-card-hover); }
 
-.proline-pick-card{ background:var(--pro-black); color:#f5f5f7; border:2px solid rgba(124,58,237,0.5); }
+.proline-pick-card{ background:var(--pro-black); color:#f5f5f7; border:2px solid #a78bfa; }
 .proline-pick-card h3{ color:#fff; }
 .proline-pick-card p{ color:#a8a8b3; }
-.proline-pick-card .pick-hint{ color:var(--pro-purple); }
-.proline-pick-card.selected{ box-shadow:0 0 0 2px var(--pro-purple), var(--shadow-card-hover); }
+.proline-pick-card .pick-hint{ color:#c4b5fd; }
+.proline-pick-card.selected{ box-shadow:0 0 0 2px #a78bfa, var(--shadow-card-hover); }
 
 .guide-step{
   max-height:0; opacity:0; overflow:hidden; margin-top:0;
@@ -538,22 +538,56 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 .guide-step.active .tier-pick-btn:nth-child(2){ transition-delay:.12s; }
 .guide-step.active .tier-pick-btn:nth-child(3){ transition-delay:.19s; }
 
-.tier-pick-btn:hover{ transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
-.tier-pick-btn:hover::after{ transform:scaleY(0.16); }
+.tier-pick-btn:hover{ transform:translateY(-4px); box-shadow:var(--shadow-card-hover); color:#fff; }
+.tier-pick-btn:hover::after{ transform:scaleY(1); }
+.tier-pick-btn.tier-yellow:hover{ color:#5c3d00; }
 .tier-pick-btn.tier-green{ border-color:var(--tier-green); }
 .tier-pick-btn.tier-yellow{ border-color:var(--tier-yellow); }
 .tier-pick-btn.tier-red{ border-color:var(--tier-red); }
 .tier-pick-btn.active::after{ transform:scaleY(1); }
+.guide-step.active .tier-pick-btn.active{ transform:translateY(-8px); box-shadow:var(--shadow-card-hover); }
 .tier-pick-btn.tier-green.active{ color:#fff; border-color:var(--tier-green-deep); }
 .tier-pick-btn.tier-yellow.active{ color:#5c3d00; border-color:var(--tier-yellow-deep); }
 .tier-pick-btn.tier-red.active{ color:#fff; border-color:var(--tier-red-deep); }
 
 .guide-panel{
   margin-top:28px; padding:48px 40px; border-radius:var(--radius);
-  background:var(--paper-2); text-align:center;
+  background:var(--paper-2); text-align:center; border:2px solid transparent;
+  transition:background .3s var(--ease), border-color .3s var(--ease);
 }
 .guide-panel h3{ font-size:22px; letter-spacing:-0.015em; margin-bottom:10px; }
 .guide-panel p{ color:var(--ink-soft); font-size:15px; max-width:440px; margin:0 auto; }
+.guide-panel.tier-green{ background:rgba(22,181,72,0.08); border-color:var(--tier-green); }
+.guide-panel.tier-yellow{ background:rgba(255,186,25,0.12); border-color:var(--tier-yellow); }
+.guide-panel.tier-red{ background:rgba(247,35,56,0.08); border-color:var(--tier-red); }
+
+/* ---------- founder story ---------- */
+.founder-grid{
+  display:grid; grid-template-columns:0.8fr 1.2fr; gap:56px; align-items:start;
+}
+@media (max-width:900px){ .founder-grid{ grid-template-columns:1fr; } }
+.founder-photo{
+  width:100%; aspect-ratio:1; border-radius:var(--radius);
+  overflow:hidden; background:var(--paper-2); box-shadow:var(--shadow-card);
+  display:flex; align-items:center; justify-content:center;
+}
+.founder-photo img{ width:100%; height:100%; object-fit:cover; }
+.founder-photo .founder-photo-placeholder{
+  color:var(--ink-soft); font-size:13px; text-align:center; padding:20px;
+  font-family:'JetBrains Mono'; letter-spacing:0.02em;
+}
+.founder-text p{ font-size:16px; color:var(--ink-soft); margin-top:16px; line-height:1.6; }
+.founder-text p:first-of-type{ margin-top:0; }
+.qr-placeholder{
+  margin-top:32px; padding:20px; border-radius:16px;
+  border:2px dashed var(--line); display:flex; align-items:center; gap:16px;
+}
+.qr-placeholder-box{
+  width:64px; height:64px; border-radius:10px; background:var(--paper-2);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  font-family:'JetBrains Mono'; font-size:10px; color:var(--ink-soft); text-align:center;
+}
+.qr-placeholder-text{ font-size:13.5px; color:var(--ink-soft); }
 
 .project-pick-card{ text-align:center; border:3px solid var(--tier-red); }
 .project-pick-card h3{ text-transform:uppercase; letter-spacing:0.02em; }

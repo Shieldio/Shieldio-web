@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tierStep = document.querySelector("#tier-step");
   const tierButtons = document.querySelectorAll(".tier-pick-btn");
   const guidePanel = document.querySelector("#guide-panel");
+  const guidePanelInner = document.querySelector("#guide-panel .guide-panel");
   const guidePanelTitle = document.querySelector("#guide-panel-title");
   const guidePanelText = document.querySelector("#guide-panel-text");
 
@@ -26,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     guidePanelText.textContent = tierKey
       ? `Pracujeme na sadě návodů pro desku ${board} v úrovni ${tierNames[tierKey]}. Mrkni prosím zpátky později.`
       : `Pracujeme na sadě návodů pro řadu ${board}. Mrkni prosím zpátky později.`;
+    guidePanelInner.classList.remove("tier-green", "tier-yellow", "tier-red");
+    if (tierKey) guidePanelInner.classList.add(`tier-${tierKey}`);
     guidePanel.classList.add("active");
   };
 
