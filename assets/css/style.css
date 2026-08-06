@@ -465,3 +465,53 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 .proline-label{
   color:var(--pro-purple);
 }
+
+/* ---------- guide picker (instructions page) ---------- */
+.board-picker{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px; }
+@media (max-width:700px){ .board-picker{ grid-template-columns:1fr; } }
+
+.board-pick-card{
+  cursor:pointer; text-align:left; width:100%; font-family:inherit;
+}
+.board-pick-card .bar{ margin-bottom:24px; }
+.board-pick-card h3{ font-size:26px; letter-spacing:-0.015em; margin-bottom:8px; }
+.board-pick-card p{ color:var(--ink-soft); font-size:14.5px; margin:0; }
+.board-pick-card .pick-hint{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'JetBrains Mono'; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;
+  margin-top:22px; color:var(--accent);
+}
+.board-pick-card.selected{ box-shadow:0 0 0 2px var(--ink), var(--shadow-card-hover); }
+
+.proline-pick-card{ background:var(--pro-black); color:#f5f5f7; }
+.proline-pick-card p{ color:#9a9aa3; }
+.proline-pick-card .pick-hint{ color:var(--pro-purple); }
+.proline-pick-card.selected{ box-shadow:0 0 0 2px var(--pro-purple), var(--shadow-card-hover); }
+
+.guide-step{
+  max-height:0; opacity:0; overflow:hidden; margin-top:0;
+  transition:max-height .5s var(--ease), opacity .4s var(--ease), margin-top .5s var(--ease);
+}
+.guide-step.active{ max-height:1200px; opacity:1; margin-top:40px; }
+
+.tier-picker{ display:flex; gap:14px; flex-wrap:wrap; }
+.tier-pick-btn{
+  font-family:'Inter',sans-serif; font-size:15px; font-weight:600;
+  padding:14px 26px; border-radius:var(--radius-pill);
+  border:2px solid transparent; cursor:pointer; background:var(--paper-2); color:var(--ink);
+  transition:transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease), color .2s var(--ease);
+}
+.tier-pick-btn:hover{ transform:scale(1.03); }
+.tier-pick-btn.tier-green{ border-color:var(--tier-green); }
+.tier-pick-btn.tier-yellow{ border-color:var(--tier-yellow); }
+.tier-pick-btn.tier-red{ border-color:var(--tier-red); }
+.tier-pick-btn.tier-green.active{ background:var(--tier-green); color:#fff; }
+.tier-pick-btn.tier-yellow.active{ background:var(--tier-yellow); color:#5c3d00; }
+.tier-pick-btn.tier-red.active{ background:var(--tier-red); color:#fff; }
+
+.guide-panel{
+  margin-top:28px; padding:48px 40px; border-radius:var(--radius);
+  background:var(--paper-2); text-align:center;
+}
+.guide-panel h3{ font-size:22px; letter-spacing:-0.015em; margin-bottom:10px; }
+.guide-panel p{ color:var(--ink-soft); font-size:15px; max-width:440px; margin:0 auto; }

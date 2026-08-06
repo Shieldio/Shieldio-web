@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shieldio — Elektronika a robotika srozumitelně pro každého</title>
-<meta name="description" content="Shieldio jsou Arduino desky s neomylnými konektory a barevně odstupňovanou obtížností. Pro kroužky, školy i jednotlivce, kteří chtějí začít s elektronikou bez pájení a bez frustrace.">
+<title>Návody | Shieldio</title>
+<meta name="description" content="Vyber si desku Shieldio — Baseline nebo Proline — a najdi krok za krokem návody pro svou úroveň.">
 <link rel="canonical" href="https://shieldio.cz/instructions/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,14 +20,14 @@
 <meta property="og:url" content="https://shieldio.cz/instructions/">
 <meta property="og:site_name" content="Shieldio">
 <meta property="og:locale" content="cs_CZ">
-<meta property="og:title" content="Shieldio — Elektronika a robotika srozumitelně pro každého">
-<meta property="og:description" content="Shieldio jsou Arduino desky s neomylnými konektory a barevně odstupňovanou obtížností. Pro kroužky, školy i jednotlivce, kteří chtějí začít s elektronikou bez pájení a bez frustrace.">
+<meta property="og:title" content="Návody | Shieldio">
+<meta property="og:description" content="Vyber si desku Shieldio — Baseline nebo Proline — a najdi krok za krokem návody pro svou úroveň.">
 <meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Shieldio — Elektronika a robotika srozumitelně pro každého">
-<meta name="twitter:description" content="Shieldio jsou Arduino desky s neomylnými konektory a barevně odstupňovanou obtížností. Pro kroužky, školy i jednotlivce, kteří chtějí začít s elektronikou bez pájení a bez frustrace.">
+<meta name="twitter:title" content="Návody | Shieldio">
+<meta name="twitter:description" content="Vyber si desku Shieldio — Baseline nebo Proline — a najdi krok za krokem návody pro svou úroveň.">
 <meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
 </head>
 <body>
@@ -54,209 +54,70 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="wrap hero-grid">
+  <div class="wrap" style="padding-bottom:100px;">
     <div class="fade-up">
-      <span class="eyebrow">Arduino desky s barevně odstupňovanou obtížností</span>
-      <h1>Elektronika a robotika,<br>srozumitelná od první <em>minuty</em>.</h1>
-      <p class="lead">Shieldio jsou Arduino desky s neomylnými konektory — nejde je zapojit špatně. Bez pájení, bez hledání, kam patří který vodič. Stačí propojit kabel a začít programovat, ať už doma, na kroužku, nebo ve třídě.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="#reseni">Prohlédnout desky</a>
-        <a class="btn btn-ghost" href="#jak-to-funguje">Jak to funguje</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><b>3</b><span>úrovně obtížnosti</span></div>
-        <div class="stat"><b>100×100&nbsp;mm</b><span>jednotný formát desky</span></div>
-        <div class="stat"><b>5&nbsp;min</b><span>od rozbalení ke spuštění</span></div>
-      </div>
-      <div class="reveal-bar" style="max-width:560px; margin-top:36px;"></div>
+      <span class="eyebrow">Krok za krokem</span>
+      <h1>Vyber si desku,<br>najdi svůj <em>návod</em>.</h1>
+      <p class="lead">Návody jsou rozdělené podle řady a úrovně — vyber si nejdřív desku a pak konkrétní úroveň, na které pracuješ.</p>
     </div>
-    <div class="board-figure fade-up delay-1">
-      <div class="board-photo-frame">
-        <span class="board-tag">RED · ve vývoji</span>
-        <img src="../assets/images/RED_hand_lay.jpeg" alt="Červená deska Shieldio s ultrazvukovým senzorem, servem a OLED displejem">
+
+    <div class="board-picker fade-up delay-1">
+      <button type="button" class="instruction-card board-pick-card" data-board="baseline" data-label="Baseline">
+        <div class="baseline-bar bar"></div>
+        <h3>Baseline</h3>
+        <p>Tři barevně odlišené úrovně na jedné desce — od prvního kontaktu s elektronikou po robotiku v pohybu.</p>
+        <span class="pick-hint">Vybrat úroveň →</span>
+      </button>
+      <button type="button" class="instruction-card proline-card proline-pick-card board-pick-card" data-board="proline" data-label="Proline">
+        <div class="proline-bar bar"></div>
+        <h3>Proline</h3>
+        <p>Pokročilá řada pro náročnější projekty a hlubší porozumění elektronice.</p>
+        <span class="pick-hint proline-label">Zobrazit návody →</span>
+      </button>
+    </div>
+
+    <div class="guide-step" id="tier-step">
+      <div class="tier-picker">
+        <button type="button" class="tier-pick-btn tier-green" data-tier="green">Zelená</button>
+        <button type="button" class="tier-pick-btn tier-yellow" data-tier="yellow">Žlutá</button>
+        <button type="button" class="tier-pick-btn tier-red" data-tier="red">RED</button>
+      </div>
+    </div>
+
+    <div class="guide-step" id="guide-panel">
+      <div class="guide-panel">
+        <span class="eyebrow-dark" style="display:block; margin-bottom:10px;">Návody</span>
+        <h3 id="guide-panel-title">Návody se připravují</h3>
+        <p id="guide-panel-text">Vyber si desku a úroveň výše.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PROBLEM -->
+<!-- WHY GUIDES -->
 <div class="problem">
   <div class="wrap" style="padding-top:70px; padding-bottom:70px;">
-    <div class="section-head" style="margin-bottom:36px;">
-      <span class="eyebrow-dark">Odkud přichází frustrace</span>
-      <h2>Elektronika slibuje kreativitu, ale první krok bývá plný frustrace.</h2>
-    </div>
-    <div class="problem-grid">
-      <div class="problem-card fade-up delay-1">
-        <span class="mono-tag">01 — čas</span>
-        <h3>Sestavení obvodu trvá déle než samotný nápad</h3>
-        <p>Hledání správného kabelu, rozbité nepájivé pole a nepřehledné schéma odradí dřív, než něco vůbec zabliká.</p>
-      </div>
-      <div class="problem-card fade-up delay-2">
-        <span class="mono-tag">02 — křehkost</span>
-        <h3>Volné součástky se ztrácí a poškozují</h3>
-        <p>Drobné díly a nepájivá pole nevydrží opakované sestavování a rozebírání — ať už doma, na kroužku, nebo ve třídě.</p>
-      </div>
-      <div class="problem-card fade-up delay-3">
-        <span class="mono-tag">03 — vstupní bariéra</span>
-        <h3>Elektronika působí jako obor jen pro zasvěcené</h3>
-        <p>Shieldio dělá z prvního kontaktu s elektronikou samozřejmost, ne výjimku vyhrazenou pár nadšencům.</p>
-      </div>
+    <div class="section-head" style="margin-bottom:0;">
+      <span class="eyebrow-dark">Proč návody</span>
+      <h2>Každý návod vede od zapojení po hotový projekt — bez zbytečných oklik.</h2>
+      <p>Návody drží stejnou strukturu napříč úrovněmi: co budeš potřebovat, jak to zapojit, a jeden zdokumentovaný projekt jako výchozí bod pro vlastní úpravy.</p>
     </div>
   </div>
 </div>
 
-<!-- SOLUTION / TIERS -->
-<section id="reseni">
+<!-- TEACHER METHODOLOGY -->
+<section>
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark">Řešení</span>
-      <h2>Jedna deska, jasné barevné odlišení, rostoucí náročnost.</h2>
-      <p>Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod — a dost prostoru na to, co si vymyslíš sám.</p>
-    </div>
-    <div class="tiers">
-      <div class="tier-card tier-green fade-up delay-1">
-        <div class="bar"></div>
-        <span class="tier-label">Úroveň 1 · Základ</span>
-        <h3>Zelená</h3>
-        <p class="tier-sub">První kontakt s hardwarem</p>
-        <ul class="tier-list">
-          <li>Tlačítka a LED indikace</li>
-          <li>Bzučák pro zvukovou odezvu</li>
-          <li>Analogový vstup pro senzory</li>
-          <li>Ideální jako úplně první krok s elektronikou</li>
-        </ul>
-      </div>
-      <div class="tier-card tier-yellow fade-up delay-2">
-        <div class="bar"></div>
-        <span class="tier-label">Úroveň 2 · Rozšíření</span>
-        <h3>Žlutá</h3>
-        <p class="tier-sub">Vlastní meteostanice</p>
-        <ul class="tier-list">
-          <li>Teplota a vlhkost (DHT11)</li>
-          <li>Fotorezistor pro měření světla</li>
-          <li>Mikrofon a displej pro výstup dat</li>
-          <li>Projekt: měřicí stanice</li>
-        </ul>
-      </div>
-      <div class="tier-card tier-red fade-up delay-3">
-        <div class="bar"></div>
-        <span class="tier-label">Úroveň 3 · Pokročilá</span>
-        <h3>RED</h3>
-        <p class="tier-sub">Robotika v pohybu</p>
-        <ul class="tier-list">
-          <li>Ultrazvukový senzor vzdálenosti</li>
-          <li>Servo pro mechanický pohyb</li>
-          <li>OLED displej pro zpětnou vazbu</li>
-          <li>Projekt: funkční prototyp závory</li>
-        </ul>
-        <div class="dev-badge">Aktuálně ve vývoji</div>
+    <div class="section-head" style="margin-bottom:0;">
+      <span class="eyebrow-dark">Pro učitele a vedoucí kroužků</span>
+      <h2>Připravujeme metodiku pro výuku s deskami Shieldio.</h2>
+      <p>Metodické materiály pro vedení hodiny nebo kroužku ještě chystáme. Pokud plánuješ Shieldio nasadit ve výuce, napiš nám — probereme, co by se hodilo.</p>
+      <div class="hero-ctas" style="margin-top:28px;">
+        <a class="btn btn-primary" href="../index.html#kontakt">Napsat nám</a>
       </div>
     </div>
   </div>
 </section>
-
-<!-- RED BOARD DEEP DIVE -->
-<section id="deska" class="deepdive">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark">Nahlédnutí do vývoje</span>
-      <h2>RED deska: první funkční prototyp.</h2>
-      <p>Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce — s popisy součástek přímo na plošném spoji.</p>
-    </div>
-    <div class="deepdive-grid">
-      <div class="deepdive-photos">
-        <img src="../assets/images/RED_hand_hold.jpeg" alt="Přehled červené desky Shieldio shora">
-        <img src="../assets/images/RED_hand_hold_with_parts.jpeg" alt="Detail červené desky Shieldio">
-      </div>
-      <div>
-        <ul class="spec-list">
-          <li><b>ŘÍDICÍ JEDNOTKA</b><span>Arduino Nano, konektor USB-C</span></li>
-          <li><b>SENZORY</b><span>Ultrazvukový snímač vzdálenosti</span></li>
-          <li><b>VÝSTUPY</b><span>OLED displej, dvě barevné LED, servo SG90, bzučák</span></li>
-          <li><b>OVLÁDÁNÍ</b><span>Dvě tlačítka pro interakci</span></li>
-          <li><b>KONEKTORY</b><span>JST-XH pro robustní propojení mezi deskami, Power&Data link</span></li>
-          <li><b>FORMÁT</b><span>100×100 mm — stejný napříč celou řadou</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="jak-to-funguje">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark">Jak to funguje</span>
-      <h2>Od rozbalení k hotovému programu za jedno odpoledne.</h2>
-    </div>
-    <div class="steps">
-      <div class="step fade-up delay-1">
-        <div class="step-num">01</div>
-        <h3>Připojit přes USB-C</h3>
-        <p>Deska se připojí k počítači jedním kabelem — rovnou připravená k použití.</p>
-      </div>
-      <div class="step fade-up delay-2">
-        <div class="step-num">02</div>
-        <h3>Spustit blokové programování</h3>
-        <p>Prostředí mBlock — jednoduché rozhraní, se kterým si poradí i úplný začátečník.</p>
-      </div>
-      <div class="step fade-up delay-3">
-        <div class="step-num">03</div>
-        <h3>Sestavit program z bloků</h3>
-        <p>Senzory a výstupy jsou pojmenované srozumitelně — bez potřeby znát Arduino kód.</p>
-      </div>
-      <div class="step fade-up">
-        <div class="step-num">04</div>
-        <h3>Rozšířit vlastním nápadem</h3>
-        <p>Hotový ukázkový projekt jako start, otevřený prostor na vlastní úpravy.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOR EVERYONE -->
-<div class="problem" id="pro-koho" style="background:var(--paper-2);">
-  <div class="wrap" style="padding-top:80px; padding-bottom:80px;">
-    <div class="section-head">
-      <span class="eyebrow-dark">Pro koho je Shieldio</span>
-      <h2>Postavené tak, aby to zvládl úplný začátečník — doma i mimo něj.</h2>
-      <p>Shieldio není soubor volných komponent. Je to hotová sada, která vydrží opakované používání a roste s tím, jak přibývají zkušenosti.</p>
-    </div>
-    <div class="benefits">
-      <div class="benefit fade-up delay-1">
-        <div class="benefit-icon">01</div>
-        <h3>Bez pájení a montáže</h3>
-        <p>Desky přichází předosazené a připravené k okamžitému použití.</p>
-      </div>
-      <div class="benefit fade-up delay-2">
-        <div class="benefit-icon">02</div>
-        <h3>Nejde je zapojit špatně</h3>
-        <p>Neomylné konektory nahrazují nepájivé pole a změť kabelů.</p>
-      </div>
-      <div class="benefit fade-up delay-3">
-        <div class="benefit-icon">03</div>
-        <h3>Odolné pro opakovaný provoz</h3>
-        <p>Pevně osazené klíčové součástky, odpojitelné jen ty křehké — vydrží dlouhodobé používání.</p>
-      </div>
-      <div class="benefit fade-up delay-1">
-        <div class="benefit-icon">04</div>
-        <h3>Srozumitelné popisky na desce</h3>
-        <p>Piny a součástky pojmenované přímo na plošném spoji — orientuješ se na první pohled.</p>
-      </div>
-      <div class="benefit fade-up delay-2">
-        <div class="benefit-icon">05</div>
-        <h3>Rostoucí obtížnost</h3>
-        <p>Jedna sada tě provede od prvního kontaktu s elektronikou až po robotiku v pohybu.</p>
-      </div>
-      <div class="benefit fade-up delay-3">
-        <div class="benefit-icon">06</div>
-        <h3>I pro kroužky a školy</h3>
-        <p>Odolnost a jednotný formát desek se hodí i pro opakovaný provoz ve třídě — na to se podívej níž.</p>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- CTA -->
 <section class="cta-section" id="kontakt">
@@ -316,5 +177,6 @@
 </footer>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
+<script src="../assets/js/instructions.js"></script>
 </body>
 </html>
