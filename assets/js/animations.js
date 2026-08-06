@@ -1,73 +1,52 @@
+// Shieldio — scroll reveal, hero board entrance animation, mouse-tilt
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const button = document.createElement("button");
-    button.textContent = "Spustit test animace";
+  // scroll reveal for .fade-up elements
+  const revealEls = document.querySelectorAll(".fade-up");
 
-    const bar = document.createElement("div");
-    const progress = document.createElement("div");
-
-    const status = document.createElement("p");
-
-    button.id = "testButton";
-    bar.id = "testBar";
-    progress.id = "testProgress";
-    status.id = "testStatus";
-
-    bar.appendChild(progress);
-
-    document.body.appendChild(button);
-    document.body.appendChild(bar);
-    document.body.appendChild(status);
-
-
-    button.addEventListener("click", () => {
-
-        let value = 0;
-
-        status.textContent = "Animace běží...";
-        progress.style.width = "0%";
-
-        const animation = setInterval(() => {
-
-            value++;
-
-            progress.style.width = value + "%";
-
-            if (value >= 100) {
-                clearInterval(animation);
-                status.textContent = "Animace dokončena";
-            }
-
-        }, 20);
-
-    });
-
-});
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const elements = document.querySelectorAll(".fade-up");
-
+  if (prefersReducedMotion) {
+    revealEls.forEach(el => el.classList.add("visible"));
+  } else {
     const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                }
-            });
-        },
-        {
-            threshold: 0.15
-        }
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
     );
+    revealEls.forEach(el => observer.observe(el));
+  }
 
-    elements.forEach(element => {
-        observer.observe(element);
+  // hero board: fly in + rotate into place shortly after load
+  const frames = document.querySelectorAll(".board-photo-frame");
+  if (prefersReducedMotion) {
+    frames.forEach(frame => frame.classList.add("flown-in"));
+  } else {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        frames.forEach(frame => frame.classList.add("flown-in"));
+      }, 150);
     });
+
+    // subtle 3D tilt following the cursor, Apple-product-page style
+    frames.forEach(frame => {
+      frame.addEventListener("mousemove", (e) => {
+        const rect = frame.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        frame.style.transform = `rotate3d(0,1,0,${px * 10}deg) rotate3d(1,0,0,${-py * 10}deg) scale(1.02)`;
+      });
+      frame.addEventListener("mouseleave", () => {
+        frame.style.transform = "";
+      });
+    });
+  }
 
 });
