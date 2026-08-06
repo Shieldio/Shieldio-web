@@ -11,9 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!boardCards.length || !guidePanel) return;
 
   const tierNames = {
-    green: "Zelená",
-    yellow: "Žlutá",
-    red: "RED",
+    green: "Green",
+    yellow: "Yellow",
+    red: "Red",
+  };
+
+  const tierLinks = {
+    red: "baseline/red/index.html",
   };
 
   const showGuide = (board, tierKey) => {
@@ -44,9 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tierButtons.forEach(btn => {
     btn.addEventListener("click", () => {
+      const tier = btn.dataset.tier;
+      if (tierLinks[tier]) {
+        window.location.href = tierLinks[tier];
+        return;
+      }
       tierButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      showGuide("Baseline", btn.dataset.tier);
+      showGuide("Baseline", tier);
     });
   });
 });

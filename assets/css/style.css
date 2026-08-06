@@ -502,17 +502,13 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',sans-serif;
   font-size:21px; font-weight:700; letter-spacing:-0.01em;
   padding:30px 20px; border-radius:var(--radius);
-  border:2px solid var(--line); cursor:pointer; background:#fff; color:var(--ink);
-  box-shadow:var(--shadow-card); position:relative; overflow:hidden;
+  border:6px solid var(--line); cursor:pointer; background:#fff; color:var(--ink);
+  box-shadow:var(--shadow-card); position:relative;
   opacity:0; transform:translateY(14px);
   transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .35s var(--ease),
              color .35s var(--ease), border-color .35s var(--ease),
              opacity .5s var(--ease), translate .5s var(--ease);
 }
-.tier-pick-btn::before{ content:""; position:absolute; top:0; left:0; right:0; height:7px; }
-.tier-pick-btn.tier-green::before{ background:var(--tier-green); }
-.tier-pick-btn.tier-yellow::before{ background:var(--tier-yellow); }
-.tier-pick-btn.tier-red::before{ background:var(--tier-red); }
 
 .guide-step.active .tier-pick-btn{ opacity:1; transform:translateY(0); }
 .guide-step.active .tier-pick-btn:nth-child(1){ transition-delay:.05s; }
@@ -533,3 +529,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 }
 .guide-panel h3{ font-size:22px; letter-spacing:-0.015em; margin-bottom:10px; }
 .guide-panel p{ color:var(--ink-soft); font-size:15px; max-width:440px; margin:0 auto; }
+
+.project-pick-card{ text-align:center; }
+.project-pick-card .bar{ height:6px; border-radius:10px; }
+.project-pick-card.selected{ box-shadow:0 0 0 2px var(--tier-red), var(--shadow-card-hover); }
