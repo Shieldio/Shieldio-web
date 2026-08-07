@@ -653,3 +653,155 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 .faq-item[open] summary::after{ transform:rotate(45deg); }
 .faq-item p{ margin-top:14px; color:var(--ink-soft); font-size:15px; line-height:1.6; }
 .faq-item p a{ color:var(--accent); text-decoration:underline; }
+
+/* ---------- interactive guide engine ---------- */
+.guide-app{ padding:56px 0 100px; }
+.guide-progress-label{
+  font-family:'JetBrains Mono'; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;
+  color:var(--ink-soft); margin-bottom:10px;
+}
+.guide-progress-track{ height:6px; border-radius:10px; background:var(--paper-2); overflow:hidden; }
+.guide-progress-fill{
+  height:100%; border-radius:10px; background:var(--tier-red);
+  transition:width .5s var(--ease);
+}
+
+.guide-card{
+  background:#fff; border-radius:var(--radius); box-shadow:var(--shadow-card);
+  padding:44px; margin-top:32px; width:100%;
+}
+@media (max-width:640px){ .guide-card{ padding:28px 22px; } }
+.guide-card .btn-ghost{ color:var(--ink-soft); border-color:rgba(0,0,0,0.15); }
+.guide-card .btn-ghost:hover{ border-color:rgba(0,0,0,0.3); }
+.guide-step-title{ font-size:clamp(24px,3vw,32px); letter-spacing:-0.02em; margin-bottom:24px; }
+.guide-step-title .term{ color:var(--tier-red-deep); }
+
+/* intro */
+.guide-intro{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+@media (max-width:800px){ .guide-intro{ grid-template-columns:1fr; } }
+.guide-intro-photo{
+  aspect-ratio:1; border-radius:var(--radius); overflow:hidden; background:var(--paper-2);
+  display:flex; align-items:center; justify-content:center;
+}
+.guide-intro-photo img{ width:100%; height:100%; object-fit:cover; }
+.guide-intro-body h1{ font-size:clamp(30px,4vw,42px); letter-spacing:-0.025em; margin:14px 0 20px; }
+.guide-meta-row{ display:flex; gap:32px; margin-bottom:24px; }
+.guide-meta-row .stat b{ font-size:20px; color:var(--ink); }
+.guide-learn-list{ list-style:none; padding:0; margin:12px 0 28px; display:flex; flex-wrap:wrap; gap:10px; }
+.guide-learn-list li{
+  font-family:'JetBrains Mono'; font-size:12.5px; letter-spacing:0.02em;
+  background:var(--paper-2); padding:8px 14px; border-radius:var(--radius-pill); color:var(--ink);
+}
+.guide-learn-list-done{ flex-direction:column; gap:8px; margin-top:16px; }
+.guide-learn-list-done li{ background:none; padding:6px 0; font-size:15px; color:var(--ink); }
+
+/* term underline */
+.term{
+  text-decoration:underline dotted var(--ink-soft); text-underline-offset:3px;
+  cursor:pointer; font-weight:600;
+}
+
+/* parts check */
+.guide-parts-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+@media (max-width:800px){ .guide-parts-grid{ grid-template-columns:repeat(2,1fr); } }
+.guide-part-card{ border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+.guide-part-photo{
+  aspect-ratio:1; background:var(--paper-2); display:flex; align-items:center; justify-content:center;
+}
+.guide-part-photo img{ width:100%; height:100%; object-fit:cover; }
+.guide-part-name{
+  padding:12px 14px; font-size:13.5px; font-weight:600;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+}
+.guide-info-btn{
+  width:22px; height:22px; border-radius:50%; border:1px solid var(--line); background:var(--paper-2);
+  color:var(--ink-soft); font-size:12px; font-weight:700; cursor:pointer; flex-shrink:0;
+  transition:background .2s var(--ease), color .2s var(--ease);
+}
+.guide-info-btn:hover{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.guide-missing-panel{
+  background:var(--paper-2); border-radius:16px; padding:20px 24px; margin-bottom:24px;
+}
+.guide-missing-list{ display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+.guide-missing-item{ display:flex; align-items:center; gap:10px; font-size:14.5px; cursor:pointer; }
+
+/* step actions (max two buttons, always) */
+.guide-step-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; }
+
+/* wiring / upload media */
+.guide-wiring-media{
+  aspect-ratio:16/9; max-width:560px; border-radius:16px; overflow:hidden;
+  background:var(--paper-2); display:flex; align-items:center; justify-content:center; margin-bottom:20px;
+}
+.guide-wiring-media img{ width:100%; height:100%; object-fit:cover; }
+.guide-instructions{ font-size:15.5px; color:var(--ink); line-height:1.6; margin-bottom:24px; max-width:600px; }
+.guide-help-slot:not(:empty){ margin-top:24px; }
+
+/* accordions (troubleshoot / diagnostics) */
+.guide-accordion{
+  background:var(--paper-2); border-radius:16px; padding:18px 22px;
+}
+.guide-accordion summary{
+  cursor:pointer; font-weight:600; font-size:14.5px; list-style:none;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.guide-accordion summary::-webkit-details-marker{ display:none; }
+.guide-accordion summary::after{ content:"+"; font-size:18px; color:var(--ink-soft); }
+.guide-accordion[open] summary::after{ content:"–"; }
+.guide-tip-list{ margin-top:16px; display:flex; flex-direction:column; gap:14px; }
+.guide-tip{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding-top:14px; border-top:1px solid rgba(0,0,0,0.06);
+}
+.guide-tip:first-child{ border-top:none; padding-top:0; }
+.guide-tip p{ font-size:14px; color:var(--ink); margin:0; flex:1; }
+.guide-tip-tried{ padding:8px 16px; font-size:12.5px; flex-shrink:0; }
+.guide-tip-done{ opacity:0.5; }
+.guide-more-help{
+  display:inline-block; margin-top:16px; font-family:'JetBrains Mono'; font-size:12px;
+  color:var(--accent); text-decoration:none;
+}
+
+/* diagnostic tree */
+.guide-tree-slot:not(:empty){ margin-top:24px; }
+.guide-tree-node, .guide-tree-result{
+  background:var(--paper-2); border-radius:16px; padding:22px 24px;
+}
+.guide-tree-question{ font-weight:600; font-size:15.5px; margin-bottom:16px; }
+.guide-tree-result p{ font-size:14.5px; color:var(--ink); margin:0; }
+
+/* completion */
+.guide-done{ text-align:center; max-width:520px; margin-left:auto; margin-right:auto; }
+.guide-done-check{
+  width:64px; height:64px; border-radius:50%; background:var(--tier-green);
+  color:#fff; font-size:32px; display:flex; align-items:center; justify-content:center;
+  margin:0 auto 24px;
+}
+.guide-done h1{ font-size:clamp(26px,3.4vw,34px); letter-spacing:-0.02em; }
+
+/* modals (term / part info) */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100;
+  display:flex; align-items:center; justify-content:center; padding:24px;
+  opacity:0; pointer-events:none; transition:opacity .25s var(--ease);
+}
+.modal-overlay.active{ opacity:1; pointer-events:auto; }
+.modal-card{
+  background:#fff; border-radius:var(--radius); padding:36px; max-width:420px; width:100%;
+  position:relative; max-height:85vh; overflow-y:auto;
+  transform:scale(0.96); transition:transform .25s var(--ease);
+}
+.modal-overlay.active .modal-card{ transform:scale(1); }
+.modal-close{
+  position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%;
+  border:none; background:var(--paper-2); font-size:18px; line-height:1; cursor:pointer; color:var(--ink-soft);
+}
+.term-modal-photo{
+  aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:var(--paper-2);
+  display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+}
+.term-modal-photo img{ width:100%; height:100%; object-fit:cover; }
+.modal-card h3{ font-size:19px; margin-bottom:10px; }
+.modal-card p{ font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin-bottom:10px; }
+.term-modal-fact{ background:var(--paper-2); border-radius:10px; padding:10px 14px; font-size:13.5px; }
+.modal-card a{ color:var(--accent); font-size:13.5px; }
