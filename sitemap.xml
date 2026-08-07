@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://shieldio.cz/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://shieldio.cz/company/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shieldio.cz/company/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://shieldio.cz/company/dotaznik.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/aktuality/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shieldio.cz/aktuality/vitejte.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://shieldio.cz/products/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shieldio.cz/products/GREEN.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://shieldio.cz/products/YELLOW.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
