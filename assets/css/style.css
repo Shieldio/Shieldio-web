@@ -384,6 +384,9 @@ section{ padding:140px 0; }
 .field input:focus, .field textarea:focus, .field-select:focus{ outline:none; border-color:var(--ink-soft); }
 .field textarea{ resize:vertical; min-height:80px; }
 .form-card .btn-primary{ width:100%; justify-content:center; margin-top:8px; border:none; }
+.form-status{ font-size:13.5px; margin-top:12px; text-align:center; min-height:1.4em; }
+.form-status.success{ color:var(--tier-green-deep); }
+.form-status.error{ color:var(--tier-red-deep); }
 
 /* ---------- footer ---------- */
 footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }

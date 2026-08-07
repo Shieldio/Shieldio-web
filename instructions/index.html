@@ -133,7 +133,9 @@
     <div class="form-card">
       <h3>Napiš nám</h3>
       <p class="form-sub">Ozveme se do dvou pracovních dnů.</p>
-      <form action="mailto:adamhlasny@icloud.com" method="post" enctype="text/plain">
+      <form class="web3form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="a13ed669-5fc4-4329-bf27-a4e40dd0b1e7">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="field">
           <label for="who">Píšeš za</label>
           <select id="who" name="typ" class="field-select">
@@ -164,6 +166,7 @@
           <textarea id="message" name="zprava" placeholder="Co tě zajímá a kdy by se hodila reakce…"></textarea>
         </div>
         <button class="btn btn-primary" type="submit">Odeslat zprávu</button>
+        <p class="form-status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -184,6 +187,7 @@
 </footer>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
+<script src="../assets/js/contact-form.js"></script>
 <script src="../assets/js/instructions.js"></script>
 </body>
 </html>
