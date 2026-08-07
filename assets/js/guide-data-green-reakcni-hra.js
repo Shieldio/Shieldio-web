@@ -149,4 +149,16 @@ window.SHIELDIO_GUIDE = {
       },
     },
   ],
+
+  next: {
+    tryDifferent: [
+      { text: "Zkus přidat počítadlo, kolikrát po sobě zvládneš zareagovat správně." },
+      { text: "Uprav rychlost hry — jak dlouho program čeká, než rozsvítí LED." },
+    ],
+    levelUp: {
+      title: "Baseline Yellow",
+      href: "../../../../products/YELLOW.html",
+      text: "Další úroveň — teplota, vlhkost, světlo a vlastní meteostanice.",
+    },
+  },
 };

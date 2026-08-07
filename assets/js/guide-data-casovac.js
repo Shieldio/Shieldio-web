@@ -147,4 +147,20 @@ window.SHIELDIO_GUIDE = {
       },
     },
   ],
+
+  next: {
+    tryDifferent: [
+      { text: "Zkus místo zakrytí rukou měřit čas mezi dvěma průjezdy před senzorem." },
+      { text: "Zobraz na displeji nejlepší (nejkratší) naměřený čas." },
+    ],
+    moreProjects: [
+      { title: "Prototyp závory", href: "../zavora/index.html" },
+      { title: "Parkovací asistent", href: "../parkovaci-asistent/index.html" },
+    ],
+    levelUp: {
+      title: "Proline",
+      href: "../../../../products/PRO.html",
+      text: "Pokročilá řada Shieldio — zatím ve vývoji, ale mrkni, co chystáme.",
+    },
+  },
 };

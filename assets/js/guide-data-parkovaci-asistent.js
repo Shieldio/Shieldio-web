@@ -154,4 +154,20 @@ window.SHIELDIO_GUIDE = {
       },
     },
   ],
+
+  next: {
+    tryDifferent: [
+      { text: "Přidej druhou barvu LED, která upozorní, když je auto moc blízko." },
+      { text: "Uprav prahové hodnoty vzdálenosti tak, aby seděly na tvoje parkovací místo." },
+    ],
+    moreProjects: [
+      { title: "Prototyp závory", href: "../zavora/index.html" },
+      { title: "Časovač", href: "../casovac/index.html" },
+    ],
+    levelUp: {
+      title: "Proline",
+      href: "../../../../products/PRO.html",
+      text: "Pokročilá řada Shieldio — zatím ve vývoji, ale mrkni, co chystáme.",
+    },
+  },
 };

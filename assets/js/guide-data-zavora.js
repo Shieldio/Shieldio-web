@@ -122,7 +122,7 @@ window.SHIELDIO_GUIDE = {
       id: "servo",
       title: "Zapoj <span class=\"term\" data-term=\"servo\">servo</span>",
       type: "wiring",
-      photo: null,
+      photo: "../../../../assets/images/RED_hand_hold_with_parts.jpeg",
       instructions: "Servo zapoj do konektoru označeného <b>SERVO</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem — nedá se to splést.",
       troubleshoot: {
         title: "Nejčastější chyby",
@@ -171,6 +171,28 @@ window.SHIELDIO_GUIDE = {
           ],
         },
       ],
+      arduino: {
+        screenshot: null,
+        note: "Ukázkový Arduino kód pro tento projekt zatím připravujeme — než bude hotový, doporučujeme začít s blokovým programováním v mBlocku.",
+        diagnostics: [
+          {
+            title: "Chyba: Nelze nahrát (upload error)",
+            items: [
+              "Zkontroluj, že je v Arduino IDE vybraný port desky (Tools → Port).",
+              "Zkontroluj, že je vybraná správná deska (Tools → Board → Arduino Nano).",
+              "Zkus jiný USB kabel — některé nabíjecí kabely nepřenáší data.",
+            ],
+          },
+          {
+            title: "Chyba: Kompilace selhala",
+            items: [
+              "Zkontroluj, že jsou nainstalované potřebné knihovny pro servo a ultrazvukový senzor.",
+              "Projdi hlášku chyby — obvykle ukazuje přesný řádek s problémem.",
+              "Zkus kód znovu zkompilovat po uložení souboru.",
+            ],
+          },
+        ],
+      },
     },
     {
       id: "test",
@@ -191,4 +213,20 @@ window.SHIELDIO_GUIDE = {
       },
     },
   ],
+
+  next: {
+    tryDifferent: [
+      { text: "Zkus, aby se závora po pár sekundách sama zase zavřela." },
+      { text: "Uprav v programu práh vzdálenosti, na jakou se závora otevírá." },
+    ],
+    moreProjects: [
+      { title: "Parkovací asistent", href: "../parkovaci-asistent/index.html" },
+      { title: "Časovač", href: "../casovac/index.html" },
+    ],
+    levelUp: {
+      title: "Proline",
+      href: "../../../../products/PRO.html",
+      text: "Pokročilá řada Shieldio — zatím ve vývoji, ale mrkni, co chystáme.",
+    },
+  },
 };

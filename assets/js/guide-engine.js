@@ -11,16 +11,19 @@
   root.classList.add(`tier-${tier}`);
 
   const STORAGE_KEY = `shieldio-guide-${DATA.id}`;
-  const totalSteps = DATA.steps.length;
+  const DEFAULT_MODE = { lang: "blocks", depth: "detailed" };
 
   const state = loadState();
 
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return { started: false, stepIndex: 0, missingParts: [], ...parsed, mode: { ...DEFAULT_MODE, ...(parsed.mode || {}) } };
+      }
     } catch (e) { /* ignore corrupt storage */ }
-    return { started: false, stepIndex: 0, missingParts: [] };
+    return { started: false, stepIndex: 0, missingParts: [], mode: { ...DEFAULT_MODE } };
   }
 
   function saveState() {
@@ -28,6 +31,64 @@
   }
 
   function partById(id) { return DATA.parts.find(p => p.id === id); }
+
+  // ---------- mode (programming language / guide depth) ----------
+
+  function stepHasArduino(step) { return step.type === "upload" && step.arduino; }
+  const supportsLang = DATA.steps.some(stepHasArduino);
+
+  function findWiringGroups() {
+    const groups = [];
+    let i = 0;
+    while (i < DATA.steps.length) {
+      if (DATA.steps[i].type === "wiring") {
+        let j = i;
+        while (j < DATA.steps.length && DATA.steps[j].type === "wiring") j++;
+        if (j - i > 1) groups.push([i, j]);
+        i = j;
+      } else {
+        i++;
+      }
+    }
+    return groups;
+  }
+  const wiringGroups = findWiringGroups();
+  const supportsDepth = wiringGroups.length > 0;
+
+  function mergeWiringSteps(group) {
+    const items = group.flatMap(s => (s.troubleshoot ? s.troubleshoot.items : []));
+    return {
+      id: "merged-" + group.map(s => s.id).join("-"),
+      title: "Sestav podle obrázku",
+      type: "wiring",
+      photo: (group.find(s => s.photo) || {}).photo || null,
+      instructions: group.map(s => s.instructions).join("<br><br>"),
+      troubleshoot: items.length ? { title: "Nejčastější chyby", items } : null,
+    };
+  }
+
+  function getSteps() {
+    if (state.mode.depth !== "fast" || !supportsDepth) return DATA.steps;
+    const result = [];
+    let i = 0;
+    while (i < DATA.steps.length) {
+      const group = wiringGroups.find(([s]) => s === i);
+      if (group) {
+        result.push(mergeWiringSteps(DATA.steps.slice(group[0], group[1])));
+        i = group[1];
+      } else {
+        result.push(DATA.steps[i]);
+        i++;
+      }
+    }
+    return result;
+  }
+
+  function totalSteps() { return getSteps().length; }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  }
 
   // ---------- markup helpers ----------
 
@@ -37,14 +98,51 @@
   }
 
   function renderProgress() {
-    const pct = DATA.steps.length ? Math.round((state.stepIndex / totalSteps) * 100) : 0;
+    const total = totalSteps();
+    const pct = total ? Math.round((state.stepIndex / total) * 100) : 0;
     return `
-      <div class="guide-progress-label">${state.stepIndex >= totalSteps ? "Hotovo" : `Krok ${state.stepIndex + 1} z ${totalSteps}`}</div>
+      <div class="guide-progress-label">${state.stepIndex >= total ? "Hotovo" : `Krok ${state.stepIndex + 1} z ${total}`}</div>
       <div class="guide-progress-track"><div class="guide-progress-fill" style="width:${Math.min(pct, 100)}%"></div></div>
     `;
   }
 
   // ---------- intro ----------
+
+  function renderModePicker() {
+    return `
+      <div class="guide-mode-picker">
+        ${supportsLang ? `
+        <div class="guide-mode-group">
+          <span class="guide-mode-label">Programovací jazyk</span>
+          <div class="guide-mode-toggle" data-mode-group="lang">
+            <button type="button" class="guide-mode-btn ${state.mode.lang === "blocks" ? "active" : ""}" data-mode-value="blocks">Bloky (mBlock)</button>
+            <button type="button" class="guide-mode-btn ${state.mode.lang === "arduino" ? "active" : ""}" data-mode-value="arduino">Arduino C</button>
+          </div>
+        </div>` : ""}
+        ${supportsDepth ? `
+        <div class="guide-mode-group">
+          <span class="guide-mode-label">Úroveň návodu</span>
+          <div class="guide-mode-toggle" data-mode-group="depth">
+            <button type="button" class="guide-mode-btn ${state.mode.depth === "detailed" ? "active" : ""}" data-mode-value="detailed">Podrobně</button>
+            <button type="button" class="guide-mode-btn ${state.mode.depth === "fast" ? "active" : ""}" data-mode-value="fast">Rychle</button>
+          </div>
+        </div>` : ""}
+      </div>
+    `;
+  }
+
+  function wireModePicker(container) {
+    container.querySelectorAll(".guide-mode-toggle").forEach(toggle => {
+      const group = toggle.dataset.modeGroup;
+      toggle.querySelectorAll(".guide-mode-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.mode[group] = btn.dataset.modeValue;
+          saveState();
+          renderCurrent();
+        });
+      });
+    });
+  }
 
   function renderIntro() {
     const m = DATA.meta;
@@ -56,10 +154,11 @@
           <h1>${m.title}</h1>
           <div class="guide-meta-row">
             <div class="stat"><b>${m.duration}</b><span>Doba stavby</span></div>
-            <div class="stat"><b>${totalSteps}</b><span>Kroky</span></div>
+            <div class="stat"><b>${totalSteps()}</b><span>Kroky</span></div>
           </div>
           <p class="lead" style="font-size:16px;">Co se naučíš:</p>
           <ul class="guide-learn-list">${m.learn.map(l => `<li>${l}</li>`).join("")}</ul>
+          ${(supportsLang || supportsDepth) ? renderModePicker() : ""}
           <button type="button" class="btn btn-primary" data-action="start">Začít stavět</button>
         </div>
       </div>
@@ -157,7 +256,10 @@
   // ---------- upload step ----------
 
   function renderUpload(step) {
-    const diag = step.diagnostics.map((d, i) => `
+    const useArduino = state.mode.lang === "arduino" && step.arduino;
+    const content = useArduino ? step.arduino : step;
+
+    const diag = (content.diagnostics || []).map((d, i) => `
       <details class="guide-accordion">
         <summary>${d.title}</summary>
         <div class="guide-tip-list">
@@ -171,9 +273,15 @@
       </details>
     `).join("");
 
+    const actionArea = useArduino
+      ? (content.code
+          ? `<pre class="guide-code-block"><code>${escapeHtml(content.code)}</code></pre>`
+          : `<p class="guide-instructions">${content.note || "Ukázkový Arduino kód pro tento projekt zatím připravujeme — než bude hotový, doporučujeme začít s blokovým programováním v mBlocku."}</p>`)
+      : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">📥 Otevřít projekt</a>`;
+
     return `
-      <div class="guide-wiring-media">${photoOrPlaceholder(step.screenshot, "mBlock")}</div>
-      <a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">📥 Otevřít projekt</a>
+      <div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, useArduino ? "Arduino IDE" : "mBlock")}</div>
+      ${actionArea}
       <div class="guide-step-actions" style="margin-top:24px;">
         <button type="button" class="btn btn-primary" data-action="ok">✅ Program je nahraný</button>
         <button type="button" class="btn btn-ghost" data-action="fail">❌ Hlásí chybu</button>
@@ -267,17 +375,69 @@
   // ---------- completion ----------
 
   function renderDone() {
+    const next = DATA.next || {};
+    const tryDifferent = next.tryDifferent || [];
+    const moreProjects = next.moreProjects || [];
+    const levelUp = next.levelUp || null;
+    const hasNext = tryDifferent.length || moreProjects.length || levelUp;
+
     return `
-      <div class="guide-card guide-done fade-up visible">
-        <div class="guide-done-check">✓</div>
-        <h1>Projekt je hotový.</h1>
-        <p class="lead">Dnes ses naučil:</p>
-        <ul class="guide-learn-list guide-learn-list-done">
-          ${DATA.meta.learn.map(l => `<li>✓ ${l}</li>`).join("")}
-        </ul>
-        <a class="btn btn-primary" href="../index.html">Další projekt</a>
+      <div class="guide-done-wrap">
+        <div class="guide-card guide-done fade-up visible">
+          <div class="guide-done-check">✓</div>
+          <h1>Projekt je hotový.</h1>
+          <p class="lead">Dnes ses naučil:</p>
+          <ul class="guide-learn-list guide-learn-list-done">
+            ${DATA.meta.learn.map(l => `<li>✓ ${l}</li>`).join("")}
+          </ul>
+        </div>
+
+        ${hasNext ? `
+        <div class="guide-card guide-next fade-up visible">
+          <h2 class="guide-step-title">Co dál?</h2>
+          <div class="guide-next-grid">
+            ${tryDifferent.length ? `
+            <div class="guide-next-col">
+              <h3>Zkus jinak</h3>
+              <ul class="guide-next-list">${tryDifferent.map(t => `<li>${t.text}</li>`).join("")}</ul>
+            </div>` : ""}
+            ${moreProjects.length ? `
+            <div class="guide-next-col">
+              <h3>Další projekt</h3>
+              <ul class="guide-next-list guide-next-links">${moreProjects.map(p => `<li><a href="${p.href}">${p.title} →</a></li>`).join("")}</ul>
+            </div>` : ""}
+            ${levelUp ? `
+            <div class="guide-next-col">
+              <h3>Posuň se dál</h3>
+              <p>${levelUp.text}</p>
+              <a class="guide-more-help" href="${levelUp.href}">${levelUp.title} →</a>
+            </div>` : ""}
+          </div>
+        </div>` : ""}
+
+        <div class="guide-card guide-community fade-up visible">
+          <h3>Chceš se pochlubit, co jsi postavil?</h3>
+          <p>Komunitní galerii teprve připravujeme — zatím nám klidně <a href="../../../../index.html#kontakt">napiš</a>, rádi se podíváme.</p>
+        </div>
+
+        <div class="guide-step-actions" style="justify-content:center;">
+          <button type="button" class="btn btn-ghost" data-action="reset">🔁 Spustit znovu</button>
+        </div>
       </div>
     `;
+  }
+
+  function wireDone(container) {
+    container.querySelector('[data-action="reset"]').addEventListener("click", resetGuide);
+  }
+
+  function resetGuide() {
+    state.started = false;
+    state.stepIndex = 0;
+    state.missingParts = [];
+    saveState();
+    renderCurrent();
+    root.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   // ---------- modals ----------
@@ -334,7 +494,7 @@
   // ---------- flow control ----------
 
   function advance() {
-    state.stepIndex = Math.min(state.stepIndex + 1, totalSteps);
+    state.stepIndex = Math.min(state.stepIndex + 1, totalSteps());
     saveState();
     renderCurrent();
     root.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -347,8 +507,10 @@
 
     if (!state.started) {
       progressEl.style.display = "none";
-      stepsEl.appendChild(wrap(renderIntro()));
-      stepsEl.querySelector('[data-action="start"]').addEventListener("click", () => {
+      const introEl = wrap(renderIntro());
+      stepsEl.appendChild(introEl);
+      wireModePicker(introEl);
+      introEl.querySelector('[data-action="start"]').addEventListener("click", () => {
         state.started = true;
         saveState();
         renderCurrent();
@@ -359,12 +521,14 @@
     progressEl.style.display = "";
     progressEl.innerHTML = renderProgress();
 
-    if (state.stepIndex >= totalSteps) {
-      stepsEl.appendChild(wrap(renderDone()));
+    if (state.stepIndex >= totalSteps()) {
+      const doneEl = wrap(renderDone());
+      stepsEl.appendChild(doneEl);
+      wireDone(doneEl);
       return;
     }
 
-    stepsEl.appendChild(renderStep(DATA.steps[state.stepIndex]));
+    stepsEl.appendChild(renderStep(getSteps()[state.stepIndex]));
   }
 
   function wrap(html) {

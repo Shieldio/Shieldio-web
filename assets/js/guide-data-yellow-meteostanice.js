@@ -148,4 +148,16 @@ window.SHIELDIO_GUIDE = {
       },
     },
   ],
+
+  next: {
+    tryDifferent: [
+      { text: "Přidej podmínku, která na displeji upozorní, když je příliš horko nebo vlhko." },
+      { text: "Zkus pomocí mikrofonu detekovat hlasitý zvuk a zobrazit varování." },
+    ],
+    levelUp: {
+      title: "Baseline Red",
+      href: "../../../../instructions/baseline/red/index.html",
+      text: "Další úroveň — ultrazvuk, servo a vlastní robotika v pohybu.",
+    },
+  },
 };
