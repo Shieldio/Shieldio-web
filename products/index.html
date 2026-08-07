@@ -56,67 +56,61 @@
   </div>
 </div>
 
-<div class="hero" style="padding-bottom:100px;">
+<div class="hero" style="padding-bottom:40px;">
   <div class="wrap">
     <div class="fade-up">
       <span class="eyebrow">Desky Shieldio</span>
-      <h1>Vyber si <em>desku</em>.</h1>
-      <p class="lead">Produkty jsou rozdělené podle řady a úrovně — vyber si nejdřív řadu a pak konkrétní desku.</p>
-    </div>
-
-    <div class="board-picker fade-up delay-1">
-      <button type="button" class="instruction-card board-pick-card" data-board="baseline" data-label="Baseline">
-        <div class="baseline-bar bar"></div>
-        <h3>Baseline</h3>
-        <p>Tři barevně odlišené úrovně na jedné desce — od prvního kontaktu s elektronikou po robotiku v pohybu.</p>
-        <span class="pick-hint">Vybrat úroveň →</span>
-      </button>
-      <button type="button" class="instruction-card proline-card proline-pick-card board-pick-card" data-board="proline" data-href="PRO.html">
-        <div class="proline-bar bar"></div>
-        <h3>PROline</h3>
-        <p>Pokročilá řada pro náročnější projekty a hlubší porozumění elektronice.</p>
-        <span class="pick-hint proline-label">Zobrazit desku →</span>
-      </button>
-
-      <div class="guide-step" id="tier-step">
-        <div class="tier-photo-picker">
-          <a class="tier-photo-card tier-green" href="GREEN.html">
-            <div class="tier-photo-frame">
-              <div class="founder-photo-placeholder">FOTO<br>GREEN</div>
-            </div>
-            <h3>Green</h3>
-          </a>
-          <a class="tier-photo-card tier-yellow" href="YELLOW.html">
-            <div class="tier-photo-frame">
-              <div class="founder-photo-placeholder">FOTO<br>YELLOW</div>
-            </div>
-            <h3>Yellow</h3>
-          </a>
-          <a class="tier-photo-card tier-red" href="RED.html">
-            <div class="tier-photo-frame">
-              <img src="../assets/images/RED_hand_lay.jpeg" alt="Deska Shieldio Red">
-            </div>
-            <h3>Red</h3>
-          </a>
-        </div>
-      </div>
+      <h1>Všechny desky. <em>Stačí si vybrat.</em></h1>
+      <p class="lead">Baseline (Green, Yellow, Red) je naše hlavní řada — jedna deska, tři úrovně obtížnosti. PROline je pokročilá řada pro náročnější projekty.</p>
     </div>
   </div>
 </div>
 
-<section>
+<section style="padding-top:0;">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark">Doplňky</span>
-      <h2>Rozšiř si desku.</h2>
-    </div>
-    <div class="board-picker" style="grid-template-columns:1fr; max-width:420px;">
-      <a class="instruction-card" href="POWERADD.html" style="text-align:left;">
-        <h3>PowerAdd</h3>
-        <p>Nabíjecí modul, který desku odpojí od USB-C kabelu — napájí až čtyři větve a propojuje desky mezi sebou.</p>
-        <span class="pick-hint">Zobrazit doplněk →</span>
+
+    <div class="model-group-label fade-up">Baseline</div>
+    <div class="model-carousel fade-up">
+      <a class="model-card" href="GREEN.html">
+        <div class="model-card-photo"><div class="founder-photo-placeholder">FOTO<br>GREEN</div></div>
+        <h3>Green</h3>
+        <span class="model-status">Baseline · Koncept</span>
+        <span class="btn btn-primary">Zobrazit desku →</span>
+      </a>
+      <a class="model-card" href="YELLOW.html">
+        <div class="model-card-photo"><div class="founder-photo-placeholder">FOTO<br>YELLOW</div></div>
+        <h3>Yellow</h3>
+        <span class="model-status">Baseline · Koncept</span>
+        <span class="btn btn-primary">Zobrazit desku →</span>
+      </a>
+      <a class="model-card" href="RED.html">
+        <div class="model-card-photo"><img src="../assets/images/RED_hand_lay.jpeg" alt="Deska Shieldio RED"></div>
+        <h3>Red</h3>
+        <span class="model-status">Baseline · Ve vývoji, první prototyp</span>
+        <span class="btn btn-primary">Zobrazit desku →</span>
       </a>
     </div>
+
+    <div class="model-group-label fade-up">PROline</div>
+    <div class="model-carousel fade-up">
+      <a class="model-card" href="PRO.html">
+        <div class="model-card-photo"><div class="founder-photo-placeholder">FOTO<br>PRO</div></div>
+        <h3>PRO</h3>
+        <span class="model-status">PROline · Připravujeme</span>
+        <span class="btn btn-primary">Zobrazit desku →</span>
+      </a>
+    </div>
+
+    <div class="model-group-label fade-up">Doplňky</div>
+    <div class="model-carousel fade-up">
+      <a class="model-card" href="POWERADD.html">
+        <div class="model-card-photo"><div class="founder-photo-placeholder">FOTO<br>POWERADD</div></div>
+        <h3>PowerAdd</h3>
+        <span class="model-status">Doplněk · Ve vývoji, prototyp</span>
+        <span class="btn btn-primary">Zobrazit desku →</span>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -139,6 +133,5 @@
 
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
-<script src="../assets/js/products-picker.js"></script>
 </body>
 </html>
