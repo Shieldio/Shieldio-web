@@ -421,7 +421,7 @@
         </div>
 
         <div class="guide-step-actions" style="justify-content:center;">
-          <button type="button" class="btn btn-ghost" data-action="reset">🔁 Spustit znovu</button>
+          <button type="button" class="btn btn-ghost" data-action="reset">Spustit znovu</button>
         </div>
       </div>
     `;

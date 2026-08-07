@@ -163,9 +163,10 @@ window.SHIELDIO_GUIDE = {
     moreProjects: [
       { title: "Prototyp závory", href: "../zavora/index.html" },
       { title: "Časovač", href: "../casovac/index.html" },
+      { title: "Theremin", href: "../theremin/index.html" },
     ],
     levelUp: {
-      title: "Proline",
+      title: "PROline",
       href: "../../../../products/PRO.html",
       text: "Pokročilá řada Shieldio — zatím ve vývoji, ale mrkni, co chystáme.",
     },

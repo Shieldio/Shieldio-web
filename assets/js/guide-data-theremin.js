@@ -1,16 +1,16 @@
-// Shieldio — guide data: Časovač
+// Shieldio — guide data: Theremin
 // Obsah je oddělený od enginu (assets/js/guide-engine.js) — nový návod
 // se dělá jen přidáním nového souboru jako je tenhle.
 
 window.SHIELDIO_GUIDE = {
-  id: "casovac",
+  id: "theremin",
   meta: {
-    title: "Časovač",
+    title: "Theremin",
     image: "../../../../assets/images/RED_hand_hold.jpeg",
     tier: "red",
     difficulty: "Red · Pokročilá",
     duration: "20–30 minut",
-    learn: ["Ultrazvuk", "Měření času", "Podmínky", "OLED displej"],
+    learn: ["Ultrazvuk", "Bzučák", "Mapování hodnot", "Zvuk"],
   },
 
   glossary: {
@@ -28,18 +28,25 @@ window.SHIELDIO_GUIDE = {
       fact: "Běžný dosah je zhruba 2 cm až 4 m.",
       datasheet: "https://www.sparkfun.com/datasheets/Components/HC-SR04.pdf",
     },
+    bzucak: {
+      term: "Bzučák",
+      photo: null,
+      text: "Součástka, která podle povelu z programu vydá tón — u theremina se jeho výška (frekvence) mění podle naměřené vzdálenosti ruky.",
+      fact: null,
+      datasheet: null,
+    },
+    frekvence: {
+      term: "Frekvence",
+      photo: null,
+      text: "Počet kmitů zvukové vlny za sekundu, udávaný v hertzích (Hz). Čím vyšší frekvence, tím vyšší tón slyšíme.",
+      fact: "Lidské ucho slyší zvuky zhruba od 20 Hz do 20 000 Hz.",
+      datasheet: null,
+    },
     arduino: {
       term: "Arduino",
       photo: null,
-      text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu ovládá senzory a výstupy.",
+      text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu vyhodnocuje vzdálenost a ovládá bzučák.",
       fact: "Deska RED používá konkrétně Arduino Nano.",
-      datasheet: null,
-    },
-    pin: {
-      term: "Pin",
-      photo: null,
-      text: "Kovový kontakt na desce, kterým se propojují jednotlivé součástky — vstupy a výstupy signálu i napájení.",
-      fact: null,
       datasheet: null,
     },
     senzor: {
@@ -47,13 +54,6 @@ window.SHIELDIO_GUIDE = {
       photo: null,
       text: "Součástka, která měří něco z okolí (například vzdálenost) a převádí to na elektrický signál, se kterým dál pracuje program.",
       fact: null,
-      datasheet: null,
-    },
-    oled: {
-      term: "OLED displej",
-      photo: null,
-      text: "Malý obrazovkový displej na desce, na který program může vypisovat text nebo čísla — třeba naměřený čas.",
-      fact: "Každý pixel OLED displeje svítí sám o sobě, takže displej nepotřebuje podsvícení.",
       datasheet: null,
     },
     mblock: {
@@ -70,8 +70,8 @@ window.SHIELDIO_GUIDE = {
       id: "shieldio-red",
       name: "Shieldio RED",
       photo: "../../../../assets/images/RED_hand_hold.jpeg",
-      what: "Hlavní deska celého projektu — ultrazvukový senzor i OLED displej jsou už na desce zabudované.",
-      how: "Uvnitř desky je Arduino Nano, které podle nahraného programu měří čas mezi událostmi zachycenými senzorem.",
+      what: "Hlavní deska projektu — ultrazvukový senzor i bzučák jsou už na desce zabudované.",
+      how: "Uvnitř desky je Arduino Nano, které podle naměřené vzdálenosti mění výšku tónu bzučáku.",
       fact: "Deska RED je aktuálně ve vývoji — první funkční prototyp.",
       datasheet: null,
     },
@@ -98,7 +98,7 @@ window.SHIELDIO_GUIDE = {
       title: "Připoj desku",
       type: "wiring",
       photo: null,
-      instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"oled\">OLED displej</span> jsou už na desce zabudované — nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
+      instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"bzucak\">bzučák</span> jsou už na desce zabudované — nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
@@ -136,13 +136,13 @@ window.SHIELDIO_GUIDE = {
       id: "test",
       title: "Vyzkoušej projekt",
       type: "diagnostic-tree",
-      instructions: "Zakryj rukou ultrazvukový senzor na desce. Spustí se na displeji odpočítávání nebo měření času?",
+      instructions: "Pohybuj rukou nad ultrazvukovým senzorem. Mění bzučák výšku tónu podle vzdálenosti ruky?",
       tree: {
-        question: "Spustí se časovač na displeji, když zakryješ senzor?",
+        question: "Mění se výška tónu podle vzdálenosti ruky?",
         no: {
-          question: "Mění se aspoň číslo vzdálenosti na displeji, i když se časovač nespustí?",
-          noResult: "Senzor asi neměří — zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
-          yesResult: "Vzdálenost se měří správně, ale časovač se nespouští — zkontroluj v programu podmínku, při jaké vzdálenosti (v cm) se má časovač spustit.",
+          question: "Ozývá se z bzučáku vůbec nějaký zvuk?",
+          noResult: "Bzučák mlčí — zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
+          yesResult: "Zvuk hraje, ale výška se neměnÍ — zkontroluj v programu, že naměřenou vzdálenost mapuješ na frekvenci tónu.",
         },
       },
     },
@@ -150,13 +150,13 @@ window.SHIELDIO_GUIDE = {
 
   next: {
     tryDifferent: [
-      { text: "Zkus místo zakrytí rukou měřit čas mezi dvěma průjezdy před senzorem." },
-      { text: "Zobraz na displeji nejlepší (nejkratší) naměřený čas." },
+      { text: "Zkus nastavit vlastní rozsah tónů — od nejnižšího po nejvyšší, jaký chceš slyšet." },
+      { text: "Přidej podmínku, která ztiší nebo vypne tón, když je ruka moc daleko." },
     ],
     moreProjects: [
       { title: "Prototyp závory", href: "../zavora/index.html" },
       { title: "Parkovací asistent", href: "../parkovaci-asistent/index.html" },
-      { title: "Theremin", href: "../theremin/index.html" },
+      { title: "Časovač", href: "../casovac/index.html" },
     ],
     levelUp: {
       title: "PROline",
