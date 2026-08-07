@@ -85,7 +85,7 @@ img{ max-width:100%; display:block; }
 .logo{
   display:flex; align-items:center; gap:10px;
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display'; font-weight:600; font-size:18px;
-  letter-spacing:-0.01em;
+  letter-spacing:-0.01em; text-decoration:none; color:inherit;
 }
 .logo-mark{
   width:13px; height:13px; border-radius:4px;
@@ -308,6 +308,7 @@ section{ padding:140px 0; }
 
 /* ---------- red board deep-dive ---------- */
 .deepdive{ background:var(--navy); color:#f5f5f7; }
+.deepdive .section-head h2{ color:#fff; }
 .deepdive .section-head p{ color:#86868b; }
 .deepdive .section-head .eyebrow-dark{ color:var(--accent-soft); }
 .deepdive-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
@@ -589,6 +590,11 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 }
 .qr-placeholder-text{ font-size:13.5px; color:var(--ink-soft); }
 
-.project-pick-card{ text-align:center; border:3px solid var(--tier-red); }
+.project-picker-grid{ grid-template-columns:repeat(3,1fr); }
+@media (max-width:900px){ .project-picker-grid{ grid-template-columns:1fr; } }
+.project-pick-card{
+  text-align:center; border:3px solid var(--tier-red);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-width .2s var(--ease);
+}
 .project-pick-card h3{ text-transform:uppercase; letter-spacing:0.02em; }
-.project-pick-card.selected{ box-shadow:0 0 0 2px var(--tier-red), var(--shadow-card-hover); }
+.project-pick-card:hover{ border-width:6px; transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
