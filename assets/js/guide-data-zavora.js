@@ -7,6 +7,7 @@ window.SHIELDIO_GUIDE = {
   meta: {
     title: "Automatická závora",
     image: "../../../../assets/images/RED_hand_lay.jpeg",
+    tier: "red",
     difficulty: "Red · Pokročilá",
     duration: "45–60 minut",
     learn: ["Servo", "Ultrazvuk", "Podmínky", "Automatizaci"],

@@ -665,6 +665,9 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   height:100%; border-radius:10px; background:var(--tier-red);
   transition:width .5s var(--ease);
 }
+.guide-app.tier-green .guide-progress-fill{ background:var(--tier-green); }
+.guide-app.tier-yellow .guide-progress-fill{ background:var(--tier-yellow); }
+.guide-app.tier-red .guide-progress-fill{ background:var(--tier-red); }
 
 .guide-card{
   background:#fff; border-radius:var(--radius); box-shadow:var(--shadow-card);
@@ -675,6 +678,9 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 .guide-card .btn-ghost:hover{ border-color:rgba(0,0,0,0.3); }
 .guide-step-title{ font-size:clamp(24px,3vw,32px); letter-spacing:-0.02em; margin-bottom:24px; }
 .guide-step-title .term{ color:var(--tier-red-deep); }
+.guide-app.tier-green .guide-step-title .term{ color:var(--tier-green-deep); }
+.guide-app.tier-yellow .guide-step-title .term{ color:var(--tier-yellow-deep); }
+.guide-app.tier-red .guide-step-title .term{ color:var(--tier-red-deep); }
 
 /* intro */
 .guide-intro{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
@@ -727,6 +733,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 
 /* step actions (max two buttons, always) */
 .guide-step-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; }
+.guide-step-actions[hidden]{ display:none; }
 
 /* wiring / upload media */
 .guide-wiring-media{

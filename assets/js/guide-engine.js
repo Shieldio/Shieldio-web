@@ -7,6 +7,9 @@
   const root = document.getElementById("guide-app");
   if (!DATA || !root) return;
 
+  const tier = DATA.meta.tier || "red";
+  root.classList.add(`tier-${tier}`);
+
   const STORAGE_KEY = `shieldio-guide-${DATA.id}`;
   const totalSteps = DATA.steps.length;
 
@@ -49,7 +52,7 @@
       <div class="guide-card guide-intro fade-up visible">
         <div class="guide-intro-photo">${photoOrPlaceholder(m.image, m.title)}</div>
         <div class="guide-intro-body">
-          <span class="eyebrow" style="color:var(--tier-red-deep); border-color:var(--tier-red);">${m.difficulty}</span>
+          <span class="eyebrow" style="color:var(--tier-${tier}-deep); border-color:var(--tier-${tier});">${m.difficulty}</span>
           <h1>${m.title}</h1>
           <div class="guide-meta-row">
             <div class="stat"><b>${m.duration}</b><span>Doba stavby</span></div>
