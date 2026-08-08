@@ -366,7 +366,16 @@ section{ padding:140px 0; }
   position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; background:var(--paper-2);
   display:flex; align-items:center; justify-content:center; margin-bottom:18px;
 }
+.model-card-photo.wide{ aspect-ratio:2/1; }
 .model-card-photo img{ width:100%; height:100%; object-fit:cover; }
+
+/* ---------- board silhouette (true shape/colour, until real photos exist) ---------- */
+/* PCB is 95x95mm with a 5mm corner radius, 3D-printed case brings it to 100x100mm — border-radius:5%
+   keeps that ratio at any size. PowerAdd's case is a 100x50mm dark grey rectangle. */
+.board-shape{ width:100%; height:100%; border-radius:5%; }
+.board-shape.tier-green{ background:var(--tier-green); }
+.board-shape.tier-yellow{ background:var(--tier-yellow); }
+.board-shape.shape-poweradd{ background:#3a3a3c; }
 .model-card h3{ font-size:19px; letter-spacing:-0.01em; margin-bottom:6px; }
 .model-card .model-status{
   font-family:'JetBrains Mono'; font-size:11px; letter-spacing:0.02em; text-transform:uppercase;
@@ -642,7 +651,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 }
 @media (max-width:900px){ .founder-grid{ grid-template-columns:1fr; } }
 .founder-photo{
-  width:100%; aspect-ratio:1; border-radius:var(--radius);
+  position:relative; width:100%; aspect-ratio:1; border-radius:var(--radius);
   overflow:hidden; background:var(--paper-2); box-shadow:var(--shadow-card);
   display:flex; align-items:center; justify-content:center;
 }
