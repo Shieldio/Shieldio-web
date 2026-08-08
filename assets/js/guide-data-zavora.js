@@ -6,7 +6,7 @@ window.SHIELDIO_GUIDE = {
   id: "zavora",
   meta: {
     title: "Automatická závora",
-    image: "../../../../assets/images/RED_hand_lay.jpeg",
+    image: "../../../../assets/images/RED_barrier_closed.jpeg",
     tier: "red",
     difficulty: "Red · Pokročilá",
     duration: "45–60 minut",
@@ -44,7 +44,7 @@ window.SHIELDIO_GUIDE = {
     },
     arduino: {
       term: "Arduino",
-      photo: null,
+      photo: "../../../../assets/images/RED_arduino_nano.jpeg",
       text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu ovládá senzory a výstupy.",
       fact: "Deska RED používá konkrétně Arduino Nano.",
       datasheet: null,

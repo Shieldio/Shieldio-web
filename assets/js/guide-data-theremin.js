@@ -44,7 +44,7 @@ window.SHIELDIO_GUIDE = {
     },
     arduino: {
       term: "Arduino",
-      photo: null,
+      photo: "../../../../assets/images/RED_arduino_nano.jpeg",
       text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu vyhodnocuje vzdálenost a ovládá bzučák.",
       fact: "Deska RED používá konkrétně Arduino Nano.",
       datasheet: null,
