@@ -60,7 +60,9 @@ body{
 h1,h2,h3{
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',sans-serif;
   font-weight:600;
-  letter-spacing:-0.022em;
+  letter-spacing:-0.016em;
+  line-height:1.2;
+  font-optical-sizing:auto;
   margin:0;
   color:var(--ink);
 }
@@ -102,6 +104,7 @@ img{ max-width:100%; display:block; }
   transition:transform .2s var(--ease), background .2s var(--ease);
 }
 .topbar .cta-small:hover{ background:var(--accent-deep); transform:scale(1.03); }
+.topbar .cta-small:active{ transform:scale(0.97); }
 .nav-links{ display:flex; align-items:center; gap:30px; }
 
 /* ---------- mobile nav toggle ---------- */
@@ -298,12 +301,29 @@ section{ padding:140px 0; }
   display:inline-flex; align-items:center; gap:6px;
   font-family:'JetBrains Mono'; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;
   margin-top:22px; text-decoration:none;
-  transition:gap .2s var(--ease);
+  transition:gap .2s var(--ease), opacity .15s var(--ease);
 }
 .tier-link:hover{ gap:10px; }
+.tier-link:active{ opacity:0.6; }
 .tier-green .tier-link{ color:var(--tier-green-deep); }
 .tier-yellow .tier-link{ color:var(--tier-yellow-deep); }
 .tier-red .tier-link{ color:var(--tier-red-deep); }
+
+/* ---------- tier-colored heading text (name of the board itself) ---------- */
+/* deep/AA-safe variant on light surfaces (cards); vivid variant on dark hero backgrounds */
+.text-tier-green{ color:var(--tier-green-deep); }
+.text-tier-yellow{ color:var(--tier-yellow-deep); }
+.text-tier-red{ color:var(--tier-red-deep); }
+.hero .text-tier-green, .deepdive .text-tier-green{ color:var(--tier-green); }
+.hero .text-tier-yellow, .deepdive .text-tier-yellow{ color:var(--tier-yellow); }
+.hero .text-tier-red, .deepdive .text-tier-red{ color:var(--tier-red); }
+
+/* PROline gradient — same blue→purple used by .proline-bar, applied to text and to the board placeholder */
+.text-tier-pro{
+  background:linear-gradient(90deg, var(--pro-blue), var(--pro-purple));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.board-shape.shape-pro{ background:linear-gradient(135deg, var(--pro-blue), var(--pro-purple), var(--pro-black)); }
 
 /* ---------- red board deep-dive ---------- */
 .deepdive{ background:var(--navy); color:#f5f5f7; }
@@ -362,6 +382,7 @@ section{ padding:140px 0; }
   transition:transform .3s var(--ease), box-shadow .3s var(--ease);
 }
 .model-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-card-hover); }
+.model-card:active{ transform:translateY(-1px) scale(0.985); box-shadow:var(--shadow-card); }
 .model-card-photo{
   position:relative; aspect-ratio:1; border-radius:16px; overflow:hidden; background:var(--paper-2);
   display:flex; align-items:center; justify-content:center; margin-bottom:18px;
@@ -433,9 +454,10 @@ section{ padding:140px 0; }
 .cta-section{
   background:var(--navy-2); color:#f5f5f7;
 }
+.cta-section h2{ color:#fff; }
 .cta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
 @media (max-width:900px){ .cta-grid{ grid-template-columns:1fr; } }
-.cta-grid h2{ color:#fff; font-size:clamp(28px,3.4vw,40px); letter-spacing:-0.025em; }
+.cta-grid h2{ font-size:clamp(28px,3.4vw,40px); letter-spacing:-0.025em; }
 .cta-grid p{ color:#86868b; margin-top:18px; font-size:16.5px; max-width:440px; }
 .contact-list{ list-style:none; padding:0; margin:32px 0 0; }
 .contact-list li{
@@ -641,9 +663,11 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 }
 .guide-panel h3{ font-size:22px; letter-spacing:-0.015em; margin-bottom:10px; }
 .guide-panel p{ color:var(--ink-soft); font-size:15px; max-width:440px; margin:0 auto; }
-.guide-panel.tier-green{ background:rgba(22,181,72,0.08); border-color:var(--tier-green); }
-.guide-panel.tier-yellow{ background:rgba(255,186,25,0.12); border-color:var(--tier-yellow); }
-.guide-panel.tier-red{ background:rgba(247,35,56,0.08); border-color:var(--tier-red); }
+/* opaque pre-blended tints (not rgba) — this panel sits on the dark hero, so a
+   translucent background would composite against black instead of white and go unreadable */
+.guide-panel.tier-green{ background:#ecf9f0; border-color:var(--tier-green); }
+.guide-panel.tier-yellow{ background:#fff7e3; border-color:var(--tier-yellow); }
+.guide-panel.tier-red{ background:#feedef; border-color:var(--tier-red); }
 
 /* ---------- founder story ---------- */
 .founder-grid{
@@ -890,3 +914,24 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 .modal-card p{ font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin-bottom:10px; }
 .term-modal-fact{ background:var(--paper-2); border-radius:10px; padding:10px 14px; font-size:13.5px; }
 .modal-card a{ color:var(--accent); font-size:13.5px; }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .fade-up{
+    transform:none !important;
+    transition:opacity .3s ease !important;
+  }
+  .board-photo-frame{
+    transform:none !important;
+    transition:opacity .3s ease, box-shadow .3s ease !important;
+  }
+  .board-photo-frame.flown-in{ transform:none !important; }
+  .tier-card .bar{ transition:opacity .3s ease !important; transform:none !important; opacity:0; }
+  .tier-card.visible .bar{ opacity:1; }
+  .reveal-bar{ transition:opacity .3s ease !important; transform:none !important; opacity:0; }
+  .reveal-bar.visible{ opacity:1; }
+  .tier-pick-btn{ transform:none !important; }
+  .guide-step.active .tier-pick-btn{ transform:none !important; }
+  .guide-step.active .tier-pick-btn.active{ transform:none !important; }
+}
