@@ -362,6 +362,10 @@ section{ padding:140px 0; }
 .deepdive .spec-row-icon{ background:rgba(255,255,255,0.06); color:var(--accent-soft); }
 .deepdive .spec-row p{ color:#c7c7cc; }
 .deepdive .spec-row p b{ color:#fff; }
+/* .dev-badge defaults to a pale tint meant for light cards (see .tier-card usage) — on the
+   dark .deepdive background that translucent 8% tint barely lifts off the black, so use the
+   vivid tier-red + a stronger tint here instead, same fix as the reduced-motion guide-panel bug */
+.deepdive .dev-badge{ color:var(--tier-red); background:rgba(247,35,56,0.16); border-color:rgba(247,35,56,0.4); }
 
 /* ---------- model carousel (products picker, Apple "all models" style) ---------- */
 .model-group-label{
@@ -482,6 +486,55 @@ section{ padding:140px 0; }
 .form-status{ font-size:13.5px; margin-top:12px; text-align:center; min-height:1.4em; }
 .form-status.success{ color:var(--tier-green-deep); }
 .form-status.error{ color:var(--tier-red-deep); }
+
+/* ---------- pre-order picker (variant radio cards + live total) ---------- */
+/* generic/data-driven: price comes from each radio's data-price, so adding a 6th
+   variant later is just one more .preorder-option block — no JS/CSS changes needed */
+.preorder-options{ display:grid; gap:16px; }
+.preorder-options-featured{ grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); margin-bottom:16px; }
+.preorder-options-standard{ grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); }
+.preorder-option{ position:relative; display:block; cursor:pointer; }
+.preorder-option input[type="radio"]{
+  position:absolute; opacity:0; width:1px; height:1px; margin:0; pointer-events:none;
+}
+.preorder-option-body{
+  display:block; height:100%; background:#fff; border:2px solid var(--line); border-radius:var(--radius);
+  padding:22px 24px;
+  transition:border-color .25s var(--ease), box-shadow .25s var(--ease), transform .2s var(--ease);
+}
+.preorder-option:hover .preorder-option-body{ border-color:var(--ink-soft); }
+.preorder-option:active .preorder-option-body{ transform:scale(0.985); }
+.preorder-option input:checked + .preorder-option-body{
+  border-color:var(--tier-red); box-shadow:0 0 0 3px rgba(247,35,56,0.12);
+}
+.preorder-option input:focus-visible + .preorder-option-body{ outline:2px solid var(--tier-red); outline-offset:2px; }
+.preorder-option-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+.preorder-option-name{ font-weight:600; font-size:15.5px; letter-spacing:-0.01em; display:flex; align-items:center; }
+.preorder-option-price{ font-family:'JetBrains Mono'; font-size:14px; color:var(--tier-red-deep); white-space:nowrap; }
+.preorder-option-desc{ display:block; font-size:13.5px; color:var(--ink-soft); line-height:1.5; }
+/* featured = the two full kits (assembled/unassembled) — bigger so the hierarchy against the
+   three add-on/partial options below reads at a glance, not just via the selection ring */
+.preorder-option.featured .preorder-option-body{ padding:28px 26px; }
+.preorder-option.featured .preorder-option-name{ font-size:18px; }
+.preorder-option.featured .preorder-option-price{ font-size:16px; }
+.preorder-option.featured .preorder-option-desc{ font-size:14px; }
+.preorder-option.compact .preorder-option-body{ padding:18px 20px; }
+.preorder-option.compact .preorder-option-name{ font-size:14px; }
+.preorder-option.compact .preorder-option-price{ font-size:13px; }
+.preorder-option.compact .preorder-option-desc{ font-size:12.5px; }
+.preorder-badge{
+  font-family:'JetBrains Mono'; font-size:11px; font-weight:500; background:var(--tier-red); color:#fff;
+  padding:2px 8px; border-radius:var(--radius-pill); margin-left:8px;
+}
+.preorder-summary{
+  display:flex; align-items:flex-end; gap:24px; flex-wrap:wrap;
+  margin:28px 0 24px; padding:20px 24px; background:var(--paper-2); border-radius:16px;
+}
+.preorder-summary .field{ margin-bottom:0; }
+.preorder-total{ display:flex; flex-direction:column; gap:4px; margin-left:auto; }
+.preorder-total span{ font-family:'JetBrains Mono'; font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-soft); }
+.preorder-total b{ font-size:28px; letter-spacing:-0.02em; color:var(--tier-red-deep); }
+.preorder-disclaimer{ font-size:12.5px; color:var(--ink-soft); margin-top:14px; text-align:center; }
 
 /* ---------- footer ---------- */
 footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }

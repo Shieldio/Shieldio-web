@@ -63,8 +63,8 @@
       <h1>Deska <em class="text-tier-red">RED</em>.</h1>
       <p class="lead">Robotika v pohybu — ultrazvukový senzor vzdálenosti, servo a OLED displej na jedné desce. Výchozí projekt: funkční prototyp závory.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="../instructions/baseline/red/index.html">Zobrazit návod</a>
-        <a class="btn btn-ghost" href="../index.html#kontakt">Mám zájem</a>
+        <a class="btn btn-primary" href="#preorder">Předobjednat</a>
+        <a class="btn btn-ghost" href="../instructions/baseline/red/index.html">Zobrazit návod</a>
       </div>
     </div>
     <div class="board-figure fade-up delay-1">
@@ -159,6 +159,109 @@
   </div>
 </section>
 
+<section id="preorder" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-dark">Pre-order</span>
+      <h2>Předobjednej si <span class="text-tier-red">RED</span>.</h2>
+      <p>Vyber si variantu podle toho, kolik chceš pájet sám. Předobjednávka je nezávazná rezervace kusu z aktuální malé série — platbu a přesný termín dodání domluvíme e-mailem.</p>
+    </div>
+
+    <form class="web3form preorder" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="a13ed669-5fc4-4329-bf27-a4e40dd0b1e7">
+      <input type="hidden" name="subject" value="Předobjednávka Shieldio RED">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="model-group-label">Doporučujeme</div>
+      <div class="preorder-options preorder-options-featured">
+        <label class="preorder-option featured">
+          <input type="radio" name="varianta" value="Nesestavená kompletní sada — 550 Kč" data-price="550">
+          <span class="preorder-option-body">
+            <span class="preorder-option-head">
+              <span class="preorder-option-name">Nesestavená kompletní sada</span>
+              <span class="preorder-option-price">550 Kč</span>
+            </span>
+            <span class="preorder-option-desc">Deska a všechny součástky zvlášť, nespojené — pájíš a sestavuješ si sám.</span>
+          </span>
+        </label>
+        <label class="preorder-option featured">
+          <input type="radio" name="varianta" value="Sestavená kompletní — 750 Kč" data-price="750" checked>
+          <span class="preorder-option-body">
+            <span class="preorder-option-head">
+              <span class="preorder-option-name">Sestavená kompletní</span>
+              <span class="preorder-option-price">750 Kč</span>
+            </span>
+            <span class="preorder-option-desc">Hotová deska se všemi součástkami — ultrazvuk, Arduino, displej, kabel. Připojíš a jede.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="model-group-label">Další možnosti</div>
+      <div class="preorder-options preorder-options-standard">
+        <label class="preorder-option compact">
+          <input type="radio" name="varianta" value="Holá deska (PCB), nepájená — 120 Kč" data-price="120">
+          <span class="preorder-option-body">
+            <span class="preorder-option-head">
+              <span class="preorder-option-name">Holá deska (PCB)</span>
+              <span class="preorder-option-price">120 Kč</span>
+            </span>
+            <span class="preorder-option-desc">Jen samotný plošný spoj, bez součástek — pro stavbu úplně od nuly.</span>
+          </span>
+        </label>
+        <label class="preorder-option compact">
+          <input type="radio" name="varianta" value="Sestavená základní — 220 Kč" data-price="220">
+          <span class="preorder-option-body">
+            <span class="preorder-option-head">
+              <span class="preorder-option-name">Sestavená základní</span>
+              <span class="preorder-option-price">220 Kč</span>
+            </span>
+            <span class="preorder-option-desc">Připájené jen součástky přímo na desce — bez ultrazvuku, Arduina, displeje a kabelu.</span>
+          </span>
+        </label>
+        <label class="preorder-option compact">
+          <input type="radio" name="varianta" value="EduSET — 5× sestavená kompletní — 3500 Kč" data-price="3500">
+          <span class="preorder-option-body">
+            <span class="preorder-option-head">
+              <span class="preorder-option-name">EduSET<span class="preorder-badge">5×</span></span>
+              <span class="preorder-option-price">3500 Kč</span>
+            </span>
+            <span class="preorder-option-desc">Pět kompletně sestavených desek za zvýhodněnou cenu — pro kroužek nebo třídu.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="preorder-summary">
+        <div class="field">
+          <label for="preorder-qty">Počet kusů</label>
+          <input type="number" id="preorder-qty" name="pocet" value="1" min="1" max="20" class="mono" style="width:100px;">
+        </div>
+        <div class="preorder-total">
+          <span>Celkem</span>
+          <b id="preorder-total-price">750 Kč</b>
+        </div>
+      </div>
+      <input type="hidden" name="celkova_cena" id="preorder-total-hidden" value="750 Kč">
+
+      <div class="field">
+        <label for="preorder-name">Jméno</label>
+        <input id="preorder-name" name="jmeno" type="text" placeholder="Jana Nováková" required>
+      </div>
+      <div class="field">
+        <label for="preorder-email">E-mail</label>
+        <input id="preorder-email" name="email" type="email" placeholder="jana.novakova@email.cz" required>
+      </div>
+      <div class="field">
+        <label for="preorder-note">Poznámka (nepovinné)</label>
+        <textarea id="preorder-note" name="poznamka" placeholder="Preferovaný termín, počet kusů pro kroužek, cokoliv dalšího…"></textarea>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Odeslat předobjednávku</button>
+      <p class="form-status" aria-live="polite"></p>
+      <p class="preorder-disclaimer">Předobjednávka nic hned nestrhává — je to nezávazná rezervace, platbu a termín domluvíme e-mailem.</p>
+    </form>
+  </div>
+</section>
+
 <section class="cta-section">
   <div class="wrap">
     <div class="fade-up" style="text-align:center;">
@@ -191,5 +294,7 @@
 
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
+<script src="../assets/js/contact-form.js"></script>
+<script src="../assets/js/preorder.js"></script>
 </body>
 </html>
