@@ -1106,3 +1106,12 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 .search-result:hover, .search-result:focus{ background:var(--paper-2); }
 .search-result-title{ font-size:14.5px; font-weight:600; letter-spacing:-0.005em; }
 .search-result-desc{ font-size:12.5px; color:var(--ink-soft); line-height:1.4; }
+
+/* ---------- blockly editor prototype ---------- */
+.blockly-editor-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:24px; height:640px; margin-top:12px; }
+@media (max-width:900px){ .blockly-editor-grid{ grid-template-columns:1fr; height:auto; } }
+#blocklyDiv{ height:640px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); background:#fff; }
+@media (max-width:900px){ #blocklyDiv{ height:420px; } }
+.blockly-code-panel{ display:flex; flex-direction:column; gap:12px; height:640px; }
+@media (max-width:900px){ .blockly-code-panel{ height:420px; } }
+.blockly-code-actions{ display:flex; gap:10px; }
