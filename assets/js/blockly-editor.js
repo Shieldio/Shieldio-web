@@ -32,11 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
     grid: { spacing: 22, length: 2, colour: "#e5e5ea", snap: true },
   });
 
-  // seed the workspace with the always-present root block
-  const rootBlock = workspace.newBlock("shieldio_program");
-  rootBlock.initSvg();
-  rootBlock.render();
-  rootBlock.moveBy(30, 30);
+  // seed the workspace with the two always-present entry-point blocks —
+  // separate hats for setup/loop, mirroring Arduino's own two functions
+  const setupBlock = workspace.newBlock("shieldio_setup");
+  setupBlock.initSvg();
+  setupBlock.render();
+  setupBlock.moveBy(30, 30);
+
+  const loopBlock = workspace.newBlock("shieldio_loop");
+  loopBlock.initSvg();
+  loopBlock.render();
+  loopBlock.moveBy(30, 220);
 
   const codeEl = document.getElementById("generatedCode");
   const statusEl = document.getElementById("editorStatus");
@@ -44,6 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function assembleSketch(setupBody, loopBody) {
     return `// Vygenerováno blokovým editorem Shieldio — piny podle desky RED
 #include <Servo.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 
 #define LED_RED 5
 #define LED_GREEN 6
@@ -53,8 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
 #define BUZZER 10
 #define BUTTON1 11
 #define BUTTON2 12
+// OLED (0,96", SSD1306) běží po I2C na pevné sběrnici Nana — SDA=A4, SCL=A5
 
 Servo shieldioServo;
+Adafruit_SSD1306 shieldioDisplay(128, 64, &Wire, -1);
 
 float shieldioDistance() {
   digitalWrite(TRIG, LOW);
@@ -74,6 +85,9 @@ void setup() {
   pinMode(BUTTON1, INPUT_PULLUP);
   pinMode(BUTTON2, INPUT_PULLUP);
   shieldioServo.attach(SERVO_PIN);
+  shieldioDisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  shieldioDisplay.clearDisplay();
+  shieldioDisplay.display();
 ${indent(setupBody)}}
 
 void loop() {
@@ -95,13 +109,16 @@ ${indent(loopBody)}}
     let setupBody = "";
     let loopBody = "";
     try {
-      const root = workspace.getBlocksByType("shieldio_program", false)[0];
-      if (root) {
-        const setupStart = root.getInputTargetBlock("SETUP");
-        const loopStart = root.getInputTargetBlock("LOOP");
+      const setupRoot = workspace.getBlocksByType("shieldio_setup", false)[0];
+      const loopRoot = workspace.getBlocksByType("shieldio_loop", false)[0];
+      if (setupRoot) {
+        const setupStart = setupRoot.getInputTargetBlock("SETUP");
         setupBody = setupStart ? gen.blockToCode(setupStart) : "";
-        loopBody = loopStart ? gen.blockToCode(loopStart) : "";
         if (Array.isArray(setupBody)) setupBody = setupBody[0];
+      }
+      if (loopRoot) {
+        const loopStart = loopRoot.getInputTargetBlock("LOOP");
+        loopBody = loopStart ? gen.blockToCode(loopStart) : "";
         if (Array.isArray(loopBody)) loopBody = loopBody[0];
       }
       codeEl.textContent = assembleSketch(setupBody, loopBody);

@@ -1,23 +1,43 @@
 // Shieldio — custom Blockly blocks + Arduino C++ generator, scoped to the real RED board pin map
 // (read directly off the physical board silkscreen: D5 LED RED, D6 LED GREEN, D7 TRIG, D8 ECHO,
-// D9 Servo, D10 Buzzer, D11 Button 1, D12 Button 2). OLED is intentionally left out for now —
-// its exact wiring hasn't been confirmed, and this project doesn't fabricate pin assignments.
+// D9 Servo, D10 Buzzer, D11 Button 1, D12 Button 2). OLED confirmed as a standard 0.96" SSD1306,
+// I2C over the Nano's fixed hardware bus (SDA=A4, SCL=A5) — not something the board layout chooses,
+// so it's safe to hardcode.
 
 (function () {
   const RED = "#f72338";
+  const GOLD = "#ffbf00"; // Scratch "Events" — when things start
+  const ORANGE = "#ffab19"; // Scratch "Control" — loops / repetition
+  const SENSE_BLUE = "#5cb1d6"; // Scratch "Sensing" — conditions / booleans
+  const OPERATOR_GREEN = "#59c059"; // Scratch "Operators" — math + text
 
-  // ---------- block definitions ----------
+  // ---------- start blocks (two separate hats, not one combined block —
+  // mirrors how Arduino itself splits setup()/loop(), and how Scratch uses
+  // a distinct hat per entry point instead of one block with two slots) ----------
 
-  Blockly.Blocks["shieldio_program"] = {
+  Blockly.Blocks["shieldio_setup"] = {
     init: function () {
-      this.appendDummyInput().appendField("Shieldio RED program");
-      this.appendStatementInput("SETUP").setCheck(null).appendField("nastavení (jednou)");
-      this.appendStatementInput("LOOP").setCheck(null).appendField("opakovaně (smyčka)");
-      this.setColour(RED);
+      this.appendDummyInput().appendField("▶ Když deska nastartuje");
+      this.appendStatementInput("SETUP").setCheck(null);
+      this.setColour(GOLD);
+      this.hat = "cap";
       this.setDeletable(false);
-      this.setMovable(false);
+      this.setTooltip("Proběhne jednou, hned po zapnutí desky.");
     },
   };
+
+  Blockly.Blocks["shieldio_loop"] = {
+    init: function () {
+      this.appendDummyInput().appendField("↻ Opakuj pořád");
+      this.appendStatementInput("LOOP").setCheck(null);
+      this.setColour(ORANGE);
+      this.hat = "cap";
+      this.setDeletable(false);
+      this.setTooltip("Opakuje se pořád dokola, dokud je deska zapnutá.");
+    },
+  };
+
+  // ---------- Shieldio RED hardware blocks ----------
 
   Blockly.Blocks["shieldio_led"] = {
     init: function () {
@@ -90,6 +110,28 @@
     },
   };
 
+  // ---------- OLED (0.96", SSD1306, I2C over the Nano's fixed A4/A5 bus) ----------
+
+  Blockly.Blocks["shieldio_oled_print"] = {
+    init: function () {
+      this.appendValueInput("TEXT").setCheck(null).appendField("napiš na displej");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(RED);
+      this.setInputsInline(true);
+      this.setTooltip("Vymaže displej a napíše na něj text nebo hodnotu.");
+    },
+  };
+
+  Blockly.Blocks["shieldio_oled_clear"] = {
+    init: function () {
+      this.appendDummyInput().appendField("vymaž displej");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(RED);
+    },
+  };
+
   // ---------- Arduino generator ----------
 
   const arduino = new Blockly.Generator("Arduino");
@@ -112,10 +154,10 @@
 
   arduino.forBlock = arduino.forBlock || {};
 
-  arduino.forBlock["shieldio_program"] = function (block) {
-    // handled specially in generateSketch() below — the hat block itself emits nothing
-    return "";
-  };
+  // the two hat blocks emit nothing themselves — generateSketch() in
+  // blockly-editor.js reads their SETUP/LOOP statement inputs directly
+  arduino.forBlock["shieldio_setup"] = function () { return ""; };
+  arduino.forBlock["shieldio_loop"] = function () { return ""; };
 
   arduino.forBlock["shieldio_led"] = function (block) {
     const color = block.getFieldValue("COLOR");
@@ -146,6 +188,22 @@
   arduino.forBlock["shieldio_wait"] = function (block) {
     const ms = arduino.valueToCode(block, "MS", arduino.ORDER_NONE) || "0";
     return `delay(${ms});\n`;
+  };
+
+  arduino.forBlock["shieldio_oled_print"] = function (block) {
+    const text = arduino.valueToCode(block, "TEXT", arduino.ORDER_NONE) || '""';
+    return (
+      "shieldioDisplay.clearDisplay();\n" +
+      "shieldioDisplay.setCursor(0, 0);\n" +
+      "shieldioDisplay.setTextSize(1);\n" +
+      "shieldioDisplay.setTextColor(SSD1306_WHITE);\n" +
+      `shieldioDisplay.print(${text});\n` +
+      "shieldioDisplay.display();\n"
+    );
+  };
+
+  arduino.forBlock["shieldio_oled_clear"] = function () {
+    return "shieldioDisplay.clearDisplay();\nshieldioDisplay.display();\n";
   };
 
   // -- standard blocks used from Blockly's core block library --
@@ -202,6 +260,12 @@
     return [`${a} ${op} ${b}`, arduino.ORDER_ADDITIVE];
   };
 
+  arduino.forBlock["text"] = function (block) {
+    const raw = block.getFieldValue("TEXT") || "";
+    const escaped = raw.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+    return [`"${escaped}"`, arduino.ORDER_ATOMIC];
+  };
+
   arduino.forBlock["controls_repeat_ext"] = function (block) {
     const times = arduino.valueToCode(block, "TIMES", arduino.ORDER_NONE) || "0";
     const branch = arduino.statementToCode(block, "DO");
@@ -226,6 +290,15 @@
     contents: [
       {
         kind: "category",
+        name: "Začátek",
+        colour: GOLD,
+        contents: [
+          { kind: "block", type: "shieldio_setup" },
+          { kind: "block", type: "shieldio_loop" },
+        ],
+      },
+      {
+        kind: "category",
         name: "Shieldio RED",
         colour: RED,
         contents: [
@@ -235,12 +308,14 @@
           { kind: "block", type: "shieldio_button" },
           { kind: "block", type: "shieldio_distance" },
           { kind: "block", type: "shieldio_wait" },
+          { kind: "block", type: "shieldio_oled_print" },
+          { kind: "block", type: "shieldio_oled_clear" },
         ],
       },
       {
         kind: "category",
         name: "Logika",
-        colour: "%{BKY_LOGIC_HUE}",
+        colour: SENSE_BLUE,
         contents: [
           { kind: "block", type: "controls_if" },
           { kind: "block", type: "logic_compare" },
@@ -252,7 +327,7 @@
       {
         kind: "category",
         name: "Cykly",
-        colour: "%{BKY_LOOPS_HUE}",
+        colour: ORANGE,
         contents: [
           { kind: "block", type: "controls_repeat_ext" },
           { kind: "block", type: "controls_whileUntil" },
@@ -261,10 +336,11 @@
       {
         kind: "category",
         name: "Matematika",
-        colour: "%{BKY_MATH_HUE}",
+        colour: OPERATOR_GREEN,
         contents: [
           { kind: "block", type: "math_number" },
           { kind: "block", type: "math_arithmetic" },
+          { kind: "block", type: "text" },
         ],
       },
     ],

@@ -1039,8 +1039,12 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   position:fixed; top:0; left:0; right:0; height:3px; z-index:60; pointer-events:none;
 }
 .scroll-progress-bar{
-  height:100%; width:0%;
+  height:100%; width:100%;
   background:linear-gradient(90deg, var(--tier-green), var(--tier-yellow), var(--tier-red));
+  clip-path:inset(0 100% 0 0);
+}
+.scroll-progress-bar.is-pro{
+  background:linear-gradient(90deg, var(--pro-blue), var(--pro-purple));
 }
 
 /* ---------- back to top ---------- */

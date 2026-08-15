@@ -71,7 +71,7 @@
   <div class="wrap" style="max-width:700px;">
     <div class="section-head" style="margin-bottom:0;">
       <span class="eyebrow-dark">Co tenhle prototyp neumí (zatím)</span>
-      <p>OLED displej tu chybí — jeho přesné zapojení jsme si zatím neověřili, takže radši nefabrikujeme piny nazdařbůh. Proměnné a přímé nahrávání do desky z prohlížeče taky ne — to by vyžadovalo výrazně víc práce (a možná backend). Tlačítka počítají se zapojením přes vnitřní pull-up rezistor (běžné pro tenhle typ desky) — stisk = LOW.</p>
+      <p>OLED bloky počítají se standardním 0,96" displejem SSD1306 po I2C (SDA na A4, SCL na A5) — pro jejich vygenerovaný kód budeš v Arduino IDE potřebovat knihovny <b>Adafruit_SSD1306</b> a <b>Adafruit_GFX</b>. Proměnné a přímé nahrávání do desky z prohlížeče tu zatím nejsou — to by vyžadovalo výrazně víc práce (a možná backend). Tlačítka počítají se zapojením přes vnitřní pull-up rezistor (běžné pro tenhle typ desky) — stisk = LOW.</p>
     </div>
   </div>
 </section>

@@ -13,11 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(progressTrack);
   const progressBar = progressTrack.querySelector(".scroll-progress-bar");
 
+  // page is "about PRO" if its own h1 says so — not just any mention of PRO on the page
+  if (document.querySelector("h1 .text-tier-pro")) {
+    progressBar.classList.add("is-pro");
+  }
+
   function updateProgress() {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
-    progressBar.style.width = pct + "%";
+    // the gradient itself never rescales — scrolling only unmasks more of it left-to-right
+    progressBar.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
   }
   window.addEventListener("scroll", updateProgress, { passive: true });
   window.addEventListener("resize", updateProgress);
