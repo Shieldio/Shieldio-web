@@ -1,0 +1,127 @@
+[
+  {
+    "title": "Aktuality",
+    "desc": "Novinky z vývoje a testování desek Shieldio.",
+    "url": "/aktuality/index.html"
+  },
+  {
+    "title": "RED jde předobjednat",
+    "desc": "Deska Shieldio RED se dá nově předobjednat — ve čtyřech variantách podle toho, kolik si chceš sestavit a napájet sám.",
+    "url": "/aktuality/predobjednavka-red.html"
+  },
+  {
+    "title": "Vítejte v Aktualitách",
+    "desc": "Tady budu postupně psát o vývoji, testování a novinkách kolem Shieldio.",
+    "url": "/aktuality/vitejte.html"
+  },
+  {
+    "title": "O nás",
+    "desc": "Poznejte příběh Shieldio, projektu zaměřeného na moderní výuku elektroniky a robotiky.",
+    "url": "/company/about.html"
+  },
+  {
+    "title": "Kontakt",
+    "desc": "Kontaktní stránka Shieldio se právě připravuje.",
+    "url": "/company/contact.html"
+  },
+  {
+    "title": "Dotazník pro školy",
+    "desc": "Pomozte nám ověřit, jestli je Shieldio pro vaši školu nebo kroužek to pravé — krátký dotazník.",
+    "url": "/company/dotaznik.html"
+  },
+  {
+    "title": "Partneři",
+    "desc": "Přehled partnerů Shieldio se právě připravuje.",
+    "url": "/company/partners.html"
+  },
+  {
+    "title": "Ochrana osobních údajů",
+    "desc": "Jaké údaje Shieldio sbírá, proč, a jak je chráníme.",
+    "url": "/company/privacy.html"
+  },
+  {
+    "title": "Časté otázky",
+    "desc": "Odpovědi na časté otázky o deskách Shieldio — pro koho jsou, jak se programují, a jaký je rozdíl mezi úrovněmi.",
+    "url": "/faq.html"
+  },
+  {
+    "title": "Shieldio — Elektronika a robotika srozumitelně pro každého",
+    "desc": "Shieldio jsou Arduino desky s neomylnými konektory a barevně odstupňovanou obtížností. Pro kroužky, školy i jednotlivce, kteří chtějí začít s elektronikou bez pájení a bez frustrace.",
+    "url": "/"
+  },
+  {
+    "title": "Návody: Baseline",
+    "desc": "Návody pro desku Shieldio Baseline se právě připravují.",
+    "url": "/instructions/baseline/"
+  },
+  {
+    "title": "Návod: Časovač",
+    "desc": "Krok za krokem návod na časovač / čidlo pohybu s deskou Shieldio Red.",
+    "url": "/instructions/baseline/red/casovac/"
+  },
+  {
+    "title": "Návody: Baseline Red",
+    "desc": "Vyber si projekt pro desku Baseline Red a najdi krok za krokem návod.",
+    "url": "/instructions/baseline/red/"
+  },
+  {
+    "title": "Návod: Parkovací asistent",
+    "desc": "Krok za krokem návod na parkovacího asistenta s deskou Shieldio Red.",
+    "url": "/instructions/baseline/red/parkovaci-asistent/"
+  },
+  {
+    "title": "Návod: Theremin",
+    "desc": "Krok za krokem návod na theremin s deskou Shieldio Red — bzučák mění tón podle vzdálenosti ruky.",
+    "url": "/instructions/baseline/red/theremin/"
+  },
+  {
+    "title": "Návod: Prototyp závory",
+    "desc": "Krok za krokem návod na interaktivní závoru s deskou Shieldio Red.",
+    "url": "/instructions/baseline/red/zavora/"
+  },
+  {
+    "title": "Návod: Meteostanice",
+    "desc": "Krok za krokem návod na vlastní meteostanici s deskou Shieldio Yellow.",
+    "url": "/instructions/baseline/yellow/meteostanice/"
+  },
+  {
+    "title": "Návody",
+    "desc": "Vyber si desku Shieldio — Baseline nebo PROline — a najdi krok za krokem návody pro svou úroveň.",
+    "url": "/instructions/"
+  },
+  {
+    "title": "Deska Green",
+    "desc": "Deska Shieldio Green — první kontakt s hardwarem. Tlačítka, LED indikace, bzučák a analogový vstup pro senzory.",
+    "url": "/products/GREEN.html"
+  },
+  {
+    "title": "PowerAdd",
+    "desc": "Shieldio PowerAdd — nabíjecí modul, který desky Shieldio odpojí od kabelu. Napájí čtyři větve, sdílí energii i data mezi deskami.",
+    "url": "/products/POWERADD.html"
+  },
+  {
+    "title": "Deska PRO",
+    "desc": "Stránka desky Shieldio PRO se právě připravuje.",
+    "url": "/products/PRO.html"
+  },
+  {
+    "title": "Deska RED",
+    "desc": "Deska Shieldio RED — robotika v pohybu. Ultrazvukový senzor, servo a OLED displej na jedné 100×100 mm desce.",
+    "url": "/products/RED.html"
+  },
+  {
+    "title": "Deska Yellow",
+    "desc": "Deska Shieldio Yellow — postav si vlastní meteostanici. Teplota, vlhkost, fotorezistor, mikrofon a displej.",
+    "url": "/products/YELLOW.html"
+  },
+  {
+    "title": "Deska Baseline",
+    "desc": "Stránka desky Shieldio Baseline se právě připravuje.",
+    "url": "/products/baseline.html"
+  },
+  {
+    "title": "Produkty",
+    "desc": "Vyber si desku Shieldio — Baseline nebo PROline — a podívej se na konkrétní produkt.",
+    "url": "/products/"
+  }
+]

@@ -4,6 +4,9 @@
   <url><loc>https://shieldio.cz/company/about.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://shieldio.cz/company/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/company/dotaznik.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/company/contact.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://shieldio.cz/company/partners.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://shieldio.cz/faq.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://shieldio.cz/aktuality/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://shieldio.cz/aktuality/vitejte.html</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://shieldio.cz/aktuality/predobjednavka-red.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
@@ -13,10 +16,13 @@
   <url><loc>https://shieldio.cz/products/RED.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://shieldio.cz/products/PRO.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/products/POWERADD.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shieldio.cz/products/baseline.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/instructions/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shieldio.cz/instructions/baseline/</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/zavora/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/parkovaci-asistent/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/casovac/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/theremin/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/instructions/baseline/yellow/meteostanice/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>

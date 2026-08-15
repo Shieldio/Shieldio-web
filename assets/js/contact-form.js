@@ -53,25 +53,27 @@ document.addEventListener("DOMContentLoaded", () => {
             <button type="button" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;" data-modal-ok>Zavřít</button>
           `);
           overlay.querySelector("[data-modal-ok]").addEventListener("click", closeFormModal);
-          if (status) { status.textContent = "Zpráva odeslána, ozveme se co nejdřív."; status.classList.add("success"); }
+          if (status) { status.textContent = "✓ Zpráva odeslána, ozveme se co nejdřív."; status.classList.add("success"); }
           form.reset();
         } else {
           openFormModal(`
+            <div class="guide-done-check error" style="width:56px; height:56px; font-size:26px; margin:0 auto 18px;">✕</div>
             <h3 style="text-align:center;">Něco se nepovedlo.</h3>
             <p style="text-align:center;">Zkus to prosím znovu, nebo nám napiš přímo na <a href="mailto:info@shieldio.cz">info@shieldio.cz</a>.</p>
             <button type="button" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;" data-modal-ok>Zavřít</button>
           `);
           overlay.querySelector("[data-modal-ok]").addEventListener("click", closeFormModal);
-          if (status) { status.textContent = "Něco se nepovedlo. Zkus to prosím znovu."; status.classList.add("error"); }
+          if (status) { status.textContent = "✕ Něco se nepovedlo. Zkus to prosím znovu."; status.classList.add("error"); }
         }
       } catch (err) {
         openFormModal(`
+          <div class="guide-done-check error" style="width:56px; height:56px; font-size:26px; margin:0 auto 18px;">✕</div>
           <h3 style="text-align:center;">Něco se nepovedlo.</h3>
           <p style="text-align:center;">Zkus to prosím znovu, nebo nám napiš přímo na <a href="mailto:info@shieldio.cz">info@shieldio.cz</a>.</p>
           <button type="button" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;" data-modal-ok>Zavřít</button>
         `);
         overlay.querySelector("[data-modal-ok]").addEventListener("click", closeFormModal);
-        if (status) { status.textContent = "Něco se nepovedlo. Zkus to prosím znovu."; status.classList.add("error"); }
+        if (status) { status.textContent = "✕ Něco se nepovedlo. Zkus to prosím znovu."; status.classList.add("error"); }
       } finally {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;

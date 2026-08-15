@@ -12,6 +12,7 @@
   --paper:#fbfbfd;
   --paper-2:#f5f5f7;
   --line:#d2d2d7;
+  --surface:#fff;
 
   /* text */
   --ink:#1d1d1f;
@@ -116,6 +117,7 @@ img{ max-width:100%; display:block; }
   display:block; width:100%; height:2px; border-radius:2px; background:var(--ink);
   transition:transform .3s var(--ease), opacity .3s var(--ease);
 }
+.topbar-mobile-utils{ display:none; }
 @media (max-width:800px){
   .nav-toggle{ display:flex; }
   .topbar nav{
@@ -131,6 +133,10 @@ img{ max-width:100%; display:block; }
   .topbar.nav-open .nav-toggle span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
   .topbar.nav-open .nav-toggle span:nth-child(2){ opacity:0; }
   .topbar.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  /* no room for icon buttons next to the cta pill + hamburger at this width —
+     they move into the nav dropdown instead, see .topbar-mobile-utils below */
+  .nav-links > .theme-toggle, .nav-links > .search-toggle{ display:none; }
+  .topbar-mobile-utils{ display:flex; gap:12px; padding-bottom:14px; }
 }
 
 /* ---------- hero ---------- */
@@ -240,7 +246,7 @@ section{ padding:140px 0; }
 }
 @media (max-width:800px){ .problem-grid{ grid-template-columns:1fr; } }
 .problem-card{
-  background:#fff; padding:36px 32px; border-radius:var(--radius);
+  background:var(--surface); padding:36px 32px; border-radius:var(--radius);
   box-shadow:var(--shadow-card);
   transition:transform .3s var(--ease), box-shadow .3s var(--ease);
 }
@@ -255,7 +261,7 @@ section{ padding:140px 0; }
 .tiers{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 @media (max-width:900px){ .tiers{ grid-template-columns:1fr; } }
 .tier-card{
-  background:#fff; border:2px solid var(--line); border-radius:var(--radius);
+  background:var(--surface); border:2px solid var(--line); border-radius:var(--radius);
   padding:32px; position:relative; display:flex; flex-direction:column;
   box-shadow:var(--shadow-card); overflow:hidden;
   transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
@@ -333,16 +339,8 @@ section{ padding:140px 0; }
 .deepdive-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
 @media (max-width:900px){ .deepdive-grid{ grid-template-columns:1fr; } }
 .deepdive-photos{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.deepdive-photos img{ border-radius:16px; border:1px solid rgba(255,255,255,0.08); }
-.spec-list{ list-style:none; margin:28px 0 0; padding:0; }
-.spec-list li{
-  display:grid; grid-template-columns:120px 1fr; gap:16px;
-  padding:15px 0; border-top:1px solid rgba(255,255,255,0.08); font-size:14.5px;
-}
-.spec-list li:first-child{ border-top:none; }
-.spec-list b{ font-family:'JetBrains Mono'; font-size:12px; color:var(--accent-soft); font-weight:600; }
-.spec-list span{ color:#c7c7cc; }
-
+.deepdive-photos img{ border-radius:16px; border:1px solid var(--line); }
+.deepdive .deepdive-photos img{ border-color:rgba(255,255,255,0.08); }
 /* ---------- product spec rows (icon + description, Apple product-page style) ---------- */
 .spec-rows{ margin-top:28px; }
 .spec-row{
@@ -381,7 +379,7 @@ section{ padding:140px 0; }
 .model-carousel::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
 .model-card{
   scroll-snap-align:start; flex:0 0 300px;
-  background:#fff; border-radius:var(--radius); box-shadow:var(--shadow-card);
+  background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow-card);
   padding:24px; display:flex; flex-direction:column; text-decoration:none; color:inherit;
   transition:transform .3s var(--ease), box-shadow .3s var(--ease);
 }
@@ -439,7 +437,7 @@ section{ padding:140px 0; }
 @media (max-width:900px){ .benefits{ grid-template-columns:1fr 1fr; } }
 @media (max-width:600px){ .benefits{ grid-template-columns:1fr; } }
 .benefit{
-  background:#fff; border:none; border-radius:var(--radius); padding:28px;
+  background:var(--surface); border:none; border-radius:var(--radius); padding:28px;
   box-shadow:var(--shadow-card);
   transition:transform .3s var(--ease), box-shadow .3s var(--ease);
 }
@@ -470,7 +468,7 @@ section{ padding:140px 0; }
 .contact-list li:first-child{ border-top:none; }
 .contact-list b{ color:var(--accent-soft); font-family:'JetBrains Mono'; font-size:12px; min-width:82px; }
 
-.form-card{ background:#fff; color:var(--ink); border-radius:var(--radius); padding:32px; }
+.form-card{ background:var(--surface); color:var(--ink); border-radius:var(--radius); padding:32px; }
 .form-card h3{ font-size:17px; margin-bottom:4px; letter-spacing:-0.01em; }
 .form-card .form-sub{ font-size:13.5px; color:var(--ink-soft); margin-bottom:22px; }
 .field{ margin-bottom:16px; }
@@ -484,8 +482,11 @@ section{ padding:140px 0; }
 .field textarea{ resize:vertical; min-height:80px; }
 .form-card .btn-primary{ width:100%; justify-content:center; margin-top:8px; border:none; }
 .form-status{ font-size:13.5px; margin-top:12px; text-align:center; min-height:1.4em; }
-.form-status.success{ color:var(--tier-green-deep); }
-.form-status.error{ color:var(--tier-red-deep); }
+.form-status.success, .form-status.error{
+  display:block; padding:12px 16px; border-radius:12px; font-weight:600;
+}
+.form-status.success{ color:var(--tier-green-deep); background:rgba(22,181,72,0.1); }
+.form-status.error{ color:var(--tier-red-deep); background:rgba(247,35,56,0.1); }
 
 /* ---------- pre-order picker (variant radio cards + live total) ---------- */
 /* generic/data-driven: price comes from each radio's data-price, so adding a 6th
@@ -498,7 +499,7 @@ section{ padding:140px 0; }
   position:absolute; opacity:0; width:1px; height:1px; margin:0; pointer-events:none;
 }
 .preorder-option-body{
-  display:block; height:100%; background:#fff; border:2px solid var(--line); border-radius:var(--radius);
+  display:block; height:100%; background:var(--surface); border:2px solid var(--line); border-radius:var(--radius);
   padding:22px 24px;
   transition:border-color .25s var(--ease), box-shadow .25s var(--ease), transform .2s var(--ease);
 }
@@ -574,7 +575,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 
 /* ---------- instruction cards ---------- */
 .instruction-card{
-  background:#fff;
+  background:var(--surface);
   border:none;
   border-radius:var(--radius);
   padding:36px;
@@ -675,7 +676,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter',sans-serif;
   font-size:19px; font-weight:700; letter-spacing:0.03em; text-transform:uppercase;
   padding:30px 20px; border-radius:var(--radius);
-  border:6px solid var(--line); cursor:pointer; background:#fff; color:var(--ink);
+  border:6px solid var(--line); cursor:pointer; background:var(--surface); color:var(--ink);
   box-shadow:var(--shadow-card); position:relative; overflow:hidden; isolation:isolate;
   opacity:0; transform:translateY(14px);
   transition:transform .3s var(--ease), box-shadow .3s var(--ease),
@@ -762,7 +763,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 /* ---------- FAQ ---------- */
 .faq-list{ max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
 .faq-item{
-  background:#fff; border:1px solid var(--line); border-radius:16px;
+  background:var(--surface); border:1px solid var(--line); border-radius:16px;
   padding:22px 26px; transition:border-color .2s var(--ease), box-shadow .2s var(--ease);
 }
 .faq-item:hover{ box-shadow:var(--shadow-card); }
@@ -795,7 +796,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 .guide-app.tier-red .guide-progress-fill{ background:var(--tier-red); }
 
 .guide-card{
-  background:#fff; border-radius:var(--radius); box-shadow:var(--shadow-card);
+  background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow-card);
   padding:44px; margin-top:32px; width:100%;
 }
 @media (max-width:640px){ .guide-card{ padding:28px 22px; } }
@@ -838,7 +839,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft); cursor:pointer;
   transition:background .2s var(--ease), color .2s var(--ease);
 }
-.guide-mode-btn.active{ background:#fff; color:var(--ink); box-shadow:var(--shadow-card); font-weight:500; }
+.guide-mode-btn.active{ background:var(--surface); color:var(--ink); box-shadow:var(--shadow-card); font-weight:500; }
 .guide-code-block{
   background:#1d1d1f; color:#f5f5f7; padding:20px; border-radius:14px; overflow-x:auto;
   font-family:'JetBrains Mono'; font-size:13px; line-height:1.6; margin-bottom:20px;
@@ -927,6 +928,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   color:#fff; font-size:32px; display:flex; align-items:center; justify-content:center;
   margin:0 auto 24px;
 }
+.guide-done-check.error{ background:var(--tier-red); }
 .guide-done h1{ font-size:clamp(26px,3.4vw,34px); letter-spacing:-0.02em; }
 
 .guide-next-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:28px; margin-top:20px; }
@@ -949,7 +951,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
 }
 .modal-overlay.active{ opacity:1; pointer-events:auto; }
 .modal-card{
-  background:#fff; border-radius:var(--radius); padding:36px; max-width:420px; width:100%;
+  background:var(--surface); border-radius:var(--radius); padding:36px; max-width:420px; width:100%;
   position:relative; max-height:85vh; overflow-y:auto;
   transform:scale(0.96); transition:transform .25s var(--ease);
 }
@@ -988,3 +990,119 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   .guide-step.active .tier-pick-btn{ transform:none !important; }
   .guide-step.active .tier-pick-btn.active{ transform:none !important; }
 }
+
+/* ==========================================================================
+   DARK MODE
+   Almost every component already reads its colors from the vars below —
+   .hero / .deepdive / .cta-section / footer stay --navy (already dark) in
+   both themes, so they need no overrides here. Only the "paper" surfaces
+   and a handful of hardcoded light-only hairline borders need a dark pass.
+   ========================================================================== */
+:root[data-theme="dark"]{
+  --paper:#000000;
+  --paper-2:#121214;
+  --line:#38383a;
+  --ink:#f5f5f7;
+  --ink-soft:#98989d;
+  --surface:#1c1c1e;
+  --shadow-card:0 1px 2px rgba(0,0,0,0.4), 0 12px 28px -12px rgba(0,0,0,0.7);
+  --shadow-card-hover:0 2px 4px rgba(0,0,0,0.5), 0 24px 48px -16px rgba(0,0,0,0.8);
+  /* the "-deep" tier colors exist only for AA contrast on light cards — once
+     cards go dark, the vivid tier color already reads fine, so alias to it */
+  --tier-green-deep:var(--tier-green);
+  --tier-yellow-deep:var(--tier-yellow);
+  --tier-red-deep:var(--tier-red);
+}
+:root[data-theme="dark"] .topbar{ background:rgba(0,0,0,0.72); border-bottom-color:rgba(255,255,255,0.08); }
+:root[data-theme="dark"] .logo-mark{ box-shadow:0 0 0 2px var(--paper), 0 0 0 3px rgba(255,255,255,0.14); }
+:root[data-theme="dark"] .topbar nav{ border-bottom-color:rgba(255,255,255,0.08); }
+:root[data-theme="dark"] .guide-card .btn-ghost{ border-color:rgba(255,255,255,0.16); }
+:root[data-theme="dark"] .guide-card .btn-ghost:hover{ border-color:rgba(255,255,255,0.3); }
+:root[data-theme="dark"] .guide-tip{ border-top-color:rgba(255,255,255,0.08); }
+
+/* ---------- theme toggle button ---------- */
+.theme-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--line);
+  background:none; color:var(--ink-soft); cursor:pointer; flex-shrink:0;
+  transition:border-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+}
+.theme-toggle:hover{ color:var(--ink); border-color:var(--ink-soft); }
+.theme-toggle:active{ transform:scale(0.92); }
+.theme-toggle svg{ width:17px; height:17px; }
+.theme-toggle .icon-moon{ display:none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun{ display:none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon{ display:block; }
+
+/* ---------- scroll progress bar ---------- */
+.scroll-progress-track{
+  position:fixed; top:0; left:0; right:0; height:3px; z-index:60; pointer-events:none;
+}
+.scroll-progress-bar{
+  height:100%; width:0%;
+  background:linear-gradient(90deg, var(--tier-green), var(--tier-yellow), var(--tier-red));
+}
+
+/* ---------- back to top ---------- */
+.back-to-top{
+  position:fixed; right:24px; bottom:24px; z-index:55;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--surface); color:var(--ink); border:1px solid var(--line);
+  box-shadow:var(--shadow-card-hover);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  opacity:0; pointer-events:none; transform:translateY(10px) scale(0.9);
+  transition:opacity .25s var(--ease), transform .25s var(--ease), border-color .2s var(--ease), bottom .3s var(--ease);
+}
+.back-to-top.visible{ opacity:1; pointer-events:auto; transform:translateY(0) scale(1); }
+.back-to-top:hover{ border-color:var(--ink-soft); }
+.back-to-top:active{ transform:scale(0.92); }
+.back-to-top svg{ width:18px; height:18px; }
+body.has-cookie-banner .back-to-top{ bottom:132px; }
+@media (max-width:640px){ .back-to-top{ right:16px; bottom:16px; } body.has-cookie-banner .back-to-top{ bottom:168px; } }
+
+/* ---------- cookie consent banner ---------- */
+.cookie-banner{
+  position:fixed; left:20px; right:20px; bottom:20px; z-index:70;
+  max-width:560px; margin:0 auto;
+  background:var(--surface); color:var(--ink); border:1px solid var(--line);
+  border-radius:18px; padding:22px 24px;
+  box-shadow:var(--shadow-card-hover);
+  display:flex; flex-direction:column; gap:14px;
+  transform:translateY(20px); opacity:0; pointer-events:none;
+  transition:transform .35s var(--ease), opacity .35s var(--ease);
+}
+.cookie-banner.visible{ transform:translateY(0); opacity:1; pointer-events:auto; }
+.cookie-banner p{ font-size:13.5px; color:var(--ink-soft); margin:0; line-height:1.5; }
+.cookie-banner p a{ color:var(--accent); }
+.cookie-banner-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+.cookie-banner-actions .btn{ padding:9px 20px; font-size:13px; }
+
+/* ---------- last updated (footer) ---------- */
+.last-updated{ font-size:11px; color:#6e6e73; font-family:'JetBrains Mono'; width:100%; text-align:center; margin-top:8px; opacity:0.7; }
+
+/* ---------- search toggle + modal ---------- */
+.search-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--line);
+  background:none; color:var(--ink-soft); cursor:pointer; flex-shrink:0;
+  transition:border-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+}
+.search-toggle:hover{ color:var(--ink); border-color:var(--ink-soft); }
+.search-toggle:active{ transform:scale(0.92); }
+.search-toggle svg{ width:17px; height:17px; }
+.search-card{ max-width:520px; padding:20px; text-align:left; }
+.search-input{
+  width:100%; padding:14px 16px; border-radius:14px; border:1px solid var(--line);
+  font-family:inherit; font-size:16px; background:var(--paper); color:var(--ink);
+  margin-top:8px;
+}
+.search-input:focus{ outline:none; border-color:var(--ink-soft); }
+.search-results{ margin-top:10px; max-height:360px; overflow-y:auto; }
+.search-empty{ font-size:13.5px; color:var(--ink-soft); padding:16px 4px; margin:0; }
+.search-result{
+  display:flex; flex-direction:column; gap:2px; padding:12px 10px; border-radius:12px;
+  text-decoration:none; color:inherit; transition:background .15s var(--ease);
+}
+.search-result:hover, .search-result:focus{ background:var(--paper-2); }
+.search-result-title{ font-size:14.5px; font-weight:600; letter-spacing:-0.005em; }
+.search-result-desc{ font-size:12.5px; color:var(--ink-soft); line-height:1.4; }
