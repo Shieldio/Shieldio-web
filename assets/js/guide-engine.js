@@ -277,7 +277,9 @@
       ? (content.code
           ? `<pre class="guide-code-block"><code>${escapeHtml(content.code)}</code></pre>`
           : `<p class="guide-instructions">${content.note || "Ukázkový Arduino kód pro tento projekt zatím připravujeme — než bude hotový, doporučujeme začít s blokovým programováním v mBlocku."}</p>`)
-      : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">📥 Otevřít projekt</a>`;
+      : (content.blocksEditorHref
+          ? `<a class="btn btn-primary" href="${content.blocksEditorHref}">🧩 Otevřít v blokovém editoru</a>`
+          : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">📥 Otevřít projekt</a>`);
 
     return `
       <div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, useArduino ? "Arduino IDE" : "mBlock")}</div>

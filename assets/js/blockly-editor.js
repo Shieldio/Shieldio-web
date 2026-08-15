@@ -53,6 +53,69 @@ document.addEventListener("DOMContentLoaded", () => {
   loopBlock.render();
   loopBlock.moveBy(30, 220);
 
+  // ---------- project presets ----------
+  // a guide can link here with ?preset=<id> to drop the visitor straight into a
+  // working starter program for that specific project, instead of a blank canvas
+  const PRESETS = {
+    zavora(ws, loop) {
+      function ifServo(op, threshold, angle) {
+        const ifB = ws.newBlock("controls_if");
+        ifB.initSvg();
+        ifB.render();
+
+        const cmp = ws.newBlock("logic_compare");
+        cmp.initSvg();
+        cmp.render();
+        cmp.setFieldValue(op, "OP");
+
+        const dist = ws.newBlock("shieldio_distance");
+        dist.initSvg();
+        dist.render();
+        cmp.getInput("A").connection.connect(dist.outputConnection);
+
+        const threshNum = ws.newBlock("math_number");
+        threshNum.initSvg();
+        threshNum.render();
+        threshNum.setFieldValue(threshold, "NUM");
+        cmp.getInput("B").connection.connect(threshNum.outputConnection);
+
+        ifB.getInput("IF0").connection.connect(cmp.outputConnection);
+
+        const servo = ws.newBlock("shieldio_servo");
+        servo.initSvg();
+        servo.render();
+        const angleNum = ws.newBlock("math_number");
+        angleNum.initSvg();
+        angleNum.render();
+        angleNum.setFieldValue(angle, "NUM");
+        servo.getInput("ANGLE").connection.connect(angleNum.outputConnection);
+
+        ifB.getInput("DO0").connection.connect(servo.previousConnection);
+        return ifB;
+      }
+
+      const openIf = ifServo("LT", 15, 90);
+      const closeIf = ifServo("GTE", 15, 0);
+      loop.getInput("LOOP").connection.connect(openIf.previousConnection);
+      openIf.nextConnection.connect(closeIf.previousConnection);
+    },
+  };
+
+  function showPresetBanner(text) {
+    const banner = document.createElement("p");
+    banner.className = "form-status success";
+    banner.style.marginBottom = "16px";
+    banner.textContent = text;
+    document.getElementById("blocklyDiv")?.closest("section")?.querySelector(".wrap")?.prepend(banner);
+  }
+
+  const presetId = new URLSearchParams(location.search).get("preset");
+  if (presetId && PRESETS[presetId]) {
+    PRESETS[presetId](workspace, loopBlock);
+    workspace.cleanUp();
+    showPresetBanner("✓ Nahrán startovní program pro tenhle projekt — uprav si ho, jak chceš.");
+  }
+
   const codeEl = document.getElementById("generatedCode");
   const statusEl = document.getElementById("editorStatus");
 

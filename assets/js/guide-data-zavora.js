@@ -171,9 +171,10 @@ window.SHIELDIO_GUIDE = {
           ],
         },
       ],
+      blocksEditorHref: "../../../../instructions/blokovy-editor.html?preset=zavora",
       arduino: {
         screenshot: null,
-        note: "Ukázkový Arduino kód pro tento projekt zatím připravujeme — než bude hotový, doporučujeme začít s blokovým programováním v mBlocku.",
+        note: 'Ukázkový Arduino kód pro tento projekt zatím připravujeme — zkus mezitím blokové programování v <a href="../../../../instructions/blokovy-editor.html?preset=zavora">našem editoru</a>, má už nachystaný startovní program přesně pro tenhle projekt.',
         diagnostics: [
           {
             title: "Chyba: Nelze nahrát (upload error)",
