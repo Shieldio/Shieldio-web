@@ -1,4 +1,0 @@
-# Custom 404 — Cloudflare Pages' clean-URL redirect (.html -> extensionless)
-# interferes with its own automatic 404.html detection, returning an empty
-# 404 body instead of the real page. This explicit rule bypasses that.
-/*  /404.html  404
