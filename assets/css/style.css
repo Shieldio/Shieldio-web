@@ -135,7 +135,7 @@ img{ max-width:100%; display:block; }
   .topbar.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
   /* no room for icon buttons next to the cta pill + hamburger at this width —
      they move into the nav dropdown instead, see .topbar-mobile-utils below */
-  .nav-links > .theme-toggle, .nav-links > .search-toggle{ display:none; }
+  .nav-links > .theme-toggle, .nav-links > .search-toggle, .nav-links > .lang-toggle{ display:none; }
   .topbar-mobile-utils{ display:flex; gap:12px; padding-bottom:14px; }
 }
 
@@ -1090,6 +1090,16 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 .search-toggle:hover{ color:var(--ink); border-color:var(--ink-soft); }
 .search-toggle:active{ transform:scale(0.92); }
 .search-toggle svg{ width:17px; height:17px; }
+
+.lang-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:34px; height:34px; padding:0 10px; border-radius:var(--radius-pill); border:1px solid var(--line);
+  background:none; color:var(--ink-soft); cursor:pointer; flex-shrink:0;
+  font-family:'JetBrains Mono'; font-size:12px; font-weight:600; letter-spacing:0.02em;
+  transition:border-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+}
+.lang-toggle:hover{ color:var(--ink); border-color:var(--ink-soft); }
+.lang-toggle:active{ transform:scale(0.92); }
 .search-card{ max-width:520px; padding:20px; text-align:left; }
 .search-input{
   width:100%; padding:14px 16px; border-radius:14px; border:1px solid var(--line);

@@ -54,7 +54,7 @@
 </script>
 </head>
 
-<body>
+<body data-i18n-title="red.title">
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -64,12 +64,12 @@
     </a>
     <div class="nav-links">
       <nav>
-        <a href="../index.html">Domů</a>
-        <a href="index.html">Produkty</a>
-        <a href="../instructions/index.html">Návody</a>
-        <a href="../company/about.html">O nás</a>
+        <a href="../index.html" data-i18n="nav.home">Domů</a>
+        <a href="index.html" data-i18n="nav.products">Produkty</a>
+        <a href="../instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="../company/about.html" data-i18n="nav.about">O nás</a>
       </nav>
-      <a class="cta-small" href="../index.html#kontakt">Napsat nám</a>
+      <a class="cta-small" href="../index.html#kontakt" data-i18n="nav.cta_contact">Napsat nám</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -80,17 +80,17 @@
 <div class="hero" style="padding-bottom:60px;">
   <div class="wrap hero-grid">
     <div class="fade-up">
-      <span class="eyebrow">Baseline · Úroveň 3</span>
-      <h1>Deska <em class="text-tier-red">RED</em>.</h1>
-      <p class="lead">Robotika v pohybu — ultrazvukový senzor vzdálenosti, servo a OLED displej na jedné desce. Výchozí projekt: funkční prototyp závory.</p>
+      <span class="eyebrow" data-i18n="red.eyebrow">Baseline · Úroveň 3</span>
+      <h1 data-i18n="red.h1">Deska <em class="text-tier-red">RED</em>.</h1>
+      <p class="lead" data-i18n="red.lead">Robotika v pohybu — ultrazvukový senzor vzdálenosti, servo a OLED displej na jedné desce. Výchozí projekt: funkční prototyp závory.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#preorder">Předobjednat</a>
-        <a class="btn btn-ghost" href="../instructions/baseline/red/index.html">Zobrazit návod</a>
+        <a class="btn btn-primary" href="#preorder" data-i18n="red.hero_preorder">Předobjednat</a>
+        <a class="btn btn-ghost" href="../instructions/baseline/red/index.html" data-i18n="red.hero_guide">Zobrazit návod</a>
       </div>
     </div>
     <div class="board-figure fade-up delay-1">
       <div class="board-photo-frame">
-        <span class="board-tag">RED · ve vývoji</span>
+        <span class="board-tag" data-i18n="home.board_tag">RED · ve vývoji</span>
         <img src="../assets/images/RED_board_with_scene.jpeg" alt="Červená deska Shieldio s ultrazvukovým senzorem, servem a OLED displejem, v akci s modelem auta a závorou">
       </div>
     </div>
@@ -100,9 +100,9 @@
 <section class="deepdive">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow-dark">Nahlédnutí do vývoje</span>
-      <h2><span class="text-tier-red">RED</span> deska: první funkční prototyp.</h2>
-      <p>Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce — s popisy součástek přímo na plošném spoji.</p>
+      <span class="eyebrow-dark" data-i18n="home.deepdive.eyebrow">Nahlédnutí do vývoje</span>
+      <h2 data-i18n="home.deepdive.h2"><span class="text-tier-red">RED</span> deska: první funkční prototyp.</h2>
+      <p data-i18n="home.deepdive.p">Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce — s popisy součástek přímo na plošném spoji.</p>
     </div>
     <div class="deepdive-grid">
       <div class="deepdive-photos">
@@ -113,34 +113,34 @@
         <div class="spec-rows">
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div>
-            <p><b>Arduino Nano</b> jako řídicí jednotka — program nahráváš přímo přes USB-C.</p>
+            <p data-i18n="home.deepdive.spec1"><b>Arduino Nano</b> jako řídicí jednotka — program nahráváš přímo přes USB-C.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="6" cy="18" r="1.4" fill="currentColor" stroke="none"/><path d="M6 14a4 4 0 014 4M6 10a8 8 0 018 8M6 6a12 12 0 0112 12"/></svg></div>
-            <p><b>Ultrazvukový snímač</b> vzdálenosti — základ pro všechny čtyři projekty na této desce.</p>
+            <p data-i18n="red.deepdive.spec2"><b>Ultrazvukový snímač</b> vzdálenosti — základ pro všechny čtyři projekty na této desce.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M8 20h8"/></svg></div>
-            <p><b>OLED displej</b> a dvě barevné LED pro okamžitou zpětnou vazbu z programu.</p>
+            <p data-i18n="red.deepdive.spec3"><b>OLED displej</b> a dvě barevné LED pro okamžitou zpětnou vazbu z programu.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></div>
-            <p><b>Servo SG90</b> pro mechanický pohyb a <b>bzučák</b> pro zvukovou odezvu.</p>
+            <p data-i18n="red.deepdive.spec4"><b>Servo SG90</b> pro mechanický pohyb a <b>bzučák</b> pro zvukovou odezvu.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></div>
-            <p><b>Dvě tlačítka</b> přímo na desce pro ovládání bez nutnosti počítače.</p>
+            <p data-i18n="red.deepdive.spec5"><b>Dvě tlačítka</b> přímo na desce pro ovládání bez nutnosti počítače.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4M16 3v4M6 7h12v4a6 6 0 01-12 0V7z"/><path d="M12 17v4"/></svg></div>
-            <p><b>Konektory JST-XH</b> a Power&amp;Data link pro robustní propojení mezi deskami.</p>
+            <p data-i18n="home.deepdive.spec5"><b>Konektory JST-XH</b> a Power&amp;Data link pro robustní propojení mezi deskami.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div>
-            <p><b>100×100 mm</b> formát — stejný napříč celou řadou Baseline.</p>
+            <p data-i18n="red.deepdive.spec7"><b>100×100 mm</b> formát — stejný napříč celou řadou Baseline.</p>
           </div>
         </div>
-        <div class="dev-badge" style="margin-top:24px;">Aktuálně ve vývoji</div>
+        <div class="dev-badge" style="margin-top:24px;" data-i18n="home.tier_red.badge">Aktuálně ve vývoji</div>
       </div>
     </div>
   </div>
@@ -149,33 +149,33 @@
 <section>
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow-dark">Co si můžeš postavit</span>
-      <h2>Jedna deska, čtyři různé projekty.</h2>
+      <span class="eyebrow-dark" data-i18n="red.projects_eyebrow">Co si můžeš postavit</span>
+      <h2 data-i18n="red.projects_h2">Jedna deska, čtyři různé projekty.</h2>
     </div>
     <div class="benefits">
       <div class="benefit fade-up">
         <div class="benefit-icon">01</div>
-        <h3>Interaktivní závora</h3>
-        <p>Ultrazvukový senzor měří vzdálenost přijíždějícího auta a servo ovládá závoru.</p>
+        <h3 data-i18n="red.project1_h3">Interaktivní závora</h3>
+        <p data-i18n="red.project1_p">Ultrazvukový senzor měří vzdálenost přijíždějícího auta a servo ovládá závoru.</p>
       </div>
       <div class="benefit fade-up">
         <div class="benefit-icon">02</div>
-        <h3>Parkovací asistent</h3>
-        <p>Senzor hlídá vzdálenost od překážky a přes displej a LED dává vědět, kdy zastavit.</p>
+        <h3 data-i18n="red.project2_h3">Parkovací asistent</h3>
+        <p data-i18n="red.project2_p">Senzor hlídá vzdálenost od překážky a přes displej a LED dává vědět, kdy zastavit.</p>
       </div>
       <div class="benefit fade-up">
         <div class="benefit-icon">03</div>
-        <h3>Theremin</h3>
-        <p>Bezdotykový hudební nástroj — vzdálenost ruky od senzoru mění výšku tónu.</p>
+        <h3 data-i18n="red.project3_h3">Theremin</h3>
+        <p data-i18n="red.project3_p">Bezdotykový hudební nástroj — vzdálenost ruky od senzoru mění výšku tónu.</p>
       </div>
       <div class="benefit fade-up">
         <div class="benefit-icon">04</div>
-        <h3>Časovač</h3>
-        <p>Měření vzdálenosti a času — základ pro vlastní časomíru nebo čidlo pohybu.</p>
+        <h3 data-i18n="red.project4_h3">Časovač</h3>
+        <p data-i18n="red.project4_p">Měření vzdálenosti a času — základ pro vlastní časomíru nebo čidlo pohybu.</p>
       </div>
     </div>
     <div class="hero-ctas" style="margin-top:36px;">
-      <a class="btn btn-primary" href="../instructions/baseline/red/index.html">Zobrazit návody k projektům</a>
+      <a class="btn btn-primary" href="../instructions/baseline/red/index.html" data-i18n="red.projects_cta">Zobrazit návody k projektům</a>
     </div>
   </div>
 </section>
@@ -183,9 +183,9 @@
 <section id="preorder" style="background:var(--paper-2);">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow-dark">Pre-order</span>
-      <h2>Předobjednej si <span class="text-tier-red">RED</span>.</h2>
-      <p>Vyber si variantu podle toho, kolik chceš pájet sám. Předobjednávka je nezávazná rezervace kusu z aktuální malé série — platbu a přesný termín dodání domluvíme e-mailem.</p>
+      <span class="eyebrow-dark" data-i18n="red.preorder_eyebrow">Pre-order</span>
+      <h2 data-i18n="red.preorder_h2">Předobjednej si <span class="text-tier-red">RED</span>.</h2>
+      <p data-i18n="red.preorder_p">Vyber si variantu podle toho, kolik chceš pájet sám. Předobjednávka je nezávazná rezervace kusu z aktuální malé série — platbu a přesný termín dodání domluvíme e-mailem.</p>
     </div>
 
     <form class="web3form preorder" action="https://api.web3forms.com/submit" method="POST">
@@ -193,92 +193,92 @@
       <input type="hidden" name="subject" value="Předobjednávka Shieldio RED">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
-      <div class="model-group-label">Doporučujeme</div>
+      <div class="model-group-label" data-i18n="red.group_recommended">Doporučujeme</div>
       <div class="preorder-options preorder-options-featured">
         <label class="preorder-option featured">
           <input type="radio" name="varianta" value="Nesestavená kompletní sada — 550 Kč" data-price="550">
           <span class="preorder-option-body">
             <span class="preorder-option-head">
-              <span class="preorder-option-name">Nesestavená kompletní sada</span>
+              <span class="preorder-option-name" data-i18n="red.opt_unassembled_name">Nesestavená kompletní sada</span>
               <span class="preorder-option-price">550 Kč</span>
             </span>
-            <span class="preorder-option-desc">Deska a všechny součástky zvlášť, nespojené — pájíš a sestavuješ si sám.</span>
+            <span class="preorder-option-desc" data-i18n="red.opt_unassembled_desc">Deska a všechny součástky zvlášť, nespojené — pájíš a sestavuješ si sám.</span>
           </span>
         </label>
         <label class="preorder-option featured">
           <input type="radio" name="varianta" value="Sestavená kompletní — 750 Kč" data-price="750" checked>
           <span class="preorder-option-body">
             <span class="preorder-option-head">
-              <span class="preorder-option-name">Sestavená kompletní</span>
+              <span class="preorder-option-name" data-i18n="red.opt_assembled_name">Sestavená kompletní</span>
               <span class="preorder-option-price">750 Kč</span>
             </span>
-            <span class="preorder-option-desc">Hotová deska se všemi součástkami — ultrazvuk, Arduino, displej, kabel. Připojíš a jede.</span>
+            <span class="preorder-option-desc" data-i18n="red.opt_assembled_desc">Hotová deska se všemi součástkami — ultrazvuk, Arduino, displej, kabel. Připojíš a jede.</span>
           </span>
         </label>
       </div>
 
-      <div class="model-group-label">Další možnosti</div>
+      <div class="model-group-label" data-i18n="red.group_other">Další možnosti</div>
       <div class="preorder-options preorder-options-standard">
         <label class="preorder-option compact">
           <input type="radio" name="varianta" value="Holá deska (PCB), nepájená — 120 Kč" data-price="120">
           <span class="preorder-option-body">
             <span class="preorder-option-head">
-              <span class="preorder-option-name">Holá deska (PCB)</span>
+              <span class="preorder-option-name" data-i18n="red.opt_bare_name">Holá deska (PCB)</span>
               <span class="preorder-option-price">120 Kč</span>
             </span>
-            <span class="preorder-option-desc">Jen samotný plošný spoj, bez součástek — pro stavbu úplně od nuly.</span>
+            <span class="preorder-option-desc" data-i18n="red.opt_bare_desc">Jen samotný plošný spoj, bez součástek — pro stavbu úplně od nuly.</span>
           </span>
         </label>
         <label class="preorder-option compact">
           <input type="radio" name="varianta" value="Sestavená základní — 220 Kč" data-price="220">
           <span class="preorder-option-body">
             <span class="preorder-option-head">
-              <span class="preorder-option-name">Sestavená základní</span>
+              <span class="preorder-option-name" data-i18n="red.opt_basic_name">Sestavená základní</span>
               <span class="preorder-option-price">220 Kč</span>
             </span>
-            <span class="preorder-option-desc">Připájené jen součástky přímo na desce — bez ultrazvuku, Arduina, displeje a kabelu.</span>
+            <span class="preorder-option-desc" data-i18n="red.opt_basic_desc">Připájené jen součástky přímo na desce — bez ultrazvuku, Arduina, displeje a kabelu.</span>
           </span>
         </label>
         <label class="preorder-option compact">
           <input type="radio" name="varianta" value="EduSET — 5× sestavená kompletní — 3500 Kč" data-price="3500">
           <span class="preorder-option-body">
             <span class="preorder-option-head">
-              <span class="preorder-option-name">EduSET<span class="preorder-badge">5×</span></span>
+              <span class="preorder-option-name" data-i18n="red.opt_eduset_name">EduSET<span class="preorder-badge">5×</span></span>
               <span class="preorder-option-price">3500 Kč</span>
             </span>
-            <span class="preorder-option-desc">Pět kompletně sestavených desek za zvýhodněnou cenu — pro kroužek nebo třídu.</span>
+            <span class="preorder-option-desc" data-i18n="red.opt_eduset_desc">Pět kompletně sestavených desek za zvýhodněnou cenu — pro kroužek nebo třídu.</span>
           </span>
         </label>
       </div>
 
       <div class="preorder-summary">
         <div class="field">
-          <label for="preorder-qty">Počet kusů</label>
+          <label for="preorder-qty" data-i18n="red.qty_label">Počet kusů</label>
           <input type="number" id="preorder-qty" name="pocet" value="1" min="1" max="20" class="mono" style="width:100px;">
         </div>
         <div class="preorder-total">
-          <span>Celkem</span>
+          <span data-i18n="red.total_label">Celkem</span>
           <b id="preorder-total-price">750 Kč</b>
         </div>
       </div>
       <input type="hidden" name="celkova_cena" id="preorder-total-hidden" value="750 Kč">
 
       <div class="field">
-        <label for="preorder-name">Jméno</label>
-        <input id="preorder-name" name="jmeno" type="text" placeholder="Jana Nováková" required>
+        <label for="preorder-name" data-i18n="home.form.name_label">Jméno</label>
+        <input id="preorder-name" name="jmeno" type="text" placeholder="Jana Nováková" data-i18n-placeholder="home.form.name_placeholder" required>
       </div>
       <div class="field">
-        <label for="preorder-email">E-mail</label>
+        <label for="preorder-email" data-i18n="home.form.email_label">E-mail</label>
         <input id="preorder-email" name="email" type="email" placeholder="jana.novakova@email.cz" required>
       </div>
       <div class="field">
-        <label for="preorder-note">Poznámka (nepovinné)</label>
-        <textarea id="preorder-note" name="poznamka" placeholder="Preferovaný termín, počet kusů pro kroužek, cokoliv dalšího…"></textarea>
+        <label for="preorder-note" data-i18n="red.note_label">Poznámka (nepovinné)</label>
+        <textarea id="preorder-note" name="poznamka" placeholder="Preferovaný termín, počet kusů pro kroužek, cokoliv dalšího…" data-i18n-placeholder="red.note_placeholder"></textarea>
       </div>
 
-      <button class="btn btn-primary" type="submit">Odeslat předobjednávku</button>
+      <button class="btn btn-primary" type="submit" data-i18n="red.submit">Odeslat předobjednávku</button>
       <p class="form-status" aria-live="polite"></p>
-      <p class="preorder-disclaimer">Předobjednávka nic hned nestrhává — je to nezávazná rezervace, platbu a termín domluvíme e-mailem.</p>
+      <p class="preorder-disclaimer" data-i18n="red.disclaimer">Předobjednávka nic hned nestrhává — je to nezávazná rezervace, platbu a termín domluvíme e-mailem.</p>
     </form>
   </div>
 </section>
@@ -286,11 +286,11 @@
 <section class="cta-section">
   <div class="wrap">
     <div class="fade-up" style="text-align:center;">
-      <h2>Chceš vědět víc, nebo máš zájem?</h2>
-      <p style="color:#86868b; margin-top:14px;">Deska RED je aktuálně ve vývoji — napiš nám a domluvíme se na dalších krocích nebo ukázce.</p>
+      <h2 data-i18n="product_page.cta_h2">Chceš vědět víc, nebo máš zájem?</h2>
+      <p style="color:#86868b; margin-top:14px;" data-i18n="red.cta_p">Deska RED je aktuálně ve vývoji — napiš nám a domluvíme se na dalších krocích nebo ukázce.</p>
       <div class="hero-ctas" style="justify-content:center; margin-top:28px;">
-        <a class="btn btn-primary" href="../index.html#kontakt">Napsat nám</a>
-        <a class="btn btn-ghost" href="../index.html#reseni">Porovnat úrovně</a>
+        <a class="btn btn-primary" href="../index.html#kontakt" data-i18n="nav.cta_contact">Napsat nám</a>
+        <a class="btn btn-ghost" href="../index.html#reseni" data-i18n="product_page.compare_levels">Porovnat úrovně</a>
       </div>
     </div>
   </div>
@@ -300,15 +300,15 @@
   <div class="wrap footer-inner">
     <div class="logo"><span class="logo-mark"></span>Shieldio</div>
     <nav class="footer-nav">
-      <a href="../index.html#reseni">Řešení</a>
-      <a href="../instructions/index.html">Návody</a>
-      <a href="../company/about.html">O nás</a>
-      <a href="../faq.html">FAQ</a>
-      <a href="../aktuality/index.html">Aktuality</a>
-      <a href="../company/privacy.html">Ochrana údajů</a>
-      <a href="../index.html#kontakt">Kontakt</a>
+      <a href="../index.html#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="../instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="../company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="../faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
     </nav>
-    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div>© 2026 Shieldio</div>
   </div>
 </footer>
@@ -317,6 +317,7 @@
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>
 <script src="../assets/js/search.js"></script>
+<script src="../assets/js/lang.js"></script>
 <script src="../assets/js/site-chrome.js"></script>
 <script src="../assets/js/contact-form.js"></script>
 <script src="../assets/js/preorder.js"></script>

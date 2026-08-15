@@ -42,19 +42,19 @@
 }
 </script>
 </head>
-<body>
+<body data-i18n-title="home.title">
 
 <div class="topbar">
   <div class="topbar-inner">
     <a class="logo" href="index.html"><span class="logo-mark"></span>Shieldio</a>
     <div class="nav-links">
       <nav>
-        <a href="index.html">Domů</a>
-        <a href="products/index.html">Produkty</a>
-        <a href="instructions/index.html">Návody</a>
-        <a href="company/about.html">O nás</a>
+        <a href="index.html" data-i18n="nav.home">Domů</a>
+        <a href="products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="company/about.html" data-i18n="nav.about">O nás</a>
       </nav>
-      <a class="cta-small" href="#kontakt">Domluvit ukázku</a>
+      <a class="cta-small" href="#kontakt" data-i18n="home.topbar_cta">Domluvit ukázku</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -66,22 +66,22 @@
 <div class="hero">
   <div class="wrap hero-grid">
    <div class="fade-up">
-  <span class="eyebrow">Elektronika a robotika srozumitelně pro každého</span>
-      <h1>Elektronika a robotika,<br>které <em>dávají smysl</em> na první pohled.</h1>
-      <p class="lead">Shieldio jsou hotové Arduino shieldy s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nezáleží, jestli je rozbaluje kroužek, škola, nebo jednotlivec doma — do pěti minut je vše zapojené a program běží.</p>
+  <span class="eyebrow" data-i18n="home.hero.eyebrow">Elektronika a robotika srozumitelně pro každého</span>
+      <h1 data-i18n="home.hero.h1">Elektronika a robotika,<br>které <em>dávají smysl</em> na první pohled.</h1>
+      <p class="lead" data-i18n="home.hero.lead">Shieldio jsou hotové Arduino shieldy s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nezáleží, jestli je rozbaluje kroužek, škola, nebo jednotlivec doma — do pěti minut je vše zapojené a program běží.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#reseni">Prohlédnout desky</a>
-        <a class="btn btn-ghost" href="#pro-skoly">Pro školy a kroužky</a>
+        <a class="btn btn-primary" href="#reseni" data-i18n="home.hero.cta_primary">Prohlédnout desky</a>
+        <a class="btn btn-ghost" href="#pro-skoly" data-i18n="home.hero.cta_secondary">Pro školy a kroužky</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><b>3</b><span>úrovně obtížnosti</span></div>
-        <div class="stat"><b>100×100&nbsp;mm</b><span>jednotný formát desky</span></div>
-        <div class="stat"><b>5&nbsp;min</b><span>od rozbalení ke spuštění</span></div>
+        <div class="stat"><b>3</b><span data-i18n="home.hero.stat1_label">úrovně obtížnosti</span></div>
+        <div class="stat"><b>100×100&nbsp;mm</b><span data-i18n="home.hero.stat2_label">jednotný formát desky</span></div>
+        <div class="stat"><b>5&nbsp;min</b><span data-i18n="home.hero.stat3_label">od rozbalení ke spuštění</span></div>
       </div>
     </div>
     <div class="board-figure fade-up">
       <div class="board-photo-frame">
-        <span class="board-tag">RED · ve vývoji</span>
+        <span class="board-tag" data-i18n="home.board_tag">RED · ve vývoji</span>
         <img src="assets/images/RED_board_with_scene.jpeg" alt="Červená deska Shieldio s ultrazvukovým senzorem, servem a OLED displejem, v akci s modelem auta a závorou">
       </div>
      
@@ -93,24 +93,24 @@
 <div class="problem">
   <div class="wrap" style="padding-top:70px; padding-bottom:70px;">
     <div class="section-head" style="margin-bottom:36px;">
-      <span class="eyebrow-dark">Realita výuky elektroniky</span>
-      <h2>Kvalitní robotický kroužek nebo hodina dnes často stojí na jednom nadšenci.</h2>
+      <span class="eyebrow-dark" data-i18n="home.problem.eyebrow">Realita výuky elektroniky</span>
+      <h2 data-i18n="home.problem.h2">Kvalitní robotický kroužek nebo hodina dnes často stojí na jednom nadšenci.</h2>
     </div>
     <div class="problem-grid">
 <div class="problem-card fade-up delay-1">
-        <span class="mono-tag">01 — čas</span>
-        <h3>Příprava hodiny trvá déle než hodina sama</h3>
-        <p>Sestavování stavebnic, hledání vadného kabelu a instalace ovladačů zabere čas, který má jít do výuky.</p>
+        <span class="mono-tag" data-i18n="home.problem.card1_tag">01 — čas</span>
+        <h3 data-i18n="home.problem.card1_h3">Příprava hodiny trvá déle než hodina sama</h3>
+        <p data-i18n="home.problem.card1_p">Sestavování stavebnic, hledání vadného kabelu a instalace ovladačů zabere čas, který má jít do výuky.</p>
       </div>
       <div class="problem-card delay-2">
-        <span class="mono-tag">02 — bezpečnost</span>
-        <h3>Volné součástky se ztrácí a poškozují</h3>
-        <p>Drobné díly a nepájivá pole nevydrží provoz více tříd po sobě — po pár měsících chybí polovina sady.</p>
+        <span class="mono-tag" data-i18n="home.problem.card2_tag">02 — bezpečnost</span>
+        <h3 data-i18n="home.problem.card2_h3">Volné součástky se ztrácí a poškozují</h3>
+        <p data-i18n="home.problem.card2_p">Drobné díly a nepájivá pole nevydrží provoz více tříd po sobě — po pár měsících chybí polovina sady.</p>
       </div>
       <div class="problem-card delay-3">
-        <span class="mono-tag">03 — odbornost</span>
-        <h3>Ne každý učitel je elektrotechnik</h3>
-        <p>Kvalitní robotická výuka dnes často závisí na jednom nadšenci. Shieldio dělá z hodiny standard, ne výjimku.</p>
+        <span class="mono-tag" data-i18n="home.problem.card3_tag">03 — odbornost</span>
+        <h3 data-i18n="home.problem.card3_h3">Ne každý učitel je elektrotechnik</h3>
+        <p data-i18n="home.problem.card3_p">Kvalitní robotická výuka dnes často závisí na jednom nadšenci. Shieldio dělá z hodiny standard, ne výjimku.</p>
       </div>
     </div>
   </div>
@@ -120,53 +120,53 @@
 <section id="reseni">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow-dark">Řešení</span>
-      <h2>Jedna deska, jasné barevné odlišení, rostoucí náročnost.</h2>
-      <p>Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod — a dost prostoru na to, co si žáci vymyslí sami.</p>
+      <span class="eyebrow-dark" data-i18n="home.solution.eyebrow">Řešení</span>
+      <h2 data-i18n="home.solution.h2">Jedna deska, jasné barevné odlišení, rostoucí náročnost.</h2>
+      <p data-i18n="home.solution.p">Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod — a dost prostoru na to, co si žáci vymyslí sami.</p>
     </div>
     <div class="tiers">
      <div class="tier-card tier-green fade-up">
         <div class="bar"></div>
-        <span class="tier-label">Úroveň 1 · Základ</span>
+        <span class="tier-label" data-i18n="home.tier_green.label">Úroveň 1 · Základ</span>
         <h3 class="text-tier-green">Green</h3>
-        <p class="tier-sub">První kontakt s hardwarem</p>
+        <p class="tier-sub" data-i18n="home.tier_green.sub">První kontakt s hardwarem</p>
         <ul class="tier-list">
-          <li>Tlačítka a LED indikace</li>
-          <li>Bzučák pro zvukovou odezvu</li>
-          <li>Analogový vstup pro senzory</li>
-          <li>Ideální pro první hodiny informatiky</li>
+          <li data-i18n="home.tier_green.li1">Tlačítka a LED indikace</li>
+          <li data-i18n="home.tier_green.li2">Bzučák pro zvukovou odezvu</li>
+          <li data-i18n="home.tier_green.li3">Analogový vstup pro senzory</li>
+          <li data-i18n="home.tier_green.li4">Ideální pro první hodiny informatiky</li>
         </ul>
-        <a class="tier-link" href="products/GREEN.html">Zobrazit desku →</a>
+        <a class="tier-link" href="products/GREEN.html" data-i18n="home.tier_link">Zobrazit desku →</a>
       </div>
       <div class="tier-card tier-yellow fade-up">
         <div class="bar"></div>
-        <span class="tier-label">Úroveň 2 · Rozšíření</span>
+        <span class="tier-label" data-i18n="home.tier_yellow.label">Úroveň 2 · Rozšíření</span>
         <h3 class="text-tier-yellow">Yellow</h3>
-        <p class="tier-sub">Vlastní meteostanice</p>
+        <p class="tier-sub" data-i18n="home.tier_yellow.sub">Vlastní meteostanice</p>
         <ul class="tier-list">
-          <li>Teplota a vlhkost (DHT11)</li>
-          <li>Fotorezistor pro měření světla</li>
-          <li>Mikrofon a displej pro výstup dat</li>
-          <li>Projekt: měřicí stanice</li>
+          <li data-i18n="home.tier_yellow.li1">Teplota a vlhkost (DHT11)</li>
+          <li data-i18n="home.tier_yellow.li2">Fotorezistor pro měření světla</li>
+          <li data-i18n="home.tier_yellow.li3">Mikrofon a displej pro výstup dat</li>
+          <li data-i18n="home.tier_yellow.li4">Projekt: měřicí stanice</li>
         </ul>
-        <a class="tier-link" href="products/YELLOW.html">Zobrazit desku →</a>
+        <a class="tier-link" href="products/YELLOW.html" data-i18n="home.tier_link">Zobrazit desku →</a>
       </div>
     <div class="tier-card tier-red fade-up">
         <div class="bar"></div>
-        <span class="tier-label">Úroveň 3 · Pokročilá</span>
+        <span class="tier-label" data-i18n="home.tier_red.label">Úroveň 3 · Pokročilá</span>
         <h3 class="text-tier-red">Red</h3>
-        <p class="tier-sub">Robotika v pohybu</p>
+        <p class="tier-sub" data-i18n="home.tier_red.sub">Robotika v pohybu</p>
         <ul class="tier-list">
-          <li>Ultrazvukový senzor vzdálenosti</li>
-          <li>Servo pro mechanický pohyb</li>
-          <li>OLED displej pro zpětnou vazbu</li>
-          <li>reálný prototyp závory</li>
+          <li data-i18n="home.tier_red.li1">Ultrazvukový senzor vzdálenosti</li>
+          <li data-i18n="home.tier_red.li2">Servo pro mechanický pohyb</li>
+          <li data-i18n="home.tier_red.li3">OLED displej pro zpětnou vazbu</li>
+          <li data-i18n="home.tier_red.li4">reálný prototyp závory</li>
         </ul>
         <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin-top:22px;">
-          <a class="tier-link" style="margin-top:0;" href="products/RED.html#preorder">Předobjednat →</a>
-          <a class="tier-link" style="margin-top:0; color:var(--ink-soft);" href="products/RED.html">Zobrazit desku →</a>
+          <a class="tier-link" style="margin-top:0;" href="products/RED.html#preorder" data-i18n="home.tier_red.preorder_link">Předobjednat →</a>
+          <a class="tier-link" style="margin-top:0; color:var(--ink-soft);" href="products/RED.html" data-i18n="home.tier_link">Zobrazit desku →</a>
         </div>
-        <div class="dev-badge">Aktuálně ve vývoji</div>
+        <div class="dev-badge" data-i18n="home.tier_red.badge">Aktuálně ve vývoji</div>
       </div>
     </div>
   </div>
@@ -176,9 +176,9 @@
 <section id="deska">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow-dark">Nahlédnutí do vývoje</span>
-      <h2><span class="text-tier-red">RED</span> deska: první funkční prototyp.</h2>
-      <p>Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce — s popisy součástek přímo na plošném spoji.</p>
+      <span class="eyebrow-dark" data-i18n="home.deepdive.eyebrow">Nahlédnutí do vývoje</span>
+      <h2 data-i18n="home.deepdive.h2"><span class="text-tier-red">RED</span> deska: první funkční prototyp.</h2>
+      <p data-i18n="home.deepdive.p">Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce — s popisy součástek přímo na plošném spoji.</p>
     </div>
     <div class="deepdive-grid">
       <div class="deepdive-photos">
@@ -189,27 +189,27 @@
         <div class="spec-rows">
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div>
-            <p><b>Arduino Nano</b> jako řídicí jednotka — program nahráváš přímo přes USB-C.</p>
+            <p data-i18n="home.deepdive.spec1"><b>Arduino Nano</b> jako řídicí jednotka — program nahráváš přímo přes USB-C.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="6" cy="18" r="1.4" fill="currentColor" stroke="none"/><path d="M6 14a4 4 0 014 4M6 10a8 8 0 018 8M6 6a12 12 0 0112 12"/></svg></div>
-            <p><b>Ultrazvukový snímač</b> vzdálenosti pro měření okolí.</p>
+            <p data-i18n="home.deepdive.spec2"><b>Ultrazvukový snímač</b> vzdálenosti pro měření okolí.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M8 20h8"/></svg></div>
-            <p><b>OLED displej</b>, dvě barevné LED, <b>servo SG90</b> a bzučák jako výstupy.</p>
+            <p data-i18n="home.deepdive.spec3"><b>OLED displej</b>, dvě barevné LED, <b>servo SG90</b> a bzučák jako výstupy.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></div>
-            <p><b>Dvě tlačítka</b> přímo na desce pro interakci se studenty.</p>
+            <p data-i18n="home.deepdive.spec4"><b>Dvě tlačítka</b> přímo na desce pro interakci se studenty.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4M16 3v4M6 7h12v4a6 6 0 01-12 0V7z"/><path d="M12 17v4"/></svg></div>
-            <p><b>Konektory JST-XH</b> a Power&amp;Data link pro robustní propojení mezi deskami.</p>
+            <p data-i18n="home.deepdive.spec5"><b>Konektory JST-XH</b> a Power&amp;Data link pro robustní propojení mezi deskami.</p>
           </div>
           <div class="spec-row">
             <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div>
-            <p><b>100×100 mm</b> formát — stejný napříč celou řadou.</p>
+            <p data-i18n="home.deepdive.spec6"><b>100×100 mm</b> formát — stejný napříč celou řadou.</p>
           </div>
         </div>
       </div>
@@ -221,29 +221,29 @@
 <section id="jak-to-funguje">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow-dark">Průběh hodiny</span>
-      <h2>Od rozbalení k hotovému programu za jednu vyučovací hodinu.</h2>
+      <span class="eyebrow-dark" data-i18n="home.howitworks.eyebrow">Průběh hodiny</span>
+      <h2 data-i18n="home.howitworks.h2">Od rozbalení k hotovému programu za jednu vyučovací hodinu.</h2>
     </div>
     <div class="steps">
       <div class="step">
         <div class="step-num">01</div>
-        <h3>Připojit přes USB-C</h3>
-        <p>Deska se připojí k počítači jedním kabelem — rovnou připravená k použití.</p>
+        <h3 data-i18n="home.step1.h3">Připojit přes USB-C</h3>
+        <p data-i18n="home.step1.p">Deska se připojí k počítači jedním kabelem — rovnou připravená k použití.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
-        <h3>Spustit blokové programování</h3>
-        <p>Prostředí mBlock — stejné rozhraní, na jaké jsou žáci zvyklí.</p>
+        <h3 data-i18n="home.step2.h3">Spustit blokové programování</h3>
+        <p data-i18n="home.step2.p">Prostředí mBlock — stejné rozhraní, na jaké jsou žáci zvyklí.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
-        <h3>Sestavit program z bloků</h3>
-        <p>Senzory a výstupy jsou pojmenované srozumitelně — bez potřeby znát Arduino kód.</p>
+        <h3 data-i18n="home.step3.h3">Sestavit program z bloků</h3>
+        <p data-i18n="home.step3.p">Senzory a výstupy jsou pojmenované srozumitelně — bez potřeby znát Arduino kód.</p>
       </div>
       <div class="step">
         <div class="step-num">04</div>
-        <h3>Rozšířit vlastním nápadem</h3>
-        <p>Hotový ukázkový projekt jako start, otevřený prostor pro vlastní úpravy žáků.</p>
+        <h3 data-i18n="home.step4.h3">Rozšířit vlastním nápadem</h3>
+        <p data-i18n="home.step4.p">Hotový ukázkový projekt jako start, otevřený prostor pro vlastní úpravy žáků.</p>
       </div>
     </div>
   </div>
@@ -253,40 +253,40 @@
 <div class="problem" id="pro-skoly" style="background:var(--paper-2);">
   <div class="wrap" style="padding-top:80px; padding-bottom:80px;">
     <div class="section-head">
-      <span class="eyebrow-dark">Pro školy</span>
-      <h2>Postavené tak, aby to zvládl i učitel bez technického zázemí.</h2>
-      <p>Shieldio není soubor volných komponent — je to hotová sada připravená na provoz ve třídě, rok co rok.</p>
+      <span class="eyebrow-dark" data-i18n="home.schools.eyebrow">Pro školy</span>
+      <h2 data-i18n="home.schools.h2">Postavené tak, aby to zvládl i učitel bez technického zázemí.</h2>
+      <p data-i18n="home.schools.p">Shieldio není soubor volných komponent — je to hotová sada připravená na provoz ve třídě, rok co rok.</p>
     </div>
     <div class="benefits">
       <div class="benefit">
         <div class="benefit-icon">01</div>
-        <h3>Bez pájení a montáže</h3>
-        <p>Desky přichází předosazené a připravené k okamžitému použití.</p>
+        <h3 data-i18n="home.benefit1.h3">Bez pájení a montáže</h3>
+        <p data-i18n="home.benefit1.p">Desky přichází předosazené a připravené k okamžitému použití.</p>
       </div>
       <div class="benefit">
         <div class="benefit-icon">02</div>
-        <h3>Odolné pro opakovaný provoz</h3>
-        <p>Pevně osazené klíčové součástky, odpojitelné jen ty křehké — vydrží třídu za třídou.</p>
+        <h3 data-i18n="home.benefit2.h3">Odolné pro opakovaný provoz</h3>
+        <p data-i18n="home.benefit2.p">Pevně osazené klíčové součástky, odpojitelné jen ty křehké — vydrží třídu za třídou.</p>
       </div>
       <div class="benefit">
         <div class="benefit-icon">03</div>
-        <h3>Hotové materiály k hodině</h3>
-        <p>Připravené scénáře i prostor na vlastní projekty žáků — bez nutnosti tvořit vlastní osnovu.</p>
+        <h3 data-i18n="home.benefit3.h3">Hotové materiály k hodině</h3>
+        <p data-i18n="home.benefit3.p">Připravené scénáře i prostor na vlastní projekty žáků — bez nutnosti tvořit vlastní osnovu.</p>
       </div>
       <div class="benefit">
         <div class="benefit-icon">04</div>
-        <h3> žádná instalace navíc</h3>
-        <p>Funguje s prostředím, které školy už používají, bez složitého IT nastavení.</p>
+        <h3 data-i18n="home.benefit4.h3">Žádná instalace navíc</h3>
+        <p data-i18n="home.benefit4.p">Funguje s prostředím, které školy už používají, bez složitého IT nastavení.</p>
       </div>
       <div class="benefit">
         <div class="benefit-icon">05</div>
-        <h3>Srozumitelné popisky na desce</h3>
-        <p>Piny a součástky pojmenované přímo na plošném spoji — učitel se orientuje na první pohled.</p>
+        <h3 data-i18n="home.benefit5.h3">Srozumitelné popisky na desce</h3>
+        <p data-i18n="home.benefit5.p">Piny a součástky pojmenované přímo na plošném spoji — učitel se orientuje na první pohled.</p>
       </div>
       <div class="benefit">
         <div class="benefit-icon">06</div>
-        <h3>Rostoucí obtížnost</h3>
-        <p>Jedna sada provede žáky od prvního kontaktu s elektronikou až po robotiku v pohybu.</p>
+        <h3 data-i18n="home.benefit6.h3">Rostoucí obtížnost</h3>
+        <p data-i18n="home.benefit6.p">Jedna sada provede žáky od prvního kontaktu s elektronikou až po robotiku v pohybu.</p>
       </div>
     </div>
   </div>
@@ -296,55 +296,55 @@
 <section class="cta-section" id="kontakt">
   <div class="wrap cta-grid">
     <div>
-      <span class="eyebrow-dark" style="color:var(--accent-soft);">Máte zájem?</span>
-      <h2>Ozvěte se — poradíme, co bude pro vás nejlepší start.</h2>
-      <p>Ať už hledáte stavebnici pro sebe, kroužek, nebo výuku na škole, napište pár slov o tom, co plánujete — ozveme se s doporučením nebo termínem ukázky.</p>
+      <span class="eyebrow-dark" style="color:var(--accent-soft);" data-i18n="home.cta.eyebrow">Máte zájem?</span>
+      <h2 data-i18n="home.cta.h2">Ozvěte se — poradíme, co bude pro vás nejlepší start.</h2>
+      <p data-i18n="home.cta.p">Ať už hledáte stavebnici pro sebe, kroužek, nebo výuku na škole, napište pár slov o tom, co plánujete — ozveme se s doporučením nebo termínem ukázky.</p>
       <ul class="contact-list">
         <li><b>E-MAIL</b><span>info@shieldio.cz</span></li>
-        <li><b>URČENO PRO</b><span>jednotlivce, kroužky, ZŠ a SŠ</span></li>
-        <li><b>FORMÁT</b><span>osobní doporučení, ukázková hodina nebo konzultace</span></li>
+        <li><b data-i18n="home.contact_list.for_label">URČENO PRO</b><span data-i18n="home.contact_list.for_value">jednotlivce, kroužky, ZŠ a SŠ</span></li>
+        <li><b data-i18n="home.contact_list.format_label">FORMÁT</b><span data-i18n="home.contact_list.format_value">osobní doporučení, ukázková hodina nebo konzultace</span></li>
       </ul>
     </div>
     <div class="form-card">
-      <h3>Nezávazná zpráva</h3>
-      <p class="form-sub">Ozveme se do dvou pracovních dnů.</p>
+      <h3 data-i18n="home.form.h3">Nezávazná zpráva</h3>
+      <p class="form-sub" data-i18n="home.form.sub">Ozveme se do dvou pracovních dnů.</p>
       <form class="web3form" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="a13ed669-5fc4-4329-bf27-a4e40dd0b1e7">
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="field">
-          <label for="who">Píšeš za</label>
+          <label for="who" data-i18n="home.form.who_label">Píšeš za</label>
           <select id="who" name="typ" class="field-select">
-            <option>Škola</option>
-            <option>Pedagog / vedoucí kroužku</option>
-            <option>Žák / student</option>
-            <option>Kutil / jednotlivec</option>
+            <option data-i18n="home.form.who_opt1">Škola</option>
+            <option data-i18n="home.form.who_opt2">Pedagog / vedoucí kroužku</option>
+            <option data-i18n="home.form.who_opt3">Žák / student</option>
+            <option data-i18n="home.form.who_opt4">Kutil / jednotlivec</option>
           </select>
         </div>
         <div class="field">
-          <label for="reason">Co potřebuješ</label>
+          <label for="reason" data-i18n="home.form.reason_label">Co potřebuješ</label>
           <select id="reason" name="duvod" class="field-select">
-            <option>Dotaz</option>
-            <option>Objednat / projevit zájem</option>
-            <option>Technická podpora</option>
+            <option data-i18n="home.form.reason_opt1">Dotaz</option>
+            <option data-i18n="home.form.reason_opt2">Objednat / projevit zájem</option>
+            <option data-i18n="home.form.reason_opt3">Technická podpora</option>
           </select>
         </div>
         <div class="field">
-          <label for="name">Jméno</label>
-          <input id="name" name="jmeno" type="text" placeholder="Jana Nováková" required>
+          <label for="name" data-i18n="home.form.name_label">Jméno</label>
+          <input id="name" name="jmeno" type="text" placeholder="Jana Nováková" data-i18n-placeholder="home.form.name_placeholder" required>
         </div>
         <div class="field">
-          <label for="email">E-mail</label>
+          <label for="email" data-i18n="home.form.email_label">E-mail</label>
           <input id="email" name="email" type="email" placeholder="jana.novakova@email.cz" required>
         </div>
         <div class="field">
-          <label for="school">Škola / organizace (nepovinné)</label>
-          <input id="school" name="skola" type="text" placeholder="např. ZŠ Komenského, Praha">
+          <label for="school" data-i18n="home.form.school_label">Škola / organizace (nepovinné)</label>
+          <input id="school" name="skola" type="text" placeholder="např. ZŠ Komenského, Praha" data-i18n-placeholder="home.form.school_placeholder">
         </div>
         <div class="field">
-          <label for="message">Zpráva</label>
-          <textarea id="message" name="zprava" placeholder="Co vás zajímá a pro koho stavebnici plánujete…" required></textarea>
+          <label for="message" data-i18n="home.form.message_label">Zpráva</label>
+          <textarea id="message" name="zprava" placeholder="Co vás zajímá a pro koho stavebnici plánujete…" data-i18n-placeholder="home.form.message_placeholder" required></textarea>
         </div>
-        <button class="btn btn-primary" type="submit">Odeslat zprávu</button>
+        <button class="btn btn-primary" type="submit" data-i18n="home.form.submit">Odeslat zprávu</button>
         <p class="form-status" aria-live="polite"></p>
       </form>
     </div>
@@ -355,15 +355,15 @@
   <div class="wrap footer-inner">
     <div class="logo"><span class="logo-mark"></span>Shieldio</div>
     <nav class="footer-nav">
-      <a href="#reseni">Řešení</a>
-      <a href="instructions/index.html">Návody</a>
-      <a href="company/about.html">O nás</a>
-      <a href="faq.html">FAQ</a>
-      <a href="aktuality/index.html">Aktuality</a>
-      <a href="company/privacy.html">Ochrana údajů</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="#kontakt" data-i18n="footer.contact">Kontakt</a>
     </nav>
-    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div> 2026 Shieldio</div>
   </div>
 </footer>
@@ -371,6 +371,7 @@
 <script src="assets/js/navbar.js"></script>
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/search.js"></script>
+<script src="assets/js/lang.js"></script>
 <script src="assets/js/site-chrome.js"></script>
 <script src="assets/js/contact-form.js"></script>
 </body>
