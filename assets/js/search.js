@@ -84,7 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.className = "search-toggle";
     btn.setAttribute("aria-label", "Hledat na webu");
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
-    btn.addEventListener("click", openSearch);
+    btn.addEventListener("click", () => {
+      btn.classList.remove("pulse");
+      void btn.offsetWidth; // restart the animation on repeat clicks
+      btn.classList.add("pulse");
+      openSearch();
+    });
     return btn;
   }
 
@@ -102,17 +107,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return row;
   }
 
+  // theme/search/lang toggles share one grouped pill in the topbar instead of
+  // three separately-outlined circles — whichever script runs first creates it
+  function utilsCluster(navLinks) {
+    let cluster = navLinks.querySelector(":scope > .nav-utils");
+    if (!cluster) {
+      cluster = document.createElement("div");
+      cluster.className = "nav-utils";
+      const hamburger = navLinks.querySelector(":scope > .nav-toggle");
+      if (hamburger) navLinks.insertBefore(cluster, hamburger);
+      else navLinks.appendChild(cluster);
+    }
+    return cluster;
+  }
+
   document.querySelectorAll(".topbar").forEach((topbar) => {
     const navLinks = topbar.querySelector(".nav-links");
-    if (navLinks) {
-      // :scope > avoids matching the mobile-dropdown copy nested inside .nav-links nav
-      const themeBtn = navLinks.querySelector(":scope > .theme-toggle");
-      const hamburger = navLinks.querySelector(":scope > .nav-toggle");
-      const btn = buildSearchButton();
-      if (themeBtn) navLinks.insertBefore(btn, themeBtn);
-      else if (hamburger) navLinks.insertBefore(btn, hamburger);
-      else navLinks.appendChild(btn);
-    }
+    if (navLinks) utilsCluster(navLinks).appendChild(buildSearchButton());
 
     const row = mobileUtilsRow(topbar);
     if (row) row.prepend(buildSearchButton());

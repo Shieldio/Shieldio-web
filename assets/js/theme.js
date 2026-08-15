@@ -11,6 +11,7 @@
     document.querySelectorAll(".theme-toggle").forEach((btn) => {
       btn.setAttribute("aria-label", theme === "dark" ? "Přepnout na světlý režim" : "Přepnout na tmavý režim");
     });
+    window.dispatchEvent(new CustomEvent("shieldio:theme-change", { detail: { theme } }));
   }
 
   function buildToggleButton() {
@@ -40,14 +41,25 @@
     return row;
   }
 
+  // theme/search/lang toggles share one grouped pill in the topbar instead of
+  // three separately-outlined circles — whichever script runs first creates it
+  function utilsCluster(navLinks) {
+    let cluster = navLinks.querySelector(":scope > .nav-utils");
+    if (!cluster) {
+      cluster = document.createElement("div");
+      cluster.className = "nav-utils";
+      const hamburger = navLinks.querySelector(":scope > .nav-toggle");
+      if (hamburger) navLinks.insertBefore(cluster, hamburger);
+      else navLinks.appendChild(cluster);
+    }
+    return cluster;
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".topbar").forEach((topbar) => {
       const navLinks = topbar.querySelector(".nav-links");
       if (!navLinks) return;
-      const hamburger = navLinks.querySelector(".nav-toggle");
-      const btn = buildToggleButton();
-      if (hamburger) navLinks.insertBefore(btn, hamburger);
-      else navLinks.appendChild(btn);
+      utilsCluster(navLinks).appendChild(buildToggleButton());
 
       const row = mobileUtilsRow(topbar);
       if (row) row.appendChild(buildToggleButton());

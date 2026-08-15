@@ -62,19 +62,26 @@
     return row;
   }
 
+  // theme/search/lang toggles share one grouped pill in the topbar instead of
+  // three separately-outlined circles — whichever script runs first creates it
+  function utilsCluster(navLinks) {
+    let cluster = navLinks.querySelector(":scope > .nav-utils");
+    if (!cluster) {
+      cluster = document.createElement("div");
+      cluster.className = "nav-utils";
+      const hamburger = navLinks.querySelector(":scope > .nav-toggle");
+      if (hamburger) navLinks.insertBefore(cluster, hamburger);
+      else navLinks.appendChild(cluster);
+    }
+    return cluster;
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     if (!document.querySelector("[data-i18n]")) return; // page has no translations — nothing to do
 
     document.querySelectorAll(".topbar").forEach((topbar) => {
       const navLinks = topbar.querySelector(".nav-links");
-      if (navLinks) {
-        const searchOrThemeBtn = navLinks.querySelector(":scope > .search-toggle, :scope > .theme-toggle");
-        const hamburger = navLinks.querySelector(":scope > .nav-toggle");
-        const btn = buildToggleButton();
-        if (searchOrThemeBtn) navLinks.insertBefore(btn, searchOrThemeBtn);
-        else if (hamburger) navLinks.insertBefore(btn, hamburger);
-        else navLinks.appendChild(btn);
-      }
+      if (navLinks) utilsCluster(navLinks).appendChild(buildToggleButton());
       const row = mobileUtilsRow(topbar);
       if (row) row.appendChild(buildToggleButton());
     });

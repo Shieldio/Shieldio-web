@@ -5,31 +5,40 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container || typeof Blockly === "undefined") return;
 
   // Scratch/mBlock-style rounded blocks (Blockly's own "zelos" renderer) instead of
-  // the default rectangular "geras" look, plus a theme matching Shieldio's palette
-  const shieldioTheme = Blockly.Theme.defineTheme("shieldio", {
-    base: Blockly.Themes.Classic,
-    fontStyle: { family: "'Inter', -apple-system, sans-serif", weight: "500", size: 12 },
-    componentStyles: {
-      workspaceBackgroundColour: "#f5f5f7",
-      toolboxBackgroundColour: "#ffffff",
-      toolboxForegroundColour: "#1d1d1f",
-      flyoutBackgroundColour: "#fbfbfd",
-      flyoutForegroundColour: "#1d1d1f",
-      flyoutOpacity: 1,
-      scrollbarColour: "#d2d2d7",
-      insertionMarkerColour: "#f72338",
-      insertionMarkerOpacity: 0.3,
-      cursorColour: "#f72338",
-    },
-  });
+  // the default rectangular "geras" look, plus a theme matching Shieldio's palette —
+  // built fresh for light/dark so the workspace itself follows the site's theme toggle
+  function buildShieldioTheme(isDark) {
+    return Blockly.Theme.defineTheme("shieldio-" + (isDark ? "dark" : "light"), {
+      base: Blockly.Themes.Classic,
+      fontStyle: { family: "'Inter', -apple-system, sans-serif", weight: "500", size: 12 },
+      componentStyles: {
+        workspaceBackgroundColour: isDark ? "#1c1c1e" : "#f5f5f7",
+        toolboxBackgroundColour: isDark ? "#000000" : "#ffffff",
+        toolboxForegroundColour: isDark ? "#f5f5f7" : "#1d1d1f",
+        flyoutBackgroundColour: isDark ? "#121214" : "#fbfbfd",
+        flyoutForegroundColour: isDark ? "#f5f5f7" : "#1d1d1f",
+        flyoutOpacity: 1,
+        scrollbarColour: isDark ? "#48484a" : "#d2d2d7",
+        insertionMarkerColour: "#f72338",
+        insertionMarkerOpacity: 0.3,
+        cursorColour: "#f72338",
+      },
+    });
+  }
+
+  const isDarkNow = document.documentElement.dataset.theme === "dark";
 
   const workspace = Blockly.inject(container, {
     toolbox: window.SHIELDIO_TOOLBOX,
     renderer: "zelos",
-    theme: shieldioTheme,
+    theme: buildShieldioTheme(isDarkNow),
     trashcan: true,
     zoom: { controls: true, wheel: true, startScale: 0.9 },
-    grid: { spacing: 22, length: 2, colour: "#e5e5ea", snap: true },
+    grid: { spacing: 22, length: 2, colour: isDarkNow ? "#3a3a3c" : "#e5e5ea", snap: true },
+  });
+
+  window.addEventListener("shieldio:theme-change", (e) => {
+    workspace.setTheme(buildShieldioTheme(e.detail.theme === "dark"));
   });
 
   // seed the workspace with the two always-present entry-point blocks —
