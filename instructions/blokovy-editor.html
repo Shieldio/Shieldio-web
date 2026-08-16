@@ -53,8 +53,11 @@
 
 <section style="padding-top:24px;">
   <div class="wrap">
-    <p id="editorStatus" class="form-status" style="text-align:left; min-height:0;"></p>
-    <div class="blockly-editor-grid">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:4px;">
+      <p id="editorStatus" class="form-status" style="text-align:left; min-height:0; margin:0;"></p>
+      <button type="button" id="toggleCodeBtn" class="blockly-toggle-code" aria-expanded="false">Zobrazit kód</button>
+    </div>
+    <div class="blockly-editor-grid" id="blocklyGrid">
       <div id="blocklyDiv"></div>
       <div class="blockly-code-panel">
         <div class="blockly-code-actions">

@@ -227,4 +227,16 @@ ${indent(loopBody)}}
     a.click();
     URL.revokeObjectURL(url);
   });
+
+  // code panel is hidden by default so the blocks canvas gets the full width —
+  // "Zobrazit kód" splits the view, "Skrýt kód" gives the canvas back its space
+  const grid = document.getElementById("blocklyGrid");
+  const toggleBtn = document.getElementById("toggleCodeBtn");
+  toggleBtn?.addEventListener("click", () => {
+    const showing = grid.classList.toggle("code-visible");
+    toggleBtn.textContent = showing ? "Skrýt kód" : "Zobrazit kód";
+    toggleBtn.classList.toggle("active", showing);
+    toggleBtn.setAttribute("aria-expanded", String(showing));
+    Blockly.svgResize(workspace);
+  });
 });

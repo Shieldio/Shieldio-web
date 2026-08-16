@@ -7,10 +7,18 @@
 
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
     try { localStorage.setItem("shieldio-theme", theme); } catch (e) {}
     document.querySelectorAll(".theme-toggle").forEach((btn) => {
       btn.setAttribute("aria-label", theme === "dark" ? "Přepnout na světlý režim" : "Přepnout na tmavý režim");
     });
+    let meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "theme-color";
+      document.head.appendChild(meta);
+    }
+    meta.content = theme === "dark" ? "#000000" : "#fbfbfd";
     window.dispatchEvent(new CustomEvent("shieldio:theme-change", { detail: { theme } }));
   }
 
