@@ -187,8 +187,8 @@
         </div>
       </div>
       <div class="guide-step-actions">
-        <button type="button" class="btn btn-primary" data-action="ok">✅ Mám připraveno</button>
-        <button type="button" class="btn btn-ghost" data-action="missing">❌ Něco mi chybí</button>
+        <button type="button" class="btn btn-primary" data-action="ok">Mám připraveno</button>
+        <button type="button" class="btn btn-ghost" data-action="missing">Něco mi chybí</button>
       </div>
     `;
   }
@@ -218,7 +218,7 @@
       <details class="guide-accordion">
         <summary>${troubleshoot.title}</summary>
         <div class="guide-tip-list">${items}</div>
-        <a class="guide-more-help" href="../../../../index.html#kontakt">Další pomoc →</a>
+        <a class="guide-more-help" href="../../../../index.html#kontakt">Další pomoc</a>
       </details>
     `;
   }
@@ -229,8 +229,8 @@
       <p class="guide-instructions">${step.instructions}</p>
       <div class="guide-help-slot"></div>
       <div class="guide-step-actions">
-        <button type="button" class="btn btn-primary" data-action="ok">✅ Zapojeno</button>
-        <button type="button" class="btn btn-ghost" data-action="fail">❌ Nedaří se mi</button>
+        <button type="button" class="btn btn-primary" data-action="ok">Zapojeno</button>
+        <button type="button" class="btn btn-ghost" data-action="fail">Nedaří se mi</button>
       </div>
     `;
   }
@@ -245,7 +245,7 @@
         slot.querySelectorAll(".guide-tip-tried").forEach(btn => {
           btn.addEventListener("click", () => {
             btn.closest(".guide-tip").classList.add("guide-tip-done");
-            btn.textContent = "✓ Zkusil jsem";
+            btn.textContent = "Zkusil jsem";
             btn.disabled = true;
           });
         });
@@ -269,7 +269,7 @@
             </div>
           `).join("")}
         </div>
-        <a class="guide-more-help" href="../../../../index.html#kontakt">Další pomoc →</a>
+        <a class="guide-more-help" href="../../../../index.html#kontakt">Další pomoc</a>
       </details>
     `).join("");
 
@@ -278,15 +278,15 @@
           ? `<pre class="guide-code-block"><code>${escapeHtml(content.code)}</code></pre>`
           : `<p class="guide-instructions">${content.note || "Ukázkový Arduino kód pro tento projekt zatím připravujeme — než bude hotový, doporučujeme začít s blokovým programováním v mBlocku."}</p>`)
       : (content.blocksEditorHref
-          ? `<a class="btn btn-primary" href="${content.blocksEditorHref}">🧩 Otevřít v blokovém editoru</a>`
-          : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">📥 Otevřít projekt</a>`);
+          ? `<a class="btn btn-primary" href="${content.blocksEditorHref}">Otevřít v blokovém editoru</a>`
+          : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">Otevřít projekt</a>`);
 
     return `
       <div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, useArduino ? "Arduino IDE" : "mBlock")}</div>
       ${actionArea}
       <div class="guide-step-actions" style="margin-top:24px;">
-        <button type="button" class="btn btn-primary" data-action="ok">✅ Program je nahraný</button>
-        <button type="button" class="btn btn-ghost" data-action="fail">❌ Hlásí chybu</button>
+        <button type="button" class="btn btn-primary" data-action="ok">Program je nahraný</button>
+        <button type="button" class="btn btn-ghost" data-action="fail">Hlásí chybu</button>
       </div>
       <div class="guide-help-slot" data-content="${encodeURIComponent(diag)}"></div>
     `;
@@ -324,8 +324,8 @@
     return `
       <p class="guide-instructions">${step.instructions}</p>
       <div class="guide-step-actions" data-role="root-actions">
-        <button type="button" class="btn btn-primary" data-action="ok">✅ Hotovo</button>
-        <button type="button" class="btn btn-ghost" data-action="fail">❌ Potřebuji pomoc</button>
+        <button type="button" class="btn btn-primary" data-action="ok">Hotovo</button>
+        <button type="button" class="btn btn-ghost" data-action="fail">Potřebuji pomoc</button>
       </div>
       <div class="guide-tree-slot"></div>
     `;
@@ -390,7 +390,7 @@
           <h1>Projekt je hotový.</h1>
           <p class="lead">Dnes ses naučil:</p>
           <ul class="guide-learn-list guide-learn-list-done">
-            ${DATA.meta.learn.map(l => `<li>✓ ${l}</li>`).join("")}
+            ${DATA.meta.learn.map(l => `<li>${l}</li>`).join("")}
           </ul>
         </div>
 
@@ -406,13 +406,13 @@
             ${moreProjects.length ? `
             <div class="guide-next-col">
               <h3>Další projekt</h3>
-              <ul class="guide-next-list guide-next-links">${moreProjects.map(p => `<li><a href="${p.href}">${p.title} →</a></li>`).join("")}</ul>
+              <ul class="guide-next-list guide-next-links">${moreProjects.map(p => `<li><a href="${p.href}">${p.title}</a></li>`).join("")}</ul>
             </div>` : ""}
             ${levelUp ? `
             <div class="guide-next-col">
               <h3>Posuň se dál</h3>
               <p>${levelUp.text}</p>
-              <a class="guide-more-help" href="${levelUp.href}">${levelUp.title} →</a>
+              <a class="guide-more-help" href="${levelUp.href}">${levelUp.title}</a>
             </div>` : ""}
           </div>
         </div>` : ""}
@@ -476,8 +476,8 @@
       <div class="term-modal-photo">${photoOrPlaceholder(g.photo, g.term)}</div>
       <h3>${g.term}</h3>
       <p>${g.text}</p>
-      ${g.fact ? `<p class="term-modal-fact">💡 ${g.fact}</p>` : ""}
-      ${g.datasheet ? `<a href="${g.datasheet}" target="_blank" rel="noopener">Zjistit více →</a>` : ""}
+      ${g.fact ? `<p class="term-modal-fact">${g.fact}</p>` : ""}
+      ${g.datasheet ? `<a href="${g.datasheet}" target="_blank" rel="noopener">Zjistit více</a>` : ""}
     `);
   }
 
@@ -488,8 +488,8 @@
       <h3>${part.name}</h3>
       <p><b>Co to je:</b> ${part.what}</p>
       <p><b>Jak to funguje:</b> ${part.how}</p>
-      ${part.fact ? `<p class="term-modal-fact">💡 ${part.fact}</p>` : ""}
-      ${part.datasheet ? `<a href="${part.datasheet}" target="_blank" rel="noopener">Datasheet →</a>` : ""}
+      ${part.fact ? `<p class="term-modal-fact">${part.fact}</p>` : ""}
+      ${part.datasheet ? `<a href="${part.datasheet}" target="_blank" rel="noopener">Datasheet</a>` : ""}
     `);
   }
 

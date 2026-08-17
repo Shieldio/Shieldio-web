@@ -147,9 +147,7 @@ img{ max-width:100%; display:block; }
 
 /* ---------- hero ---------- */
 .hero{
-  background:
-    radial-gradient(900px 500px at 78% -10%, rgba(181,113,60,0.12), transparent 62%),
-    var(--navy);
+  background:var(--navy);
   color:#f5f5f7;
   position:relative;
   overflow:hidden;
@@ -835,7 +833,8 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   background:var(--paper-2); padding:8px 14px; border-radius:var(--radius-pill); color:var(--ink);
 }
 .guide-learn-list-done{ flex-direction:column; gap:8px; margin-top:16px; }
-.guide-learn-list-done li{ background:none; padding:6px 0; font-size:15px; color:var(--ink); }
+.guide-learn-list-done li{ background:none; padding:6px 0; font-size:15px; color:var(--ink); display:flex; gap:10px; align-items:flex-start; }
+.guide-learn-list-done li::before{ content:"—"; color:var(--ink-soft); flex-shrink:0; }
 
 .guide-mode-picker{ display:flex; gap:24px; flex-wrap:wrap; margin:4px 0 26px; }
 .guide-mode-group{ display:flex; flex-direction:column; gap:8px; }

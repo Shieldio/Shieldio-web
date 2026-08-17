@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (presetId && PRESETS[presetId]) {
     PRESETS[presetId](workspace, loopBlock);
     workspace.cleanUp();
-    showPresetBanner("✓ Nahrán startovní program pro tenhle projekt — uprav si ho, jak chceš.");
+    showPresetBanner("Nahrán startovní program pro tenhle projekt — uprav si ho, jak chceš.");
   }
 
   const codeEl = document.getElementById("generatedCode");
@@ -213,7 +213,7 @@ ${indent(loopBody)}}
     navigator.clipboard.writeText(codeEl.textContent).then(() => {
       const btn = document.getElementById("copyCodeBtn");
       const original = btn.textContent;
-      btn.textContent = "Zkopírováno ✓";
+      btn.textContent = "Zkopírováno";
       setTimeout(() => { btn.textContent = original; }, 1500);
     });
   });
