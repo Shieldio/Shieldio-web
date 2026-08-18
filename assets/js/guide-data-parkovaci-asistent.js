@@ -37,7 +37,7 @@ window.SHIELDIO_GUIDE = {
     },
     pin: {
       term: "Pin",
-      photo: null,
+      photo: "../../../../assets/images/RED_layout_labeled.png",
       text: "Kovový kontakt na desce, kterým se propojují jednotlivé součástky: vstupy a výstupy signálu i napájení.",
       fact: null,
       datasheet: null,
