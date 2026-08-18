@@ -760,8 +760,8 @@
     "en": "A finished board with every component, ultrasonic sensor, Arduino, display, cable. Plug it in and go."
   },
   "red.opt_bare_name": {
-    "cs": "Holá deska (PCB)",
-    "en": "Bare board (PCB)"
+    "cs": "Holá deska (PCB)<button type=\"button\" class=\"guide-info-btn\" data-photo=\"../assets/images/RED_layout_labeled.png\" data-photo-alt=\"Holá deska Shieldio RED (PCB) bez součástek, pohled kolmo shora\" aria-label=\"Zobrazit fotku holé desky\" style=\"margin-left:6px;\">?</button>",
+    "en": "Bare board (PCB)<button type=\"button\" class=\"guide-info-btn\" data-photo=\"../assets/images/RED_layout_labeled.png\" data-photo-alt=\"Bare Shieldio RED board (PCB) with no components, straight top-down view\" aria-label=\"Show bare board photo\" style=\"margin-left:6px;\">?</button>"
   },
   "red.opt_bare_desc": {
     "cs": "Jen samotný plošný spoj, bez součástek, pro stavbu úplně od nuly.",
