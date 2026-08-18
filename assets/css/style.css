@@ -343,8 +343,16 @@ section{ padding:140px 0; }
 .deepdive-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
 @media (max-width:900px){ .deepdive-grid{ grid-template-columns:1fr; } }
 .deepdive-photos{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.deepdive-photos img{ border-radius:16px; border:1px solid var(--line); }
-.deepdive .deepdive-photos img{ border-color:rgba(255,255,255,0.08); }
+.deepdive-photos .photo-frame{
+  aspect-ratio:4/3; border-radius:16px; overflow:hidden;
+  border:1px solid var(--line); background:var(--paper-2);
+}
+.deepdive .deepdive-photos .photo-frame{ border-color:rgba(255,255,255,0.08); }
+.deepdive-photos .photo-frame img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .6s var(--ease);
+}
+.deepdive-photos .photo-frame:hover img{ transform:scale(1.08); }
 /* ---------- product spec rows (icon + description, Apple product-page style) ---------- */
 .spec-rows{ margin-top:28px; }
 .spec-row{
@@ -1002,6 +1010,7 @@ footer{ background:var(--navy); color:#6e6e73; padding:44px 0; }
   .theme-toggle:hover, .search-toggle:hover, .lang-toggle:hover{ transform:none !important; }
   .theme-toggle svg{ transition:opacity .15s ease !important; transform:none !important; }
   .search-toggle svg, .search-toggle.pulse svg{ animation:none !important; transform:none !important; }
+  .deepdive-photos .photo-frame:hover img{ transform:none !important; }
 }
 
 /* ==========================================================================
