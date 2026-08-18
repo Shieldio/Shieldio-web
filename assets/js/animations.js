@@ -49,4 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // demo videos: don't autoplay for visitors who asked for reduced motion —
+  // they still get controls to play it themselves
+  if (prefersReducedMotion) {
+    document.querySelectorAll(".deepdive-photos video[autoplay]").forEach((video) => {
+      video.removeAttribute("autoplay");
+      video.pause();
+    });
+  }
+
 });

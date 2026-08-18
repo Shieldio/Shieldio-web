@@ -319,7 +319,6 @@ section{ padding:140px 0; }
   display:flex; gap:10px; align-items:flex-start; color:var(--ink);
 }
 .tier-list li:first-child{ border-top:none; }
-.tier-list li::before{ content:"—"; color:var(--ink-soft); flex-shrink:0; }
 .dev-badge{
   display:inline-flex; align-items:center; gap:6px; margin-top:20px;
   font-family:'JetBrains Mono'; font-size:11px; font-weight:500;
@@ -378,6 +377,7 @@ section{ padding:140px 0; }
   transition:transform .6s var(--ease);
 }
 .deepdive-photos .photo-frame:hover img{ transform:scale(1.06); }
+.deepdive-photos .photo-frame video{ width:100%; height:100%; object-fit:contain; display:block; }
 /* ---------- product spec rows (icon + description, Apple product-page style) ---------- */
 .spec-rows{ margin-top:28px; }
 .spec-row{
