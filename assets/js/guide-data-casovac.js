@@ -17,7 +17,7 @@ window.SHIELDIO_GUIDE = {
     ultrazvuk: {
       term: "Ultrazvuk",
       photo: null,
-      text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky — z toho spočítá vzdálenost.",
+      text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky. Z toho spočítá vzdálenost.",
       fact: "Stejným principem se orientují netopýři nebo lodní sonary.",
       datasheet: null,
     },
@@ -38,7 +38,7 @@ window.SHIELDIO_GUIDE = {
     pin: {
       term: "Pin",
       photo: null,
-      text: "Kovový kontakt na desce, kterým se propojují jednotlivé součástky — vstupy a výstupy signálu i napájení.",
+      text: "Kovový kontakt na desce, kterým se propojují jednotlivé součástky: vstupy a výstupy signálu i napájení.",
       fact: null,
       datasheet: null,
     },
@@ -52,7 +52,7 @@ window.SHIELDIO_GUIDE = {
     oled: {
       term: "OLED displej",
       photo: null,
-      text: "Malý obrazovkový displej na desce, na který program může vypisovat text nebo čísla — třeba naměřený čas.",
+      text: "Malý obrazovkový displej na desce, na který program může vypisovat text nebo čísla, třeba naměřený čas.",
       fact: "Každý pixel OLED displeje svítí sám o sobě, takže displej nepotřebuje podsvícení.",
       datasheet: null,
     },
@@ -70,9 +70,9 @@ window.SHIELDIO_GUIDE = {
       id: "shieldio-red",
       name: "Shieldio RED",
       photo: "../../../../assets/images/RED_hand_hold.jpeg",
-      what: "Hlavní deska celého projektu — ultrazvukový senzor i OLED displej jsou už na desce zabudované.",
+      what: "Hlavní deska celého projektu. Ultrazvukový senzor i OLED displej jsou už na desce zabudované.",
       how: "Uvnitř desky je Arduino Nano, které podle nahraného programu měří čas mezi událostmi zachycenými senzorem.",
-      fact: "Deska RED je aktuálně ve vývoji — první funkční prototyp.",
+      fact: "Deska RED je aktuálně ve vývoji, první funkční prototyp.",
       datasheet: null,
     },
     {
@@ -98,13 +98,13 @@ window.SHIELDIO_GUIDE = {
       title: "Připoj desku",
       type: "wiring",
       photo: null,
-      instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"oled\">OLED displej</span> jsou už na desce zabudované — nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
+      instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"oled\">OLED displej</span> jsou už na desce zabudované, nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
-          "Deska se v počítači vůbec neobjeví — zkus jiný USB port.",
-          "Kabel je jen nabíjecí a nepřenáší data — zkus jiný USB-C kabel.",
-          "Deska je připojená, ale nic se neděje — zkontroluj v mBlocku, že je vybraná správná deska.",
+          "Deska se v počítači vůbec neobjeví. Zkus jiný USB port.",
+          "Kabel je jen nabíjecí a nepřenáší data. Zkus jiný USB-C kabel.",
+          "Deska je připojená, ale nic se neděje. Zkontroluj v mBlocku, že je vybraná správná deska.",
         ],
       },
     },
@@ -127,7 +127,7 @@ window.SHIELDIO_GUIDE = {
           items: [
             "V mBlocku zkontroluj, že je vybraná správná deska (Arduino Nano).",
             "Odpoj a znovu připoj USB-C kabel.",
-            "Zkus jiný USB kabel — některé nabíjecí kabely nepřenáší data.",
+            "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.",
           ],
         },
       ],
@@ -141,8 +141,8 @@ window.SHIELDIO_GUIDE = {
         question: "Spustí se časovač na displeji, když zakryješ senzor?",
         no: {
           question: "Mění se aspoň číslo vzdálenosti na displeji, i když se časovač nespustí?",
-          noResult: "Senzor asi neměří — zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
-          yesResult: "Vzdálenost se měří správně, ale časovač se nespouští — zkontroluj v programu podmínku, při jaké vzdálenosti (v cm) se má časovač spustit.",
+          noResult: "Senzor asi neměří. Zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
+          yesResult: "Vzdálenost se měří správně, ale časovač se nespouští. Zkontroluj v programu podmínku, při jaké vzdálenosti (v cm) se má časovač spustit.",
         },
       },
     },
@@ -161,7 +161,7 @@ window.SHIELDIO_GUIDE = {
     levelUp: {
       title: "PROline",
       href: "../../../../products/PRO.html",
-      text: "Pokročilá řada Shieldio — zatím ve vývoji, ale mrkni, co chystáme.",
+      text: "Pokročilá řada Shieldio, zatím ve vývoji, ale mrkni, co chystáme.",
     },
   },
 };

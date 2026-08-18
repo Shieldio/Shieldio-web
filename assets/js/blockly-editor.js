@@ -113,14 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (presetId && PRESETS[presetId]) {
     PRESETS[presetId](workspace, loopBlock);
     workspace.cleanUp();
-    showPresetBanner("Nahrán startovní program pro tenhle projekt — uprav si ho, jak chceš.");
+    showPresetBanner("Nahrán startovní program pro tenhle projekt, uprav si ho, jak chceš.");
   }
 
   const codeEl = document.getElementById("generatedCode");
   const statusEl = document.getElementById("editorStatus");
 
   function assembleSketch(setupBody, loopBody) {
-    return `// Vygenerováno blokovým editorem Shieldio — piny podle desky RED
+    return `// Vygenerováno blokovým editorem Shieldio, piny podle desky RED
 #include <Servo.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 #define BUZZER 10
 #define BUTTON1 11
 #define BUTTON2 12
-// OLED (0,96", SSD1306) běží po I2C na pevné sběrnici Nana — SDA=A4, SCL=A5
+// OLED (0,96", SSD1306) běží po I2C na pevné sběrnici Nana, SDA=A4, SCL=A5
 
 Servo shieldioServo;
 Adafruit_SSD1306 shieldioDisplay(128, 64, &Wire, -1);
@@ -197,7 +197,7 @@ ${indent(loopBody)}}
       if (statusEl) { statusEl.textContent = ""; statusEl.classList.remove("error"); }
     } catch (err) {
       if (statusEl) {
-        statusEl.textContent = "Chyba při generování kódu — zkus bloky poskládat jinak. (" + err.message + ")";
+        statusEl.textContent = "Chyba při generování kódu, zkus bloky poskládat jinak. (" + err.message + ")";
         statusEl.classList.add("error");
       }
     }

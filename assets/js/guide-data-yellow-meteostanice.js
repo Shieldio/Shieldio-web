@@ -32,14 +32,14 @@ window.SHIELDIO_GUIDE = {
     mikrofon: {
       term: "Mikrofon",
       photo: null,
-      text: "Snímá zvuk z okolí a mění ho na elektrický signál, se kterým může program dál pracovat — třeba zjistit, jestli je v místnosti hlasitý zvuk.",
+      text: "Snímá zvuk z okolí a mění ho na elektrický signál, se kterým může program dál pracovat, třeba zjistit, jestli je v místnosti hlasitý zvuk.",
       fact: null,
       datasheet: null,
     },
     oled: {
       term: "OLED displej",
       photo: null,
-      text: "Malý obrazovkový displej na desce, na který program může vypisovat naměřené hodnoty — teplotu, vlhkost nebo světlo.",
+      text: "Malý obrazovkový displej na desce, na který program může vypisovat naměřené hodnoty: teplotu, vlhkost nebo světlo.",
       fact: "Každý pixel OLED displeje svítí sám o sobě, takže displej nepotřebuje podsvícení.",
       datasheet: null,
     },
@@ -71,7 +71,7 @@ window.SHIELDIO_GUIDE = {
       id: "shieldio-yellow",
       name: "Shieldio YELLOW",
       photo: null,
-      what: "Hlavní deska projektu — senzor teploty a vlhkosti, fotorezistor, mikrofon i OLED displej jsou už na desce zabudované.",
+      what: "Hlavní deska projektu. Senzor teploty a vlhkosti, fotorezistor, mikrofon i OLED displej jsou už na desce zabudované.",
       how: "Program čte hodnoty ze senzorů a vypisuje je na displej.",
       fact: null,
       datasheet: null,
@@ -99,13 +99,13 @@ window.SHIELDIO_GUIDE = {
       title: "Připoj desku",
       type: "wiring",
       photo: null,
-      instructions: "Senzor <span class=\"term\" data-term=\"dht11\">DHT11</span>, <span class=\"term\" data-term=\"fotorezistor\">fotorezistor</span>, <span class=\"term\" data-term=\"mikrofon\">mikrofon</span> i <span class=\"term\" data-term=\"oled\">OLED displej</span> jsou už na desce zabudované — nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
+      instructions: "Senzor <span class=\"term\" data-term=\"dht11\">DHT11</span>, <span class=\"term\" data-term=\"fotorezistor\">fotorezistor</span>, <span class=\"term\" data-term=\"mikrofon\">mikrofon</span> i <span class=\"term\" data-term=\"oled\">OLED displej</span> jsou už na desce zabudované, nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
-          "Deska se v počítači vůbec neobjeví — zkus jiný USB port.",
-          "Kabel je jen nabíjecí a nepřenáší data — zkus jiný USB-C kabel.",
-          "Deska je připojená, ale nic se neděje — zkontroluj v mBlocku, že je vybraná správná deska.",
+          "Deska se v počítači vůbec neobjeví. Zkus jiný USB port.",
+          "Kabel je jen nabíjecí a nepřenáší data. Zkus jiný USB-C kabel.",
+          "Deska je připojená, ale nic se neděje. Zkontroluj v mBlocku, že je vybraná správná deska.",
         ],
       },
     },
@@ -128,7 +128,7 @@ window.SHIELDIO_GUIDE = {
           items: [
             "V mBlocku zkontroluj, že je vybraná správná deska.",
             "Odpoj a znovu připoj USB-C kabel.",
-            "Zkus jiný USB kabel — některé nabíjecí kabely nepřenáší data.",
+            "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.",
           ],
         },
       ],
@@ -142,8 +142,8 @@ window.SHIELDIO_GUIDE = {
         question: "Ukazuje displej teplotu a vlhkost?",
         no: {
           question: "Objevilo se na displeji vůbec něco?",
-          noResult: "Displej asi nedostává data — zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
-          yesResult: "Displej něco ukazuje, ale ne správné hodnoty — zkontroluj v programu, že čteš data ze senzoru DHT11 správně.",
+          noResult: "Displej asi nedostává data. Zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
+          yesResult: "Displej něco ukazuje, ale ne správné hodnoty. Zkontroluj v programu, že čteš data ze senzoru DHT11 správně.",
         },
       },
     },
@@ -157,7 +157,7 @@ window.SHIELDIO_GUIDE = {
     levelUp: {
       title: "Baseline Red",
       href: "../../../../instructions/baseline/red/index.html",
-      text: "Další úroveň — ultrazvuk, servo a vlastní robotika v pohybu.",
+      text: "Další úroveň: ultrazvuk, servo a vlastní robotika v pohybu.",
     },
   },
 };

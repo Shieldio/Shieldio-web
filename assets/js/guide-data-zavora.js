@@ -17,21 +17,21 @@ window.SHIELDIO_GUIDE = {
     servo: {
       term: "Servo",
       photo: null,
-      text: "Motor, který se dokáže natočit do přesného úhlu (obvykle 0–180°) a v něm zůstat. Řídí se elektrickým pulzem (PWM signálem) — délka pulzu určuje úhel natočení.",
+      text: "Motor, který se dokáže natočit do přesného úhlu (obvykle 0–180°) a v něm zůstat. Řídí se elektrickým pulzem (PWM signálem). Délka pulzu určuje úhel natočení.",
       fact: "Stejný princip řízení používají třeba serva v RC modelech letadel a aut.",
       datasheet: null,
     },
     pwm: {
       term: "PWM",
       photo: null,
-      text: "Pulzně-šířková modulace — způsob řízení pomocí rychle se opakujících elektrických pulzů. Čím delší pulz, tím větší výstup (například úhel serva).",
+      text: "Pulzně-šířková modulace: způsob řízení pomocí rychle se opakujících elektrických pulzů. Čím delší pulz, tím větší výstup (například úhel serva).",
       fact: "Zkratka PWM znamená Pulse Width Modulation.",
       datasheet: null,
     },
     ultrazvuk: {
       term: "Ultrazvuk",
       photo: null,
-      text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky — z toho spočítá vzdálenost.",
+      text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky. Z toho spočítá vzdálenost.",
       fact: "Stejným principem se orientují netopýři nebo lodní sonary.",
       datasheet: null,
     },
@@ -52,7 +52,7 @@ window.SHIELDIO_GUIDE = {
     pin: {
       term: "Pin",
       photo: null,
-      text: "Kovový kontakt na desce, kterým se propojují jednotlivé součástky — vstupy a výstupy signálu i napájení.",
+      text: "Kovový kontakt na desce, kterým se propojují jednotlivé součástky: vstupy a výstupy signálu i napájení.",
       fact: null,
       datasheet: null,
     },
@@ -77,9 +77,9 @@ window.SHIELDIO_GUIDE = {
       id: "shieldio-red",
       name: "Shieldio RED",
       photo: "../../../../assets/images/RED_hand_hold.jpeg",
-      what: "Hlavní deska celého projektu — na ni se připojuje servo i ultrazvukový senzor.",
+      what: "Hlavní deska celého projektu. Na ni se připojuje servo i ultrazvukový senzor.",
       how: "Uvnitř desky je Arduino Nano, které podle nahraného programu ovládá vše připojené.",
-      fact: "Deska RED je aktuálně ve vývoji — první funkční prototyp.",
+      fact: "Deska RED je aktuálně ve vývoji, první funkční prototyp.",
       datasheet: null,
     },
     {
@@ -87,7 +87,7 @@ window.SHIELDIO_GUIDE = {
       name: "Servo SG90",
       photo: null,
       what: "Motor, který otáčí ramenem závory.",
-      how: "Řídí se PWM signálem — délka pulzu určuje, do jakého úhlu se natočí.",
+      how: "Řídí se PWM signálem. Délka pulzu určuje, do jakého úhlu se natočí.",
       fact: "SG90 je jedno z nejběžnějších hobby serv na světě.",
       datasheet: null,
     },
@@ -123,13 +123,13 @@ window.SHIELDIO_GUIDE = {
       title: "Zapoj <span class=\"term\" data-term=\"servo\">servo</span>",
       type: "wiring",
       photo: "../../../../assets/images/RED_hand_hold_with_parts.jpeg",
-      instructions: "Servo zapoj do konektoru označeného <b>SERVO</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem — nedá se to splést.",
+      instructions: "Servo zapoj do konektoru označeného <b>SERVO</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem. Nedá se to splést.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
-          "Servo není zasunuté úplně — zkus ho zatlačit až na doraz.",
-          "Kabel je otočený — konektor má jen jednu správnou orientaci.",
-          "Servo není ve správném konektoru — zkontroluj popisek SERVO na desce.",
+          "Servo není zasunuté úplně. Zkus ho zatlačit až na doraz.",
+          "Kabel je otočený. Konektor má jen jednu správnou orientaci.",
+          "Servo není ve správném konektoru. Zkontroluj popisek SERVO na desce.",
         ],
       },
     },
@@ -138,13 +138,13 @@ window.SHIELDIO_GUIDE = {
       title: "Zapoj <span class=\"term\" data-term=\"ultrazvuk\">ultrazvuk</span>",
       type: "wiring",
       photo: null,
-      instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b>. Stejně jako u serva — konektor jde zasunout jen správně.",
+      instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b>. Stejně jako u serva, konektor jde zasunout jen správně.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
-          "Senzor není zasunutý úplně — zkontroluj, že sedí na doraz.",
+          "Senzor není zasunutý úplně. Zkontroluj, že sedí na doraz.",
           "Kabel je v jiném konektoru než ULTRAZVUK.",
-          "Senzor je otočený — vysílač a přijímač musí směřovat od desky ven.",
+          "Senzor je otočený. Vysílač a přijímač musí směřovat od desky ven.",
         ],
       },
     },
@@ -167,28 +167,28 @@ window.SHIELDIO_GUIDE = {
           items: [
             "V mBlocku zkontroluj, že je vybraná správná deska (Arduino Nano).",
             "Odpoj a znovu připoj USB-C kabel.",
-            "Zkus jiný USB kabel — některé nabíjecí kabely nepřenáší data.",
+            "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.",
           ],
         },
       ],
       blocksEditorHref: "../../../../instructions/blokovy-editor.html?preset=zavora",
       arduino: {
         screenshot: null,
-        note: 'Ukázkový Arduino kód pro tento projekt zatím připravujeme — zkus mezitím blokové programování v <a href="../../../../instructions/blokovy-editor.html?preset=zavora">našem editoru</a>, má už nachystaný startovní program přesně pro tenhle projekt.',
+        note: 'Ukázkový Arduino kód pro tento projekt zatím připravujeme. Zkus mezitím blokové programování v <a href="../../../../instructions/blokovy-editor.html?preset=zavora">našem editoru</a>, má už nachystaný startovní program přesně pro tenhle projekt.',
         diagnostics: [
           {
             title: "Chyba: Nelze nahrát (upload error)",
             items: [
               "Zkontroluj, že je v Arduino IDE vybraný port desky (Tools → Port).",
               "Zkontroluj, že je vybraná správná deska (Tools → Board → Arduino Nano).",
-              "Zkus jiný USB kabel — některé nabíjecí kabely nepřenáší data.",
+              "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.",
             ],
           },
           {
             title: "Chyba: Kompilace selhala",
             items: [
               "Zkontroluj, že jsou nainstalované potřebné knihovny pro servo a ultrazvukový senzor.",
-              "Projdi hlášku chyby — obvykle ukazuje přesný řádek s problémem.",
+              "Projdi hlášku chyby. Obvykle ukazuje přesný řádek s problémem.",
               "Zkus kód znovu zkompilovat po uložení souboru.",
             ],
           },
@@ -208,7 +208,7 @@ window.SHIELDIO_GUIDE = {
           yes: {
             question: "Mění se hodnota vzdálenosti v mBlocku, když přiblížíš ruku?",
             noResult: "Ultrazvukový senzor asi není správně zapojený. Zkontroluj kabel v kroku 3.",
-            yesResult: "Zkontroluj v programu prahovou hodnotu vzdálenosti — možná je nastavená příliš nízko.",
+            yesResult: "Zkontroluj v programu prahovou hodnotu vzdálenosti. Možná je nastavená příliš nízko.",
           },
         },
       },
@@ -228,7 +228,7 @@ window.SHIELDIO_GUIDE = {
     levelUp: {
       title: "PROline",
       href: "../../../../products/PRO.html",
-      text: "Pokročilá řada Shieldio — zatím ve vývoji, ale mrkni, co chystáme.",
+      text: "Pokročilá řada Shieldio, zatím ve vývoji, ale mrkni, co chystáme.",
     },
   },
 };

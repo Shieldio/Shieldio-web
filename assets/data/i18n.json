@@ -44,8 +44,8 @@
     "en": "ELECTRONICS AND ROBOTICS, MADE SIMPLE FOR EVERYONE"
   },
   "home.title": {
-    "cs": "Shieldio — Elektronika a robotika srozumitelně pro každého",
-    "en": "Shieldio — Electronics and robotics, made simple for everyone"
+    "cs": "Shieldio · Elektronika a robotika srozumitelně pro každého",
+    "en": "Shieldio · Electronics and robotics, made simple for everyone"
   },
   "home.topbar_cta": {
     "cs": "Domluvit ukázku",
@@ -60,8 +60,8 @@
     "en": "Electronics and robotics<br>that <em>make sense</em> at first glance."
   },
   "home.hero.lead": {
-    "cs": "Shieldio jsou hotové Arduino shieldy s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nezáleží, jestli je rozbaluje kroužek, škola, nebo jednotlivec doma — do pěti minut je vše zapojené a program běží.",
-    "en": "Shieldio boards are ready-to-use Arduino shields with foolproof connectors, colour-coded difficulty levels, and block-based programming. It doesn't matter whether a club, a school, or someone at home is unboxing it — everything is wired up and running within five minutes."
+    "cs": "Shieldio jsou hotové Arduino shieldy s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nezáleží, jestli je rozbaluje kroužek, škola, nebo jednotlivec doma. Do pěti minut je vše zapojené a program běží.",
+    "en": "Shieldio boards are ready-to-use Arduino shields with foolproof connectors, colour-coded difficulty levels, and block-based programming. It doesn't matter whether a club, a school, or someone at home is unboxing it. Everything is wired up and running within five minutes."
   },
   "home.hero.cta_primary": {
     "cs": "Prohlédnout desky",
@@ -96,8 +96,8 @@
     "en": "A good robotics club or lesson today often depends on one enthusiastic teacher."
   },
   "home.problem.card1_tag": {
-    "cs": "01 — čas",
-    "en": "01 — time"
+    "cs": "01 · čas",
+    "en": "01 · time"
   },
   "home.problem.card1_h3": {
     "cs": "Příprava hodiny trvá déle než hodina sama",
@@ -108,20 +108,20 @@
     "en": "Assembling kits, hunting down a faulty cable, and installing drivers eats up time that should go into teaching."
   },
   "home.problem.card2_tag": {
-    "cs": "02 — bezpečnost",
-    "en": "02 — safety"
+    "cs": "02 · bezpečnost",
+    "en": "02 · safety"
   },
   "home.problem.card2_h3": {
     "cs": "Volné součástky se ztrácí a poškozují",
     "en": "Loose parts get lost and damaged"
   },
   "home.problem.card2_p": {
-    "cs": "Drobné díly a nepájivá pole nevydrží provoz více tříd po sobě — po pár měsících chybí polovina sady.",
-    "en": "Small parts and breadboards don't survive back-to-back classes — within a few months, half the kit is missing."
+    "cs": "Drobné díly a nepájivá pole nevydrží provoz více tříd po sobě, po pár měsících chybí polovina sady.",
+    "en": "Small parts and breadboards don't survive back-to-back classes, within a few months, half the kit is missing."
   },
   "home.problem.card3_tag": {
-    "cs": "03 — odbornost",
-    "en": "03 — expertise"
+    "cs": "03 · odbornost",
+    "en": "03 · expertise"
   },
   "home.problem.card3_h3": {
     "cs": "Ne každý učitel je elektrotechnik",
@@ -140,8 +140,8 @@
     "en": "One board, clear colour-coding, growing difficulty."
   },
   "home.solution.p": {
-    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod — a dost prostoru na to, co si žáci vymyslí sami.",
-    "en": "Each level has one core component and one documented project as a starting point — plus plenty of room for whatever students come up with on their own."
+    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod, a dost prostoru na to, co si žáci vymyslí sami.",
+    "en": "Each level has one core component and one documented project as a starting point, plus plenty of room for whatever students come up with on their own."
   },
   "home.tier_green.label": {
     "cs": "Úroveň 1 · Základ",
@@ -236,12 +236,12 @@
     "en": "<span class=\"text-tier-red\">RED</span> board: the first working prototype."
   },
   "home.deepdive.p": {
-    "cs": "Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce — s popisy součástek přímo na plošném spoji.",
-    "en": "The most advanced Baseline board combines ultrasonic distance sensing, a servo, and a display on a single 100×100&nbsp;mm PCB — with component labels printed right on the board."
+    "cs": "Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce, s popisy součástek přímo na plošném spoji.",
+    "en": "The most advanced Baseline board combines ultrasonic distance sensing, a servo, and a display on a single 100×100&nbsp;mm PCB, with component labels printed right on the board."
   },
   "home.deepdive.spec1": {
-    "cs": "<b>Arduino Nano</b> jako řídicí jednotka — program nahráváš přímo přes USB-C.",
-    "en": "<b>Arduino Nano</b> as the controller — you upload your program straight over USB-C."
+    "cs": "<b>Arduino Nano</b> jako řídicí jednotka, program nahráváš přímo přes USB-C.",
+    "en": "<b>Arduino Nano</b> as the controller, you upload your program straight over USB-C."
   },
   "home.deepdive.spec2": {
     "cs": "<b>Ultrazvukový snímač</b> vzdálenosti pro měření okolí.",
@@ -260,8 +260,8 @@
     "en": "<b>JST-XH connectors</b> and a Power&amp;Data link for a robust connection between boards."
   },
   "home.deepdive.spec6": {
-    "cs": "<b>100×100 mm</b> formát — stejný napříč celou řadou.",
-    "en": "<b>100×100 mm</b> format — the same across the whole line."
+    "cs": "<b>100×100 mm</b> formát, stejný napříč celou řadou.",
+    "en": "<b>100×100 mm</b> format, the same across the whole line."
   },
   "home.howitworks.eyebrow": {
     "cs": "Průběh hodiny",
@@ -276,24 +276,24 @@
     "en": "Connect over USB-C"
   },
   "home.step1.p": {
-    "cs": "Deska se připojí k počítači jedním kabelem — rovnou připravená k použití.",
-    "en": "The board connects to a computer with a single cable — ready to go right away."
+    "cs": "Deska se připojí k počítači jedním kabelem, rovnou připravená k použití.",
+    "en": "The board connects to a computer with a single cable, ready to go right away."
   },
   "home.step2.h3": {
     "cs": "Spustit blokové programování",
     "en": "Open block-based programming"
   },
   "home.step2.p": {
-    "cs": "Prostředí mBlock — stejné rozhraní, na jaké jsou žáci zvyklí.",
-    "en": "The mBlock environment — the same interface students already know."
+    "cs": "Prostředí mBlock, stejné rozhraní, na jaké jsou žáci zvyklí.",
+    "en": "The mBlock environment, the same interface students already know."
   },
   "home.step3.h3": {
     "cs": "Sestavit program z bloků",
     "en": "Build the program from blocks"
   },
   "home.step3.p": {
-    "cs": "Senzory a výstupy jsou pojmenované srozumitelně — bez potřeby znát Arduino kód.",
-    "en": "Sensors and outputs are named in plain language — no need to know Arduino code."
+    "cs": "Senzory a výstupy jsou pojmenované srozumitelně, bez potřeby znát Arduino kód.",
+    "en": "Sensors and outputs are named in plain language, no need to know Arduino code."
   },
   "home.step4.h3": {
     "cs": "Rozšířit vlastním nápadem",
@@ -312,8 +312,8 @@
     "en": "Built so any teacher can run it, no technical background required."
   },
   "home.schools.p": {
-    "cs": "Shieldio není soubor volných komponent — je to hotová sada připravená na provoz ve třídě, rok co rok.",
-    "en": "Shieldio isn't a bag of loose parts — it's a finished kit built to run in a classroom, year after year."
+    "cs": "Shieldio není soubor volných komponent, je to hotová sada připravená na provoz ve třídě, rok co rok.",
+    "en": "Shieldio isn't a bag of loose parts, it's a finished kit built to run in a classroom, year after year."
   },
   "home.benefit1.h3": {
     "cs": "Bez pájení a montáže",
@@ -328,16 +328,16 @@
     "en": "Built for repeated use"
   },
   "home.benefit2.p": {
-    "cs": "Pevně osazené klíčové součástky, odpojitelné jen ty křehké — vydrží třídu za třídou.",
-    "en": "Key components are fixed in place, only the fragile parts are detachable — built to survive class after class."
+    "cs": "Pevně osazené klíčové součástky, odpojitelné jen ty křehké, vydrží třídu za třídou.",
+    "en": "Key components are fixed in place, only the fragile parts are detachable, built to survive class after class."
   },
   "home.benefit3.h3": {
     "cs": "Hotové materiály k hodině",
     "en": "Ready-made lesson materials"
   },
   "home.benefit3.p": {
-    "cs": "Připravené scénáře i prostor na vlastní projekty žáků — bez nutnosti tvořit vlastní osnovu.",
-    "en": "Ready-made lesson plans plus room for students' own projects — no need to build your own curriculum."
+    "cs": "Připravené scénáře i prostor na vlastní projekty žáků, bez nutnosti tvořit vlastní osnovu.",
+    "en": "Ready-made lesson plans plus room for students' own projects, no need to build your own curriculum."
   },
   "home.benefit4.h3": {
     "cs": "Žádná instalace navíc",
@@ -352,8 +352,8 @@
     "en": "Clear labels on the board"
   },
   "home.benefit5.p": {
-    "cs": "Piny a součástky pojmenované přímo na plošném spoji — učitel se orientuje na první pohled.",
-    "en": "Pins and components are labelled right on the board — a teacher can find their way at a glance."
+    "cs": "Piny a součástky pojmenované přímo na plošném spoji, učitel se orientuje na první pohled.",
+    "en": "Pins and components are labelled right on the board, a teacher can find their way at a glance."
   },
   "home.benefit6.h3": {
     "cs": "Rostoucí obtížnost",
@@ -368,12 +368,12 @@
     "en": "Interested?"
   },
   "home.cta.h2": {
-    "cs": "Ozvěte se — poradíme, co bude pro vás nejlepší start.",
-    "en": "Get in touch — we'll help you find the best place to start."
+    "cs": "Ozvěte se, poradíme, co bude pro vás nejlepší start.",
+    "en": "Get in touch, we'll help you find the best place to start."
   },
   "home.cta.p": {
-    "cs": "Ať už hledáte stavebnici pro sebe, kroužek, nebo výuku na škole, napište pár slov o tom, co plánujete — ozveme se s doporučením nebo termínem ukázky.",
-    "en": "Whether you're after a kit for yourself, a club, or teaching at a school, tell us a bit about what you're planning — we'll get back to you with a recommendation or a demo date."
+    "cs": "Ať už hledáte stavebnici pro sebe, kroužek, nebo výuku na škole, napište pár slov o tom, co plánujete. Ozveme se s doporučením nebo termínem ukázky.",
+    "en": "Whether you're after a kit for yourself, a club, or teaching at a school, tell us a bit about what you're planning. We'll get back to you with a recommendation or a demo date."
   },
   "home.contact_list.for_label": {
     "cs": "URČENO PRO",
@@ -492,8 +492,8 @@
     "en": "All the boards. <em>Just pick one.</em>"
   },
   "products_index.lead": {
-    "cs": "Baseline (<span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, <span class=\"text-tier-red\">Red</span>) je naše hlavní řada — jedna deska, tři úrovně obtížnosti. <span class=\"text-tier-pro\">PROline</span> je pokročilá řada pro náročnější projekty.",
-    "en": "Baseline (<span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, <span class=\"text-tier-red\">Red</span>) is our main line — one board, three difficulty levels. <span class=\"text-tier-pro\">PROline</span> is the advanced line for more demanding projects."
+    "cs": "Baseline (<span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, <span class=\"text-tier-red\">Red</span>) je naše hlavní řada: jedna deska, tři úrovně obtížnosti. <span class=\"text-tier-pro\">PROline</span> je pokročilá řada pro náročnější projekty.",
+    "en": "Baseline (<span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, <span class=\"text-tier-red\">Red</span>) is our main line: one board, three difficulty levels. <span class=\"text-tier-pro\">PROline</span> is the advanced line for more demanding projects."
   },
   "products_index.group_baseline": {
     "cs": "Baseline",
@@ -560,8 +560,8 @@
     "en": "The <em class=\"text-tier-green\">Green</em> board."
   },
   "green.lead": {
-    "cs": "První kontakt s hardwarem — tlačítka, LED indikace a bzučák na jedné desce. Ideální jako úplně první krok s elektronikou, bez pájení a bez frustrace.",
-    "en": "A first contact with hardware — buttons, LED indicators, and a buzzer on one board. Ideal as a very first step into electronics, no soldering, no frustration."
+    "cs": "První kontakt s hardwarem, tlačítka, LED indikace a bzučák na jedné desce. Ideální jako úplně první krok s elektronikou, bez pájení a bez frustrace.",
+    "en": "A first contact with hardware, buttons, LED indicators, and a buzzer on one board. Ideal as a very first step into electronics, no soldering, no frustration."
   },
   "green.spec_h2": {
     "cs": "Vybavení úrovně <span class=\"text-tier-green\">Green</span>.",
@@ -572,24 +572,24 @@
     "en": "<b>Buttons and LED indicators</b> for your first experiments with inputs and outputs."
   },
   "green.spec2": {
-    "cs": "<b>Bzučák</b> pro zvukovou odezvu — okamžitě slyšíš, co program dělá.",
-    "en": "<b>Buzzer</b> for audio feedback — you instantly hear what the program is doing."
+    "cs": "<b>Bzučák</b> pro zvukovou odezvu, okamžitě slyšíš, co program dělá.",
+    "en": "<b>Buzzer</b> for audio feedback, you instantly hear what the program is doing."
   },
   "green.spec3": {
     "cs": "<b>Analogový vstup</b> pro připojení dalších senzorů.",
     "en": "<b>Analog input</b> for connecting extra sensors."
   },
   "green.spec4": {
-    "cs": "Ideální jako <b>úplně první krok</b> s elektronikou — bez pájení, bez frustrace.",
-    "en": "Ideal as a <b>very first step</b> into electronics — no soldering, no frustration."
+    "cs": "Ideální jako <b>úplně první krok</b> s elektronikou, bez pájení, bez frustrace.",
+    "en": "Ideal as a <b>very first step</b> into electronics, no soldering, no frustration."
   },
   "green.spec5": {
-    "cs": "<b>100×100 mm</b> formát — stejný napříč celou řadou Baseline.",
-    "en": "<b>100×100 mm</b> format — the same across the whole Baseline line."
+    "cs": "<b>100×100 mm</b> formát, stejný napříč celou řadou Baseline.",
+    "en": "<b>100×100 mm</b> format, the same across the whole Baseline line."
   },
   "green.cta_p": {
-    "cs": "Napiš nám — poradíme, jestli je Green pro tebe nebo tvůj kroužek ten pravý start.",
-    "en": "Get in touch — we'll help you figure out if Green is the right start for you or your club."
+    "cs": "Napiš nám, poradíme, jestli je Green pro tebe nebo tvůj kroužek ten pravý start.",
+    "en": "Get in touch, we'll help you figure out if Green is the right start for you or your club."
   },
   "yellow.title": {
     "cs": "Deska Yellow | Shieldio",
@@ -604,8 +604,8 @@
     "en": "The <em class=\"text-tier-yellow\">Yellow</em> board."
   },
   "yellow.lead": {
-    "cs": "Rozšíření o měření okolí — teplota, vlhkost a světlo. Výchozí projekt: vlastní meteostanice, kterou si naprogramuješ sám.",
-    "en": "An extension into sensing the environment — temperature, humidity, and light. Default project: your own weather station, programmed by you."
+    "cs": "Rozšíření o měření okolí, teplota, vlhkost a světlo. Výchozí projekt: vlastní meteostanice, kterou si naprogramuješ sám.",
+    "en": "An extension into sensing the environment, temperature, humidity, and light. Default project: your own weather station, programmed by you."
   },
   "yellow.spec_h2": {
     "cs": "Vybavení úrovně <span class=\"text-tier-yellow\">Yellow</span>.",
@@ -628,12 +628,12 @@
     "en": "Default project: <b>your own measuring station</b>, programmed by you."
   },
   "yellow.spec5": {
-    "cs": "<b>100×100 mm</b> formát — stejný napříč celou řadou Baseline.",
-    "en": "<b>100×100 mm</b> format — the same across the whole Baseline line."
+    "cs": "<b>100×100 mm</b> formát, stejný napříč celou řadou Baseline.",
+    "en": "<b>100×100 mm</b> format, the same across the whole Baseline line."
   },
   "yellow.cta_p": {
-    "cs": "Napiš nám — poradíme, jestli je Yellow pro tebe nebo tvůj kroužek ten pravý další krok.",
-    "en": "Get in touch — we'll help you figure out if Yellow is the right next step for you or your club."
+    "cs": "Napiš nám, poradíme, jestli je Yellow pro tebe nebo tvůj kroužek ten pravý další krok.",
+    "en": "Get in touch, we'll help you figure out if Yellow is the right next step for you or your club."
   },
   "red.title": {
     "cs": "Deska RED | Shieldio",
@@ -648,8 +648,8 @@
     "en": "The <em class=\"text-tier-red\">RED</em> board."
   },
   "red.lead": {
-    "cs": "Robotika v pohybu — ultrazvukový senzor vzdálenosti, servo a OLED displej na jedné desce. Výchozí projekt: funkční prototyp závory.",
-    "en": "Robotics in motion — an ultrasonic distance sensor, a servo, and an OLED display on one board. Default project: a working barrier prototype."
+    "cs": "Robotika v pohybu, ultrazvukový senzor vzdálenosti, servo a OLED displej na jedné desce. Výchozí projekt: funkční prototyp závory.",
+    "en": "Robotics in motion, an ultrasonic distance sensor, a servo, and an OLED display on one board. Default project: a working barrier prototype."
   },
   "red.hero_preorder": {
     "cs": "Předobjednat",
@@ -660,8 +660,8 @@
     "en": "View the guide"
   },
   "red.deepdive.spec2": {
-    "cs": "<b>Ultrazvukový snímač</b> vzdálenosti — základ pro všechny čtyři projekty na této desce.",
-    "en": "<b>Ultrasonic sensor</b> for distance — the basis for all four projects on this board."
+    "cs": "<b>Ultrazvukový snímač</b> vzdálenosti, základ pro všechny čtyři projekty na této desce.",
+    "en": "<b>Ultrasonic sensor</b> for distance, the basis for all four projects on this board."
   },
   "red.deepdive.spec3": {
     "cs": "<b>OLED displej</b> a dvě barevné LED pro okamžitou zpětnou vazbu z programu.",
@@ -676,8 +676,8 @@
     "en": "<b>Two buttons</b> right on the board for control without needing a computer."
   },
   "red.deepdive.spec7": {
-    "cs": "<b>100×100 mm</b> formát — stejný napříč celou řadou Baseline.",
-    "en": "<b>100×100 mm</b> format — the same across the whole Baseline line."
+    "cs": "<b>100×100 mm</b> formát, stejný napříč celou řadou Baseline.",
+    "en": "<b>100×100 mm</b> format, the same across the whole Baseline line."
   },
   "red.projects_eyebrow": {
     "cs": "Co si můžeš postavit",
@@ -708,16 +708,16 @@
     "en": "Theremin"
   },
   "red.project3_p": {
-    "cs": "Bezdotykový hudební nástroj — vzdálenost ruky od senzoru mění výšku tónu.",
-    "en": "A touchless musical instrument — the distance of your hand from the sensor changes the pitch."
+    "cs": "Bezdotykový hudební nástroj, vzdálenost ruky od senzoru mění výšku tónu.",
+    "en": "A touchless musical instrument, the distance of your hand from the sensor changes the pitch."
   },
   "red.project4_h3": {
     "cs": "Časovač",
     "en": "Timer"
   },
   "red.project4_p": {
-    "cs": "Měření vzdálenosti a času — základ pro vlastní časomíru nebo čidlo pohybu.",
-    "en": "Distance and time measurement — the basis for your own stopwatch or motion sensor."
+    "cs": "Měření vzdálenosti a času, základ pro vlastní časomíru nebo čidlo pohybu.",
+    "en": "Distance and time measurement, the basis for your own stopwatch or motion sensor."
   },
   "red.projects_cta": {
     "cs": "Zobrazit návody k projektům",
@@ -732,8 +732,8 @@
     "en": "Pre-order the <span class=\"text-tier-red\">RED</span> board."
   },
   "red.preorder_p": {
-    "cs": "Vyber si variantu podle toho, kolik chceš pájet sám. Předobjednávka je nezávazná rezervace kusu z aktuální malé série — platbu a přesný termín dodání domluvíme e-mailem.",
-    "en": "Pick a variant based on how much soldering you want to do yourself. A pre-order is a non-binding reservation from the current small batch — we'll arrange payment and the exact delivery date by email."
+    "cs": "Vyber si variantu podle toho, kolik chceš pájet sám. Předobjednávka je nezávazná rezervace kusu z aktuální malé série, platbu a přesný termín dodání domluvíme e-mailem.",
+    "en": "Pick a variant based on how much soldering you want to do yourself. A pre-order is a non-binding reservation from the current small batch, we'll arrange payment and the exact delivery date by email."
   },
   "red.group_recommended": {
     "cs": "Doporučujeme",
@@ -748,40 +748,40 @@
     "en": "Unassembled complete kit"
   },
   "red.opt_unassembled_desc": {
-    "cs": "Deska a všechny součástky zvlášť, nespojené — pájíš a sestavuješ si sám.",
-    "en": "The board and all components separately, unconnected — you solder and assemble it yourself."
+    "cs": "Deska a všechny součástky zvlášť, nespojené, pájíš a sestavuješ si sám.",
+    "en": "The board and all components separately, unconnected, you solder and assemble it yourself."
   },
   "red.opt_assembled_name": {
     "cs": "Sestavená kompletní",
     "en": "Fully assembled"
   },
   "red.opt_assembled_desc": {
-    "cs": "Hotová deska se všemi součástkami — ultrazvuk, Arduino, displej, kabel. Připojíš a jede.",
-    "en": "A finished board with every component — ultrasonic sensor, Arduino, display, cable. Plug it in and go."
+    "cs": "Hotová deska se všemi součástkami, ultrazvuk, Arduino, displej, kabel. Připojíš a jede.",
+    "en": "A finished board with every component, ultrasonic sensor, Arduino, display, cable. Plug it in and go."
   },
   "red.opt_bare_name": {
     "cs": "Holá deska (PCB)",
     "en": "Bare board (PCB)"
   },
   "red.opt_bare_desc": {
-    "cs": "Jen samotný plošný spoj, bez součástek — pro stavbu úplně od nuly.",
-    "en": "Just the bare PCB, no components — for building completely from scratch."
+    "cs": "Jen samotný plošný spoj, bez součástek, pro stavbu úplně od nuly.",
+    "en": "Just the bare PCB, no components, for building completely from scratch."
   },
   "red.opt_basic_name": {
     "cs": "Sestavená základní",
     "en": "Basic assembled"
   },
   "red.opt_basic_desc": {
-    "cs": "Připájené jen součástky přímo na desce — bez ultrazvuku, Arduina, displeje a kabelu.",
-    "en": "Only the components soldered directly to the board — no ultrasonic sensor, Arduino, display, or cable."
+    "cs": "Připájené jen součástky přímo na desce, bez ultrazvuku, Arduina, displeje a kabelu.",
+    "en": "Only the components soldered directly to the board, no ultrasonic sensor, Arduino, display, or cable."
   },
   "red.opt_eduset_name": {
     "cs": "EduSET<span class=\"preorder-badge\">5×</span>",
     "en": "EduSET<span class=\"preorder-badge\">5×</span>"
   },
   "red.opt_eduset_desc": {
-    "cs": "Pět kompletně sestavených desek za zvýhodněnou cenu — pro kroužek nebo třídu.",
-    "en": "Five fully assembled boards at a discounted price — for a club or a class."
+    "cs": "Pět kompletně sestavených desek za zvýhodněnou cenu, pro kroužek nebo třídu.",
+    "en": "Five fully assembled boards at a discounted price, for a club or a class."
   },
   "red.qty_label": {
     "cs": "Počet kusů",
@@ -804,12 +804,12 @@
     "en": "Send pre-order"
   },
   "red.disclaimer": {
-    "cs": "Předobjednávka nic hned nestrhává — je to nezávazná rezervace, platbu a termín domluvíme e-mailem.",
-    "en": "A pre-order doesn't charge you anything right away — it's a non-binding reservation, we'll arrange payment and timing by email."
+    "cs": "Předobjednávka nic hned nestrhává, je to nezávazná rezervace, platbu a termín domluvíme e-mailem.",
+    "en": "A pre-order doesn't charge you anything right away, it's a non-binding reservation, we'll arrange payment and timing by email."
   },
   "red.cta_p": {
-    "cs": "Deska RED je aktuálně ve vývoji — napiš nám a domluvíme se na dalších krocích nebo ukázce.",
-    "en": "The RED board is currently in development — get in touch and we'll figure out next steps or a demo."
+    "cs": "Deska RED je aktuálně ve vývoji, napiš nám a domluvíme se na dalších krocích nebo ukázce.",
+    "en": "The RED board is currently in development, get in touch and we'll figure out next steps or a demo."
   },
   "pro.title": {
     "cs": "Deska PRO | Shieldio",
@@ -844,16 +844,16 @@
     "en": "Shieldio <em>PowerAdd</em>."
   },
   "poweradd.lead": {
-    "cs": "Desky Shieldio se dosud programují a napájí přes USB-C kabel. PowerAdd je odpojí od zásuvky i počítače — nabíjecí modul, se kterým se dá s hotovým projektem chodit po třídě.",
-    "en": "Shieldio boards are currently programmed and powered over a USB-C cable. PowerAdd disconnects them from both the outlet and the computer — a charging module that lets you carry a finished project around the classroom."
+    "cs": "Desky Shieldio se dosud programují a napájí přes USB-C kabel. PowerAdd je odpojí od zásuvky i počítače, nabíjecí modul, se kterým se dá s hotovým projektem chodit po třídě.",
+    "en": "Shieldio boards are currently programmed and powered over a USB-C cable. PowerAdd disconnects them from both the outlet and the computer, a charging module that lets you carry a finished project around the classroom."
   },
   "poweradd.back_products": {
     "cs": "Zpět na produkty",
     "en": "Back to products"
   },
   "poweradd.p1": {
-    "cs": "PowerAdd napájí až čtyři větve současně a jednotlivé desky Shieldio mezi sebou propojuje přes Power&amp;Data link — takže si mezi sebou sdílí energii i data zároveň.",
-    "en": "PowerAdd powers up to four branches at once and connects individual Shieldio boards over a Power&amp;Data link — so they share both power and data with each other at the same time."
+    "cs": "PowerAdd napájí až čtyři větve současně a jednotlivé desky Shieldio mezi sebou propojuje přes Power&amp;Data link, takže si mezi sebou sdílí energii i data zároveň.",
+    "en": "PowerAdd powers up to four branches at once and connects individual Shieldio boards over a Power&amp;Data link, so they share both power and data with each other at the same time."
   },
   "poweradd.p2": {
     "cs": "Díky tomu se dá víc desek zapojit sériově i paralelně, podle toho, co projekt potřebuje.",
@@ -868,28 +868,28 @@
     "en": "A charging module for the whole line."
   },
   "poweradd.spec1": {
-    "cs": "<b>Nabíjecí modul</b> (powerbanka) — prototyp, který desku odpojí od USB-C kabelu.",
-    "en": "<b>Charging module</b> (power bank) — a prototype that disconnects the board from its USB-C cable."
+    "cs": "<b>Nabíjecí modul</b> (powerbanka), prototyp, který desku odpojí od USB-C kabelu.",
+    "en": "<b>Charging module</b> (power bank), a prototype that disconnects the board from its USB-C cable."
   },
   "poweradd.spec2": {
     "cs": "<b>Cca 10 hodin</b> výdrže na jednu desku, s podporou rychlonabíjení.",
     "en": "<b>About 10 hours</b> of runtime per board, with fast-charging support."
   },
   "poweradd.spec3": {
-    "cs": "<b>4 nezávislé napájecí větve</b> — napájí víc desek zároveň.",
-    "en": "<b>4 independent power branches</b> — power several boards at once."
+    "cs": "<b>4 nezávislé napájecí větve</b>, napájí víc desek zároveň.",
+    "en": "<b>4 independent power branches</b>, power several boards at once."
   },
   "poweradd.spec4": {
-    "cs": "<b>Power&amp;Data link</b> — desky mezi sebou sdílí energii i data, sériově i paralelně.",
-    "en": "<b>Power&amp;Data link</b> — boards share power and data with each other, in series or in parallel."
+    "cs": "<b>Power&amp;Data link</b>, desky mezi sebou sdílí energii i data, sériově i paralelně.",
+    "en": "<b>Power&amp;Data link</b>, boards share power and data with each other, in series or in parallel."
   },
   "poweradd.spec5": {
-    "cs": "<b>100×100 mm</b> formát — stejný napříč celou řadou.",
-    "en": "<b>100×100 mm</b> format — the same across the whole line."
+    "cs": "<b>100×100 mm</b> formát, stejný napříč celou řadou.",
+    "en": "<b>100×100 mm</b> format, the same across the whole line."
   },
   "poweradd.cta_p": {
-    "cs": "PowerAdd je aktuálně ve vývoji — napiš nám a domluvíme se na dalších krocích.",
-    "en": "PowerAdd is currently in development — get in touch and we'll figure out next steps."
+    "cs": "PowerAdd je aktuálně ve vývoji, napiš nám a domluvíme se na dalších krocích.",
+    "en": "PowerAdd is currently in development, get in touch and we'll figure out next steps."
   },
   "faq.title": {
     "cs": "Časté otázky | Shieldio",
@@ -920,16 +920,16 @@
     "en": "Do I need experience with electronics or programming?"
   },
   "faq.a2": {
-    "cs": "Ne. Úroveň Green je navržená jako úplně první krok s elektronikou — bez pájení, bez psaní kódu, s neomylnými konektory.",
-    "en": "No. The Green level is designed as a very first step into electronics — no soldering, no writing code, foolproof connectors."
+    "cs": "Ne. Úroveň Green je navržená jako úplně první krok s elektronikou, bez pájení, bez psaní kódu, s neomylnými konektory.",
+    "en": "No. The Green level is designed as a very first step into electronics, no soldering, no writing code, foolproof connectors."
   },
   "faq.q3": {
     "cs": "Jak se deska programuje?",
     "en": "How is the board programmed?"
   },
   "faq.a3": {
-    "cs": "Blokovým programováním v prostředí <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>, které funguje přímo v prohlížeči — podobně jako Scratch.",
-    "en": "Through block-based programming in <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>, which runs right in the browser — similar to Scratch."
+    "cs": "Blokovým programováním v prostředí <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>, které funguje přímo v prohlížeči, podobně jako Scratch.",
+    "en": "Through block-based programming in <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>, which runs right in the browser, similar to Scratch."
   },
   "faq.q4": {
     "cs": "Jaký je rozdíl mezi Green, Yellow a Red?",
@@ -944,8 +944,8 @@
     "en": "What's Baseline and what's PROline?"
   },
   "faq.a5": {
-    "cs": "Baseline je řada se třemi úrovněmi obtížnosti na jedné desce. PROline je pokročilejší řada pro náročnější projekty — aktuálně se připravuje.",
-    "en": "Baseline is a line with three difficulty levels on one board. PROline is a more advanced line for more demanding projects — currently in the works."
+    "cs": "Baseline je řada se třemi úrovněmi obtížnosti na jedné desce. PROline je pokročilejší řada pro náročnější projekty, aktuálně se připravuje.",
+    "en": "Baseline is a line with three difficulty levels on one board. PROline is a more advanced line for more demanding projects, currently in the works."
   },
   "faq.q6": {
     "cs": "Je deska RED už k dostání?",
@@ -960,32 +960,32 @@
     "en": "What is PowerAdd?"
   },
   "faq.a7": {
-    "cs": "Nabíjecí modul, který desku odpojí od USB-C kabelu — napájí až čtyři větve a umožňuje propojit víc desek mezi sebou, sériově i paralelně.",
-    "en": "A charging module that disconnects the board from its USB-C cable — it powers up to four branches and lets you connect several boards together, in series or in parallel."
+    "cs": "Nabíjecí modul, který desku odpojí od USB-C kabelu. Napájí až čtyři větve a umožňuje propojit víc desek mezi sebou, sériově i paralelně.",
+    "en": "A charging module that disconnects the board from its USB-C cable. It powers up to four branches and lets you connect several boards together, in series or in parallel."
   },
   "faq.q8": {
     "cs": "Pro koho je Shieldio určené?",
     "en": "Who is Shieldio for?"
   },
   "faq.a8": {
-    "cs": "Pro jednotlivce, kroužky i základní a střední školy — kohokoliv, kdo chce začít s elektronikou a robotikou bez frustrace.",
-    "en": "For individuals, clubs, and primary and secondary schools — anyone who wants to get into electronics and robotics without the frustration."
+    "cs": "Pro jednotlivce, kroužky i základní a střední školy: pro kohokoliv, kdo chce začít s elektronikou a robotikou bez frustrace.",
+    "en": "For individuals, clubs, and primary and secondary schools: anyone who wants to get into electronics and robotics without the frustration."
   },
   "faq.q9": {
     "cs": "Kde najdu návody k projektům?",
     "en": "Where can I find project guides?"
   },
   "faq.a9": {
-    "cs": "V sekci <a href=\"instructions/index.html\">Návody</a> — vyberte si desku a úroveň, u desky RED jsou už k dispozici konkrétní projekty krok za krokem.",
-    "en": "In the <a href=\"instructions/index.html\">Guides</a> section — pick your board and level; the RED board already has specific step-by-step projects available."
+    "cs": "V sekci <a href=\"instructions/index.html\">Návody</a>, vyberte si desku a úroveň, u desky RED jsou už k dispozici konkrétní projekty krok za krokem.",
+    "en": "In the <a href=\"instructions/index.html\">Guides</a> section, pick your board and level; the RED board already has specific step-by-step projects available."
   },
   "faq.q10": {
     "cs": "Jak vás můžu kontaktovat?",
     "en": "How can I contact you?"
   },
   "faq.a10": {
-    "cs": "Přes <a href=\"index.html#kontakt\">kontaktní formulář</a> na hlavní stránce — ozveme se zpátky co nejdřív.",
-    "en": "Through the <a href=\"index.html#kontakt\">contact form</a> on the homepage — we'll get back to you as soon as we can."
+    "cs": "Přes <a href=\"index.html#kontakt\">kontaktní formulář</a> na hlavní stránce, ozveme se zpátky co nejdřív.",
+    "en": "Through the <a href=\"index.html#kontakt\">contact form</a> on the homepage, we'll get back to you as soon as we can."
   },
   "about.title": {
     "cs": "O nás | Shieldio",
@@ -1056,24 +1056,24 @@
     "en": "Why I'm building Shieldio."
   },
   "about.founder_p1": {
-    "cs": "Shieldio dělám já — student ve čtvrtém ročníku střední školy. Sám doučuju spolužáky i mladší žáky,\na moc dobře vím, jak těžké může být pochopit informatiku, když ji nikdo pořádně nevysvětlí.",
-    "en": "I'm the one building Shieldio — a fourth-year high school student. I tutor classmates and younger students myself,\nand I know first-hand how hard computer science can be to understand when nobody properly explains it."
+    "cs": "Shieldio dělám já, student ve čtvrtém ročníku střední školy. Sám doučuju spolužáky i mladší žáky,\na moc dobře vím, jak těžké může být pochopit informatiku, když ji nikdo pořádně nevysvětlí.",
+    "en": "I'm the one building Shieldio, a fourth-year high school student. I tutor classmates and younger students myself,\nand I know first-hand how hard computer science can be to understand when nobody properly explains it."
   },
   "about.founder_p2": {
-    "cs": "Na základní škole jsem kvalitní výuku informatiky nezažil, a na střední mi robotika přišla —\ni ve třetím ročníku — až příliš jednoduchá.",
-    "en": "I never got good computer science teaching in primary school, and in high school, robotics —\neven in my third year — felt far too basic."
+    "cs": "Na základní škole jsem kvalitní výuku informatiky nezažil, a na střední mi robotika přišla,\ni ve třetím ročníku, až příliš jednoduchá.",
+    "en": "I never got good computer science teaching in primary school, and in high school, robotics,\neven in my third year, felt far too basic."
   },
   "about.founder_p3": {
     "cs": "Shieldio dělám proto, aby se žáci základních i odborných škol mohli s technologiemi seznámit\nuž v mladším věku, a to pořádně.",
-    "en": "I'm building Shieldio so that students at primary and vocational schools can get to know technology\nat a younger age — and get to know it properly."
+    "en": "I'm building Shieldio so that students at primary and vocational schools can get to know technology\nat a younger age, and get to know it properly."
   },
   "about.founder_p4": {
-    "cs": "Zatím je Shieldio čistě osobní projekt bez vlastní firmy — dělám ho jako student vedle školy.\nDo budoucna bych ho rád zkusil posunout dál, třeba přes nějaký akcelerátor nebo veletrh,\nale i to zatím teprve zvažuju.",
-    "en": "For now, Shieldio is purely a personal project with no company behind it — I'm building it as a student, alongside school.\nDown the road I'd like to try pushing it further, maybe through an accelerator or a trade fair,\nbut that's still just something I'm considering."
+    "cs": "Zatím je Shieldio čistě osobní projekt bez vlastní firmy, dělám ho jako student vedle školy.\nDo budoucna bych ho rád zkusil posunout dál, třeba přes nějaký akcelerátor nebo veletrh,\nale i to zatím teprve zvažuju.",
+    "en": "For now, Shieldio is purely a personal project with no company behind it, I'm building it as a student, alongside school.\nDown the road I'd like to try pushing it further, maybe through an accelerator or a trade fair,\nbut that's still just something I'm considering."
   },
   "about.qr_placeholder": {
-    "cs": "Místo pro QR kód na podporu projektu — doplníme.",
-    "en": "Space for a QR code to support the project — coming soon."
+    "cs": "Místo pro QR kód na podporu projektu, doplníme.",
+    "en": "Space for a QR code to support the project, coming soon."
   },
   "about.vision_eyebrow": {
     "cs": "Naše vize",
@@ -1084,8 +1084,8 @@
     "en": "So technical education isn't the privilege of just a few schools."
   },
   "about.vision1_tag": {
-    "cs": "01 — dostupnost",
-    "en": "01 — accessibility"
+    "cs": "01 · dostupnost",
+    "en": "01 · accessibility"
   },
   "about.vision1_h3": {
     "cs": "Každá škola může učit technologie",
@@ -1096,8 +1096,8 @@
     "en": "It doesn't matter whether a school has its own electrical engineer."
   },
   "about.vision2_tag": {
-    "cs": "02 — praktičnost",
-    "en": "02 — hands-on"
+    "cs": "02 · praktičnost",
+    "en": "02 · hands-on"
   },
   "about.vision2_h3": {
     "cs": "Studenti tvoří, ne pouze sledují",
@@ -1108,8 +1108,8 @@
     "en": "The best way to understand technology is your own experiment."
   },
   "about.vision3_tag": {
-    "cs": "03 — budoucnost",
-    "en": "03 — the future"
+    "cs": "03 · budoucnost",
+    "en": "03 · the future"
   },
   "about.vision3_h3": {
     "cs": "Připravujeme další generaci",

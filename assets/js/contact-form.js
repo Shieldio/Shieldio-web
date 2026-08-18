@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
           openFormModal(`
             <div class="guide-done-check" style="width:56px; height:56px; font-size:26px; margin:0 auto 18px;">✓</div>
             <h3 style="text-align:center;">Zpráva odeslána.</h3>
-            <p style="text-align:center;">Díky, ozveme se co nejdřív — obvykle do dvou pracovních dnů.</p>
+            <p style="text-align:center;">Díky, ozveme se co nejdřív, obvykle do dvou pracovních dnů.</p>
             <button type="button" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;" data-modal-ok>Zavřít</button>
           `);
           overlay.querySelector("[data-modal-ok]").addEventListener("click", closeFormModal);

@@ -276,7 +276,7 @@
     const actionArea = useArduino
       ? (content.code
           ? `<pre class="guide-code-block"><code>${escapeHtml(content.code)}</code></pre>`
-          : `<p class="guide-instructions">${content.note || "Ukázkový Arduino kód pro tento projekt zatím připravujeme — než bude hotový, doporučujeme začít s blokovým programováním v mBlocku."}</p>`)
+          : `<p class="guide-instructions">${content.note || "Ukázkový Arduino kód pro tento projekt zatím připravujeme. Než bude hotový, doporučujeme začít s blokovým programováním v mBlocku."}</p>`)
       : (content.blocksEditorHref
           ? `<a class="btn btn-primary" href="${content.blocksEditorHref}">Otevřít v blokovém editoru</a>`
           : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">Otevřít projekt</a>`);
@@ -419,7 +419,7 @@
 
         <div class="guide-card guide-community fade-up visible">
           <h3>Chceš se pochlubit, co jsi postavil?</h3>
-          <p>Komunitní galerii teprve připravujeme — zatím nám klidně <a href="../../../../index.html#kontakt">napiš</a>, rádi se podíváme.</p>
+          <p>Komunitní galerii teprve připravujeme, zatím nám klidně <a href="../../../../index.html#kontakt">napiš</a>, rádi se podíváme.</p>
         </div>
 
         <div class="guide-step-actions" style="justify-content:center;">

@@ -17,7 +17,7 @@ window.SHIELDIO_GUIDE = {
     ultrazvuk: {
       term: "Ultrazvuk",
       photo: null,
-      text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky — z toho spočítá vzdálenost.",
+      text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky. Z toho spočítá vzdálenost.",
       fact: "Stejným principem se orientují netopýři nebo lodní sonary.",
       datasheet: null,
     },
@@ -31,7 +31,7 @@ window.SHIELDIO_GUIDE = {
     bzucak: {
       term: "Bzučák",
       photo: null,
-      text: "Součástka, která podle povelu z programu vydá tón — u theremina se jeho výška (frekvence) mění podle naměřené vzdálenosti ruky.",
+      text: "Součástka, která podle povelu z programu vydá tón. U theremina se jeho výška (frekvence) mění podle naměřené vzdálenosti ruky.",
       fact: null,
       datasheet: null,
     },
@@ -70,9 +70,9 @@ window.SHIELDIO_GUIDE = {
       id: "shieldio-red",
       name: "Shieldio RED",
       photo: "../../../../assets/images/RED_hand_hold.jpeg",
-      what: "Hlavní deska projektu — ultrazvukový senzor i bzučák jsou už na desce zabudované.",
+      what: "Hlavní deska projektu. Ultrazvukový senzor i bzučák jsou už na desce zabudované.",
       how: "Uvnitř desky je Arduino Nano, které podle naměřené vzdálenosti mění výšku tónu bzučáku.",
-      fact: "Deska RED je aktuálně ve vývoji — první funkční prototyp.",
+      fact: "Deska RED je aktuálně ve vývoji, první funkční prototyp.",
       datasheet: null,
     },
     {
@@ -98,13 +98,13 @@ window.SHIELDIO_GUIDE = {
       title: "Připoj desku",
       type: "wiring",
       photo: null,
-      instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"bzucak\">bzučák</span> jsou už na desce zabudované — nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
+      instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"bzucak\">bzučák</span> jsou už na desce zabudované, nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
-          "Deska se v počítači vůbec neobjeví — zkus jiný USB port.",
-          "Kabel je jen nabíjecí a nepřenáší data — zkus jiný USB-C kabel.",
-          "Deska je připojená, ale nic se neděje — zkontroluj v mBlocku, že je vybraná správná deska.",
+          "Deska se v počítači vůbec neobjeví. Zkus jiný USB port.",
+          "Kabel je jen nabíjecí a nepřenáší data. Zkus jiný USB-C kabel.",
+          "Deska je připojená, ale nic se neděje. Zkontroluj v mBlocku, že je vybraná správná deska.",
         ],
       },
     },
@@ -127,7 +127,7 @@ window.SHIELDIO_GUIDE = {
           items: [
             "V mBlocku zkontroluj, že je vybraná správná deska (Arduino Nano).",
             "Odpoj a znovu připoj USB-C kabel.",
-            "Zkus jiný USB kabel — některé nabíjecí kabely nepřenáší data.",
+            "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.",
           ],
         },
       ],
@@ -141,8 +141,8 @@ window.SHIELDIO_GUIDE = {
         question: "Mění se výška tónu podle vzdálenosti ruky?",
         no: {
           question: "Ozývá se z bzučáku vůbec nějaký zvuk?",
-          noResult: "Bzučák mlčí — zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
-          yesResult: "Zvuk hraje, ale výška se neměnÍ — zkontroluj v programu, že naměřenou vzdálenost mapuješ na frekvenci tónu.",
+          noResult: "Bzučák mlčí. Zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
+          yesResult: "Zvuk hraje, ale výška se neměnÍ. Zkontroluj v programu, že naměřenou vzdálenost mapuješ na frekvenci tónu.",
         },
       },
     },
@@ -150,7 +150,7 @@ window.SHIELDIO_GUIDE = {
 
   next: {
     tryDifferent: [
-      { text: "Zkus nastavit vlastní rozsah tónů — od nejnižšího po nejvyšší, jaký chceš slyšet." },
+      { text: "Zkus nastavit vlastní rozsah tónů, od nejnižšího po nejvyšší, jaký chceš slyšet." },
       { text: "Přidej podmínku, která ztiší nebo vypne tón, když je ruka moc daleko." },
     ],
     moreProjects: [
@@ -161,7 +161,7 @@ window.SHIELDIO_GUIDE = {
     levelUp: {
       title: "PROline",
       href: "../../../../products/PRO.html",
-      text: "Pokročilá řada Shieldio — zatím ve vývoji, ale mrkni, co chystáme.",
+      text: "Pokročilá řada Shieldio, zatím ve vývoji, ale mrkni, co chystáme.",
     },
   },
 };
