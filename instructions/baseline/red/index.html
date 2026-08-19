@@ -120,5 +120,14 @@
 <script src="../../../assets/js/theme.js"></script>
 <script src="../../../assets/js/search.js"></script>
 <script src="../../../assets/js/site-chrome.js"></script>
+<script>
+  (function(){
+    var kit = new URLSearchParams(window.location.search).get("kit");
+    if (kit !== "assembled" && kit !== "unassembled") return;
+    document.querySelectorAll(".project-pick-card[href$=\"index.html\"]").forEach(function(a){
+      a.href = a.getAttribute("href") + "?kit=" + kit;
+    });
+  })();
+</script>
 </body>
 </html>

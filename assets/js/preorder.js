@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const qtyInput = form.querySelector("#preorder-qty");
   const totalDisplay = form.querySelector("#preorder-total-price");
   const totalHidden = form.querySelector("#preorder-total-hidden");
+  const guideLink = document.getElementById("preorder-guide-link");
 
   function updateTotal() {
     const selected = form.querySelector('input[name="varianta"]:checked');
@@ -18,7 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
     totalHidden.value = totalText;
   }
 
-  radios.forEach(radio => radio.addEventListener("change", updateTotal));
+  function updateGuideLink() {
+    if (!guideLink) return;
+    const selected = form.querySelector('input[name="varianta"]:checked');
+    const kit = selected ? selected.dataset.kit : "assembled";
+    const url = new URL(guideLink.href, window.location.href);
+    url.searchParams.set("kit", kit);
+    guideLink.href = url.pathname + url.search;
+  }
+
+  radios.forEach(radio => radio.addEventListener("change", () => { updateTotal(); updateGuideLink(); }));
   qtyInput.addEventListener("input", updateTotal);
   updateTotal();
+  updateGuideLink();
 });

@@ -11,7 +11,8 @@
   root.classList.add(`tier-${tier}`);
 
   const STORAGE_KEY = `shieldio-guide-${DATA.id}`;
-  const DEFAULT_MODE = { lang: "blocks", depth: "detailed" };
+  const DEFAULT_MODE = { lang: "blocks", depth: "detailed", kit: "assembled" };
+  const supportsKit = tier === "red";
 
   const state = loadState();
 
@@ -23,7 +24,10 @@
         return { started: false, stepIndex: 0, missingParts: [], ...parsed, mode: { ...DEFAULT_MODE, ...(parsed.mode || {}) } };
       }
     } catch (e) { /* ignore corrupt storage */ }
-    return { started: false, stepIndex: 0, missingParts: [], mode: { ...DEFAULT_MODE } };
+    const kitParam = new URLSearchParams(window.location.search).get("kit");
+    const initialMode = { ...DEFAULT_MODE };
+    if (kitParam === "assembled" || kitParam === "unassembled") initialMode.kit = kitParam;
+    return { started: false, stepIndex: 0, missingParts: [], mode: initialMode };
   }
 
   function saveState() {
@@ -111,6 +115,14 @@
   function renderModePicker() {
     return `
       <div class="guide-mode-picker">
+        ${supportsKit ? `
+        <div class="guide-mode-group">
+          <span class="guide-mode-label">Tvoje sada</span>
+          <div class="guide-mode-toggle" data-mode-group="kit">
+            <button type="button" class="guide-mode-btn ${state.mode.kit === "assembled" ? "active" : ""}" data-mode-value="assembled">Sestavená</button>
+            <button type="button" class="guide-mode-btn ${state.mode.kit === "unassembled" ? "active" : ""}" data-mode-value="unassembled">Nesestavená (pájím)</button>
+          </div>
+        </div>` : ""}
         ${supportsLang ? `
         <div class="guide-mode-group">
           <span class="guide-mode-label">Programovací jazyk</span>
@@ -144,6 +156,20 @@
     });
   }
 
+  function renderSolderWarning() {
+    return `
+      <div class="guide-solder-warning">
+        <p><b>Tahle sada vyžaduje pájení.</b> Součástky ještě nejsou na desce připájené, uděláš to sám. Než začneš, projdi si základy.</p>
+        <details class="guide-accordion">
+          <summary>Co budeš potřebovat a jak na to</summary>
+          <p><b>Potřebuješ:</b> pájku nebo pájecí stanici (kolem 350&nbsp;°C), cín s tavidlem, odsávačku nebo odpájecí knot pro opravy, malé kleště a ochranné brýle. Pracuj ve větrané místnosti.</p>
+          <p><b>Postup:</b> součástku zasuň do správných otvorů podle popisků přímo na desce, hrot pájky přilož zároveň k nožičce i plošce, po 1 až 2 vteřinách přidej cín, pájku odtáhni a spoj nech bez pohybu ztuhnout. Spoj má být lesklý, ne kulička nebo matný cín. Přebytečné nožičky nakonec odstřihni.</p>
+          <p><b>Bezpečnost:</b> hrot pájky má 300 až 400&nbsp;°C, nedotýkej se ho, pracuj na žáruvzdorné podložce a dým z tavidla nevdechuj.</p>
+        </details>
+      </div>
+    `;
+  }
+
   function renderIntro() {
     const m = DATA.meta;
     return `
@@ -158,7 +184,8 @@
           </div>
           <p class="lead" style="font-size:16px;">Co se naučíš:</p>
           <ul class="guide-learn-list">${m.learn.map(l => `<li>${l}</li>`).join("")}</ul>
-          ${(supportsLang || supportsDepth) ? renderModePicker() : ""}
+          ${(supportsLang || supportsDepth || supportsKit) ? renderModePicker() : ""}
+          ${(supportsKit && state.mode.kit === "unassembled") ? renderSolderWarning() : ""}
           <button type="button" class="btn btn-primary" data-action="start">Začít stavět</button>
         </div>
       </div>

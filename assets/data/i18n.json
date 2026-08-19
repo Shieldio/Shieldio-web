@@ -83,6 +83,10 @@
     "cs": "od rozbalení ke spuštění",
     "en": "from unboxing to running"
   },
+  "home.hero.stat4_label": {
+    "cs": "od desky (nesestavená sada RED)",
+    "en": "starting price (unassembled RED kit)"
+  },
   "home.board_tag": {
     "cs": "RED · ve vývoji",
     "en": "RED · in development"
@@ -151,6 +155,10 @@
     "cs": "První kontakt s hardwarem",
     "en": "First contact with hardware"
   },
+  "home.tier_green.badge": {
+    "cs": "Koncept, foto brzy",
+    "en": "Concept, photo coming soon"
+  },
   "home.tier_green.li1": {
     "cs": "Tlačítka a LED indikace",
     "en": "Buttons and LED indicators"
@@ -178,6 +186,10 @@
   "home.tier_yellow.sub": {
     "cs": "Vlastní meteostanice",
     "en": "Your own weather station"
+  },
+  "home.tier_yellow.badge": {
+    "cs": "Koncept, foto brzy",
+    "en": "Concept, photo coming soon"
   },
   "home.tier_yellow.li1": {
     "cs": "Teplota a vlhkost (DHT11)",
@@ -240,7 +252,7 @@
     "en": "The most advanced Baseline board combines ultrasonic distance sensing, a servo, and a display on a single 100×100&nbsp;mm PCB, with component labels printed right on the board."
   },
   "home.deepdive.spec1": {
-    "cs": "<b>Arduino Nano</b> jako řídicí jednotka, program nahráváš přímo přes USB-C.",
+    "cs": "<b>Arduino Nano</b> jako řídicí jednotka, program nahráváte přímo přes USB-C.",
     "en": "<b>Arduino Nano</b> as the controller, you upload your program straight over USB-C."
   },
   "home.deepdive.spec2": {
@@ -400,7 +412,7 @@
     "en": "We'll get back to you within two business days."
   },
   "home.form.who_label": {
-    "cs": "Píšeš za",
+    "cs": "Píšete za",
     "en": "You're writing on behalf of"
   },
   "home.form.who_opt1": {
@@ -420,7 +432,7 @@
     "en": "A hobbyist / individual"
   },
   "home.form.reason_label": {
-    "cs": "Co potřebuješ",
+    "cs": "Co potřebujete",
     "en": "What you need"
   },
   "home.form.reason_opt1": {
@@ -454,6 +466,10 @@
   "home.form.submit": {
     "cs": "Odeslat zprávu",
     "en": "Send message"
+  },
+  "home.form.privacy_note": {
+    "cs": "Odesláním souhlasíte se <a href=\"company/privacy.html\">zpracováním osobních údajů</a>.",
+    "en": "By sending this, you agree to the <a href=\"company/privacy.html\">processing of personal data</a>."
   },
   "home.form.name_placeholder": {
     "cs": "Jana Nováková",
@@ -544,7 +560,7 @@
     "en": "Compare levels"
   },
   "product_page.cta_h2": {
-    "cs": "Chceš vědět víc, nebo máš zájem?",
+    "cs": "Chcete vědět víc, nebo máte zájem?",
     "en": "Want to know more, or interested?"
   },
   "green.title": {
@@ -572,7 +588,7 @@
     "en": "<b>Buttons and LED indicators</b> for your first experiments with inputs and outputs."
   },
   "green.spec2": {
-    "cs": "<b>Bzučák</b> pro zvukovou odezvu, okamžitě slyšíš, co program dělá.",
+    "cs": "<b>Bzučák</b> pro zvukovou odezvu, okamžitě slyšíte, co program dělá.",
     "en": "<b>Buzzer</b> for audio feedback, you instantly hear what the program is doing."
   },
   "green.spec3": {
@@ -588,7 +604,7 @@
     "en": "<b>100×100 mm</b> format, the same across the whole Baseline line."
   },
   "green.cta_p": {
-    "cs": "Napiš nám, poradíme, jestli je Green pro tebe nebo tvůj kroužek ten pravý start.",
+    "cs": "Napište nám, poradíme, jestli je Green pro vás nebo váš kroužek ten pravý start.",
     "en": "Get in touch, we'll help you figure out if Green is the right start for you or your club."
   },
   "yellow.title": {
@@ -604,7 +620,7 @@
     "en": "The <em class=\"text-tier-yellow\">Yellow</em> board."
   },
   "yellow.lead": {
-    "cs": "Rozšíření o měření okolí, teplota, vlhkost a světlo. Výchozí projekt: vlastní meteostanice, kterou si naprogramuješ sám.",
+    "cs": "Rozšíření o měření okolí, teplota, vlhkost a světlo. Výchozí projekt: vlastní meteostanice, kterou si naprogramujete sami.",
     "en": "An extension into sensing the environment, temperature, humidity, and light. Default project: your own weather station, programmed by you."
   },
   "yellow.spec_h2": {
@@ -624,7 +640,7 @@
     "en": "<b>Microphone</b> and <b>display</b> for capturing and outputting measured data."
   },
   "yellow.spec4": {
-    "cs": "Výchozí projekt: <b>vlastní měřicí stanice</b>, kterou si naprogramuješ sám.",
+    "cs": "Výchozí projekt: <b>vlastní měřicí stanice</b>, kterou si naprogramujete sami.",
     "en": "Default project: <b>your own measuring station</b>, programmed by you."
   },
   "yellow.spec5": {
@@ -632,7 +648,7 @@
     "en": "<b>100×100 mm</b> format, the same across the whole Baseline line."
   },
   "yellow.cta_p": {
-    "cs": "Napiš nám, poradíme, jestli je Yellow pro tebe nebo tvůj kroužek ten pravý další krok.",
+    "cs": "Napište nám, poradíme, jestli je Yellow pro vás nebo váš kroužek ten pravý další krok.",
     "en": "Get in touch, we'll help you figure out if Yellow is the right next step for you or your club."
   },
   "red.title": {
@@ -680,7 +696,7 @@
     "en": "<b>100×100 mm</b> format, the same across the whole Baseline line."
   },
   "red.projects_eyebrow": {
-    "cs": "Co si můžeš postavit",
+    "cs": "Co si můžete postavit",
     "en": "What you can build"
   },
   "red.projects_h2": {
@@ -732,7 +748,7 @@
     "en": "Pre-order the <span class=\"text-tier-red\">RED</span> board."
   },
   "red.preorder_p": {
-    "cs": "Vyber si variantu podle toho, kolik chceš pájet sám. Předobjednávka je nezávazná rezervace kusu z aktuální malé série, platbu a přesný termín dodání domluvíme e-mailem.",
+    "cs": "Vyberte si variantu podle toho, kolik chcete pájet sami. Předobjednávka je nezávazná rezervace kusu z aktuální malé série, platbu a přesný termín dodání domluvíme e-mailem.",
     "en": "Pick a variant based on how much soldering you want to do yourself. A pre-order is a non-binding reservation from the current small batch, we'll arrange payment and the exact delivery date by email."
   },
   "red.group_recommended": {
@@ -744,24 +760,24 @@
     "en": "Other options"
   },
   "red.opt_unassembled_name": {
-    "cs": "Nesestavená kompletní sada",
-    "en": "Unassembled complete kit"
+    "cs": "Nesestavená kompletní sada<span class=\"preorder-badge\">Pájení</span>",
+    "en": "Unassembled complete kit<span class=\"preorder-badge\">Soldering</span>"
   },
   "red.opt_unassembled_desc": {
-    "cs": "Deska a všechny součástky zvlášť, nespojené, pájíš a sestavuješ si sám.",
-    "en": "The board and all components separately, unconnected, you solder and assemble it yourself."
+    "cs": "Deska a všechny součástky zvlášť, nespojené, pájíte a sestavujete si sami. V balení i 1,5m USB-A na USB-C kabel.",
+    "en": "The board and all components separately, unconnected, you solder and assemble it yourself. Includes a 1.5m USB-A to USB-C cable."
   },
   "red.opt_assembled_name": {
     "cs": "Sestavená kompletní",
     "en": "Fully assembled"
   },
   "red.opt_assembled_desc": {
-    "cs": "Hotová deska se všemi součástkami, ultrazvuk, Arduino, displej, kabel. Připojíš a jede.",
-    "en": "A finished board with every component, ultrasonic sensor, Arduino, display, cable. Plug it in and go."
+    "cs": "Hotová deska se všemi součástkami, ultrazvuk, Arduino, displej, 1,5m USB-C kabel. Připojíte a jede.",
+    "en": "A finished board with every component, ultrasonic sensor, Arduino, display, a 1.5m USB-C cable. Plug it in and go."
   },
   "red.opt_bare_name": {
-    "cs": "Holá deska (PCB)<button type=\"button\" class=\"guide-info-btn\" data-photo=\"../assets/images/RED_layout_labeled.png\" data-photo-alt=\"Holá deska Shieldio RED (PCB) bez součástek, pohled kolmo shora\" aria-label=\"Zobrazit fotku holé desky\" style=\"margin-left:6px;\">?</button>",
-    "en": "Bare board (PCB)<button type=\"button\" class=\"guide-info-btn\" data-photo=\"../assets/images/RED_layout_labeled.png\" data-photo-alt=\"Bare Shieldio RED board (PCB) with no components, straight top-down view\" aria-label=\"Show bare board photo\" style=\"margin-left:6px;\">?</button>"
+    "cs": "Holá deska (PCB)<span class=\"preorder-badge\">Pájení</span><button type=\"button\" class=\"guide-info-btn\" data-photo=\"../assets/images/RED_layout_labeled.png\" data-photo-alt=\"Holá deska Shieldio RED (PCB) bez součástek, pohled kolmo shora\" aria-label=\"Zobrazit fotku holé desky\" style=\"margin-left:6px;\">?</button>",
+    "en": "Bare board (PCB)<span class=\"preorder-badge\">Soldering</span><button type=\"button\" class=\"guide-info-btn\" data-photo=\"../assets/images/RED_layout_labeled.png\" data-photo-alt=\"Bare Shieldio RED board (PCB) with no components, straight top-down view\" aria-label=\"Show bare board photo\" style=\"margin-left:6px;\">?</button>"
   },
   "red.opt_bare_desc": {
     "cs": "Jen samotný plošný spoj, bez součástek, pro stavbu úplně od nuly.",
@@ -780,8 +796,16 @@
     "en": "EduSET<span class=\"preorder-badge\">5×</span>"
   },
   "red.opt_eduset_desc": {
-    "cs": "Pět kompletně sestavených desek za zvýhodněnou cenu, pro kroužek nebo třídu.",
-    "en": "Five fully assembled boards at a discounted price, for a club or a class."
+    "cs": "Pět kompletně sestavených desek za zvýhodněnou cenu, pro kroužek nebo třídu. Součástí je licenční klíč k výukovému plánu pro výuku programování.",
+    "en": "Five fully assembled boards at a discounted price, for a club or a class. Includes a license key for the educational teaching plan."
+  },
+  "red.kit_hint": {
+    "cs": "Návody na webu podle vybrané sady rovnou počítají s tím, jestli budete pájet, nebo ne.",
+    "en": "The guides on the site take into account whether you'll be soldering, based on the kit you pick."
+  },
+  "red.kit_hint_link": {
+    "cs": "Zobrazit návody",
+    "en": "View guides"
   },
   "red.qty_label": {
     "cs": "Počet kusů",
@@ -803,12 +827,16 @@
     "cs": "Odeslat předobjednávku",
     "en": "Send pre-order"
   },
+  "red.privacy_note": {
+    "cs": "Odesláním souhlasíte se <a href=\"../company/privacy.html\">zpracováním osobních údajů</a>.",
+    "en": "By sending this, you agree to the <a href=\"../company/privacy.html\">processing of personal data</a>."
+  },
   "red.disclaimer": {
     "cs": "Předobjednávka nic hned nestrhává, je to nezávazná rezervace, platbu a termín domluvíme e-mailem.",
     "en": "A pre-order doesn't charge you anything right away, it's a non-binding reservation, we'll arrange payment and timing by email."
   },
   "red.cta_p": {
-    "cs": "Deska RED je aktuálně ve vývoji, napiš nám a domluvíme se na dalších krocích nebo ukázce.",
+    "cs": "Deska RED je aktuálně ve vývoji, napište nám a domluvíme se na dalších krocích nebo ukázce.",
     "en": "The RED board is currently in development, get in touch and we'll figure out next steps or a demo."
   },
   "pro.title": {
@@ -888,7 +916,7 @@
     "en": "<b>100×100 mm</b> format, the same across the whole line."
   },
   "poweradd.cta_p": {
-    "cs": "PowerAdd je aktuálně ve vývoji, napiš nám a domluvíme se na dalších krocích.",
+    "cs": "PowerAdd je aktuálně ve vývoji, napište nám a domluvíme se na dalších krocích.",
     "en": "PowerAdd is currently in development, get in touch and we'll figure out next steps."
   },
   "faq.title": {

@@ -61,35 +61,54 @@
       <p class="lead">Návody jsou rozdělené podle řady a úrovně, vyber si nejdřív desku a pak konkrétní úroveň, na které pracuješ.</p>
     </div>
 
-    <div class="board-picker fade-up delay-1">
-      <button type="button" class="instruction-card board-pick-card" data-board="baseline" data-label="Baseline">
-        <div class="baseline-bar bar"></div>
-        <h3>Baseline</h3>
-        <p>Tři barevně odlišené úrovně na jedné desce, od prvního kontaktu s elektronikou po robotiku v pohybu.</p>
-        <span class="pick-hint">Vybrat úroveň</span>
-      </button>
-      <button type="button" class="instruction-card proline-card proline-pick-card board-pick-card" data-board="proline" data-label="PROline">
-        <div class="proline-bar bar"></div>
-        <h3>PROline</h3>
-        <p>Pokročilá řada pro náročnější projekty a hlubší porozumění elektronice.</p>
-        <span class="pick-hint proline-label">Zobrazit návody</span>
-      </button>
+    <div class="model-group-label fade-up" style="margin-top:40px;">Baseline · Red</div>
+    <div class="board-picker project-picker-grid fade-up delay-1">
+      <a class="instruction-card project-pick-card" href="baseline/red/zavora/index.html">
+        <h3>Prototyp závory</h3>
+        <p>Ultrazvukový senzor měří vzdálenost přijíždějícího auta a servo ovládá závoru, s OLED displejem pro stav.</p>
+        <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
+      </a>
+      <a class="instruction-card project-pick-card" href="baseline/red/parkovaci-asistent/index.html">
+        <h3>Parkovací asistent</h3>
+        <p>Ultrazvukový senzor hlídá vzdálenost od překážky a přes displej a LED dává vědět, kdy zastavit.</p>
+        <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
+      </a>
+      <a class="instruction-card project-pick-card" href="baseline/red/casovac/index.html">
+        <h3>Časovač</h3>
+        <p>Měření vzdálenosti a času pomocí ultrazvukového senzoru, základ pro vlastní časomíru nebo čidlo pohybu.</p>
+        <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
+      </a>
+      <a class="instruction-card project-pick-card" href="baseline/red/theremin/index.html">
+        <h3>Theremin</h3>
+        <p>Ultrazvukový senzor měří vzdálenost ruky a bzučák podle ní mění výšku tónu, vlastní bezdotykový nástroj.</p>
+        <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
+      </a>
+      <a class="instruction-card project-pick-card" href="blokovy-editor.html" style="border-style:dashed;">
+        <h3>Blokový editor <span style="font-weight:500; font-size:13px; color:var(--ink-soft);">(prototyp)</span></h3>
+        <p>Poskládej vlastní program z bloků přímo v prohlížeči a vygeneruj Arduino kód pro desku RED, bez psaní v C.</p>
+        <span class="pick-hint" style="color:var(--tier-red-deep);">Vyzkoušet</span>
+      </a>
+    </div>
 
-      <div class="guide-step" id="tier-step">
-        <div class="tier-picker">
-          <button type="button" class="tier-pick-btn tier-green" data-tier="green"><span>Green</span></button>
-          <button type="button" class="tier-pick-btn tier-yellow" data-tier="yellow"><span>Yellow</span></button>
-          <button type="button" class="tier-pick-btn tier-red" data-tier="red"><span>Red</span></button>
-        </div>
-      </div>
+    <div class="model-group-label fade-up">Baseline · Green</div>
+    <div class="guide-panel tier-green fade-up">
+      <span class="eyebrow-dark" style="display:block; margin-bottom:10px;">Návody</span>
+      <h3>Návody pro Green se připravují</h3>
+      <p>Pracujeme na sadě návodů pro desku Green. Mrkni prosím zpátky později.</p>
+    </div>
 
-      <div class="guide-step" id="guide-panel">
-        <div class="guide-panel">
-          <span class="eyebrow-dark" style="display:block; margin-bottom:10px;">Návody</span>
-          <h3 id="guide-panel-title">Návody se připravují</h3>
-          <p id="guide-panel-text">Vyber si desku a úroveň výše.</p>
-        </div>
-      </div>
+    <div class="model-group-label fade-up">Baseline · Yellow</div>
+    <div class="guide-panel tier-yellow fade-up">
+      <span class="eyebrow-dark" style="display:block; margin-bottom:10px;">Návody</span>
+      <h3>Návody pro Yellow se připravují</h3>
+      <p>Pracujeme na sadě návodů pro desku Yellow. Mrkni prosím zpátky později.</p>
+    </div>
+
+    <div class="model-group-label fade-up">PROline</div>
+    <div class="guide-panel fade-up">
+      <span class="eyebrow-dark" style="display:block; margin-bottom:10px;">Návody</span>
+      <h3>Návody pro PROline se připravují</h3>
+      <p>Deska PROline zatím není v prodeji, návody přidáme, jakmile bude.</p>
     </div>
   </div>
 </div>
@@ -111,7 +130,7 @@
     <div class="section-head" style="margin-bottom:0;">
       <span class="eyebrow-dark">Pro učitele a vedoucí kroužků</span>
       <h2>Připravujeme metodiku pro výuku s deskami Shieldio.</h2>
-      <p>Metodické materiály pro vedení hodiny nebo kroužku ještě chystáme. Pokud plánuješ Shieldio nasadit ve výuce, napiš nám, probereme, co by se hodilo.</p>
+      <p>Metodické materiály pro vedení hodiny nebo kroužku ještě chystáme. Pokud plánujete Shieldio nasadit ve výuce, napište nám, probereme, co by se hodilo.</p>
       <div class="hero-ctas" style="margin-top:28px;">
         <a class="btn btn-primary" href="../index.html#kontakt">Napsat nám</a>
         <a class="btn btn-ghost" href="../company/dotaznik.html">Vyplnit dotazník pro školy</a>
@@ -124,9 +143,9 @@
 <section class="cta-section" id="kontakt">
   <div class="wrap cta-grid">
     <div>
-      <span class="eyebrow-dark" style="color:var(--accent-soft);">Ozvi se</span>
-      <h2>Napiš, co tě zajímá, desky, kroužek, nebo ukázka pro školu.</h2>
-      <p>Ať už chceš vědět, kdy budou desky k dostání, hledáš stavebnici pro kroužek, nebo domlouváš ukázkovou hodinu pro školu, ozveme se s odpovědí nebo termínem.</p>
+      <span class="eyebrow-dark" style="color:var(--accent-soft);">Ozvěte se</span>
+      <h2>Napište, co vás zajímá, desky, kroužek, nebo ukázka pro školu.</h2>
+      <p>Ať už chcete vědět, kdy budou desky k dostání, hledáte stavebnici pro kroužek, nebo domlouváte ukázkovou hodinu pro školu, ozveme se s odpovědí nebo termínem.</p>
       <ul class="contact-list">
         <li><b>E-MAIL</b><span>info@shieldio.cz</span></li>
         <li><b>URČENO PRO</b><span>Jednotlivce, kroužky, ZŠ a SŠ</span></li>
@@ -134,13 +153,13 @@
       </ul>
     </div>
     <div class="form-card">
-      <h3>Napiš nám</h3>
+      <h3>Napište nám</h3>
       <p class="form-sub">Ozveme se do dvou pracovních dnů.</p>
       <form class="web3form" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="a13ed669-5fc4-4329-bf27-a4e40dd0b1e7">
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="field">
-          <label for="who">Píšeš za</label>
+          <label for="who">Píšete za</label>
           <select id="who" name="typ" class="field-select">
             <option>Škola</option>
             <option>Pedagog / vedoucí kroužku</option>
@@ -149,7 +168,7 @@
           </select>
         </div>
         <div class="field">
-          <label for="reason">Co potřebuješ</label>
+          <label for="reason">Co potřebujete</label>
           <select id="reason" name="duvod" class="field-select">
             <option>Dotaz</option>
             <option>Objednat / projevit zájem</option>
@@ -169,6 +188,7 @@
           <textarea id="message" name="zprava" placeholder="Co tě zajímá a kdy by se hodila reakce…" required></textarea>
         </div>
         <button class="btn btn-primary" type="submit">Odeslat zprávu</button>
+        <p class="form-privacy-note">Odesláním souhlasíte se <a href="../company/privacy.html">zpracováním osobních údajů</a>.</p>
         <p class="form-status" aria-live="polite"></p>
       </form>
     </div>
@@ -197,6 +217,5 @@
 <script src="../assets/js/search.js"></script>
 <script src="../assets/js/site-chrome.js"></script>
 <script src="../assets/js/contact-form.js"></script>
-<script src="../assets/js/instructions.js"></script>
 </body>
 </html>

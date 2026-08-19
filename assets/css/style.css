@@ -181,6 +181,9 @@ img{ max-width:100%; height:auto; display:block; }
   font-style:normal;
   color:var(--accent-deep);
 }
+.hero h1 em.text-tier-red{ color:var(--tier-red-deep); }
+.hero h1 em.text-tier-green{ color:var(--tier-green-deep); }
+.hero h1 em.text-tier-yellow{ color:var(--tier-yellow-deep); }
 .hero p.lead{ margin-top:26px; font-size:19px; max-width:520px; color:var(--ink-soft); font-weight:400; }
 .hero-ctas{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; }
 .hero .btn-ghost{ border-color:var(--line); color:var(--ink); }
@@ -327,6 +330,7 @@ section{ padding:140px 0; }
   padding:6px 12px; border-radius:var(--radius-pill); width:fit-content;
 }
 .dev-badge::before{ content:"●"; font-size:8px; }
+.dev-badge.badge-muted{ color:var(--ink-soft); background:var(--paper-2); border-color:var(--line); }
 
 .tier-link{
   display:inline-flex; align-items:center; gap:6px;
@@ -581,6 +585,12 @@ section{ padding:140px 0; }
 .preorder-total span{ font-family:'JetBrains Mono'; font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-soft); }
 .preorder-total b{ font-size:28px; letter-spacing:-0.02em; color:var(--tier-red-deep); }
 .preorder-disclaimer{ font-size:12.5px; color:var(--ink-soft); margin-top:14px; text-align:center; }
+.form-privacy-note{ font-size:12.5px; color:var(--ink-soft); margin-top:12px; text-align:center; }
+.form-privacy-note a{ color:var(--accent-deep); }
+:root[data-theme="dark"] .form-privacy-note a{ color:var(--accent-soft); }
+.preorder-kit-hint{ font-size:13px; color:var(--ink-soft); margin:-8px 0 24px; }
+.preorder-kit-hint a{ color:var(--accent-deep); font-weight:500; margin-left:6px; white-space:nowrap; }
+:root[data-theme="dark"] .preorder-kit-hint a{ color:var(--accent-soft); }
 
 /* ---------- footer ---------- */
 /* light by default, stays a signature dark moment only in dark mode */
@@ -768,6 +778,12 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 .guide-panel.tier-green{ background:#ecf9f0; border-color:var(--tier-green); }
 .guide-panel.tier-yellow{ background:#fff7e3; border-color:var(--tier-yellow); }
 .guide-panel.tier-red{ background:#feedef; border-color:var(--tier-red); }
+/* these tints stay light in both themes, so the text inside must stay dark too —
+   otherwise --ink flips near-white in dark mode and the heading disappears */
+.guide-panel.tier-green .eyebrow-dark, .guide-panel.tier-green h3,
+.guide-panel.tier-yellow .eyebrow-dark, .guide-panel.tier-yellow h3,
+.guide-panel.tier-red .eyebrow-dark, .guide-panel.tier-red h3{ color:#1d1d1f; }
+.guide-panel.tier-green p, .guide-panel.tier-yellow p, .guide-panel.tier-red p{ color:#48484a; }
 
 /* ---------- founder story ---------- */
 .founder-grid{
@@ -887,6 +903,17 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
   transition:background .2s var(--ease), color .2s var(--ease);
 }
 .guide-mode-btn.active{ background:var(--surface); color:var(--ink); box-shadow:var(--shadow-card); font-weight:500; }
+.guide-solder-warning{
+  background:#feedef; border:1px solid var(--tier-red); border-radius:var(--radius);
+  padding:16px 18px; margin:4px 0 26px; font-size:14px; line-height:1.5;
+}
+.guide-solder-warning > p{ margin:0; }
+.guide-solder-warning b{ color:var(--tier-red-deep); }
+.guide-solder-warning .guide-accordion{ margin-top:10px; }
+.guide-solder-warning .guide-accordion p{ margin:10px 0 0; }
+.guide-solder-warning .guide-accordion p:first-of-type{ margin-top:14px; }
+:root[data-theme="dark"] .guide-solder-warning{ background:rgba(247,35,56,0.1); border-color:rgba(247,35,56,0.4); }
+:root[data-theme="dark"] .guide-solder-warning b{ color:var(--tier-red); }
 .guide-code-block{
   background:#1d1d1f; color:#f5f5f7; padding:20px; border-radius:14px; overflow-x:auto;
   font-family:'JetBrains Mono'; font-size:13px; line-height:1.6; margin-bottom:20px;
