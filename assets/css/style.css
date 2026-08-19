@@ -446,6 +446,20 @@ section{ padding:140px 0; }
   font-family:'JetBrains Mono'; font-size:11px; letter-spacing:0.02em; text-transform:uppercase;
   color:var(--ink-soft);
 }
+.dev-progress-list{ display:flex; flex-direction:column; gap:26px; margin-top:36px; }
+.dev-progress-row{ display:grid; grid-template-columns:180px 1fr 60px; gap:20px; align-items:center; }
+@media (max-width:600px){
+  .dev-progress-row{ grid-template-columns:1fr; gap:8px; }
+  .dev-progress-pct{ text-align:left; }
+}
+.dev-progress-name{ font-size:17px; font-weight:700; letter-spacing:-0.01em; }
+.dev-progress-sub{ display:block; font-size:12.5px; color:var(--ink-soft); font-weight:400; letter-spacing:normal; margin-top:2px; }
+.dev-progress-track{ height:8px; border-radius:99px; background:var(--paper-2); overflow:hidden; }
+.dev-progress-fill{ height:100%; border-radius:99px; }
+.dev-progress-fill.tier-red{ background:var(--tier-red); }
+.dev-progress-fill.tier-yellow{ background:var(--tier-yellow); }
+.dev-progress-fill.tier-pro{ background:var(--pro-blue); }
+.dev-progress-pct{ font-family:'JetBrains Mono'; font-size:15px; font-weight:600; text-align:right; }
 .model-card-cta{
   position:absolute; left:50%; bottom:14px; transform:translateX(-50%) translateY(8px) scale(0.96);
   background:var(--accent); color:#fff; padding:11px 22px; border-radius:var(--radius-pill);

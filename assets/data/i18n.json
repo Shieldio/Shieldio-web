@@ -60,8 +60,8 @@
     "en": "Electronics and robotics<br>that <em>make sense</em> at first glance."
   },
   "home.hero.lead": {
-    "cs": "Shieldio jsou hotové Arduino shieldy s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nezáleží, jestli je rozbaluje kroužek, škola, nebo jednotlivec doma. Do pěti minut je vše zapojené a program běží.",
-    "en": "Shieldio boards are ready-to-use Arduino shields with foolproof connectors, colour-coded difficulty levels, and block-based programming. It doesn't matter whether a club, a school, or someone at home is unboxing it. Everything is wired up and running within five minutes."
+    "cs": "Shieldio jsou hotové Arduino shieldy s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nezáleží, jestli je rozbaluje kroužek, škola, nebo jednotlivec doma. Do pěti minut je vše zapojené a program běží. Za jednu vyučovací hodinu žáci dokončí vlastní funkční projekt a pochopí, jak spolu komunikují vstupy a výstupy.",
+    "en": "Shieldio boards are ready-to-use Arduino shields with foolproof connectors, colour-coded difficulty levels, and block-based programming. It doesn't matter whether a club, a school, or someone at home is unboxing it. Everything is wired up and running within five minutes. Within a single lesson, students finish a working project of their own and understand how inputs and outputs talk to each other."
   },
   "home.hero.cta_primary": {
     "cs": "Prohlédnout desky",
@@ -539,6 +539,30 @@
     "cs": "PROline · Připravujeme",
     "en": "PROline · Coming soon"
   },
+  "products_index.dev_eyebrow": {
+    "cs": "Stav vývoje",
+    "en": "Development status"
+  },
+  "products_index.dev_h2": {
+    "cs": "Kde jednotlivé desky teď jsou.",
+    "en": "Where each board stands right now."
+  },
+  "products_index.dev_p": {
+    "cs": "Progres se mění, jak postupujeme. Tady je aktuální stav ke každé desce.",
+    "en": "Progress shifts as we go. Here's the current state of each board."
+  },
+  "products_index.dev_red_sub": {
+    "cs": "Prototyp v3",
+    "en": "Prototype v3"
+  },
+  "products_index.dev_yellow_sub": {
+    "cs": "Koncept, první nápad hotový",
+    "en": "Concept, first idea done"
+  },
+  "products_index.dev_pro_sub": {
+    "cs": "Koncept, vize a schéma",
+    "en": "Concept, vision and schematic"
+  },
   "products_index.status_poweradd": {
     "cs": "Doplněk · Ve vývoji, prototyp",
     "en": "Add-on · In development, prototype"
@@ -708,32 +732,32 @@
     "en": "Interactive barrier"
   },
   "red.project1_p": {
-    "cs": "Ultrazvukový senzor měří vzdálenost přijíždějícího auta a servo ovládá závoru.",
-    "en": "An ultrasonic sensor measures the distance of an approaching car, and a servo controls the barrier."
+    "cs": "Žáci během 45 až 60 minut naprogramují servo, které se pohybuje podle vzdálenosti objektu, a pochopí propojení vstupu a výstupu.",
+    "en": "Within 45 to 60 minutes, students program a servo that moves based on an object's distance, and understand how inputs and outputs connect."
   },
   "red.project2_h3": {
     "cs": "Parkovací asistent",
     "en": "Parking assistant"
   },
   "red.project2_p": {
-    "cs": "Senzor hlídá vzdálenost od překážky a přes displej a LED dává vědět, kdy zastavit.",
-    "en": "The sensor watches the distance to an obstacle and uses the display and LEDs to tell you when to stop."
+    "cs": "Žáci během 20 až 30 minut vyřeší problém s parkováním pomocí ultrazvukového senzoru a pochopí měření vzdálenosti a podmínky.",
+    "en": "Within 20 to 30 minutes, students solve a parking problem using an ultrasonic sensor, and understand distance measurement and conditions."
   },
   "red.project3_h3": {
     "cs": "Theremin",
     "en": "Theremin"
   },
   "red.project3_p": {
-    "cs": "Bezdotykový hudební nástroj, vzdálenost ruky od senzoru mění výšku tónu.",
-    "en": "A touchless musical instrument, the distance of your hand from the sensor changes the pitch."
+    "cs": "Žáci během 20 až 30 minut vytvoří bezdotykový hudební nástroj, který podle vzdálenosti ruky mění výšku tónu, a pochopí mapování hodnot mezi vstupem a výstupem.",
+    "en": "Within 20 to 30 minutes, students build a touchless musical instrument that changes pitch based on hand distance, and understand mapping values between input and output."
   },
   "red.project4_h3": {
     "cs": "Časovač",
     "en": "Timer"
   },
   "red.project4_p": {
-    "cs": "Měření vzdálenosti a času, základ pro vlastní časomíru nebo čidlo pohybu.",
-    "en": "Distance and time measurement, the basis for your own stopwatch or motion sensor."
+    "cs": "Žáci během 20 až 30 minut naprogramují časovač, který měří dobu podle pohybu před senzorem, a pochopí práci s časem a podmínkami.",
+    "en": "Within 20 to 30 minutes, students program a timer that measures duration based on motion in front of the sensor, and understand working with time and conditions."
   },
   "red.projects_cta": {
     "cs": "Zobrazit návody k projektům",
