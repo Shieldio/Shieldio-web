@@ -16,8 +16,8 @@
     "en": "About"
   },
   "nav.cta_contact": {
-    "cs": "Napsat nám",
-    "en": "Contact us"
+    "cs": "Domluvit ukázku",
+    "en": "Book a demo"
   },
   "footer.solutions": {
     "cs": "Řešení",
@@ -44,32 +44,32 @@
     "en": "ELECTRONICS AND ROBOTICS, MADE SIMPLE FOR EVERYONE"
   },
   "home.title": {
-    "cs": "Shieldio · Elektronika a robotika srozumitelně pro každého",
-    "en": "Shieldio · Electronics and robotics, made simple for everyone"
+    "cs": "Shieldio · Arduino stavebnice pro výuku elektroniky ve škole",
+    "en": "Shieldio · Arduino kit for teaching electronics at school"
   },
   "home.topbar_cta": {
     "cs": "Domluvit ukázku",
     "en": "Book a demo"
   },
   "home.hero.eyebrow": {
-    "cs": "Elektronika a robotika srozumitelně pro každého",
-    "en": "Electronics and robotics, made simple for everyone"
+    "cs": "Výuková elektronika pro školy",
+    "en": "Educational electronics for schools"
   },
   "home.hero.h1": {
-    "cs": "Elektronika a robotika,<br>které <em>dávají smysl</em> na první pohled.",
-    "en": "Electronics and robotics<br>that <em>make sense</em> at first glance."
+    "cs": "Hotová <em>Arduino stavebnice</em><br>pro výuku elektroniky ve škole.",
+    "en": "A ready-made <em>Arduino kit</em><br>for teaching electronics at school."
   },
   "home.hero.lead": {
-    "cs": "Shieldio jsou hotové Arduino shieldy s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nezáleží, jestli je rozbaluje kroužek, škola, nebo jednotlivec doma. Do pěti minut je vše zapojené a program běží. Za jednu vyučovací hodinu žáci dokončí vlastní funkční projekt a pochopí, jak spolu komunikují vstupy a výstupy.",
-    "en": "Shieldio boards are ready-to-use Arduino shields with foolproof connectors, colour-coded difficulty levels, and block-based programming. It doesn't matter whether a club, a school, or someone at home is unboxing it. Everything is wired up and running within five minutes. Within a single lesson, students finish a working project of their own and understand how inputs and outputs talk to each other."
+    "cs": "Žáci se učí programovat a stavět elektronické projekty bez pájení a bez složitého zapojování. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, zvládne ji i učitel bez technického vzdělání.",
+    "en": "Students learn to program and build electronic projects without soldering or complicated wiring. The board connects with a single USB-C cable, and the first program runs within five minutes. Designed for teaching at primary and secondary schools as well as clubs, easy enough for a teacher without a technical background."
   },
   "home.hero.cta_primary": {
-    "cs": "Prohlédnout desky",
-    "en": "See the boards"
+    "cs": "Domluvit ukázku",
+    "en": "Book a demo"
   },
   "home.hero.cta_secondary": {
-    "cs": "Pro školy a kroužky",
-    "en": "For schools & clubs"
+    "cs": "Prohlédnout produkty",
+    "en": "See the products"
   },
   "home.hero.stat1_label": {
     "cs": "úrovně obtížnosti",
@@ -84,8 +84,8 @@
     "en": "from unboxing to running"
   },
   "home.hero.stat4_label": {
-    "cs": "od desky (nesestavená sada RED)",
-    "en": "starting price (unassembled RED kit)"
+    "cs": "za RED, jedinou dostupnou desku",
+    "en": "for RED, the only board available now"
   },
   "home.board_tag": {
     "cs": "RED · ve vývoji",
@@ -144,8 +144,8 @@
     "en": "One board, clear colour-coding, growing difficulty."
   },
   "home.solution.p": {
-    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod, a dost prostoru na to, co si žáci vymyslí sami.",
-    "en": "Each level has one core component and one documented project as a starting point, plus plenty of room for whatever students come up with on their own."
+    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod. Aktuálně je k dispozici a lze objednat deska RED, Green a Yellow jsou ve fázi konceptu a připravujeme je k výrobě.",
+    "en": "Each level has one core component and one documented project as a starting point. The RED board is available to order now, Green and Yellow are still at the concept stage as we prepare them for production."
   },
   "home.tier_green.label": {
     "cs": "Úroveň 1 · Základ",
@@ -156,8 +156,8 @@
     "en": "First contact with hardware"
   },
   "home.tier_green.badge": {
-    "cs": "Koncept, foto brzy",
-    "en": "Concept, photo coming soon"
+    "cs": "Koncept, zatím nelze objednat",
+    "en": "Concept, not orderable yet"
   },
   "home.tier_green.li1": {
     "cs": "Tlačítka a LED indikace",
@@ -188,8 +188,8 @@
     "en": "Your own weather station"
   },
   "home.tier_yellow.badge": {
-    "cs": "Koncept, foto brzy",
-    "en": "Concept, photo coming soon"
+    "cs": "Koncept, zatím nelze objednat",
+    "en": "Concept, not orderable yet"
   },
   "home.tier_yellow.li1": {
     "cs": "Teplota a vlhkost (DHT11)",
@@ -238,6 +238,46 @@
   "home.tier_red.badge": {
     "cs": "Aktuálně ve vývoji",
     "en": "Currently in development"
+  },
+  "home.projects.eyebrow": {
+    "cs": "Co si žáci postaví",
+    "en": "What students build"
+  },
+  "home.projects.h2": {
+    "cs": "Konkrétní projekty, ne jen součástky.",
+    "en": "Concrete projects, not just components."
+  },
+  "home.projects.p": {
+    "cs": "Tři příklady z aktuálních návodů pro desku RED, hotové a otestované.",
+    "en": "Three examples from the current RED board guides, finished and tested."
+  },
+  "home.projects.item1_h3": {
+    "cs": "Automatická závora",
+    "en": "Automatic barrier"
+  },
+  "home.projects.item1_p": {
+    "cs": "Žáci během 45 až 60 minut naprogramují servo, které se pohybuje podle vzdálenosti objektu, a pochopí propojení vstupu a výstupu.",
+    "en": "Within 45 to 60 minutes, students program a servo that moves based on an object's distance, and understand how inputs and outputs connect."
+  },
+  "home.projects.item2_h3": {
+    "cs": "Parkovací senzor",
+    "en": "Parking sensor"
+  },
+  "home.projects.item2_p": {
+    "cs": "Žáci během 20 až 30 minut vyřeší problém s parkováním pomocí ultrazvukového senzoru a pochopí měření vzdálenosti a podmínky.",
+    "en": "Within 20 to 30 minutes, students solve a parking problem using an ultrasonic sensor, and understand distance measurement and conditions."
+  },
+  "home.projects.item3_h3": {
+    "cs": "Bezdotykový nástroj",
+    "en": "Touchless instrument"
+  },
+  "home.projects.item3_p": {
+    "cs": "Žáci během 20 až 30 minut vytvoří bezdotykový hudební nástroj, který podle vzdálenosti ruky mění výšku tónu, a pochopí mapování hodnot mezi vstupem a výstupem.",
+    "en": "Within 20 to 30 minutes, students build a touchless musical instrument that changes pitch based on hand distance, and understand mapping values between input and output."
+  },
+  "home.projects.cta": {
+    "cs": "Zobrazit všechny projekty RED",
+    "en": "See all RED projects"
   },
   "home.deepdive.eyebrow": {
     "cs": "Nahlédnutí do vývoje",
@@ -504,24 +544,24 @@
     "en": "Shieldio boards"
   },
   "products_index.h1": {
-    "cs": "Všechny desky. <em>Stačí si vybrat.</em>",
-    "en": "All the boards. <em>Just pick one.</em>"
+    "cs": "Desky Shieldio. <em>Jasně podle stavu vývoje.</em>",
+    "en": "Shieldio boards. <em>Clearly labeled by status.</em>"
   },
   "products_index.lead": {
-    "cs": "Baseline (<span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, <span class=\"text-tier-red\">Red</span>) je naše hlavní řada: jedna deska, tři úrovně obtížnosti. <span class=\"text-tier-pro\">PROline</span> je pokročilá řada pro náročnější projekty.",
-    "en": "Baseline (<span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, <span class=\"text-tier-red\">Red</span>) is our main line: one board, three difficulty levels. <span class=\"text-tier-pro\">PROline</span> is the advanced line for more demanding projects."
+    "cs": "<span class=\"text-tier-red\">RED</span> si teď můžete předobjednat. PowerAdd je ve vývoji jako prototyp. <span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span> a <span class=\"text-tier-pro\">PRO</span> jsou zatím ve fázi konceptu.",
+    "en": "You can pre-order <span class=\"text-tier-red\">RED</span> right now. PowerAdd is a prototype in development. <span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, and <span class=\"text-tier-pro\">PRO</span> are still at the concept stage."
   },
-  "products_index.group_baseline": {
-    "cs": "Baseline",
-    "en": "Baseline"
+  "products_index.group_preorder": {
+    "cs": "K předobjednání",
+    "en": "Available for pre-order"
   },
-  "products_index.group_proline": {
-    "cs": "PROline",
-    "en": "PROline"
+  "products_index.group_upcoming": {
+    "cs": "Připravujeme, zatím nelze objednat",
+    "en": "Coming up, not orderable yet"
   },
-  "products_index.group_addons": {
-    "cs": "Doplňky",
-    "en": "Add-ons"
+  "products_index.group_prototype": {
+    "cs": "Ve vývoji",
+    "en": "In development"
   },
   "products_index.status_green": {
     "cs": "Baseline · Koncept",

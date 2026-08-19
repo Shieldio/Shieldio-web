@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Produkty | Shieldio</title>
-<meta name="description" content="Vyberte si desku Shieldio, Baseline nebo PROline, a podívejte se na konkrétní produkt.">
+<meta name="description" content="Přehled desek Shieldio podle stavu vývoje: RED je dostupná k předobjednání, ostatní jsou ve vývoji nebo konceptu.">
 <link rel="canonical" href="https://shieldio.cz/products/">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,13 +24,13 @@
 <meta property="og:site_name" content="Shieldio">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:title" content="Produkty | Shieldio">
-<meta property="og:description" content="Vyberte si desku Shieldio, Baseline nebo PROline, a podívejte se na konkrétní produkt.">
+<meta property="og:description" content="Přehled desek Shieldio podle stavu vývoje: RED je dostupná k předobjednání, ostatní jsou ve vývoji nebo konceptu.">
 <meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Produkty | Shieldio">
-<meta name="twitter:description" content="Vyberte si desku Shieldio, Baseline nebo PROline, a podívejte se na konkrétní produkt.">
+<meta name="twitter:description" content="Přehled desek Shieldio podle stavu vývoje: RED je dostupná k předobjednání, ostatní jsou ve vývoji nebo konceptu.">
 <meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
 </head>
 
@@ -50,7 +50,7 @@
         <a href="../company/about.html" data-i18n="nav.about">O nás</a>
         <a href="../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Začít programovat</a>
       </nav>
-      <a class="cta-small" href="../index.html#kontakt" data-i18n="nav.cta_contact">Napsat nám</a>
+      <a class="cta-small" href="../index.html#kontakt" data-i18n="nav.cta_contact">Domluvit ukázku</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -62,8 +62,8 @@
   <div class="wrap">
     <div class="fade-up">
       <span class="eyebrow" data-i18n="products_index.eyebrow">Desky Shieldio</span>
-      <h1 data-i18n="products_index.h1">Všechny desky. <em>Stačí si vybrat.</em></h1>
-      <p class="lead" data-i18n="products_index.lead">Baseline (<span class="text-tier-green">Green</span>, <span class="text-tier-yellow">Yellow</span>, <span class="text-tier-red">Red</span>) je naše hlavní řada: jedna deska, tři úrovně obtížnosti. <span class="text-tier-pro">PROline</span> je pokročilá řada pro náročnější projekty.</p>
+      <h1 data-i18n="products_index.h1">Desky Shieldio. <em>Jasně podle stavu vývoje.</em></h1>
+      <p class="lead" data-i18n="products_index.lead"><span class="text-tier-red">RED</span> si teď můžete předobjednat. PowerAdd je ve vývoji jako prototyp. <span class="text-tier-green">Green</span>, <span class="text-tier-yellow">Yellow</span> a <span class="text-tier-pro">PRO</span> jsou zatím ve fázi konceptu.</p>
     </div>
   </div>
 </div>
@@ -71,7 +71,31 @@
 <section style="padding-top:0;">
   <div class="wrap">
 
-    <div class="model-group-label fade-up" data-i18n="products_index.group_baseline">Baseline</div>
+    <div class="model-group-label fade-up" data-i18n="products_index.group_preorder">K předobjednání</div>
+    <div class="model-carousel fade-up">
+      <a class="model-card" href="RED.html#preorder">
+        <div class="model-card-photo">
+          <img src="../assets/images/RED_layout_labeled.png" width="900" height="1200" loading="lazy" alt="Deska Shieldio RED, pohled kolmo shora">
+          <span class="model-card-cta" data-i18n="shared.preorder">Předobjednat</span>
+        </div>
+        <h3 class="text-tier-red">Red</h3>
+        <span class="model-status" data-i18n="products_index.status_red">Baseline · Ve vývoji, první prototyp</span>
+      </a>
+    </div>
+
+    <div class="model-group-label fade-up" data-i18n="products_index.group_prototype">Ve vývoji</div>
+    <div class="model-carousel fade-up">
+      <a class="model-card" href="POWERADD.html">
+        <div class="model-card-photo wide">
+          <div class="board-shape shape-poweradd"><span class="board-tag" data-i18n="shared.photo_soon">Foto brzy</span></div>
+          <span class="model-card-cta" data-i18n="shared.view_board">Zobrazit desku</span>
+        </div>
+        <h3>PowerAdd</h3>
+        <span class="model-status" data-i18n="products_index.status_poweradd">Doplněk · Ve vývoji, prototyp</span>
+      </a>
+    </div>
+
+    <div class="model-group-label fade-up" data-i18n="products_index.group_upcoming">Připravujeme, zatím nelze objednat</div>
     <div class="model-carousel fade-up">
       <a class="model-card" href="GREEN.html">
         <div class="model-card-photo">
@@ -89,18 +113,6 @@
         <h3 class="text-tier-yellow">Yellow</h3>
         <span class="model-status" data-i18n="products_index.status_yellow">Baseline · Koncept</span>
       </a>
-      <a class="model-card" href="RED.html#preorder">
-        <div class="model-card-photo">
-          <img src="../assets/images/RED_layout_labeled.png" width="900" height="1200" loading="lazy" alt="Deska Shieldio RED, pohled kolmo shora">
-          <span class="model-card-cta" data-i18n="shared.preorder">Předobjednat</span>
-        </div>
-        <h3 class="text-tier-red">Red</h3>
-        <span class="model-status" data-i18n="products_index.status_red">Baseline · Ve vývoji, první prototyp</span>
-      </a>
-    </div>
-
-    <div class="model-group-label fade-up" data-i18n="products_index.group_proline">PROline</div>
-    <div class="model-carousel fade-up">
       <a class="model-card" href="PRO.html">
         <div class="model-card-photo">
           <div class="board-shape shape-pro"><span class="board-tag" data-i18n="shared.photo_soon">Foto brzy</span></div>
@@ -108,18 +120,6 @@
         </div>
         <h3 class="text-tier-pro">PRO</h3>
         <span class="model-status" data-i18n="products_index.status_pro">PROline · Připravujeme</span>
-      </a>
-    </div>
-
-    <div class="model-group-label fade-up" data-i18n="products_index.group_addons">Doplňky</div>
-    <div class="model-carousel fade-up">
-      <a class="model-card" href="POWERADD.html">
-        <div class="model-card-photo wide">
-          <div class="board-shape shape-poweradd"><span class="board-tag" data-i18n="shared.photo_soon">Foto brzy</span></div>
-          <span class="model-card-cta" data-i18n="shared.view_board">Zobrazit desku</span>
-        </div>
-        <h3>PowerAdd</h3>
-        <span class="model-status" data-i18n="products_index.status_poweradd">Doplněk · Ve vývoji, prototyp</span>
       </a>
     </div>
 
