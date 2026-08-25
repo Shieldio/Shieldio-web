@@ -1335,4 +1335,58 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
   transition:border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease);
 }
 .blockly-toggle-code:hover{ color:var(--ink); border-color:var(--ink-soft); background:var(--paper-2); }
+
+/* ---------- "jak to funguje" learning page ---------- */
+.learn-toc{
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; padding:20px;
+  background:var(--paper-2); border-radius:var(--radius);
+}
+.learn-toc a{
+  font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft);
+  padding:6px 14px; border-radius:var(--radius-pill); border:1px solid var(--line);
+  text-decoration:none; transition:color .15s var(--ease), border-color .15s var(--ease);
+}
+.learn-toc a:hover{ color:var(--ink); border-color:var(--ink-soft); }
+.learn-section{ padding:80px 0; border-top:1px solid var(--line); }
+.learn-section:first-of-type{ border-top:none; }
+.learn-section .section-head{ max-width:680px; }
+.learn-body{ max-width:680px; font-size:16px; line-height:1.7; color:var(--ink); }
+.learn-body p{ margin-top:18px; }
+.learn-body p:first-child{ margin-top:0; }
+.learn-body b{ color:var(--ink); }
+.learn-diagram{
+  margin:32px 0; padding:28px; background:var(--paper-2); border-radius:var(--radius);
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.learn-diagram svg{ width:100%; max-width:520px; height:auto; }
+.learn-diagram-caption{ font-family:'JetBrains Mono'; font-size:12px; color:var(--ink-soft); text-align:center; }
+.learn-aside{
+  margin:28px 0; padding:18px 20px; border-left:3px solid var(--accent); background:var(--paper-2);
+  border-radius:0 var(--radius) var(--radius) 0; font-size:14.5px; line-height:1.6; color:var(--ink-soft);
+}
+.learn-aside b{ color:var(--ink); }
+.resistor-calc{
+  margin:32px 0; padding:28px; background:var(--paper-2); border-radius:var(--radius);
+  border:1px solid var(--line);
+}
+.resistor-calc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media (max-width:640px){ .resistor-calc-grid{ grid-template-columns:1fr; } }
+.resistor-calc-field label{
+  display:block; font-family:'JetBrains Mono'; font-size:11.5px; letter-spacing:0.03em;
+  text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px;
+}
+.resistor-calc-field input{
+  width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--line);
+  background:var(--surface); color:var(--ink); font-size:15px; font-family:'JetBrains Mono';
+}
+.resistor-calc-field input:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+.resistor-calc-result{
+  display:flex; align-items:baseline; gap:12px; margin-top:24px; padding-top:20px; border-top:1px solid var(--line);
+}
+.resistor-calc-result-label{ font-family:'JetBrains Mono'; font-size:12px; text-transform:uppercase; letter-spacing:0.03em; color:var(--ink-soft); }
+.resistor-calc-result-value{ font-family:'JetBrains Mono'; font-size:28px; font-weight:600; color:var(--tier-red-deep); }
+:root[data-theme="dark"] .resistor-calc-result-value{ color:var(--tier-red); }
+.resistor-calc-note{ margin-top:14px; font-size:13.5px; color:var(--ink-soft); line-height:1.6; }
+.learn-theory-link{ font-size:13px; color:var(--accent-deep); text-decoration:underline; }
+:root[data-theme="dark"] .learn-theory-link{ color:var(--accent-soft); }
 .blockly-toggle-code.active{ color:var(--tier-red-deep); border-color:var(--tier-red-deep); }

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jak to funguje pod pokličkou | Shieldio</title>
+<meta name="description" content="Proč zrovna 220 Ω, jak funguje debounce, dioda, PWM a ultrazvuk. Hlubší technické vysvětlení pro zvídavé, s interaktivní kalkulačkou rezistoru.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Jak to funguje pod pokličkou | Shieldio">
+<meta property="og:description" content="Proč zrovna 220 Ω, jak funguje debounce, dioda, PWM a ultrazvuk. Hlubší technické vysvětlení pro zvídavé, s interaktivní kalkulačkou rezistoru.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jak to funguje pod pokličkou | Shieldio">
+<meta name="twitter:description" content="Proč zrovna 220 Ω, jak funguje debounce, dioda, PWM a ultrazvuk. Hlubší technické vysvětlení pro zvídavé, s interaktivní kalkulačkou rezistoru.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../index.html">Domů</a>
+        <a href="../../products/index.html">Produkty</a>
+        <a href="../../instructions/index.html">Návody</a>
+        <a href="../../company/about.html">O nás</a>
+        <a href="../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="hero" style="padding-bottom:60px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Pro zvídavé</span>
+      <h1>Jak to funguje <em>pod pokličkou</em>.</h1>
+      <p class="lead" style="max-width:640px;">Návody na sestavení říkají, co a jak zapojit. Tahle stránka vysvětluje proč, co dělá rezistor, dioda, PWM signál nebo ultrazvuk uvnitř. Není potřeba ke stavbě desky, je pro ty, kdo chtějí vědět víc.</p>
+    </div>
+    <nav class="learn-toc fade-up delay-1" aria-label="Obsah stránky">
+      <a href="#ohmuv-zakon">Ohmův zákon a proč 220 Ω</a>
+      <a href="#debounce">Tlačítka, pull-up a debounce</a>
+      <a href="#dioda">Dioda a LED</a>
+      <a href="#pwm">PWM: jak deska řídí LED i servo</a>
+      <a href="#ultrazvuk">Ultrazvuk a měření vzdálenosti</a>
+      <a href="#kondenzatory">Kondenzátory</a>
+    </nav>
+  </div>
+</div>
+
+<!-- OHMŮV ZÁKON -->
+<section class="learn-section" id="ohmuv-zakon">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-dark">01 · Rezistory</span>
+      <h2>Ohmův zákon a proč zrovna 220 Ω.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Ohmův zákon popisuje vztah mezi napětím, proudem a odporem v obvodu: <b>U = R × I</b>, napětí (V) se rovná odporu (Ω) krát proudu (A). Přeuspořádaný na výpočet odporu vypadá takto: <b>R = U ⁄ I</b>.</p>
+      <p>LED dioda potřebuje na svých vývodech určitý úbytek napětí, aby svítila, u červené LED je to zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA, než se poškodí. Deska RED má napájení 5 V. Kdyby se LED připojila přímo bez rezistoru, na diodě by se snažilo objevit celých 5 V, LED by se pokusila propustit mnohem víc proudu, než snese, a za zlomek vteřiny by shořela.</p>
+      <p>Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
+    </div>
+
+    <div class="resistor-calc">
+      <div class="resistor-calc-grid">
+        <div class="resistor-calc-field">
+          <label for="calcVs">Napájecí napětí (V)</label>
+          <input type="number" id="calcVs" data-calc="vs" value="5" step="0.1" min="0">
+        </div>
+        <div class="resistor-calc-field">
+          <label for="calcVf">Úbytek na LED (V)</label>
+          <input type="number" id="calcVf" data-calc="vf" value="2" step="0.1" min="0">
+        </div>
+        <div class="resistor-calc-field">
+          <label for="calcI">Požadovaný proud (mA)</label>
+          <input type="number" id="calcI" data-calc="i" value="15" step="1" min="1">
+        </div>
+      </div>
+      <div class="resistor-calc-result">
+        <span class="resistor-calc-result-label">Potřebný odpor</span>
+        <span class="resistor-calc-result-value" data-calc="r">220 Ω</span>
+      </div>
+      <p class="resistor-calc-note" data-calc="note"></p>
+    </div>
+
+    <div class="learn-body">
+      <p>Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω, kterou najdeš na desce RED u obou LED (R1, R2). Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.</p>
+    </div>
+
+    <div class="learn-aside">
+      <b>Co dělá rezistor uvnitř:</b> je to materiál, který proudu klade odpor, čím vyšší odpor, tím míň proudu při daném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají mu energii jako teplo, přesně to teplo odpovídá tomu "přebytečnému" napětí, které rezistor na sebe vzal místo LED.
+    </div>
+  </div>
+</section>
+
+<!-- DEBOUNCE -->
+<section class="learn-section" id="debounce">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-dark">02 · Tlačítka</span>
+      <h2>Pull-up rezistory, tlačítka a debounce.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Tlačítko samo o sobě jen spojuje nebo rozpojuje obvod, elektricky ale nedefinuje, jaká úroveň signálu je na pinu, když je zrovna nesepnuté. Bez dalšího zapojení by pin "plaval", náhodně by ho ovlivňoval okolní elektrický šum. Řešením je pull-up (nebo pull-down) rezistor, obvykle 10 kΩ, který pin natrvalo přitáhne k jasné úrovni (třeba 5 V), dokud ho stisk tlačítka aktivně nestáhne k druhé úrovni (0 V).</p>
+      <p>Druhý problém je mechanický: kontakty uvnitř tlačítka se při stisku párkrát nepatrně odrazí, než se ustálí. Elektricky se to projeví jako rychlá série "cvak-cvak-cvak" místo jednoho čistého přechodu, tomu se říká zákmit (anglicky bounce). Bez ošetření by program jeden lidský stisk mohl vyhodnotit jako pět nebo deset stisků za sebou.</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graf signálu tlačítka se zákmity a po ošetření debounce">
+        <text x="0" y="16" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">signál bez ošetření</text>
+        <polyline points="10,60 150,60 155,30 160,60 168,30 174,60 180,30 186,60 192,30 198,60 204,30 210,60 216,32 490,32"
+          fill="none" stroke="var(--tier-red)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <text x="0" y="108" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">signál po debounce</text>
+        <polyline points="10,150 210,150 210,122 490,122"
+          fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <line x1="210" y1="105" x2="210" y2="175" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="216" y="185" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">stisk tlačítka</text>
+      </svg>
+      <p class="learn-diagram-caption">Nahoře: skutečný elektrický signál se zákmity. Dole: stejný stisk po softwarovém ošetření debounce.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>Debounce se běžně řeší v programu: po zaznamenané změně signálu se dalších pár milisekund (typicky 20 až 50 ms) žádná další změna nebere v potaz, zákmity tak zmizí a zůstane jeden čistý stisk. V blokovém programování to bloky pro tlačítko dělají automaticky na pozadí, nemusíš na to myslet, ale je užitečné vědět, proč tenhle krátký okamžik ignorování vlastně existuje.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIODA -->
+<section class="learn-section" id="dioda">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-dark">03 · Polovodiče</span>
+      <h2>Jak funguje dioda a LED.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Dioda je nejjednodušší polovodičová součástka. Uvnitř má dvě odlišně upravené (dotované) vrstvy křemíku, jednu s přebytkem elektronů (typ N), druhou s jejich nedostatkem, takzvanými děrami (typ P). Na rozhraní obou vrstev vznikne tenká oblast bez volných nosičů náboje, které se říká přechod PN.</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma PN přechodu diody v propustném a závěrném směru">
+        <rect x="20" y="20" width="200" height="70" fill="var(--tier-yellow)" opacity="0.35" rx="4"/>
+        <rect x="220" y="20" width="200" height="70" fill="var(--accent)" opacity="0.3" rx="4"/>
+        <text x="120" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="var(--ink)">P</text>
+        <text x="320" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="var(--ink)">N</text>
+        <line x1="220" y1="20" x2="220" y2="90" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <path d="M30 40 L200 40" stroke="var(--tier-green)" stroke-width="3" marker-end="url(#arrowGreen)"/>
+        <text x="30" y="14" font-family="JetBrains Mono" font-size="11" fill="var(--tier-green)">propustný směr → proud protéká</text>
+        <path d="M470 130 L300 130" stroke="var(--tier-red)" stroke-width="3" marker-end="url(#arrowRed)"/>
+        <line x1="290" y1="120" x2="310" y2="140" stroke="var(--tier-red)" stroke-width="2.5"/>
+        <line x1="310" y1="120" x2="290" y2="140" stroke="var(--tier-red)" stroke-width="2.5"/>
+        <text x="480" y="105" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="var(--tier-red)">závěrný směr, proud blokován</text>
+        <defs>
+          <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--tier-green)"/>
+          </marker>
+          <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--tier-red)"/>
+          </marker>
+        </defs>
+      </svg>
+      <p class="learn-diagram-caption">Zjednodušené schéma: ve správném směru přechod propustí proud, v obráceném ho blokuje.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>Přiložíš-li napětí ve <b>správném (propustném) směru</b>, elektrony a díry se k přechodu tlačí proti sobě, přechod se zúží a od určitého prahového napětí (u křemíkových diod kolem 0,6 V, u LED podle barvy 1,8 až 3,3 V) jím proud volně protéká. V <b>obráceném (závěrném) směru</b> se nosiče náboje naopak od přechodu vzdalují, oblast bez volných nosičů se rozšíří a proud přechodem prakticky neteče, dokud napětí nepřekročí mez, kterou dioda vydrží.</p>
+      <p>Přesně proto má dioda 1N5817 na desce jasně danou orientaci (proužek ke straně K, katoda), chrání zbytek desky tak, že ve špatně zapojeném směru (třeba obráceně vložený napájecí konektor) proud jednoduše nepustí dál.</p>
+      <p><b>LED</b> (light-emitting diode) je speciální dioda ze specifických polovodičových materiálů. Když jí ve správném směru protéká proud, elektrony na přechodu "padají" na nižší energetickou hladinu a přebytečnou energii vyzáří jako foton, světlo. Barva světla je daná materiálem polovodiče (a tedy velikostí toho energetického skoku), ne barvou vnějšího pouzdra LED.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PWM -->
+<section class="learn-section" id="pwm">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-dark">04 · Signály</span>
+      <h2>PWM: jak deska řídí LED i servo.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Arduino Nano umí na svých výstupech nastavit jen dvě úrovně napětí, 0 V nebo 5 V, žádnou plynulou hodnotu mezi nimi. Přesto dokáže třeba plynule stmívat LED nebo natáčet servo do libovolného úhlu. Trik se jmenuje <b>PWM</b>, pulzně šířková modulace (Pulse Width Modulation): výstup rychle přepíná mezi 0 V a 5 V, a to, jak dlouhou část každého cyklu tráví na 5 V, se nazývá střída (duty cycle).</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tři PWM signály s různou střídou: 25 %, 50 % a 75 %">
+        <text x="0" y="14" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 25&nbsp;%, slabé jas / malý úhel</text>
+        <polyline points="10,45 10,30 40,30 40,45 130,45 130,30 160,30 160,45 250,45 250,30 280,30 280,45 370,45 370,30 400,30 400,45 490,45"
+          fill="none" stroke="var(--tier-yellow)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="0" y="90" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 50&nbsp;%, poloviční jas / střední úhel</text>
+        <polyline points="10,120 10,105 70,105 70,120 130,120 130,105 190,105 190,120 250,120 250,105 310,105 310,120 370,120 370,105 430,105 430,120 490,120"
+          fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="0" y="165" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 75&nbsp;%, plný jas / velký úhel</text>
+        <polyline points="10,195 10,180 100,180 100,195 130,195 130,180 220,180 220,195 250,195 250,180 340,180 340,195 370,195 370,180 460,180 460,195 490,195"
+          fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
+      <p class="learn-diagram-caption">Stejná frekvence, jiný poměr "zapnuto : vypnuto" v každém cyklu, to je celá střída.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>U <b>LED</b> se cykly opakují tak rychle (stovky až tisíce za sekundu), že je lidské oko nerozliší jednotlivě, jen vnímá průměrný jas, čím delší část cyklu LED svítí, tím jasnější se zdá. Nižší střída (kratší dobu svítí) = tlumenější světlo.</p>
+      <p>U <b>serva</b> se stejný princip využívá úplně jinak: servo uvnitř má vlastní elektroniku, která neměří průměrné napětí, ale <b>délku pulzu</b>. Standardní hobby servo očekává pulz zopakovaný zhruba každých 20 ms, jehož délka mezi 1 a 2 milisekundami odpovídá úhlu natočení od jednoho krajního bodu k druhému, kratší pulz (blíž 1 ms) = jeden krajní úhel, delší pulz (blíž 2 ms) = druhý krajní úhel. Elektronika serva porovná délku pulzu se svou aktuální polohou a motorkem se dotáčí, dokud se neshodují.</p>
+    </div>
+
+    <div class="learn-aside">
+      <b>Proto se blokům pro servo nastavuje "úhel", ne "výkon":</b> program na pozadí přepočítá požadovaný úhel na správnou délku pulzu, opakující se každých 20 ms, přesně podle toho, jak to servo uvnitř očekává.
+    </div>
+  </div>
+</section>
+
+<!-- ULTRAZVUK -->
+<section class="learn-section" id="ultrazvuk">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-dark">05 · Senzory</span>
+      <h2>Ultrazvuk a měření vzdálenosti.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Senzor HC-SR04 má dva "reproduktory": jeden vysílá krátký pulz zvuku o frekvenci kolem 40 kHz, hodně nad hranicí lidského sluchu (odtud "ultra" zvuk), druhý poslouchá, kdy se stejný zvuk vrátí zpátky odražený od nejbližší překážky.</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma vysílání a odrazu ultrazvukového signálu od překážky">
+        <rect x="20" y="75" width="50" height="40" rx="4" fill="var(--tier-red)" opacity="0.85"/>
+        <text x="45" y="130" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">HC-SR04</text>
+        <rect x="420" y="65" width="50" height="60" rx="4" fill="var(--ink-soft)" opacity="0.6"/>
+        <text x="445" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">překážka</text>
+        <path d="M90 95 A 30 30 0 0 1 90 95" stroke="var(--accent)" stroke-width="2" fill="none"/>
+        <path d="M100,95 a 25,25 0 0 1 0,0" fill="none"/>
+        <g stroke="var(--accent)" stroke-width="2" fill="none" opacity="0.9">
+          <path d="M100 60 A 55 55 0 0 1 100 130"/>
+          <path d="M130 45 A 90 90 0 0 1 130 145"/>
+          <path d="M160 30 A 125 125 0 0 1 160 160"/>
+        </g>
+        <text x="130" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--accent)">vyslaný pulz →</text>
+        <g stroke="var(--tier-green)" stroke-width="2" fill="none" opacity="0.9">
+          <path d="M400 60 A 55 55 0 0 0 400 130"/>
+          <path d="M370 45 A 90 90 0 0 0 370 145"/>
+          <path d="M340 30 A 125 125 0 0 0 340 160"/>
+        </g>
+        <text x="370" y="180" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--tier-green)">← odražená ozvěna</text>
+      </svg>
+      <p class="learn-diagram-caption">Vzdálenost = (čas mezi vysláním a příjmem × rychlost zvuku) ⁄ 2.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny. Zvuk se vzduchem šíří známou rychlostí, přibližně 343 metrů za sekundu při pokojové teplotě. Když se ta doba vynásobí rychlostí zvuku, vyjde celková dráha, kterou zvuk urazil tam a zpátky, proto se výsledek ještě dělí dvěma, aby zbyla jen vzdálenost k překážce:</p>
+      <p style="font-family:'JetBrains Mono'; background:var(--paper-2); padding:16px 20px; border-radius:12px;">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
+      <p>Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KONDENZÁTORY -->
+<section class="learn-section" id="kondenzatory">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow-dark">06 · Kondenzátory</span>
+      <h2>Proč elektrolytický kondenzátor musí být otočený správně.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Kondenzátor umí krátkodobě uchovat elektrický náboj, funguje jako malá dobíjecí baterka, která vyrovnává krátké výkyvy napájení, třeba když servo nebo bzučák najednou odeberou víc proudu.</p>
+      <p><b>Keramické kondenzátory</b> (žluté, označené 104) mají uvnitř dvě vodivé vrstvy oddělené tenkou keramickou izolací, jejich konstrukce je symetrická, proto nemají polaritu a dají se pájet libovolně otočené.</p>
+      <p><b>Elektrolytický kondenzátor</b> je uvnitř jiný: má dvě fóliové elektrody, na jedné z nich během výroby elektrochemicky vznikne tenoučká vrstva oxidu, ta funguje jako izolant. Vrstva oxidu ale existuje jen na téhle jedné elektrodě a snese napětí pouze v jednom směru. Obrácené napětí ji může poškodit a plyn, který se uvnitř pouzdra začne uvolňovat, zvyšuje tlak, v horším případě až za cenu poškození součástky. Proto má elektrolytický kondenzátor na rozdíl od keramických jasně vyznačenou polaritu (pruh u záporné nožičky) a v návodu na sestavení se pájí jako úplně poslední součástka, aby ho zbytečně nezahřívalo dlouhé držení v ruce.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <div class="fade-up" style="text-align:center;">
+      <h2>Chceš si to rovnou vyzkoušet?</h2>
+      <p style="color:#86868b; margin-top:14px;">Teorie dává smysl nejvíc, když ji vidíš v akci na skutečné desce.</p>
+      <div class="hero-ctas" style="justify-content:center; margin-top:28px;">
+        <a class="btn btn-primary" href="../baseline/red/sestaveni/index.html">Návod na sestavení desky RED</a>
+        <a class="btn btn-ghost" href="../index.html">Zpět na návody</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../index.html#reseni">Řešení</a>
+      <a href="../../instructions/index.html">Návody</a>
+      <a href="../../company/about.html">O nás</a>
+      <a href="../../faq.html">FAQ</a>
+      <a href="../../aktuality/index.html">Aktuality</a>
+      <a href="../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../assets/js/animations.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/search.js"></script>
+<script src="../../assets/js/site-chrome.js"></script>
+<script src="../../assets/js/resistor-calculator.js"></script>
+</body>
+</html>
