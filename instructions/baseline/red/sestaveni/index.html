@@ -5,8 +5,8 @@
 <script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Návod: Sestavení a pájení desky RED | Shieldio</title>
-<meta name="description" content="Podrobný fotonávod na sestavení a pájení desky Shieldio RED, krok za krokem, od holé desky po sestavené pouzdro.">
+<title>Jak pájet elektroniku: sestavení desky RED krok za krokem | Shieldio</title>
+<meta name="description" content="Naučte se pájet elektroniku na reálném příkladu, 38 kroků s fotkami, vysvětlením a upozorněním na časté chyby. Sestavení desky Shieldio RED od holé desky po hotové pouzdro.">
 <link rel="canonical" href="https://shieldio.cz/instructions/baseline/red/sestaveni/">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,19 +19,360 @@
 <link rel="shortcut icon" href="../../../../favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="../../../../assets/icons/apple-touch-icon.png">
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://shieldio.cz/instructions/baseline/red/sestaveni/">
 <meta property="og:site_name" content="Shieldio">
 <meta property="og:locale" content="cs_CZ">
-<meta property="og:title" content="Návod: Sestavení a pájení desky RED | Shieldio">
-<meta property="og:description" content="Podrobný fotonávod na sestavení a pájení desky Shieldio RED, krok za krokem, od holé desky po sestavené pouzdro.">
-<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:title" content="Jak pájet elektroniku: sestavení desky RED krok za krokem | Shieldio">
+<meta property="og:description" content="Naučte se pájet elektroniku na reálném příkladu, 38 kroků s fotkami, vysvětlením a upozorněním na časté chyby. Sestavení desky Shieldio RED od holé desky po hotové pouzdro.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/red-build/00-cover.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1200">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Návod: Sestavení a pájení desky RED | Shieldio">
-<meta name="twitter:description" content="Podrobný fotonávod na sestavení a pájení desky Shieldio RED, krok za krokem, od holé desky po sestavené pouzdro.">
-<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta name="twitter:title" content="Jak pájet elektroniku: sestavení desky RED krok za krokem | Shieldio">
+<meta name="twitter:description" content="Naučte se pájet elektroniku na reálném příkladu, 38 kroků s fotkami, vysvětlením a upozorněním na časté chyby. Sestavení desky Shieldio RED od holé desky po hotové pouzdro.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/red-build/00-cover.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Jak pájet elektroniku: sestavení desky Shieldio RED",
+  "description": "Podrobný fotonávod, jak pájet a sestavit desku plošných spojů od nuly, na příkladu desky Shieldio RED. Příprava součástek a nářadí, základy pájení, osazení všech součástek a sestavení do pouzdra.",
+  "image": "https://shieldio.cz/assets/images/red-build/00-cover.jpg",
+  "totalTime": "PT120M",
+  "supply": [
+    {
+      "@type": "HowToSupply",
+      "name": "Holá deska (PCB)"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Rezistor 220 Ω (R1, R2)"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Rezistor 10 kΩ (R3, R4)"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Rezistor 330 Ω (R5)"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Rezistor 4,7 kΩ (R6, R7)"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Dioda 1N5817"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "LED červená a zelená"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Kondenzátory (keramické + elektrolytický)"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Bzučák"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Tlačítka"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Konektory a sokety"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Power & Data konektor"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Arduino Nano"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Ultrazvukový senzor HC-SR04"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "OLED displej"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Servo SG90"
+    },
+    {
+      "@type": "HowToSupply",
+      "name": "Pájecí cín"
+    }
+  ],
+  "tool": [
+    {
+      "@type": "HowToTool",
+      "name": "Pájecí stanice"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Kleště"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Multimetr"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Pájecí podložka"
+    }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Připrav si pracovní místo",
+      "text": "Polož si desku na rovný, žáruvzdorný povrch, ideálně na pájecí podložku. Pracuj ve větrané místnosti, dým z tavidla nevdechuj přímo. Pájku odkládej vždy do stojánku, nikdy ne naplocho na stůl.",
+      "image": "https://shieldio.cz/assets/images/red-build/24-pracovni-misto.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připrav si cín",
+      "text": "Cívku s cínem si polož po ruce tak, aby ses jí dosáhl volnou rukou, aniž bys musel odkládat pájku.",
+      "image": "https://shieldio.cz/assets/images/red-build/26-cin-na-pajce.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Pocínuj hrot páječky",
+      "text": "Než začneš pájet první součástku, na rozehřátý hrot nanes trochu cínu, tomu se říká pocínování. Hrot díky tomu lépe vede teplo a nekorodueje.",
+      "image": "https://shieldio.cz/assets/images/red-build/25-pocinovani-hrotu.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Vlož součástku do děr",
+      "text": "Nožičky součástky (třeba rezistoru) protáhni skrz odpovídající otvory v desce, podle popisku přímo na plošném spoji.",
+      "image": "https://shieldio.cz/assets/images/red-build/27-vlozeni-do-der.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Ohni nožičky, ať drží",
+      "text": "Na druhé straně desky nožičky lehce rozhni do stran asi o 30–45°. Součástka tak nevypadne, když desku otočíš nebo odložíš, a budeš mít obě ruce volné na pájení.",
+      "image": "https://shieldio.cz/assets/images/red-build/28-ohnuti-nozicek.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Správné držení pájky",
+      "text": "Pájku drž jako tužku, blízko hrotu, pro klidnou a přesnou ruku. Cín drž v druhé ruce jako druhé pero, ne jako nůž.",
+      "image": "https://shieldio.cz/assets/images/red-build/29-drzeni-pajky.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Nahřej pad, pak přidej cín",
+      "text": "Hrotem se dotkni současně nožičky součástky i měděné plošky (padu) na desce, asi na 1–2 vteřiny je nech nahřát. Teprve pak k tomuhle místu, ne k samotnému hrotu, přilož cín.",
+      "image": "https://shieldio.cz/assets/images/red-build/30-nahrati-padu.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Přidej cín a odtáhni pájku",
+      "text": "Jakmile se cín kolem nožičky rozteče, přestaň ho přidávat a pájku odtáhni. Spoj pak nechej pár vteřin bez pohybu ztuhnout, i malé zachvění nožičkou udělá z pěkného spoje popraskaný.",
+      "image": "https://shieldio.cz/assets/images/red-build/31-spoj.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Jak vypadá správný spoj",
+      "text": "Dobrý spoj je lesklý a tvoří malý kužel kolem nožičky, ne kuličku a ne matnou hrudku. Pokud spoj vypadá matně nebo má ostré hrany, hrot znovu přilož, pár vteřin počkej a nech ho znovu ztuhnout.",
+      "image": "https://shieldio.cz/assets/images/red-build/32-spravny-spoj-detail.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Ustřihni přebytečné nožičky",
+      "text": "Kleštěmi ustřihni nožičku těsně nad špičkou spoje. Druhou rukou přitom nožičku přidržuj, ať odstřižený kousek nikam neodlétne.",
+      "image": "https://shieldio.cz/assets/images/red-build/33-ustrihnuti-nozicek.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Po ustřižení",
+      "text": "Takhle vypadá čistě zastřižený spoj, bez trčící nožičky, která by mohla zkratovat se sousední ploškou.",
+      "image": "https://shieldio.cz/assets/images/red-build/34-po-ustrihnuti.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Takhle vypadá hotovo",
+      "text": "Hotový rezistor leží těsně u desky, ne nadzvednutý nad plošným spojem, a oba spoje jsou lesklé a čisté. Takhle by měla vypadat každá součástka, kterou dál v návodu osadíš.",
+      "image": "https://shieldio.cz/assets/images/red-build/38-spravne-osazeny-resistor.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Průběžně čisti hrot pájky",
+      "text": "Mezi jednotlivými spoji hrot otři o navlhčenou pájecí houbičku nebo mosazné drátky. Zbaví ho to spáleného tavidla, které by jinak bránilo přenosu tepla.",
+      "image": "https://shieldio.cz/assets/images/red-build/35-cisteni-hrotu.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď rezistory R1 a R2 (220 Ω)",
+      "text": "Do pozic R1 a R2 vlož dva rezistory 220 Ω, jsou to proudové omezovače pro červenou a zelenou LED. Nožičky rozhni na druhé straně desky, aby rezistory držely na místě.",
+      "image": "https://shieldio.cz/assets/images/red-build/36-osazeni-r1-r2.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připájej R1 a R2",
+      "text": "Připájej obě nožičky u obou rezistorů podle postupu z předchozí kapitoly: nahřát pad i nožičku, přidat cín, odtáhnout, nechat ztuhnout.",
+      "image": "https://shieldio.cz/assets/images/red-build/37-spoje-r1-r2.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď a připájej R3, R4 a R5",
+      "text": "Stejným postupem pokračuj u R3 a R4 (10 kΩ, u LED pozic D1 a D2) a R5 (330 Ω, u bzučáku BZ1). Rezistory nemají polaritu, orientace nehraje roli.",
+      "image": "https://shieldio.cz/assets/images/red-build/39-pajeni-r1-r5.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď a připájej R6 a R7",
+      "text": "Do pozic R6 a R7 (u řady pinů Arduino Nano, blízko značek A1) vlož a připájej poslední dva rezistory. Upozornění: Pozor, liší se od potisku desky: na plošném spoji je u R6 a R7 vytištěno 10K, ale v tomhle prototypu V3 se místo nich pájí rezistory 4,7 kΩ ze sáčku označeného 4K7. Řiď se sáčkem se součástkami a tímhle návodem, ne potiskem.",
+      "image": "https://shieldio.cz/assets/images/red-build/41-analog-identity-detail.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Zkontroluj všech sedm rezistorů",
+      "text": "R1 až R7 by teď měly být osazené a připájené na desce. Než půjdeš dál, přejeď je očima a zkontroluj, že žádný nechybí a žádný nemá studený spoj.",
+      "image": "https://shieldio.cz/assets/images/red-build/40-vsechny-resistory-osazene.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď a připájej diodu D3",
+      "text": "Diodu 1N5817 vlož do pozice D3, proužek na jejím těle musí směřovat ke straně desky označené K (katoda), přesně jak ukazuje fotka. Obě nožičky pak připájej, dioda je citlivější na teplo než rezistor, nedrž na ní hrot déle, než je nutné. Upozornění: Dioda MÁ polaritu. Otočená dioda obvod nezničí, ale nebude propouštět proud tak, jak má, takže část desky nebude fungovat.",
+      "image": "https://shieldio.cz/assets/images/red-build/42-dioda-osazeni.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď keramické kondenzátory",
+      "text": "Žluté keramické kondenzátory s označením 104 vlož do zbývajících pozic C1, C2 a C4 a připájej je. Polaritu nemají, orientace nehraje roli.",
+      "image": "https://shieldio.cz/assets/images/red-build/46-keramicke-kondenzatory.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Zkontroluj rezistory, diodu a kondenzátory",
+      "text": "V tuhle chvíli by měly být na desce hotové všechny rezistory, dioda D3 i keramické kondenzátory. LED ještě chybí, na ty přijde řada hned v dalších krocích.",
+      "image": "https://shieldio.cz/assets/images/red-build/47-osazeni-r-d-c.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Vlož červenou LED (D1)",
+      "text": "Červenou LED vlož do pozice D1. Delší nožička (anoda) patří do kulatého otvoru, kratší (katoda) do hranatějšího, podle značení na desce. Upozornění: LED MÁ polaritu, ale na rozdíl od diody 1N5817 tě obrácené zapojení nepoškodí. LED se prostě nerozsvítí, otoč ji a zkus to znovu.",
+      "image": "https://shieldio.cz/assets/images/red-build/44-led-cervena-smer.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připájej červenou LED",
+      "text": "Obě nožičky červené LED připájej stejným postupem jako ostatní součástky, hrot přilož k oběma najednou jen na nutnou dobu.",
+      "image": "https://shieldio.cz/assets/images/red-build/43-pripajeni-diody.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď a připájej zelenou LED (D2)",
+      "text": "Stejným způsobem osaď zelenou LED do pozice D2 a obě nožičky připájej.",
+      "image": "https://shieldio.cz/assets/images/red-build/45-led-zelena-osazeni.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připájej konektor J7 (HC-SR04 Socket B)",
+      "text": "Osaď a připájej ležatý pinový konektor v pozici J7, jednu z patic pro ultrazvukový senzor HC-SR04.",
+      "image": "https://shieldio.cz/assets/images/red-build/50-horizontalni-konektor.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď tlačítka SW1 a SW2",
+      "text": "Obě tlačítka zasuň do pozic SW1 a SW2, nožičky přesně zapadnou jen jedním způsobem. Orientace tlačítka nehraje roli.",
+      "image": "https://shieldio.cz/assets/images/red-build/48-pajeni-tlacitek.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připájej tlačítka",
+      "text": "Připájej všechny čtyři nožičky u obou tlačítek. Upozornění: Pájecí plošky u tlačítek jsou větší než u rezistorů, potřebují víc tepla i cínu. Cín se musí pěkně rozlít po celé plošce, ne zůstat jen na nožičce, jinak spoj špatně drží.",
+      "image": "https://shieldio.cz/assets/images/red-build/49-spoje-tlacitek.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď konektor pro servo (J2)",
+      "text": "Do pozice J2 (SG90 Pin) připájej třípinový konektor pro servo.",
+      "image": "https://shieldio.cz/assets/images/red-build/51-konektor-servo.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď konektory Power & Data (J5, J6)",
+      "text": "Bílé JST konektory vlož do pozic J5 (P&D) a J6 (P&D link). Upozornění: Konektor je klíčovaný, zub na pouzdru zapadne do patice jen jedním směrem. Nezasunuj ho silou, pokud nejde snadno, zkus ho otočit.",
+      "image": "https://shieldio.cz/assets/images/red-build/52-orientace-power-data.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připájej konektory Power & Data",
+      "text": "Připájej všechny nožičky obou konektorů J5 a J6. Přes ně si dvě desky Shieldio můžou navzájem sdílet napájení i data.",
+      "image": "https://shieldio.cz/assets/images/red-build/53-power-data-detail.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď sokety pro ultrazvuk a displej",
+      "text": "Připájej zbývající paticový konektor J1 (HC-SR04 Socket A) a paticový konektor J3 (OLED Socket). Moduly do nich pak jen zasuneš, nepájí se přímo.",
+      "image": "https://shieldio.cz/assets/images/red-build/54-socket-ultrazvuk-displej.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď a připájej bzučák",
+      "text": "Bzučák (BZ1) vlož do jeho pozice a připájej. Značka + na spodní straně bzučáku by měla směřovat na stranu desky se stejnou značkou.",
+      "image": "https://shieldio.cz/assets/images/red-build/55-buzzer-pripajen.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Osaď patice pro Arduino Nano",
+      "text": "Na spodní stranu desky připájej obě řady pinových patic pro Arduino Nano. Díky nim Arduino po dokončení stavby jen zasuneš, nepájí se natrvalo.",
+      "image": "https://shieldio.cz/assets/images/red-build/56-socket-arduino.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připájej elektrolytický kondenzátor jako poslední",
+      "text": "Vysoký válcový kondenzátor 100 µF vlož do pozice C3. Podélný pruh na jeho těle (záporná nožička) musí směřovat přesně tak, jak ukazuje fotka. Upozornění: Tahle součástka se pájí jako úplně poslední, protože delší zahřívání v ruce nebo časté ohýbání jí může zkrátit životnost. Obráceně zapojený elektrolytický kondenzátor se navíc může poškodit, takže si orientaci dvakrát zkontroluj, než začneš pájet.",
+      "image": "https://shieldio.cz/assets/images/red-build/57-elektrolyticky-kondenzator.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Zkontroluj hotovou desku",
+      "text": "Všechny součástky by teď měly být osazené a připájené. Než pokračuješ dál, přejeď očima celou desku a zkontroluj, že nikde nechybí spoj a že žádná nožička nepřečnívá k sousední plošce.",
+      "image": "https://shieldio.cz/assets/images/red-build/58-cela-pcb-hotova.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Připrav si horní frame a spodní backplate",
+      "text": "Deska se zacvakává do dvoudílného 3D tištěného pouzdra, horní frame drží další díly (třeba servo nebo model), spodní backplate desku zezadu chrání.",
+      "image": "https://shieldio.cz/assets/images/red-build/59-backplate-dil.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Zacvakni horní frame",
+      "text": "Horní frame nasaď na desku a jemně zatlač na rohy, dokud slyšitelně nezacvakne na všech stranách.",
+      "image": "https://shieldio.cz/assets/images/red-build/60-zacvaknuti-framu.jpg"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Zacvakni backplate",
+      "text": "Stejným způsobem zacvakni i spodní backplate. Deska je teď kompletně sestavená a připravená na osazení Arduina, senzoru, displeje a serva.",
+      "image": "https://shieldio.cz/assets/images/red-build/61-zacvaknuti-backplate.jpg"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Baseline Red", "item": "https://shieldio.cz/instructions/baseline/red/"},
+    {"@type": "ListItem", "position": 4, "name": "Sestavení a pájení desky", "item": "https://shieldio.cz/instructions/baseline/red/sestaveni/"}
+  ]
+}
+</script>
 </head>
 
 <body>

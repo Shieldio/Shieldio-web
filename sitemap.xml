@@ -18,11 +18,15 @@
   <url><loc>https://shieldio.cz/products/POWERADD.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://shieldio.cz/products/baseline.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/instructions/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shieldio.cz/instructions/blokovy-editor.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shieldio.cz/instructions/baseline/red/sestaveni/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/zavora/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/parkovaci-asistent/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/casovac/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/theremin/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/yellow/meteostanice/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/instructions/baseline/green/reakcni-hra/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>

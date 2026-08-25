@@ -5,8 +5,8 @@
 <script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Jak to funguje pod pokličkou | Shieldio</title>
-<meta name="description" content="Proč zrovna 220 Ω, jak funguje debounce, dioda, PWM a ultrazvuk. Hlubší technické vysvětlení pro zvídavé, s interaktivní kalkulačkou rezistoru.">
+<title>Kalkulačka rezistoru pro LED a jak funguje elektronika | Shieldio</title>
+<meta name="description" content="Online kalkulačka rezistoru pro LED podle Ohmova zákona, zdarma a bez registrace. Plus srozumitelné vysvětlení debounce u tlačítek, diody, PWM řízení a ultrazvukového senzoru.">
 <link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,19 +19,95 @@
 <link rel="shortcut icon" href="../../favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="../../assets/icons/apple-touch-icon.png">
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/">
 <meta property="og:site_name" content="Shieldio">
 <meta property="og:locale" content="cs_CZ">
-<meta property="og:title" content="Jak to funguje pod pokličkou | Shieldio">
-<meta property="og:description" content="Proč zrovna 220 Ω, jak funguje debounce, dioda, PWM a ultrazvuk. Hlubší technické vysvětlení pro zvídavé, s interaktivní kalkulačkou rezistoru.">
+<meta property="og:title" content="Kalkulačka rezistoru pro LED a jak funguje elektronika | Shieldio">
+<meta property="og:description" content="Online kalkulačka rezistoru pro LED podle Ohmova zákona, zdarma a bez registrace. Plus srozumitelné vysvětlení debounce u tlačítek, diody, PWM řízení a ultrazvukového senzoru.">
 <meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Jak to funguje pod pokličkou | Shieldio">
-<meta name="twitter:description" content="Proč zrovna 220 Ω, jak funguje debounce, dioda, PWM a ultrazvuk. Hlubší technické vysvětlení pro zvídavé, s interaktivní kalkulačkou rezistoru.">
+<meta name="twitter:title" content="Kalkulačka rezistoru pro LED a jak funguje elektronika | Shieldio">
+<meta name="twitter:description" content="Online kalkulačka rezistoru pro LED podle Ohmova zákona, zdarma a bez registrace. Plus srozumitelné vysvětlení debounce u tlačítek, diody, PWM řízení a ultrazvukového senzoru.">
 <meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Proč se u LED na desce Shieldio používá zrovna rezistor 220 Ω?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rezistor v sérii s LED omezuje proud na bezpečnou hodnotu podle Ohmova zákona R = U ⁄ I. Při napájení 5 V, úbytku na červené LED kolem 2 V a požadovaném proudu 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je 220 Ω. Bez rezistoru by LED protékalo mnohem víc proudu, než snese, a hned by se spálila."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak se vypočítá hodnota rezistoru pro LED?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Podle vzorce R = (napájecí napětí − úbytek napětí na LED) ⁄ požadovaný proud. Výsledek se zaokrouhlí na nejbližší běžně vyráběnou hodnotu z řady E12 (například 220 Ω, 330 Ω, 470 Ω). Interaktivní kalkulačka na této stránce spočítá hodnotu okamžitě po zadání napájení, úbytku napětí na LED a požadovaného proudu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Proč tlačítko potřebuje pull-up rezistor a co je to debounce?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bez pull-up rezistoru (typicky 10 kΩ) by pin mikrokontroléru při nesepnutém tlačítku elektricky plaval a náhodně ho ovlivňoval šum. Pull-up rezistor pin natrvalo přitáhne k jasné napěťové úrovni. Debounce (zákmit) je mechanický jev, kdy se kontakty tlačítka při stisku párkrát odrazí, než se ustálí, a program to bez ošetření může vyhodnotit jako víc stisků za sebou. Ošetřuje se krátkým ignorováním dalších změn signálu (typicky 20 až 50 ms) po první zaznamenané změně."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak funguje dioda a LED?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dioda má uvnitř přechod mezi dvěma odlišně dotovanými vrstvami polovodiče (P a N), který propouští proud jen ve správném (propustném) směru a blokuje ho v obráceném (závěrném) směru. LED je speciální dioda, která při průchodu proudu ve správném směru vyzařuje světlo, jehož barva závisí na materiálu polovodiče, ne na barvě vnějšího pouzdra."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co je PWM a jak řídí LED i servo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PWM (pulzně šířková modulace) rychle přepíná výstup mezi 0 V a 5 V, poměr doby zapnuto ku vypnuto se nazývá střída. U LED oko nerozliší jednotlivé cykly, jen vnímá průměrný jas podle střídy. U hobby serva elektronika uvnitř neměří průměrné napětí, ale délku pulzu opakujícího se každých 20 ms, délka pulzu mezi 1 a 2 milisekundami určuje úhel natočení."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak ultrazvukový senzor HC-SR04 měří vzdálenost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Senzor vyšle krátký ultrazvukový pulz (kolem 40 kHz) a změří čas, za jak dlouho se odražený zvuk vrátí zpátky od nejbližší překážky. Vzdálenost se spočítá jako čas krát rychlost zvuku (přibližně 343 m/s), vydělený dvěma, protože zvuk urazí dráhu tam i zpátky."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Proč musí být elektrolytický kondenzátor otočený správně, na rozdíl od keramického?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elektrolytický kondenzátor má uvnitř vrstvu oxidu, která vznikla jen na jedné elektrodě a snese napětí pouze v jednom směru, obrácené napětí ji může poškodit. Keramický kondenzátor má symetrickou konstrukci bez téhle vrstvy, proto polaritu nemá a dá se pájet libovolně otočený."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"}
+  ]
+}
+</script>
 </head>
 
 <body>
