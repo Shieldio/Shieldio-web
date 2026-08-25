@@ -847,6 +847,10 @@
     "cs": "Jen samotný plošný spoj, bez součástek, pro stavbu úplně od nuly.",
     "en": "Just the bare PCB, no components, for building completely from scratch."
   },
+  "red.opt_guide_link": {
+    "cs": "Co budete sestavovat, podrobný fotonávod",
+    "en": "See what you'll be building, a detailed photo guide"
+  },
   "red.opt_basic_name": {
     "cs": "Sestavená základní",
     "en": "Basic assembled"
@@ -936,8 +940,8 @@
     "en": "Shieldio <em>PowerAdd</em>."
   },
   "poweradd.lead": {
-    "cs": "Desky Shieldio se dosud programují a napájí přes USB-C kabel. PowerAdd je odpojí od zásuvky i počítače, nabíjecí modul, se kterým se dá s hotovým projektem chodit po třídě.",
-    "en": "Shieldio boards are currently programmed and powered over a USB-C cable. PowerAdd disconnects them from both the outlet and the computer, a charging module that lets you carry a finished project around the classroom."
+    "cs": "Desky Shieldio se dosud programují a napájí přes USB-C kabel. PowerAdd je odpojí od zásuvky i počítače, powerbanka pro libovolnou desku Shieldio, se kterou se dá s hotovým projektem chodit po třídě.",
+    "en": "Shieldio boards are currently programmed and powered over a USB-C cable. PowerAdd disconnects them from both the outlet and the computer, a power bank for any Shieldio board that lets you carry a finished project around the classroom."
   },
   "poweradd.back_products": {
     "cs": "Zpět na produkty",
@@ -960,8 +964,8 @@
     "en": "A charging module for the whole line."
   },
   "poweradd.spec1": {
-    "cs": "<b>Nabíjecí modul</b> (powerbanka), prototyp, který desku odpojí od USB-C kabelu.",
-    "en": "<b>Charging module</b> (power bank), a prototype that disconnects the board from its USB-C cable."
+    "cs": "<b>Nabíjecí modul</b> (powerbanka), prototyp, který napájí kteroukoli desku Shieldio a odpojí ji od USB-C kabelu.",
+    "en": "<b>Charging module</b> (power bank), a prototype that powers any Shieldio board and disconnects it from its USB-C cable."
   },
   "poweradd.spec2": {
     "cs": "<b>Cca 10 hodin</b> výdrže na jednu desku, s podporou rychlonabíjení.",

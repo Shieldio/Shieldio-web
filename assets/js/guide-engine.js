@@ -11,8 +11,9 @@
   root.classList.add(`tier-${tier}`);
 
   const STORAGE_KEY = `shieldio-guide-${DATA.id}`;
-  const DEFAULT_MODE = { lang: "blocks", depth: "detailed", kit: "assembled" };
-  const supportsKit = tier === "red";
+  const DEFAULT_MODE = { lang: "blocks", depth: "detailed", kit: "assembled", skill: "beginner" };
+  const supportsKit = tier === "red" && DATA.id !== "sestaveni-red";
+  const supportsSkill = !!(DATA.meta && DATA.meta.skillCheck);
 
   const state = loadState();
 
@@ -104,8 +105,14 @@
   function renderProgress() {
     const total = totalSteps();
     const pct = total ? Math.round((state.stepIndex / total) * 100) : 0;
+    const canGoBack = state.stepIndex > 0;
+    const canGoForward = state.stepIndex < total;
     return `
-      <div class="guide-progress-label">${state.stepIndex >= total ? "Hotovo" : `Krok ${state.stepIndex + 1} z ${total}`}</div>
+      <div class="guide-progress-row">
+        <button type="button" class="guide-progress-nav" data-action="back" ${canGoBack ? "" : "disabled"} aria-label="Krok zpět">← Krok zpět</button>
+        <div class="guide-progress-label">${state.stepIndex >= total ? "Hotovo" : `Krok ${state.stepIndex + 1} z ${total}`}</div>
+        <button type="button" class="guide-progress-nav" data-action="forward" ${canGoForward ? "" : "disabled"} aria-label="Krok vpřed">Krok vpřed →</button>
+      </div>
       <div class="guide-progress-track"><div class="guide-progress-fill" style="width:${Math.min(pct, 100)}%"></div></div>
     `;
   }
@@ -115,6 +122,14 @@
   function renderModePicker() {
     return `
       <div class="guide-mode-picker">
+        ${supportsSkill ? `
+        <div class="guide-mode-group">
+          <span class="guide-mode-label">Umíš pájet?</span>
+          <div class="guide-mode-toggle" data-mode-group="skill">
+            <button type="button" class="guide-mode-btn ${state.mode.skill === "beginner" ? "active" : ""}" data-mode-value="beginner">Neumím pájet</button>
+            <button type="button" class="guide-mode-btn ${state.mode.skill === "experienced" ? "active" : ""}" data-mode-value="experienced">Umím pájet</button>
+          </div>
+        </div>` : ""}
         ${supportsKit ? `
         <div class="guide-mode-group">
           <span class="guide-mode-label">Tvoje sada</span>
@@ -166,6 +181,7 @@
           <p><b>Postup:</b> součástku zasuň do správných otvorů podle popisků přímo na desce, hrot pájky přilož zároveň k nožičce i plošce, po 1 až 2 vteřinách přidej cín, pájku odtáhni a spoj nech bez pohybu ztuhnout. Spoj má být lesklý, ne kulička nebo matný cín. Přebytečné nožičky nakonec odstřihni.</p>
           <p><b>Bezpečnost:</b> hrot pájky má 300 až 400&nbsp;°C, nedotýkej se ho, pracuj na žáruvzdorné podložce a dým z tavidla nevdechuj.</p>
         </details>
+        <a class="btn btn-ghost" style="margin-top:14px;" href="../sestaveni/index.html">Otevřít podrobný fotonávod na sestavení a pájení</a>
       </div>
     `;
   }
@@ -184,7 +200,7 @@
           </div>
           <p class="lead" style="font-size:16px;">Co se naučíš:</p>
           <ul class="guide-learn-list">${m.learn.map(l => `<li>${l}</li>`).join("")}</ul>
-          ${(supportsLang || supportsDepth || supportsKit) ? renderModePicker() : ""}
+          ${(supportsLang || supportsDepth || supportsKit || supportsSkill) ? renderModePicker() : ""}
           ${(supportsKit && state.mode.kit === "unassembled") ? renderSolderWarning() : ""}
           <button type="button" class="btn btn-primary" data-action="start">Začít stavět</button>
         </div>
@@ -251,12 +267,20 @@
   }
 
   function renderWiring(step) {
+    const warning = step.warning ? `<div class="guide-step-warning"><p>${step.warning}</p></div>` : "";
+    const theory = step.theory ? `
+      <details class="guide-accordion" ${state.mode.skill === "beginner" ? "open" : ""}>
+        <summary>Proč to tak je</summary>
+        ${step.theory}
+      </details>` : "";
     return `
       <div class="guide-wiring-media">${photoOrPlaceholder(step.photo, step.title.replace(/<[^>]+>/g, ""))}</div>
       <p class="guide-instructions">${step.instructions}</p>
+      ${warning}
+      ${theory}
       <div class="guide-help-slot"></div>
       <div class="guide-step-actions">
-        <button type="button" class="btn btn-primary" data-action="ok">Zapojeno</button>
+        <button type="button" class="btn btn-primary" data-action="ok">${step.actionLabel || "Zapojeno"}</button>
         <button type="button" class="btn btn-ghost" data-action="fail">Nedaří se mi</button>
       </div>
     `;
@@ -413,6 +437,7 @@
     return `
       <div class="guide-done-wrap">
         <div class="guide-card guide-done fade-up visible">
+          ${DATA.meta.doneImage ? `<div class="guide-done-photo"><img src="${DATA.meta.doneImage}" alt="Hotový výsledek"></div>` : ""}
           <div class="guide-done-check">✓</div>
           <h1>Projekt je hotový.</h1>
           <p class="lead">Dnes ses naučil:</p>
@@ -529,6 +554,14 @@
     root.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  function goBack() {
+    if (state.stepIndex <= 0) return;
+    state.stepIndex -= 1;
+    saveState();
+    renderCurrent();
+    root.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function renderCurrent() {
     const stepsEl = document.getElementById("guide-steps");
     const progressEl = document.getElementById("guide-progress");
@@ -549,6 +582,10 @@
 
     progressEl.style.display = "";
     progressEl.innerHTML = renderProgress();
+    const backBtn = progressEl.querySelector('[data-action="back"]');
+    const forwardBtn = progressEl.querySelector('[data-action="forward"]');
+    if (backBtn) backBtn.addEventListener("click", goBack);
+    if (forwardBtn) forwardBtn.addEventListener("click", advance);
 
     if (state.stepIndex >= totalSteps()) {
       const doneEl = wrap(renderDone());

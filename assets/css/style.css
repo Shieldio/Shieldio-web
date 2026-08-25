@@ -576,6 +576,8 @@ section{ padding:140px 0; }
 .preorder-option-name{ font-weight:600; font-size:15.5px; letter-spacing:-0.01em; display:flex; align-items:center; }
 .preorder-option-price{ font-family:'JetBrains Mono'; font-size:14px; color:var(--tier-red-deep); white-space:nowrap; }
 .preorder-option-desc{ display:block; font-size:13.5px; color:var(--ink-soft); line-height:1.5; }
+.preorder-option-guide-link{ display:inline-block; margin-top:8px; font-size:12.5px; font-weight:500; color:var(--accent-deep); }
+:root[data-theme="dark"] .preorder-option-guide-link{ color:var(--accent-soft); }
 /* featured = the two full kits (assembled/unassembled) — bigger so the hierarchy against the
    three add-on/partial options below reads at a glance, not just via the selection ring */
 .preorder-option.featured .preorder-option-body{ padding:28px 26px; }
@@ -858,10 +860,18 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 
 /* ---------- interactive guide engine ---------- */
 .guide-app{ padding:56px 0 100px; }
+.guide-progress-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
 .guide-progress-label{
   font-family:'JetBrains Mono'; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;
-  color:var(--ink-soft); margin-bottom:10px;
+  color:var(--ink-soft);
 }
+.guide-progress-nav{
+  font-family:'JetBrains Mono'; font-size:12px; letter-spacing:0.02em;
+  background:none; border:none; color:var(--ink-soft); cursor:pointer; padding:4px 2px;
+  transition:color .15s var(--ease);
+}
+.guide-progress-nav:hover:not(:disabled){ color:var(--ink); }
+.guide-progress-nav:disabled{ opacity:0; pointer-events:none; }
 .guide-progress-track{ height:6px; border-radius:10px; background:var(--paper-2); overflow:hidden; }
 .guide-progress-fill{
   height:100%; border-radius:10px; background:var(--tier-red);
@@ -928,6 +938,15 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 .guide-solder-warning .guide-accordion p:first-of-type{ margin-top:14px; }
 :root[data-theme="dark"] .guide-solder-warning{ background:rgba(247,35,56,0.1); border-color:rgba(247,35,56,0.4); }
 :root[data-theme="dark"] .guide-solder-warning b{ color:var(--tier-red); }
+.guide-step-warning{
+  background:#feedef; border:1px solid var(--tier-red); border-radius:var(--radius);
+  padding:14px 18px; margin-top:16px; font-size:14px; line-height:1.5;
+}
+.guide-step-warning p{ margin:0; }
+.guide-step-warning b{ color:var(--tier-red-deep); }
+:root[data-theme="dark"] .guide-step-warning{ background:rgba(247,35,56,0.1); border-color:rgba(247,35,56,0.4); }
+:root[data-theme="dark"] .guide-step-warning b{ color:var(--tier-red); }
+.guide-instructions + .guide-accordion{ margin-top:16px; }
 .guide-code-block{
   background:#1d1d1f; color:#f5f5f7; padding:20px; border-radius:14px; overflow-x:auto;
   font-family:'JetBrains Mono'; font-size:13px; line-height:1.6; margin-bottom:20px;
@@ -1011,6 +1030,8 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 
 /* completion */
 .guide-done{ text-align:center; max-width:520px; margin-left:auto; margin-right:auto; }
+.guide-done-photo{ border-radius:var(--radius); overflow:hidden; margin-bottom:24px; box-shadow:var(--shadow-card); }
+.guide-done-photo img{ width:100%; display:block; }
 .guide-done-check{
   width:64px; height:64px; border-radius:50%; background:var(--tier-green);
   color:#fff; font-size:32px; display:flex; align-items:center; justify-content:center;

@@ -85,7 +85,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "servo",
       name: "Servo SG90",
-      photo: null,
+      photo: "../../../../assets/images/red-build/18-aktivni-soucastky.jpg",
       what: "Motor, který otáčí ramenem závory.",
       how: "Řídí se PWM signálem. Délka pulzu určuje, do jakého úhlu se natočí.",
       fact: "SG90 je jedno z nejběžnějších hobby serv na světě.",
@@ -94,7 +94,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "hcsr04",
       name: "Ultrazvuk HC-SR04",
-      photo: null,
+      photo: "../../../../assets/images/red-build/16-ultrazvuk.jpg",
       what: "Měří vzdálenost přijíždějícího auta od závory.",
       how: "Vyšle ultrazvukový signál a změří, za jak dlouho se odrazí zpátky.",
       fact: "Přesnost na centimetry, dosah až několik metrů.",
