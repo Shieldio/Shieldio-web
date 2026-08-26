@@ -186,12 +186,16 @@
     </div>
 
     <div class="level-equations learn-body">
+      <p>Značení jednotek: <b>R</b> odpor [Ω], <b>C</b> kapacita [F], <b>τ</b> časová konstanta [s], <b>f</b> frekvence [Hz], <b>X_C</b> kapacitní reaktance [Ω].</p>
       <p><b>RC časová konstanta:</b></p>
-      <div class="learn-eq-block">\[ \tau = R \times C \]</div>
+      <div class="learn-eq-block">\[ \tau\ [\text{s}] = R \times C \]</div>
       <p>Pro debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ:</p>
       <div class="learn-eq-block">\[ \tau = 10\,000\,\Omega \times 100 \times 10^{-9}\,\text{F} = 1\,\text{ms} \]</div>
-      <p><b>Impedance kondenzátoru</b> pro harmonický signál o frekvenci \(f\):</p>
-      <div class="learn-eq-block">\[ X_C = \frac{1}{2\pi f C} \]</div>
+      <p><b>Kapacitní reaktance (impedance kondenzátoru)</b> pro harmonický signál o frekvenci \(f\):</p>
+      <div class="learn-eq-block">\[ X_C\ [\Omega] = \frac{1}{2\pi f C} \]</div>
+      <p>Dosazení pro stejný debounce kondenzátor 100 nF při frekvenci zákmitů kolem 1 kHz:</p>
+      <div class="learn-eq-block">\[ X_C = \frac{1}{2\pi \times 1000\,\text{Hz} \times 100 \times 10^{-9}\,\text{F}} \approx 1{,}59\,\text{k}\Omega \]</div>
+      <p>To je pořád v řádu pull-up rezistoru 10 kΩ, ale výrazně méně, než jaký by X_C vyšel pro pomalé, jednotky Hz trvající změny napětí od stisku tlačítka. Přesně tenhle rozdíl v reaktanci pro různé frekvence je to, co dělá z kondenzátoru filtr, rychlý šum (vysoké f) propustí snáz než pomalý užitečný signál (nízké f).</p>
       <p><b>Fázorová (komplexní) analýza:</b> kondenzátor má impedanci</p>
       <div class="learn-eq-block">\[ Z_C = \frac{1}{j\omega C}, \qquad \omega = 2\pi f \]</div>
       <p>kde \(j\) je imaginární jednotka. Proud kondenzátorem předbíhá napětí na něm o 90°, na rozdíl od rezistoru, kde jsou proud a napětí vždy ve fázi.</p>

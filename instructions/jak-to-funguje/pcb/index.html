@@ -181,9 +181,10 @@
     </div>
 
     <div class="level-equations learn-body">
+      <p>Značení jednotek: <b>R</b> odpor [Ω], <b>ρ</b> rezistivita [Ω·m], <b>L</b> délka [m], <b>A</b> průřez [m²].</p>
       <p><b>Odpor vodiče</b> libovolného tvaru se spočítá jako:</p>
-      <div class="learn-eq-block">\[ R = \rho \, \frac{L}{A} \]</div>
-      <p>kde \(\rho\) (rho) je měrný elektrický odpor materiálu (rezistivita, v \(\Omega \cdot \text{m}\)), \(L\) je délka vodiče a \(A\) jeho průřez.</p>
+      <div class="learn-eq-block">\[ R\ [\Omega] = \rho \, \frac{L}{A} \]</div>
+      <p>kde \(\rho\) (rho) je měrný elektrický odpor materiálu (rezistivita), \(L\) je délka vodiče a \(A\) jeho průřez (šířka krát tloušťka mědi).</p>
       <table class="learn-table">
         <tr><th>Materiál</th><th>Rezistivita \(\rho\) (\(\Omega \cdot \text{m}\), při 20 °C)</th><th>Poznámka</th></tr>
         <tr><td>Stříbro</td><td>\(1{,}59 \times 10^{-8}\)</td><td>nejlepší vodič, ale drahé a měkké</td></tr>
@@ -191,6 +192,9 @@
         <tr><td>Zlato</td><td>\(2{,}44 \times 10^{-8}\)</td><td>vede hůř než měď, používá se jen jako pokovení plošek</td></tr>
         <tr><td>Hliník</td><td>\(2{,}65 \times 10^{-8}\)</td><td>lehčí a levnější, ale hůř se pájí</td></tr>
       </table>
+      <p>Dosazení pro typickou cestičku z 1 oz mědi (tloušťka 35 µm), širokou 1 mm a dlouhou 10 cm:</p>
+      <div class="learn-eq-block">\[ R = 1{,}68 \times 10^{-8}\,\Omega{\cdot}\text{m} \times \frac{0{,}10\,\text{m}}{0{,}001\,\text{m} \times 0{,}000035\,\text{m}} \approx 0{,}048\,\Omega \]</div>
+      <p>I dlouhá cestička má tedy jen zlomky ohmu, proto se odpor mědi na desce běžně zanedbává, důležitý začíná být až u dlouhých tenkých cestiček s vysokým proudem.</p>
     </div>
 
     <div class="topic-nav">

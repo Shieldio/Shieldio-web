@@ -179,17 +179,45 @@
         <tr><td>3. proužek</td><td>násobitel (počet nul)</td></tr>
         <tr><td>4. proužek</td><td>tolerance (zlatá = 5 %, stříbrná = 10 %)</td></tr>
       </table>
-      <p>Rezistor 220 Ω má proužky červená-červená-hnědá (2, 2, ×10), 10 kΩ má hnědá-černá-oranžová (1, 0, ×1000).</p>
+      <p>Rezistor 220 Ω má proužky červená-červená-hnědá-zlatá (2, 2, ×10, 5 %), 10 kΩ má hnědá-černá-oranžová-zlatá (1, 0, ×1000, 5 %).</p>
+    </div>
+
+    <div class="level-advanced">
+      <div class="learn-diagram">
+        <svg viewBox="0 0 500 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nákres rezistoru 220 ohmů s barevnými proužky červená, červená, hnědá, zlatá">
+          <line x1="20" y1="85" x2="150" y2="85" stroke="var(--ink-soft)" stroke-width="3"/>
+          <line x1="350" y1="85" x2="480" y2="85" stroke="var(--ink-soft)" stroke-width="3"/>
+          <rect x="150" y="55" width="200" height="60" rx="14" fill="#d9c7a0"/>
+          <rect x="150" y="55" width="200" height="60" rx="14" fill="none" stroke="#b3986a" stroke-width="1.5"/>
+          <rect x="182" y="55" width="14" height="60" fill="#dc2626"/>
+          <rect x="214" y="55" width="14" height="60" fill="#dc2626"/>
+          <rect x="246" y="55" width="14" height="60" fill="#78350f"/>
+          <rect x="310" y="55" width="14" height="60" fill="#d4af37"/>
+          <g font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" text-anchor="middle">
+            <line x1="189" y1="118" x2="189" y2="132" stroke="var(--ink-soft)" stroke-width="1"/>
+            <text x="189" y="146">2</text>
+            <line x1="221" y1="118" x2="221" y2="132" stroke="var(--ink-soft)" stroke-width="1"/>
+            <text x="221" y="146">2</text>
+            <line x1="253" y1="118" x2="253" y2="132" stroke="var(--ink-soft)" stroke-width="1"/>
+            <text x="253" y="146">×10</text>
+            <line x1="317" y1="118" x2="317" y2="132" stroke="var(--ink-soft)" stroke-width="1"/>
+            <text x="317" y="146">±5 %</text>
+          </g>
+          <text x="250" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="var(--ink)">22 × 10 = 220 Ω, tolerance 5 %</text>
+        </svg>
+        <p class="learn-diagram-caption">Proužky se čtou od kraje blíž k vývodu: 1. číslice, 2. číslice, násobitel, tolerance.</p>
+      </div>
     </div>
 
     <div class="level-equations learn-body">
-      <p><b>Sériové řazení:</b></p>
-      <div class="learn-eq-block">\[ R_{séri} = R_1 + R_2 + \dots + R_n \]</div>
-      <p><b>Paralelní řazení:</b></p>
-      <div class="learn-eq-block">\[ \frac{1}{R_{paral}} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} \]</div>
+      <p>Značení jednotek v následujících vzorcích: <b>R</b> odpor [Ω], <b>U</b> napětí [V], <b>I</b> proud [A], <b>P</b> výkon [W].</p>
+      <p><b>Sériové řazení</b> (rezistory za sebou):</p>
+      <div class="learn-eq-block">\[ R_{sériové}\ [\Omega] = R_1 + R_2 + \dots + R_n \]</div>
+      <p><b>Paralelní řazení</b> (rezistory vedle sebe):</p>
+      <div class="learn-eq-block">\[ \frac{1}{R_{paralelní}\ [\Omega]} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} \]</div>
       <p><b>Výkon rezistoru</b> (tři ekvivalentní tvary podle toho, co znáš):</p>
-      <div class="learn-eq-block">\[ P = U \times I = I^2 R = \frac{U^2}{R} \]</div>
-      <p>Pro R1/R2 (220 Ω, 15 mA):</p>
+      <div class="learn-eq-block">\[ P\ [\text{W}] = U \times I = I^2 R = \frac{U^2}{R} \]</div>
+      <p>Dosazení pro R1/R2 (220 Ω, 15 mA):</p>
       <div class="learn-eq-block">\[ P = (0{,}015\,\text{A})^2 \times 220\,\Omega \approx 0{,}05\,\text{W} \]</div>
       <p>Hluboko pod běžnou dovolenou zátěží malých rezistorů (obvykle 0,25 W), proto se u LED nijak nezahřívá.</p>
     </div>
