@@ -1,4 +1,4 @@
-// Shieldio — shared "Jednoduše / Pokročile / Rovnice" toggle for the "Jak to funguje" learning pages.
+// Shieldio — shared "Jednoduše / Pokročile / Plně" toggle for the "Jak to funguje" learning pages.
 // Persists site-wide in localStorage, same pattern as the light/dark theme toggle.
 (function () {
   const STORAGE_KEY = "shieldio-learn-level";
