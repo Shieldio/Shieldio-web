@@ -1450,6 +1450,25 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 .learn-formula{
   font-family:'JetBrains Mono'; background:var(--paper-2); padding:16px 20px; border-radius:12px; margin:18px 0;
 }
+/* ---------- interactive PWM simulator ---------- */
+.pwm-sim{
+  margin:32px 0; padding:28px; background:var(--paper-2); border-radius:var(--radius);
+  display:flex; flex-direction:column; align-items:center; gap:18px;
+}
+.pwm-sim-visuals{ display:flex; gap:48px; align-items:flex-end; }
+.pwm-sim-device{ display:flex; flex-direction:column; align-items:center; gap:8px; }
+.pwm-sim-device-label{ font-family:'JetBrains Mono'; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em; }
+#pwmLed{ transition:opacity .08s linear; }
+#pwmServoArm{ transform-origin:50px 90px; transition:transform .08s linear; }
+.pwm-sim-wave{ width:100%; max-width:480px; height:auto; }
+.pwm-sim-controls{ width:100%; max-width:420px; display:flex; flex-direction:column; gap:12px; align-items:center; }
+.pwm-sim-controls input[type="range"]{ width:100%; accent-color:var(--accent); }
+.pwm-sim-readout{
+  display:flex; gap:20px; flex-wrap:wrap; justify-content:center;
+  font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft);
+}
+.pwm-sim-readout b{ color:var(--ink); font-weight:600; }
+
 .learn-crosslinks{ display:flex; flex-wrap:wrap; gap:12px; margin-top:40px; }
 .learn-crosslinks a{
   font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft);

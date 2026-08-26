@@ -111,19 +111,34 @@
       <p>Arduino Nano umí na svých výstupech nastavit jen dvě úrovně napětí, 0 V nebo 5 V, žádnou plynulou hodnotu mezi nimi. Přesto dokáže třeba plynule stmívat LED nebo natáčet servo do libovolného úhlu. Trik se jmenuje <b>PWM</b>, pulzně šířková modulace (Pulse Width Modulation): výstup rychle přepíná mezi 0 V a 5 V, a to, jak dlouhou část každého cyklu tráví na 5 V, se nazývá střída (duty cycle).</p>
     </div>
 
-    <div class="learn-diagram">
-      <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tři PWM signály s různou střídou: 25 %, 50 % a 75 %">
-        <text x="0" y="14" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 25&nbsp;%, slabé jas / malý úhel</text>
-        <polyline points="10,45 10,30 40,30 40,45 130,45 130,30 160,30 160,45 250,45 250,30 280,30 280,45 370,45 370,30 400,30 400,45 490,45"
-          fill="none" stroke="var(--tier-yellow)" stroke-width="2.5" stroke-linejoin="round"/>
-        <text x="0" y="90" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 50&nbsp;%, poloviční jas / střední úhel</text>
-        <polyline points="10,120 10,105 70,105 70,120 130,120 130,105 190,105 190,120 250,120 250,105 310,105 310,120 370,120 370,105 430,105 430,120 490,120"
-          fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>
-        <text x="0" y="165" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 75&nbsp;%, plný jas / velký úhel</text>
-        <polyline points="10,195 10,180 100,180 100,195 130,195 130,180 220,180 220,195 250,195 250,180 340,180 340,195 370,195 370,180 460,180 460,195 490,195"
-          fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round"/>
-      </svg>
-      <p class="learn-diagram-caption">Stejná frekvence, jiný poměr "zapnuto : vypnuto" v každém cyklu, to je celá střída.</p>
+    <div class="pwm-sim">
+      <div class="pwm-sim-visuals">
+        <div class="pwm-sim-device">
+          <svg viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="Simulovaná LED, jas se mění podle střídy">
+            <circle cx="50" cy="50" r="42" fill="var(--paper-2)"/>
+            <circle id="pwmLed" cx="50" cy="50" r="34" fill="var(--tier-yellow)"/>
+          </svg>
+          <span class="pwm-sim-device-label">LED</span>
+        </div>
+        <div class="pwm-sim-device">
+          <svg viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="Simulované servo, úhel natočení ramene se mění podle délky pulzu">
+            <path d="M10 90 A 40 40 0 0 1 90 90" fill="none" stroke="var(--line)" stroke-width="2"/>
+            <circle cx="50" cy="90" r="6" fill="var(--ink-soft)"/>
+            <line id="pwmServoArm" x1="50" y1="90" x2="50" y2="20" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <span class="pwm-sim-device-label">Servo</span>
+        </div>
+      </div>
+      <svg id="pwmWave" viewBox="0 0 500 70" class="pwm-sim-wave" role="img" aria-label="Živý PWM signál podle nastavené střídy"></svg>
+      <div class="pwm-sim-controls">
+        <input type="range" id="pwmSlider" min="0" max="100" value="50" aria-label="Střída v procentech">
+        <div class="pwm-sim-readout">
+          <span><b id="pwmPct">50 %</b> střída</span>
+          <span><b id="pwmMs">1,50 ms</b> pulz serva</span>
+          <span><b id="pwmDeg">90°</b> úhel serva</span>
+        </div>
+      </div>
+      <p class="learn-diagram-caption">Táhni jezdcem a sleduj, jak stejná změna střídy jinak ovládá LED (jas) a servo (úhel).</p>
     </div>
 
     <div class="learn-body">
@@ -173,6 +188,7 @@
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js"></script>
 <script src="../../../assets/js/level-toggle.js"></script>
+<script src="../../../assets/js/pwm-sim.js"></script>
 
 </body>
 </html>
