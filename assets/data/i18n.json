@@ -1252,10 +1252,34 @@
     "en": "In-classroom testing starts at our first partner school."
   },
   "about.step4_h3": {
+    "cs": "Rozsáhlejší testování",
+    "en": "Broader testing"
+  },
+  "about.step4_p": {
+    "cs": "Zpětná vazba z pilotní školy se promítá do desky i návodů a testování se rozšiřuje na další třídy.",
+    "en": "Feedback from the pilot school feeds back into the board and guides, and testing expands to more classrooms."
+  },
+  "about.step5_h3": {
+    "cs": "Testování na více školách",
+    "en": "Testing at more schools"
+  },
+  "about.step5_p": {
+    "cs": "Shieldio se dostává i k dalším partnerským školám, abychom ověřili, že řešení funguje v různých třídách a s různými učiteli.",
+    "en": "Shieldio reaches more partner schools, so we can confirm the solution works across different classrooms and teachers."
+  },
+  "about.step6_h3": {
+    "cs": "Plné nasazení",
+    "en": "Full deployment"
+  },
+  "about.step6_p": {
+    "cs": "Deska, návody i metodika jsou hotové k plnému nasazení do výuky na školách.",
+    "en": "The board, guides, and methodology are ready for full deployment in school teaching."
+  },
+  "about.step7_h3": {
     "cs": "Akcelerátory",
     "en": "Accelerators"
   },
-  "about.step4_p": {
+  "about.step7_p": {
     "cs": "Rádi bychom prošli akcelerátory jako Samsung Solve for Tomorrow, Be Next nebo Můj první milion, a posunuli tak Shieldio dál.",
     "en": "We'd like to go through accelerators like Samsung Solve for Tomorrow, Be Next, or Můj první milion, and use them to push Shieldio further."
   },
@@ -1444,6 +1468,18 @@
     "en": "September 2026"
   },
   "about.step4_label": {
+    "cs": "Listopad 2026",
+    "en": "November 2026"
+  },
+  "about.step5_label": {
+    "cs": "Duben 2027",
+    "en": "April 2027"
+  },
+  "about.step6_label": {
+    "cs": "Květen 2027",
+    "en": "May 2027"
+  },
+  "about.step7_label": {
     "cs": "Budoucnost",
     "en": "Future"
   },
