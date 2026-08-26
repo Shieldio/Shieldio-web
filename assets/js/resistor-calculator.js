@@ -47,7 +47,21 @@
       const std = nearestStandard(R);
       rOut.textContent = formatOhm(R);
       if (note) {
-        note.textContent = `Vzorec: R = (Vnapájení − VLED) ⁄ Iproud = (${Vs} − ${Vf}) V ⁄ ${(Ima / 1000).toLocaleString("cs-CZ")} A ≈ ${formatOhm(R)}. Nejbližší běžně vyráběná hodnota z řady E12 je ${formatOhm(std)}.`;
+        const tail = ` \\approx ${formatOhm(R).replace("Ω", "\\,\\Omega").replace("kΩ", "\\,\\text{k}\\Omega")}`;
+        const formula = `R = \\dfrac{V_{napájení} - V_{LED}}{I_{proud}} = \\dfrac{${Vs} - ${Vf}\\,\\text{V}}{${(Ima / 1000).toLocaleString("cs-CZ")}\\,\\text{A}}${tail}`;
+        if (window.katex) {
+          note.innerHTML = "";
+          const formulaSpan = document.createElement("span");
+          note.appendChild(formulaSpan);
+          try {
+            katex.render(formula, formulaSpan, { throwOnError: false, displayMode: false });
+          } catch (e) {
+            formulaSpan.textContent = `R = (Vnapájení − VLED) ⁄ Iproud ≈ ${formatOhm(R)}`;
+          }
+          note.appendChild(document.createTextNode(` Nejbližší běžně vyráběná hodnota z řady E12 je ${formatOhm(std)}.`));
+        } else {
+          note.textContent = `Vzorec: R = (Vnapájení − VLED) ⁄ Iproud = (${Vs} − ${Vf}) V ⁄ ${(Ima / 1000).toLocaleString("cs-CZ")} A ≈ ${formatOhm(R)}. Nejbližší běžně vyráběná hodnota z řady E12 je ${formatOhm(std)}.`;
+        }
       }
     }
 

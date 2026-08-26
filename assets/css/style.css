@@ -226,10 +226,12 @@ img{ max-width:100%; height:auto; display:block; }
   transform:translate3d(0,0,0) rotate3d(0,1,0,0deg) rotate(0deg) scale(1);
 }
 .board-photo-frame:hover{ box-shadow:0 48px 96px -20px rgba(0,0,0,0.28); }
-/* height:auto is required here — without it, the width/height HTML attributes
-   (added for CLS prevention) win the cascade over the intrinsic aspect-ratio,
-   so the image renders at its literal attribute height instead of scaling down */
-.board-photo-frame img{ width:100%; height:auto; display:block; }
+/* fixed aspect-ratio on the frame (not the image's natural size) keeps the hero
+   a sane height regardless of whether the photo is portrait or landscape —
+   object-fit:cover crops top/bottom of tall portrait shots instead of the frame
+   ballooning to the image's full intrinsic height */
+.board-photo-frame{ aspect-ratio:4/5; max-width:460px; }
+.board-photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block; }
 /* transparent product cutouts (car/barrier scene): no boxed card, the product
    floats directly on the hero backdrop with a shadow that follows its own silhouette */
 .board-photo-frame.board-photo-float{ border:none; box-shadow:none; background:none; }
@@ -794,6 +796,11 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 .guide-panel.tier-green{ background:#ecf9f0; border-color:var(--tier-green); }
 .guide-panel.tier-yellow{ background:#fff7e3; border-color:var(--tier-yellow); }
 .guide-panel.tier-red{ background:#feedef; border-color:var(--tier-red); }
+/* PROline is a dark/premium identity everywhere else on the site (see .proline-pick-card),
+   so this panel inverts instead of using a light tint like the other tiers */
+.guide-panel.tier-pro{ background:var(--pro-black); border-color:#a78bfa; }
+.guide-panel.tier-pro .eyebrow-dark, .guide-panel.tier-pro h3{ color:#f5f5f7; }
+.guide-panel.tier-pro p{ color:#c7c7cc; }
 /* these tints stay light in both themes, so the text inside must stay dark too —
    otherwise --ink flips near-white in dark mode and the heading disappears */
 .guide-panel.tier-green .eyebrow-dark, .guide-panel.tier-green h3,
@@ -859,7 +866,7 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 .faq-item p a{ color:var(--accent); text-decoration:underline; }
 
 /* ---------- interactive guide engine ---------- */
-.guide-app{ padding:56px 0 100px; }
+.guide-app{ padding:56px 0 100px; scroll-margin-top:80px; }
 .guide-back-link{
   display:inline-flex; align-items:center; gap:4px; margin-bottom:24px;
   font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft);
@@ -1376,9 +1383,16 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
   border-radius:0 var(--radius) var(--radius) 0; font-size:14.5px; line-height:1.6; color:var(--ink-soft);
 }
 .learn-board-tie b{ color:var(--ink); }
-.level-advanced{ display:none; }
+/* three cumulative depth levels: simple → advanced → equations.
+   "advanced" content stays visible in "equations" too (it's a superset, not a swap). */
+.level-advanced, .level-equations{ display:none; }
 :root[data-learn-level="advanced"] .level-advanced{ display:block; }
-:root[data-learn-level="advanced"] .level-simple-only{ display:none; }
+:root[data-learn-level="equations"] .level-advanced{ display:block; }
+:root[data-learn-level="equations"] .level-equations{ display:block; }
+:root[data-learn-level="advanced"] .level-simple-only,
+:root[data-learn-level="equations"] .level-simple-only{ display:none; }
+.katex-display{ margin:1.4em 0; overflow-x:auto; overflow-y:hidden; }
+.learn-eq-block{ margin:20px 0; padding:18px 20px; background:var(--paper-2); border-radius:12px; overflow-x:auto; }
 .learn-table{ width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
 .learn-table th, .learn-table td{ text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); }
 .learn-table th{ font-family:'JetBrains Mono'; font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); font-weight:500; }

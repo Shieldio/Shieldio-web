@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 
 <link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
@@ -103,12 +106,20 @@
 </div>
 
 
-<div class="hero" style="padding-bottom:40px;">
+<div class="hero" style="padding-bottom:24px;">
   <div class="wrap">
     <div class="fade-up">
       <span class="eyebrow">Jak to funguje · 07 · Deska samotná</span>
       <h1>Co je PCB a proč jsou cestičky z mědi.</h1>
       <p class="lead" style="max-width:640px;">Ještě než na desku připájíš první součástku, je sama o sobě výsledkem malého výrobního procesu. Co se v ní vlastně skrývá.</p>
+    </div>
+    <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
+      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <div class="guide-mode-toggle">
+        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
+        <button type="button" class="guide-mode-btn" data-level="equations">Rovnice</button>
+      </div>
     </div>
   </div>
 </div>
@@ -156,25 +167,30 @@
       <p>Měď se pro cestičky používá proto, že vede elektrický proud výjimečně dobře, dá se snadno nanášet ve tenké fólii a leptat, a je výrazně levnější než kovy, které vedou o něco lépe. Zlato se používá jen jako tenoučké pokovení plošek (aby se chránily proti oxidaci a spoj se lépe pájel), ne jako materiál cestiček, protože samo o sobě vede proud hůř než měď a je mnohonásobně dražší.</p>
     </div>
 
-    <div data-level-toggle style="display:flex; align-items:center; gap:16px; margin:40px 0 8px; flex-wrap:wrap;">
-      <span class="guide-mode-label">Úroveň vysvětlení</span>
-      <div class="guide-mode-toggle">
-        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
-      </div>
+    <div class="level-advanced learn-body">
+      <p><b>Odpor vodiče:</b> čím je materiál vodivější a čím je cestička kratší a širší, tím menší je její odpor. Proto se pro samotné cestičky vždy vyplatí měď, poměr vodivosti k ceně a snadné zpracovatelnosti nemá u běžně dostupných kovů konkurenci.</p>
+      <table class="learn-table">
+        <tr><th>Materiál</th><th>Vodivost</th><th>Poznámka</th></tr>
+        <tr><td>Stříbro</td><td>nejlepší</td><td>nejlepší vodič, ale drahé a měkké</td></tr>
+        <tr><td>Měď</td><td>velmi dobrá</td><td>standard pro cestičky plošných spojů</td></tr>
+        <tr><td>Zlato</td><td>horší než měď</td><td>vede hůř než měď, používá se jen jako pokovení plošek</td></tr>
+        <tr><td>Hliník</td><td>horší než měď</td><td>lehčí a levnější, ale hůř se pájí</td></tr>
+      </table>
+      <p>Silnoproudé cestičky (třeba napájecí) bývají na plošném spoji vždy širší než signálové: širší cestička znamená menší odpor, a tedy míň tepla při stejném proudu.</p>
+      <p><b>Proudová zatížitelnost:</b> cestička se nesmí přehřát, běžná tloušťka mědi na hobby deskách je asi 35 µm, a cestička o šířce 0,25 mm při ní bezpečně unese jednotky ampérů, přesně proto výkonové cestičky bývají vizuálně širší než tenké signálové vodiče vedle nich.</p>
     </div>
 
-    <div class="level-advanced learn-body">
-      <p><b>Odpor vodiče:</b> elektrický odpor libovolného kusu materiálu se spočítá jako R = ρ × L ⁄ A, kde ρ (rho) je měrný elektrický odpor materiálu (rezistivita, v Ω·m), L je délka vodiče a A jeho průřez. Čím je materiál vodivější (nižší ρ) a čím je cestička kratší a širší (nižší L, vyšší A), tím menší je její odpor.</p>
+    <div class="level-equations learn-body">
+      <p><b>Odpor vodiče</b> libovolného tvaru se spočítá jako:</p>
+      <div class="learn-eq-block">\[ R = \rho \, \frac{L}{A} \]</div>
+      <p>kde \(\rho\) (rho) je měrný elektrický odpor materiálu (rezistivita, v \(\Omega \cdot \text{m}\)), \(L\) je délka vodiče a \(A\) jeho průřez.</p>
       <table class="learn-table">
-        <tr><th>Materiál</th><th>Rezistivita ρ (Ω·m, při 20 °C)</th><th>Poznámka</th></tr>
-        <tr><td>Stříbro</td><td>1,59 × 10⁻⁸</td><td>nejlepší vodič, ale drahé a měkké</td></tr>
-        <tr><td>Měď</td><td>1,68 × 10⁻⁸</td><td>standard pro cestičky plošných spojů</td></tr>
-        <tr><td>Zlato</td><td>2,44 × 10⁻⁸</td><td>vede hůř než měď, používá se jen jako pokovení plošek</td></tr>
-        <tr><td>Hliník</td><td>2,65 × 10⁻⁸</td><td>lehčí a levnější, ale hůř se pájí</td></tr>
+        <tr><th>Materiál</th><th>Rezistivita \(\rho\) (\(\Omega \cdot \text{m}\), při 20 °C)</th><th>Poznámka</th></tr>
+        <tr><td>Stříbro</td><td>\(1{,}59 \times 10^{-8}\)</td><td>nejlepší vodič, ale drahé a měkké</td></tr>
+        <tr><td>Měď</td><td>\(1{,}68 \times 10^{-8}\)</td><td>standard pro cestičky plošných spojů</td></tr>
+        <tr><td>Zlato</td><td>\(2{,}44 \times 10^{-8}\)</td><td>vede hůř než měď, používá se jen jako pokovení plošek</td></tr>
+        <tr><td>Hliník</td><td>\(2{,}65 \times 10^{-8}\)</td><td>lehčí a levnější, ale hůř se pájí</td></tr>
       </table>
-      <p>Proto se pro samotné cestičky vždy vyplatí měď, poměr vodivosti k ceně a snadné zpracovatelnosti nemá u běžně dostupných kovů konkurenci. Tenhle stejný vzorec je důvod, proč silnoproudé cestičky (třeba napájecí) bývají na plošném spoji vždy širší než signálové, širší cestička = větší průřez A = menší odpor = míň tepla při stejném proudu.</p>
-      <p><b>Proudová zatížitelnost:</b> cestička se nesmí přehřát, běžná tloušťka mědi na hobby deskách je 1 oz/ft² (asi 35 µm), a cestička o šířce 0,25 mm při ní bezpečně unese jednotky ampérů, přesně proto výkonové cestičky bývají vizuálně širší než tenké signálové vodiče vedle nich.</p>
     </div>
 
     <div class="learn-crosslinks">
