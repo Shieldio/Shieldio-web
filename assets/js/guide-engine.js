@@ -159,13 +159,13 @@
   function stepHasArduino(step) { return step.type === "upload" && step.arduino; }
   const supportsLang = DATA.steps.some(stepHasArduino);
 
-  function findWiringGroups() {
+  function findWiringGroups(steps) {
     const groups = [];
     let i = 0;
-    while (i < DATA.steps.length) {
-      if (DATA.steps[i].type === "wiring") {
+    while (i < steps.length) {
+      if (steps[i].type === "wiring") {
         let j = i;
-        while (j < DATA.steps.length && DATA.steps[j].type === "wiring") j++;
+        while (j < steps.length && steps[j].type === "wiring") j++;
         if (j - i > 1) groups.push([i, j]);
         i = j;
       } else {
@@ -174,8 +174,15 @@
     }
     return groups;
   }
-  const wiringGroups = findWiringGroups();
-  const supportsDepth = wiringGroups.length > 0;
+  // a step tagged with `kit: "assembled"` or `kit: "unassembled"` only shows up
+  // for that kit selection; steps without a kit tag always show (backward compatible)
+  function kitFilteredSteps() {
+    if (!supportsKit) return DATA.steps;
+    return DATA.steps.filter(s => !s.kit || s.kit === state.mode.kit);
+  }
+  const supportsDepth = ["assembled", "unassembled"].some(kit =>
+    findWiringGroups(DATA.steps.filter(s => !s.kit || s.kit === kit)).length > 0
+  );
 
   function mergeWiringSteps(group) {
     const items = group.flatMap(s => (s.troubleshoot ? s.troubleshoot.items : []));
@@ -190,16 +197,18 @@
   }
 
   function getSteps() {
-    if (state.mode.depth !== "fast" || !supportsDepth) return DATA.steps;
+    const base = kitFilteredSteps();
+    if (state.mode.depth !== "fast" || !supportsDepth) return base;
+    const groups = findWiringGroups(base);
     const result = [];
     let i = 0;
-    while (i < DATA.steps.length) {
-      const group = wiringGroups.find(([s]) => s === i);
+    while (i < base.length) {
+      const group = groups.find(([s]) => s === i);
       if (group) {
-        result.push(mergeWiringSteps(DATA.steps.slice(group[0], group[1])));
+        result.push(mergeWiringSteps(base.slice(group[0], group[1])));
         i = group[1];
       } else {
-        result.push(DATA.steps[i]);
+        result.push(base[i]);
         i++;
       }
     }

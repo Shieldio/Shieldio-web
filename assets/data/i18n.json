@@ -64,8 +64,8 @@
     "en": "A ready-made <em>Arduino kit</em><br>for teaching electronics at school."
   },
   "home.hero.lead": {
-    "cs": "Žáci se učí programovat a stavět elektronické projekty bez pájení a bez složitého zapojování. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, zvládne ji i učitel bez technického vzdělání.",
-    "en": "Students learn to program and build electronic projects without soldering or complicated wiring. The board connects with a single USB-C cable, and the first program runs within five minutes. Designed for teaching at primary and secondary schools as well as clubs, easy enough for a teacher without a technical background."
+    "cs": "Žáci se učí programovat a stavět elektronické projekty bez nutnosti pájet nebo složitě zapojovat. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, zvládne ji i učitel bez technického vzdělání.",
+    "en": "Students learn to program and build electronic projects without needing to solder or wire anything up. The board connects with a single USB-C cable, and the first program runs within five minutes. Designed for teaching at primary and secondary schools as well as clubs, easy enough for a teacher without a technical background."
   },
   "home.hero.cta_primary": {
     "cs": "Domluvit ukázku",
