@@ -37,6 +37,7 @@
       btn.setAttribute("aria-label", lang === "en" ? "Přepnout na češtinu" : "Switch to English");
     });
     applyLang(lang);
+    document.dispatchEvent(new CustomEvent("shieldio-lang-change", { detail: { lang } }));
   }
 
   function buildToggleButton() {

@@ -1330,5 +1330,73 @@
   "footer.teachers": {
     "cs": "Pro učitele",
     "en": "For teachers"
+  },
+  "pro_ucitele.title": {
+    "cs": "Pro učitele: učební plán k projektu Automatická závora | Shieldio",
+    "en": "For Teachers: Lesson Plan for the Automatic Barrier Project | Shieldio"
+  },
+  "green_reakcni_hra.title": {
+    "cs": "Návod: Reakční hra (návrh) | Shieldio",
+    "en": "Guide: Reaction Game (draft) | Shieldio"
+  },
+  "casovac.title": {
+    "cs": "Návod: Časovač | Shieldio",
+    "en": "Guide: Timer | Shieldio"
+  },
+  "parkovaci_asistent.title": {
+    "cs": "Návod: Parkovací asistent | Shieldio",
+    "en": "Guide: Parking Assistant | Shieldio"
+  },
+  "sestaveni_red.title": {
+    "cs": "Jak pájet elektroniku: sestavení desky RED krok za krokem | Shieldio",
+    "en": "How to Solder Electronics: Assembling the RED Board Step by Step | Shieldio"
+  },
+  "theremin.title": {
+    "cs": "Návod: Theremin | Shieldio",
+    "en": "Guide: Theremin | Shieldio"
+  },
+  "zavora.title": {
+    "cs": "Návod: Prototyp závory | Shieldio",
+    "en": "Guide: Barrier Prototype | Shieldio"
+  },
+  "meteostanice.title": {
+    "cs": "Návod: Meteostanice | Shieldio",
+    "en": "Guide: Weather Station | Shieldio"
+  },
+  "learn_dioda.title": {
+    "cs": "Jak funguje dioda a LED, PN přechod vysvětlený | Shieldio",
+    "en": "How Diodes and LEDs Work, the PN Junction Explained | Shieldio"
+  },
+  "learn_hub.title": {
+    "cs": "Kalkulačka rezistoru pro LED a jak funguje elektronika | Shieldio",
+    "en": "LED Resistor Calculator and How Electronics Work | Shieldio"
+  },
+  "learn_kondenzatory.title": {
+    "cs": "Jak funguje kondenzátor, keramický vs. elektrolytický | Shieldio",
+    "en": "How a Capacitor Works, Ceramic vs. Electrolytic | Shieldio"
+  },
+  "learn_ohm.title": {
+    "cs": "Ohmův zákon a kalkulačka rezistoru pro LED | Shieldio",
+    "en": "Ohm's Law and LED Resistor Calculator | Shieldio"
+  },
+  "learn_pcb.title": {
+    "cs": "Co je PCB (plošný spoj) a jak se vyrábí | Shieldio",
+    "en": "What a PCB Is and How It's Made | Shieldio"
+  },
+  "learn_pwm.title": {
+    "cs": "Co je PWM: jak Arduino řídí LED i servo | Shieldio",
+    "en": "What Is PWM: How Arduino Drives LEDs and Servos | Shieldio"
+  },
+  "learn_debounce.title": {
+    "cs": "Pull-up rezistor a debounce u tlačítka vysvětlené | Shieldio",
+    "en": "Pull-up Resistors and Button Debounce Explained | Shieldio"
+  },
+  "learn_ultrazvuk.title": {
+    "cs": "Jak funguje ultrazvukový senzor HC-SR04 | Shieldio",
+    "en": "How the HC-SR04 Ultrasonic Sensor Works | Shieldio"
+  },
+  "mblock.title": {
+    "cs": "Jak otevřít a programovat v mBlocku | Shieldio",
+    "en": "How to Open and Program in mBlock | Shieldio"
   }
 }
