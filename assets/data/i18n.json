@@ -1676,7 +1676,11 @@
     "en": "Last updated: August 2026."
   },
   "home.hero.teacher_link": {
-    "cs": "Učíš? Metodika k prvnímu projektu je hotová →",
-    "en": "Teaching? The lesson plan for the first project is ready →"
+    "cs": "Pro učitele: hotová metodika k prvnímu projektu →",
+    "en": "For teachers: the lesson plan for the first project is ready →"
+  },
+  "red.teacher_link": {
+    "cs": "Pro učitele: hotová metodika k prvnímu projektu →",
+    "en": "For teachers: the lesson plan for the first project is ready →"
   }
 }
