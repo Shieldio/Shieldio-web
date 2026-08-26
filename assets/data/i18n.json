@@ -1228,32 +1228,32 @@
     "en": "Where we are now, and what's next."
   },
   "about.step1_h3": {
-    "cs": "Teď: vývoj a testování",
-    "en": "Now: development and testing"
+    "cs": "Vývoj a testování",
+    "en": "Development and testing"
   },
   "about.step1_p": {
     "cs": "Čtvrtý prototyp desky RED je ve vývoji, třetí prototyp zrovna procházíme testováním, aby byl co nejspolehlivější.",
     "en": "The fourth RED board prototype is in development, and we're currently testing the third one to make it as reliable as possible."
   },
   "about.step2_h3": {
-    "cs": "Teď: návody a materiály",
-    "en": "Now: guides and materials"
+    "cs": "Návody a materiály",
+    "en": "Guides and materials"
   },
   "about.step2_p": {
     "cs": "Souběžně vznikají podrobné fotonávody na stavbu i použití desky, aby s ní zvládl pracovat i učitel bez technického vzdělání.",
     "en": "At the same time we're building detailed photo guides for assembling and using the board, so even a teacher without a technical background can work with it."
   },
   "about.step3_h3": {
-    "cs": "Září 2026: pilotní škola",
-    "en": "September 2026: pilot school"
+    "cs": "Pilotní škola",
+    "en": "Pilot school"
   },
   "about.step3_p": {
     "cs": "Testování přímo ve výuce začíná na první partnerské škole.",
     "en": "In-classroom testing starts at our first partner school."
   },
   "about.step4_h3": {
-    "cs": "Budoucnost: akcelerátory",
-    "en": "Future: accelerators"
+    "cs": "Akcelerátory",
+    "en": "Accelerators"
   },
   "about.step4_p": {
     "cs": "Rádi bychom prošli akcelerátory jako Samsung Solve for Tomorrow, Be Next nebo Můj první milion, a posunuli tak Shieldio dál.",
@@ -1430,5 +1430,21 @@
   "home.calc.cta": {
     "cs": "Celé vysvětlení Ohmova zákona →",
     "en": "Full explanation of Ohm's law →"
+  },
+  "about.step1_label": {
+    "cs": "Teď",
+    "en": "Now"
+  },
+  "about.step2_label": {
+    "cs": "Teď",
+    "en": "Now"
+  },
+  "about.step3_label": {
+    "cs": "Září 2026",
+    "en": "September 2026"
+  },
+  "about.step4_label": {
+    "cs": "Budoucnost",
+    "en": "Future"
   }
 }
