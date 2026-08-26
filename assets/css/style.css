@@ -1459,7 +1459,9 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 .pwm-sim-device{ display:flex; flex-direction:column; align-items:center; gap:8px; }
 .pwm-sim-device-label{ font-family:'JetBrains Mono'; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em; }
 #pwmLed{ transition:opacity .08s linear; }
-#pwmServoArm{ transform-origin:50px 90px; transition:transform .08s linear; }
+/* no transform-origin here on purpose — the SVG rotate(angle cx cy) attribute
+   already carries its own pivot, and a CSS transform-origin on top of that
+   compounds into a wildly wrong rotation in some engines */
 .pwm-sim-wave{ width:100%; max-width:480px; height:auto; }
 .pwm-sim-controls{ width:100%; max-width:420px; display:flex; flex-direction:column; gap:12px; align-items:center; }
 .pwm-sim-controls input[type="range"]{ width:100%; accent-color:var(--accent); }

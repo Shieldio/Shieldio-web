@@ -28,7 +28,10 @@
     const pctOut = document.getElementById("pwmPct");
     const msOut = document.getElementById("pwmMs");
     const degOut = document.getElementById("pwmDeg");
+    const modeToggle = document.querySelector("[data-pwm-mode-toggle]");
     if (!slider || !wave || !led || !arm) return;
+
+    let mode = "led";
 
     function render() {
       const duty = Number(slider.value);
@@ -42,7 +45,31 @@
       if (degOut) degOut.textContent = Math.round(angle) + "°";
     }
 
+    function applyMode() {
+      document.querySelectorAll("[data-pwm-device]").forEach((el) => {
+        el.hidden = el.dataset.pwmDevice !== mode;
+      });
+      document.querySelectorAll('[data-pwm-readout="servo"]').forEach((el) => {
+        el.style.display = mode === "servo" ? "" : "none";
+      });
+      if (modeToggle) {
+        modeToggle.querySelectorAll(".guide-mode-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.pwmMode === mode);
+        });
+      }
+    }
+
+    if (modeToggle) {
+      modeToggle.querySelectorAll(".guide-mode-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          mode = btn.dataset.pwmMode;
+          applyMode();
+        });
+      });
+    }
+
     slider.addEventListener("input", render);
+    applyMode();
     render();
   }
 
