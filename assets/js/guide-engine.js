@@ -451,6 +451,7 @@
       <div class="guide-done-wrap">
         <div class="guide-card guide-done fade-up visible">
           ${DATA.meta.doneImage ? `<div class="guide-done-photo"><img src="${DATA.meta.doneImage}" alt="Hotový výsledek"></div>` : ""}
+          ${DATA.meta.doneVideo ? `<div class="guide-done-photo"><video src="${DATA.meta.doneVideo}" poster="${DATA.meta.doneVideoPoster || ""}" muted loop playsinline autoplay controls preload="metadata"></video></div>` : ""}
           <div class="guide-done-check">✓</div>
           <h1>Projekt je hotový.</h1>
           <p class="lead">Dnes ses naučil:</p>

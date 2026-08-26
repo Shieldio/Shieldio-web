@@ -1037,7 +1037,7 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 /* completion */
 .guide-done{ text-align:center; max-width:520px; margin-left:auto; margin-right:auto; }
 .guide-done-photo{ border-radius:var(--radius); overflow:hidden; margin-bottom:24px; box-shadow:var(--shadow-card); }
-.guide-done-photo img{ width:100%; display:block; }
+.guide-done-photo img, .guide-done-photo video{ width:100%; display:block; }
 .guide-done-check{
   width:64px; height:64px; border-radius:50%; background:var(--tier-green);
   color:#fff; font-size:32px; display:flex; align-items:center; justify-content:center;

@@ -10,7 +10,7 @@ window.SHIELDIO_GUIDE = {
     doneImage: "../../../../assets/images/red-build/62-hotovo-v-pouzdru.jpg",
     tier: "red",
     difficulty: "Red · Sestavení",
-    duration: "90–120 minut",
+    duration: "30–45 minut",
     learn: ["Pájení součástek", "Polaritu a orientaci dílů", "Práci s multimetrem", "Sestavení desky do pouzdra"],
     skillCheck: true,
     parentHref: "../index.html",

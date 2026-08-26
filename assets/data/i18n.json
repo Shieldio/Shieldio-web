@@ -1156,20 +1156,20 @@
     "en": "Why I'm building Shieldio."
   },
   "about.founder_p1": {
-    "cs": "Shieldio dělám já, student ve čtvrtém ročníku střední školy. Sám doučuju spolužáky i mladší žáky,\na moc dobře vím, jak těžké může být pochopit informatiku, když ji nikdo pořádně nevysvětlí.",
-    "en": "I'm the one building Shieldio, a fourth-year high school student. I tutor classmates and younger students myself,\nand I know first-hand how hard computer science can be to understand when nobody properly explains it."
+    "cs": "Shieldio dělám já, student čtvrtého ročníku Střední průmyslové školy ve Zlíně. Elektronika a bastlení mě baví už od třetí třídy základní školy, tehdy jsem začal chodit do kroužku robotiky, a od té doby mě to neopustilo.",
+    "en": "I'm the one building Shieldio, a fourth-year student at a technical high school in Zlín. Electronics and tinkering have interested me since third grade, when I first joined a robotics club, and it never let go of me since."
   },
   "about.founder_p2": {
-    "cs": "Na základní škole jsem kvalitní výuku informatiky nezažil, a na střední mi robotika přišla,\ni ve třetím ročníku, až příliš jednoduchá.",
-    "en": "I never got good computer science teaching in primary school, and in high school, robotics,\neven in my third year, felt far too basic."
+    "cs": "Poslední dva roky doučuju spolužáky i mladší žáky, a přesně díky tomu vidím, jak náročné je dneska připravit kvalitní hodinu informatiky nebo elektroniky, a jak často jsou materiály, které mají učitelé po ruce, zastaralé nebo úplně nepraktické.",
+    "en": "For the past two years I've been tutoring classmates and younger students, and that's exactly how I see how hard it is today to put together a good computer science or electronics lesson, and how often the materials teachers have on hand are outdated or completely impractical."
   },
   "about.founder_p3": {
-    "cs": "Shieldio dělám proto, aby se žáci základních i odborných škol mohli s technologiemi seznámit\nuž v mladším věku, a to pořádně.",
-    "en": "I'm building Shieldio so that students at primary and vocational schools can get to know technology\nat a younger age, and get to know it properly."
+    "cs": "Sám jsem na základní škole kvalitní výuku informatiky ani elektroniky nezažil. Nikdy jsem si nic reálně nevyzkoušel, jen teorii a prezentace. Shieldio dělám proto, aby žáci, kteří přijdou po mně, měli tuhle zkušenost praktickou, ne jen na papíře.",
+    "en": "I never had good computer science or electronics education myself in elementary school. I never got to actually try anything hands-on, just theory and slides. I'm building Shieldio so the students who come after me get that experience hands-on, not just on paper."
   },
   "about.founder_p4": {
-    "cs": "Zatím je Shieldio čistě osobní projekt bez vlastní firmy, dělám ho jako student vedle školy.\nDo budoucna bych ho rád zkusil posunout dál, třeba přes nějaký akcelerátor nebo veletrh,\nale i to zatím teprve zvažuju.",
-    "en": "For now, Shieldio is purely a personal project with no company behind it, I'm building it as a student, alongside school.\nDown the road I'd like to try pushing it further, maybe through an accelerator or a trade fair,\nbut that's still just something I'm considering."
+    "cs": "Baví mě zároveň podnikání a elektronika, bastlení, cokoliv elektronického, takže spojit obojí do Shieldio byla jasná volba. Zatím je to čistě osobní projekt bez vlastní firmy, dělám ho jako student vedle školy.",
+    "en": "I'm equally into entrepreneurship and electronics, tinkering, anything electronic, so combining both into Shieldio was an obvious choice. For now it's a purely personal project with no company behind it, I'm building it as a student alongside school."
   },
   "about.qr_placeholder": {
     "cs": "Místo pro QR kód na podporu projektu, doplníme.",
@@ -1220,44 +1220,44 @@
     "en": "Technical thinking will keep becoming a more important part of education."
   },
   "about.roadmap_eyebrow": {
-    "cs": "Kam směřujeme",
-    "en": "Where we're headed"
+    "cs": "Kde teď jsme",
+    "en": "Where we are now"
   },
   "about.roadmap_h2": {
-    "cs": "Od jedné desky k celému výukovému ekosystému.",
-    "en": "From a single board to a whole teaching ecosystem."
+    "cs": "Kde teď jsme a co nás čeká.",
+    "en": "Where we are now, and what's next."
   },
   "about.step1_h3": {
-    "cs": "Prototypy",
-    "en": "Prototypes"
+    "cs": "Teď: vývoj a testování",
+    "en": "Now: development and testing"
   },
   "about.step1_p": {
-    "cs": "Vývoj a testování prvních modulů.",
-    "en": "Developing and testing the first modules."
+    "cs": "Čtvrtý prototyp desky RED je ve vývoji, třetí prototyp zrovna procházíme testováním, aby byl co nejspolehlivější.",
+    "en": "The fourth RED board prototype is in development, and we're currently testing the third one to make it as reliable as possible."
   },
   "about.step2_h3": {
-    "cs": "Pilotní školy",
-    "en": "Pilot schools"
+    "cs": "Teď: návody a materiály",
+    "en": "Now: guides and materials"
   },
   "about.step2_p": {
-    "cs": "Ověření použití přímo ve výuce.",
-    "en": "Verifying it works directly in the classroom."
+    "cs": "Souběžně vznikají podrobné fotonávody na stavbu i použití desky, aby s ní zvládl pracovat i učitel bez technického vzdělání.",
+    "en": "At the same time we're building detailed photo guides for assembling and using the board, so even a teacher without a technical background can work with it."
   },
   "about.step3_h3": {
-    "cs": "Materiály",
-    "en": "Materials"
+    "cs": "Září 2026: pilotní škola",
+    "en": "September 2026: pilot school"
   },
   "about.step3_p": {
-    "cs": "Lekce, projekty a metodická podpora.",
-    "en": "Lessons, projects, and methodology support."
+    "cs": "Testování přímo ve výuce začíná na první partnerské škole.",
+    "en": "In-classroom testing starts at our first partner school."
   },
   "about.step4_h3": {
-    "cs": "Platforma",
-    "en": "Platform"
+    "cs": "Budoucnost: akcelerátory",
+    "en": "Future: accelerators"
   },
   "about.step4_p": {
-    "cs": "Kompletní prostředí pro technickou výuku.",
-    "en": "A complete environment for technical education."
+    "cs": "Rádi bychom prošli akcelerátory jako Samsung Solve for Tomorrow, Be Next nebo Můj první milion, a posunuli tak Shieldio dál.",
+    "en": "We'd like to go through accelerators like Samsung Solve for Tomorrow, Be Next, or Můj první milion, and use them to push Shieldio further."
   },
   "about.cta_h2": {
     "cs": "Chcete být součástí vývoje Shieldio?",
