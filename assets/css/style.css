@@ -466,6 +466,16 @@ section{ padding:140px 0; }
 .dev-progress-fill.tier-yellow{ background:var(--tier-yellow); }
 .dev-progress-fill.tier-pro{ background:var(--pro-blue); }
 .dev-progress-pct{ font-family:'JetBrains Mono'; font-size:15px; font-weight:600; text-align:right; }
+/* mirrors the middle "track" column of .dev-progress-row (180px name + 20px gap on
+   the left, 20px gap + 60px pct on the right) so the milestone labels line up above the tracks */
+.dev-progress-scale{
+  display:flex; justify-content:space-between; margin:32px 80px 0 200px;
+  font-family:'JetBrains Mono'; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase;
+  color:var(--ink-soft);
+}
+@media (max-width:700px){
+  .dev-progress-scale{ margin:20px 0 0; flex-wrap:wrap; gap:8px 16px; justify-content:flex-start; }
+}
 .model-card-cta{
   position:absolute; left:50%; bottom:14px; transform:translateX(-50%) translateY(8px) scale(0.96);
   background:var(--accent); color:#fff; padding:11px 22px; border-radius:var(--radius-pill);

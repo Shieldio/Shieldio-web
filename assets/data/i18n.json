@@ -592,8 +592,8 @@
     "en": "Where each board stands right now."
   },
   "products_index.dev_p": {
-    "cs": "Progres se mění, jak postupujeme. Tady je aktuální stav ke každé desce.",
-    "en": "Progress shifts as we go. Here's the current state of each board."
+    "cs": "Progres se mění, jak postupujeme. Procento říká, jak blízko je deska k plnohodnotnému prodeji, od prvního konceptu po ověření přímo ve výuce.",
+    "en": "Progress shifts as we go. The percentage shows how close a board is to being fully available, from the first concept to being verified in real classrooms."
   },
   "products_index.dev_red_sub": {
     "cs": "Prototyp v3",
@@ -1446,5 +1446,25 @@
   "about.step4_label": {
     "cs": "Budoucnost",
     "en": "Future"
+  },
+  "products_index.dev_milestone1": {
+    "cs": "Koncept",
+    "en": "Concept"
+  },
+  "products_index.dev_milestone2": {
+    "cs": "Prototyp",
+    "en": "Prototype"
+  },
+  "products_index.dev_milestone3": {
+    "cs": "Testování",
+    "en": "Testing"
+  },
+  "products_index.dev_milestone4": {
+    "cs": "Pilotní škola",
+    "en": "Pilot school"
+  },
+  "products_index.dev_milestone5": {
+    "cs": "K prodeji",
+    "en": "Available"
   }
 }
