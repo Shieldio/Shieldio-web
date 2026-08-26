@@ -10,6 +10,19 @@
   const tier = DATA.meta.tier || "red";
   root.classList.add(`tier-${tier}`);
 
+  // persistent link back to the guide picker — lives outside the re-rendered
+  // #guide-progress/#guide-steps area, so it survives every renderCurrent() call
+  if (DATA.meta.parentHref) {
+    const wrap = root.querySelector(".wrap");
+    if (wrap) {
+      const backLink = document.createElement("a");
+      backLink.className = "guide-back-link";
+      backLink.href = DATA.meta.parentHref;
+      backLink.textContent = "← " + (DATA.meta.parentLabel || "Zpět na výběr návodu");
+      wrap.insertBefore(backLink, wrap.firstChild);
+    }
+  }
+
   const STORAGE_KEY = `shieldio-guide-${DATA.id}`;
   const DEFAULT_MODE = { lang: "blocks", depth: "detailed", kit: "assembled", skill: "beginner" };
   const supportsKit = tier === "red" && DATA.id !== "sestaveni-red";

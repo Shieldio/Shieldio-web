@@ -11,6 +11,8 @@ window.SHIELDIO_GUIDE = {
     difficulty: "Red · Pokročilá",
     duration: "20–30 minut",
     learn: ["Ultrazvuk", "Bzučák", "Mapování hodnot", "Zvuk"],
+    parentHref: "../index.html",
+    parentLabel: "Zpět na výběr projektů RED",
   },
 
   glossary: {

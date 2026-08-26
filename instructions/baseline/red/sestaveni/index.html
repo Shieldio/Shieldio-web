@@ -89,32 +89,16 @@
     {
       "@type": "HowToSupply",
       "name": "Power & Data konektor"
-    },
-    {
-      "@type": "HowToSupply",
-      "name": "Arduino Nano"
-    },
-    {
-      "@type": "HowToSupply",
-      "name": "Ultrazvukový senzor HC-SR04"
-    },
-    {
-      "@type": "HowToSupply",
-      "name": "OLED displej"
-    },
-    {
-      "@type": "HowToSupply",
-      "name": "Servo SG90"
-    },
-    {
-      "@type": "HowToSupply",
-      "name": "Pájecí cín"
     }
   ],
   "tool": [
     {
       "@type": "HowToTool",
       "name": "Pájecí stanice"
+    },
+    {
+      "@type": "HowToTool",
+      "name": "Pájecí cín"
     },
     {
       "@type": "HowToTool",
@@ -229,7 +213,7 @@
     {
       "@type": "HowToStep",
       "name": "Osaď a připájej R6 a R7",
-      "text": "Do pozic R6 a R7 (u řady pinů Arduino Nano, blízko značek A1) vlož a připájej poslední dva rezistory. Upozornění: Pozor, liší se od potisku desky: na plošném spoji je u R6 a R7 vytištěno 10K, ale v tomhle prototypu V3 se místo nich pájí rezistory 4,7 kΩ ze sáčku označeného 4K7. Řiď se sáčkem se součástkami a tímhle návodem, ne potiskem.",
+      "text": "Do pozic R6 a R7 (u boční řady pinových patic, blízko značek A1) vlož a připájej poslední dva rezistory. Upozornění: Pozor, liší se od potisku desky: na plošném spoji je u R6 a R7 vytištěno 10K, ale v tomhle prototypu V3 se místo nich pájí rezistory 4,7 kΩ ze sáčku označeného 4K7. Řiď se sáčkem se součástkami a tímhle návodem, ne potiskem.",
       "image": "https://shieldio.cz/assets/images/red-build/41-analog-identity-detail.jpg"
     },
     {
@@ -276,8 +260,8 @@
     },
     {
       "@type": "HowToStep",
-      "name": "Připájej konektor J7 (HC-SR04 Socket B)",
-      "text": "Osaď a připájej ležatý pinový konektor v pozici J7, jednu z patic pro ultrazvukový senzor HC-SR04.",
+      "name": "Připájej konektor J7",
+      "text": "Osaď a připájej ležatý pinový konektor v pozici J7, jednu z patic pro modul, který zasuneš později v návodu na tvůj vybraný projekt.",
       "image": "https://shieldio.cz/assets/images/red-build/50-horizontalni-konektor.jpg"
     },
     {
@@ -294,8 +278,8 @@
     },
     {
       "@type": "HowToStep",
-      "name": "Osaď konektor pro servo (J2)",
-      "text": "Do pozice J2 (SG90 Pin) připájej třípinový konektor pro servo.",
+      "name": "Osaď konektor J2",
+      "text": "Do pozice J2 připájej třípinový konektor, další patici pro modul, který zasuneš později v návodu na tvůj vybraný projekt.",
       "image": "https://shieldio.cz/assets/images/red-build/51-konektor-servo.jpg"
     },
     {
@@ -312,8 +296,8 @@
     },
     {
       "@type": "HowToStep",
-      "name": "Osaď sokety pro ultrazvuk a displej",
-      "text": "Připájej zbývající paticový konektor J1 (HC-SR04 Socket A) a paticový konektor J3 (OLED Socket). Moduly do nich pak jen zasuneš, nepájí se přímo.",
+      "name": "Osaď zbývající sokety J1 a J3",
+      "text": "Připájej zbývající paticové konektory J1 a J3. Stejně jako u ostatních patic, moduly do nich zasuneš až v návodu na tvůj vybraný projekt, teď je jen připájíš na desku.",
       "image": "https://shieldio.cz/assets/images/red-build/54-socket-ultrazvuk-displej.jpg"
     },
     {
@@ -324,8 +308,8 @@
     },
     {
       "@type": "HowToStep",
-      "name": "Osaď patice pro Arduino Nano",
-      "text": "Na spodní stranu desky připájej obě řady pinových patic pro Arduino Nano. Díky nim Arduino po dokončení stavby jen zasuneš, nepájí se natrvalo.",
+      "name": "Osaď zbývající pinové patice",
+      "text": "Na spodní stranu desky připájej poslední dvě řady pinových patic. Díky nim se modul, který do nich patří, po dokončení stavby jen zasune, nepájí se natrvalo.",
       "image": "https://shieldio.cz/assets/images/red-build/56-socket-arduino.jpg"
     },
     {
@@ -343,7 +327,7 @@
     {
       "@type": "HowToStep",
       "name": "Připrav si horní frame a spodní backplate",
-      "text": "Deska se zacvakává do dvoudílného 3D tištěného pouzdra, horní frame drží další díly (třeba servo nebo model), spodní backplate desku zezadu chrání.",
+      "text": "Deska se zacvakává do dvoudílného 3D tištěného pouzdra, horní frame drží další díly podle vybraného projektu, spodní backplate desku zezadu chrání.",
       "image": "https://shieldio.cz/assets/images/red-build/59-backplate-dil.jpg"
     },
     {
@@ -355,7 +339,7 @@
     {
       "@type": "HowToStep",
       "name": "Zacvakni backplate",
-      "text": "Stejným způsobem zacvakni i spodní backplate. Deska je teď kompletně sestavená a připravená na osazení Arduina, senzoru, displeje a serva.",
+      "text": "Stejným způsobem zacvakni i spodní backplate. Deska je teď kompletně sestavená a připravená na zasunutí modulů podle návodu na tvůj vybraný projekt.",
       "image": "https://shieldio.cz/assets/images/red-build/61-zacvaknuti-backplate.jpg"
     }
   ]

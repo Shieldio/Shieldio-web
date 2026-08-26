@@ -860,6 +860,12 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 
 /* ---------- interactive guide engine ---------- */
 .guide-app{ padding:56px 0 100px; }
+.guide-back-link{
+  display:inline-flex; align-items:center; gap:4px; margin-bottom:24px;
+  font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft);
+  text-decoration:none; transition:color .15s var(--ease);
+}
+.guide-back-link:hover{ color:var(--ink); }
 .guide-progress-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
 .guide-progress-label{
   font-family:'JetBrains Mono'; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;

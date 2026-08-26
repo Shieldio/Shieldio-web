@@ -13,6 +13,8 @@ window.SHIELDIO_GUIDE = {
     difficulty: "Green · Základ",
     duration: "15–20 minut",
     learn: ["Tlačítko", "LED", "Bzučák", "Podmínky"],
+    parentHref: "../../../index.html",
+    parentLabel: "Zpět na výběr návodů",
   },
 
   glossary: {

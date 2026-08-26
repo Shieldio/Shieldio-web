@@ -11,6 +11,8 @@ window.SHIELDIO_GUIDE = {
     difficulty: "Red · Pokročilá",
     duration: "45–60 minut",
     learn: ["Servo", "Ultrazvuk", "Podmínky", "Automatizaci"],
+    parentHref: "../index.html",
+    parentLabel: "Zpět na výběr projektů RED",
   },
 
   glossary: {

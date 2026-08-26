@@ -12,6 +12,8 @@ window.SHIELDIO_GUIDE = {
     difficulty: "Yellow · Rozšíření",
     duration: "20–30 minut",
     learn: ["Teplotu a vlhkost", "Světlo", "Zvuk", "Displej"],
+    parentHref: "../../../index.html",
+    parentLabel: "Zpět na výběr návodů",
   },
 
   glossary: {
