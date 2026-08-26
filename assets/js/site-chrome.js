@@ -1,7 +1,7 @@
 // Shieldio — shared page chrome: scroll progress bar, back-to-top, cookie banner, last-updated note.
 // Bump LAST_UPDATED by hand after a deploy that changes visible content — no build step to automate it.
 
-const LAST_UPDATED = "15. 8. 2026";
+const LAST_UPDATED = "26. 8. 2026";
 const COOKIE_CONSENT_KEY = "shieldio-cookie-consent";
 
 document.addEventListener("DOMContentLoaded", () => {

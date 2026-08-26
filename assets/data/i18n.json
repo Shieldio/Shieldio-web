@@ -1466,5 +1466,177 @@
   "products_index.dev_milestone5": {
     "cs": "K prodeji",
     "en": "Available"
+  },
+  "privacy.title": {
+    "cs": "Ochrana osobních údajů | Shieldio",
+    "en": "Privacy Policy | Shieldio"
+  },
+  "privacy.eyebrow": {
+    "cs": "Právní informace",
+    "en": "Legal information"
+  },
+  "privacy.h1": {
+    "cs": "Zásady ochrany osobních údajů.",
+    "en": "Privacy Policy."
+  },
+  "privacy.lead": {
+    "cs": "Tyto zásady popisují, jak shieldio.cz zpracovává osobní údaje v souladu s Nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákonem č. 110/2019 Sb., o zpracování osobních údajů.",
+    "en": "This policy describes how shieldio.cz processes personal data in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council (GDPR) and Czech Act No. 110/2019 Coll., on the processing of personal data."
+  },
+  "privacy.s1_h2": {
+    "cs": "1. Správce osobních údajů",
+    "en": "1. Data controller"
+  },
+  "privacy.s1_p1": {
+    "cs": "Správcem osobních údajů zpracovávaných v souvislosti s provozem webu shieldio.cz je jeho autor a provozovatel (dále jen „správce“). Shieldio je v současné době provozováno jako osobní, nekomerční projekt fyzické osoby, studenta střední školy, bez vlastního IČO. Jakmile bude projekt provozován v rámci registrované podnikatelské činnosti, budou tyto zásady aktualizovány o příslušné identifikační údaje.",
+    "en": "The data controller for personal data processed in connection with operating shieldio.cz is its author and operator (the “controller”). Shieldio is currently run as a personal, non-commercial project by an individual, a secondary school student, without a registered business ID. Once the project is operated as a registered business activity, this policy will be updated with the corresponding identification details."
+  },
+  "privacy.s1_p2": {
+    "cs": "Kontaktní e-mail správce pro veškeré záležitosti týkající se ochrany osobních údajů: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>.",
+    "en": "Contact e-mail of the controller for all matters regarding personal data protection: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>."
+  },
+  "privacy.s2_h2": {
+    "cs": "2. Jaké údaje zpracováváme, za jakým účelem a na jakém právním základě",
+    "en": "2. What data we process, for what purpose, and on what legal basis"
+  },
+  "privacy.s2_1_label": {
+    "cs": "2.1 Kontaktní formulář",
+    "en": "2.1 Contact form"
+  },
+  "privacy.s2_1_p": {
+    "cs": "Zpracovávané údaje: jméno, e-mailová adresa, obsah zprávy, případně kategorie „píšete za“ a „co potřebujete“. Účel zpracování: vyřízení dotazu nebo poptávky. Právní základ: čl. 6 odst. 1 písm. b) GDPR (jednání o uzavření smlouvy / plnění poptávky na žádost subjektu údajů), případně písm. f) (oprávněný zájem správce na vyřízení komunikace, kterou subjekt údajů sám iniciuje). Údaje jsou odesílány prostřednictvím služby Web3Forms na e-mail správce.",
+    "en": "Data processed: name, e-mail address, message content, and optionally the “writing as” and “what you need” categories. Purpose of processing: handling the inquiry or request. Legal basis: Art. 6(1)(b) GDPR (steps taken at the request of the data subject prior to entering into a contract / fulfilling a request), or alternatively (f) (the controller’s legitimate interest in handling communication initiated by the data subject). Data is sent via the Web3Forms service to the controller’s e-mail."
+  },
+  "privacy.s2_2_label": {
+    "cs": "2.2 Validační dotazník pro školy",
+    "en": "2.2 Validation questionnaire for schools"
+  },
+  "privacy.s2_2_p": {
+    "cs": "Zpracovávané údaje: odpovědi vyplněné v dotazníku na stránce <a href=\"dotaznik.html\">Dotazník pro školy</a>, provozovaném prostřednictvím služby Microsoft Forms. Účel zpracování: průzkum potřeb škol a kroužků pro účely vývoje produktu. Právní základ: čl. 6 odst. 1 písm. a) GDPR (souhlas subjektu údajů vyjádřený vyplněním a odesláním dotazníku). Souhlas lze kdykoliv odvolat žádostí na kontaktní e-mail správce.",
+    "en": "Data processed: answers submitted in the questionnaire on the <a href=\"dotaznik.html\">Questionnaire for Schools</a> page, run via the Microsoft Forms service. Purpose of processing: researching the needs of schools and clubs for product development purposes. Legal basis: Art. 6(1)(a) GDPR (consent of the data subject expressed by completing and submitting the questionnaire). Consent can be withdrawn at any time by request to the controller’s contact e-mail."
+  },
+  "privacy.s2_3_label": {
+    "cs": "2.3 Analytika návštěvnosti",
+    "en": "2.3 Traffic analytics"
+  },
+  "privacy.s2_3_p": {
+    "cs": "Web využívá službu Cloudflare Web Analytics, která funguje bez cookies a bez sledování napříč weby a neshromažďuje osobní údaje umožňující identifikaci konkrétního návštěvníka, správci jsou dostupné pouze souhrnné, anonymizované statistiky (počet návštěv, zdroj návštěvnosti, rychlost načítání). Vzhledem k tomu, že se nejedná o zpracování osobních údajů ve smyslu čl. 4 odst. 1 GDPR, právní základ se neuplatňuje.",
+    "en": "The site uses Cloudflare Web Analytics, which operates without cookies and without cross-site tracking, and does not collect personal data that would identify an individual visitor; the controller only has access to aggregated, anonymized statistics (visit counts, traffic source, load speed). As this does not constitute processing of personal data within the meaning of Art. 4(1) GDPR, no legal basis applies."
+  },
+  "privacy.s3_h2": {
+    "cs": "3. Doba uchování údajů",
+    "en": "3. Data retention period"
+  },
+  "privacy.s3_p": {
+    "cs": "Údaje z kontaktního formuláře jsou uchovávány po dobu nezbytnou k vyřízení dotazu, nejdéle však 24 měsíců od přijetí. Údaje z validačního dotazníku jsou uchovávány po dobu probíhajícího vývoje produktu, nejdéle však 36 měsíců od vyplnění. V obou případech lze požádat o dřívější výmaz, viz bod 6.",
+    "en": "Data from the contact form is retained for as long as necessary to handle the inquiry, but no longer than 24 months from receipt. Data from the validation questionnaire is retained for the duration of ongoing product development, but no longer than 36 months from submission. In both cases, earlier deletion can be requested, see section 6."
+  },
+  "privacy.s4_h2": {
+    "cs": "4. Příjemci osobních údajů a předání do zahraničí",
+    "en": "4. Recipients of personal data and international transfers"
+  },
+  "privacy.s4_p1": {
+    "cs": "Osobní údaje nejsou prodávány ani sdíleny za účelem marketingu třetích stran. Ke zpracování jsou využívány následující zpracovatelé:",
+    "en": "Personal data is not sold or shared for third-party marketing purposes. The following processors are used for processing:"
+  },
+  "privacy.s4_li1": {
+    "cs": "<b>Web3Forms</b>, doručení zprávy z kontaktního formuláře",
+    "en": "<b>Web3Forms</b>, delivery of the contact form message"
+  },
+  "privacy.s4_li2": {
+    "cs": "<b>Microsoft Corporation (Microsoft Forms)</b>, validační dotazník pro školy",
+    "en": "<b>Microsoft Corporation (Microsoft Forms)</b>, validation questionnaire for schools"
+  },
+  "privacy.s4_li3": {
+    "cs": "<b>Cloudflare, Inc.</b>, hosting webu a anonymní analytika návštěvnosti",
+    "en": "<b>Cloudflare, Inc.</b>, website hosting and anonymous traffic analytics"
+  },
+  "privacy.s4_p2": {
+    "cs": "Uvedení poskytovatelé mohou v rámci své infrastruktury zpracovávat údaje i mimo Evropskou unii/Evropský hospodářský prostor (typicky v USA). Jde o etablované poskytovatele, kteří pro takový přenos deklarují vlastní záruky souladu s GDPR (např. standardní smluvní doložky). Aktuální informace o zpracování údajů u těchto služeb jsou dostupné v jejich vlastních zásadách ochrany osobních údajů.",
+    "en": "As part of their infrastructure, the above providers may process data outside the European Union/European Economic Area (typically in the USA). These are established providers who declare their own GDPR-compliance safeguards for such transfers (e.g. standard contractual clauses). Current information about data processing by these services is available in their own privacy policies."
+  },
+  "privacy.s5_h2": {
+    "cs": "5. Cookies",
+    "en": "5. Cookies"
+  },
+  "privacy.s5_p": {
+    "cs": "Tento web nepoužívá žádné sledovací ani reklamní cookies. Analytika návštěvnosti (viz bod 2.3) funguje bez ukládání cookies do zařízení návštěvníka.",
+    "en": "This site does not use any tracking or advertising cookies. Traffic analytics (see section 2.3) operates without storing cookies on the visitor’s device."
+  },
+  "privacy.s6_h2": {
+    "cs": "6. Práva subjektu údajů",
+    "en": "6. Data subject rights"
+  },
+  "privacy.s6_p1": {
+    "cs": "V souladu s GDPR máte právo:",
+    "en": "In accordance with the GDPR, you have the right to:"
+  },
+  "privacy.s6_li1": {
+    "cs": "na přístup ke svým osobním údajům (čl. 15 GDPR)",
+    "en": "access your personal data (Art. 15 GDPR)"
+  },
+  "privacy.s6_li2": {
+    "cs": "na opravu nepřesných údajů (čl. 16 GDPR)",
+    "en": "rectification of inaccurate data (Art. 16 GDPR)"
+  },
+  "privacy.s6_li3": {
+    "cs": "na výmaz údajů (čl. 17 GDPR)",
+    "en": "erasure of data (Art. 17 GDPR)"
+  },
+  "privacy.s6_li4": {
+    "cs": "na omezení zpracování (čl. 18 GDPR)",
+    "en": "restriction of processing (Art. 18 GDPR)"
+  },
+  "privacy.s6_li5": {
+    "cs": "na přenositelnost údajů (čl. 20 GDPR)",
+    "en": "data portability (Art. 20 GDPR)"
+  },
+  "privacy.s6_li6": {
+    "cs": "vznést námitku proti zpracování (čl. 21 GDPR)",
+    "en": "object to processing (Art. 21 GDPR)"
+  },
+  "privacy.s6_li7": {
+    "cs": "kdykoliv odvolat udělený souhlas, aniž je tím dotčena zákonnost zpracování založeného na souhlasu uděleném před jeho odvoláním",
+    "en": "withdraw given consent at any time, without affecting the lawfulness of processing based on consent given before its withdrawal"
+  },
+  "privacy.s6_p2": {
+    "cs": "Uplatnit tato práva můžete zasláním žádosti na <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. Žádost bude vyřízena bez zbytečného odkladu, nejpozději do jednoho měsíce od jejího obdržení.",
+    "en": "You can exercise these rights by sending a request to <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. The request will be handled without undue delay, no later than one month after receipt."
+  },
+  "privacy.s6_p3_intro": {
+    "cs": "Pokud se domníváte, že vaše osobní údaje jsou zpracovávány v rozporu s právními předpisy, máte právo podat stížnost u dozorového úřadu, kterým je:",
+    "en": "If you believe your personal data is being processed in violation of the law, you have the right to lodge a complaint with the supervisory authority, which is:"
+  },
+  "privacy.s6_authority": {
+    "cs": "Úřad pro ochranu osobních údajů",
+    "en": "The Office for Personal Data Protection (Czech Republic)"
+  },
+  "privacy.s7_h2": {
+    "cs": "7. Zabezpečení údajů",
+    "en": "7. Data security"
+  },
+  "privacy.s7_p": {
+    "cs": "Web je provozován výhradně přes zabezpečené HTTPS připojení. Přístup k přijatým údajům (např. e-mailům z kontaktního formuláře) má výhradně správce. Vzhledem k povaze projektu jako osobní iniciativy jednotlivce nejsou zavedeny formální systémy řízení bezpečnosti informací, jaké by byly očekávány u větší organizace. Přiměřeně tomu je omezen i rozsah a citlivost zpracovávaných údajů (viz bod 2).",
+    "en": "The site operates exclusively over a secure HTTPS connection. Access to received data (e.g. e-mails from the contact form) is limited exclusively to the controller. Given the nature of the project as an individual’s personal initiative, formal information security management systems of the kind expected from a larger organization are not in place. The scope and sensitivity of the data processed is limited accordingly (see section 2)."
+  },
+  "privacy.s8_h2": {
+    "cs": "8. Umělá inteligence (nařízení EU 2024/1689)",
+    "en": "8. Artificial intelligence (EU Regulation 2024/1689)"
+  },
+  "privacy.s8_p": {
+    "cs": "Shieldio na tomto webu aktuálně nepoužívá žádný systém umělé inteligence ve smyslu čl. 3 bodu 1 nařízení Evropského parlamentu a Rady (EU) 2024/1689 (tzv. AI Act). <a href=\"../instructions/blokovy-editor.html\">Blokový editor</a> pro programování desky RED je čistě pravidly řízený nástroj, z bloků, které si sám poskládáš, generuje Arduino kód podle pevně daných šablon, bez strojového učení, statistických modelů nebo autonomního rozhodování. Povinnosti podle AI Actu se proto na tento web v současné době nevztahují. Pokud v budoucnu přidáme funkci skutečně založenou na umělé inteligenci, budou tyto zásady aktualizovány o odpovídající informace o transparentnosti podle příslušných povinností nařízení.",
+    "en": "Shieldio does not currently use any artificial intelligence system on this website within the meaning of Art. 3(1) of Regulation (EU) 2024/1689 of the European Parliament and of the Council (the “AI Act”). The <a href=\"../instructions/blokovy-editor.html\">block editor</a> for programming the RED board is a purely rule-based tool: from the blocks you assemble yourself, it generates Arduino code according to fixed templates, without machine learning, statistical models, or autonomous decision-making. Obligations under the AI Act therefore do not currently apply to this website. If we add a feature genuinely based on artificial intelligence in the future, this policy will be updated with the corresponding transparency information required by the regulation."
+  },
+  "privacy.s9_h2": {
+    "cs": "9. Změny těchto zásad",
+    "en": "9. Changes to this policy"
+  },
+  "privacy.s9_p1": {
+    "cs": "Tyto zásady mohou být průběžně aktualizovány, zejména v souvislosti se změnou právní formy provozovatele nebo rozsahu zpracovávaných údajů. Rozhodná je vždy aktuální verze zveřejněná na této stránce.",
+    "en": "This policy may be updated from time to time, in particular in connection with a change in the operator’s legal form or the scope of data processed. The version published on this page is always the authoritative one."
+  },
+  "privacy.s9_p2": {
+    "cs": "Naposledy upraveno: srpen 2026.",
+    "en": "Last updated: August 2026."
   }
 }
