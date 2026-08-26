@@ -11,6 +11,10 @@
     "cs": "Návody",
     "en": "Guides"
   },
+  "nav.edu": {
+    "cs": "Edu",
+    "en": "Edu"
+  },
   "nav.about": {
     "cs": "O nás",
     "en": "About"
@@ -1394,6 +1398,10 @@
   "learn_hub.title": {
     "cs": "Kalkulačka rezistoru pro LED a jak funguje elektronika | Shieldio",
     "en": "LED Resistor Calculator and How Electronics Work | Shieldio"
+  },
+  "edu.title": {
+    "cs": "Edu: materiály pro výuku | Shieldio",
+    "en": "Edu: teaching materials | Shieldio"
   },
   "learn_kondenzatory.title": {
     "cs": "Jak funguje kondenzátor, keramický vs. elektrolytický | Shieldio",

@@ -30,6 +30,7 @@ Each of the above has a "Simple / Advanced / Equations" depth toggle; the equati
 
 ## For teachers
 
+- [Edu hub](https://shieldio.cz/edu/index.html): single entry point for all teaching materials (lesson plan, formal methodology, electronics theory, programming guides).
 - [Lesson plan: Automatic Barrier](https://shieldio.cz/company/pro-ucitele.html): objectives, equipment, timed lesson flow, evaluation criteria.
 - [Full methodology: Automatic Barrier](https://shieldio.cz/company/metodika-zavora.html): formal curriculum document with learning objectives, key competencies, cross-curricular links, a phase-by-phase lesson plan, and a scored grading rubric, meant to be attachable to a school's ŠVP (curriculum).
 

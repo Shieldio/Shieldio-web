@@ -125,7 +125,7 @@ img{ max-width:100%; height:auto; display:block; }
   transition:transform .3s var(--ease), opacity .3s var(--ease);
 }
 .topbar-mobile-utils{ display:none; }
-@media (max-width:800px){
+@media (max-width:880px){
   .nav-toggle{ display:flex; }
   .topbar nav{
     display:flex; flex-direction:column; gap:0;
