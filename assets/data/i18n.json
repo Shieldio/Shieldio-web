@@ -1284,8 +1284,8 @@
     "en": "Want to know more? Look under the hood."
   },
   "home.learnmore.p": {
-    "cs": "Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, s interaktivní kalkulačkou a pokročilým režimem pro ty, kdo chtějí víc.",
-    "en": "A clear explanation of why the electronics on the board work exactly the way they do, with an interactive calculator and an advanced mode for anyone who wants more."
+    "cs": "Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, se 7 tématy od Ohmova zákona po výrobu plošných spojů.",
+    "en": "A clear explanation of why the electronics on the board work the way they do, across 7 topics from Ohm’s law to how circuit boards are made."
   },
   "home.learnmore.card1_h3": {
     "cs": "Ohmův zákon a kalkulačka",
@@ -1638,5 +1638,9 @@
   "privacy.s9_p2": {
     "cs": "Naposledy upraveno: srpen 2026.",
     "en": "Last updated: August 2026."
+  },
+  "home.hero.teacher_link": {
+    "cs": "Učíš? Metodika k prvnímu projektu je hotová →",
+    "en": "Teaching? The lesson plan for the first project is ready →"
   }
 }

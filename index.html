@@ -10,8 +10,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
@@ -86,11 +84,13 @@
         <a class="btn btn-primary" href="#kontakt" data-i18n="home.hero.cta_primary">Domluvit ukázku</a>
         <a class="btn btn-ghost" href="products/index.html" data-i18n="home.hero.cta_secondary">Prohlédnout produkty</a>
       </div>
+      <p style="margin-top:18px;">
+        <a href="company/pro-ucitele.html" class="learn-theory-link" data-i18n="home.hero.teacher_link">Učíš? Metodika k prvnímu projektu je hotová →</a>
+      </p>
       <div class="hero-stats">
         <div class="stat"><b>3</b><span data-i18n="home.hero.stat1_label">úrovně obtížnosti</span></div>
         <div class="stat"><b>100×100&nbsp;mm</b><span data-i18n="home.hero.stat2_label">jednotný formát desky</span></div>
         <div class="stat"><b>5&nbsp;min</b><span data-i18n="home.hero.stat3_label">od rozbalení ke spuštění</span></div>
-        <div class="stat"><b>550&nbsp;Kč</b><span data-i18n="home.hero.stat4_label">za RED, jedinou dostupnou desku</span></div>
       </div>
     </div>
     <div class="board-figure fade-up">
@@ -219,41 +219,6 @@
   </div>
 </section>
 
-<!-- RESISTOR CALCULATOR TEASER -->
-<section style="padding-top:0; padding-bottom:56px;">
-  <div class="wrap">
-    <div class="section-head" style="margin-bottom:28px; max-width:640px;">
-      <span class="eyebrow-dark" data-i18n="home.calc.eyebrow">Vyzkoušej si to</span>
-      <h2 style="font-size:clamp(22px,2.6vw,30px);" data-i18n="home.calc.h2">Jak se počítá rezistor pro LED?</h2>
-      <p style="font-size:15px; margin-top:12px;" data-i18n="home.calc.p">Ohmův zákon naživo, zadej hodnoty a kalkulačka rovnou spočítá potřebný odpor.</p>
-    </div>
-    <div class="resistor-calc" style="max-width:640px;">
-      <div class="resistor-calc-grid">
-        <div class="resistor-calc-field">
-          <label for="homeCalcVs" data-i18n="home.calc.label_vs">Napájecí napětí (V)</label>
-          <input type="number" id="homeCalcVs" data-calc="vs" value="5" step="0.1" min="0">
-        </div>
-        <div class="resistor-calc-field">
-          <label for="homeCalcVf" data-i18n="home.calc.label_vf">Úbytek na LED (V)</label>
-          <input type="number" id="homeCalcVf" data-calc="vf" value="2" step="0.1" min="0">
-        </div>
-        <div class="resistor-calc-field">
-          <label for="homeCalcI" data-i18n="home.calc.label_i">Požadovaný proud (mA)</label>
-          <input type="number" id="homeCalcI" data-calc="i" value="15" step="1" min="1">
-        </div>
-      </div>
-      <div class="resistor-calc-result">
-        <span class="resistor-calc-result-label" data-i18n="home.calc.result_label">Potřebný odpor</span>
-        <span class="resistor-calc-result-value" data-calc="r">220 Ω</span>
-      </div>
-      <p class="resistor-calc-note" data-calc="note"></p>
-    </div>
-    <div class="hero-ctas" style="margin-top:20px;">
-      <a class="btn btn-ghost" href="instructions/jak-to-funguje/ohmuv-zakon/index.html" data-i18n="home.calc.cta">Celé vysvětlení Ohmova zákona →</a>
-    </div>
-  </div>
-</section>
-
 <!-- RED BOARD DEEP DIVE -->
 <section id="deska">
   <div class="wrap">
@@ -307,9 +272,9 @@
     <div class="section-head">
       <span class="eyebrow-dark" data-i18n="home.learnmore.eyebrow">Pro zvídavé</span>
       <h2 data-i18n="home.learnmore.h2">Chceš vědět víc? Nahlédni pod pokličku.</h2>
-      <p data-i18n="home.learnmore.p">Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, s interaktivní kalkulačkou a pokročilým režimem pro ty, kdo chtějí víc.</p>
+      <p data-i18n="home.learnmore.p">Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, se 7 tématy od Ohmova zákona po výrobu plošných spojů.</p>
     </div>
-    <div class="project-picker-grid teaser-grid fade-up">
+    <div class="project-picker-grid teaser-grid fade-up" style="grid-template-columns:1fr 1fr;">
       <a class="instruction-card project-pick-card" href="instructions/jak-to-funguje/ohmuv-zakon/index.html">
         <h3 data-i18n="home.learnmore.card1_h3">Ohmův zákon a kalkulačka</h3>
         <p data-i18n="home.learnmore.card1_p">Proč zrovna 220 Ω u LED, interaktivní kalkulačka to spočítá za tebe.</p>
@@ -320,16 +285,9 @@
         <p data-i18n="home.learnmore.card2_p">Proč elektrolytický kondenzátor musí mít správnou polaritu a jak tlumí šum.</p>
         <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
       </a>
-      <a class="instruction-card project-pick-card" href="instructions/jak-to-funguje/pcb/index.html">
-        <h3 data-i18n="home.learnmore.card3_h3">Co je PCB</h3>
-        <p data-i18n="home.learnmore.card3_p">Z čeho je deska plošných spojů a proč jsou cestičky z mědi.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-      <a class="instruction-card project-pick-card" href="instructions/jak-to-funguje/index.html" style="border-style:dashed;">
-        <h3 data-i18n="home.learnmore.card4_h3">Všech 7 témat</h3>
-        <p data-i18n="home.learnmore.card4_p">Tlačítka a debounce, dioda a LED, PWM, ultrazvuk a další.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint_all">Zobrazit vše</span>
-      </a>
+    </div>
+    <div class="hero-ctas" style="margin-top:24px;">
+      <a class="btn btn-primary" href="instructions/jak-to-funguje/index.html" data-i18n="home.learnmore.card4_h3">Všech 7 témat</a>
     </div>
   </div>
 </section>
@@ -494,7 +452,5 @@
 <script src="assets/js/lang.js"></script>
 <script src="assets/js/site-chrome.js"></script>
 <script src="assets/js/lightbox.js"></script>
-<script src="assets/js/contact-form.js"></script>
-<script src="assets/js/resistor-calculator.js"></script>
-</body>
+<script src="assets/js/contact-form.js"></script></body>
 </html>

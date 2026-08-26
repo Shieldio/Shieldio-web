@@ -231,7 +231,7 @@ img{ max-width:100%; height:auto; display:block; }
    object-fit:cover crops top/bottom of tall portrait shots instead of the frame
    ballooning to the image's full intrinsic height */
 .board-photo-frame{ aspect-ratio:4/5; max-width:460px; }
-.board-photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block; }
+.board-photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:center 0%; display:block; }
 /* transparent product cutouts (car/barrier scene): no boxed card, the product
    floats directly on the hero backdrop with a shadow that follows its own silhouette */
 .board-photo-frame.board-photo-float{ border:none; box-shadow:none; background:none; }
