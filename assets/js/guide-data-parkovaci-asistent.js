@@ -13,6 +13,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Ultrazvuk", "Podmínky", "LED indikaci", "OLED displej"],
     parentHref: "../index.html",
     parentLabel: "Zpět na výběr projektů RED",
+    mblockGuideHref: "../../../../instructions/mblock/index.html",
   },
 
   glossary: {

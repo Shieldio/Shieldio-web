@@ -15,6 +15,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Servo", "Ultrazvuk", "Podmínky", "Automatizaci"],
     parentHref: "../index.html",
     parentLabel: "Zpět na výběr projektů RED",
+    mblockGuideHref: "../../../../instructions/mblock/index.html",
   },
 
   glossary: {

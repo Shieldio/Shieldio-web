@@ -14,6 +14,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Teplotu a vlhkost", "Světlo", "Zvuk", "Displej"],
     parentHref: "../../../index.html",
     parentLabel: "Zpět na výběr návodů",
+    mblockGuideHref: "../../../../instructions/mblock/index.html",
   },
 
   glossary: {

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jak otevřít a programovat v mBlocku | Shieldio</title>
+<meta name="description" content="Krok za krokem: jak otevřít mBlock, připojit desku Shieldio RED, najít správné bloky a nahrát první program. Návod pro úplné začátečníky.">
+<link rel="canonical" href="https://shieldio.cz/instructions/mblock/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/mblock/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Jak otevřít a programovat v mBlocku | Shieldio">
+<meta property="og:description" content="Krok za krokem: jak otevřít mBlock, připojit desku Shieldio RED, najít správné bloky a nahrát první program.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jak otevřít a programovat v mBlocku | Shieldio">
+<meta name="twitter:description" content="Krok za krokem: jak otevřít mBlock, připojit desku Shieldio RED, najít správné bloky a nahrát první program.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Jak otevřít a programovat v mBlocku",
+  "description": "Krok za krokem: jak otevřít mBlock, připojit desku Shieldio RED (Arduino Nano), najít bloky pro servo, ultrazvuk a displej, a nahrát první program.",
+  "step": [
+    {"@type": "HowToStep", "name": "Otevři mBlock", "text": "Otevři webovou verzi na ide.mblock.cc v prohlížeči Chrome nebo Edge, instalace není potřeba."},
+    {"@type": "HowToStep", "name": "Přidej desku Arduino Nano", "text": "V nabídce zařízení vyhledej a přidej Arduino Nano, přesně tenhle mikrokontrolér je uvnitř desky Shieldio RED."},
+    {"@type": "HowToStep", "name": "Připoj desku přes USB-C", "text": "Připoj desku k počítači datovým USB-C kabelem a v mBlocku vyber odpovídající sériový port."},
+    {"@type": "HowToStep", "name": "Poskládej program z bloků", "text": "Přetáhni bloky pro čtení senzorů a ovládání výstupů z palety do pracovní plochy a poskládej je do programu."},
+    {"@type": "HowToStep", "name": "Nahraj program do desky", "text": "Klikni na Upload, mBlock program zkompiluje a nahraje přímo do připojené desky."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Co je mBlock?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "mBlock je blokové programovací prostředí od firmy Makeblock, podobné Scratchi. Program se sestavuje přetahováním barevných bloků místo psaní kódu, na pozadí se ale skutečně generuje a nahrává Arduino kód."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Musím si mBlock instalovat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ne, stačí otevřít webovou verzi na ide.mblock.cc v prohlížeči Chrome nebo Edge (potřebují podporu Web Serial API pro nahrávání do desky přes USB). Desktopová aplikace existuje také a funguje i offline, ale pro první seznámení stačí web."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Deska se v mBlocku vůbec neobjeví, co s tím?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zkontroluj, že je deska připojená datovým (ne jen nabíjecím) USB-C kabelem, zkus jiný USB port, a že je v mBlocku přidané a vybrané zařízení Arduino Nano."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak programovat v mBlocku", "item": "https://shieldio.cz/instructions/mblock/"}
+  ]
+}
+</script>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../index.html">Domů</a>
+        <a href="../../products/index.html">Produkty</a>
+        <a href="../../instructions/index.html">Návody</a>
+        <a href="../../company/about.html">O nás</a>
+        <a href="../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Návod pro začátečníky</span>
+      <h1>Jak otevřít a programovat v mBlocku.</h1>
+      <p class="lead" style="max-width:640px;">Žádná instalace, žádné psaní kódu. Otevřeš prohlížeč, připojíš desku kabelem a poskládáš program z barevných bloků.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+
+    <div class="section-head" style="max-width:680px;">
+      <h2>Co je mBlock.</h2>
+    </div>
+    <div class="learn-body">
+      <p><b>mBlock</b> je blokové programovací prostředí od firmy Makeblock, podobné Scratchi: program sestavíš přetahováním barevných bloků do pracovní plochy místo psaní řádků kódu. Na pozadí se ale opravdu generuje a nahrává skutečný program pro mikrokontrolér, mBlock je jen srozumitelnější vrstva nad ním.</p>
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>1. Otevři mBlock.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Nejrychlejší cesta je webová verze na <b>ide.mblock.cc</b>, otevře se přímo v prohlížeči (doporučujeme Chrome nebo Edge, potřebují podporu takzvaného Web Serial API pro připojení desky přes USB). Nic se neinstaluje. Existuje i desktopová aplikace ke stažení, hodí se, pokud budeš mBlock používat pravidelně nebo bez připojení k internetu, na první seznámení ale stačí web.</p>
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>2. Přidej desku Arduino Nano.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Uvnitř desky Shieldio RED je mikrokontrolér <b>Arduino Nano</b>. V mBlocku ho najdeš v nabídce zařízení/desek (obvykle ikona zařízení vlevo dole nebo v horní liště), vyhledej "Arduino Nano" a přidej ho jako aktivní zařízení. Paleta bloků se tomu automaticky přizpůsobí, objeví se bloky pro piny, PWM výstupy a další funkce, které Nano podporuje.</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zjednodušené rozložení pracovní plochy mBlocku">
+        <rect x="10" y="10" width="120" height="240" rx="8" fill="var(--paper-2)" stroke="var(--line)"/>
+        <text x="70" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">paleta bloků</text>
+        <rect x="24" y="45" width="92" height="18" rx="4" fill="var(--tier-yellow)" opacity="0.7"/>
+        <rect x="24" y="70" width="92" height="18" rx="4" fill="var(--accent)" opacity="0.7"/>
+        <rect x="24" y="95" width="92" height="18" rx="4" fill="var(--tier-green)" opacity="0.7"/>
+        <rect x="24" y="120" width="92" height="18" rx="4" fill="var(--tier-red)" opacity="0.6"/>
+
+        <rect x="140" y="10" width="270" height="240" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="275" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">pracovní plocha</text>
+        <rect x="160" y="50" width="150" height="24" rx="5" fill="var(--accent)" opacity="0.85"/>
+        <rect x="160" y="80" width="180" height="24" rx="5" fill="var(--tier-green)" opacity="0.85"/>
+        <rect x="180" y="110" width="150" height="24" rx="5" fill="var(--tier-yellow)" opacity="0.85"/>
+
+        <rect x="420" y="10" width="70" height="50" rx="8" fill="var(--tier-red)" opacity="0.85"/>
+        <text x="455" y="40" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="white">Upload</text>
+        <rect x="420" y="70" width="70" height="36" rx="8" fill="var(--paper-2)" stroke="var(--line)"/>
+        <text x="455" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--ink-soft)">Nano ▾</text>
+      </svg>
+      <p class="learn-diagram-caption">Paleta bloků vlevo, pracovní plocha uprostřed, výběr zařízení a tlačítko Upload vpravo nahoře, přesné rozložení se může mezi verzemi mírně lišit.</p>
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>3. Připoj desku přes USB-C.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Propoj desku Shieldio RED s počítačem datovým USB-C kabelem (dodaný kabel v sadě funguje, nabíjecí kabely bez datových vodičů ne). V mBlocku pak vyber odpovídající sériový port, obvykle v nabídce vedle tlačítka pro nahrání programu. Pokud port v seznamu chybí, zkus jiný USB port nebo kabel a stránku obnov.</p>
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>4. Najdi bloky, které potřebuješ.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Bloky jsou v paletě rozdělené do kategorií podle barvy a účelu, typicky: vstupy a senzory (ultrazvuk, tlačítka), výstupy (LED, servo, displej, bzučák), řízení (podmínky, opakování) a čekání/čas. Přesné názvy bloků pro tvůj projekt najdeš vypsané přímo v jednotlivých krocích <a href="../baseline/red/index.html">návodů na projekty RED</a>, návod ti řekne, jaký blok hledat a k čemu slouží.</p>
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>5. Nahraj program do desky.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Jakmile máš bloky poskládané, klikni na tlačítko <b>Upload</b> (nebo Nahrát). mBlock program zkompiluje na pozadí do skutečného Arduino kódu a nahraje ho do připojené desky. Během nahrávání chvíli blikají kontrolky přímo na desce, po dokončení program začne rovnou běžet.</p>
+    </div>
+
+    <div class="learn-aside">
+      <b>Chceš vidět vygenerovaný kód?</b> Náš <a href="../blokovy-editor.html">experimentální blokový editor</a> umí ze stejného principu bloků rovnou zobrazit skutečný Arduino C++ kód ke stažení, hodí se, pokud chceš porozumět tomu, co se za blokem doopravdy skrývá, nebo si kód doladit ručně v Arduino IDE.
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>Nejčastější chyby.</h2>
+    </div>
+    <div class="learn-body">
+      <table class="learn-table">
+        <tr><th>Problém</th><th>Řešení</th></tr>
+        <tr><td>Deska se v mBlocku vůbec neobjeví</td><td>Zkontroluj datový (ne jen nabíjecí) USB-C kabel, zkus jiný USB port.</td></tr>
+        <tr><td>Chyba "není nalezen port"</td><td>Obnov stránku, znovu vyber sériový port, zkus jiný kabel.</td></tr>
+        <tr><td>Chyba "není připojeno Arduino"</td><td>Zkontroluj, že je v mBlocku vybraná deska Arduino Nano, ne jiný typ.</td></tr>
+        <tr><td>Program se nahraje, ale nic nedělá</td><td>Zkontroluj, že bloky na sebe skutečně navazují (zacvaknuté do sebe), osamocený blok se nespustí.</td></tr>
+      </table>
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../baseline/red/index.html">Návody na projekty RED →</a>
+      <a href="../jak-to-funguje/index.html">Jak to funguje pod pokličkou →</a>
+      <a href="../blokovy-editor.html">Náš blokový editor (kód navíc) →</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <div class="fade-up" style="text-align:center;">
+      <h2>Připraven/a poskládat první program?</h2>
+      <p style="color:#86868b; margin-top:14px;">Vyber si projekt a nech se návodem provést krok za krokem.</p>
+      <div class="hero-ctas" style="justify-content:center; margin-top:28px;">
+        <a class="btn btn-primary" href="../baseline/red/index.html">Zobrazit projekty RED</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../index.html#reseni">Řešení</a>
+      <a href="../../instructions/index.html">Návody</a>
+      <a href="../../company/about.html">O nás</a>
+      <a href="../../company/pro-ucitele.html">Pro učitele</a>
+      <a href="../../faq.html">FAQ</a>
+      <a href="../../aktuality/index.html">Aktuality</a>
+      <a href="../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../assets/js/animations.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/search.js"></script>
+<script src="../../assets/js/site-chrome.js"></script>
+
+</body>
+</html>

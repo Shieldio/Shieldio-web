@@ -345,9 +345,14 @@
           ? `<a class="btn btn-primary" href="${content.blocksEditorHref}">Otevřít v blokovém editoru</a>`
           : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">Otevřít projekt</a>`);
 
+    const mblockHelp = (!useArduino && DATA.meta.mblockGuideHref)
+      ? `<p style="margin-top:12px;"><a class="learn-theory-link" href="${DATA.meta.mblockGuideHref}">Poprvé v mBlocku? Přečti si návod, jak ho otevřít a používat</a>.</p>`
+      : "";
+
     return `
       <div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, useArduino ? "Arduino IDE" : "mBlock")}</div>
       ${actionArea}
+      ${mblockHelp}
       <div class="guide-step-actions" style="margin-top:24px;">
         <button type="button" class="btn btn-primary" data-action="ok">Program je nahraný</button>
         <button type="button" class="btn btn-ghost" data-action="fail">Hlásí chybu</button>
