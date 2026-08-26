@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Co je PWM: jak Arduino řídí LED i servo | Shieldio</title>
+<meta name="description" content="Srozumitelné vysvětlení pulzně šířkové modulace (PWM): jak stejný princip stmívá LED a natáčí hobby servo na přesný úhel. Na příkladu desky Shieldio RED.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/pwm/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/pwm/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Co je PWM: jak Arduino řídí LED i servo | Shieldio">
+<meta property="og:description" content="Srozumitelné vysvětlení pulzně šířkové modulace (PWM): jak stejný princip stmívá LED a natáčí hobby servo na přesný úhel. Na příkladu desky Shieldio RED.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Co je PWM: jak Arduino řídí LED i servo | Shieldio">
+<meta name="twitter:description" content="Srozumitelné vysvětlení pulzně šířkové modulace (PWM): jak stejný princip stmívá LED a natáčí hobby servo na přesný úhel. Na příkladu desky Shieldio RED.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Co je PWM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PWM (pulzně šířková modulace, Pulse Width Modulation) rychle přepíná výstup mezi 0 V a 5 V, poměr doby zapnuto ku vypnuto v každém cyklu se nazývá střída (duty cycle)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak PWM řídí LED i servo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "U LED oko nerozliší jednotlivé cykly, jen vnímá průměrný jas podle střídy. U hobby serva elektronika uvnitř neměří průměrné napětí, ale délku pulzu opakujícího se každých 20 ms, délka pulzu mezi 1 a 2 milisekundami určuje úhel natočení."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"},
+    {"@type": "ListItem", "position": 4, "name": "PWM", "item": "https://shieldio.cz/instructions/jak-to-funguje/pwm/"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../index.html">Domů</a>
+        <a href="../../../products/index.html">Produkty</a>
+        <a href="../../../instructions/index.html">Návody</a>
+        <a href="../../../company/about.html">O nás</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Jak to funguje · 04 · Signály</span>
+      <h1>PWM: jak deska řídí LED i servo.</h1>
+      <p class="lead" style="max-width:640px;">Arduino umí na výstupu jen 0 V nebo 5 V. Jak z toho vznikne plynulé stmívání a přesné natočení serva.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+    <div class="learn-body">
+      <p>Arduino Nano umí na svých výstupech nastavit jen dvě úrovně napětí, 0 V nebo 5 V, žádnou plynulou hodnotu mezi nimi. Přesto dokáže třeba plynule stmívat LED nebo natáčet servo do libovolného úhlu. Trik se jmenuje <b>PWM</b>, pulzně šířková modulace (Pulse Width Modulation): výstup rychle přepíná mezi 0 V a 5 V, a to, jak dlouhou část každého cyklu tráví na 5 V, se nazývá střída (duty cycle).</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tři PWM signály s různou střídou: 25 %, 50 % a 75 %">
+        <text x="0" y="14" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 25&nbsp;%, slabé jas / malý úhel</text>
+        <polyline points="10,45 10,30 40,30 40,45 130,45 130,30 160,30 160,45 250,45 250,30 280,30 280,45 370,45 370,30 400,30 400,45 490,45"
+          fill="none" stroke="var(--tier-yellow)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="0" y="90" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 50&nbsp;%, poloviční jas / střední úhel</text>
+        <polyline points="10,120 10,105 70,105 70,120 130,120 130,105 190,105 190,120 250,120 250,105 310,105 310,120 370,120 370,105 430,105 430,120 490,120"
+          fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>
+        <text x="0" y="165" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">střída 75&nbsp;%, plný jas / velký úhel</text>
+        <polyline points="10,195 10,180 100,180 100,195 130,195 130,180 220,180 220,195 250,195 250,180 340,180 340,195 370,195 370,180 460,180 460,195 490,195"
+          fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
+      <p class="learn-diagram-caption">Stejná frekvence, jiný poměr "zapnuto : vypnuto" v každém cyklu, to je celá střída.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>U <b>LED</b> se cykly opakují tak rychle (stovky až tisíce za sekundu), že je lidské oko nerozliší jednotlivě, jen vnímá průměrný jas, čím delší část cyklu LED svítí, tím jasnější se zdá. Nižší střída (kratší dobu svítí) = tlumenější světlo.</p>
+      <p>U <b>serva</b> se stejný princip využívá úplně jinak: servo uvnitř má vlastní elektroniku, která neměří průměrné napětí, ale <b>délku pulzu</b>. Standardní hobby servo očekává pulz zopakovaný zhruba každých 20 ms, jehož délka mezi 1 a 2 milisekundami odpovídá úhlu natočení od jednoho krajního bodu k druhému, kratší pulz (blíž 1 ms) = jeden krajní úhel, delší pulz (blíž 2 ms) = druhý krajní úhel. Elektronika serva porovná délku pulzu se svou aktuální polohou a motorkem se dotáčí, dokud se neshodují.</p>
+    </div>
+
+    <div class="learn-aside">
+      <b>Proto se blokům pro servo nastavuje "úhel", ne "výkon":</b> program na pozadí přepočítá požadovaný úhel na správnou délku pulzu, opakující se každých 20 ms, přesně podle toho, jak to servo uvnitř očekává.
+    </div>
+
+    <div class="learn-board-tie">
+      <b>Na desce Shieldio RED:</b> piny D5 a D6 řídí PWM jasem červené a zelené LED, pin D9 posílá PWM pulzy servu SG90, které v návodu na závoru otáčí ramenem podle naměřené vzdálenosti.
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../dioda-a-led/index.html">← Dioda a LED</a>
+      <a href="../ultrazvuk/index.html">Ultrazvuk →</a>
+      <a href="../../baseline/red/zavora/index.html">Návod na automatickou závoru →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../../index.html#reseni">Řešení</a>
+      <a href="../../../instructions/index.html">Návody</a>
+      <a href="../../../company/about.html">O nás</a>
+      <a href="../../../faq.html">FAQ</a>
+      <a href="../../../aktuality/index.html">Aktuality</a>
+      <a href="../../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/animations.js"></script>
+<script src="../../../assets/js/navbar.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+<script src="../../../assets/js/search.js"></script>
+<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/level-toggle.js"></script>
+
+</body>
+</html>

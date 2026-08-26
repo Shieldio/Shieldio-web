@@ -1371,6 +1371,27 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
   border-radius:0 var(--radius) var(--radius) 0; font-size:14.5px; line-height:1.6; color:var(--ink-soft);
 }
 .learn-aside b{ color:var(--ink); }
+.learn-board-tie{
+  margin:28px 0; padding:18px 20px; border-left:3px solid var(--tier-red); background:var(--paper-2);
+  border-radius:0 var(--radius) var(--radius) 0; font-size:14.5px; line-height:1.6; color:var(--ink-soft);
+}
+.learn-board-tie b{ color:var(--ink); }
+.level-advanced{ display:none; }
+:root[data-learn-level="advanced"] .level-advanced{ display:block; }
+:root[data-learn-level="advanced"] .level-simple-only{ display:none; }
+.learn-table{ width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
+.learn-table th, .learn-table td{ text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); }
+.learn-table th{ font-family:'JetBrains Mono'; font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); font-weight:500; }
+.learn-formula{
+  font-family:'JetBrains Mono'; background:var(--paper-2); padding:16px 20px; border-radius:12px; margin:18px 0;
+}
+.learn-crosslinks{ display:flex; flex-wrap:wrap; gap:12px; margin-top:40px; }
+.learn-crosslinks a{
+  font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft);
+  padding:8px 16px; border-radius:var(--radius-pill); border:1px solid var(--line);
+  text-decoration:none; transition:color .15s var(--ease), border-color .15s var(--ease);
+}
+.learn-crosslinks a:hover{ color:var(--ink); border-color:var(--ink-soft); }
 .resistor-calc{
   margin:32px 0; padding:28px; background:var(--paper-2); border-radius:var(--radius);
   border:1px solid var(--line);

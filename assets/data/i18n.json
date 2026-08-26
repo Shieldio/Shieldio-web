@@ -1274,5 +1274,57 @@
   "nav.code_editor": {
     "cs": "Začít programovat",
     "en": "Start coding"
+  },
+  "home.learnmore.eyebrow": {
+    "cs": "Pro zvídavé",
+    "en": "For the curious"
+  },
+  "home.learnmore.h2": {
+    "cs": "Chceš vědět víc? Nahlédni pod pokličku.",
+    "en": "Want to know more? Look under the hood."
+  },
+  "home.learnmore.p": {
+    "cs": "Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, s interaktivní kalkulačkou a pokročilým režimem pro ty, kdo chtějí víc.",
+    "en": "A clear explanation of why the electronics on the board work exactly the way they do, with an interactive calculator and an advanced mode for anyone who wants more."
+  },
+  "home.learnmore.card1_h3": {
+    "cs": "Ohmův zákon a kalkulačka",
+    "en": "Ohm's law and the calculator"
+  },
+  "home.learnmore.card1_p": {
+    "cs": "Proč zrovna 220 Ω u LED, interaktivní kalkulačka to spočítá za tebe.",
+    "en": "Why 220 Ω for the LED specifically, an interactive calculator works it out for you."
+  },
+  "home.learnmore.card2_h3": {
+    "cs": "Co dělá kondenzátor",
+    "en": "What a capacitor does"
+  },
+  "home.learnmore.card2_p": {
+    "cs": "Proč elektrolytický kondenzátor musí mít správnou polaritu a jak tlumí šum.",
+    "en": "Why an electrolytic capacitor needs the right polarity, and how it dampens noise."
+  },
+  "home.learnmore.card3_h3": {
+    "cs": "Co je PCB",
+    "en": "What a PCB is"
+  },
+  "home.learnmore.card3_p": {
+    "cs": "Z čeho je deska plošných spojů a proč jsou cestičky z mědi.",
+    "en": "What a circuit board is made of, and why the traces are copper."
+  },
+  "home.learnmore.card4_h3": {
+    "cs": "Všech 7 témat",
+    "en": "All 7 topics"
+  },
+  "home.learnmore.card4_p": {
+    "cs": "Tlačítka a debounce, dioda a LED, PWM, ultrazvuk a další.",
+    "en": "Buttons and debounce, diodes and LEDs, PWM, ultrasonic, and more."
+  },
+  "home.learnmore.hint": {
+    "cs": "Číst",
+    "en": "Read"
+  },
+  "home.learnmore.hint_all": {
+    "cs": "Zobrazit vše",
+    "en": "View all"
   }
 }

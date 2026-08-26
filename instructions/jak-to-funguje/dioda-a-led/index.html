@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jak funguje dioda a LED, PN přechod vysvětlený | Shieldio</title>
+<meta name="description" content="Srozumitelné vysvětlení PN přechodu, propustného a závěrného směru diody, a proč LED svítí právě tou barvou, kterou svítí. Na příkladu desky Shieldio RED.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/dioda-a-led/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/dioda-a-led/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Jak funguje dioda a LED, PN přechod vysvětlený | Shieldio">
+<meta property="og:description" content="Srozumitelné vysvětlení PN přechodu, propustného a závěrného směru diody, a proč LED svítí právě tou barvou, kterou svítí. Na příkladu desky Shieldio RED.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jak funguje dioda a LED, PN přechod vysvětlený | Shieldio">
+<meta name="twitter:description" content="Srozumitelné vysvětlení PN přechodu, propustného a závěrného směru diody, a proč LED svítí právě tou barvou, kterou svítí. Na příkladu desky Shieldio RED.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Jak funguje dioda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dioda má uvnitř přechod mezi dvěma odlišně dotovanými vrstvami polovodiče (P a N), který propouští proud jen ve správném (propustném) směru a blokuje ho v obráceném (závěrném) směru."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak funguje LED a proč svítí jinou barvou než obyčejná dioda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LED je speciální dioda, která při průchodu proudu ve správném směru vyzařuje světlo, jehož barva závisí na materiálu polovodiče a velikosti jeho zakázaného pásu, ne na barvě vnějšího pouzdra."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"},
+    {"@type": "ListItem", "position": 4, "name": "Dioda a LED", "item": "https://shieldio.cz/instructions/jak-to-funguje/dioda-a-led/"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../index.html">Domů</a>
+        <a href="../../../products/index.html">Produkty</a>
+        <a href="../../../instructions/index.html">Návody</a>
+        <a href="../../../company/about.html">O nás</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Jak to funguje · 03 · Polovodiče</span>
+      <h1>Jak funguje dioda a LED.</h1>
+      <p class="lead" style="max-width:640px;">Proč polarita u těchhle dvou součástek záleží, a co se doopravdy děje uvnitř polovodiče.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+    <div class="learn-body">
+      <p>Dioda je nejjednodušší polovodičová součástka. Uvnitř má dvě odlišně upravené (dotované) vrstvy křemíku, jednu s přebytkem elektronů (typ N), druhou s jejich nedostatkem, takzvanými děrami (typ P). Na rozhraní obou vrstev vznikne tenká oblast bez volných nosičů náboje, které se říká přechod PN.</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma PN přechodu diody v propustném a závěrném směru">
+        <rect x="20" y="20" width="200" height="70" fill="var(--tier-yellow)" opacity="0.35" rx="4"/>
+        <rect x="220" y="20" width="200" height="70" fill="var(--accent)" opacity="0.3" rx="4"/>
+        <text x="120" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="var(--ink)">P</text>
+        <text x="320" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="var(--ink)">N</text>
+        <line x1="220" y1="20" x2="220" y2="90" stroke="var(--ink-soft)" stroke-width="1.5"/>
+        <path d="M30 40 L200 40" stroke="var(--tier-green)" stroke-width="3" marker-end="url(#arrowGreen)"/>
+        <text x="30" y="14" font-family="JetBrains Mono" font-size="11" fill="var(--tier-green)">propustný směr → proud protéká</text>
+        <path d="M470 130 L300 130" stroke="var(--tier-red)" stroke-width="3" marker-end="url(#arrowRed)"/>
+        <line x1="290" y1="120" x2="310" y2="140" stroke="var(--tier-red)" stroke-width="2.5"/>
+        <line x1="310" y1="120" x2="290" y2="140" stroke="var(--tier-red)" stroke-width="2.5"/>
+        <text x="480" y="105" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="var(--tier-red)">závěrný směr, proud blokován</text>
+        <defs>
+          <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--tier-green)"/>
+          </marker>
+          <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--tier-red)"/>
+          </marker>
+        </defs>
+      </svg>
+      <p class="learn-diagram-caption">Zjednodušené schéma: ve správném směru přechod propustí proud, v obráceném ho blokuje.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>Přiložíš-li napětí ve <b>správném (propustném) směru</b>, elektrony a díry se k přechodu tlačí proti sobě, přechod se zúží a od určitého prahového napětí (u křemíkových diod kolem 0,6 V, u LED podle barvy 1,8 až 3,3 V) jím proud volně protéká. V <b>obráceném (závěrném) směru</b> se nosiče náboje naopak od přechodu vzdalují, oblast bez volných nosičů se rozšíří a proud přechodem prakticky neteče, dokud napětí nepřekročí mez, kterou dioda vydrží.</p>
+      <p>Přesně proto má dioda 1N5817 na desce jasně danou orientaci (proužek ke straně K, katoda), chrání zbytek desky tak, že ve špatně zapojeném směru (třeba obráceně vložený napájecí konektor) proud jednoduše nepustí dál.</p>
+      <p><b>LED</b> (light-emitting diode) je speciální dioda ze specifických polovodičových materiálů. Když jí ve správném směru protéká proud, elektrony na přechodu "padají" na nižší energetickou hladinu a přebytečnou energii vyzáří jako foton, světlo. Barva světla je daná materiálem polovodiče (a tedy velikostí toho energetického skoku), ne barvou vnějšího pouzdra LED.</p>
+    </div>
+
+    <div class="learn-board-tie">
+      <b>Na desce Shieldio RED:</b> D3 je usměrňovací dioda 1N5817, chrání desku před obráceně zapojeným napájením. D1 (červená) a D2 (zelená) jsou LED, každá se svým proudovým omezovacím rezistorem, R1 a R2, viz <a href="../ohmuv-zakon/index.html">Ohmův zákon</a>.
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../tlacitka-a-debounce/index.html">← Tlačítka a debounce</a>
+      <a href="../pwm/index.html">PWM →</a>
+      <a href="../../baseline/red/sestaveni/index.html">Návod na sestavení desky RED →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../../index.html#reseni">Řešení</a>
+      <a href="../../../instructions/index.html">Návody</a>
+      <a href="../../../company/about.html">O nás</a>
+      <a href="../../../faq.html">FAQ</a>
+      <a href="../../../aktuality/index.html">Aktuality</a>
+      <a href="../../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/animations.js"></script>
+<script src="../../../assets/js/navbar.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+<script src="../../../assets/js/search.js"></script>
+<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/level-toggle.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ohmův zákon a kalkulačka rezistoru pro LED | Shieldio</title>
+<meta name="description" content="Kalkulačka rezistoru pro LED podle Ohmova zákona R = U/I, zdarma a bez registrace. Vysvětlení, proč deska Shieldio RED používá 220 Ω, s pokročilým režimem: sériové/paralelní řazení, výkon a barevný kód.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/ohmuv-zakon/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/ohmuv-zakon/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Ohmův zákon a kalkulačka rezistoru pro LED | Shieldio">
+<meta property="og:description" content="Kalkulačka rezistoru pro LED podle Ohmova zákona R = U/I, zdarma a bez registrace. Vysvětlení, proč deska Shieldio RED používá 220 Ω, s pokročilým režimem: sériové/paralelní řazení, výkon a barevný kód.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ohmův zákon a kalkulačka rezistoru pro LED | Shieldio">
+<meta name="twitter:description" content="Kalkulačka rezistoru pro LED podle Ohmova zákona R = U/I, zdarma a bez registrace. Vysvětlení, proč deska Shieldio RED používá 220 Ω, s pokročilým režimem: sériové/paralelní řazení, výkon a barevný kód.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Proč se u LED na desce Shieldio používá zrovna rezistor 220 Ω?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rezistor v sérii s LED omezuje proud na bezpečnou hodnotu podle Ohmova zákona R = U ⁄ I. Při napájení 5 V, úbytku na červené LED kolem 2 V a požadovaném proudu 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je 220 Ω. Bez rezistoru by LED protékalo mnohem víc proudu, než snese, a hned by se spálila."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak se vypočítá hodnota rezistoru pro LED?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Podle vzorce R = (napájecí napětí − úbytek napětí na LED) ⁄ požadovaný proud. Výsledek se zaokrouhlí na nejbližší běžně vyráběnou hodnotu z řady E12 (například 220 Ω, 330 Ω, 470 Ω). Interaktivní kalkulačka na této stránce spočítá hodnotu okamžitě po zadání napájení, úbytku napětí na LED a požadovaného proudu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co je řada E12 a proč rezistory nemají libovolnou hodnotu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Řada E12 je sada 12 standardních hodnot na dekádu (10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82, a jejich násobky), ze kterých se běžně vyrábí rezistory s tolerancí 10 %. Díky logaritmickému rozestupu pokryjí celý rozsah hodnot s rozumným počtem součástek na skladě, proto se počítaná hodnota vždy zaokrouhlí na nejbližší z nich."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"},
+    {"@type": "ListItem", "position": 4, "name": "Ohmův zákon", "item": "https://shieldio.cz/instructions/jak-to-funguje/ohmuv-zakon/"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../index.html">Domů</a>
+        <a href="../../../products/index.html">Produkty</a>
+        <a href="../../../instructions/index.html">Návody</a>
+        <a href="../../../company/about.html">O nás</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Jak to funguje · 01 · Rezistory</span>
+      <h1>Ohmův zákon a proč zrovna 220 Ω.</h1>
+      <p class="lead" style="max-width:640px;">Kalkulačka pro výpočet rezistoru k LED podle Ohmova zákona, s vysvětlením, odkud vzorec pochází a co dělá rezistor uvnitř.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+    <div class="learn-body">
+      <p>Ohmův zákon popisuje vztah mezi napětím, proudem a odporem v obvodu: <b>U = R × I</b>, napětí (V) se rovná odporu (Ω) krát proudu (A). Přeuspořádaný na výpočet odporu vypadá takto: <b>R = U ⁄ I</b>.</p>
+      <p>LED dioda potřebuje na svých vývodech určitý úbytek napětí, aby svítila, u červené LED je to zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA, než se poškodí. Deska RED má napájení 5 V. Kdyby se LED připojila přímo bez rezistoru, na diodě by se snažilo objevit celých 5 V, LED by se pokusila propustit mnohem víc proudu, než snese, a za zlomek vteřiny by shořela.</p>
+      <p>Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
+    </div>
+
+    <div class="resistor-calc">
+      <div class="resistor-calc-grid">
+        <div class="resistor-calc-field">
+          <label for="calcVs">Napájecí napětí (V)</label>
+          <input type="number" id="calcVs" data-calc="vs" value="5" step="0.1" min="0">
+        </div>
+        <div class="resistor-calc-field">
+          <label for="calcVf">Úbytek na LED (V)</label>
+          <input type="number" id="calcVf" data-calc="vf" value="2" step="0.1" min="0">
+        </div>
+        <div class="resistor-calc-field">
+          <label for="calcI">Požadovaný proud (mA)</label>
+          <input type="number" id="calcI" data-calc="i" value="15" step="1" min="1">
+        </div>
+      </div>
+      <div class="resistor-calc-result">
+        <span class="resistor-calc-result-label">Potřebný odpor</span>
+        <span class="resistor-calc-result-value" data-calc="r">220 Ω</span>
+      </div>
+      <p class="resistor-calc-note" data-calc="note"></p>
+    </div>
+
+    <div class="learn-body">
+      <p>Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.</p>
+    </div>
+
+    <div class="learn-aside">
+      <b>Co dělá rezistor uvnitř:</b> je to materiál, který proudu klade odpor, čím vyšší odpor, tím míň proudu při daném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají mu energii jako teplo, přesně to teplo odpovídá tomu "přebytečnému" napětí, které rezistor na sebe vzal místo LED.
+    </div>
+
+    <div class="learn-board-tie">
+      <b>Na desce Shieldio RED:</b> tenhle přesný výpočet stojí za R1 a R2 (220 Ω, proudové omezovače pro červenou a zelenou LED). R3 a R4 (10 kΩ) fungují jinak, jako pull-up rezistory pro tlačítka, víc v kapitole o <a href="../tlacitka-a-debounce/index.html">debounce</a>. R5 (330 Ω) omezuje proud bzučákem stejným principem jako u LED, jen s jinými vstupními hodnotami.
+    </div>
+
+    <div data-level-toggle style="display:flex; align-items:center; gap:16px; margin:40px 0 8px; flex-wrap:wrap;">
+      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <div class="guide-mode-toggle">
+        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
+      </div>
+    </div>
+
+    <div class="level-advanced learn-body">
+      <p><b>Sériové a paralelní řazení:</b> celkový odpor rezistorů v sérii je jejich součet, R = R₁ + R₂ + … V paralelním zapojení se sčítají převrácené hodnoty, 1 ⁄ R = 1 ⁄ R₁ + 1 ⁄ R₂ + …, výsledný odpor je vždy menší než nejmenší z nich.</p>
+      <p><b>Výkon a zahřívání:</b> rezistor přemění na teplo výkon P = U × I = I² × R = U² ⁄ R. Rezistor 220 Ω při 15 mA disipuje jen asi P = (0,015)² × 220 ≈ 0,05 W, hluboko pod běžnou dovolenou zátěží malých rezistorů (obvykle 0,25 W), proto se u LED nijak nezahřívá.</p>
+      <table class="learn-table">
+        <tr><th>Barevné proužky</th><th>Význam</th></tr>
+        <tr><td>1. a 2. proužek</td><td>první dvě číslice hodnoty</td></tr>
+        <tr><td>3. proužek</td><td>násobitel (počet nul)</td></tr>
+        <tr><td>4. proužek</td><td>tolerance (zlatá = 5 %, stříbrná = 10 %)</td></tr>
+      </table>
+      <p>Rezistor 220 Ω má proužky červená-červená-hnědá (2, 2, ×10), 10 kΩ má hnědá-černá-oranžová (1, 0, ×1000).</p>
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../tlacitka-a-debounce/index.html">Tlačítka, pull-up a debounce →</a>
+      <a href="../kondenzatory/index.html">Kondenzátory →</a>
+      <a href="../../baseline/red/sestaveni/index.html">Návod na sestavení desky RED →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../../index.html#reseni">Řešení</a>
+      <a href="../../../instructions/index.html">Návody</a>
+      <a href="../../../company/about.html">O nás</a>
+      <a href="../../../faq.html">FAQ</a>
+      <a href="../../../aktuality/index.html">Aktuality</a>
+      <a href="../../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/animations.js"></script>
+<script src="../../../assets/js/navbar.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+<script src="../../../assets/js/search.js"></script>
+<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/level-toggle.js"></script>
+<script src="../../../assets/js/resistor-calculator.js"></script>
+
+</body>
+</html>

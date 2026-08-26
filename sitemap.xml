@@ -19,6 +19,13 @@
   <url><loc>https://shieldio.cz/products/baseline.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/instructions/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shieldio.cz/instructions/jak-to-funguje/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/ohmuv-zakon/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/tlacitka-a-debounce/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/dioda-a-led/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/pwm/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/ultrazvuk/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/kondenzatory/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shieldio.cz/instructions/jak-to-funguje/pcb/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/blokovy-editor.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

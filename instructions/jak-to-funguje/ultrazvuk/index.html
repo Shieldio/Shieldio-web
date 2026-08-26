@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jak funguje ultrazvukový senzor HC-SR04 | Shieldio</title>
+<meta name="description" content="Srozumitelné vysvětlení, jak senzor HC-SR04 měří vzdálenost pomocí ultrazvuku a jak se z naměřeného času počítá vzdálenost. Na příkladu desky Shieldio RED.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/ultrazvuk/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/ultrazvuk/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Jak funguje ultrazvukový senzor HC-SR04 | Shieldio">
+<meta property="og:description" content="Srozumitelné vysvětlení, jak senzor HC-SR04 měří vzdálenost pomocí ultrazvuku a jak se z naměřeného času počítá vzdálenost. Na příkladu desky Shieldio RED.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jak funguje ultrazvukový senzor HC-SR04 | Shieldio">
+<meta name="twitter:description" content="Srozumitelné vysvětlení, jak senzor HC-SR04 měří vzdálenost pomocí ultrazvuku a jak se z naměřeného času počítá vzdálenost. Na příkladu desky Shieldio RED.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Jak ultrazvukový senzor HC-SR04 měří vzdálenost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Senzor vyšle krátký ultrazvukový pulz (kolem 40 kHz) a změří čas, za jak dlouho se odražený zvuk vrátí zpátky od nejbližší překážky. Vzdálenost se spočítá jako čas krát rychlost zvuku (přibližně 343 m/s), vydělený dvěma, protože zvuk urazí dráhu tam i zpátky."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"},
+    {"@type": "ListItem", "position": 4, "name": "Ultrazvuk", "item": "https://shieldio.cz/instructions/jak-to-funguje/ultrazvuk/"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../index.html">Domů</a>
+        <a href="../../../products/index.html">Produkty</a>
+        <a href="../../../instructions/index.html">Návody</a>
+        <a href="../../../company/about.html">O nás</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Jak to funguje · 05 · Senzory</span>
+      <h1>Ultrazvuk a měření vzdálenosti.</h1>
+      <p class="lead" style="max-width:640px;">Stejný princip, kterým se orientují netopýři nebo lodní sonary, jen v malém senzoru na desce.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+    <div class="learn-body">
+      <p>Senzor HC-SR04 má dva "reproduktory": jeden vysílá krátký pulz zvuku o frekvenci kolem 40 kHz, hodně nad hranicí lidského sluchu (odtud "ultra" zvuk), druhý poslouchá, kdy se stejný zvuk vrátí zpátky odražený od nejbližší překážky.</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma vysílání a odrazu ultrazvukového signálu od překážky">
+        <rect x="20" y="75" width="50" height="40" rx="4" fill="var(--tier-red)" opacity="0.85"/>
+        <text x="45" y="130" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">HC-SR04</text>
+        <rect x="420" y="65" width="50" height="60" rx="4" fill="var(--ink-soft)" opacity="0.6"/>
+        <text x="445" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">překážka</text>
+        <g stroke="var(--accent)" stroke-width="2" fill="none" opacity="0.9">
+          <path d="M100 60 A 55 55 0 0 1 100 130"/>
+          <path d="M130 45 A 90 90 0 0 1 130 145"/>
+          <path d="M160 30 A 125 125 0 0 1 160 160"/>
+        </g>
+        <text x="130" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--accent)">vyslaný pulz →</text>
+        <g stroke="var(--tier-green)" stroke-width="2" fill="none" opacity="0.9">
+          <path d="M400 60 A 55 55 0 0 0 400 130"/>
+          <path d="M370 45 A 90 90 0 0 0 370 145"/>
+          <path d="M340 30 A 125 125 0 0 0 340 160"/>
+        </g>
+        <text x="370" y="180" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--tier-green)">← odražená ozvěna</text>
+      </svg>
+      <p class="learn-diagram-caption">Vzdálenost = (čas mezi vysláním a příjmem × rychlost zvuku) ⁄ 2.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny. Zvuk se vzduchem šíří známou rychlostí, přibližně 343 metrů za sekundu při pokojové teplotě. Když se ta doba vynásobí rychlostí zvuku, vyjde celková dráha, kterou zvuk urazil tam a zpátky, proto se výsledek ještě dělí dvěma, aby zbyla jen vzdálenost k překážce:</p>
+      <p class="learn-formula">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
+      <p>Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
+    </div>
+
+    <div class="learn-board-tie">
+      <b>Na desce Shieldio RED:</b> senzor HC-SR04 se zasouvá do patic J1/J7 (Socket A/B). Jeho naměřená vzdálenost rozhoduje, kdy se v návodu na závoru otevře servo, nebo kdy parkovací asistent spustí varování.
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../pwm/index.html">← PWM</a>
+      <a href="../kondenzatory/index.html">Kondenzátory →</a>
+      <a href="../../baseline/red/parkovaci-asistent/index.html">Návod na parkovací asistent →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../../index.html#reseni">Řešení</a>
+      <a href="../../../instructions/index.html">Návody</a>
+      <a href="../../../company/about.html">O nás</a>
+      <a href="../../../faq.html">FAQ</a>
+      <a href="../../../aktuality/index.html">Aktuality</a>
+      <a href="../../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/animations.js"></script>
+<script src="../../../assets/js/navbar.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+<script src="../../../assets/js/search.js"></script>
+<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/level-toggle.js"></script>
+
+</body>
+</html>

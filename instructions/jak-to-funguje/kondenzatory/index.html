@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jak funguje kondenzátor, keramický vs. elektrolytický | Shieldio</title>
+<meta name="description" content="Co dělá kondenzátor na desce, proč elektrolytický kondenzátor musí mít správnou polaritu a jak kondenzátor tlumí šum a zákmity. S pokročilým režimem: RC konstanta a impedance.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/kondenzatory/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/kondenzatory/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Jak funguje kondenzátor, keramický vs. elektrolytický | Shieldio">
+<meta property="og:description" content="Co dělá kondenzátor na desce, proč elektrolytický kondenzátor musí mít správnou polaritu a jak kondenzátor tlumí šum a zákmity. S pokročilým režimem: RC konstanta a impedance.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jak funguje kondenzátor, keramický vs. elektrolytický | Shieldio">
+<meta name="twitter:description" content="Co dělá kondenzátor na desce, proč elektrolytický kondenzátor musí mít správnou polaritu a jak kondenzátor tlumí šum a zákmity. S pokročilým režimem: RC konstanta a impedance.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "K čemu je na desce kondenzátor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kondenzátor krátkodobě uchovává elektrický náboj a funguje jako malá dobíjecí baterka, která vyrovnává krátké výkyvy napájení, třeba když servo nebo bzučák najednou odeberou víc proudu. Tomu se říká vyhlazování (decoupling) napájení."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Proč musí být elektrolytický kondenzátor otočený správně, na rozdíl od keramického?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elektrolytický kondenzátor má uvnitř vrstvu oxidu, která vznikla jen na jedné elektrodě a snese napětí pouze v jednom směru, obrácené napětí ji může poškodit. Keramický kondenzátor má symetrickou konstrukci bez téhle vrstvy, proto nemá polaritu a dá se pájet libovolně otočený."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak kondenzátor tlumí šum a zákmity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kondenzátor propouští rychlé změny napětí (šum) snadněji než pomalé, funguje proto jako filtr, který vyhlazuje krátké špičky. Malý kondenzátor paralelně k tlačítku dokáže elektricky vyhladit i mechanické zákmity (bounce), ještě než signál dorazí na pin mikrokontroléru."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"},
+    {"@type": "ListItem", "position": 4, "name": "Kondenzátory", "item": "https://shieldio.cz/instructions/jak-to-funguje/kondenzatory/"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../index.html">Domů</a>
+        <a href="../../../products/index.html">Produkty</a>
+        <a href="../../../instructions/index.html">Návody</a>
+        <a href="../../../company/about.html">O nás</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Jak to funguje · 06 · Kondenzátory</span>
+      <h1>Co dělá kondenzátor a proč na něm někdy záleží polarita.</h1>
+      <p class="lead" style="max-width:640px;">Malá dobíjecí baterka, filtr proti šumu a součástka, která na desce RED musí přijít na řadu jako poslední.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+    <div class="section-head" style="max-width:680px;">
+      <h2>K čemu je kondenzátor vůbec dobrý.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Kondenzátor umí krátkodobě uchovat elektrický náboj, funguje jako malá dobíjecí baterka. Kdykoliv se ho zeptáš (kdykoliv napětí v obvodu na chvíli klesne), ochotně část svého náboje pustí ven a napětí podrží. Přesně to se hodí, když servo nebo bzučák najednou "trhnou" víc proudu, než zdroj stíhá dodat: bez kondenzátoru by na chvíli kleslo napájecí napětí i pro zbytek desky, s kondenzátorem poblíž tenhle výkyv z velké části zmizí. Tomu se říká vyhlazování napájení (decoupling).</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vnitřní struktura keramického a elektrolytického kondenzátoru">
+        <text x="120" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="var(--ink)">keramický (104)</text>
+        <rect x="60" y="40" width="14" height="120" fill="var(--accent)"/>
+        <rect x="166" y="40" width="14" height="120" fill="var(--accent)"/>
+        <rect x="74" y="40" width="92" height="120" fill="var(--ink-soft)" opacity="0.25"/>
+        <text x="120" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">keramický</text>
+        <text x="120" y="120" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">izolant</text>
+        <text x="45" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink)">+</text>
+        <text x="195" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink)">−</text>
+
+        <text x="380" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="var(--ink)">elektrolytický (100 µF)</text>
+        <rect x="320" y="40" width="14" height="120" fill="var(--tier-red)"/>
+        <rect x="426" y="40" width="14" height="120" fill="var(--ink-soft)"/>
+        <rect x="334" y="40" width="4" height="120" fill="var(--tier-yellow)"/>
+        <rect x="338" y="40" width="88" height="120" fill="var(--ink-soft)" opacity="0.2"/>
+        <text x="382" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">elektrolyt</text>
+        <text x="336" y="180" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="var(--tier-yellow)">vrstva oxidu</text>
+        <text x="305" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink)">+</text>
+        <text x="455" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink)">−</text>
+      </svg>
+      <p class="learn-diagram-caption">Keramický: symetrická konstrukce, bez polarity. Elektrolytický: vrstva oxidu jen na jedné elektrodě, polarita povinná.</p>
+    </div>
+
+    <div class="learn-body">
+      <p><b>Keramické kondenzátory</b> (žluté, označené 104) mají uvnitř dvě vodivé vrstvy oddělené tenkou keramickou izolací, jejich konstrukce je symetrická, proto nemají polaritu a dají se pájet libovolně otočené.</p>
+      <p><b>Elektrolytický kondenzátor</b> je uvnitř jiný: má dvě fóliové elektrody, na jedné z nich během výroby elektrochemicky vznikne tenoučká vrstva oxidu, ta funguje jako izolant. Vrstva oxidu ale existuje jen na téhle jedné elektrodě a snese napětí pouze v jednom směru. Obrácené napětí ji může poškodit a plyn, který se uvnitř pouzdra začne uvolňovat, zvyšuje tlak, v horším případě až za cenu poškození součástky. Proto má elektrolytický kondenzátor na rozdíl od keramických jasně vyznačenou polaritu (pruh u záporné nožičky) a v návodu na sestavení se pájí jako úplně poslední součástka, aby ho zbytečně nezahřívalo dlouhé držení v ruce.</p>
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>Jak kondenzátor tlumí šum a zákmity.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, čím rychlejší je změna napětí, tím snáz ji "propustí" skrz sebe, a čím pomalejší, tím víc ji vyhladí. Prakticky to znamená: rychlé výkyvy a šum se přes kondenzátor částečně vybijí a zploští, zatímco pomalé, užitečné napětí zůstává skoro nedotčené. Přesně tenhle efekt se využívá dvěma způsoby, které se na první pohled zdají nesouvisející, ale je za nimi stejná fyzika:</p>
+      <p><b>Vyhlazování napájení:</b> malý keramický kondenzátor u napájecího pinu čipu odfiltruje rychlé špičky a "cvrlikání" na napájecí větvi, aby k citlivé elektronice dorazilo klidnější napětí.</p>
+      <p><b>Hardwarový debounce:</b> kondenzátor zapojený paralelně k tlačítku vyhladí i elektrické zákmity (bounce) z <a href="../tlacitka-a-debounce/index.html">mechanického odskakování kontaktů</a>, takže na pin dorazí jeden čistý přechod místo rychlé série "cvak-cvak-cvak". Deska Shieldio RED řeší debounce softwarově, žádný debounce kondenzátor na ní není, ale princip je stejný jako u vyhlazování napájení, jen v menším měřítku.</p>
+    </div>
+
+    <div class="learn-board-tie">
+      <b>Na desce Shieldio RED:</b> tři keramické kondenzátory C1, C2 a C4 (104, tedy 100 nF) sedí poblíž napájecích pinů a vyhlazují drobné výkyvy. Elektrolytický kondenzátor C3 (100 µF) je větší a pomalejší, drží napájení stabilní ve chvílích, kdy servo nebo bzučák najednou odeberou víc proudu.
+    </div>
+
+    <div data-level-toggle style="display:flex; align-items:center; gap:16px; margin:40px 0 8px; flex-wrap:wrap;">
+      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <div class="guide-mode-toggle">
+        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
+      </div>
+    </div>
+
+    <div class="level-advanced learn-body">
+      <p><b>RC časová konstanta:</b> rychlost, jakou se kondenzátor nabíjí nebo vybíjí přes rezistor, popisuje součin τ = R × C (tau, v sekundách, když R je v ohmech a C ve faradech). Po jedné časové konstantě je kondenzátor nabitý na zhruba 63 % konečné hodnoty, po pěti τ prakticky na 100 %. Debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ dá τ = 10 000 × 0,0000001 = 1 ms, dost rychle na to, aby stisk tlačítka nebyl znatelně opožděný, ale dost pomalu na vyhlazení zákmitů v řádu mikrosekund až jednotek milisekund.</p>
+      <p><b>Impedance a fázor:</b> pro střídavý signál se chování kondenzátoru popisuje jeho impedancí (odporem vůči střídavému proudu), X_C = 1 ⁄ (2πfC), kde f je frekvence signálu ve Hz. Se stoupající frekvencí impedance klesá, kondenzátor se pro rychlé signály chová skoro jako zkrat, pro pomalé skoro jako rozpojený obvod, proto propouští šum snáz než pomalé užitečné napětí. Ve fázorové (komplexní) analýze má kondenzátor impedanci Z_C = 1 ⁄ (jωC), kde ω = 2πf a j je imaginární jednotka, proud kondenzátorem předbíhá napětí na něm o 90°, na rozdíl od rezistoru, kde jsou proud a napětí vždy ve fázi.</p>
+      <table class="learn-table">
+        <tr><th>Signál</th><th>Impedance kondenzátoru</th><th>Chování</th></tr>
+        <tr><td>Pomalý / stejnosměrný</td><td>vysoká</td><td>skoro nepropustí, drží napětí</td></tr>
+        <tr><td>Rychlý šum</td><td>nízká</td><td>propustí a "vybije" špičku pryč</td></tr>
+      </table>
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../ultrazvuk/index.html">← Ultrazvuk</a>
+      <a href="../pcb/index.html">Co je PCB →</a>
+      <a href="../../baseline/red/sestaveni/index.html">Návod na sestavení desky RED →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../../index.html#reseni">Řešení</a>
+      <a href="../../../instructions/index.html">Návody</a>
+      <a href="../../../company/about.html">O nás</a>
+      <a href="../../../faq.html">FAQ</a>
+      <a href="../../../aktuality/index.html">Aktuality</a>
+      <a href="../../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/animations.js"></script>
+<script src="../../../assets/js/navbar.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+<script src="../../../assets/js/search.js"></script>
+<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/level-toggle.js"></script>
+
+</body>
+</html>

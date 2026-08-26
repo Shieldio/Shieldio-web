@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pull-up rezistor a debounce u tlačítka vysvětlené | Shieldio</title>
+<meta name="description" content="Proč tlačítko potřebuje pull-up rezistor a co je to zákmit (debounce). Srozumitelné vysvětlení s diagramem signálu, na příkladu desky Shieldio RED.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/tlacitka-a-debounce/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/tlacitka-a-debounce/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Pull-up rezistor a debounce u tlačítka vysvětlené | Shieldio">
+<meta property="og:description" content="Proč tlačítko potřebuje pull-up rezistor a co je to zákmit (debounce). Srozumitelné vysvětlení s diagramem signálu, na příkladu desky Shieldio RED.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pull-up rezistor a debounce u tlačítka vysvětlené | Shieldio">
+<meta name="twitter:description" content="Proč tlačítko potřebuje pull-up rezistor a co je to zákmit (debounce). Srozumitelné vysvětlení s diagramem signálu, na příkladu desky Shieldio RED.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Proč tlačítko potřebuje pull-up rezistor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bez pull-up rezistoru by pin mikrokontroléru při nesepnutém tlačítku elektricky plaval a náhodně ho ovlivňoval šum. Pull-up rezistor (typicky 10 kΩ) pin natrvalo přitáhne k jasné napěťové úrovni, dokud ho stisk tlačítka aktivně nestáhne k druhé úrovni."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co je to zákmit (debounce) u tlačítka?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zákmit je mechanický jev, kdy se kontakty tlačítka při stisku párkrát odrazí, než se ustálí. Program to bez ošetření může vyhodnotit jako víc stisků za sebou. Řeší se krátkým ignorováním dalších změn signálu, typicky 20 až 50 ms, po první zaznamenané změně."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"},
+    {"@type": "ListItem", "position": 4, "name": "Tlačítka a debounce", "item": "https://shieldio.cz/instructions/jak-to-funguje/tlacitka-a-debounce/"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../index.html">Domů</a>
+        <a href="../../../products/index.html">Produkty</a>
+        <a href="../../../instructions/index.html">Návody</a>
+        <a href="../../../company/about.html">O nás</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Jak to funguje · 02 · Tlačítka</span>
+      <h1>Pull-up rezistory, tlačítka a debounce.</h1>
+      <p class="lead" style="max-width:640px;">Proč tlačítko samo o sobě nestačí a co se za scénou řeší při každém stisku.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+    <div class="learn-body">
+      <p>Tlačítko samo o sobě jen spojuje nebo rozpojuje obvod, elektricky ale nedefinuje, jaká úroveň signálu je na pinu, když je zrovna nesepnuté. Bez dalšího zapojení by pin "plaval", náhodně by ho ovlivňoval okolní elektrický šum. Řešením je pull-up (nebo pull-down) rezistor, obvykle 10 kΩ, který pin natrvalo přitáhne k jasné úrovni (třeba 5 V), dokud ho stisk tlačítka aktivně nestáhne k druhé úrovni (0 V).</p>
+      <p>Druhý problém je mechanický: kontakty uvnitř tlačítka se při stisku párkrát nepatrně odrazí, než se ustálí. Elektricky se to projeví jako rychlá série "cvak-cvak-cvak" místo jednoho čistého přechodu, tomu se říká zákmit (anglicky bounce). Bez ošetření by program jeden lidský stisk mohl vyhodnotit jako pět nebo deset stisků za sebou.</p>
+    </div>
+
+    <div class="learn-diagram">
+      <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graf signálu tlačítka se zákmity a po ošetření debounce">
+        <text x="0" y="16" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">signál bez ošetření</text>
+        <polyline points="10,60 150,60 155,30 160,60 168,30 174,60 180,30 186,60 192,30 198,60 204,30 210,60 216,32 490,32"
+          fill="none" stroke="var(--tier-red)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <text x="0" y="108" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">signál po debounce</text>
+        <polyline points="10,150 210,150 210,122 490,122"
+          fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <line x1="210" y1="105" x2="210" y2="175" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="216" y="185" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">stisk tlačítka</text>
+      </svg>
+      <p class="learn-diagram-caption">Nahoře: skutečný elektrický signál se zákmity. Dole: stejný stisk po softwarovém ošetření debounce.</p>
+    </div>
+
+    <div class="learn-body">
+      <p>Debounce se běžně řeší v programu: po zaznamenané změně signálu se dalších pár milisekund (typicky 20 až 50 ms) žádná další změna nebere v potaz, zákmity tak zmizí a zůstane jeden čistý stisk. V blokovém programování to bloky pro tlačítko dělají automaticky na pozadí, nemusíš na to myslet, ale je užitečné vědět, proč tenhle krátký okamžik ignorování vlastně existuje.</p>
+      <p>Debounce jde ošetřit i hardwarově, malým kondenzátorem paralelně k tlačítku, který zákmity elektricky "vyhladí" ještě dřív, než signál dorazí na pin, víc v kapitole o <a href="../kondenzatory/index.html">kondenzátorech</a>.</p>
+    </div>
+
+    <div class="learn-board-tie">
+      <b>Na desce Shieldio RED:</b> R3 a R4 (10 kΩ) jsou přesně tyhle pull-up rezistory pro tlačítka SW1 a SW2. Debounce na desce řeší jen software, žádný debounce kondenzátor tam navíc není.
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../ohmuv-zakon/index.html">← Ohmův zákon</a>
+      <a href="../dioda-a-led/index.html">Dioda a LED →</a>
+      <a href="../../baseline/red/sestaveni/index.html">Návod na sestavení desky RED →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../../index.html#reseni">Řešení</a>
+      <a href="../../../instructions/index.html">Návody</a>
+      <a href="../../../company/about.html">O nás</a>
+      <a href="../../../faq.html">FAQ</a>
+      <a href="../../../aktuality/index.html">Aktuality</a>
+      <a href="../../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/animations.js"></script>
+<script src="../../../assets/js/navbar.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+<script src="../../../assets/js/search.js"></script>
+<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/level-toggle.js"></script>
+
+</body>
+</html>

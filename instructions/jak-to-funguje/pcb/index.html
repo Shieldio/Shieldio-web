@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Co je PCB (plošný spoj) a jak se vyrábí | Shieldio</title>
+<meta name="description" content="Co jsou cestičky, plošky a prokovy na desce plošných spojů, jak se PCB vyrábí leptáním mědi, a proč se používá zrovna měď. S pokročilým režimem: rezistivita a odpor cestičky.">
+<link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/pcb/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/instructions/jak-to-funguje/pcb/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Co je PCB (plošný spoj) a jak se vyrábí | Shieldio">
+<meta property="og:description" content="Co jsou cestičky, plošky a prokovy na desce plošných spojů, jak se PCB vyrábí leptáním mědi, a proč se používá zrovna měď. S pokročilým režimem: rezistivita a odpor cestičky.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Co je PCB (plošný spoj) a jak se vyrábí | Shieldio">
+<meta name="twitter:description" content="Co jsou cestičky, plošky a prokovy na desce plošných spojů, jak se PCB vyrábí leptáním mědi, a proč se používá zrovna měď. S pokročilým režimem: rezistivita a odpor cestičky.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Co je PCB (plošný spoj)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PCB (Printed Circuit Board, plošný spoj) je tuhá deska, obvykle ze skelných vláken napuštěných pryskyřicí (materiál FR4), na jejímž povrchu je tenká vrstva mědi. Z té mědi je vyleptaný vzor cestiček (traces), které elektricky propojují součástky, a plošek (pads), na které se pájí."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Jak se vyrábí plošný spoj?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zjednodušeně: na celoplošně poměděnou desku se nanese ochranná maska přesně v tvaru budoucích cestiček, zbytek mědi se chemicky vyleptá pryč, maska se odstraní, vyvrtají se otvory pro součástky, nanese se pájecí maska a nakonec potisk (silkscreen) s popisky a značkami."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Proč se na plošné spoje používá zrovna měď?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Měď má z běžně dostupných kovů jednu z nejnižších měrných rezistivit (asi 1,68×10⁻⁸ Ω·m), je tedy vynikající vodič, zároveň je dostatečně tvárná na leptání a levnější než stříbro nebo zlato, které vedou o něco lépe nebo hůř, ale jsou pro plošné použití nepraktické."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Domů", "item": "https://shieldio.cz/"},
+    {"@type": "ListItem", "position": 2, "name": "Návody", "item": "https://shieldio.cz/instructions/"},
+    {"@type": "ListItem", "position": 3, "name": "Jak to funguje", "item": "https://shieldio.cz/instructions/jak-to-funguje/"},
+    {"@type": "ListItem", "position": 4, "name": "Co je PCB", "item": "https://shieldio.cz/instructions/jak-to-funguje/pcb/"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../index.html"><span class="logo-mark"></span>Shieldio</a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../index.html">Domů</a>
+        <a href="../../../products/index.html">Produkty</a>
+        <a href="../../../instructions/index.html">Návody</a>
+        <a href="../../../company/about.html">O nás</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <div class="fade-up">
+      <span class="eyebrow">Jak to funguje · 07 · Deska samotná</span>
+      <h1>Co je PCB a proč jsou cestičky z mědi.</h1>
+      <p class="lead" style="max-width:640px;">Ještě než na desku připájíš první součástku, je sama o sobě výsledkem malého výrobního procesu. Co se v ní vlastně skrývá.</p>
+    </div>
+  </div>
+</div>
+
+<section class="learn-section" style="padding-top:0; border-top:none;">
+  <div class="wrap">
+    <div class="section-head" style="max-width:680px;">
+      <h2>Z čeho je plošný spoj.</h2>
+    </div>
+    <div class="learn-body">
+      <p><b>PCB</b> (Printed Circuit Board, plošný spoj) je tuhá deska z materiálu <b>FR4</b>, skelných vláken napuštěných a slisovaných s pryskyřicí, tenhle materiál je pevný, teplotně odolný a hlavně elektricky nevodivý. Na jednu nebo obě strany je nalisovaná tenká fólie mědi.</p>
+      <p>Z téhle vrstvy mědi je vyleptaný obrazec, který dělá celou desku užitečnou:</p>
+      <ul style="margin-top:14px; padding-left:20px; line-height:1.8;">
+        <li><b>Cestičky (traces):</b> tenké vodivé dráhy, které elektricky spojují jednu součástku s druhou, dělají práci, kterou by jinak dělaly dráty.</li>
+        <li><b>Plošky (pads):</b> větší kruhové nebo obdélníkové plochy, na které se připájí nožička součástky.</li>
+        <li><b>Prokovy (vias):</b> malé pokovené otvory, kterými cestička prochází z jedné strany desky na druhou.</li>
+        <li><b>Potisk (silkscreen):</b> bílý (nebo jiný) potisk na povrchu, popisky jako R1, D3, čísla pinů, přesně ty, podle kterých se orientuješ v návodu na pájení.</li>
+      </ul>
+    </div>
+
+    <div class="learn-board-tie">
+      <b>Na desce Shieldio RED:</b> každé označení, které v návodu na sestavení vidíš (R1, D3, J7, BZ1…), je přímo potisk na plošném spoji, přesně nad nebo vedle plošky, kam součástka patří.
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>Jak se plošný spoj vyrábí.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Zjednodušeně jde o odečítací (subtraktivní) proces: nejdřív je mědi na desce víc, než je potřeba, a přebytek se odstraní.</p>
+      <ol style="margin-top:14px; padding-left:20px; line-height:1.9;">
+        <li>Návrh cestiček se připraví v návrhovém programu, podle schématu zapojení.</li>
+        <li>Na celoplošně poměděnou desku se nanese světlocitlivá ochranná vrstva (fotorezist).</li>
+        <li>Přes masku s obrazcem cestiček se vrstva osvítí, osvícená (nebo neosvícená, podle typu resistu) část ztvrdne a zůstane chránit měď pod sebou.</li>
+        <li>Deska se ponoří do leptacího roztoku (například chlorid železitý), který rozpustí veškerou nechráněnou měď, zůstanou jen cestičky a plošky.</li>
+        <li>Ochranná vrstva se smyje, vyvrtají se otvory pro součástky a prokovy.</li>
+        <li>Nanese se pájecí maska (obvykle zelená, u Shieldio RED červená), tenká izolační vrstva, která nechává odkryté jen plošky pro pájení a chrání zbytek mědi před oxidací a zkraty.</li>
+        <li>Nakonec se vytiskne bílý potisk s popisky součástek a nápisy.</li>
+      </ol>
+    </div>
+
+    <div class="section-head" style="max-width:680px; margin-top:56px;">
+      <h2>Proč zrovna měď.</h2>
+    </div>
+    <div class="learn-body">
+      <p>Měď se pro cestičky používá proto, že vede elektrický proud výjimečně dobře, dá se snadno nanášet ve tenké fólii a leptat, a je výrazně levnější než kovy, které vedou o něco lépe. Zlato se používá jen jako tenoučké pokovení plošek (aby se chránily proti oxidaci a spoj se lépe pájel), ne jako materiál cestiček, protože samo o sobě vede proud hůř než měď a je mnohonásobně dražší.</p>
+    </div>
+
+    <div data-level-toggle style="display:flex; align-items:center; gap:16px; margin:40px 0 8px; flex-wrap:wrap;">
+      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <div class="guide-mode-toggle">
+        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
+      </div>
+    </div>
+
+    <div class="level-advanced learn-body">
+      <p><b>Odpor vodiče:</b> elektrický odpor libovolného kusu materiálu se spočítá jako R = ρ × L ⁄ A, kde ρ (rho) je měrný elektrický odpor materiálu (rezistivita, v Ω·m), L je délka vodiče a A jeho průřez. Čím je materiál vodivější (nižší ρ) a čím je cestička kratší a širší (nižší L, vyšší A), tím menší je její odpor.</p>
+      <table class="learn-table">
+        <tr><th>Materiál</th><th>Rezistivita ρ (Ω·m, při 20 °C)</th><th>Poznámka</th></tr>
+        <tr><td>Stříbro</td><td>1,59 × 10⁻⁸</td><td>nejlepší vodič, ale drahé a měkké</td></tr>
+        <tr><td>Měď</td><td>1,68 × 10⁻⁸</td><td>standard pro cestičky plošných spojů</td></tr>
+        <tr><td>Zlato</td><td>2,44 × 10⁻⁸</td><td>vede hůř než měď, používá se jen jako pokovení plošek</td></tr>
+        <tr><td>Hliník</td><td>2,65 × 10⁻⁸</td><td>lehčí a levnější, ale hůř se pájí</td></tr>
+      </table>
+      <p>Proto se pro samotné cestičky vždy vyplatí měď, poměr vodivosti k ceně a snadné zpracovatelnosti nemá u běžně dostupných kovů konkurenci. Tenhle stejný vzorec je důvod, proč silnoproudé cestičky (třeba napájecí) bývají na plošném spoji vždy širší než signálové, širší cestička = větší průřez A = menší odpor = míň tepla při stejném proudu.</p>
+      <p><b>Proudová zatížitelnost:</b> cestička se nesmí přehřát, běžná tloušťka mědi na hobby deskách je 1 oz/ft² (asi 35 µm), a cestička o šířce 0,25 mm při ní bezpečně unese jednotky ampérů, přesně proto výkonové cestičky bývají vizuálně širší než tenké signálové vodiče vedle nich.</p>
+    </div>
+
+    <div class="learn-crosslinks">
+      <a href="../kondenzatory/index.html">← Kondenzátory</a>
+      <a href="../ohmuv-zakon/index.html">Ohmův zákon →</a>
+      <a href="../../baseline/red/sestaveni/index.html">Návod na sestavení desky RED →</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><span class="logo-mark"></span>Shieldio</div>
+    <nav class="footer-nav">
+      <a href="../../../index.html#reseni">Řešení</a>
+      <a href="../../../instructions/index.html">Návody</a>
+      <a href="../../../company/about.html">O nás</a>
+      <a href="../../../faq.html">FAQ</a>
+      <a href="../../../aktuality/index.html">Aktuality</a>
+      <a href="../../../company/privacy.html">Ochrana údajů</a>
+      <a href="../../../index.html#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+
+<script src="../../../assets/js/animations.js"></script>
+<script src="../../../assets/js/navbar.js"></script>
+<script src="../../../assets/js/theme.js"></script>
+<script src="../../../assets/js/search.js"></script>
+<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/level-toggle.js"></script>
+
+</body>
+</html>
