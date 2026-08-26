@@ -1326,5 +1326,9 @@
   "home.learnmore.hint_all": {
     "cs": "Zobrazit vše",
     "en": "View all"
+  },
+  "footer.teachers": {
+    "cs": "Pro učitele",
+    "en": "For teachers"
   }
 }
