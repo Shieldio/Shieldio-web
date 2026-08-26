@@ -46,6 +46,13 @@ window.SHIELDIO_GUIDE = {
       fact: "Běžný dosah je zhruba 2 cm až 4 m.",
       datasheet: "https://www.sparkfun.com/datasheets/Components/HC-SR04.pdf",
     },
+    oled: {
+      term: "OLED displej",
+      photo: null,
+      text: "Malý obrazovkový displej na desce, program na něj může vypisovat text, čísla nebo jednoduchou grafiku.",
+      fact: "Každý pixel OLED displeje svítí sám o sobě, takže displej nepotřebuje podsvícení.",
+      datasheet: null,
+    },
     arduino: {
       term: "Arduino",
       photo: "../../../../assets/images/RED_arduino_nano.jpeg",
@@ -114,6 +121,15 @@ window.SHIELDIO_GUIDE = {
       datasheet: "https://www.sparkfun.com/datasheets/Components/HC-SR04.pdf",
     },
     {
+      id: "oled",
+      name: "OLED displej",
+      photo: "../../../../assets/images/red-build/17-oled-displej.jpg",
+      what: "Malý obrazovkový displej na desce, program na něj může vypisovat text nebo hodnoty.",
+      how: "Připojuje se přes I2C sběrnici, nemá polaritu ani orientaci, konektor jde zasunout jen jedním způsobem.",
+      fact: "Standardní 0,96\" displej SSD1306, stejný typ používá i blokový editor.",
+      datasheet: null,
+    },
+    {
       id: "usb",
       name: "USB-C kabel",
       photo: null,
@@ -129,7 +145,7 @@ window.SHIELDIO_GUIDE = {
       id: "parts",
       title: "Připrav si součástky",
       type: "parts-check",
-      parts: ["shieldio-red", "arduino", "servo", "hcsr04", "usb"],
+      parts: ["shieldio-red", "arduino", "servo", "hcsr04", "oled", "usb"],
     },
     {
       id: "servo",
@@ -158,6 +174,21 @@ window.SHIELDIO_GUIDE = {
           "Senzor není zasunutý úplně. Zkontroluj, že sedí na doraz.",
           "Kabel je v jiném konektoru než ULTRAZVUK.",
           "Senzor je otočený. Vysílač a přijímač musí směřovat od desky ven.",
+        ],
+      },
+    },
+    {
+      id: "oled",
+      title: "Zapoj <span class=\"term\" data-term=\"oled\">displej</span>",
+      type: "wiring",
+      photo: null,
+      instructions: "OLED <span class=\"term\" data-term=\"oled\">displej</span> zapoj do konektoru označeného <b>OLED</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem, nedá se to splést. Co přesně se na něm zobrazí, záleží na programu, který si napíšeš.",
+      troubleshoot: {
+        title: "Nejčastější chyby",
+        items: [
+          "Displej se vůbec nerozsvítí. Zkontroluj, že je zasunutý na doraz v konektoru OLED.",
+          "Displej svítí, ale nic nezobrazuje. Zkontroluj v programu, že je blok pro displej správně použitý.",
+          "Displej je zasunutý v jiném konektoru. Zkontroluj popisek OLED na desce.",
         ],
       },
     },
@@ -232,6 +263,7 @@ window.SHIELDIO_GUIDE = {
     tryDifferent: [
       { text: "Zkus, aby se závora po pár sekundách sama zase zavřela." },
       { text: "Uprav v programu práh vzdálenosti, na jakou se závora otevírá." },
+      { text: "Zkus na displeji zobrazovat aktuální naměřenou vzdálenost." },
     ],
     moreProjects: [
       { title: "Parkovací asistent", href: "../parkovaci-asistent/index.html" },
