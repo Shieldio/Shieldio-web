@@ -414,6 +414,10 @@ section{ padding:140px 0; }
   color:var(--ink-soft); margin:40px 0 14px;
 }
 .model-group-label:first-child{ margin-top:0; }
+.model-subgroup-label{
+  font-size:15px; font-weight:600; letter-spacing:-0.01em;
+  color:var(--ink); margin:28px 0 14px;
+}
 .model-carousel{
   display:flex; gap:20px; overflow-x:auto; padding:6px 4px 22px; scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
@@ -836,7 +840,10 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 }
 .qr-placeholder-text{ font-size:13.5px; color:var(--ink-soft); }
 
-.project-picker-grid{ grid-template-columns:repeat(3,1fr); }
+/* self-sufficient: .board-picker (used on the RED project pickers) adds its own
+   gap/margin-top on top of this, but project-picker-grid must work standalone too —
+   it's reused bare on the homepage teaser and the "Jak to funguje" hub */
+.project-picker-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 @media (max-width:900px){ .project-picker-grid{ grid-template-columns:1fr; } }
 .project-pick-card{
   text-align:center; border:3px solid var(--tier-red);
@@ -844,6 +851,20 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
 }
 .project-pick-card h3{ text-transform:uppercase; letter-spacing:0.02em; }
 .project-pick-card:hover{ transform:translateY(-4px); box-shadow:0 0 0 3px var(--tier-red), var(--shadow-card-hover); }
+
+/* compact teaser variant — for cards linking out to secondary content (like the
+   homepage "Pro zvídavé" strip), where the full tier-picker weight (thick red
+   border, big heading, tall padding) reads as too heavy for a supporting section */
+.teaser-grid{ margin-top:28px; }
+.teaser-grid.section-head, .teaser-section .section-head{ margin-bottom:28px; }
+.teaser-section .section-head h2{ font-size:clamp(22px,2.6vw,30px); }
+.teaser-section .section-head p{ font-size:15px; margin-top:12px; }
+.teaser-grid .instruction-card{ padding:22px; }
+.teaser-grid .project-pick-card{ border-width:1px; border-color:var(--line); text-align:left; }
+.teaser-grid .project-pick-card:hover{ box-shadow:0 0 0 2px var(--tier-red), var(--shadow-card-hover); border-color:var(--tier-red); }
+.teaser-grid .project-pick-card h3{ text-transform:none; letter-spacing:-0.01em; font-size:15.5px; margin-bottom:6px; }
+.teaser-grid .project-pick-card p{ font-size:13.5px; color:var(--ink-soft); }
+.teaser-grid .pick-hint{ font-size:12px; margin-top:10px; display:inline-block; }
 
 /* ---------- FAQ ---------- */
 .faq-list{ max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }

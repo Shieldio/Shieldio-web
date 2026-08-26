@@ -1296,8 +1296,8 @@
     "en": "Why 220 Ω for the LED specifically, an interactive calculator works it out for you."
   },
   "home.learnmore.card2_h3": {
-    "cs": "Co dělá kondenzátor",
-    "en": "What a capacitor does"
+    "cs": "Jak funguje kondenzátor",
+    "en": "How a capacitor works"
   },
   "home.learnmore.card2_p": {
     "cs": "Proč elektrolytický kondenzátor musí mít správnou polaritu a jak tlumí šum.",
@@ -1398,5 +1398,37 @@
   "mblock.title": {
     "cs": "Jak otevřít a programovat v mBlocku | Shieldio",
     "en": "How to Open and Program in mBlock | Shieldio"
+  },
+  "home.calc.eyebrow": {
+    "cs": "Vyzkoušej si to",
+    "en": "Try it yourself"
+  },
+  "home.calc.h2": {
+    "cs": "Jak se počítá rezistor pro LED?",
+    "en": "How do you calculate a resistor for an LED?"
+  },
+  "home.calc.p": {
+    "cs": "Ohmův zákon naživo, zadej hodnoty a kalkulačka rovnou spočítá potřebný odpor.",
+    "en": "Ohm's law live, enter the values and the calculator works out the resistor you need."
+  },
+  "home.calc.label_vs": {
+    "cs": "Napájecí napětí (V)",
+    "en": "Supply voltage (V)"
+  },
+  "home.calc.label_vf": {
+    "cs": "Úbytek na LED (V)",
+    "en": "LED voltage drop (V)"
+  },
+  "home.calc.label_i": {
+    "cs": "Požadovaný proud (mA)",
+    "en": "Target current (mA)"
+  },
+  "home.calc.result_label": {
+    "cs": "Potřebný odpor",
+    "en": "Resistance needed"
+  },
+  "home.calc.cta": {
+    "cs": "Celé vysvětlení Ohmova zákona →",
+    "en": "Full explanation of Ohm's law →"
   }
 }
