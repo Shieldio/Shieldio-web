@@ -92,9 +92,7 @@ img{ max-width:100%; height:auto; display:block; }
   letter-spacing:-0.01em; text-decoration:none; color:inherit;
 }
 .logo-mark{
-  width:13px; height:13px; border-radius:4px;
-  background:conic-gradient(var(--tier-green) 0 33%, var(--tier-yellow) 33% 66%, var(--tier-red) 66% 100%);
-  box-shadow:0 0 0 2px var(--paper), 0 0 0 3px rgba(0,0,0,0.08);
+  width:24px; height:24px; flex:none; display:block;
 }
 .topbar nav{ display:flex; align-items:center; gap:30px; font-size:13px; font-weight:500; }
 .topbar nav a{ text-decoration:none; color:var(--ink-soft); transition:color .2s var(--ease); }
@@ -1289,7 +1287,6 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
   --tier-red-deep:var(--tier-red);
 }
 :root[data-theme="dark"] .topbar{ background:rgba(0,0,0,0.72); border-bottom-color:rgba(255,255,255,0.08); }
-:root[data-theme="dark"] .logo-mark{ box-shadow:0 0 0 2px var(--paper), 0 0 0 3px rgba(255,255,255,0.14); }
 :root[data-theme="dark"] .topbar nav{ border-bottom-color:rgba(255,255,255,0.08); }
 :root[data-theme="dark"] .guide-card .btn-ghost{ border-color:rgba(255,255,255,0.16); }
 :root[data-theme="dark"] .guide-card .btn-ghost:hover{ border-color:rgba(255,255,255,0.3); }
