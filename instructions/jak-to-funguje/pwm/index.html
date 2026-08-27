@@ -102,9 +102,9 @@
 <div class="hero" style="padding-bottom:40px;">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Jak to funguje · 04 · Signály</span>
-      <h1>PWM: jak deska řídí LED i servo.</h1>
-      <p class="lead" style="max-width:640px;">Arduino umí na výstupu jen 0 V nebo 5 V. Jak z toho vznikne plynulé stmívání a přesné natočení serva.</p>
+      <span class="eyebrow" data-i18n="learn_pwm.eyebrow">Jak to funguje · 04 · Signály</span>
+      <h1 data-i18n="learn_pwm.h1">PWM: jak deska řídí LED i servo.</h1>
+      <p class="lead" style="max-width:640px;" data-i18n="learn_pwm.lead">Arduino umí na výstupu jen 0 V nebo 5 V. Jak z toho vznikne plynulé stmívání a přesné natočení serva.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
@@ -120,73 +120,73 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="learn-body level-simple-only">
-      <p>Arduino umí na výstupu jen 0 V nebo 5 V. Rychlým přepínáním mezi nimi (tomu se říká PWM) ale dokáže LED plynule stmívat a servo natočit do libovolného úhlu.</p>
+      <p data-i18n="learn_pwm.simple_p1">Arduino umí na výstupu jen 0 V nebo 5 V. Rychlým přepínáním mezi nimi (tomu se říká PWM) ale dokáže LED plynule stmívat a servo natočit do libovolného úhlu.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Arduino Nano umí na svých výstupech nastavit jen dvě úrovně napětí, 0 V nebo 5 V, žádnou plynulou hodnotu mezi nimi. Přesto dokáže třeba plynule stmívat LED nebo natáčet servo do libovolného úhlu. Trik se jmenuje <b>PWM</b>, pulzně šířková modulace (Pulse Width Modulation): výstup rychle přepíná mezi 0 V a 5 V, a to, jak dlouhou část každého cyklu tráví na 5 V, se nazývá střída (duty cycle).</p>
+      <p data-i18n="learn_pwm.adv_p1">Arduino Nano umí na svých výstupech nastavit jen dvě úrovně napětí, 0 V nebo 5 V, žádnou plynulou hodnotu mezi nimi. Přesto dokáže třeba plynule stmívat LED nebo natáčet servo do libovolného úhlu. Trik se jmenuje <b>PWM</b>, pulzně šířková modulace (Pulse Width Modulation): výstup rychle přepíná mezi 0 V a 5 V, a to, jak dlouhou část každého cyklu tráví na 5 V, se nazývá střída (duty cycle).</p>
     </div>
 
     <div class="pwm-sim">
       <div class="guide-mode-toggle" data-pwm-mode-toggle>
         <button type="button" class="guide-mode-btn active" data-pwm-mode="led">LED</button>
-        <button type="button" class="guide-mode-btn" data-pwm-mode="servo">Servo</button>
+        <button type="button" class="guide-mode-btn" data-pwm-mode="servo" data-i18n="learn_pwm.servo_label">Servo</button>
       </div>
       <div class="pwm-sim-visuals">
         <div class="pwm-sim-device" data-pwm-device="led">
-          <svg viewBox="0 0 100 100" width="88" height="88" role="img" aria-label="Simulovaná LED, jas se mění podle střídy">
+          <svg viewBox="0 0 100 100" width="88" height="88" role="img" aria-label="Simulovaná LED, jas se mění podle střídy" data-i18n-alt="learn_pwm.svg_led_alt">
             <circle cx="50" cy="50" r="42" fill="var(--paper-2)"/>
             <circle id="pwmLed" cx="50" cy="50" r="34" fill="var(--tier-yellow)"/>
           </svg>
           <span class="pwm-sim-device-label">LED</span>
         </div>
         <div class="pwm-sim-device" data-pwm-device="servo" hidden>
-          <svg viewBox="0 0 100 100" width="88" height="88" role="img" aria-label="Simulované servo, úhel natočení ramene se mění podle délky pulzu">
+          <svg viewBox="0 0 100 100" width="88" height="88" role="img" aria-label="Simulované servo, úhel natočení ramene se mění podle délky pulzu" data-i18n-alt="learn_pwm.svg_servo_alt">
             <path d="M10 90 A 40 40 0 0 1 90 90" fill="none" stroke="var(--line)" stroke-width="2"/>
             <circle cx="50" cy="90" r="6" fill="var(--ink-soft)"/>
             <line id="pwmServoArm" x1="50" y1="90" x2="50" y2="50" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
           </svg>
-          <span class="pwm-sim-device-label">Servo</span>
+          <span class="pwm-sim-device-label" data-i18n="learn_pwm.servo_label">Servo</span>
         </div>
       </div>
-      <svg id="pwmWave" viewBox="0 0 500 70" class="pwm-sim-wave" role="img" aria-label="Živý PWM signál podle nastavené střídy"></svg>
+      <svg id="pwmWave" viewBox="0 0 500 70" class="pwm-sim-wave" role="img" aria-label="Živý PWM signál podle nastavené střídy" data-i18n-alt="learn_pwm.svg_wave_alt"></svg>
       <div class="pwm-sim-controls">
-        <input type="range" id="pwmSlider" min="0" max="100" value="50" aria-label="Střída v procentech">
+        <input type="range" id="pwmSlider" min="0" max="100" value="50" aria-label="Střída v procentech" data-i18n-alt="learn_pwm.slider_alt">
         <div class="pwm-sim-readout">
-          <span><b id="pwmPct">50 %</b> střída</span>
-          <span data-pwm-readout="servo"><b id="pwmMs">1,50 ms</b> pulz serva</span>
-          <span data-pwm-readout="servo"><b id="pwmDeg">90°</b> úhel serva</span>
+          <span><b id="pwmPct">50 %</b> <span data-i18n="learn_pwm.readout_duty">střída</span></span>
+          <span data-pwm-readout="servo"><b id="pwmMs">1,50 ms</b> <span data-i18n="learn_pwm.readout_servo_pulse">pulz serva</span></span>
+          <span data-pwm-readout="servo"><b id="pwmDeg">90°</b> <span data-i18n="learn_pwm.readout_servo_angle">úhel serva</span></span>
         </div>
       </div>
-      <p class="learn-diagram-caption">Vyber LED nebo servo a táhni jezdcem, obojí reaguje na stejnou střídu úplně jinak.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_pwm.sim_caption">Vyber LED nebo servo a táhni jezdcem, obojí reaguje na stejnou střídu úplně jinak.</p>
     </div>
 
     <div class="learn-body level-simple-only">
-      <p>U <b>LED</b> oko nerozliší jednotlivé záblesky, jen vnímá průměrný jas: čím déle LED v cyklu svítí, tím jasnější se zdá. U <b>serva</b> se stejný signál čte úplně jinak, servo si hlídá délku pulzu, ne jeho jas, a podle délky pulzu se natočí do daného úhlu.</p>
+      <p data-i18n="learn_pwm.simple_p2">U <b>LED</b> oko nerozliší jednotlivé záblesky, jen vnímá průměrný jas: čím déle LED v cyklu svítí, tím jasnější se zdá. U <b>serva</b> se stejný signál čte úplně jinak, servo si hlídá délku pulzu, ne jeho jas, a podle délky pulzu se natočí do daného úhlu.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>U <b>LED</b> se cykly opakují tak rychle (stovky až tisíce za sekundu), že je lidské oko nerozliší jednotlivě, jen vnímá průměrný jas, čím delší část cyklu LED svítí, tím jasnější se zdá. Nižší střída (kratší dobu svítí) = tlumenější světlo.</p>
-      <p>U <b>serva</b> se stejný princip využívá úplně jinak: servo uvnitř má vlastní elektroniku, která neměří průměrné napětí, ale <b>délku pulzu</b>. Standardní hobby servo očekává pulz zopakovaný zhruba každých 20 ms, jehož délka mezi 1 a 2 milisekundami odpovídá úhlu natočení od jednoho krajního bodu k druhému, kratší pulz (blíž 1 ms) = jeden krajní úhel, delší pulz (blíž 2 ms) = druhý krajní úhel. Elektronika serva porovná délku pulzu se svou aktuální polohou a motorkem se dotáčí, dokud se neshodují.</p>
+      <p data-i18n="learn_pwm.adv_p2">U <b>LED</b> se cykly opakují tak rychle (stovky až tisíce za sekundu), že je lidské oko nerozliší jednotlivě, jen vnímá průměrný jas, čím delší část cyklu LED svítí, tím jasnější se zdá. Nižší střída (kratší dobu svítí) = tlumenější světlo.</p>
+      <p data-i18n="learn_pwm.adv_p3">U <b>serva</b> se stejný princip využívá úplně jinak: servo uvnitř má vlastní elektroniku, která neměří průměrné napětí, ale <b>délku pulzu</b>. Standardní hobby servo očekává pulz zopakovaný zhruba každých 20 ms, jehož délka mezi 1 a 2 milisekundami odpovídá úhlu natočení od jednoho krajního bodu k druhému, kratší pulz (blíž 1 ms) = jeden krajní úhel, delší pulz (blíž 2 ms) = druhý krajní úhel. Elektronika serva porovná délku pulzu se svou aktuální polohou a motorkem se dotáčí, dokud se neshodují.</p>
     </div>
 
-    <div class="learn-aside">
+    <div class="learn-aside" data-i18n="learn_pwm.aside">
       <b>Proto se blokům pro servo nastavuje "úhel", ne "výkon":</b> program na pozadí přepočítá požadovaný úhel na správnou délku pulzu, opakující se každých 20 ms, přesně podle toho, jak to servo uvnitř očekává.
     </div>
 
-    <div class="learn-board-tie">
+    <div class="learn-board-tie" data-i18n="learn_pwm.board_tie">
       <b>Na desce Shieldio RED:</b> piny D5 a D6 řídí PWM jasem červené a zelené LED, pin D9 posílá PWM pulzy servu SG90, které v návodu na závoru otáčí ramenem podle naměřené vzdálenosti.
     </div>
 
     <div class="level-equations learn-body">
-      <p>Značení jednotek: <b>U</b> napětí [V], <b>t</b> čas [ms], <b>φ</b> úhel serva [°].</p>
-      <p><b>Průměrné napětí u LED</b> je dané jen střídou, nezávisí na frekvenci PWM:</p>
-      <div class="learn-eq-block">\[ U_{prům}\ [\text{V}] = \frac{\text{střída}\ [\%]}{100} \times U_{max} \]</div>
-      <p>Pro desku RED s napájením 5 V a střídou 50 %:</p>
-      <div class="learn-eq-block">\[ U_{prům} = \frac{50}{100} \times 5\,\text{V} = 2{,}5\,\text{V} \]</div>
-      <p><b>Úhel serva</b> je lineární funkcí délky pulzu, s pulzem 1 ms na jednom krajním úhlu (0°) a 2 ms na druhém (180°):</p>
+      <p data-i18n="learn_pwm.eq_units">Značení jednotek: <b>U</b> napětí [V], <b>t</b> čas [ms], <b>φ</b> úhel serva [°].</p>
+      <p data-i18n="learn_pwm.eq_avg_label"><b>Průměrné napětí u LED</b> je dané jen střídou, nezávisí na frekvenci PWM:</p>
+      <div class="learn-eq-block" data-i18n="learn_pwm.eq_avg_block">\[ U_{prům}\ [\text{V}] = \frac{\text{střída}\ [\%]}{100} \times U_{max} \]</div>
+      <p data-i18n="learn_pwm.eq_avg_sub_label">Pro desku RED s napájením 5 V a střídou 50 %:</p>
+      <div class="learn-eq-block" data-i18n="learn_pwm.eq_avg_sub_block">\[ U_{prům} = \frac{50}{100} \times 5\,\text{V} = 2{,}5\,\text{V} \]</div>
+      <p data-i18n="learn_pwm.eq_angle_label"><b>Úhel serva</b> je lineární funkcí délky pulzu, s pulzem 1 ms na jednom krajním úhlu (0°) a 2 ms na druhém (180°):</p>
       <div class="learn-eq-block">\[ \varphi\ [^\circ] = \frac{t - 1\,\text{ms}}{1\,\text{ms}} \times 180^\circ \]</div>
-      <p>Pro pulz 1,5 ms (přesně uprostřed rozsahu):</p>
+      <p data-i18n="learn_pwm.eq_angle_sub_label">Pro pulz 1,5 ms (přesně uprostřed rozsahu):</p>
       <div class="learn-eq-block">\[ \varphi = \frac{1{,}5 - 1}{1} \times 180^\circ = 90^\circ \]</div>
     </div>
 
