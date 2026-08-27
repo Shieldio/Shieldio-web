@@ -64,8 +64,8 @@
     "en": "Educational electronics for schools"
   },
   "home.hero.h1": {
-    "cs": "Hotová <em>Arduino stavebnice</em><br>pro výuku elektroniky ve škole.",
-    "en": "A ready-made <em>Arduino kit</em><br>for teaching electronics at school."
+    "cs": "Hotová <em>Arduino stavebnice</em> pro výuku elektroniky ve škole.",
+    "en": "A ready-made <em>Arduino kit</em> for teaching electronics at school."
   },
   "home.hero.lead": {
     "cs": "Žáci se učí programovat a stavět elektronické projekty bez nutnosti pájet nebo složitě zapojovat. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, zvládne ji i učitel bez technického vzdělání.",
