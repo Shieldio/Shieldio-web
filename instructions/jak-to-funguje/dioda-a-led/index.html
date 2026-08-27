@@ -102,9 +102,9 @@
 <div class="hero" style="padding-bottom:40px;">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Jak to funguje · 03 · Polovodiče</span>
-      <h1>Jak funguje dioda a LED.</h1>
-      <p class="lead" style="max-width:640px;">Proč polarita u těchhle dvou součástek záleží, a co se doopravdy děje uvnitř polovodiče.</p>
+      <span class="eyebrow" data-i18n="learn_dioda.eyebrow">Jak to funguje · 03 · Polovodiče</span>
+      <h1 data-i18n="learn_dioda.h1">Jak funguje dioda a LED.</h1>
+      <p class="lead" style="max-width:640px;" data-i18n="learn_dioda.lead">Proč polarita u těchhle dvou součástek záleží, a co se doopravdy děje uvnitř polovodiče.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
@@ -120,11 +120,11 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="learn-body level-simple-only">
-      <p>Dioda propouští elektrický proud jen jedním směrem, jako jednosměrná ulička. LED je speciální dioda, která navíc při průchodu proudu svítí.</p>
+      <p data-i18n="learn_dioda.simple_p1">Dioda propouští elektrický proud jen jedním směrem, jako jednosměrná ulička. LED je speciální dioda, která navíc při průchodu proudu svítí.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Dioda je nejjednodušší polovodičová součástka. Uvnitř má dvě odlišně upravené (dotované) vrstvy křemíku, jednu s přebytkem elektronů (typ N), druhou s jejich nedostatkem, takzvanými děrami (typ P). Na rozhraní obou vrstev vznikne tenká oblast bez volných nosičů náboje, které se říká přechod PN.</p>
+      <p data-i18n="learn_dioda.adv_p1">Dioda je nejjednodušší polovodičová součástka. Uvnitř má dvě odlišně upravené (dotované) vrstvy křemíku, jednu s přebytkem elektronů (typ N), druhou s jejich nedostatkem, takzvanými děrami (typ P). Na rozhraní obou vrstev vznikne tenká oblast bez volných nosičů náboje, které se říká přechod PN.</p>
     </div>
 
     <div class="learn-diagram">
@@ -135,11 +135,11 @@
         <text x="320" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="var(--ink)">N</text>
         <line x1="220" y1="20" x2="220" y2="90" stroke="var(--ink-soft)" stroke-width="1.5"/>
         <path d="M30 40 L200 40" stroke="var(--tier-green)" stroke-width="3" marker-end="url(#arrowGreen)"/>
-        <text x="30" y="14" font-family="JetBrains Mono" font-size="11" fill="var(--tier-green)">propustný směr → proud protéká</text>
+        <text x="30" y="14" font-family="JetBrains Mono" font-size="11" fill="var(--tier-green)" data-i18n="learn_dioda.svg_forward">propustný směr → proud protéká</text>
         <path d="M470 130 L300 130" stroke="var(--tier-red)" stroke-width="3" marker-end="url(#arrowRed)"/>
         <line x1="290" y1="120" x2="310" y2="140" stroke="var(--tier-red)" stroke-width="2.5"/>
         <line x1="310" y1="120" x2="290" y2="140" stroke="var(--tier-red)" stroke-width="2.5"/>
-        <text x="480" y="105" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="var(--tier-red)">závěrný směr, proud blokován</text>
+        <text x="480" y="105" text-anchor="end" font-family="JetBrains Mono" font-size="11" fill="var(--tier-red)" data-i18n="learn_dioda.svg_reverse">závěrný směr, proud blokován</text>
         <defs>
           <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
             <path d="M0,0 L8,4 L0,8 Z" fill="var(--tier-green)"/>
@@ -149,30 +149,30 @@
           </marker>
         </defs>
       </svg>
-      <p class="learn-diagram-caption">Zjednodušené schéma: ve správném směru přechod propustí proud, v obráceném ho blokuje.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_dioda.diagram_caption">Zjednodušené schéma: ve správném směru přechod propustí proud, v obráceném ho blokuje.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Přiložíš-li napětí ve <b>správném (propustném) směru</b>, elektrony a díry se k přechodu tlačí proti sobě, přechod se zúží a od určitého prahového napětí (u křemíkových diod kolem 0,6 V, u LED podle barvy 1,8 až 3,3 V) jím proud volně protéká. V <b>obráceném (závěrném) směru</b> se nosiče náboje naopak od přechodu vzdalují, oblast bez volných nosičů se rozšíří a proud přechodem prakticky neteče, dokud napětí nepřekročí mez, kterou dioda vydrží.</p>
-      <p>Přesně proto má dioda 1N5817 na desce jasně danou orientaci (proužek ke straně K, katoda), chrání zbytek desky tak, že ve špatně zapojeném směru (třeba obráceně vložený napájecí konektor) proud jednoduše nepustí dál.</p>
-      <p><b>LED</b> (light-emitting diode) je speciální dioda ze specifických polovodičových materiálů. Když jí ve správném směru protéká proud, elektrony na přechodu "padají" na nižší energetickou hladinu a přebytečnou energii vyzáří jako foton, světlo. Barva světla je daná materiálem polovodiče (a tedy velikostí toho energetického skoku), ne barvou vnějšího pouzdra LED.</p>
+      <p data-i18n="learn_dioda.adv_p2">Přiložíš-li napětí ve <b>správném (propustném) směru</b>, elektrony a díry se k přechodu tlačí proti sobě, přechod se zúží a od určitého prahového napětí (u křemíkových diod kolem 0,6 V, u LED podle barvy 1,8 až 3,3 V) jím proud volně protéká. V <b>obráceném (závěrném) směru</b> se nosiče náboje naopak od přechodu vzdalují, oblast bez volných nosičů se rozšíří a proud přechodem prakticky neteče, dokud napětí nepřekročí mez, kterou dioda vydrží.</p>
+      <p data-i18n="learn_dioda.adv_p3">Přesně proto má dioda 1N5817 na desce jasně danou orientaci (proužek ke straně K, katoda), chrání zbytek desky tak, že ve špatně zapojeném směru (třeba obráceně vložený napájecí konektor) proud jednoduše nepustí dál.</p>
+      <p data-i18n="learn_dioda.adv_p4"><b>LED</b> (light-emitting diode) je speciální dioda ze specifických polovodičových materiálů. Když jí ve správném směru protéká proud, elektrony na přechodu "padají" na nižší energetickou hladinu a přebytečnou energii vyzáří jako foton, světlo. Barva světla je daná materiálem polovodiče (a tedy velikostí toho energetického skoku), ne barvou vnějšího pouzdra LED.</p>
     </div>
 
     <div class="level-equations learn-body">
-      <p>Značení jednotek: <b>E</b> energie fotonu [J] nebo [eV], <b>h</b> Planckova konstanta [J·s], <b>c</b> rychlost světla [m/s], <b>λ</b> vlnová délka [m].</p>
-      <p>Barva světla LED je daná energií fotonu, kterou elektron při přechodu vyzáří. Energie fotonu souvisí s vlnovou délkou světla vztahem:</p>
+      <p data-i18n="learn_dioda.eq_units">Značení jednotek: <b>E</b> energie fotonu [J] nebo [eV], <b>h</b> Planckova konstanta [J·s], <b>c</b> rychlost světla [m/s], <b>λ</b> vlnová délka [m].</p>
+      <p data-i18n="learn_dioda.eq_intro">Barva světla LED je daná energií fotonu, kterou elektron při přechodu vyzáří. Energie fotonu souvisí s vlnovou délkou světla vztahem:</p>
       <div class="learn-eq-block">\[ E = \frac{h \times c}{\lambda} \]</div>
-      <p>S konstantami \( h = 6{,}626 \times 10^{-34}\,\text{J·s} \) a \( c = 3 \times 10^{8}\,\text{m/s} \), pro červenou LED s vlnovou délkou přibližně 660 nm:</p>
+      <p data-i18n="learn_dioda.eq_sub_label">S konstantami \( h = 6{,}626 \times 10^{-34}\,\text{J·s} \) a \( c = 3 \times 10^{8}\,\text{m/s} \), pro červenou LED s vlnovou délkou přibližně 660 nm:</p>
       <div class="learn-eq-block">\[ E = \frac{6{,}626 \times 10^{-34} \times 3 \times 10^{8}}{660 \times 10^{-9}} \approx 3{,}01 \times 10^{-19}\,\text{J} \approx 1{,}88\,\text{eV} \]</div>
-      <p>Tahle energie v elektronvoltech přibližně odpovídá prahovému napětí, které červená LED potřebuje k rozsvícení, přesně to napětí je vidět jako "úbytek na LED" v kalkulačce u <a href="../ohmuv-zakon/index.html">Ohmova zákona</a>. Kratší vlnová délka (modrá, fialová LED) znamená vyšší energii fotonu, a tedy i vyšší prahové napětí.</p>
+      <p data-i18n="learn_dioda.eq_conclusion">Tahle energie v elektronvoltech přibližně odpovídá prahovému napětí, které červená LED potřebuje k rozsvícení, přesně to napětí je vidět jako "úbytek na LED" v kalkulačce u <a href="../ohmuv-zakon/index.html">Ohmova zákona</a>. Kratší vlnová délka (modrá, fialová LED) znamená vyšší energii fotonu, a tedy i vyšší prahové napětí.</p>
     </div>
 
     <div class="learn-photo">
-      <img src="../../../assets/images/red-build/08-dioda.jpg" alt="Usměrňovací dioda s kovovým pouzdrem a vývody na obě strany, na jednom konci pouzdra je vidět proužek značící katodu" loading="lazy">
-      <p class="learn-diagram-caption">Usměrňovací dioda, jaká se pájí na desku RED jako D3 — proužek na pouzdru značí katodu.</p>
+      <img src="../../../assets/images/red-build/08-dioda.jpg" alt="Usměrňovací dioda s kovovým pouzdrem a vývody na obě strany, na jednom konci pouzdra je vidět proužek značící katodu" loading="lazy" data-i18n-alt="learn_dioda.photo_alt">
+      <p class="learn-diagram-caption" data-i18n="learn_dioda.photo_caption">Usměrňovací dioda, jaká se pájí na desku RED jako D3 — proužek na pouzdru značí katodu.</p>
     </div>
 
-    <div class="learn-board-tie">
+    <div class="learn-board-tie" data-i18n="learn_dioda.board_tie">
       <b>Na desce Shieldio RED:</b> D3 je usměrňovací dioda 1N5817, chrání desku před obráceně zapojeným napájením. D1 (červená) a D2 (zelená) jsou LED, každá se svým proudovým omezovacím rezistorem, R1 a R2, viz <a href="../ohmuv-zakon/index.html">Ohmův zákon</a>.
     </div>
 

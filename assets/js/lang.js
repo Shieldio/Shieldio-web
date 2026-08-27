@@ -23,6 +23,11 @@
       const entry = dict[key];
       if (entry && entry[lang] != null) el.setAttribute("placeholder", entry[lang]);
     });
+    document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-alt");
+      const entry = dict[key];
+      if (entry && entry[lang] != null) el.setAttribute("alt", entry[lang]);
+    });
     const titleKey = document.body.getAttribute("data-i18n-title");
     if (titleKey && dict[titleKey] && dict[titleKey][lang] != null) {
       document.title = dict[titleKey][lang];

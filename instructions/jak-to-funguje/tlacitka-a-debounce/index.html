@@ -102,9 +102,9 @@
 <div class="hero" style="padding-bottom:40px;">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Jak to funguje · 02 · Tlačítka</span>
-      <h1>Pull-up rezistory, tlačítka a debounce.</h1>
-      <p class="lead" style="max-width:640px;">Proč tlačítko samo o sobě nestačí a co se za scénou řeší při každém stisku.</p>
+      <span class="eyebrow" data-i18n="learn_debounce.eyebrow">Jak to funguje · 02 · Tlačítka</span>
+      <h1 data-i18n="learn_debounce.h1">Pull-up rezistory, tlačítka a debounce.</h1>
+      <p class="lead" style="max-width:640px;" data-i18n="learn_debounce.lead">Proč tlačítko samo o sobě nestačí a co se za scénou řeší při každém stisku.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
@@ -120,45 +120,45 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="learn-body level-simple-only">
-      <p>Tlačítko samo o sobě neříká, jaký signál je na pinu, když je puštěné. Pull-up rezistor tenhle stav pevně nastaví na jasnou hodnotu, dokud ho stisk aktivně nezmění.</p>
-      <p>Zákmit je to, když kontakty tlačítka při stisku párkrát nepatrně odrazí, takže by program mohl jeden stisk vyhodnotit jako víc stisků najednou.</p>
+      <p data-i18n="learn_debounce.simple_p1">Tlačítko samo o sobě neříká, jaký signál je na pinu, když je puštěné. Pull-up rezistor tenhle stav pevně nastaví na jasnou hodnotu, dokud ho stisk aktivně nezmění.</p>
+      <p data-i18n="learn_debounce.simple_p2">Zákmit je to, když kontakty tlačítka při stisku párkrát nepatrně odrazí, takže by program mohl jeden stisk vyhodnotit jako víc stisků najednou.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Tlačítko samo o sobě jen spojuje nebo rozpojuje obvod, elektricky ale nedefinuje, jaká úroveň signálu je na pinu, když je zrovna nesepnuté. Bez dalšího zapojení by pin "plaval", náhodně by ho ovlivňoval okolní elektrický šum. Řešením je pull-up (nebo pull-down) rezistor, obvykle 10 kΩ, který pin natrvalo přitáhne k jasné úrovni (třeba 5 V), dokud ho stisk tlačítka aktivně nestáhne k druhé úrovni (0 V).</p>
-      <p>Druhý problém je mechanický: kontakty uvnitř tlačítka se při stisku párkrát nepatrně odrazí, než se ustálí. Elektricky se to projeví jako rychlá série "cvak-cvak-cvak" místo jednoho čistého přechodu, tomu se říká zákmit (anglicky bounce). Bez ošetření by program jeden lidský stisk mohl vyhodnotit jako pět nebo deset stisků za sebou.</p>
+      <p data-i18n="learn_debounce.adv_p1">Tlačítko samo o sobě jen spojuje nebo rozpojuje obvod, elektricky ale nedefinuje, jaká úroveň signálu je na pinu, když je zrovna nesepnuté. Bez dalšího zapojení by pin "plaval", náhodně by ho ovlivňoval okolní elektrický šum. Řešením je pull-up (nebo pull-down) rezistor, obvykle 10 kΩ, který pin natrvalo přitáhne k jasné úrovni (třeba 5 V), dokud ho stisk tlačítka aktivně nestáhne k druhé úrovni (0 V).</p>
+      <p data-i18n="learn_debounce.adv_p2">Druhý problém je mechanický: kontakty uvnitř tlačítka se při stisku párkrát nepatrně odrazí, než se ustálí. Elektricky se to projeví jako rychlá série "cvak-cvak-cvak" místo jednoho čistého přechodu, tomu se říká zákmit (anglicky bounce). Bez ošetření by program jeden lidský stisk mohl vyhodnotit jako pět nebo deset stisků za sebou.</p>
     </div>
 
     <div class="learn-diagram">
       <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graf signálu tlačítka se zákmity a po ošetření debounce">
-        <text x="0" y="16" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">signál bez ošetření</text>
+        <text x="0" y="16" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_raw">signál bez ošetření</text>
         <polyline points="10,60 150,60 155,30 160,60 168,30 174,60 180,30 186,60 192,30 198,60 204,30 210,60 216,32 490,32"
           fill="none" stroke="var(--tier-red)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-        <text x="0" y="108" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)">signál po debounce</text>
+        <text x="0" y="108" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_debounced">signál po debounce</text>
         <polyline points="10,150 210,150 210,122 490,122"
           fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
         <line x1="210" y1="105" x2="210" y2="175" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="216" y="185" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">stisk tlačítka</text>
+        <text x="216" y="185" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_press">stisk tlačítka</text>
       </svg>
-      <p class="learn-diagram-caption">Nahoře: skutečný elektrický signál se zákmity. Dole: stejný stisk po softwarovém ošetření debounce.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_debounce.diagram_caption">Nahoře: skutečný elektrický signál se zákmity. Dole: stejný stisk po softwarovém ošetření debounce.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Debounce se běžně řeší v programu: po zaznamenané změně signálu se dalších pár milisekund (typicky 20 až 50 ms) žádná další změna nebere v potaz, zákmity tak zmizí a zůstane jeden čistý stisk. V blokovém programování to bloky pro tlačítko dělají automaticky na pozadí, nemusíš na to myslet, ale je užitečné vědět, proč tenhle krátký okamžik ignorování vlastně existuje.</p>
-      <p>Debounce jde ošetřit i hardwarově, malým kondenzátorem paralelně k tlačítku, který zákmity elektricky "vyhladí" ještě dřív, než signál dorazí na pin, víc v kapitole o <a href="../kondenzatory/index.html">kondenzátorech</a>.</p>
+      <p data-i18n="learn_debounce.sw_p1">Debounce se běžně řeší v programu: po zaznamenané změně signálu se dalších pár milisekund (typicky 20 až 50 ms) žádná další změna nebere v potaz, zákmity tak zmizí a zůstane jeden čistý stisk. V blokovém programování to bloky pro tlačítko dělají automaticky na pozadí, nemusíš na to myslet, ale je užitečné vědět, proč tenhle krátký okamžik ignorování vlastně existuje.</p>
+      <p data-i18n="learn_debounce.hw_p2">Debounce jde ošetřit i hardwarově, malým kondenzátorem paralelně k tlačítku, který zákmity elektricky "vyhladí" ještě dřív, než signál dorazí na pin, víc v kapitole o <a href="../kondenzatory/index.html">kondenzátorech</a>.</p>
     </div>
 
-    <div class="learn-board-tie">
+    <div class="learn-board-tie" data-i18n="learn_debounce.board_tie">
       <b>Na desce Shieldio RED:</b> R3 a R4 (10 kΩ) jsou přesně tyhle pull-up rezistory pro tlačítka SW1 a SW2. Debounce na desce řeší jen software, žádný debounce kondenzátor tam navíc není.
     </div>
 
     <div class="level-equations learn-body">
-      <p>Značení jednotek: <b>U</b> napětí [V], <b>R</b> odpor [Ω], <b>I</b> proud [A].</p>
-      <p>Pull-up rezistor tvoří s tlačítkem jednoduchý obvod: když je tlačítko puštěné, celé napájecí napětí je na pinu, a pull-up rezistorem neteče žádný proud. Ve chvíli stisku ale rezistor spojuje 5 V se zemí, a Ohmův zákon (viz <a href="../ohmuv-zakon/index.html">Ohmův zákon</a>) určí, jak velký proud jím při stisku poteče:</p>
+      <p data-i18n="learn_debounce.eq_units">Značení jednotek: <b>U</b> napětí [V], <b>R</b> odpor [Ω], <b>I</b> proud [A].</p>
+      <p data-i18n="learn_debounce.eq_intro">Pull-up rezistor tvoří s tlačítkem jednoduchý obvod: když je tlačítko puštěné, celé napájecí napětí je na pinu, a pull-up rezistorem neteče žádný proud. Ve chvíli stisku ale rezistor spojuje 5 V se zemí, a Ohmův zákon (viz <a href="../ohmuv-zakon/index.html">Ohmův zákon</a>) určí, jak velký proud jím při stisku poteče:</p>
       <div class="learn-eq-block">\[ I\ [\text{A}] = \frac{U}{R} \]</div>
-      <p>Pro pull-up 10 kΩ a napájení 5 V, v okamžiku stisku:</p>
+      <p data-i18n="learn_debounce.eq_sub_label">Pro pull-up 10 kΩ a napájení 5 V, v okamžiku stisku:</p>
       <div class="learn-eq-block">\[ I = \frac{5\,\text{V}}{10\,000\,\Omega} = 0{,}5\,\text{mA} \]</div>
-      <p>Proto se pro pull-up volí spíš vyšší hodnoty (10 kΩ a víc): čím vyšší odpor, tím menší zbytečně "prošlý" proud při každém stisku, aniž by to zpomalilo, jak rychle se pin ustálí na jasné napěťové úrovni.</p>
+      <p data-i18n="learn_debounce.eq_conclusion">Proto se pro pull-up volí spíš vyšší hodnoty (10 kΩ a víc): čím vyšší odpor, tím menší zbytečně "prošlý" proud při každém stisku, aniž by to zpomalilo, jak rychle se pin ustálí na jasné napěťové úrovni.</p>
     </div>
 
     <div class="topic-nav">
