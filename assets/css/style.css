@@ -87,13 +87,12 @@ img{ max-width:100%; height:auto; display:block; }
   padding:14px 32px; max-width:1180px; margin:0 auto;
 }
 .logo{
-  display:flex; align-items:center; gap:10px;
-  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display'; font-weight:600; font-size:18px;
-  letter-spacing:-0.01em; text-decoration:none; color:inherit;
+  display:flex; align-items:center; text-decoration:none; color:inherit;
 }
-.logo-mark{
-  width:24px; height:24px; flex:none; display:block;
-}
+.logo-full{ height:26px; width:auto; display:block; }
+.logo-full-dark{ display:none; }
+:root[data-theme="dark"] .logo-full-light{ display:none; }
+:root[data-theme="dark"] .logo-full-dark{ display:block; }
 .topbar nav{ display:flex; align-items:center; gap:30px; font-size:13px; font-weight:500; }
 .topbar nav a{ text-decoration:none; color:var(--ink-soft); transition:color .2s var(--ease); }
 .topbar nav a:hover{ color:var(--ink); }
