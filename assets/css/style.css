@@ -389,6 +389,18 @@ section{ padding:140px 0; }
 }
 .deepdive-photos .photo-frame:hover img{ transform:scale(1.06); }
 .deepdive-photos .photo-frame video{ width:100%; height:100%; object-fit:contain; display:block; }
+
+/* smaller, self-scrolling variant used on the homepage teaser */
+.deepdive-carousel{
+  display:flex; grid-template-columns:unset; gap:12px;
+  overflow-x:auto; scroll-snap-type:x proximity; scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch; padding-bottom:4px;
+}
+.deepdive-carousel .photo-frame{
+  flex:0 0 200px; aspect-ratio:4/3; scroll-snap-align:start;
+}
+.deepdive-carousel::-webkit-scrollbar{ height:6px; }
+.deepdive-carousel::-webkit-scrollbar-thumb{ background:var(--line); border-radius:3px; }
 /* ---------- product spec rows (icon + description, Apple product-page style) ---------- */
 .spec-rows{ margin-top:28px; }
 .spec-row{

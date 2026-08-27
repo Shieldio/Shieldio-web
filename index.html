@@ -105,8 +105,8 @@
 </div>
 
 <!-- PROBLEM -->
-<div class="problem">
-  <div class="wrap" style="padding-top:70px; padding-bottom:70px;">
+<div class="problem" style="background:transparent;">
+  <div class="wrap" style="padding-top:64px; padding-bottom:64px;">
     <div class="section-head" style="margin-bottom:36px;">
       <span class="eyebrow-dark" data-i18n="home.problem.eyebrow">Realita výuky elektroniky</span>
       <h2 data-i18n="home.problem.h2">Kvalitní robotický kroužek nebo hodina dnes často stojí na jednom nadšenci.</h2>
@@ -132,7 +132,7 @@
 </div>
 
 <!-- SOLUTION / TIERS -->
-<section id="reseni">
+<section id="reseni" style="padding:72px 0;">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow-dark" data-i18n="home.solution.eyebrow">Řešení</span>
@@ -190,7 +190,7 @@
 </section>
 
 <!-- CONCRETE PROJECTS -->
-<section style="padding-top:0;">
+<section style="padding-top:0; padding-bottom:72px;">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow-dark" data-i18n="home.projects.eyebrow">Co si žáci postaví</span>
@@ -221,7 +221,7 @@
 </section>
 
 <!-- RED BOARD DEEP DIVE -->
-<section id="deska">
+<section id="deska" style="padding:72px 0;">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow-dark" data-i18n="home.deepdive.eyebrow">Nahlédnutí do vývoje</span>
@@ -229,8 +229,8 @@
       <p data-i18n="home.deepdive.p">Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce, s popisy součástek přímo na plošném spoji.</p>
     </div>
     <div class="deepdive-grid">
-      <div class="deepdive-photos">
-        <div class="photo-frame"><video src="assets/videos/RED_demo.mp4" poster="assets/images/RED_demo_poster.jpg" muted loop playsinline autoplay controls preload="metadata" aria-label="Video: deska Shieldio RED v akci, závora se otevírá při přiblížení modelu auta"></video></div>
+      <div class="deepdive-photos deepdive-carousel" id="deepdiveCarousel">
+        <div class="photo-frame"><img src="assets/images/RED_hand_hold_with_parts.jpeg" width="900" height="1200" loading="lazy" alt="Sestavená deska Shieldio RED v ruce, s Arduinem Nano, OLED displejem, ultrazvukovým senzorem a servem"></div>
         <div class="photo-frame"><img src="assets/images/RED_detail_nano_oled.jpeg" width="1400" height="1050" loading="lazy" alt="Detail Arduina Nano a OLED displeje osazených na desce Shieldio RED"></div>
         <div class="photo-frame"><img src="assets/images/RED_barrier_open.jpeg" width="1200" height="900" loading="lazy" alt="Prototyp závory v otevřené poloze s modelem auta"></div>
         <div class="photo-frame"><img src="assets/images/RED_backside.png" width="1050" height="1400" loading="lazy" alt="Zadní strana krytu desky Shieldio RED s vyraženým nápisem Shieldio baseline RED"></div>
@@ -294,7 +294,7 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="jak-to-funguje">
+<section id="jak-to-funguje" style="padding:72px 0;">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow-dark" data-i18n="home.howitworks.eyebrow">Průběh hodiny</span>
@@ -326,8 +326,8 @@
 </section>
 
 <!-- FOR SCHOOLS -->
-<div class="problem" id="pro-skoly" style="background:var(--paper-2);">
-  <div class="wrap" style="padding-top:80px; padding-bottom:80px;">
+<div class="problem" id="pro-skoly" style="background:transparent;">
+  <div class="wrap" style="padding-top:64px; padding-bottom:64px;">
     <div class="section-head">
       <span class="eyebrow-dark" data-i18n="home.schools.eyebrow">Pro školy</span>
       <h2 data-i18n="home.schools.h2">Postavené tak, aby to zvládl i učitel bez technického zázemí.</h2>
@@ -369,7 +369,7 @@
 </div>
 
 <!-- CTA -->
-<section class="cta-section" id="kontakt">
+<section class="cta-section" id="kontakt" style="padding:96px 0;">
   <div class="wrap cta-grid">
     <div>
       <span class="eyebrow-dark" style="color:var(--accent-soft);" data-i18n="home.cta.eyebrow">Máte zájem?</span>
@@ -453,5 +453,6 @@
 <script src="assets/js/lang.js"></script>
 <script src="assets/js/site-chrome.js"></script>
 <script src="assets/js/lightbox.js"></script>
-<script src="assets/js/contact-form.js"></script></body>
+<script src="assets/js/contact-form.js"></script>
+<script src="assets/js/home-carousel.js"></script></body>
 </html>
