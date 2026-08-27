@@ -1331,6 +1331,16 @@
     "cs": "Proč elektrolytický kondenzátor musí mít správnou polaritu a jak tlumí šum.",
     "en": "Why an electrolytic capacitor needs the right polarity, and how it dampens noise."
   },
+  "home.learnmore.card_debounce_h3": { "cs": "Tlačítka a debounce", "en": "Buttons and debounce" },
+  "home.learnmore.card_debounce_p": { "cs": "Proč tlačítko potřebuje pull-up rezistor a co je to zákmit.", "en": "Why a button needs a pull-up resistor, and what bounce is." },
+  "home.learnmore.card_dioda_h3": { "cs": "Dioda a LED", "en": "Diode and LED" },
+  "home.learnmore.card_dioda_p": { "cs": "PN přechod, propustný a závěrný směr, a proč LED svítí právě tou barvou.", "en": "The PN junction, forward and reverse bias, and why an LED lights up in that specific colour." },
+  "home.learnmore.card_pwm_h3": { "cs": "PWM", "en": "PWM" },
+  "home.learnmore.card_pwm_p": { "cs": "Jak ze dvou úrovní napětí vznikne plynulé stmívání i přesný úhel serva.", "en": "How two voltage levels turn into smooth dimming and a precise servo angle." },
+  "home.learnmore.card_ultrazvuk_h3": { "cs": "Ultrazvuk", "en": "Ultrasonic" },
+  "home.learnmore.card_ultrazvuk_p": { "cs": "Jak senzor HC-SR04 měří vzdálenost pomocí času letu zvuku.", "en": "How the HC-SR04 sensor measures distance using the time of flight of sound." },
+  "home.learnmore.card_pcb_h3": { "cs": "Co je PCB", "en": "What a PCB is" },
+  "home.learnmore.card_pcb_p": { "cs": "Z čeho je deska plošných spojů, jak se vyrábí a proč jsou cestičky z mědi.", "en": "What a circuit board is made of, how it's manufactured, and why traces are made of copper." },
   "home.learnmore.card3_h3": {
     "cs": "Co je PCB",
     "en": "What a PCB is"

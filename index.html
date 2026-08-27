@@ -229,7 +229,7 @@
       <p data-i18n="home.deepdive.p">Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce, s popisy součástek přímo na plošném spoji.</p>
     </div>
     <div class="deepdive-grid">
-      <div class="deepdive-photos deepdive-carousel" id="deepdiveCarousel">
+      <div class="deepdive-photos">
         <div class="photo-frame"><img src="assets/images/RED_hand_hold_with_parts.jpeg" width="900" height="1200" loading="lazy" alt="Sestavená deska Shieldio RED v ruce, s Arduinem Nano, OLED displejem, ultrazvukovým senzorem a servem"></div>
         <div class="photo-frame"><img src="assets/images/RED_detail_nano_oled.jpeg" width="1400" height="1050" loading="lazy" alt="Detail Arduina Nano a OLED displeje osazených na desce Shieldio RED"></div>
         <div class="photo-frame"><img src="assets/images/RED_barrier_open.jpeg" width="1200" height="900" loading="lazy" alt="Prototyp závory v otevřené poloze s modelem auta"></div>
@@ -275,15 +275,40 @@
       <h2 data-i18n="home.learnmore.h2">Chceš vědět víc? Nahlédni pod pokličku.</h2>
       <p data-i18n="home.learnmore.p">Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, se 7 tématy od Ohmova zákona po výrobu plošných spojů.</p>
     </div>
-    <div class="project-picker-grid teaser-grid fade-up" style="grid-template-columns:1fr 1fr;">
-      <a class="instruction-card project-pick-card" href="instructions/jak-to-funguje/ohmuv-zakon/index.html">
+    <div class="teaser-carousel auto-carousel fade-up" id="learnCarousel">
+      <a class="teaser-tile" href="instructions/jak-to-funguje/ohmuv-zakon/index.html">
         <h3 data-i18n="home.learnmore.card1_h3">Ohmův zákon a kalkulačka</h3>
         <p data-i18n="home.learnmore.card1_p">Proč zrovna 220 Ω u LED, interaktivní kalkulačka to spočítá za tebe.</p>
         <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
       </a>
-      <a class="instruction-card project-pick-card" href="instructions/jak-to-funguje/kondenzatory/index.html">
+      <a class="teaser-tile" href="instructions/jak-to-funguje/tlacitka-a-debounce/index.html">
+        <h3 data-i18n="home.learnmore.card_debounce_h3">Tlačítka a debounce</h3>
+        <p data-i18n="home.learnmore.card_debounce_p">Proč tlačítko potřebuje pull-up rezistor a co je to zákmit.</p>
+        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
+      </a>
+      <a class="teaser-tile" href="instructions/jak-to-funguje/dioda-a-led/index.html">
+        <h3 data-i18n="home.learnmore.card_dioda_h3">Dioda a LED</h3>
+        <p data-i18n="home.learnmore.card_dioda_p">PN přechod, propustný a závěrný směr, a proč LED svítí právě tou barvou.</p>
+        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
+      </a>
+      <a class="teaser-tile" href="instructions/jak-to-funguje/pwm/index.html">
+        <h3 data-i18n="home.learnmore.card_pwm_h3">PWM</h3>
+        <p data-i18n="home.learnmore.card_pwm_p">Jak ze dvou úrovní napětí vznikne plynulé stmívání i přesný úhel serva.</p>
+        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
+      </a>
+      <a class="teaser-tile" href="instructions/jak-to-funguje/ultrazvuk/index.html">
+        <h3 data-i18n="home.learnmore.card_ultrazvuk_h3">Ultrazvuk</h3>
+        <p data-i18n="home.learnmore.card_ultrazvuk_p">Jak senzor HC-SR04 měří vzdálenost pomocí času letu zvuku.</p>
+        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
+      </a>
+      <a class="teaser-tile" href="instructions/jak-to-funguje/kondenzatory/index.html">
         <h3 data-i18n="home.learnmore.card2_h3">Jak funguje kondenzátor</h3>
         <p data-i18n="home.learnmore.card2_p">Proč elektrolytický kondenzátor musí mít správnou polaritu a jak tlumí šum.</p>
+        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
+      </a>
+      <a class="teaser-tile" href="instructions/jak-to-funguje/pcb/index.html">
+        <h3 data-i18n="home.learnmore.card_pcb_h3">Co je PCB</h3>
+        <p data-i18n="home.learnmore.card_pcb_p">Z čeho je deska plošných spojů, jak se vyrábí a proč jsou cestičky z mědi.</p>
         <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
       </a>
     </div>
