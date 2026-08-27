@@ -130,7 +130,12 @@
     <div class="section-head" style="max-width:680px;">
       <h2>K čemu je kondenzátor vůbec dobrý.</h2>
     </div>
-    <div class="learn-body">
+    <div class="learn-body level-simple-only">
+      <p>Kondenzátor umí krátce zadržet elektrický náboj, funguje jako malá dobíjecí baterka. Pomáhá vyrovnávat výkyvy napájení, třeba když servo nebo bzučák najednou potřebují víc proudu.</p>
+      <p>Existují dva hlavní druhy: keramický, který nemá polaritu a dá se pájet libovolně otočený, a elektrolytický, který se musí zapojit správným směrem.</p>
+    </div>
+
+    <div class="level-advanced learn-body">
       <p>Kondenzátor umí krátkodobě uchovat elektrický náboj, funguje jako malá dobíjecí baterka. Kdykoliv se ho zeptáš (kdykoliv napětí v obvodu na chvíli klesne), ochotně část svého náboje pustí ven a napětí podrží. Přesně to se hodí, když servo nebo bzučák najednou "trhnou" víc proudu, než zdroj stíhá dodat: bez kondenzátoru by na chvíli kleslo napájecí napětí i pro zbytek desky, s kondenzátorem poblíž tenhle výkyv z velké části zmizí. Tomu se říká vyhlazování napájení (decoupling).</p>
     </div>
 
@@ -158,7 +163,7 @@
       <p class="learn-diagram-caption">Keramický: symetrická konstrukce, bez polarity. Elektrolytický: vrstva oxidu jen na jedné elektrodě, polarita povinná.</p>
     </div>
 
-    <div class="learn-body">
+    <div class="level-advanced learn-body">
       <p><b>Keramické kondenzátory</b> mají uvnitř dvě vodivé vrstvy oddělené tenkou keramickou vrstvou, která normálně proud nepropouští. Tahle konstrukce je symetrická, proto nemají polaritu a dají se pájet libovolně otočené. (Na desce Shieldio RED jsou žluté a označené 104, ale barva a popisek jsou jen konkrétní provedení, u jiného výrobce nebo hodnoty vypadají jinak.)</p>
       <p><b>Elektrolytický kondenzátor</b> je uvnitř jiný: má dvě fóliové elektrody, na jedné z nich během výroby elektrochemicky vznikne tenoučká vrstva oxidu, ta brání proudu procházet stejně jako keramická vrstva výše. Vrstva oxidu ale existuje jen na téhle jedné elektrodě a snese napětí pouze v jednom směru. Obrácené napětí ji může poškodit a plyn, který se uvnitř pouzdra začne uvolňovat, zvyšuje tlak, v horším případě až za cenu poškození součástky. Proto má elektrolytický kondenzátor na rozdíl od keramických jasně vyznačenou polaritu (pruh u záporné nožičky) a v návodu na sestavení se pájí jako úplně poslední součástka, aby ho zbytečně nezahřívalo dlouhé držení v ruce.</p>
     </div>
@@ -166,7 +171,10 @@
     <div class="section-head" style="max-width:680px; margin-top:56px;">
       <h2>Jak kondenzátor tlumí šum a zákmity.</h2>
     </div>
-    <div class="learn-body">
+    <div class="learn-body level-simple-only">
+      <p>Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, takže dokáže rychlé výkyvy napětí (šum) vyhladit. Pomalé, potřebné napětí tím zůstane skoro nedotčené.</p>
+    </div>
+    <div class="level-advanced learn-body">
       <p>Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, čím rychlejší je změna napětí, tím snáz ji "propustí" skrz sebe, a čím pomalejší, tím víc ji vyhladí. Prakticky to znamená: rychlé výkyvy a šum se přes kondenzátor částečně vybijí a zploští, zatímco pomalé, užitečné napětí zůstává skoro nedotčené. Přesně tenhle efekt se využívá dvěma způsoby, které se na první pohled zdají nesouvisející, ale je za nimi stejná fyzika:</p>
       <p><b>Vyhlazování napájení:</b> malý keramický kondenzátor u napájecího pinu čipu odfiltruje rychlé špičky a "cvrlikání" na napájecí větvi, aby k citlivé elektronice dorazilo klidnější napětí.</p>
       <p><b>Hardwarový debounce:</b> kondenzátor zapojený paralelně k tlačítku vyhladí i elektrické zákmity (bounce) z <a href="../tlacitka-a-debounce/index.html">mechanického odskakování kontaktů</a>, takže na pin dorazí jeden čistý přechod místo rychlé série "cvak-cvak-cvak". Deska Shieldio RED řeší debounce softwarově, žádný debounce kondenzátor na ní není, ale princip je stejný jako u vyhlazování napájení, jen v menším měřítku.</p>

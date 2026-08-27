@@ -1222,6 +1222,7 @@ footer{ background:var(--paper-2); color:var(--ink-soft); padding:44px 0; }
   .photo-frame.zoomable::after{ transition:opacity .15s ease !important; transform:none !important; }
   .lightbox-img{ transition:opacity .15s ease !important; transform:none !important; }
   .us-wave{ animation:none !important; opacity:0.9 !important; }
+  .level-advanced, .level-equations, .level-simple-only{ transition:none !important; }
 }
 
 /* ==========================================================================
@@ -1473,13 +1474,18 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 }
 .learn-board-tie b{ color:var(--ink); }
 /* three cumulative depth levels: simple → advanced → equations.
-   "advanced" content stays visible in "equations" too (it's a superset, not a swap). */
-.level-advanced, .level-equations{ display:none; }
-:root[data-learn-level="advanced"] .level-advanced{ display:block; }
-:root[data-learn-level="equations"] .level-advanced{ display:block; }
-:root[data-learn-level="equations"] .level-equations{ display:block; }
+   "advanced" content stays visible in "equations" too (it's a superset, not a swap).
+   animated with max-height+opacity instead of display, so switching levels fades/slides
+   instead of snapping. */
+.level-advanced, .level-equations, .level-simple-only{
+  overflow:hidden; transition:opacity .3s var(--ease), max-height .35s var(--ease);
+}
+.level-advanced, .level-equations{ opacity:0; max-height:0; }
+:root[data-learn-level="advanced"] .level-advanced,
+:root[data-learn-level="equations"] .level-advanced,
+:root[data-learn-level="equations"] .level-equations{ opacity:1; max-height:4000px; }
 :root[data-learn-level="advanced"] .level-simple-only,
-:root[data-learn-level="equations"] .level-simple-only{ display:none; }
+:root[data-learn-level="equations"] .level-simple-only{ opacity:0; max-height:0; }
 .katex-display{ margin:1.4em 0; overflow-x:auto; overflow-y:hidden; }
 .learn-eq-block{ margin:20px 0; padding:18px 20px; background:var(--paper-2); border-radius:12px; overflow-x:auto; }
 .learn-table{ width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
