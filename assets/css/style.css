@@ -83,7 +83,7 @@ img{ max-width:100%; height:auto; display:block; }
   border-bottom:1px solid rgba(0,0,0,0.06);
 }
 .topbar-inner{
-  display:flex; align-items:center; justify-content:space-between;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
   padding:14px 32px; max-width:1180px; margin:0 auto;
 }
 .logo{
@@ -123,6 +123,8 @@ img{ max-width:100%; height:auto; display:block; }
 }
 .topbar-mobile-utils{ display:none; }
 @media (max-width:880px){
+  .topbar-inner{ padding:12px 20px; }
+  .logo-full{ height:22px; }
   .nav-toggle{ display:flex; }
   .topbar nav{
     display:flex; flex-direction:column; gap:0;
