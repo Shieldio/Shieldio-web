@@ -110,9 +110,9 @@
 <div class="hero" style="padding-bottom:24px;">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Jak to funguje · 06 · Kondenzátory</span>
-      <h1>Jak funguje kondenzátor a proč na něm někdy záleží polarita.</h1>
-      <p class="lead" style="max-width:640px;">Malá dobíjecí baterka, filtr proti šumu a součástka, která na desce RED musí přijít na řadu jako poslední.</p>
+      <span class="eyebrow" data-i18n="learn_cap.eyebrow">Jak to funguje · 06 · Kondenzátory</span>
+      <h1 data-i18n="learn_cap.h1">Jak funguje kondenzátor a proč na něm někdy záleží polarita.</h1>
+      <p class="lead" style="max-width:640px;" data-i18n="learn_cap.lead">Malá dobíjecí baterka, filtr proti šumu a součástka, která na desce RED musí přijít na řadu jako poslední.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
@@ -128,15 +128,15 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="section-head" style="max-width:680px;">
-      <h2>K čemu je kondenzátor vůbec dobrý.</h2>
+      <h2 data-i18n="learn_cap.h2_purpose">K čemu je kondenzátor vůbec dobrý.</h2>
     </div>
     <div class="learn-body level-simple-only">
-      <p>Kondenzátor umí krátce zadržet elektrický náboj, funguje jako malá dobíjecí baterka. Pomáhá vyrovnávat výkyvy napájení, třeba když servo nebo bzučák najednou potřebují víc proudu.</p>
-      <p>Existují dva hlavní druhy: keramický, který nemá polaritu a dá se pájet libovolně otočený, a elektrolytický, který se musí zapojit správným směrem.</p>
+      <p data-i18n="learn_cap.simple_p1">Kondenzátor umí krátce zadržet elektrický náboj, funguje jako malá dobíjecí baterka. Pomáhá vyrovnávat výkyvy napájení, třeba když servo nebo bzučák najednou potřebují víc proudu.</p>
+      <p data-i18n="learn_cap.simple_p2">Existují dva hlavní druhy: keramický, který nemá polaritu a dá se pájet libovolně otočený, a elektrolytický, který se musí zapojit správným směrem.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Kondenzátor umí krátkodobě uchovat elektrický náboj, funguje jako malá dobíjecí baterka. Kdykoliv se ho zeptáš (kdykoliv napětí v obvodu na chvíli klesne), ochotně část svého náboje pustí ven a napětí podrží. Přesně to se hodí, když servo nebo bzučák najednou "trhnou" víc proudu, než zdroj stíhá dodat: bez kondenzátoru by na chvíli kleslo napájecí napětí i pro zbytek desky, s kondenzátorem poblíž tenhle výkyv z velké části zmizí. Tomu se říká vyhlazování napájení (decoupling).</p>
+      <p data-i18n="learn_cap.adv_p1">Kondenzátor umí krátkodobě uchovat elektrický náboj, funguje jako malá dobíjecí baterka. Kdykoliv se ho zeptáš (kdykoliv napětí v obvodu na chvíli klesne), ochotně část svého náboje pustí ven a napětí podrží. Přesně to se hodí, když servo nebo bzučák najednou "trhnou" víc proudu, než zdroj stíhá dodat: bez kondenzátoru by na chvíli kleslo napájecí napětí i pro zbytek desky, s kondenzátorem poblíž tenhle výkyv z velké části zmizí. Tomu se říká vyhlazování napájení (decoupling).</p>
     </div>
 
     <div class="learn-diagram">
@@ -160,54 +160,54 @@
         <text x="305" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink)">+</text>
         <text x="455" y="105" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink)">−</text>
       </svg>
-      <p class="learn-diagram-caption">Keramický: symetrická konstrukce, bez polarity. Elektrolytický: vrstva oxidu jen na jedné elektrodě, polarita povinná.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_cap.diagram_caption">Keramický: symetrická konstrukce, bez polarity. Elektrolytický: vrstva oxidu jen na jedné elektrodě, polarita povinná.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p><b>Keramické kondenzátory</b> mají uvnitř dvě vodivé vrstvy oddělené tenkou keramickou vrstvou, která normálně proud nepropouští. Tahle konstrukce je symetrická, proto nemají polaritu a dají se pájet libovolně otočené. (Na desce Shieldio RED jsou žluté a označené 104, ale barva a popisek jsou jen konkrétní provedení, u jiného výrobce nebo hodnoty vypadají jinak.)</p>
-      <p><b>Elektrolytický kondenzátor</b> je uvnitř jiný: má dvě fóliové elektrody, na jedné z nich během výroby elektrochemicky vznikne tenoučká vrstva oxidu, ta brání proudu procházet stejně jako keramická vrstva výše. Vrstva oxidu ale existuje jen na téhle jedné elektrodě a snese napětí pouze v jednom směru. Obrácené napětí ji může poškodit a plyn, který se uvnitř pouzdra začne uvolňovat, zvyšuje tlak, v horším případě až za cenu poškození součástky. Proto má elektrolytický kondenzátor na rozdíl od keramických jasně vyznačenou polaritu (pruh u záporné nožičky) a v návodu na sestavení se pájí jako úplně poslední součástka, aby ho zbytečně nezahřívalo dlouhé držení v ruce.</p>
+      <p data-i18n="learn_cap.ceramic_p"><b>Keramické kondenzátory</b> mají uvnitř dvě vodivé vrstvy oddělené tenkou keramickou vrstvou, která normálně proud nepropouští. Tahle konstrukce je symetrická, proto nemají polaritu a dají se pájet libovolně otočené. (Na desce Shieldio RED jsou žluté a označené 104, ale barva a popisek jsou jen konkrétní provedení, u jiného výrobce nebo hodnoty vypadají jinak.)</p>
+      <p data-i18n="learn_cap.electrolytic_p"><b>Elektrolytický kondenzátor</b> je uvnitř jiný: má dvě fóliové elektrody, na jedné z nich během výroby elektrochemicky vznikne tenoučká vrstva oxidu, ta brání proudu procházet stejně jako keramická vrstva výše. Vrstva oxidu ale existuje jen na téhle jedné elektrodě a snese napětí pouze v jednom směru. Obrácené napětí ji může poškodit a plyn, který se uvnitř pouzdra začne uvolňovat, zvyšuje tlak, v horším případě až za cenu poškození součástky. Proto má elektrolytický kondenzátor na rozdíl od keramických jasně vyznačenou polaritu (pruh u záporné nožičky) a v návodu na sestavení se pájí jako úplně poslední součástka, aby ho zbytečně nezahřívalo dlouhé držení v ruce.</p>
     </div>
 
     <div class="section-head" style="max-width:680px; margin-top:56px;">
-      <h2>Jak kondenzátor tlumí šum a zákmity.</h2>
+      <h2 data-i18n="learn_cap.h2_noise">Jak kondenzátor tlumí šum a zákmity.</h2>
     </div>
     <div class="learn-body level-simple-only">
-      <p>Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, takže dokáže rychlé výkyvy napětí (šum) vyhladit. Pomalé, potřebné napětí tím zůstane skoro nedotčené.</p>
+      <p data-i18n="learn_cap.noise_simple">Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, takže dokáže rychlé výkyvy napětí (šum) vyhladit. Pomalé, potřebné napětí tím zůstane skoro nedotčené.</p>
     </div>
     <div class="level-advanced learn-body">
-      <p>Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, čím rychlejší je změna napětí, tím snáz ji "propustí" skrz sebe, a čím pomalejší, tím víc ji vyhladí. Prakticky to znamená: rychlé výkyvy a šum se přes kondenzátor částečně vybijí a zploští, zatímco pomalé, užitečné napětí zůstává skoro nedotčené. Přesně tenhle efekt se využívá dvěma způsoby, které se na první pohled zdají nesouvisející, ale je za nimi stejná fyzika:</p>
-      <p><b>Vyhlazování napájení:</b> malý keramický kondenzátor u napájecího pinu čipu odfiltruje rychlé špičky a "cvrlikání" na napájecí větvi, aby k citlivé elektronice dorazilo klidnější napětí.</p>
-      <p><b>Hardwarový debounce:</b> kondenzátor zapojený paralelně k tlačítku vyhladí i elektrické zákmity (bounce) z <a href="../tlacitka-a-debounce/index.html">mechanického odskakování kontaktů</a>, takže na pin dorazí jeden čistý přechod místo rychlé série "cvak-cvak-cvak". Deska Shieldio RED řeší debounce softwarově, žádný debounce kondenzátor na ní není, ale princip je stejný jako u vyhlazování napájení, jen v menším měřítku.</p>
+      <p data-i18n="learn_cap.noise_adv_p1">Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, čím rychlejší je změna napětí, tím snáz ji "propustí" skrz sebe, a čím pomalejší, tím víc ji vyhladí. Prakticky to znamená: rychlé výkyvy a šum se přes kondenzátor částečně vybijí a zploští, zatímco pomalé, užitečné napětí zůstává skoro nedotčené. Přesně tenhle efekt se využívá dvěma způsoby, které se na první pohled zdají nesouvisející, ale je za nimi stejná fyzika:</p>
+      <p data-i18n="learn_cap.decoupling_p"><b>Vyhlazování napájení:</b> malý keramický kondenzátor u napájecího pinu čipu odfiltruje rychlé špičky a "cvrlikání" na napájecí větvi, aby k citlivé elektronice dorazilo klidnější napětí.</p>
+      <p data-i18n="learn_cap.hw_debounce_p"><b>Hardwarový debounce:</b> kondenzátor zapojený paralelně k tlačítku vyhladí i elektrické zákmity (bounce) z <a href="../tlacitka-a-debounce/index.html">mechanického odskakování kontaktů</a>, takže na pin dorazí jeden čistý přechod místo rychlé série "cvak-cvak-cvak". Deska Shieldio RED řeší debounce softwarově, žádný debounce kondenzátor na ní není, ale princip je stejný jako u vyhlazování napájení, jen v menším měřítku.</p>
     </div>
 
-    <div class="learn-board-tie">
+    <div class="learn-board-tie" data-i18n="learn_cap.board_tie">
       <b>Na desce Shieldio RED:</b> tři keramické kondenzátory C1, C2 a C4 (104, tedy 100 nF) sedí poblíž napájecích pinů a vyhlazují drobné výkyvy. Elektrolytický kondenzátor C3 (100 µF) je větší a pomalejší, drží napájení stabilní ve chvílích, kdy servo nebo bzučák najednou odeberou víc proudu.
     </div>
 
     <div class="level-advanced learn-body">
-      <p><b>RC časová konstanta:</b> rychlost, jakou se kondenzátor nabíjí nebo vybíjí přes rezistor, popisuje součin R a C, které se říká tau. Po jedné časové konstantě je kondenzátor nabitý na zhruba 63 % konečné hodnoty, po pěti τ prakticky na 100 %. Debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ dá τ = 1 ms, dost rychle na to, aby stisk tlačítka nebyl znatelně opožděný, ale dost pomalu na vyhlazení zákmitů v řádu mikrosekund až jednotek milisekund.</p>
-      <p><b>Impedance:</b> pro střídavý signál se chování kondenzátoru popisuje jeho impedancí, tedy odporem vůči střídavému proudu. Se stoupající frekvencí impedance klesá, kondenzátor se pro rychlé signály chová skoro jako zkrat, pro pomalé skoro jako rozpojený obvod, proto propouští šum snáz než pomalé užitečné napětí.</p>
+      <p data-i18n="learn_cap.rc_p"><b>RC časová konstanta:</b> rychlost, jakou se kondenzátor nabíjí nebo vybíjí přes rezistor, popisuje součin R a C, které se říká tau. Po jedné časové konstantě je kondenzátor nabitý na zhruba 63 % konečné hodnoty, po pěti τ prakticky na 100 %. Debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ dá τ = 1 ms, dost rychle na to, aby stisk tlačítka nebyl znatelně opožděný, ale dost pomalu na vyhlazení zákmitů v řádu mikrosekund až jednotek milisekund.</p>
+      <p data-i18n="learn_cap.impedance_p"><b>Impedance:</b> pro střídavý signál se chování kondenzátoru popisuje jeho impedancí, tedy odporem vůči střídavému proudu. Se stoupající frekvencí impedance klesá, kondenzátor se pro rychlé signály chová skoro jako zkrat, pro pomalé skoro jako rozpojený obvod, proto propouští šum snáz než pomalé užitečné napětí.</p>
       <table class="learn-table">
-        <tr><th>Signál</th><th>Impedance kondenzátoru</th><th>Chování</th></tr>
-        <tr><td>Pomalý / stejnosměrný</td><td>vysoká</td><td>skoro nepropustí, drží napětí</td></tr>
-        <tr><td>Rychlý šum</td><td>nízká</td><td>propustí a "vybije" špičku pryč</td></tr>
+        <tr><th data-i18n="learn_cap.table_h1">Signál</th><th data-i18n="learn_cap.table_h2">Impedance kondenzátoru</th><th data-i18n="learn_cap.table_h3">Chování</th></tr>
+        <tr><td data-i18n="learn_cap.table_r1a">Pomalý / stejnosměrný</td><td data-i18n="learn_cap.table_r1b">vysoká</td><td data-i18n="learn_cap.table_r1c">skoro nepropustí, drží napětí</td></tr>
+        <tr><td data-i18n="learn_cap.table_r2a">Rychlý šum</td><td data-i18n="learn_cap.table_r2b">nízká</td><td data-i18n="learn_cap.table_r2c">propustí a "vybije" špičku pryč</td></tr>
       </table>
     </div>
 
     <div class="level-equations learn-body">
-      <p>Značení jednotek: <b>R</b> odpor [Ω], <b>C</b> kapacita [F], <b>τ</b> časová konstanta [s], <b>f</b> frekvence [Hz], <b>X_C</b> kapacitní reaktance [Ω].</p>
-      <p><b>RC časová konstanta:</b></p>
+      <p data-i18n="learn_cap.eq_units">Značení jednotek: <b>R</b> odpor [Ω], <b>C</b> kapacita [F], <b>τ</b> časová konstanta [s], <b>f</b> frekvence [Hz], <b>X_C</b> kapacitní reaktance [Ω].</p>
+      <p data-i18n="learn_cap.eq_rc_label"><b>RC časová konstanta:</b></p>
       <div class="learn-eq-block">\[ \tau\ [\text{s}] = R \times C \]</div>
-      <p>Pro debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ:</p>
+      <p data-i18n="learn_cap.eq_rc_sub_label">Pro debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ:</p>
       <div class="learn-eq-block">\[ \tau = 10\,000\,\Omega \times 100 \times 10^{-9}\,\text{F} = 1\,\text{ms} \]</div>
-      <p><b>Kapacitní reaktance (impedance kondenzátoru)</b> pro harmonický signál o frekvenci \(f\):</p>
+      <p data-i18n="learn_cap.eq_xc_label"><b>Kapacitní reaktance (impedance kondenzátoru)</b> pro harmonický signál o frekvenci \(f\):</p>
       <div class="learn-eq-block">\[ X_C\ [\Omega] = \frac{1}{2\pi f C} \]</div>
-      <p>Dosazení pro stejný debounce kondenzátor 100 nF při frekvenci zákmitů kolem 1 kHz:</p>
+      <p data-i18n="learn_cap.eq_xc_sub_label">Dosazení pro stejný debounce kondenzátor 100 nF při frekvenci zákmitů kolem 1 kHz:</p>
       <div class="learn-eq-block">\[ X_C = \frac{1}{2\pi \times 1000\,\text{Hz} \times 100 \times 10^{-9}\,\text{F}} \approx 1{,}59\,\text{k}\Omega \]</div>
-      <p>To je pořád v řádu pull-up rezistoru 10 kΩ, ale výrazně méně, než jaký by X_C vyšel pro pomalé, jednotky Hz trvající změny napětí od stisku tlačítka. Přesně tenhle rozdíl v reaktanci pro různé frekvence je to, co dělá z kondenzátoru filtr, rychlý šum (vysoké f) propustí snáz než pomalý užitečný signál (nízké f).</p>
-      <p><b>Fázorová (komplexní) analýza:</b> kondenzátor má impedanci</p>
+      <p data-i18n="learn_cap.eq_xc_conclusion">To je pořád v řádu pull-up rezistoru 10 kΩ, ale výrazně méně, než jaký by X_C vyšel pro pomalé, jednotky Hz trvající změny napětí od stisku tlačítka. Přesně tenhle rozdíl v reaktanci pro různé frekvence je to, co dělá z kondenzátoru filtr, rychlý šum (vysoké f) propustí snáz než pomalý užitečný signál (nízké f).</p>
+      <p data-i18n="learn_cap.eq_phasor_label"><b>Fázorová (komplexní) analýza:</b> kondenzátor má impedanci</p>
       <div class="learn-eq-block">\[ Z_C = \frac{1}{j\omega C}, \qquad \omega = 2\pi f \]</div>
-      <p>kde \(j\) je imaginární jednotka. Proud kondenzátorem předbíhá napětí na něm o 90°, na rozdíl od rezistoru, kde jsou proud a napětí vždy ve fázi.</p>
+      <p data-i18n="learn_cap.eq_phasor_note">kde \(j\) je imaginární jednotka. Proud kondenzátorem předbíhá napětí na něm o 90°, na rozdíl od rezistoru, kde jsou proud a napětí vždy ve fázi.</p>
     </div>
 
     <div class="topic-nav">
