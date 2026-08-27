@@ -28,6 +28,11 @@
       const entry = dict[key];
       if (entry && entry[lang] != null) el.setAttribute("alt", entry[lang]);
     });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+      const key = el.getAttribute("data-i18n-aria-label");
+      const entry = dict[key];
+      if (entry && entry[lang] != null) el.setAttribute("aria-label", entry[lang]);
+    });
     const titleKey = document.body.getAttribute("data-i18n-title");
     if (titleKey && dict[titleKey] && dict[titleKey][lang] != null) {
       document.title = dict[titleKey][lang];

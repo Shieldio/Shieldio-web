@@ -94,9 +94,9 @@
 <div class="hero" style="padding-bottom:40px;">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Jak to funguje · 05 · Senzory</span>
-      <h1>Ultrazvuk a měření vzdálenosti.</h1>
-      <p class="lead" style="max-width:640px;">Stejný princip, kterým se orientují netopýři nebo lodní sonary, jen v malém senzoru na desce.</p>
+      <span class="eyebrow" data-i18n="learn_ultrazvuk.eyebrow">Jak to funguje · 05 · Senzory</span>
+      <h1 data-i18n="learn_ultrazvuk.h1">Ultrazvuk a měření vzdálenosti.</h1>
+      <p class="lead" style="max-width:640px;" data-i18n="learn_ultrazvuk.lead">Stejný princip, kterým se orientují netopýři nebo lodní sonary, jen v malém senzoru na desce.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
@@ -112,58 +112,58 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="learn-body level-simple-only">
-      <p>Senzor HC-SR04 vyšle krátký zvukový pulz a změří, za jak dlouho se odrazí zpátky. Čím dál je překážka, tím déle to trvá, takže se z toho dá spočítat vzdálenost.</p>
+      <p data-i18n="learn_ultrazvuk.simple_p1">Senzor HC-SR04 vyšle krátký zvukový pulz a změří, za jak dlouho se odrazí zpátky. Čím dál je překážka, tím déle to trvá, takže se z toho dá spočítat vzdálenost.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Senzor HC-SR04 má dva "reproduktory": jeden vysílá krátký pulz zvuku o frekvenci kolem 40 kHz, hodně nad hranicí lidského sluchu (odtud "ultra" zvuk), druhý poslouchá, kdy se stejný zvuk vrátí zpátky odražený od nejbližší překážky.</p>
+      <p data-i18n="learn_ultrazvuk.adv_p1">Senzor HC-SR04 má dva "reproduktory": jeden vysílá krátký pulz zvuku o frekvenci kolem 40 kHz, hodně nad hranicí lidského sluchu (odtud "ultra" zvuk), druhý poslouchá, kdy se stejný zvuk vrátí zpátky odražený od nejbližší překážky.</p>
     </div>
 
     <div class="learn-diagram">
-      <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma vysílání a odrazu ultrazvukového signálu od překážky">
+      <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma vysílání a odrazu ultrazvukového signálu od překážky" data-i18n-aria-label="learn_ultrazvuk.svg_alt">
         <rect x="20" y="75" width="50" height="40" rx="4" fill="var(--tier-red)" opacity="0.85"/>
         <text x="45" y="130" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">HC-SR04</text>
         <rect x="420" y="65" width="50" height="60" rx="4" fill="var(--ink-soft)" opacity="0.6"/>
-        <text x="445" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)">překážka</text>
+        <text x="445" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)" data-i18n="learn_ultrazvuk.svg_obstacle">překážka</text>
         <g stroke="var(--accent)" stroke-width="2" fill="none">
           <path class="us-wave us-wave-o1" d="M100 60 A 55 55 0 0 1 100 130"/>
           <path class="us-wave us-wave-o2" d="M130 45 A 90 90 0 0 1 130 145"/>
           <path class="us-wave us-wave-o3" d="M160 30 A 125 125 0 0 1 160 160"/>
         </g>
-        <text x="130" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--accent)">vyslaný pulz →</text>
+        <text x="130" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--accent)" data-i18n="learn_ultrazvuk.svg_sent">vyslaný pulz →</text>
         <g stroke="var(--tier-green)" stroke-width="2" fill="none">
           <path class="us-wave us-wave-e1" d="M400 60 A 55 55 0 0 0 400 130"/>
           <path class="us-wave us-wave-e2" d="M370 45 A 90 90 0 0 0 370 145"/>
           <path class="us-wave us-wave-e3" d="M340 30 A 125 125 0 0 0 340 160"/>
         </g>
-        <text x="370" y="180" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--tier-green)">← odražená ozvěna</text>
+        <text x="370" y="180" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--tier-green)" data-i18n="learn_ultrazvuk.svg_echo">← odražená ozvěna</text>
       </svg>
-      <p class="learn-diagram-caption">Vzdálenost = (čas mezi vysláním a příjmem × rychlost zvuku) ⁄ 2.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_ultrazvuk.diagram_caption">Vzdálenost = (čas mezi vysláním a příjmem × rychlost zvuku) ⁄ 2.</p>
     </div>
 
     <div class="learn-body level-simple-only">
-      <p>Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny, a protože zvuk letí vzduchem známou rychlostí, přepočítá se ten čas na vzdálenost. Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku automaticky, na pozadí.</p>
+      <p data-i18n="learn_ultrazvuk.simple_p2">Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny, a protože zvuk letí vzduchem známou rychlostí, přepočítá se ten čas na vzdálenost. Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku automaticky, na pozadí.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny. Zvuk se vzduchem šíří známou rychlostí, přibližně 343 metrů za sekundu při pokojové teplotě. Když se ta doba vynásobí rychlostí zvuku, vyjde celková dráha, kterou zvuk urazil tam a zpátky, proto se výsledek ještě dělí dvěma, aby zbyla jen vzdálenost k překážce:</p>
-      <p class="learn-formula">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
-      <p>Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
+      <p data-i18n="learn_ultrazvuk.adv_p2">Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny. Zvuk se vzduchem šíří známou rychlostí, přibližně 343 metrů za sekundu při pokojové teplotě. Když se ta doba vynásobí rychlostí zvuku, vyjde celková dráha, kterou zvuk urazil tam a zpátky, proto se výsledek ještě dělí dvěma, aby zbyla jen vzdálenost k překážce:</p>
+      <p class="learn-formula" data-i18n="learn_ultrazvuk.formula_plain">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
+      <p data-i18n="learn_ultrazvuk.adv_p3">Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
     </div>
 
-    <div class="learn-board-tie">
+    <div class="learn-board-tie" data-i18n="learn_ultrazvuk.board_tie">
       <b>Na desce Shieldio RED:</b> senzor HC-SR04 se zasouvá do patic J1/J7 (Socket A/B). Jeho naměřená vzdálenost rozhoduje, kdy se v návodu na závoru otevře servo, nebo kdy parkovací asistent spustí varování.
     </div>
 
     <div class="level-equations learn-body">
-      <p>Značení jednotek: <b>d</b> vzdálenost [cm], <b>t</b> čas letu zvuku tam a zpět [µs], <b>v</b> rychlost zvuku [m/s], <b>T</b> teplota vzduchu [°C].</p>
-      <p><b>Vzdálenost z naměřeného času</b> (dráha tam a zpět se dělí dvěma):</p>
+      <p data-i18n="learn_ultrazvuk.eq_units">Značení jednotek: <b>d</b> vzdálenost [cm], <b>t</b> čas letu zvuku tam a zpět [µs], <b>v</b> rychlost zvuku [m/s], <b>T</b> teplota vzduchu [°C].</p>
+      <p data-i18n="learn_ultrazvuk.eq_dist_label"><b>Vzdálenost z naměřeného času</b> (dráha tam a zpět se dělí dvěma):</p>
       <div class="learn-eq-block">\[ d\ [\text{cm}] = \frac{t \times 0{,}0343}{2} \]</div>
-      <p>Pro naměřený čas 1160 µs (překážka zhruba 20 cm daleko):</p>
+      <p data-i18n="learn_ultrazvuk.eq_dist_sub_label">Pro naměřený čas 1160 µs (překážka zhruba 20 cm daleko):</p>
       <div class="learn-eq-block">\[ d = \frac{1160 \times 0{,}0343}{2} \approx 19{,}9\,\text{cm} \]</div>
-      <p><b>Rychlost zvuku ve vzduchu</b> mírně roste s teplotou, konstanta 0,0343 cm/µs platí přesně jen kolem pokojové teploty (asi 20 °C):</p>
+      <p data-i18n="learn_ultrazvuk.eq_speed_label"><b>Rychlost zvuku ve vzduchu</b> mírně roste s teplotou, konstanta 0,0343 cm/µs platí přesně jen kolem pokojové teploty (asi 20 °C):</p>
       <div class="learn-eq-block">\[ v\ [\text{m/s}] = 331{,}3 + 0{,}606 \times T \]</div>
-      <p>Při 20 °C vyjde v ≈ 343,4 m/s, přesně hodnota použitá v konstantě výše. Ve výrazně chladnější nebo teplejší místnosti by se přesnost měření o pár procent posunula.</p>
+      <p data-i18n="learn_ultrazvuk.eq_conclusion">Při 20 °C vyjde v ≈ 343,4 m/s, přesně hodnota použitá v konstantě výše. Ve výrazně chladnější nebo teplejší místnosti by se přesnost měření o pár procent posunula.</p>
     </div>
 
     <div class="topic-nav">
