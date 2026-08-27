@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 
 <link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
@@ -95,12 +98,24 @@
       <h1>Ultrazvuk a měření vzdálenosti.</h1>
       <p class="lead" style="max-width:640px;">Stejný princip, kterým se orientují netopýři nebo lodní sonary, jen v malém senzoru na desce.</p>
     </div>
+    <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
+      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <div class="guide-mode-toggle">
+        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
+        <button type="button" class="guide-mode-btn" data-level="equations">Plně</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
-    <div class="learn-body">
+    <div class="learn-body level-simple-only">
+      <p>Senzor HC-SR04 vyšle krátký zvukový pulz a změří, za jak dlouho se odrazí zpátky. Čím dál je překážka, tím déle to trvá, takže se z toho dá spočítat vzdálenost.</p>
+    </div>
+
+    <div class="level-advanced learn-body">
       <p>Senzor HC-SR04 má dva "reproduktory": jeden vysílá krátký pulz zvuku o frekvenci kolem 40 kHz, hodně nad hranicí lidského sluchu (odtud "ultra" zvuk), druhý poslouchá, kdy se stejný zvuk vrátí zpátky odražený od nejbližší překážky.</p>
     </div>
 
@@ -126,7 +141,11 @@
       <p class="learn-diagram-caption">Vzdálenost = (čas mezi vysláním a příjmem × rychlost zvuku) ⁄ 2.</p>
     </div>
 
-    <div class="learn-body">
+    <div class="learn-body level-simple-only">
+      <p>Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny, a protože zvuk letí vzduchem známou rychlostí, přepočítá se ten čas na vzdálenost. Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku automaticky, na pozadí.</p>
+    </div>
+
+    <div class="level-advanced learn-body">
       <p>Senzor přesně změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny. Zvuk se vzduchem šíří známou rychlostí, přibližně 343 metrů za sekundu při pokojové teplotě. Když se ta doba vynásobí rychlostí zvuku, vyjde celková dráha, kterou zvuk urazil tam a zpátky, proto se výsledek ještě dělí dvěma, aby zbyla jen vzdálenost k překážce:</p>
       <p class="learn-formula">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
       <p>Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
@@ -134,6 +153,17 @@
 
     <div class="learn-board-tie">
       <b>Na desce Shieldio RED:</b> senzor HC-SR04 se zasouvá do patic J1/J7 (Socket A/B). Jeho naměřená vzdálenost rozhoduje, kdy se v návodu na závoru otevře servo, nebo kdy parkovací asistent spustí varování.
+    </div>
+
+    <div class="level-equations learn-body">
+      <p>Značení jednotek: <b>d</b> vzdálenost [cm], <b>t</b> čas letu zvuku tam a zpět [µs], <b>v</b> rychlost zvuku [m/s], <b>T</b> teplota vzduchu [°C].</p>
+      <p><b>Vzdálenost z naměřeného času</b> (dráha tam a zpět se dělí dvěma):</p>
+      <div class="learn-eq-block">\[ d\ [\text{cm}] = \frac{t \times 0{,}0343}{2} \]</div>
+      <p>Pro naměřený čas 1160 µs (překážka zhruba 20 cm daleko):</p>
+      <div class="learn-eq-block">\[ d = \frac{1160 \times 0{,}0343}{2} \approx 19{,}9\,\text{cm} \]</div>
+      <p><b>Rychlost zvuku ve vzduchu</b> mírně roste s teplotou, konstanta 0,0343 cm/µs platí přesně jen kolem pokojové teploty (asi 20 °C):</p>
+      <div class="learn-eq-block">\[ v\ [\text{m/s}] = 331{,}3 + 0{,}606 \times T \]</div>
+      <p>Při 20 °C vyjde v ≈ 343,4 m/s, přesně hodnota použitá v konstantě výše. Ve výrazně chladnější nebo teplejší místnosti by se přesnost měření o pár procent posunula.</p>
     </div>
 
     <div class="topic-nav">

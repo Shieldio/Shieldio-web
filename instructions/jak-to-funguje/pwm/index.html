@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 
 <link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
@@ -103,12 +106,24 @@
       <h1>PWM: jak deska řídí LED i servo.</h1>
       <p class="lead" style="max-width:640px;">Arduino umí na výstupu jen 0 V nebo 5 V. Jak z toho vznikne plynulé stmívání a přesné natočení serva.</p>
     </div>
+    <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
+      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <div class="guide-mode-toggle">
+        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
+        <button type="button" class="guide-mode-btn" data-level="equations">Plně</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
-    <div class="learn-body">
+    <div class="learn-body level-simple-only">
+      <p>Arduino umí na výstupu jen 0 V nebo 5 V. Rychlým přepínáním mezi nimi (tomu se říká PWM) ale dokáže LED plynule stmívat a servo natočit do libovolného úhlu.</p>
+    </div>
+
+    <div class="level-advanced learn-body">
       <p>Arduino Nano umí na svých výstupech nastavit jen dvě úrovně napětí, 0 V nebo 5 V, žádnou plynulou hodnotu mezi nimi. Přesto dokáže třeba plynule stmívat LED nebo natáčet servo do libovolného úhlu. Trik se jmenuje <b>PWM</b>, pulzně šířková modulace (Pulse Width Modulation): výstup rychle přepíná mezi 0 V a 5 V, a to, jak dlouhou část každého cyklu tráví na 5 V, se nazývá střída (duty cycle).</p>
     </div>
 
@@ -146,7 +161,11 @@
       <p class="learn-diagram-caption">Vyber LED nebo servo a táhni jezdcem, obojí reaguje na stejnou střídu úplně jinak.</p>
     </div>
 
-    <div class="learn-body">
+    <div class="learn-body level-simple-only">
+      <p>U <b>LED</b> oko nerozliší jednotlivé záblesky, jen vnímá průměrný jas: čím déle LED v cyklu svítí, tím jasnější se zdá. U <b>serva</b> se stejný signál čte úplně jinak, servo si hlídá délku pulzu, ne jeho jas, a podle délky pulzu se natočí do daného úhlu.</p>
+    </div>
+
+    <div class="level-advanced learn-body">
       <p>U <b>LED</b> se cykly opakují tak rychle (stovky až tisíce za sekundu), že je lidské oko nerozliší jednotlivě, jen vnímá průměrný jas, čím delší část cyklu LED svítí, tím jasnější se zdá. Nižší střída (kratší dobu svítí) = tlumenější světlo.</p>
       <p>U <b>serva</b> se stejný princip využívá úplně jinak: servo uvnitř má vlastní elektroniku, která neměří průměrné napětí, ale <b>délku pulzu</b>. Standardní hobby servo očekává pulz zopakovaný zhruba každých 20 ms, jehož délka mezi 1 a 2 milisekundami odpovídá úhlu natočení od jednoho krajního bodu k druhému, kratší pulz (blíž 1 ms) = jeden krajní úhel, delší pulz (blíž 2 ms) = druhý krajní úhel. Elektronika serva porovná délku pulzu se svou aktuální polohou a motorkem se dotáčí, dokud se neshodují.</p>
     </div>
@@ -157,6 +176,18 @@
 
     <div class="learn-board-tie">
       <b>Na desce Shieldio RED:</b> piny D5 a D6 řídí PWM jasem červené a zelené LED, pin D9 posílá PWM pulzy servu SG90, které v návodu na závoru otáčí ramenem podle naměřené vzdálenosti.
+    </div>
+
+    <div class="level-equations learn-body">
+      <p>Značení jednotek: <b>U</b> napětí [V], <b>t</b> čas [ms], <b>φ</b> úhel serva [°].</p>
+      <p><b>Průměrné napětí u LED</b> je dané jen střídou, nezávisí na frekvenci PWM:</p>
+      <div class="learn-eq-block">\[ U_{prům}\ [\text{V}] = \frac{\text{střída}\ [\%]}{100} \times U_{max} \]</div>
+      <p>Pro desku RED s napájením 5 V a střídou 50 %:</p>
+      <div class="learn-eq-block">\[ U_{prům} = \frac{50}{100} \times 5\,\text{V} = 2{,}5\,\text{V} \]</div>
+      <p><b>Úhel serva</b> je lineární funkcí délky pulzu, s pulzem 1 ms na jednom krajním úhlu (0°) a 2 ms na druhém (180°):</p>
+      <div class="learn-eq-block">\[ \varphi\ [^\circ] = \frac{t - 1\,\text{ms}}{1\,\text{ms}} \times 180^\circ \]</div>
+      <p>Pro pulz 1,5 ms (přesně uprostřed rozsahu):</p>
+      <div class="learn-eq-block">\[ \varphi = \frac{1{,}5 - 1}{1} \times 180^\circ = 90^\circ \]</div>
     </div>
 
     <div class="topic-nav">

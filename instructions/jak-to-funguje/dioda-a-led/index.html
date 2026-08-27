@@ -12,6 +12,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 
 <link rel="icon" type="image/svg+xml" href="../../../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png">
@@ -103,12 +106,24 @@
       <h1>Jak funguje dioda a LED.</h1>
       <p class="lead" style="max-width:640px;">Proč polarita u těchhle dvou součástek záleží, a co se doopravdy děje uvnitř polovodiče.</p>
     </div>
+    <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
+      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <div class="guide-mode-toggle">
+        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
+        <button type="button" class="guide-mode-btn" data-level="equations">Plně</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
-    <div class="learn-body">
+    <div class="learn-body level-simple-only">
+      <p>Dioda propouští elektrický proud jen jedním směrem, jako jednosměrná ulička. LED je speciální dioda, která navíc při průchodu proudu svítí.</p>
+    </div>
+
+    <div class="level-advanced learn-body">
       <p>Dioda je nejjednodušší polovodičová součástka. Uvnitř má dvě odlišně upravené (dotované) vrstvy křemíku, jednu s přebytkem elektronů (typ N), druhou s jejich nedostatkem, takzvanými děrami (typ P). Na rozhraní obou vrstev vznikne tenká oblast bez volných nosičů náboje, které se říká přechod PN.</p>
     </div>
 
@@ -137,10 +152,19 @@
       <p class="learn-diagram-caption">Zjednodušené schéma: ve správném směru přechod propustí proud, v obráceném ho blokuje.</p>
     </div>
 
-    <div class="learn-body">
+    <div class="level-advanced learn-body">
       <p>Přiložíš-li napětí ve <b>správném (propustném) směru</b>, elektrony a díry se k přechodu tlačí proti sobě, přechod se zúží a od určitého prahového napětí (u křemíkových diod kolem 0,6 V, u LED podle barvy 1,8 až 3,3 V) jím proud volně protéká. V <b>obráceném (závěrném) směru</b> se nosiče náboje naopak od přechodu vzdalují, oblast bez volných nosičů se rozšíří a proud přechodem prakticky neteče, dokud napětí nepřekročí mez, kterou dioda vydrží.</p>
       <p>Přesně proto má dioda 1N5817 na desce jasně danou orientaci (proužek ke straně K, katoda), chrání zbytek desky tak, že ve špatně zapojeném směru (třeba obráceně vložený napájecí konektor) proud jednoduše nepustí dál.</p>
       <p><b>LED</b> (light-emitting diode) je speciální dioda ze specifických polovodičových materiálů. Když jí ve správném směru protéká proud, elektrony na přechodu "padají" na nižší energetickou hladinu a přebytečnou energii vyzáří jako foton, světlo. Barva světla je daná materiálem polovodiče (a tedy velikostí toho energetického skoku), ne barvou vnějšího pouzdra LED.</p>
+    </div>
+
+    <div class="level-equations learn-body">
+      <p>Značení jednotek: <b>E</b> energie fotonu [J] nebo [eV], <b>h</b> Planckova konstanta [J·s], <b>c</b> rychlost světla [m/s], <b>λ</b> vlnová délka [m].</p>
+      <p>Barva světla LED je daná energií fotonu, kterou elektron při přechodu vyzáří. Energie fotonu souvisí s vlnovou délkou světla vztahem:</p>
+      <div class="learn-eq-block">\[ E = \frac{h \times c}{\lambda} \]</div>
+      <p>S konstantami \( h = 6{,}626 \times 10^{-34}\,\text{J·s} \) a \( c = 3 \times 10^{8}\,\text{m/s} \), pro červenou LED s vlnovou délkou přibližně 660 nm:</p>
+      <div class="learn-eq-block">\[ E = \frac{6{,}626 \times 10^{-34} \times 3 \times 10^{8}}{660 \times 10^{-9}} \approx 3{,}01 \times 10^{-19}\,\text{J} \approx 1{,}88\,\text{eV} \]</div>
+      <p>Tahle energie v elektronvoltech přibližně odpovídá prahovému napětí, které červená LED potřebuje k rozsvícení, přesně to napětí je vidět jako "úbytek na LED" v kalkulačce u <a href="../ohmuv-zakon/index.html">Ohmova zákona</a>. Kratší vlnová délka (modrá, fialová LED) znamená vyšší energii fotonu, a tedy i vyšší prahové napětí.</p>
     </div>
 
     <div class="learn-photo">
