@@ -26,6 +26,33 @@
     return Math.round(v).toLocaleString("cs-CZ") + " Ω";
   }
 
+  const STRINGS = {
+    cs: {
+      needHigherSupply: "Napájecí napětí musí být vyšší než úbytek napětí na LED.",
+      varSupply: "napájení",
+      varLed: "LED",
+      varCurrent: "proud",
+      nearestValue: (v) => `Nejbližší běžně vyráběná hodnota z řady E12 je ${v}.`,
+      formulaFallback: (R) => `R = (Vnapájení − VLED) ⁄ Iproud ≈ ${R}`,
+      textFallback: (Vs, Vf, Ima, R, std) =>
+        `Vzorec: R = (Vnapájení − VLED) ⁄ Iproud = (${Vs} − ${Vf}) V ⁄ ${Ima} A ≈ ${R}. Nejbližší běžně vyráběná hodnota z řady E12 je ${std}.`,
+    },
+    en: {
+      needHigherSupply: "The supply voltage must be higher than the LED's voltage drop.",
+      varSupply: "supply",
+      varLed: "LED",
+      varCurrent: "current",
+      nearestValue: (v) => `The nearest standard E12 value is ${v}.`,
+      formulaFallback: (R) => `R = (Vsupply − VLED) ⁄ Icurrent ≈ ${R}`,
+      textFallback: (Vs, Vf, Ima, R, std) =>
+        `Formula: R = (Vsupply − VLED) ⁄ Icurrent = (${Vs} − ${Vf}) V ⁄ ${Ima} A ≈ ${R}. The nearest standard E12 value is ${std}.`,
+    },
+  };
+
+  function currentLang() {
+    return document.documentElement.lang === "en" ? "en" : "cs";
+  }
+
   function init(el) {
     const vs = el.querySelector('[data-calc="vs"]');
     const vf = el.querySelector('[data-calc="vf"]');
@@ -35,12 +62,13 @@
     if (!vs || !vf || !i || !rOut) return;
 
     function update() {
+      const t = STRINGS[currentLang()];
       const Vs = parseFloat(vs.value);
       const Vf = parseFloat(vf.value);
       const Ima = parseFloat(i.value);
       if (!isFinite(Vs) || !isFinite(Vf) || !isFinite(Ima) || Ima <= 0 || Vs <= Vf) {
         rOut.textContent = "—";
-        if (note) note.textContent = "Napájecí napětí musí být vyšší než úbytek napětí na LED.";
+        if (note) note.textContent = t.needHigherSupply;
         return;
       }
       const R = (Vs - Vf) / (Ima / 1000);
@@ -48,7 +76,7 @@
       rOut.textContent = formatOhm(R);
       if (note) {
         const tail = ` \\approx ${formatOhm(R).replace("Ω", "\\,\\Omega").replace("kΩ", "\\,\\text{k}\\Omega")}`;
-        const formula = `R = \\dfrac{V_{napájení} - V_{LED}}{I_{proud}} = \\dfrac{${Vs} - ${Vf}\\,\\text{V}}{${(Ima / 1000).toLocaleString("cs-CZ")}\\,\\text{A}}${tail}`;
+        const formula = `R = \\dfrac{V_{${t.varSupply}} - V_{${t.varLed}}}{I_{${t.varCurrent}}} = \\dfrac{${Vs} - ${Vf}\\,\\text{V}}{${(Ima / 1000).toLocaleString("cs-CZ")}\\,\\text{A}}${tail}`;
         if (window.katex) {
           note.innerHTML = "";
           const formulaSpan = document.createElement("span");
@@ -56,16 +84,17 @@
           try {
             katex.render(formula, formulaSpan, { throwOnError: false, displayMode: false });
           } catch (e) {
-            formulaSpan.textContent = `R = (Vnapájení − VLED) ⁄ Iproud ≈ ${formatOhm(R)}`;
+            formulaSpan.textContent = t.formulaFallback(formatOhm(R));
           }
-          note.appendChild(document.createTextNode(` Nejbližší běžně vyráběná hodnota z řady E12 je ${formatOhm(std)}.`));
+          note.appendChild(document.createTextNode(" " + t.nearestValue(formatOhm(std))));
         } else {
-          note.textContent = `Vzorec: R = (Vnapájení − VLED) ⁄ Iproud = (${Vs} − ${Vf}) V ⁄ ${(Ima / 1000).toLocaleString("cs-CZ")} A ≈ ${formatOhm(R)}. Nejbližší běžně vyráběná hodnota z řady E12 je ${formatOhm(std)}.`;
+          note.textContent = t.textFallback(Vs, Vf, (Ima / 1000).toLocaleString("cs-CZ"), formatOhm(R), formatOhm(std));
         }
       }
     }
 
     [vs, vf, i].forEach(inp => inp.addEventListener("input", update));
+    document.addEventListener("shieldio-lang-change", update);
     update();
   }
 

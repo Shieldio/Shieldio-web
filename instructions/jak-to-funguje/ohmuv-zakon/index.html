@@ -111,16 +111,16 @@
 <div class="hero" style="padding-bottom:24px;">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Jak to funguje · 01 · Rezistory</span>
-      <h1>Ohmův zákon a proč zrovna 220 Ω.</h1>
-      <p class="lead" style="max-width:640px;">Kalkulačka pro výpočet rezistoru k LED podle Ohmova zákona, s vysvětlením, odkud vzorec pochází a co dělá rezistor uvnitř.</p>
+      <span class="eyebrow" data-i18n="learn_ohm.eyebrow">Jak to funguje · 01 · Rezistory</span>
+      <h1 data-i18n="learn_ohm.h1">Ohmův zákon a proč zrovna 220 Ω.</h1>
+      <p class="lead" style="max-width:640px;" data-i18n="learn_ohm.lead">Kalkulačka pro výpočet rezistoru k LED podle Ohmova zákona, s vysvětlením, odkud vzorec pochází a co dělá rezistor uvnitř.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
-      <span class="guide-mode-label">Úroveň vysvětlení</span>
+      <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
-        <button type="button" class="guide-mode-btn" data-level="simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced">Pokročile</button>
-        <button type="button" class="guide-mode-btn" data-level="equations">Plně</button>
+        <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Pokročile</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Plně</button>
       </div>
     </div>
   </div>
@@ -129,63 +129,63 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="learn-body level-simple-only">
-      <p>Ohmův zákon říká, jak spolu v elektrickém obvodu souvisí napětí, proud a odpor: čím větší odpor dáš proudu do cesty, tím míň proudu poteče.</p>
-      <p>Proto se před LED diodu dává rezistor. Bez něj by diodou protékalo příliš mnoho proudu a LED by se za chvíli spálila, s rezistorem proud klesne na bezpečnou hodnotu.</p>
+      <p data-i18n="learn_ohm.simple_p1">Ohmův zákon říká, jak spolu v elektrickém obvodu souvisí napětí, proud a odpor: čím větší odpor dáš proudu do cesty, tím míň proudu poteče.</p>
+      <p data-i18n="learn_ohm.simple_p2">Proto se před LED diodu dává rezistor. Bez něj by diodou protékalo příliš mnoho proudu a LED by se za chvíli spálila, s rezistorem proud klesne na bezpečnou hodnotu.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p>Ohmův zákon popisuje vztah mezi napětím, proudem a odporem v obvodu: napětí se rovná odporu krát proudu.</p>
+      <p data-i18n="learn_ohm.adv_p1">Ohmův zákon popisuje vztah mezi napětím, proudem a odporem v obvodu: napětí se rovná odporu krát proudu.</p>
       <div class="learn-eq-block">\[ U = R \times I \]</div>
-      <p>Přeuspořádaný na výpočet odporu vypadá takto:</p>
+      <p data-i18n="learn_ohm.adv_p2">Přeuspořádaný na výpočet odporu vypadá takto:</p>
       <div class="learn-eq-block">\[ R = \frac{U}{I} \]</div>
-      <p>LED dioda potřebuje na svých vývodech určitý úbytek napětí, aby svítila, u červené LED je to zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA, než se poškodí. Deska RED má napájení 5 V. Kdyby se LED připojila přímo bez rezistoru, na diodě by se snažilo objevit celých 5 V, LED by se pokusila propustit mnohem víc proudu, než snese, a za zlomek vteřiny by shořela.</p>
-      <p>Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
+      <p data-i18n="learn_ohm.adv_p3">LED dioda potřebuje na svých vývodech určitý úbytek napětí, aby svítila, u červené LED je to zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA, než se poškodí. Deska RED má napájení 5 V. Kdyby se LED připojila přímo bez rezistoru, na diodě by se snažilo objevit celých 5 V, LED by se pokusila propustit mnohem víc proudu, než snese, a za zlomek vteřiny by shořela.</p>
+      <p data-i18n="learn_ohm.adv_p4">Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
     </div>
 
     <div class="resistor-calc">
       <div class="resistor-calc-grid">
         <div class="resistor-calc-field">
-          <label for="calcVs">Napájecí napětí (V)</label>
+          <label for="calcVs" data-i18n="learn_ohm.calc_vs">Napájecí napětí (V)</label>
           <input type="number" id="calcVs" data-calc="vs" value="5" step="0.1" min="0">
         </div>
         <div class="resistor-calc-field">
-          <label for="calcVf">Úbytek na LED (V)</label>
+          <label for="calcVf" data-i18n="learn_ohm.calc_vf">Úbytek na LED (V)</label>
           <input type="number" id="calcVf" data-calc="vf" value="2" step="0.1" min="0">
         </div>
         <div class="resistor-calc-field">
-          <label for="calcI">Požadovaný proud (<span class="unit-case">mA</span>)</label>
+          <label for="calcI" data-i18n="learn_ohm.calc_i">Požadovaný proud (<span class="unit-case">mA</span>)</label>
           <input type="number" id="calcI" data-calc="i" value="15" step="1" min="1">
         </div>
       </div>
       <div class="resistor-calc-result">
-        <span class="resistor-calc-result-label">Potřebný odpor</span>
+        <span class="resistor-calc-result-label" data-i18n="learn_ohm.calc_result_label">Potřebný odpor</span>
         <span class="resistor-calc-result-value" data-calc="r">220 Ω</span>
       </div>
       <p class="resistor-calc-note" data-calc="note"></p>
     </div>
 
     <div class="learn-body">
-      <p>Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.</p>
+      <p data-i18n="learn_ohm.calc_note">Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.</p>
     </div>
 
-    <div class="learn-aside">
+    <div class="learn-aside" data-i18n="learn_ohm.aside">
       <b>Co dělá rezistor uvnitř:</b> je to materiál, který klade odpor průchodu proudu, čím vyšší odpor, tím míň proudu jím při stejném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají jim energii jako teplo, proto se rezistor při provozu mírně zahřívá.
     </div>
 
-    <div class="learn-board-tie">
+    <div class="learn-board-tie" data-i18n="learn_ohm.board_tie">
       <b>Na desce Shieldio RED:</b> tenhle přesný výpočet stojí za R1 a R2 (220 Ω, proudové omezovače pro červenou a zelenou LED). R3 a R4 (10 kΩ) fungují jinak, jako pull-up rezistory pro tlačítka, víc v kapitole o <a href="../tlacitka-a-debounce/index.html">debounce</a>. R5 (330 Ω) omezuje proud bzučákem stejným principem jako u LED, jen s jinými vstupními hodnotami.
     </div>
 
     <div class="level-advanced learn-body">
-      <p><b>Sériové a paralelní řazení:</b> když rezistory řadíš za sebe (sériově), jejich odpory se prostě sečtou. Když je řadíš vedle sebe (paralelně), výsledný odpor je vždycky menší než ten nejmenší z nich, protože proud má víc cest, kudy protéct.</p>
-      <p><b>Výkon a zahřívání:</b> rezistor mění procházející proud na teplo. Čím větší proud nebo čím větší odpor, tím víc se zahřívá. Rezistor 220 Ω u LED se prakticky vůbec nezahřívá, protéká jím jen málo proudu, hluboko pod tím, co by snesl.</p>
+      <p data-i18n="learn_ohm.series_parallel"><b>Sériové a paralelní řazení:</b> když rezistory řadíš za sebe (sériově), jejich odpory se prostě sečtou. Když je řadíš vedle sebe (paralelně), výsledný odpor je vždycky menší než ten nejmenší z nich, protože proud má víc cest, kudy protéct.</p>
+      <p data-i18n="learn_ohm.power_heat"><b>Výkon a zahřívání:</b> rezistor mění procházející proud na teplo. Čím větší proud nebo čím větší odpor, tím víc se zahřívá. Rezistor 220 Ω u LED se prakticky vůbec nezahřívá, protéká jím jen málo proudu, hluboko pod tím, co by snesl.</p>
       <table class="learn-table">
-        <tr><th>Barevné proužky</th><th>Význam</th></tr>
-        <tr><td>1. a 2. proužek</td><td>první dvě číslice hodnoty</td></tr>
-        <tr><td>3. proužek</td><td>násobitel (počet nul)</td></tr>
-        <tr><td>4. proužek</td><td>tolerance (zlatá = 5 %, stříbrná = 10 %)</td></tr>
+        <tr><th data-i18n="learn_ohm.table_h1">Barevné proužky</th><th data-i18n="learn_ohm.table_h2">Význam</th></tr>
+        <tr><td data-i18n="learn_ohm.table_r1a">1. a 2. proužek</td><td data-i18n="learn_ohm.table_r1b">první dvě číslice hodnoty</td></tr>
+        <tr><td data-i18n="learn_ohm.table_r2a">3. proužek</td><td data-i18n="learn_ohm.table_r2b">násobitel (počet nul)</td></tr>
+        <tr><td data-i18n="learn_ohm.table_r3a">4. proužek</td><td data-i18n="learn_ohm.table_r3b">tolerance (zlatá = 5 %, stříbrná = 10 %)</td></tr>
       </table>
-      <p>Rezistor 220 Ω má proužky červená-červená-hnědá-zlatá (2, 2, ×10, 5 %), 10 kΩ má hnědá-černá-oranžová-zlatá (1, 0, ×1000, 5 %).</p>
+      <p data-i18n="learn_ohm.color_example">Rezistor 220 Ω má proužky červená-červená-hnědá-zlatá (2, 2, ×10, 5 %), 10 kΩ má hnědá-černá-oranžová-zlatá (1, 0, ×1000, 5 %).</p>
     </div>
 
     <div class="level-advanced">
@@ -211,38 +211,38 @@
           </g>
           <text x="250" y="30" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="var(--ink)">22 × 10 = 220 Ω, tolerance 5 %</text>
         </svg>
-        <p class="learn-diagram-caption">Proužky se čtou od kraje blíž k vývodu: 1. číslice, 2. číslice, násobitel, tolerance.</p>
+        <p class="learn-diagram-caption" data-i18n="learn_ohm.diagram_caption">Proužky se čtou od kraje blíž k vývodu: 1. číslice, 2. číslice, násobitel, tolerance.</p>
       </div>
     </div>
 
     <div class="level-equations learn-body">
-      <p>Značení jednotek v následujících vzorcích: <b>R</b> odpor [Ω], <b>U</b> napětí [V], <b>I</b> proud [A], <b>P</b> výkon [W].</p>
-      <p><b>Sériové řazení</b> (rezistory za sebou):</p>
-      <div class="learn-eq-block">\[ R_{sériové}\ [\Omega] = R_1 + R_2 + \dots + R_n \]</div>
-      <p><b>Paralelní řazení</b> (rezistory vedle sebe):</p>
-      <div class="learn-eq-block">\[ \frac{1}{R_{paralelní}\ [\Omega]} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} \]</div>
-      <p><b>Výkon rezistoru</b> (tři ekvivalentní tvary podle toho, co znáš):</p>
+      <p data-i18n="learn_ohm.eq_units">Značení jednotek v následujících vzorcích: <b>R</b> odpor [Ω], <b>U</b> napětí [V], <b>I</b> proud [A], <b>P</b> výkon [W].</p>
+      <p data-i18n="learn_ohm.eq_series_label"><b>Sériové řazení</b> (rezistory za sebou):</p>
+      <div class="learn-eq-block" data-i18n="learn_ohm.eq_series_block">\[ R_{sériové}\ [\Omega] = R_1 + R_2 + \dots + R_n \]</div>
+      <p data-i18n="learn_ohm.eq_parallel_label"><b>Paralelní řazení</b> (rezistory vedle sebe):</p>
+      <div class="learn-eq-block" data-i18n="learn_ohm.eq_parallel_block">\[ \frac{1}{R_{paralelní}\ [\Omega]} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} \]</div>
+      <p data-i18n="learn_ohm.eq_power_label"><b>Výkon rezistoru</b> (tři ekvivalentní tvary podle toho, co znáš):</p>
       <div class="learn-eq-block">\[ P\ [\text{W}] = U \times I = I^2 R = \frac{U^2}{R} \]</div>
-      <p>Dosazení pro R1/R2 (220 Ω, 15 mA):</p>
+      <p data-i18n="learn_ohm.eq_sub_label">Dosazení pro R1/R2 (220 Ω, 15 mA):</p>
       <div class="learn-eq-block">\[ P = (0{,}015\,\text{A})^2 \times 220\,\Omega \approx 0{,}05\,\text{W} \]</div>
-      <p>Hluboko pod běžnou dovolenou zátěží malých rezistorů (obvykle 0,25 W), proto se u LED nijak nezahřívá.</p>
+      <p data-i18n="learn_ohm.eq_conclusion">Hluboko pod běžnou dovolenou zátěží malých rezistorů (obvykle 0,25 W), proto se u LED nijak nezahřívá.</p>
     </div>
 
     <div class="topic-nav">
-      <a class="topic-nav-back" href="../index.html">← Zpět na přehled témat</a>
+      <a class="topic-nav-back" href="../index.html" data-i18n="learn.topic_back">← Zpět na přehled témat</a>
       <div class="topic-nav-items">
-        <a class="topic-nav-item is-current" href="../ohmuv-zakon/index.html"><span class="topic-nav-num">01</span> Ohmův zákon</a>
-        <a class="topic-nav-item" href="../tlacitka-a-debounce/index.html"><span class="topic-nav-num">02</span> Tlačítka a debounce</a>
-        <a class="topic-nav-item" href="../dioda-a-led/index.html"><span class="topic-nav-num">03</span> Dioda a LED</a>
-        <a class="topic-nav-item" href="../pwm/index.html"><span class="topic-nav-num">04</span> PWM</a>
-        <a class="topic-nav-item" href="../ultrazvuk/index.html"><span class="topic-nav-num">05</span> Ultrazvuk</a>
-        <a class="topic-nav-item" href="../kondenzatory/index.html"><span class="topic-nav-num">06</span> Kondenzátory</a>
-        <a class="topic-nav-item" href="../pcb/index.html"><span class="topic-nav-num">07</span> PCB</a>
+        <a class="topic-nav-item is-current" href="../ohmuv-zakon/index.html"><span class="topic-nav-num">01</span> <span data-i18n="learn.topic01">Ohmův zákon</span></a>
+        <a class="topic-nav-item" href="../tlacitka-a-debounce/index.html"><span class="topic-nav-num">02</span> <span data-i18n="learn.topic02">Tlačítka a debounce</span></a>
+        <a class="topic-nav-item" href="../dioda-a-led/index.html"><span class="topic-nav-num">03</span> <span data-i18n="learn.topic03">Dioda a LED</span></a>
+        <a class="topic-nav-item" href="../pwm/index.html"><span class="topic-nav-num">04</span> <span data-i18n="learn.topic04">PWM</span></a>
+        <a class="topic-nav-item" href="../ultrazvuk/index.html"><span class="topic-nav-num">05</span> <span data-i18n="learn.topic05">Ultrazvuk</span></a>
+        <a class="topic-nav-item" href="../kondenzatory/index.html"><span class="topic-nav-num">06</span> <span data-i18n="learn.topic06">Kondenzátory</span></a>
+        <a class="topic-nav-item" href="../pcb/index.html"><span class="topic-nav-num">07</span> <span data-i18n="learn.topic07">PCB</span></a>
       </div>
     </div>
 
     <div class="learn-crosslinks">
-      <a href="../../baseline/red/sestaveni/index.html">Návod na sestavení desky RED →</a>
+      <a href="../../baseline/red/sestaveni/index.html" data-i18n="learn.guide_link_sestaveni">Návod na sestavení desky RED →</a>
     </div>
   </div>
 </section>
