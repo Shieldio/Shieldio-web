@@ -443,6 +443,10 @@
     "cs": "Jedna sada provede žáky od prvního kontaktu s elektronikou až po robotiku v pohybu.",
     "en": "One kit takes students from their first contact with electronics all the way to robotics in motion."
   },
+  "home.schools.details_link": {
+    "cs": "Doporučený věk, počet žáků na desku, co je v balení a další praktické detaily →",
+    "en": "Recommended age, students per board, what's in the box, and other practical details →"
+  },
   "home.cta.eyebrow": {
     "cs": "Máte zájem?",
     "en": "Interested?"

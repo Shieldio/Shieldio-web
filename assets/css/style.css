@@ -1570,6 +1570,25 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
   border-radius:0 var(--radius) var(--radius) 0; font-size:14.5px; line-height:1.6; color:var(--ink-soft);
 }
 .learn-board-tie b{ color:var(--ink); }
+.fact-grid{
+  display:grid; grid-template-columns:1fr; gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; margin-top:28px;
+}
+@media (min-width:640px){
+  .fact-grid{ grid-template-columns:repeat(2,1fr); }
+  .fact-grid .fact-card:last-child:nth-child(odd){ grid-column:1 / -1; }
+}
+.fact-card{ background:var(--surface); padding:20px 22px; }
+.fact-card .fact-label{
+  display:block; margin-bottom:8px;
+  font-family:'JetBrains Mono'; font-size:11px; letter-spacing:0.04em; text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.fact-card p{ font-size:14.5px; line-height:1.6; color:var(--ink); margin:0; }
+.fact-card p b{ color:var(--ink); }
+.fact-card p a{ color:var(--accent-deep); }
+:root[data-theme="dark"] .fact-card p a{ color:var(--accent-soft); }
 /* three cumulative depth levels: simple → advanced → equations.
    "advanced" content stays visible in "equations" too (it's a superset, not a swap).
    animated with max-height+opacity instead of display, so switching levels fades/slides
