@@ -71,13 +71,33 @@
     "cs": "Žáci se učí programovat a stavět elektronické projekty bez nutnosti pájet nebo složitě zapojovat. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, zvládne ji i učitel bez technického vzdělání.",
     "en": "Students learn to program and build electronic projects without needing to solder or wire anything up. The board connects with a single USB-C cable, and the first program runs within five minutes. Designed for teaching at primary and secondary schools as well as clubs, easy enough for a teacher without a technical background."
   },
-  "home.hero.cta_primary": {
+  "home.hero.path1_intent": {
+    "cs": "Chci Shieldio",
+    "en": "I want Shieldio"
+  },
+  "home.hero.path1_action": {
+    "cs": "Předobjednat desku RED",
+    "en": "Preorder the RED board"
+  },
+  "home.hero.path2_intent": {
+    "cs": "Chci ho nejdřív vidět",
+    "en": "I want to see it first"
+  },
+  "home.hero.path2_action": {
     "cs": "Domluvit ukázku",
     "en": "Book a demo"
   },
+  "home.hero.path3_intent": {
+    "cs": "Chci si ho vyzkoušet",
+    "en": "I want to try it out"
+  },
+  "home.hero.path3_action": {
+    "cs": "Ukázkový projekt a pracovní list",
+    "en": "Sample project and worksheet"
+  },
   "home.hero.cta_secondary": {
-    "cs": "Prohlédnout produkty",
-    "en": "See the products"
+    "cs": "Prohlédnout všechny produkty →",
+    "en": "See all products →"
   },
   "home.hero.stat1_label": {
     "cs": "úrovně obtížnosti",
@@ -1922,10 +1942,6 @@
   "privacy.s9_p2": {
     "cs": "Naposledy upraveno: srpen 2026.",
     "en": "Last updated: August 2026."
-  },
-  "home.hero.teacher_link": {
-    "cs": "Pro učitele: hotová metodika k prvnímu projektu →",
-    "en": "For teachers: the lesson plan for the first project is ready →"
   },
   "red.teacher_link": {
     "cs": "Pro učitele: hotová metodika k prvnímu projektu →",
