@@ -60,16 +60,16 @@
     "en": "Book a demo"
   },
   "home.hero.eyebrow": {
-    "cs": "Výuková elektronika pro školy",
-    "en": "Educational electronics for schools"
+    "cs": "Výuková elektronika pro školy i domov",
+    "en": "Educational electronics for schools and home"
   },
   "home.hero.h1": {
     "cs": "Hotová <em>Arduino stavebnice</em> pro výuku elektroniky ve škole.",
     "en": "A ready-made <em>Arduino kit</em> for teaching electronics at school."
   },
   "home.hero.lead": {
-    "cs": "Žáci se učí programovat a stavět elektronické projekty bez nutnosti pájet nebo složitě zapojovat. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, zvládne ji i učitel bez technického vzdělání.",
-    "en": "Students learn to program and build electronic projects without needing to solder or wire anything up. The board connects with a single USB-C cable, and the first program runs within five minutes. Designed for teaching at primary and secondary schools as well as clubs, easy enough for a teacher without a technical background."
+    "cs": "Žáci i domácí kutilové se učí programovat a stavět elektronické projekty bez pájení a složitého zapojování. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, stejně dobře poslouží jako stavebnice doma. Navrženo tak, aby s ní mohl učit i učitel bez hlubších znalostí elektroniky.",
+    "en": "Students and home hobbyists alike learn to program and build electronic projects without soldering or complex wiring. The board connects with a single USB-C cable, and the first program runs within five minutes. Designed for teaching at primary and secondary schools as well as clubs, it works just as well as a kit at home. Built so that even a teacher without deep electronics knowledge can teach with it."
   },
   "home.hero.path1_intent": {
     "cs": "Chci Shieldio",
@@ -100,8 +100,12 @@
     "en": "See all products →"
   },
   "home.hero.stat1_label": {
-    "cs": "úrovně obtížnosti",
-    "en": "difficulty levels"
+    "cs": "plánované úrovně systému",
+    "en": "planned system levels"
+  },
+  "home.hero.stats_note": {
+    "cs": "RED je první vyvíjená deska. Green a Yellow zatím připravujeme.",
+    "en": "RED is the first board in development. Green and Yellow are still being prepared."
   },
   "home.hero.stat2_label": {
     "cs": "jednotný formát desky",
@@ -266,6 +270,50 @@
   "home.tier_red.badge": {
     "cs": "Aktuálně ve vývoji",
     "en": "Currently in development"
+  },
+  "home.box.in_box_h3": {
+    "cs": "Co je v balení",
+    "en": "What's in the box"
+  },
+  "home.box.in_box_li1": {
+    "cs": "Deska Shieldio RED se všemi součástkami (Arduino Nano, ultrazvukový senzor, servo, OLED displej)",
+    "en": "The Shieldio RED board with all components (Arduino Nano, ultrasonic sensor, servo, OLED display)"
+  },
+  "home.box.in_box_li2": {
+    "cs": "1,5m USB-C kabel",
+    "en": "1.5m USB-C cable"
+  },
+  "home.box.in_box_li3": {
+    "cs": "Přístup k blokovému editoru v prohlížeči, zdarma",
+    "en": "Access to the browser-based block editor, free"
+  },
+  "home.box.in_box_li4": {
+    "cs": "Krok-za-krokem návod k prvnímu projektu",
+    "en": "A step-by-step guide to the first project"
+  },
+  "home.box.in_box_li5": {
+    "cs": "Hotová metodika a pracovní list pro učitele",
+    "en": "A ready-made lesson plan and worksheet for teachers"
+  },
+  "home.box.need_h3": {
+    "cs": "Co budete potřebovat",
+    "en": "What you'll need"
+  },
+  "home.box.need_li1": {
+    "cs": "Počítač nebo notebook s prohlížečem",
+    "en": "A computer or laptop with a browser"
+  },
+  "home.box.need_li2": {
+    "cs": "USB-C kabel, je součástí balení",
+    "en": "A USB-C cable, included in the box"
+  },
+  "home.box.need_li3": {
+    "cs": "Software mBlock, zdarma, běží přímo v prohlížeči",
+    "en": "mBlock software, free, runs directly in the browser"
+  },
+  "home.box.need_li4": {
+    "cs": "Nic dalšího",
+    "en": "Nothing else"
   },
   "home.projects.eyebrow": {
     "cs": "Co si žáci postaví",
@@ -1328,12 +1376,12 @@
     "en": "Start coding"
   },
   "home.learnmore.eyebrow": {
-    "cs": "Pro zvídavé",
-    "en": "For the curious"
+    "cs": "Učebna elektroniky",
+    "en": "Electronics classroom"
   },
   "home.learnmore.h2": {
-    "cs": "Chceš vědět víc? Nahlédni pod pokličku.",
-    "en": "Want to know more? Look under the hood."
+    "cs": "Chcete pochopit, co je uvnitř Shieldia?",
+    "en": "Want to understand what's inside Shieldio?"
   },
   "home.learnmore.p": {
     "cs": "Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, se 7 tématy od Ohmova zákona po výrobu plošných spojů.",
