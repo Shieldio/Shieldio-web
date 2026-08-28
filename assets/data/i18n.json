@@ -120,8 +120,8 @@
     "en": "for RED, the only board available now"
   },
   "home.board_tag": {
-    "cs": "RED · ve vývoji",
-    "en": "RED · in development"
+    "cs": "RED · první série",
+    "en": "RED · first batch"
   },
   "home.problem.eyebrow": {
     "cs": "Realita výuky elektroniky",
@@ -280,8 +280,8 @@
     "en": "The Shieldio RED board with all components (Arduino Nano, ultrasonic sensor, servo, OLED display)"
   },
   "home.box.in_box_li2": {
-    "cs": "1,5m USB-C kabel",
-    "en": "1.5m USB-C cable"
+    "cs": "1,5m USB-A na USB-C kabel",
+    "en": "1.5m USB-A to USB-C cable"
   },
   "home.box.in_box_li3": {
     "cs": "Přístup k blokovému editoru v prohlížeči, zdarma",
@@ -304,8 +304,8 @@
     "en": "A computer or laptop with a browser"
   },
   "home.box.need_li2": {
-    "cs": "USB-C kabel, je součástí balení",
-    "en": "A USB-C cable, included in the box"
+    "cs": "USB-A na USB-C kabel, je součástí balení",
+    "en": "A USB-A to USB-C cable, included in the box"
   },
   "home.box.need_li3": {
     "cs": "Software mBlock, zdarma, běží přímo v prohlížeči",
@@ -892,8 +892,8 @@
     "en": "Pre-order the <span class=\"text-tier-red\">RED</span> board."
   },
   "red.preorder_p": {
-    "cs": "Vyberte si variantu podle toho, kolik chcete pájet sami. Předobjednávka je nezávazná rezervace kusu z aktuální malé série, platbu a přesný termín dodání domluvíme e-mailem.",
-    "en": "Pick a variant based on how much soldering you want to do yourself. A pre-order is a non-binding reservation from the current small batch, we'll arrange payment and the exact delivery date by email."
+    "cs": "Vyberte si, zda chcete Shieldio sestavit sami, nebo rovnou programovat. Předobjednávka je nezávazná rezervace kusu z aktuální malé série, platbu a přesný termín dodání domluvíme e-mailem.",
+    "en": "Choose whether you want to assemble Shieldio yourself or start programming right away. A pre-order is a non-binding reservation from the current small batch, we'll arrange payment and the exact delivery date by email."
   },
   "red.group_recommended": {
     "cs": "Doporučujeme",
@@ -903,21 +903,77 @@
     "cs": "Další možnosti",
     "en": "Other options"
   },
+  "red.box_in_h3": {
+    "cs": "Co dostanete",
+    "en": "What you get"
+  },
+  "red.box_in_li1": {
+    "cs": "Deska Shieldio RED (DIY: díly k zapájení · READY: hotová, stačí připojit)",
+    "en": "The Shieldio RED board (DIY: parts to solder · READY: assembled, just plug in)"
+  },
+  "red.box_in_li2": {
+    "cs": "1,5m USB-A na USB-C kabel",
+    "en": "1.5m USB-A to USB-C cable"
+  },
+  "red.box_in_li3": {
+    "cs": "Přístup k blokovému editoru v prohlížeči, zdarma",
+    "en": "Access to the browser-based block editor, free"
+  },
+  "red.box_in_li4": {
+    "cs": "Krok-za-krokem návod k sestavení i prvnímu projektu",
+    "en": "A step-by-step guide to assembly and the first project"
+  },
+  "red.box_in_li5": {
+    "cs": "Hotová metodika a pracovní list pro učitele",
+    "en": "A ready-made lesson plan and worksheet for teachers"
+  },
+  "red.box_need_h3": {
+    "cs": "Co budete potřebovat",
+    "en": "What you'll need"
+  },
+  "red.box_need_li1": {
+    "cs": "Počítač nebo notebook s prohlížečem",
+    "en": "A computer or laptop with a browser"
+  },
+  "red.box_need_li2": {
+    "cs": "Nic dalšího, kabel je součástí balení",
+    "en": "Nothing else, the cable is included"
+  },
+  "red.eduset_label": {
+    "cs": "Pro školu nebo kroužek",
+    "en": "For a school or club"
+  },
+  "red.eduset_h3": {
+    "cs": "5× Shieldio RED · 3 500 Kč",
+    "en": "5× Shieldio RED · 3,500 CZK"
+  },
+  "red.eduset_p": {
+    "cs": "Kompletně sestavené desky a výukový plán. To je 700 Kč za desku, méně než jednotlivá RED READY.",
+    "en": "Fully assembled boards and a lesson plan. That's 700 CZK per board, less than a single RED READY."
+  },
+  "red.eduset_btn": {
+    "cs": "Objednat EduSET",
+    "en": "Order EduSET"
+  },
+  "red.more_variants_toggle": {
+    "cs": "Další varianty pro bastlíře",
+    "en": "More variants for tinkerers"
+  },
   "red.opt_unassembled_name": {
-    "cs": "Nesestavená kompletní sada<span class=\"preorder-badge\">Pájení</span>",
-    "en": "Unassembled complete kit<span class=\"preorder-badge\">Soldering</span>"
+    "cs": "RED DIY<span class=\"preorder-badge\">Pájení</span>",
+    "en": "RED DIY<span class=\"preorder-badge\">Soldering</span>"
   },
   "red.opt_unassembled_desc": {
-    "cs": "Deska a všechny součástky zvlášť, nespojené, pájíte a sestavujete si sami. V balení i 1,5m USB-A na USB-C kabel.",
-    "en": "The board and all components separately, unconnected, you solder and assemble it yourself. Includes a 1.5m USB-A to USB-C cable."
+    "cs": "Pájení a sestavení vlastními silami.",
+    "en": "Soldering and assembly on your own."
   },
   "red.opt_assembled_name": {
-    "cs": "Sestavená kompletní",
-    "en": "Fully assembled"
+    "cs": "RED READY<span class=\"preorder-badge badge-accent\">Školy</span>",
+    "en": "RED READY<span class=\"preorder-badge badge-accent\">Schools</span>"
   },
   "red.opt_assembled_desc": {
-    "cs": "Hotová deska se všemi součástkami, ultrazvuk, Arduino, displej, 1,5m USB-C kabel. Připojíte a jede.",
-    "en": "A finished board with every component, ultrasonic sensor, Arduino, display, a 1.5m USB-C cable. Plug it in and go."
+    "cs": "Sestavená. Připojit a programovat.",
+    "en": "Assembled. Plug in and start programming."
   },
   "red.opt_bare_name": {
     "cs": "Holá deska (PCB)<span class=\"preorder-badge\">Pájení</span><button type=\"button\" class=\"guide-info-btn\" data-photo=\"../assets/images/RED_layout_labeled.png\" data-photo-alt=\"Holá deska Shieldio RED (PCB) bez součástek, pohled kolmo shora\" aria-label=\"Zobrazit fotku holé desky\" style=\"margin-left:6px;\">?</button>",
