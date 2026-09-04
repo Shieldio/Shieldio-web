@@ -271,6 +271,10 @@
     "cs": "Aktuálně ve vývoji",
     "en": "Currently in development"
   },
+  "red.badge_first_batch": {
+    "cs": "První série · k předobjednání",
+    "en": "First batch · available to pre-order"
+  },
   "home.box.in_box_h3": {
     "cs": "Co je v balení",
     "en": "What's in the box"
@@ -652,8 +656,8 @@
     "en": "Baseline · Concept"
   },
   "products_index.status_red": {
-    "cs": "Baseline · Ve vývoji, první prototyp",
-    "en": "Baseline · In development, first prototype"
+    "cs": "Baseline · První série",
+    "en": "Baseline · First batch"
   },
   "products_index.status_pro": {
     "cs": "PROline · Připravujeme",
@@ -1040,8 +1044,8 @@
     "en": "A pre-order doesn't charge you anything right away, it's a non-binding reservation, we'll arrange payment and timing by email."
   },
   "red.cta_p": {
-    "cs": "Deska RED je aktuálně ve vývoji, napište nám a domluvíme se na dalších krocích nebo ukázce.",
-    "en": "The RED board is currently in development, get in touch and we'll figure out next steps or a demo."
+    "cs": "RED je z první série, kterou teď vyrábíme v malém počtu kusů. Napište nám a domluvíme ukázku nebo termín dodání.",
+    "en": "RED comes from the first batch, which we're now producing in small numbers. Get in touch and we'll arrange a demo or a delivery date."
   },
   "pro.title": {
     "cs": "Deska PRO | Shieldio",
@@ -1184,8 +1188,8 @@
     "en": "Is the RED board available yet?"
   },
   "faq.a6": {
-    "cs": "Deska RED je aktuálně ve vývoji. Napište nám přes kontaktní formulář a domluvíme se na dalších krocích.",
-    "en": "The RED board is currently in development. Write to us through the contact form and we'll figure out next steps."
+    "cs": "Ano, RED si můžete <a href=\"products/RED.html#preorder\">předobjednat</a> z první série. Vyrábíme ji zatím v malém počtu kusů, takže platbu a přesný termín dodání domlouváme e-mailem.",
+    "en": "Yes, you can <a href=\"products/RED.html#preorder\">pre-order</a> RED from the first batch. We're still producing it in small numbers, so we arrange payment and the exact delivery date by email."
   },
   "faq.q7": {
     "cs": "Co je PowerAdd?",
