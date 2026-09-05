@@ -1,6 +1,7 @@
 // Shieldio — scroll reveal, hero board entrance animation, mouse-tilt
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.documentElement.classList.add("js-reveal");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -22,6 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
       { threshold: 0.15 }
     );
     revealEls.forEach(el => observer.observe(el));
+
+    // A reveal animation must never make the site unusable. Safari can delay an
+    // IntersectionObserver callback after restoring a tab, so reveal anything
+    // still waiting once the entrance animation has had enough time to run.
+    window.setTimeout(() => {
+      revealEls.forEach(el => el.classList.add("visible"));
+    }, 1400);
   }
 
   // hero board: fly in + rotate into place shortly after load

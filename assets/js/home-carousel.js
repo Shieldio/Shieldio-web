@@ -17,11 +17,13 @@
 
     track.addEventListener("mouseenter", () => { paused = true; });
     track.addEventListener("mouseleave", () => { paused = false; });
+    track.addEventListener("focusin", () => { paused = true; });
+    track.addEventListener("focusout", () => { paused = false; });
     track.addEventListener("touchstart", pauseTemporarily, { passive: true });
     track.addEventListener("wheel", pauseTemporarily, { passive: true });
 
     setInterval(() => {
-      if (paused) return;
+      if (paused || document.hidden) return;
       const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
       if (atEnd) {
         track.scrollTo({ left: 0, behavior: "smooth" });

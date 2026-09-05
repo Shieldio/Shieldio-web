@@ -52,8 +52,8 @@
     "en": "ELECTRONICS AND ROBOTICS, MADE SIMPLE FOR EVERYONE"
   },
   "home.title": {
-    "cs": "Shieldio · Arduino stavebnice pro výuku elektroniky ve škole",
-    "en": "Shieldio · Arduino kit for teaching electronics at school"
+    "cs": "Shieldio · Arduino stavebnice pro školu, kroužek i domov",
+    "en": "Shieldio · Arduino kit for school, clubs, and home"
   },
   "home.topbar_cta": {
     "cs": "Domluvit ukázku",
@@ -64,8 +64,8 @@
     "en": "Educational electronics for schools and home"
   },
   "home.hero.h1": {
-    "cs": "Hotová <em>Arduino stavebnice</em> pro výuku elektroniky ve škole.",
-    "en": "A ready-made <em>Arduino kit</em> for teaching electronics at school."
+    "cs": "Hotová <em>Arduino stavebnice</em> pro školu, kroužek i domácí dílnu.",
+    "en": "A ready-made <em>Arduino kit</em> for school, clubs, and the home workshop."
   },
   "home.hero.lead": {
     "cs": "Žáci i domácí kutilové se učí programovat a stavět elektronické projekty bez pájení a složitého zapojování. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, stejně dobře poslouží jako stavebnice doma. Navrženo tak, aby s ní mohl učit i učitel bez hlubších znalostí elektroniky.",
@@ -122,6 +122,66 @@
   "home.board_tag": {
     "cs": "RED · první série",
     "en": "RED · first batch"
+  },
+  "home.audience.eyebrow": {
+    "cs": "Vyberte si svůj začátek",
+    "en": "Choose where to start"
+  },
+  "home.audience.h2": {
+    "cs": "Jedna deska, tři způsoby, jak začít.",
+    "en": "One board, three ways to get started."
+  },
+  "home.audience.p": {
+    "cs": "RED můžete vzít rovnou do výuky, použít v kroužku nebo si ji postavit doma. Liší se jen cesta, ne hardware ani návody.",
+    "en": "You can take RED straight into a lesson, use it in a club, or build it at home. The path changes, but the hardware and guides stay the same."
+  },
+  "home.audience.school_label": {
+    "cs": "Škola",
+    "en": "School"
+  },
+  "home.audience.school_h3": {
+    "cs": "Připravený start do výuky",
+    "en": "A prepared start for the classroom"
+  },
+  "home.audience.school_p": {
+    "cs": "Sestavená RED, metodika a pracovní list k prvnímu projektu. Pro více desek je k dispozici EduSET 5×.",
+    "en": "An assembled RED, a lesson plan, and a worksheet for the first project. The 5× EduSET is available when you need more boards."
+  },
+  "home.audience.school_link": {
+    "cs": "Informace pro učitele →",
+    "en": "Information for teachers →"
+  },
+  "home.audience.club_label": {
+    "cs": "Kroužek",
+    "en": "Club"
+  },
+  "home.audience.club_h3": {
+    "cs": "Hotový projekt, prostor pro vlastní nápad",
+    "en": "A ready project with room for your own idea"
+  },
+  "home.audience.club_p": {
+    "cs": "Začněte závorou, parkovacím asistentem nebo bezdotykovým nástrojem a pokračujte vlastní úpravou programu.",
+    "en": "Start with a barrier, parking assistant, or contactless instrument, then continue by adapting the program."
+  },
+  "home.audience.club_link": {
+    "cs": "Prohlédnout projekty →",
+    "en": "Browse the projects →"
+  },
+  "home.audience.home_label": {
+    "cs": "Domácí dílna",
+    "en": "Home workshop"
+  },
+  "home.audience.home_h3": {
+    "cs": "Sestavit, nebo rovnou programovat",
+    "en": "Build it, or start programming"
+  },
+  "home.audience.home_p": {
+    "cs": "Vyberte si RED DIY pro vlastní pájení, nebo sestavenou RED READY. Podrobný fotonávod zůstává k dispozici oběma variantám.",
+    "en": "Choose RED DIY for soldering it yourself, or the assembled RED READY. The detailed photo guide remains available for both options."
+  },
+  "home.audience.home_link": {
+    "cs": "Porovnat varianty →",
+    "en": "Compare the options →"
   },
   "home.problem.eyebrow": {
     "cs": "Realita výuky elektroniky",
@@ -440,12 +500,12 @@
     "en": "For schools"
   },
   "home.schools.h2": {
-    "cs": "Postavené tak, aby to zvládl i učitel bez technického zázemí.",
-    "en": "Built so any teacher can run it, no technical background required."
+    "cs": "Navrženo tak, aby s ním mohl učit i učitel bez hlubších znalostí elektroniky.",
+    "en": "Designed so that a teacher without deep electronics knowledge can teach with it."
   },
   "home.schools.p": {
-    "cs": "Shieldio není soubor volných komponent, je to hotová sada připravená na provoz ve třídě, rok co rok.",
-    "en": "Shieldio isn't a bag of loose parts, it's a finished kit built to run in a classroom, year after year."
+    "cs": "Shieldio není soubor volných komponent. Klíčové součástky jsou připevněné k desce a materiály k prvnímu projektu jsou připravené.",
+    "en": "Shieldio isn't a bag of loose parts. Key components are attached to the board, and the materials for the first project are ready."
   },
   "home.benefit1.h3": {
     "cs": "Bez pájení a montáže",
@@ -892,7 +952,7 @@
     "en": "Pre-order"
   },
   "red.preorder_h2": {
-    "cs": "Předobjednej si <span class=\"text-tier-red\">RED</span>.",
+    "cs": "Předobjednejte si <span class=\"text-tier-red\">RED</span>.",
     "en": "Pre-order the <span class=\"text-tier-red\">RED</span> board."
   },
   "red.preorder_p": {
