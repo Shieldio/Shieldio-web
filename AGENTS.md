@@ -164,17 +164,14 @@ které tvrdily víc, než je pravda. Než napíšeš jakékoli tvrzení, ověř 
 
 ## Známé otevřené věci
 
-1. **PNG a ICO favicony jsou pořád modré (`#2f6fed`), ne teal.**
-   `assets/icons/favicon.svg` je správně přebarvený, ale `favicon.ico`,
-   `favicon-16/32/48.png`, `apple-touch-icon.png` a `icon-192/512.png` ne.
-   Projeví se při přidání na plochu iOS a v PWA. Chce to Pillow / ImageMagick,
-   ani jedno nebylo v původním prostředí k dispozici.
-   Zdroj tvarů: `svg/shieldio-icon-color.svg` z brand kitu.
-
-2. **Datum „září 2026" v `company/pro-ucitele.html` a `company/metodika-zavora.html`.**
+1. **Datum „září 2026" v `company/pro-ucitele.html` a `company/metodika-zavora.html`.**
    Formulace „testování ve výuce plánujeme spustit… v září 2026" je psaná jako plán
    do budoucna. Až to datum nastane, přestane být pravdivá — potřebuje aktualizaci
    podle skutečného stavu (to ví jen majitel projektu).
 
-3. Formuláře (kontakt i předobjednávka) jedou přes **web3forms** s hardcoded
+2. Formuláře (kontakt i předobjednávka) jedou přes **web3forms** s hardcoded
    `access_key` v HTML. Funguje to, ale není tam žádný backend ani databáze.
+
+Vzhled, logo a barvy řeší **`BRAND.md`** — přečti si ho, než sáhneš na cokoli
+vizuálního. Rastrové ikony se **negenerují ručně**, renderují se z `favicon.svg`
+přes `rsvg-convert` (postup je v `BRAND.md`).

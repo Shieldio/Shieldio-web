@@ -206,14 +206,20 @@ barvou zbytku webu. Přebarvení proběhlo takto:
 | `#eef2ff` | `#e6f5f3` | podklad ikony |
 | `#0f172a` | `#1d1d1f` | barva liter → `--ink` |
 
-Přebarvené jsou zatím jen **SVG** soubory (`logo-full-color.svg`, `favicon.svg`).
+Přebarvené je **všechno** — vektory i rastry. Rastrové ikony jsou renderované
+z `assets/icons/favicon.svg` pomocí `rsvg-convert`, takže jsou vždy odvozené
+od vektoru, ne přebarvené po pixelech.
 
-> ### Otevřeno: rastrové ikony jsou pořád modré
->
-> `favicon.ico`, `favicon-16/32/48.png`, `apple-touch-icon.png` a
-> `icon-192/512.png` mají pořád `#2f6fed` z kitu. V záložce prohlížeče se
-> to neprojeví (bere se SVG), ale **projeví se to při přidání na plochu iOS
-> a v PWA**.
->
-> K opravě je potřeba Pillow nebo ImageMagick a přerenderování
-> z `svg/shieldio-icon-color.svg` s nahrazenými barvami podle tabulky výše.
+Přegenerování (po jakékoli změně `favicon.svg`):
+
+```bash
+for s in 16 32 48; do rsvg-convert -w $s -h $s assets/icons/favicon.svg -o assets/icons/favicon-$s.png; done
+for s in 192 512; do rsvg-convert -w $s -h $s assets/icons/favicon.svg -o assets/icons/icon-$s.png; done
+
+# iOS ikona: plná plocha bez vlastního zaoblení, iOS si nasazuje vlastní masku
+sed 's|rx="161.32"|rx="0"|' assets/icons/favicon.svg > /tmp/fullbleed.svg
+rsvg-convert -w 180 -h 180 /tmp/fullbleed.svg -o assets/icons/apple-touch-icon.png
+```
+
+`favicon.ico` je kontejner s PNG payloadem ve velikostech 16/32/48 — skript
+na jeho složení je v historii commitu, který ho vytvořil.
