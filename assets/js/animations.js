@@ -66,4 +66,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // A soft, local highlight gives dense cards depth without turning the page
+  // into a field of looping animations. It only runs for precise pointers.
+  if (!prefersReducedMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const reactiveCards = document.querySelectorAll(
+      ".hero-path, .audience-card, .problem-card, .tier-card, .tier-card-mini, .benefit, .instruction-card, .teaser-tile, .guide-part-card"
+    );
+
+    reactiveCards.forEach((card) => {
+      card.classList.add("pointer-reactive");
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.removeProperty("--pointer-x");
+        card.style.removeProperty("--pointer-y");
+      });
+    });
+  }
+
 });

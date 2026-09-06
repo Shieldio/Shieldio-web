@@ -33,7 +33,7 @@ window.SHIELDIO_GUIDE = {
     },
     arduino: {
       term: "Arduino",
-      photo: "../../../../assets/images/RED_arduino_nano.jpeg",
+      photo: "../../../../assets/images/RED_detail_nano_oled_white.jpg",
       text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu ovládá senzory a výstupy.",
       fact: "Deska RED používá konkrétně Arduino Nano.",
       datasheet: null,
@@ -75,13 +75,13 @@ window.SHIELDIO_GUIDE = {
       photo: "../../../../assets/images/RED_hand_hold_with_parts.jpeg",
       what: "Hlavní deska celého projektu. V sestavené sadě jsou ultrazvukový senzor i OLED displej už zapojené, v nesestavené je zasuneš sám do patic z návodu na pájení.",
       how: "Uvnitř desky je Arduino Nano, které podle nahraného programu měří čas mezi událostmi zachycenými senzorem.",
-      fact: "Deska RED je aktuálně ve vývoji, první funkční prototyp.",
+      fact: "Deska RED vychází z otestovaných prototypů; první malá série je k předobjednání.",
       datasheet: null,
     },
     {
       id: "arduino",
       name: "Arduino Nano",
-      photo: "../../../../assets/images/red-build/15-arduino-nano.jpg",
+      photo: "../../../../assets/images/red-build-clean/15-arduino-nano.jpg",
       what: "Malý počítač na desce, který podle nahraného programu měří čas mezi událostmi zachycenými senzorem.",
       how: "Pokud máš nesestavenou sadu, je už zasunutý v patici na desce z návodu na pájení. Nic dalšího s ním dělat nemusíš.",
       fact: "Deska RED používá konkrétně Arduino Nano.",
@@ -90,7 +90,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "hcsr04",
       name: "Ultrazvuk HC-SR04",
-      photo: "../../../../assets/images/red-build/16-ultrazvuk.jpg",
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       what: "Měří vzdálenost a čas, po který je před senzorem překážka.",
       how: "Vyšle ultrazvukový signál a změří, za jak dlouho se odrazí zpátky.",
       fact: "Přesnost na centimetry, dosah až několik metrů.",
@@ -99,7 +99,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "oled",
       name: "OLED displej",
-      photo: "../../../../assets/images/red-build/17-oled-displej.jpg",
+      photo: "../../../../assets/images/red-build-clean/17-oled-displej.jpg",
       what: "Malý obrazovkový displej na desce, program na něj může vypisovat naměřený čas.",
       how: "Připojuje se přes I2C sběrnici, nemá polaritu ani orientaci, konektor jde zasunout jen jedním způsobem.",
       fact: "Standardní 0,96\" displej SSD1306, stejný typ používá i blokový editor.",
@@ -144,7 +144,7 @@ window.SHIELDIO_GUIDE = {
       title: "Zapoj <span class=\"term\" data-term=\"ultrazvuk\">ultrazvuk</span>",
       type: "wiring",
       kit: "unassembled",
-      photo: "../../../../assets/images/red-build/16-ultrazvuk.jpg",
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem.",
       troubleshoot: {
         title: "Nejčastější chyby",
@@ -176,6 +176,7 @@ window.SHIELDIO_GUIDE = {
       title: "Nahraj program",
       type: "upload",
       screenshot: null,
+      instructions: "V mBlocku sestav program, který při přiblížení ruky pod zvolený práh spustí měření času a výsledek zobrazí na OLED. Předem si určete, zda druhé přiblížení čas zastaví, nebo zda se měří do oddálení ruky; obě varianty jsou možné, ale třída musí testovat stejnou.",
       diagnostics: [
         {
           title: "Chyba: Není nalezen port",

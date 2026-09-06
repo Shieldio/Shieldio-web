@@ -4,17 +4,14 @@
 (function () {
   const E12 = [1.0, 1.2, 1.5, 1.8, 2.2, 2.7, 3.3, 3.9, 4.7, 5.6, 6.8, 8.2];
 
-  function nearestStandard(value) {
+  function nextSafeStandard(value) {
     if (!isFinite(value) || value <= 0) return null;
     const exp = Math.floor(Math.log10(value));
-    let best = null, bestDiff = Infinity;
-    for (let e = exp - 1; e <= exp + 1; e++) {
+    let best = null;
+    for (let e = exp - 1; e <= exp + 2; e++) {
       E12.forEach(base => {
-        // round away binary-float noise (e.g. 2.2 * 100 !== 220 exactly) before comparing
         const candidate = Math.round(base * Math.pow(10, e) * 1e6) / 1e6;
-        const diff = Math.round(Math.abs(candidate - value) * 1e6) / 1e6;
-        // on a tie, prefer the higher resistance — safer for current-limiting (never exceeds the target current)
-        if (diff < bestDiff || (diff === bestDiff && candidate > best)) { bestDiff = diff; best = candidate; }
+        if (candidate >= value && (best === null || candidate < best)) best = candidate;
       });
     }
     return best;
@@ -32,7 +29,7 @@
       varSupply: "napájení",
       varLed: "LED",
       varCurrent: "proud",
-      nearestValue: (v) => `Nejbližší běžně vyráběná hodnota z řady E12 je ${v}.`,
+      nearestValue: (v, current) => `Nejbližší vyšší hodnota z řady E12 je ${v}; skutečný proud bude přibližně ${current}.`,
       formulaFallback: (R) => `R = (Vnapájení − VLED) ⁄ Iproud ≈ ${R}`,
       textFallback: (Vs, Vf, Ima, R, std) =>
         `Vzorec: R = (Vnapájení − VLED) ⁄ Iproud = (${Vs} − ${Vf}) V ⁄ ${Ima} A ≈ ${R}. Nejbližší běžně vyráběná hodnota z řady E12 je ${std}.`,
@@ -42,7 +39,7 @@
       varSupply: "supply",
       varLed: "LED",
       varCurrent: "current",
-      nearestValue: (v) => `The nearest standard E12 value is ${v}.`,
+      nearestValue: (v, current) => `The next higher E12 value is ${v}; the actual current will be about ${current}.`,
       formulaFallback: (R) => `R = (Vsupply − VLED) ⁄ Icurrent ≈ ${R}`,
       textFallback: (Vs, Vf, Ima, R, std) =>
         `Formula: R = (Vsupply − VLED) ⁄ Icurrent = (${Vs} − ${Vf}) V ⁄ ${Ima} A ≈ ${R}. The nearest standard E12 value is ${std}.`,
@@ -58,6 +55,8 @@
     const vf = el.querySelector('[data-calc="vf"]');
     const i = el.querySelector('[data-calc="i"]');
     const rOut = el.querySelector('[data-calc="r"]');
+    const standardOut = el.querySelector('[data-calc="standard"]');
+    const actualCurrentOut = el.querySelector('[data-calc="actual-current"]');
     const note = el.querySelector('[data-calc="note"]');
     if (!vs || !vf || !i || !rOut) return;
 
@@ -68,12 +67,17 @@
       const Ima = parseFloat(i.value);
       if (!isFinite(Vs) || !isFinite(Vf) || !isFinite(Ima) || Ima <= 0 || Vs <= Vf) {
         rOut.textContent = "—";
+        if (standardOut) standardOut.textContent = "—";
+        if (actualCurrentOut) actualCurrentOut.textContent = "—";
         if (note) note.textContent = t.needHigherSupply;
         return;
       }
       const R = (Vs - Vf) / (Ima / 1000);
-      const std = nearestStandard(R);
+      const std = nextSafeStandard(R);
+      const actualCurrent = ((Vs - Vf) / std) * 1000;
       rOut.textContent = formatOhm(R);
+      if (standardOut) standardOut.textContent = formatOhm(std);
+      if (actualCurrentOut) actualCurrentOut.textContent = `${actualCurrent.toLocaleString(currentLang() === "cs" ? "cs-CZ" : "en-US", { maximumFractionDigits: 1 })} mA`;
       if (note) {
         const tail = ` \\approx ${formatOhm(R).replace("Ω", "\\,\\Omega").replace("kΩ", "\\,\\text{k}\\Omega")}`;
         const formula = `R = \\dfrac{V_{${t.varSupply}} - V_{${t.varLed}}}{I_{${t.varCurrent}}} = \\dfrac{${Vs} - ${Vf}\\,\\text{V}}{${(Ima / 1000).toLocaleString("cs-CZ")}\\,\\text{A}}${tail}`;
@@ -86,7 +90,7 @@
           } catch (e) {
             formulaSpan.textContent = t.formulaFallback(formatOhm(R));
           }
-          note.appendChild(document.createTextNode(" " + t.nearestValue(formatOhm(std))));
+          note.appendChild(document.createTextNode(" " + t.nearestValue(formatOhm(std), `${actualCurrent.toLocaleString(currentLang() === "cs" ? "cs-CZ" : "en-US", { maximumFractionDigits: 1 })} mA`)));
         } else {
           note.textContent = t.textFallback(Vs, Vf, (Ima / 1000).toLocaleString("cs-CZ"), formatOhm(R), formatOhm(std));
         }

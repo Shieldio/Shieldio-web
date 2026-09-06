@@ -106,7 +106,9 @@
       if (row) row.appendChild(buildToggleButton());
     });
 
-    fetch("/assets/data/i18n.json")
+    // Revalidate after every deployment. Otherwise a cached dictionary can
+    // overwrite newer HTML fallback text with an older translation.
+    fetch("/assets/data/i18n.json", { cache: "no-cache" })
       .then((r) => r.json())
       .then((data) => {
         dict = data;

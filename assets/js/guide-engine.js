@@ -48,7 +48,7 @@
     kit_unassembled: { cs: "Nesestavená (pájím)", en: "Unassembled (soldering)" },
     lang_label: { cs: "Programovací jazyk", en: "Programming language" },
     lang_blocks: { cs: "Bloky (mBlock)", en: "Blocks (mBlock)" },
-    lang_arduino: { cs: "Arduino C", en: "Arduino C" },
+    lang_arduino: { cs: "Arduino C++", en: "Arduino C++" },
     depth_label: { cs: "Úroveň návodu", en: "Guide detail" },
     depth_detailed: { cs: "Podrobně", en: "Detailed" },
     depth_fast: { cs: "Rychle", en: "Quick" },
@@ -62,6 +62,8 @@
     build_time: { cs: "Doba stavby", en: "Build time" },
     steps_label: { cs: "Kroky", en: "Steps" },
     what_you_learn: { cs: "Co se naučíš:", en: "What you'll learn:" },
+    teacher_summary: { cs: "Příprava pro učitele", en: "Teacher preparation" },
+    teacher_summary_p: { cs: "Před hodinou otevřete návod na jednom školním počítači, v Chrome nebo Edge ověřte přístup k USB portu a spusťte projekt na jedné desce. Připravte jednu náhradní desku nebo datový kabel. Žáci mohou návod procházet samostatně ve dvojicích; diagnostický strom je na konci projektu.", en: "Before class, open this guide on one school computer, verify USB access in Chrome or Edge, and run the project on one board. Keep one spare board or data cable ready. Students can follow the guide independently in pairs; the diagnostic tree is at the end." },
     start_building: { cs: "Začít stavět", en: "Start building" },
     mark_missing: { cs: "Označ, co ti chybí:", en: "Mark what you're missing:" },
     have_it_ready: { cs: "Mám připraveno", en: "I have it ready" },
@@ -326,6 +328,10 @@
           </div>
           <p class="lead" style="font-size:16px;">${ui("what_you_learn")}</p>
           <ul class="guide-learn-list">${m.learn.map(l => `<li>${t(l)}</li>`).join("")}</ul>
+          <details class="guide-teacher-summary">
+            <summary>${ui("teacher_summary")}</summary>
+            <p>${ui("teacher_summary_p")}</p>
+          </details>
           ${(supportsLang || supportsDepth || supportsKit || supportsSkill) ? renderModePicker() : ""}
           ${(supportsKit && state.mode.kit === "unassembled") ? renderSolderWarning() : ""}
           <button type="button" class="btn btn-primary" data-action="start">${ui("start_building")}</button>
@@ -435,6 +441,9 @@
   function renderUpload(step) {
     const useArduino = state.mode.lang === "arduino" && step.arduino;
     const content = useArduino ? step.arduino : step;
+    const media = content.screenshot
+      ? `<div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, useArduino ? "Arduino IDE" : "mBlock")}</div>`
+      : "";
 
     const diag = (content.diagnostics || []).map((d, i) => `
       <details class="guide-accordion">
@@ -459,11 +468,12 @@
           : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">${ui("open_project")}</a>`);
 
     const mblockHelp = (!useArduino && DATA.meta.mblockGuideHref)
-      ? `<p style="margin-top:12px;"><a class="learn-theory-link" href="${DATA.meta.mblockGuideHref}">${ui("first_mblock")}</a>.</p>`
+      ? `<p style="margin-top:12px;"><a class="learn-theory-link" href="${DATA.meta.mblockGuideHref}">${ui("first_mblock")}</a></p>`
       : "";
 
     return `
-      <div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, useArduino ? "Arduino IDE" : "mBlock")}</div>
+      ${media}
+      ${content.instructions ? `<p class="guide-instructions">${t(content.instructions)}</p>` : ""}
       ${actionArea}
       ${mblockHelp}
       <div class="guide-step-actions" style="margin-top:24px;">
@@ -718,6 +728,8 @@
     }
 
     progressEl.style.display = "";
+    progressEl.setAttribute("role", "status");
+    progressEl.setAttribute("aria-live", "polite");
     progressEl.innerHTML = renderProgress();
     const backBtn = progressEl.querySelector('[data-action="back"]');
     const forwardBtn = progressEl.querySelector('[data-action="forward"]');
@@ -743,6 +755,21 @@
   document.addEventListener("shieldio-lang-change", (e) => {
     state.uiLang = e.detail && e.detail.lang === "en" ? "en" : "cs";
     renderCurrent();
+  });
+
+  // Keyboard navigation is useful at a workbench where the mouse may not be
+  // within reach. Ignore editable controls and open dialogs.
+  document.addEventListener("keydown", (event) => {
+    if (!state.started || document.querySelector(".modal-overlay.active")) return;
+    const target = event.target;
+    if (target && target.closest("input, textarea, select, button, a, summary, [contenteditable='true']")) return;
+    if (event.key === "ArrowRight" && state.stepIndex < totalSteps()) {
+      event.preventDefault();
+      advance();
+    } else if (event.key === "ArrowLeft" && state.stepIndex > 0) {
+      event.preventDefault();
+      goBack();
+    }
   });
 
   renderCurrent();

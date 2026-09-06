@@ -64,12 +64,12 @@
     "en": "Educational electronics for schools and home"
   },
   "home.hero.h1": {
-    "cs": "Hotová <em>Arduino stavebnice</em> pro školu, kroužek i domácí dílnu.",
-    "en": "A ready-made <em>Arduino kit</em> for school, clubs, and the home workshop."
+    "cs": "<em>Arduino stavebnice</em> pro školu, kroužek i domácí dílnu.",
+    "en": "An <em>Arduino kit</em> for school, clubs, and the home workshop."
   },
   "home.hero.lead": {
-    "cs": "Žáci i domácí kutilové se učí programovat a stavět elektronické projekty bez pájení a složitého zapojování. Deska se připojí jedním USB-C kabelem a do pěti minut běží první program. Navrženo pro výuku na základních a středních školách i pro kroužky, stejně dobře poslouží jako stavebnice doma. Navrženo tak, aby s ní mohl učit i učitel bez hlubších znalostí elektroniky.",
-    "en": "Students and home hobbyists alike learn to program and build electronic projects without soldering or complex wiring. The board connects with a single USB-C cable, and the first program runs within five minutes. Designed for teaching at primary and secondary schools as well as clubs, it works just as well as a kit at home. Built so that even a teacher without deep electronics knowledge can teach with it."
+    "cs": "Programování a elektronika bez složitého zapojování. Pro školy, kroužky i domácí tvoření.",
+    "en": "Programming and electronics without complicated wiring. For schools, clubs, and making at home."
   },
   "home.hero.path1_intent": {
     "cs": "Chci Shieldio",
@@ -236,8 +236,8 @@
     "en": "One board, clear colour-coding, growing difficulty."
   },
   "home.solution.p": {
-    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod. Aktuálně je k dispozici a lze objednat deska RED, Green a Yellow jsou ve fázi konceptu a připravujeme je k výrobě.",
-    "en": "Each level has one core component and one documented project as a starting point. The RED board is available to order now, Green and Yellow are still at the concept stage as we prepare them for production."
+    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod. Desku RED lze předobjednat z první série, Green a Yellow jsou ve fázi konceptu.",
+    "en": "Each level has one core component and one documented project as a starting point. The first batch of RED can be pre-ordered; Green and Yellow are still concepts."
   },
   "home.tier_green.label": {
     "cs": "Úroveň 1 · Základ",
@@ -356,8 +356,8 @@
     "en": "A step-by-step guide to the first project"
   },
   "home.box.in_box_li5": {
-    "cs": "Hotová metodika a pracovní list pro učitele",
-    "en": "A ready-made lesson plan and worksheet for teachers"
+    "cs": "Upravitelný návrh metodiky a pracovní list pro učitele",
+    "en": "An editable draft lesson plan and worksheet for teachers"
   },
   "home.box.need_h3": {
     "cs": "Co budete potřebovat",
@@ -388,16 +388,16 @@
     "en": "Concrete projects, not just components."
   },
   "home.projects.p": {
-    "cs": "Tři příklady z aktuálních návodů pro desku RED, hotové a otestované.",
-    "en": "Three examples from the current RED board guides, finished and tested."
+    "cs": "Tři příklady z aktuálních projektových návodů pro desku RED.",
+    "en": "Three examples from the current project guides for the RED board."
   },
   "home.projects.item1_h3": {
     "cs": "Automatická závora",
     "en": "Automatic barrier"
   },
   "home.projects.item1_p": {
-    "cs": "Žáci během 45 až 60 minut naprogramují servo, které se pohybuje podle vzdálenosti objektu, a pochopí propojení vstupu a výstupu.",
-    "en": "Within 45 to 60 minutes, students program a servo that moves based on an object's distance, and understand how inputs and outputs connect."
+    "cs": "Se sestavenou deskou žáci během jedné 45minutové hodiny naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.",
+    "en": "With an assembled board, students use one 45-minute lesson to program a servo based on object distance and connect an input to an output."
   },
   "home.projects.item2_h3": {
     "cs": "Parkovací senzor",
@@ -424,8 +424,8 @@
     "en": "A look at development"
   },
   "home.deepdive.h2": {
-    "cs": "<span class=\"text-tier-red\">RED</span> deska: první funkční prototyp.",
-    "en": "<span class=\"text-tier-red\">RED</span> board: the first working prototype."
+    "cs": "<span class=\"text-tier-red\">RED</span>: od prototypu k první malé sérii.",
+    "en": "<span class=\"text-tier-red\">RED</span>: from prototype to the first small batch."
   },
   "home.deepdive.p": {
     "cs": "Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce, s popisy součástek přímo na plošném spoji.",
@@ -460,8 +460,8 @@
     "en": "How a lesson goes"
   },
   "home.howitworks.h2": {
-    "cs": "Od rozbalení k hotovému programu za jednu vyučovací hodinu.",
-    "en": "From unboxing to a working program in a single class period."
+    "cs": "Od rozbalení k prvnímu programu za jednu vyučovací hodinu.",
+    "en": "From unboxing to a first program in a single class period."
   },
   "home.step1.h3": {
     "cs": "Připojit přes USB-C",
@@ -524,20 +524,20 @@
     "en": "Key components are fixed in place, only the fragile parts are detachable, built to survive class after class."
   },
   "home.benefit3.h3": {
-    "cs": "Hotové materiály k hodině",
-    "en": "Ready-made lesson materials"
+    "cs": "Materiály pro přípravu hodiny",
+    "en": "Materials for lesson preparation"
   },
   "home.benefit3.p": {
     "cs": "Připravené scénáře i prostor na vlastní projekty žáků, bez nutnosti tvořit vlastní osnovu.",
     "en": "Ready-made lesson plans plus room for students' own projects, no need to build your own curriculum."
   },
   "home.benefit4.h3": {
-    "cs": "Žádná instalace navíc",
-    "en": "No extra installation"
+    "cs": "Webový start v Chrome nebo Edge",
+    "en": "Web-based start in Chrome or Edge"
   },
   "home.benefit4.p": {
-    "cs": "Funguje s prostředím, které školy už používají, bez složitého IT nastavení.",
-    "en": "Works with the environment schools already use, with no complicated IT setup."
+    "cs": "Pro první hodinu lze použít webový mBlock. Na školních počítačích doporučujeme předem ověřit přístup k USB portu.",
+    "en": "The web version of mBlock can be used for the first lesson. On managed school computers, verify USB port access beforehand."
   },
   "home.benefit5.h3": {
     "cs": "Srozumitelné popisky na desce",
@@ -736,8 +736,8 @@
     "en": "Progress shifts as we go. The percentage shows how close a board is to being fully available, from the first concept to being verified in real classrooms."
   },
   "products_index.dev_red_sub": {
-    "cs": "Prototyp v3",
-    "en": "Prototype v3"
+    "cs": "První malá série · předobjednávka",
+    "en": "First small batch · pre-order"
   },
   "products_index.dev_yellow_sub": {
     "cs": "Koncept, první nápad hotový",
@@ -916,8 +916,8 @@
     "en": "Interactive barrier"
   },
   "red.project1_p": {
-    "cs": "Žáci během 45 až 60 minut naprogramují servo, které se pohybuje podle vzdálenosti objektu, a pochopí propojení vstupu a výstupu.",
-    "en": "Within 45 to 60 minutes, students program a servo that moves based on an object's distance, and understand how inputs and outputs connect."
+    "cs": "Se sestavenou deskou žáci během jedné 45minutové hodiny naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.",
+    "en": "With an assembled board, students use one 45-minute lesson to program a servo based on object distance and connect an input to an output."
   },
   "red.project2_h3": {
     "cs": "Parkovací asistent",
@@ -988,8 +988,8 @@
     "en": "A step-by-step guide to assembly and the first project"
   },
   "red.box_in_li5": {
-    "cs": "Hotová metodika a pracovní list pro učitele",
-    "en": "A ready-made lesson plan and worksheet for teachers"
+    "cs": "Upravitelný návrh metodiky a pracovní list pro učitele",
+    "en": "An editable draft lesson plan and worksheet for teachers"
   },
   "red.box_need_h3": {
     "cs": "Co budete potřebovat",
@@ -1208,40 +1208,40 @@
     "en": "What is Shieldio?"
   },
   "faq.a1": {
-    "cs": "Shieldio jsou hotové Arduino desky s neomylnými konektory, barevně odstupňovanou obtížností a blokovým programováním. Nejde je zapojit špatně, nepotřebují pájení a program se sestavuje z bloků, ne psaním kódu.",
-    "en": "Shieldio boards are ready-made Arduino boards with foolproof connectors, colour-coded difficulty, and block-based programming. You can't wire them wrong, they don't need soldering, and the program is built from blocks instead of written code."
+    "cs": "Shieldio je výukový projekt s Arduino deskami, vedenými návody a blokovým programováním. RED je první reálná deska a lze ji předobjednat v sestavené i DIY variantě; Green a Yellow jsou zatím koncepty.",
+    "en": "Shieldio is an educational Arduino board project with guided tutorials and block-based programming. RED is the first physical board and can be pre-ordered assembled or as a DIY kit; Green and Yellow are still concepts."
   },
   "faq.q2": {
     "cs": "Potřebuju zkušenosti s elektronikou nebo programováním?",
     "en": "Do I need experience with electronics or programming?"
   },
   "faq.a2": {
-    "cs": "Ne. Úroveň Green je navržená jako úplně první krok s elektronikou, bez pájení, bez psaní kódu, s neomylnými konektory.",
-    "en": "No. The Green level is designed as a very first step into electronics, no soldering, no writing code, foolproof connectors."
+    "cs": "Pro práci se sestavenou deskou RED nejsou předchozí zkušenosti nutné; návod vysvětluje zapojení i program krok za krokem. DIY varianta zahrnuje pájení a u žáků vyžaduje dohled dospělého.",
+    "en": "No prior experience is required for the assembled RED board; the guide explains wiring and programming step by step. The DIY version involves soldering and requires adult supervision for students."
   },
   "faq.q3": {
     "cs": "Jak se deska programuje?",
     "en": "How is the board programmed?"
   },
   "faq.a3": {
-    "cs": "Blokovým programováním v prostředí <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>, které funguje přímo v prohlížeči, podobně jako Scratch.",
-    "en": "Through block-based programming in <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>, which runs right in the browser, similar to Scratch."
+    "cs": "Blokově v prostředí <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>. Webovou verzi pro nahrávání přes USB používejte v Chrome nebo Edge a na školním počítači přístup k sériovému portu ověřte před hodinou.",
+    "en": "Use block-based programming in <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>. Use Chrome or Edge for USB uploads in the web version, and verify serial-port access on a school computer before class."
   },
   "faq.q4": {
     "cs": "Jaký je rozdíl mezi Green, Yellow a Red?",
     "en": "What's the difference between Green, Yellow, and Red?"
   },
   "faq.a4": {
-    "cs": "Jsou to tři barevně odlišené úrovně obtížnosti na řadě Baseline: Green je základ, Yellow rozšíření, Red nejpokročilejší úroveň s robotikou v pohybu. Podrobnosti u každé desky najdete na stránce <a href=\"products/index.html\">Produkty</a>.",
-    "en": "They're three colour-coded difficulty levels on the Baseline line: Green is the basics, Yellow an extension, and Red the most advanced level with robotics in motion. Details for each board are on the <a href=\"products/index.html\">Products</a> page."
+    "cs": "Jde o plánované úrovně obtížnosti řady Baseline. Existuje pouze RED v první malé sérii; Green a Yellow jsou koncepty. Podrobnosti najdete na stránce <a href=\"products/index.html\">Produkty</a>.",
+    "en": "These are planned Baseline difficulty levels. Only RED exists in a first small batch; Green and Yellow are concepts. See the <a href=\"products/index.html\">Products</a> page for details."
   },
   "faq.q5": {
     "cs": "Co je Baseline a co PROline?",
     "en": "What's Baseline and what's PROline?"
   },
   "faq.a5": {
-    "cs": "Baseline je řada se třemi úrovněmi obtížnosti na jedné desce. PROline je pokročilejší řada pro náročnější projekty, aktuálně se připravuje.",
-    "en": "Baseline is a line with three difficulty levels on one board. PROline is a more advanced line for more demanding projects, currently in the works."
+    "cs": "Baseline je plánovaná řada tří úrovní, z níž je zatím reálně dostupná pouze RED k předobjednání. PROline je koncept pokročilejší řady.",
+    "en": "Baseline is a planned three-level range; only RED is currently physically available for pre-order. PROline is a concept for a more advanced range."
   },
   "faq.q6": {
     "cs": "Je deska RED už k dostání?",
@@ -1256,8 +1256,8 @@
     "en": "What is PowerAdd?"
   },
   "faq.a7": {
-    "cs": "Nabíjecí modul, který desku odpojí od USB-C kabelu. Napájí až čtyři větve a umožňuje propojit víc desek mezi sebou, sériově i paralelně.",
-    "en": "A charging module that disconnects the board from its USB-C cable. It powers up to four branches and lets you connect several boards together, in series or in parallel."
+    "cs": "PowerAdd je prototyp napájecího modulu pro provoz desek Shieldio bez USB kabelu. Zatím není hotovým produktem k objednání.",
+    "en": "PowerAdd is a prototype power module for running Shieldio boards without a USB cable. It is not yet a finished product available to order."
   },
   "faq.q8": {
     "cs": "Pro koho je Shieldio určené?",
@@ -1424,28 +1424,28 @@
     "en": "Where we are now, and what's next."
   },
   "about.step1_h3": {
-    "cs": "Vývoj a testování",
-    "en": "Development and testing"
+    "cs": "První malá série RED",
+    "en": "First small RED batch"
   },
   "about.step1_p": {
-    "cs": "Čtvrtý prototyp desky RED je ve vývoji, třetí prototyp zrovna procházíme testováním, aby byl co nejspolehlivější.",
-    "en": "The fourth RED board prototype is in development, and we're currently testing the third one to make it as reliable as possible."
+    "cs": "Deska RED vychází z otestovaných prototypů a je k předobjednání v první malé sérii.",
+    "en": "The RED board builds on tested prototypes and is available for pre-order in its first small batch."
   },
   "about.step2_h3": {
     "cs": "Návody a materiály",
     "en": "Guides and materials"
   },
   "about.step2_p": {
-    "cs": "Souběžně vznikají podrobné fotonávody na stavbu i použití desky, aby s ní zvládl pracovat i učitel bez technického vzdělání.",
-    "en": "At the same time we're building detailed photo guides for assembling and using the board, so even a teacher without a technical background can work with it."
+    "cs": "Podrobné fotonávody a metodické podklady průběžně doplňujeme a ověřujeme pro samostatnou práci žáků i vedení učitelem.",
+    "en": "We continuously expand and validate the photo guides and teaching materials for independent student work and teacher-led lessons."
   },
   "about.step3_h3": {
-    "cs": "Pilotní škola",
-    "en": "Pilot school"
+    "cs": "Pilotní ověření ve škole",
+    "en": "Pilot validation at school"
   },
   "about.step3_p": {
-    "cs": "Testování přímo ve výuce začíná na první partnerské škole.",
-    "en": "In-classroom testing starts at our first partner school."
+    "cs": "Termín pilotního ověření zveřejníme po potvrzení s partnerskou školou.",
+    "en": "We will publish the pilot date once it has been confirmed with a partner school."
   },
   "about.step4_h3": {
     "cs": "Rozsáhlejší testování",
@@ -1464,12 +1464,12 @@
     "en": "Shieldio reaches more partner schools, so we can confirm the solution works across different classrooms and teachers."
   },
   "about.step6_h3": {
-    "cs": "Plné nasazení",
-    "en": "Full deployment"
+    "cs": "Rozšíření dostupnosti",
+    "en": "Expanding availability"
   },
   "about.step6_p": {
-    "cs": "Deska, návody i metodika jsou hotové k plnému nasazení do výuky na školách.",
-    "en": "The board, guides, and methodology are ready for full deployment in school teaching."
+    "cs": "Podle výsledků ověřování chceme rozšiřovat výrobu RED i nabídku metodických materiálů.",
+    "en": "Based on validation results, we want to expand RED production and the range of teaching materials."
   },
   "about.step7_h3": {
     "cs": "Akcelerátory",
@@ -1629,7 +1629,9 @@
   "learn_ohm.calc_vs": { "cs": "Napájecí napětí (V)", "en": "Supply voltage (V)" },
   "learn_ohm.calc_vf": { "cs": "Úbytek na LED (V)", "en": "Voltage drop on the LED (V)" },
   "learn_ohm.calc_i": { "cs": "Požadovaný proud (<span class=\"unit-case\">mA</span>)", "en": "Target current (<span class=\"unit-case\">mA</span>)" },
-  "learn_ohm.calc_result_label": { "cs": "Potřebný odpor", "en": "Resistance needed" },
+  "learn_ohm.calc_result_label": { "cs": "Vypočtené minimum", "en": "Calculated minimum" },
+  "learn_ohm.calc_standard_label": { "cs": "Použij bezpečnou hodnotu E12", "en": "Use this safe E12 value" },
+  "learn_ohm.calc_actual_label": { "cs": "Skutečný proud", "en": "Actual current" },
   "learn_ohm.calc_note": { "cs": "Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.", "en": "With inputs of 5 V, 2 V, and 15 mA, you get about 200 Ω; the nearest standard E12 value is exactly 220 Ω. Try changing the current to 20 mA or the supply to 3.3 V in the calculator, and see how the resistance needed changes." },
   "learn_ohm.aside": { "cs": "<b>Co dělá rezistor uvnitř:</b> je to materiál, který klade odpor průchodu proudu, čím vyšší odpor, tím míň proudu jím při stejném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají jim energii jako teplo, proto se rezistor při provozu mírně zahřívá.", "en": "<b>What a resistor does inside:</b> it's a material that resists the flow of current — the higher the resistance, the less current flows through it at the same voltage. Electrons travelling through the resistor collide with atoms in the material and give up energy to them as heat, which is why a resistor warms up slightly in use." },
   "learn_ohm.board_tie": { "cs": "<b>Na desce Shieldio RED:</b> tenhle přesný výpočet stojí za R1 a R2 (220 Ω, proudové omezovače pro červenou a zelenou LED). R3 a R4 (10 kΩ) fungují jinak, jako pull-up rezistory pro tlačítka, víc v kapitole o <a href=\"../tlacitka-a-debounce/index.html\">debounce</a>. R5 (330 Ω) omezuje proud bzučákem stejným principem jako u LED, jen s jinými vstupními hodnotami.", "en": "<b>On the Shieldio RED board:</b> this exact calculation is behind R1 and R2 (220 Ω, current limiters for the red and green LEDs). R3 and R4 (10 kΩ) work differently, as pull-up resistors for the buttons, more on that in the chapter on <a href=\"../tlacitka-a-debounce/index.html\">debounce</a>. R5 (330 Ω) limits current to the buzzer using the same principle as the LEDs, just with different input values." },
@@ -1732,7 +1734,7 @@
   "learn_pcb.worse2": { "cs": "horší než měď", "en": "worse than copper" },
   "learn_pcb.aluminium_note": { "cs": "lehčí a levnější, ale hůř se pájí", "en": "lighter and cheaper, but harder to solder" },
   "learn_pcb.trace_width_p": { "cs": "Silnoproudé cestičky (třeba napájecí) bývají na plošném spoji vždy širší než signálové: širší cestička znamená menší odpor, a tedy míň tepla při stejném proudu.", "en": "High-current traces (power traces, for example) are always wider on a board than signal ones: a wider trace means lower resistance, and so less heat at the same current." },
-  "learn_pcb.current_rating_p": { "cs": "<b>Proudová zatížitelnost:</b> cestička se nesmí přehřát, běžná tloušťka mědi na hobby deskách je asi 35 µm, a cestička o šířce 0,25 mm při ní bezpečně unese jednotky ampérů, přesně proto výkonové cestičky bývají vizuálně širší než tenké signálové vodiče vedle nich.", "en": "<b>Current rating:</b> a trace must not overheat; a typical copper thickness on hobby boards is about 35 µm, and a trace 0.25 mm wide can safely carry a few amps at that thickness, which is exactly why power traces tend to look visibly wider than the thin signal traces next to them." },
+  "learn_pcb.current_rating_p": { "cs": "<b>Proudová zatížitelnost:</b> cestička se nesmí přehřát. Bezpečný proud nelze určit jen ze šířky: záleží také na tloušťce mědi, délce cestičky, umístění ve vrstvě, chlazení a povoleném nárůstu teploty. Proto se napájecí cesty navrhují širší a ověřují výpočtem podle konkrétních podmínek.", "en": "<b>Current capacity:</b> a trace must not overheat. Safe current cannot be determined from width alone: it also depends on copper thickness, trace length, layer placement, cooling, and allowed temperature rise. Power traces are therefore designed wider and checked for their specific conditions." },
   "learn_pcb.eq_units": { "cs": "Značení jednotek: <b>R</b> odpor [Ω], <b>ρ</b> rezistivita [Ω·m], <b>L</b> délka [m], <b>A</b> průřez [m²].", "en": "Unit notation: <b>R</b> resistance [Ω], <b>ρ</b> resistivity [Ω·m], <b>L</b> length [m], <b>A</b> cross-section [m²]." },
   "learn_pcb.eq_label": { "cs": "<b>Odpor vodiče</b> libovolného tvaru se spočítá jako:", "en": "<b>The resistance of a conductor</b> of any shape is calculated as:" },
   "learn_pcb.eq_note": { "cs": "kde \\(\\rho\\) (rho) je měrný elektrický odpor materiálu (rezistivita), \\(L\\) je délka vodiče a \\(A\\) jeho průřez (šířka krát tloušťka mědi).", "en": "where \\(\\rho\\) (rho) is the material's electrical resistivity, \\(L\\) is the conductor's length, and \\(A\\) is its cross-section (width times copper thickness)." },
@@ -1904,20 +1906,20 @@
     "en": "Now"
   },
   "about.step3_label": {
-    "cs": "Září 2026",
-    "en": "September 2026"
+    "cs": "Další krok",
+    "en": "Next step"
   },
   "about.step4_label": {
-    "cs": "Listopad 2026",
-    "en": "November 2026"
+    "cs": "Navazující etapa",
+    "en": "Following stage"
   },
   "about.step5_label": {
-    "cs": "Duben 2027",
-    "en": "April 2027"
+    "cs": "Později",
+    "en": "Later"
   },
   "about.step6_label": {
-    "cs": "Květen 2027",
-    "en": "May 2027"
+    "cs": "Dlouhodobě",
+    "en": "Long term"
   },
   "about.step7_label": {
     "cs": "Budoucnost",
@@ -2116,7 +2118,7 @@
     "en": "Last updated: September 5, 2026. Updated by Codex."
   },
   "red.teacher_link": {
-    "cs": "Pro učitele: hotová metodika k prvnímu projektu →",
-    "en": "For teachers: the lesson plan for the first project is ready →"
+    "cs": "Pro učitele: návrh metodiky k prvnímu projektu →",
+    "en": "For teachers: draft methodology for the first project →"
   }
 }

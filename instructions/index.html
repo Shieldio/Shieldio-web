@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.css?v=20260906">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -67,16 +67,19 @@
     <div class="model-subgroup-label fade-up">1. Příprava: sestavení desky a nástroje</div>
     <div class="board-picker project-picker-grid fade-up delay-1">
       <a class="instruction-card project-pick-card" href="baseline/red/sestaveni/index.html" style="border-style:dashed;">
+        <div class="guide-card-visual"><img src="../assets/images/red-build-clean/00-cover.jpg" width="1600" height="1200" loading="lazy" alt="" aria-hidden="true"></div>
         <h3>Sestavení a pájení desky</h3>
         <p>Podrobný fotonávod, jak desku RED sestavit a napájet od nuly, hodí se hlavně pro nesestavenou sadu.</p>
         <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
       </a>
       <a class="instruction-card project-pick-card" href="mblock/index.html" style="border-style:dashed;">
+        <div class="guide-card-visual"><img src="../assets/images/RED_detail_nano_oled_white.jpg" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true"></div>
         <h3>Jak otevřít a programovat v mBlocku</h3>
         <p>Krok za krokem: jak mBlock otevřít, připojit desku a nahrát první program, pro úplné začátečníky.</p>
         <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
       </a>
       <a class="instruction-card project-pick-card" href="blokovy-editor.html" style="border-style:dashed;">
+        <div class="guide-card-visual guide-card-visual-contain"><img src="../assets/images/RED_layout_labeled.png" width="900" height="1200" loading="lazy" alt="" aria-hidden="true"></div>
         <h3>Blokový editor <span style="font-weight:500; font-size:13px; color:var(--ink-soft);">(prototyp)</span></h3>
         <p>Poskládej vlastní program z bloků přímo v prohlížeči a vygeneruj Arduino kód pro desku RED, bez psaní v C.</p>
         <span class="pick-hint" style="color:var(--tier-red-deep);">Vyzkoušet</span>
@@ -86,21 +89,25 @@
     <div class="model-subgroup-label fade-up">2. Projekty</div>
     <div class="board-picker project-picker-grid fade-up delay-1">
       <a class="instruction-card project-pick-card" href="baseline/red/zavora/index.html">
+        <div class="guide-card-visual"><img src="../assets/images/RED_barrier_open_white.jpg" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true"></div>
         <h3>Prototyp závory</h3>
-        <p>Žáci během 45 až 60 minut naprogramují servo, které se pohybuje podle vzdálenosti objektu, a pochopí propojení vstupu a výstupu.</p>
+        <p>Se sestavenou deskou žáci během jedné 45minutové hodiny naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.</p>
         <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
       </a>
       <a class="instruction-card project-pick-card" href="baseline/red/parkovaci-asistent/index.html">
+        <div class="guide-card-visual"><img src="../assets/images/RED_parking_assistant_white.png" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true"></div>
         <h3>Parkovací asistent</h3>
         <p>Žáci během 20 až 30 minut vyřeší problém s parkováním pomocí ultrazvukového senzoru a pochopí měření vzdálenosti a podmínky.</p>
         <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
       </a>
       <a class="instruction-card project-pick-card" href="baseline/red/casovac/index.html">
+        <div class="guide-card-visual guide-card-visual-square"><img src="../assets/images/RED_detail_button_qr_clean.jpg" width="1400" height="1400" loading="lazy" alt="" aria-hidden="true"></div>
         <h3>Časovač</h3>
         <p>Žáci během 20 až 30 minut naprogramují časovač, který měří dobu podle pohybu před senzorem, a pochopí práci s časem a podmínkami.</p>
         <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
       </a>
       <a class="instruction-card project-pick-card" href="baseline/red/theremin/index.html">
+        <div class="guide-card-visual"><img src="../assets/images/RED_detail_nano_oled_white.jpg" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true"></div>
         <h3>Theremin</h3>
         <p>Žáci během 20 až 30 minut vytvoří bezdotykový hudební nástroj, který podle vzdálenosti ruky mění výšku tónu, a pochopí mapování hodnot mezi vstupem a výstupem.</p>
         <span class="pick-hint" style="color:var(--tier-red-deep);">Zobrazit návod</span>
@@ -146,8 +153,8 @@
   <div class="wrap">
     <div class="section-head" style="margin-bottom:0;">
       <span class="eyebrow-dark">Pro učitele a vedoucí kroužků</span>
-      <h2>Hotová metodika pro výuku s deskami Shieldio.</h2>
-      <p>Kompletní metodický list k prvnímu projektu (Automatická závora): vzdělávací cíle, klíčové kompetence, mezipředmětové vztahy, podrobný postup hodiny a hodnoticí rubrika pro klasifikaci, připravená k zařazení do ŠVP.</p>
+      <h2>Návrh metodiky pro výuku s deskou RED.</h2>
+      <p>Upravitelný metodický list k projektu Automatická závora: cíle, vazba na RVP ZV 2025, dvě časové varianty, pracovní list a hodnoticí rubrika. Před použitím jej přizpůsobte ŠVP a podmínkám školy.</p>
       <div class="hero-ctas" style="margin-top:28px;">
         <a class="btn btn-primary" href="../company/metodika-zavora.html">Zobrazit metodiku</a>
         <a class="btn btn-ghost" href="../index.html#kontakt">Domluvit ukázku</a>

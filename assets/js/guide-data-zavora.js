@@ -14,7 +14,7 @@ window.SHIELDIO_GUIDE = {
     doneVideoPoster: "../../../../assets/images/RED_demo_poster.jpg",
     tier: "red",
     difficulty: { cs: "Red · Pokročilá", en: "Red · Advanced" },
-    duration: { cs: "45–60 minut", en: "45–60 minutes" },
+    duration: { cs: "45 minut · rozšířeně 90", en: "45 minutes · 90 extended" },
     learn: [
       { cs: "Servo", en: "Servos" },
       { cs: "Ultrazvuk", en: "Ultrasonic sensing" },
@@ -85,7 +85,7 @@ window.SHIELDIO_GUIDE = {
     },
     arduino: {
       term: { cs: "Arduino", en: "Arduino" },
-      photo: "../../../../assets/images/RED_arduino_nano.jpeg",
+      photo: "../../../../assets/images/RED_detail_nano_oled_white.jpg",
       text: {
         cs: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu ovládá senzory a výstupy.",
         en: "A small computer (microcontroller) inside the Shieldio board, it controls sensors and outputs according to the program you upload.",
@@ -138,13 +138,13 @@ window.SHIELDIO_GUIDE = {
         cs: "Uvnitř desky je Arduino Nano, které podle nahraného programu ovládá vše připojené.",
         en: "Inside the board is an Arduino Nano, which controls everything connected to it according to the uploaded program.",
       },
-      fact: { cs: "Deska RED je aktuálně ve vývoji, první funkční prototyp.", en: "The RED board is currently in development, the first working prototype." },
+      fact: { cs: "Deska RED vychází z otestovaných prototypů; první malá série je k předobjednání.", en: "The RED board builds on tested prototypes; its first small batch is available for pre-order." },
       datasheet: null,
     },
     {
       id: "arduino",
       name: { cs: "Arduino Nano", en: "Arduino Nano" },
-      photo: "../../../../assets/images/red-build/15-arduino-nano.jpg",
+      photo: "../../../../assets/images/red-build-clean/15-arduino-nano.jpg",
       what: {
         cs: "Malý počítač na desce, který podle nahraného programu ovládá servo i čte ultrazvukový senzor.",
         en: "The small computer on the board, it controls the servo and reads the ultrasonic sensor according to the uploaded program.",
@@ -171,7 +171,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "hcsr04",
       name: { cs: "Ultrazvuk HC-SR04", en: "HC-SR04 Ultrasonic Sensor" },
-      photo: "../../../../assets/images/red-build/16-ultrazvuk.jpg",
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       what: { cs: "Měří vzdálenost přijíždějícího auta od závory.", en: "Measures the distance of an approaching car from the barrier." },
       how: {
         cs: "Vyšle ultrazvukový signál a změří, za jak dlouho se odrazí zpátky.",
@@ -183,7 +183,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "oled",
       name: { cs: "OLED displej", en: "OLED Display" },
-      photo: "../../../../assets/images/red-build/17-oled-displej.jpg",
+      photo: "../../../../assets/images/red-build-clean/17-oled-displej.jpg",
       what: {
         cs: "Malý obrazovkový displej na desce, program na něj může vypisovat text nebo hodnoty.",
         en: "The small screen on the board, the program can print text or values to it.",
@@ -247,7 +247,7 @@ window.SHIELDIO_GUIDE = {
         en: "Connect the <span class=\"term\" data-term=\"ultrazvuk\">ultrasonic sensor</span>",
       },
       type: "wiring",
-      photo: "../../../../assets/images/red-build/16-ultrazvuk.jpg",
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       instructions: {
         cs: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b>. Stejně jako u serva, konektor jde zasunout jen správně.",
         en: "Plug the <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> sensor into the connector labeled <b>ULTRAZVUK</b> (Czech for \"ultrasonic\", printed on the board). Just like the servo, the connector only fits the right way.",
@@ -287,6 +287,10 @@ window.SHIELDIO_GUIDE = {
       title: { cs: "Nahraj program", en: "Upload the program" },
       type: "upload",
       screenshot: null,
+      instructions: {
+        cs: "Otevři připravený startovní program. Než ho nahraješ, najdi dvě podmínky: při vzdálenosti menší než 15 cm nastavují servo na 90°, jinak na 0°. Zkus vlastní práh a před nahráním vysvětli, co se změní.",
+        en: "Open the prepared starter program. Before uploading it, find the two conditions: below 15 cm they set the servo to 90°, otherwise to 0°. Try your own threshold and explain what will change before uploading.",
+      },
       diagnostics: [
         {
           title: { cs: "Chyba: Není nalezen port", en: "Error: Port not found" },

@@ -47,7 +47,7 @@ window.SHIELDIO_GUIDE = {
     },
     arduino: {
       term: "Arduino",
-      photo: "../../../../assets/images/RED_arduino_nano.jpeg",
+      photo: "../../../../assets/images/RED_detail_nano_oled_white.jpg",
       text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu vyhodnocuje vzdálenost a ovládá bzučák.",
       fact: "Deska RED používá konkrétně Arduino Nano.",
       datasheet: null,
@@ -75,13 +75,13 @@ window.SHIELDIO_GUIDE = {
       photo: "../../../../assets/images/RED_hand_hold_with_parts.jpeg",
       what: "Hlavní deska projektu. Bzučák je napájený přímo na desce. V sestavené sadě je ultrazvukový senzor už zapojený, v nesestavené ho zasuneš sám do patice z návodu na pájení.",
       how: "Uvnitř desky je Arduino Nano, které podle naměřené vzdálenosti mění výšku tónu bzučáku.",
-      fact: "Deska RED je aktuálně ve vývoji, první funkční prototyp.",
+      fact: "Deska RED vychází z otestovaných prototypů; první malá série je k předobjednání.",
       datasheet: null,
     },
     {
       id: "arduino",
       name: "Arduino Nano",
-      photo: "../../../../assets/images/red-build/15-arduino-nano.jpg",
+      photo: "../../../../assets/images/red-build-clean/15-arduino-nano.jpg",
       what: "Malý počítač na desce, který podle naměřené vzdálenosti mění výšku tónu bzučáku.",
       how: "Pokud máš nesestavenou sadu, je už zasunutý v patici na desce z návodu na pájení. Nic dalšího s ním dělat nemusíš.",
       fact: "Deska RED používá konkrétně Arduino Nano.",
@@ -90,7 +90,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "hcsr04",
       name: "Ultrazvuk HC-SR04",
-      photo: "../../../../assets/images/red-build/16-ultrazvuk.jpg",
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       what: "Měří vzdálenost tvojí ruky od senzoru.",
       how: "Vyšle ultrazvukový signál a změří, za jak dlouho se odrazí zpátky.",
       fact: "Přesnost na centimetry, dosah až několik metrů.",
@@ -135,7 +135,7 @@ window.SHIELDIO_GUIDE = {
       title: "Zapoj <span class=\"term\" data-term=\"ultrazvuk\">ultrazvuk</span>",
       type: "wiring",
       kit: "unassembled",
-      photo: "../../../../assets/images/red-build/16-ultrazvuk.jpg",
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem. Bzučák je napájený přímo na desce, nic dalšího zapojovat nemusíš.",
       troubleshoot: {
         title: "Nejčastější chyby",
@@ -151,6 +151,7 @@ window.SHIELDIO_GUIDE = {
       title: "Nahraj program",
       type: "upload",
       screenshot: null,
+      instructions: "V mBlocku opakovaně měř vzdálenost ruky, převeď rozsah například 5–40 cm na slyšitelnou frekvenci a tu pošli do bzučáku. Před nahráním rozhodni, zda má být bližší ruka vyšší, nebo nižší tón; při testu ověř oba krajní body rozsahu.",
       diagnostics: [
         {
           title: "Chyba: Není nalezen port",
