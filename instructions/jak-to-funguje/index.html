@@ -89,9 +89,14 @@
 <div class="hero" style="padding-bottom:60px;">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Pro zvídavé</span>
-      <h1>Jak to funguje <em>pod pokličkou</em>.</h1>
-      <p class="lead" style="max-width:640px;">Návody na sestavení říkají, co a jak zapojit. Tahle sekce vysvětluje proč, co dělá rezistor, dioda, PWM signál, kondenzátor nebo samotná deska uvnitř. Není potřeba ke stavbě desky, je pro ty, kdo chtějí vědět víc. Vyber si téma.</p>
+      <span class="eyebrow" data-i18n="learn_hub.eyebrow">Pro zvídavé</span>
+      <h1 data-i18n="learn_hub.h1">Jak to funguje <em>pod pokličkou</em>.</h1>
+      <p class="lead" style="max-width:700px;" data-i18n="learn_hub.lead">Návody na sestavení říkají, co zapojit. Tady si každý jev nejdřív vyzkoušíš v interaktivním modelu a potom zvolíš hloubku: jednoduchou představu, podrobné vysvětlení nebo úplný výpočet se vzorci.</p>
+      <div class="learn-level-explainer">
+        <div><b data-i18n="learn.level_simple">Jednoduše</b><span data-i18n="learn_hub.level_simple_note">jev a jeho smysl bez zbytečných pojmů</span></div>
+        <div><b data-i18n="learn.level_advanced">Do hloubky</b><span data-i18n="learn_hub.level_advanced_note">co se děje uvnitř a proč</span></div>
+        <div><b data-i18n="learn.level_full">Se vzorci</b><span data-i18n="learn_hub.level_full_note">veličiny, jednotky a konkrétní dosazení</span></div>
+      </div>
     </div>
   </div>
 </div>
@@ -100,39 +105,39 @@
   <div class="wrap">
     <div class="project-picker-grid fade-up">
       <a class="instruction-card project-pick-card" href="ohmuv-zakon/index.html">
-        <h3>01 · Ohmův zákon</h3>
-        <p>Proč zrovna 220 Ω u LED, a interaktivní kalkulačka, která to spočítá za tebe.</p>
-        <span class="pick-hint">Číst a spočítat</span>
+        <h3 data-i18n="learn_hub.ohm_h3">01 · Ohmův zákon</h3>
+        <p data-i18n="learn_hub.ohm_p">Proč zrovna 220 Ω u LED, a interaktivní kalkulačka, která to spočítá za tebe.</p>
+        <span class="pick-hint" data-i18n="learn_hub.open_calc">Otevřít model a kalkulačku</span>
       </a>
       <a class="instruction-card project-pick-card" href="tlacitka-a-debounce/index.html">
-        <h3>02 · Tlačítka a debounce</h3>
-        <p>Proč tlačítko potřebuje pull-up rezistor a co je to zákmit.</p>
-        <span class="pick-hint">Číst</span>
+        <h3 data-i18n="learn_hub.debounce_h3">02 · Tlačítka a debounce</h3>
+        <p data-i18n="learn_hub.debounce_p">Simuluj skutečný stisk, sleduj zákmity a změň dobu softwarového debounce.</p>
+        <span class="pick-hint" data-i18n="learn_hub.open_model">Otevřít model</span>
       </a>
       <a class="instruction-card project-pick-card" href="dioda-a-led/index.html">
-        <h3>03 · Dioda a LED</h3>
-        <p>PN přechod, propustný a závěrný směr, a proč LED svítí právě tou barvou.</p>
-        <span class="pick-hint">Číst</span>
+        <h3 data-i18n="learn_hub.diode_h3">03 · Dioda a LED</h3>
+        <p data-i18n="learn_hub.diode_p">Měň napětí a typ diody, sleduj směr proudu, práh i jas LED.</p>
+        <span class="pick-hint" data-i18n="learn_hub.open_model">Otevřít model</span>
       </a>
       <a class="instruction-card project-pick-card" href="pwm/index.html">
-        <h3>04 · PWM</h3>
-        <p>Jak ze dvou úrovní napětí (0 V, 5 V) vznikne plynulé stmívání i přesný úhel serva.</p>
-        <span class="pick-hint">Číst</span>
+        <h3 data-i18n="learn_hub.pwm_h3">04 · PWM</h3>
+        <p data-i18n="learn_hub.pwm_p">Porovnej střídu pro LED s řídicím pulzem serva a sleduj oba signály v čase.</p>
+        <span class="pick-hint" data-i18n="learn_hub.open_model">Otevřít model</span>
       </a>
       <a class="instruction-card project-pick-card" href="ultrazvuk/index.html">
-        <h3>05 · Ultrazvuk</h3>
-        <p>Jak senzor HC-SR04 měří vzdálenost pomocí času letu zvuku.</p>
-        <span class="pick-hint">Číst</span>
+        <h3 data-i18n="learn_hub.ultrasonic_h3">05 · Ultrazvuk</h3>
+        <p data-i18n="learn_hub.ultrasonic_p">Posuň překážku, změň teplotu a změř dobu letu pulzu tam i zpět.</p>
+        <span class="pick-hint" data-i18n="learn_hub.open_model">Otevřít model</span>
       </a>
       <a class="instruction-card project-pick-card" href="kondenzatory/index.html">
-        <h3>06 · Kondenzátory</h3>
-        <p>Proč elektrolytický kondenzátor musí mít správnou polaritu a jak kondenzátor tlumí šum.</p>
-        <span class="pick-hint">Číst</span>
+        <h3 data-i18n="learn_hub.capacitor_h3">06 · Kondenzátory</h3>
+        <p data-i18n="learn_hub.capacitor_p">Prozkoumej nabíjecí a vybíjecí křivku a měň odpor, kapacitu i čas.</p>
+        <span class="pick-hint" data-i18n="learn_hub.open_model">Otevřít model</span>
       </a>
       <a class="instruction-card project-pick-card" href="pcb/index.html">
-        <h3>07 · Co je PCB</h3>
-        <p>Z čeho je deska plošných spojů, jak se vyrábí a proč jsou cestičky z mědi.</p>
-        <span class="pick-hint">Číst</span>
+        <h3 data-i18n="learn_hub.pcb_h3">07 · Co je PCB</h3>
+        <p data-i18n="learn_hub.pcb_p">Měň rozměry měděné cestičky a sleduj odpor, úbytek napětí i ztrátový výkon.</p>
+        <span class="pick-hint" data-i18n="learn_hub.open_model">Otevřít model</span>
       </a>
     </div>
   </div>
@@ -141,11 +146,11 @@
 <section class="cta-section">
   <div class="wrap">
     <div class="fade-up" style="text-align:center;">
-      <h2>Chceš si to rovnou vyzkoušet?</h2>
-      <p style="color:#86868b; margin-top:14px;">Teorie dává smysl nejvíc, když ji vidíš v akci na skutečné desce.</p>
+      <h2 data-i18n="learn_hub.cta_h2">Chceš si to rovnou vyzkoušet?</h2>
+      <p style="color:#86868b; margin-top:14px;" data-i18n="learn_hub.cta_p">Teorie dává smysl nejvíc, když ji vidíš v akci na skutečné desce.</p>
       <div class="hero-ctas" style="justify-content:center; margin-top:28px;">
-        <a class="btn btn-primary" href="../baseline/red/sestaveni/index.html">Návod na sestavení desky RED</a>
-        <a class="btn btn-ghost" href="../index.html">Zpět na návody</a>
+        <a class="btn btn-primary" href="../baseline/red/sestaveni/index.html" data-i18n="learn_hub.cta_assembly">Návod na sestavení desky RED</a>
+        <a class="btn btn-ghost" href="../index.html" data-i18n="learn_hub.cta_back">Zpět na návody</a>
       </div>
     </div>
   </div>

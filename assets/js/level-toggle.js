@@ -20,9 +20,12 @@
     document.documentElement.dataset.learnLevel = level;
     document.querySelectorAll("[data-level-toggle]").forEach((toggle) => {
       toggle.querySelectorAll(".guide-mode-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.level === level);
+        const active = btn.dataset.level === level;
+        btn.classList.toggle("active", active);
+        btn.setAttribute("aria-pressed", String(active));
       });
     });
+    document.dispatchEvent(new CustomEvent("shieldio-learn-level-change", { detail: { level } }));
   }
 
   function init() {

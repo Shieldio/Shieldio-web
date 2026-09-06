@@ -110,8 +110,8 @@
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Pokročile</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Plně</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Do hloubky</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -158,7 +158,7 @@
       <div class="learn-eq-block">\[ I\ [\text{A}] = \frac{U}{R} \]</div>
       <p data-i18n="learn_debounce.eq_sub_label">Pro pull-up 10 kΩ a napájení 5 V, v okamžiku stisku:</p>
       <div class="learn-eq-block">\[ I = \frac{5\,\text{V}}{10\,000\,\Omega} = 0{,}5\,\text{mA} \]</div>
-      <p data-i18n="learn_debounce.eq_conclusion">Proto se pro pull-up volí spíš vyšší hodnoty (10 kΩ a víc): čím vyšší odpor, tím menší zbytečně "prošlý" proud při každém stisku, aniž by to zpomalilo, jak rychle se pin ustálí na jasné napěťové úrovni.</p>
+      <p data-i18n="learn_debounce.eq_conclusion">Vyšší odpor zmenší proud při stisku, ale spolu s kapacitou vstupu a vodičů zároveň zpomaluje změnu napětí a zvyšuje citlivost na rušení. Hodnota 10 kΩ je běžný kompromis mezi spotřebou, rychlostí a odolností proti šumu.</p>
     </div>
 
     <div class="topic-nav">
@@ -207,6 +207,7 @@
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js"></script>
 <script src="../../../assets/js/level-toggle.js"></script>
+<script src="../../../assets/js/concept-labs.js"></script>
 
 </body>
 </html>

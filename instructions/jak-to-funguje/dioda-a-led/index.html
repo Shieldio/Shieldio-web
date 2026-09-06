@@ -110,8 +110,8 @@
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Pokročile</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Plně</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Do hloubky</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -153,8 +153,8 @@
     </div>
 
     <div class="level-advanced learn-body">
-      <p data-i18n="learn_dioda.adv_p2">Přiložíš-li napětí ve <b>správném (propustném) směru</b>, elektrony a díry se k přechodu tlačí proti sobě, přechod se zúží a od určitého prahového napětí (u křemíkových diod kolem 0,6 V, u LED podle barvy 1,8 až 3,3 V) jím proud volně protéká. V <b>obráceném (závěrném) směru</b> se nosiče náboje naopak od přechodu vzdalují, oblast bez volných nosičů se rozšíří a proud přechodem prakticky neteče, dokud napětí nepřekročí mez, kterou dioda vydrží.</p>
-      <p data-i18n="learn_dioda.adv_p3">Přesně proto má dioda 1N5817 na desce jasně danou orientaci (proužek ke straně K, katoda), chrání zbytek desky tak, že ve špatně zapojeném směru (třeba obráceně vložený napájecí konektor) proud jednoduše nepustí dál.</p>
+      <p data-i18n="learn_dioda.adv_p2">Přiložíš-li napětí ve <b>správném (propustném) směru</b>, elektrony a díry se k přechodu tlačí proti sobě a ochuzená oblast se zúží. Proud pak s napětím roste velmi strmě; hodnoty kolem 0,6 až 0,7 V u běžné křemíkové diody a 1,8 až 3,3 V u LED jsou praktické propustné úbytky, ne ostrý vypínač. V <b>obráceném (závěrném) směru</b> teče jen malý svodový proud, dokud napětí nepřekročí dovolenou závěrnou mez.</p>
+      <p data-i18n="learn_dioda.adv_p3">Dioda 1N5817 na desce má proto jasně danou orientaci (proužek ke straně K, katoda) a při obrácené polaritě napájení proud dál nepustí. Je to Schottkyho dioda: místo běžného PN přechodu používá přechod kov–polovodič, díky čemuž má menší propustný úbytek napětí.</p>
       <p data-i18n="learn_dioda.adv_p4"><b>LED</b> (light-emitting diode) je speciální dioda ze specifických polovodičových materiálů. Když jí ve správném směru protéká proud, elektrony na přechodu "padají" na nižší energetickou hladinu a přebytečnou energii vyzáří jako foton, světlo. Barva světla je daná materiálem polovodiče (a tedy velikostí toho energetického skoku), ne barvou vnějšího pouzdra LED.</p>
     </div>
 
@@ -222,6 +222,7 @@
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js"></script>
 <script src="../../../assets/js/level-toggle.js"></script>
+<script src="../../../assets/js/concept-labs.js"></script>
 
 </body>
 </html>

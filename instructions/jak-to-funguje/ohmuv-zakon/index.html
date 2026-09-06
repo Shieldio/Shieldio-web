@@ -119,8 +119,8 @@
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Pokročile</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Plně</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Do hloubky</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -138,7 +138,7 @@
       <div class="learn-eq-block">\[ U = R \times I \]</div>
       <p data-i18n="learn_ohm.adv_p2">Přeuspořádaný na výpočet odporu vypadá takto:</p>
       <div class="learn-eq-block">\[ R = \frac{U}{I} \]</div>
-      <p data-i18n="learn_ohm.adv_p3">LED dioda potřebuje na svých vývodech určitý úbytek napětí, aby svítila, u červené LED je to zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA, než se poškodí. Deska RED má napájení 5 V. Kdyby se LED připojila přímo bez rezistoru, na diodě by se snažilo objevit celých 5 V, LED by se pokusila propustit mnohem víc proudu, než snese, a za zlomek vteřiny by shořela.</p>
+      <p data-i18n="learn_ohm.adv_p3">LED dioda má při svícení určitý propustný úbytek napětí, u červené LED zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA. Deska RED má napájení 5 V. Proud LED roste s napětím velmi strmě, takže při přímém připojení bez sériového rezistoru by ho omezoval hlavně vnitřní odpor zdroje a vodičů. Mohl by rychle překročit dovolenou hodnotu a LED poškodit.</p>
       <p data-i18n="learn_ohm.adv_p4">Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
     </div>
 
@@ -179,7 +179,7 @@
 
     <div class="level-advanced learn-body">
       <p data-i18n="learn_ohm.series_parallel"><b>Sériové a paralelní řazení:</b> když rezistory řadíš za sebe (sériově), jejich odpory se prostě sečtou. Když je řadíš vedle sebe (paralelně), výsledný odpor je vždycky menší než ten nejmenší z nich, protože proud má víc cest, kudy protéct.</p>
-      <p data-i18n="learn_ohm.power_heat"><b>Výkon a zahřívání:</b> rezistor mění procházející proud na teplo. Čím větší proud nebo čím větší odpor, tím víc se zahřívá. Rezistor 220 Ω u LED se prakticky vůbec nezahřívá, protéká jím jen málo proudu, hluboko pod tím, co by snesl.</p>
+      <p data-i18n="learn_ohm.power_heat"><b>Výkon a zahřívání:</b> rezistor mění elektrickou energii na teplo. Při daném odporu výkon roste s druhou mocninou proudu (\(P=I^2R\)); při daném napětí naopak s větším odporem klesá (\(P=U^2/R\)). Proto vždy záleží na celém obvodu, ne jen na hodnotě rezistoru.</p>
       <table class="learn-table">
         <tr><th data-i18n="learn_ohm.table_h1">Barevné proužky</th><th data-i18n="learn_ohm.table_h2">Význam</th></tr>
         <tr><td data-i18n="learn_ohm.table_r1a">1. a 2. proužek</td><td data-i18n="learn_ohm.table_r1b">první dvě číslice hodnoty</td></tr>
@@ -226,7 +226,7 @@
       <div class="learn-eq-block">\[ P\ [\text{W}] = U \times I = I^2 R = \frac{U^2}{R} \]</div>
       <p data-i18n="learn_ohm.eq_sub_label">Dosazení pro R1/R2 (220 Ω, 15 mA):</p>
       <div class="learn-eq-block">\[ P = (0{,}015\,\text{A})^2 \times 220\,\Omega \approx 0{,}05\,\text{W} \]</div>
-      <p data-i18n="learn_ohm.eq_conclusion">Hluboko pod běžnou dovolenou zátěží malých rezistorů (obvykle 0,25 W), proto se u LED nijak nezahřívá.</p>
+      <p data-i18n="learn_ohm.eq_conclusion">Hodnota 0,05 W je hluboko pod běžnou dovolenou zátěží malého 0,25W rezistoru. Teplotní nárůst proto bude malý, přesto není výkon nulový.</p>
     </div>
 
     <div class="topic-nav">
@@ -276,6 +276,7 @@
 <script src="../../../assets/js/site-chrome.js"></script>
 <script src="../../../assets/js/level-toggle.js"></script>
 <script src="../../../assets/js/resistor-calculator.js"></script>
+<script src="../../../assets/js/concept-labs.js"></script>
 
 </body>
 </html>

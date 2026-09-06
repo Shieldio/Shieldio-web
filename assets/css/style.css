@@ -1737,6 +1737,11 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
   text-decoration:none; transition:color .15s var(--ease), border-color .15s var(--ease);
 }
 .learn-toc a:hover{ color:var(--ink); border-color:var(--ink-soft); }
+.learn-level-explainer{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; max-width:760px; margin-top:28px; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius); background:var(--line); }
+.learn-level-explainer > div{ display:flex; flex-direction:column; gap:6px; padding:16px 18px; background:var(--surface); }
+.learn-level-explainer b{ color:var(--ink); font:600 13px 'JetBrains Mono'; }
+.learn-level-explainer span{ color:var(--ink-soft); font-size:13px; line-height:1.45; }
+@media(max-width:640px){ .learn-level-explainer{ grid-template-columns:1fr; } }
 .learn-section{ padding:80px 0; border-top:1px solid var(--line); }
 .learn-section:first-of-type{ border-top:none; }
 .learn-section .section-head{ max-width:680px; }
@@ -1828,6 +1833,7 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 }
 .pwm-sim-visuals{ display:flex; gap:48px; align-items:flex-end; }
 .pwm-sim-device{ display:flex; flex-direction:column; align-items:center; gap:8px; }
+.pwm-sim-device[hidden]{ display:none; }
 .pwm-sim-device-label{ font-family:'JetBrains Mono'; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em; }
 #pwmLed{ transition:opacity .08s linear; }
 /* no transform-origin here on purpose — the SVG rotate(angle cx cy) attribute
@@ -1835,6 +1841,8 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
    compounds into a wildly wrong rotation in some engines */
 .pwm-sim-wave{ width:100%; max-width:480px; height:auto; }
 .pwm-sim-controls{ width:100%; max-width:420px; display:flex; flex-direction:column; gap:12px; align-items:center; }
+.pwm-control-label{ width:100%; display:flex; justify-content:space-between; gap:12px; color:var(--ink-soft); font:11.5px 'JetBrains Mono'; text-transform:uppercase; letter-spacing:.03em; }
+.pwm-control-label b{ color:var(--ink); font-weight:600; text-transform:none; }
 .pwm-sim-controls input[type="range"]{ width:100%; accent-color:var(--accent); }
 .pwm-sim-readout{
   display:flex; gap:20px; flex-wrap:wrap; justify-content:center;
@@ -1876,6 +1884,69 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 @media (max-width:640px){ .resistor-calc-result{ grid-template-columns:1fr; } }
 :root[data-theme="dark"] .resistor-calc-result-value{ color:var(--tier-red); }
 .resistor-calc-note{ margin-top:14px; font-size:13.5px; color:var(--ink-soft); line-height:1.6; }
+
+/* ---------- interactive concept labs ---------- */
+.concept-lab{
+  margin:32px 0 44px; padding:28px; border:1px solid var(--line); border-radius:var(--radius);
+  background:linear-gradient(145deg,var(--surface),var(--paper-2)); overflow:hidden;
+}
+.concept-lab-head h2{ margin-top:8px; font-size:clamp(22px,3vw,34px); }
+.concept-lab-grid{ display:grid; grid-template-columns:minmax(210px,.72fr) minmax(0,1.4fr); gap:28px; align-items:center; margin-top:24px; }
+.concept-lab-controls{ display:flex; flex-direction:column; gap:18px; }
+.concept-lab-field{ display:flex; flex-direction:column; gap:8px; font-family:'JetBrains Mono'; font-size:11.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em; }
+.concept-lab-field > span{ display:flex; justify-content:space-between; gap:12px; align-items:baseline; }
+.concept-lab-field output{ color:var(--ink); font-weight:600; text-transform:none; letter-spacing:0; white-space:nowrap; }
+.concept-lab input[type="range"]{ width:100%; accent-color:var(--accent); }
+.concept-lab select{ width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--ink); font:500 13px 'JetBrains Mono'; }
+.concept-lab-stage{ min-width:0; padding:12px; border-radius:14px; background:color-mix(in srgb,var(--paper-2) 76%,transparent); }
+.concept-lab-stage svg{ width:100%; height:auto; display:block; }
+.concept-lab-simple{ margin-top:22px; max-width:760px; font-size:14.5px; line-height:1.65; color:var(--ink-soft); }
+.concept-lab-readings{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; margin-top:20px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.concept-lab-readings > div{ display:flex; flex-direction:column; gap:5px; padding:14px; background:var(--surface); }
+.concept-lab-readings span{ font:10.5px 'JetBrains Mono'; text-transform:uppercase; color:var(--ink-soft); letter-spacing:.03em; }
+.concept-lab-readings b{ color:var(--ink); font:600 17px 'JetBrains Mono'; }
+.concept-lab-equation{ margin-top:16px; padding:16px 18px; border-radius:12px; background:var(--paper-2); color:var(--ink); font:13px/1.6 'JetBrains Mono'; overflow-x:auto; }
+.concept-lab-note{ margin-top:10px; color:var(--ink-soft); font:12px/1.55 Inter,sans-serif; }
+.lab-depth-advanced,.lab-depth-equations{ display:none; }
+:root[data-learn-level="advanced"] .lab-depth-advanced,
+:root[data-learn-level="equations"] .lab-depth-advanced,
+:root[data-learn-level="equations"] .lab-depth-equations{ display:grid; }
+.concept-lab-equation.lab-depth-equations{ display:none; }
+:root[data-learn-level="equations"] .concept-lab-equation.lab-depth-equations{ display:block; }
+.concept-lab-segment{ display:grid; grid-template-columns:1fr 1fr; padding:3px; border:1px solid var(--line); border-radius:11px; background:var(--paper-2); }
+.concept-lab-segment button{ border:0; border-radius:8px; padding:9px; background:transparent; color:var(--ink-soft); cursor:pointer; }
+.concept-lab-segment button.active{ background:var(--surface); color:var(--ink); box-shadow:0 2px 8px rgba(0,0,0,.08); }
+.lab-wire,.lab-axis,.lab-guide{ fill:none; stroke:var(--ink-soft); stroke-width:3; }
+.lab-axis,.lab-guide{ stroke-width:1.5; }
+.lab-guide{ stroke-dasharray:5 7; }
+.lab-component{ fill:var(--paper-2); stroke:var(--accent); stroke-width:3; }
+.lab-symbol{ fill:none; stroke:var(--ink); stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.lab-svg-label{ fill:var(--ink-soft); font:12px 'JetBrains Mono'; }
+.lab-flow-dot,.lab-point,.lab-pulse{ fill:var(--accent); }
+.lab-led{ fill:var(--tier-red); filter:drop-shadow(0 0 14px color-mix(in srgb,var(--tier-red) 70%,transparent)); transition:opacity .2s var(--ease); }
+.diode-dot{ opacity:0; animation:diode-flow 1.25s linear infinite; }
+.is-flowing .diode-dot{ opacity:1; }
+.lab-signal{ fill:none; stroke-width:4; stroke-linejoin:round; }
+.lab-signal-raw{ stroke:var(--tier-red); }.lab-signal-clean{ stroke:var(--tier-green); }
+.lab-sweep{ stroke:var(--accent); stroke-width:2; opacity:0; }
+.lab-sweep.is-running{ animation:lab-sweep 1.25s var(--ease) both; }
+.lab-obstacle{ fill:var(--ink-soft); opacity:.65; }
+.lab-pulse{ opacity:0; }
+.lab-pulse.is-running{ animation:lab-ping 1.4s var(--ease-in-out) both; }
+.lab-curve{ fill:none; stroke:var(--accent); stroke-width:4; }
+.lab-board{ fill:color-mix(in srgb,var(--tier-red) 14%,var(--paper-2)); stroke:var(--tier-red); stroke-width:2; }
+.lab-pad{ fill:var(--tier-yellow); stroke:var(--ink-soft); stroke-width:2; }
+.lab-trace{ stroke:var(--tier-yellow); stroke-linecap:round; transition:stroke-width .2s var(--ease); }
+@keyframes diode-flow{ from{ transform:translateX(0); } to{ transform:translateX(355px); } }
+@keyframes lab-sweep{ 0%{ opacity:0; transform:translateX(0); } 8%{ opacity:1; } 90%{ opacity:1; } 100%{ opacity:0; transform:translateX(490px); } }
+@keyframes lab-ping{ 0%{ opacity:0; transform:translateX(0) scale(.5); } 8%{ opacity:1; } 48%{ transform:translateX(var(--pulse-distance)) scale(1.3); } 52%{ transform:translateX(var(--pulse-distance)) scale(1.3); } 92%{ opacity:1; } 100%{ opacity:0; transform:translateX(0) scale(.5); } }
+@media(max-width:720px){
+  .concept-lab{ padding:20px; }
+  .concept-lab-grid{ grid-template-columns:1fr; }
+  .concept-lab-stage{ order:-1; }
+  .concept-lab-readings{ grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce){ .diode-dot,.lab-sweep.is-running,.lab-pulse.is-running{ animation:none; } }
 .learn-theory-link{
   display:inline-flex; align-items:center; gap:8px;
   font-size:13.5px; font-weight:600; color:var(--accent-deep);
