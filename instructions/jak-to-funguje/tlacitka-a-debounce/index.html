@@ -134,13 +134,13 @@
         <text x="0" y="16" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_raw">signál bez ošetření</text>
         <polyline points="10,60 150,60 155,30 160,60 168,30 174,60 180,30 186,60 192,30 198,60 204,30 210,60 216,32 490,32"
           fill="none" stroke="var(--tier-red)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-        <text x="0" y="108" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_debounced">signál po debounce</text>
+        <text x="0" y="108" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_debounced">signál po odfiltrování</text>
         <polyline points="10,150 210,150 210,122 490,122"
           fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
         <line x1="210" y1="105" x2="210" y2="175" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
         <text x="216" y="185" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_press">stisk tlačítka</text>
       </svg>
-      <p class="learn-diagram-caption" data-i18n="learn_debounce.diagram_caption">Nahoře: skutečný elektrický signál se zákmity. Dole: stejný stisk po softwarovém ošetření debounce.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_debounce.diagram_caption">Nahoře jeden stisk vytvoří několik rychlých změn. Dole je program spojí do jediného čistého stisku.</p>
     </div>
 
     <div class="level-advanced learn-body">
@@ -148,7 +148,7 @@
       <p data-i18n="learn_debounce.hw_p2">Debounce jde ošetřit i hardwarově, malým kondenzátorem paralelně k tlačítku, který zákmity elektricky "vyhladí" ještě dřív, než signál dorazí na pin, víc v kapitole o <a href="../kondenzatory/index.html">kondenzátorech</a>.</p>
     </div>
 
-    <div class="learn-board-tie" data-i18n="learn_debounce.board_tie">
+    <div class="learn-board-tie level-advanced" data-i18n="learn_debounce.board_tie">
       <b>Na desce Shieldio RED:</b> R3 a R4 (10 kΩ) jsou přesně tyhle pull-up rezistory pro tlačítka SW1 a SW2. Debounce na desce řeší jen software, žádný debounce kondenzátor tam navíc není.
     </div>
 
@@ -159,6 +159,11 @@
       <p data-i18n="learn_debounce.eq_sub_label">Pro pull-up 10 kΩ a napájení 5 V, v okamžiku stisku:</p>
       <div class="learn-eq-block">\[ I = \frac{5\,\text{V}}{10\,000\,\Omega} = 0{,}5\,\text{mA} \]</div>
       <p data-i18n="learn_debounce.eq_conclusion">Vyšší odpor zmenší proud při stisku, ale spolu s kapacitou vstupu a vodičů zároveň zpomaluje změnu napětí a zvyšuje citlivost na rušení. Hodnota 10 kΩ je běžný kompromis mezi spotřebou, rychlostí a odolností proti šumu.</p>
+      <h3 data-i18n="learn_debounce.pro_h3">RC filtr, práh vstupu a spolehlivý algoritmus</h3>
+      <p data-i18n="learn_debounce.pro_rc_p">Kondenzátor s pull-up rezistorem vytváří RC článek. Při uvolnění tlačítka napětí roste exponenciálně a digitální vstup změní stav až po překročení svého prahu. Konkrétní prahy je nutné ověřit v dokumentaci mikrokontroléru.</p>
+      <div class="learn-eq-block">\[ U_C(t)=U_{CC}\left(1-e^{-t/(RC)}\right),\qquad t_{práh}=-RC\ln\left(1-\frac{U_T}{U_{CC}}\right) \]</div>
+      <p data-i18n="learn_debounce.pro_example_p">Pro R = 10 kΩ, C = 100 nF, napájení 5 V a modelový práh 3 V vyjde překročení prahu asi za 0,92 ms. Samotné RC proto nemusí odstranit každý zákmit; pomáhá hystereze Schmittova vstupu nebo program, který přijme změnu až po dostatečně dlouhém stabilním stavu.</p>
+      <div class="learn-eq-block">\[ t_{práh}=-1\,\text{ms}\cdot\ln(1-3/5)\approx0{,}92\,\text{ms} \]</div>
     </div>
 
     <div class="topic-nav">

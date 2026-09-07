@@ -145,7 +145,7 @@
       </ul>
     </div>
 
-    <div class="learn-board-tie" data-i18n="learn_pcb.board_tie">
+    <div class="learn-board-tie level-advanced" data-i18n="learn_pcb.board_tie">
       <b>Na desce Shieldio RED:</b> každé označení, které v návodu na sestavení vidíš (R1, D3, J7, BZ1…), je přímo potisk na plošném spoji, přesně nad nebo vedle plošky, kam součástka patří.
     </div>
 
@@ -208,6 +208,11 @@
       <p data-i18n="learn_pcb.eq_sub_label">Dosazení pro typickou cestičku z 1 oz mědi (tloušťka 35 µm), širokou 1 mm a dlouhou 10 cm:</p>
       <div class="learn-eq-block">\[ R = 1{,}68 \times 10^{-8}\,\Omega{\cdot}\text{m} \times \frac{0{,}10\,\text{m}}{0{,}001\,\text{m} \times 0{,}000035\,\text{m}} \approx 0{,}048\,\Omega \]</div>
       <p data-i18n="learn_pcb.eq_conclusion">I dlouhá cestička má tedy jen zlomky ohmu, proto se odpor mědi na desce běžně zanedbává, důležitý začíná být až u dlouhých tenkých cestiček s vysokým proudem.</p>
+      <h3 data-i18n="learn_pcb.pro_loss_h3">Úbytek napětí, ztráty a teplota</h3>
+      <p data-i18n="learn_pcb.pro_loss_p">Odpor cestičky způsobí úbytek napětí a ohřev. Zdvojnásobení proudu zdvojnásobí úbytek, ale ztrátový výkon zvětší čtyřikrát. U výše vypočtené cestičky při 1 A jde přibližně o 48 mV a 48 mW; při 2 A už o 96 mV a 192 mW.</p>
+      <div class="learn-eq-block">\[ \Delta U=IR,\qquad P=I^2R \]</div>
+      <p data-i18n="learn_pcb.pro_temp_p">Odpor mědi navíc s teplotou roste. Lineární model kolem pokojové teploty používá teplotní součinitel mědi přibližně 0,0039 K⁻¹. Proudovou zatížitelnost je proto nutné ověřovat i tepelně, nejen z elektrického odporu.</p>
+      <div class="learn-eq-block">\[ R(T)=R_{20}\left[1+0{,}0039\,(T-20\,^{\circ}\text{C})\right] \]</div>
     </div>
 
     <div class="topic-nav">

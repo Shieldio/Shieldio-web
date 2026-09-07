@@ -173,11 +173,11 @@
       <p data-i18n="learn_pwm.adv_p3">U <b>serva</b> nejde o stejnou 0–100% regulaci jako u LED. Servo uvnitř neměří průměrné napětí, ale <b>délku řídicího pulzu</b>. Běžné hobby servo očekává pulz zopakovaný zhruba každých 20 ms; délka přibližně 1 až 2 ms určuje požadovanou polohu. Elektronika serva ji porovná se skutečnou polohou a motorkem se dotáčí, dokud se neshodují.</p>
     </div>
 
-    <div class="learn-aside" data-i18n="learn_pwm.aside">
+    <div class="learn-aside level-advanced" data-i18n="learn_pwm.aside">
       <b>Proto se blokům pro servo nastavuje "úhel", ne "výkon":</b> program na pozadí přepočítá požadovaný úhel na správnou délku pulzu, opakující se každých 20 ms, přesně podle toho, jak to servo uvnitř očekává.
     </div>
 
-    <div class="learn-board-tie" data-i18n="learn_pwm.board_tie">
+    <div class="learn-board-tie level-advanced" data-i18n="learn_pwm.board_tie">
       <b>Na desce Shieldio RED:</b> piny D5 a D6 řídí jas červené a zelené LED pomocí PWM. Pin D9 posílá řídicí pulzy servu SG90, které v návodu na závoru otáčí ramenem podle naměřené vzdálenosti.
     </div>
 
@@ -191,6 +191,11 @@
       <div class="learn-eq-block">\[ \varphi\ [^\circ] = \frac{t - 1\,\text{ms}}{1\,\text{ms}} \times 180^\circ \]</div>
       <p data-i18n="learn_pwm.eq_angle_sub_label">Pro pulz 1,5 ms (přesně uprostřed rozsahu):</p>
       <div class="learn-eq-block">\[ \varphi = \frac{1{,}5 - 1}{1} \times 180^\circ = 90^\circ \]</div>
+      <h3 data-i18n="learn_pwm.pro_timing_h3">Perioda, frekvence a rozlišení</h3>
+      <p data-i18n="learn_pwm.pro_timing_p">Střída je poměr doby sepnutí k celé periodě. Frekvence říká, kolikrát se perioda zopakuje za sekundu. U osmibitového časovače může registr nabývat 256 hodnot, takže jeden krok střídy představuje přibližně 0,39 procentního bodu.</p>
+      <div class="learn-eq-block">\[ D=\frac{t_{on}}{T},\qquad f=\frac{1}{T},\qquad D_{8bit}=\frac{k}{255},\ k\in\langle0,255\rangle \]</div>
+      <p data-i18n="learn_pwm.pro_power_p">Pro odporovou zátěž spínanou ideálním PWM je průměrný výkon úměrný střídě. To není totéž jako dosadit průměrné napětí do vzorce pro výkon, protože výkon závisí na druhé mocnině okamžitého napětí.</p>
+      <div class="learn-eq-block">\[ P_{avg}=D\frac{U_{max}^2}{R},\qquad U_{RMS}=U_{max}\sqrt{D} \]</div>
     </div>
 
     <div class="topic-nav">

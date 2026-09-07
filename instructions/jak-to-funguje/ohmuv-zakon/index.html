@@ -144,7 +144,7 @@
       <p data-i18n="learn_ohm.adv_p4">Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
     </div>
 
-    <div class="resistor-calc">
+    <div class="resistor-calc level-advanced">
       <div class="resistor-calc-grid">
         <div class="resistor-calc-field">
           <label for="calcVs" data-i18n="learn_ohm.calc_vs">Napájecí napětí (V)</label>
@@ -167,21 +167,21 @@
       <p class="resistor-calc-note" data-calc="note"></p>
     </div>
 
-    <div class="learn-body">
+    <div class="learn-body level-advanced">
       <p data-i18n="learn_ohm.calc_note">Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.</p>
     </div>
 
-    <div class="learn-aside" data-i18n="learn_ohm.aside">
+    <div class="learn-aside level-advanced" data-i18n="learn_ohm.aside">
       <b>Co dělá rezistor uvnitř:</b> je to materiál, který klade odpor průchodu proudu, čím vyšší odpor, tím míň proudu jím při stejném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají jim energii jako teplo, proto se rezistor při provozu mírně zahřívá.
     </div>
 
-    <div class="learn-board-tie" data-i18n="learn_ohm.board_tie">
+    <div class="learn-board-tie level-advanced" data-i18n="learn_ohm.board_tie">
       <b>Na desce Shieldio RED:</b> tenhle přesný výpočet stojí za R1 a R2 (220 Ω, proudové omezovače pro červenou a zelenou LED). R3 a R4 (10 kΩ) fungují jinak, jako pull-up rezistory pro tlačítka, víc v kapitole o <a href="../tlacitka-a-debounce/index.html">debounce</a>. R5 (330 Ω) omezuje proud bzučákem stejným principem jako u LED, jen s jinými vstupními hodnotami.
     </div>
 
     <div class="level-advanced learn-body">
       <p data-i18n="learn_ohm.series_parallel"><b>Sériové a paralelní řazení:</b> když rezistory řadíš za sebe (sériově), jejich odpory se prostě sečtou. Když je řadíš vedle sebe (paralelně), výsledný odpor je vždycky menší než ten nejmenší z nich, protože proud má víc cest, kudy protéct.</p>
-      <p data-i18n="learn_ohm.power_heat"><b>Výkon a zahřívání:</b> rezistor mění elektrickou energii na teplo. Při daném odporu výkon roste s druhou mocninou proudu (\(P=I^2R\)); při daném napětí naopak s větším odporem klesá (\(P=U^2/R\)). Proto vždy záleží na celém obvodu, ne jen na hodnotě rezistoru.</p>
+      <p data-i18n="learn_ohm.power_heat"><b>Výkon a zahřívání:</b> rezistor mění část elektrické energie na teplo. Zahřívání závisí současně na proudu, napětí i odporu, proto se jmenovitý výkon vybírá až podle konkrétního zapojení.</p>
       <table class="learn-table">
         <tr><th data-i18n="learn_ohm.table_h1">Barevné proužky</th><th data-i18n="learn_ohm.table_h2">Význam</th></tr>
         <tr><td data-i18n="learn_ohm.table_r1a">1. a 2. proužek</td><td data-i18n="learn_ohm.table_r1b">první dvě číslice hodnoty</td></tr>
@@ -229,6 +229,11 @@
       <p data-i18n="learn_ohm.eq_sub_label">Dosazení pro R1/R2 (220 Ω, 15 mA):</p>
       <div class="learn-eq-block">\[ P = (0{,}015\,\text{A})^2 \times 220\,\Omega \approx 0{,}05\,\text{W} \]</div>
       <p data-i18n="learn_ohm.eq_conclusion">Hodnota 0,05 W je hluboko pod běžnou dovolenou zátěží malého 0,25W rezistoru. Teplotní nárůst proto bude malý, přesto není výkon nulový.</p>
+      <h3 data-i18n="learn_ohm.pro_divider_h3">Napěťový dělič a Kirchhoffovy zákony</h3>
+      <p data-i18n="learn_ohm.pro_divider_p">Dva rezistory v sérii mohou vytvořit menší výstupní napětí. Vzorec platí pro nezatížený dělič; připojená zátěž se zapojí paralelně k dolnímu rezistoru a výsledek změní.</p>
+      <div class="learn-eq-block">\[ U_{out}=U_{in}\frac{R_2}{R_1+R_2};\qquad 5\,\text{V}\cdot\frac{2{,}2\,\text{k}\Omega}{1\,\text{k}\Omega+2{,}2\,\text{k}\Omega}\approx3{,}44\,\text{V} \]</div>
+      <p data-i18n="learn_ohm.pro_kirchhoff_p">Kirchhoffův proudový zákon říká, že součet proudů přitékajících do uzlu se rovná součtu proudů odtékajících. Napěťový zákon říká, že algebraický součet napětí v uzavřené smyčce je nulový.</p>
+      <div class="learn-eq-block">\[ \sum I_{uzel}=0,\qquad \sum U_{smyčka}=0 \]</div>
     </div>
 
     <div class="topic-nav">

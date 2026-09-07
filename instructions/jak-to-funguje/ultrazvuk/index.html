@@ -151,7 +151,7 @@
       <p data-i18n="learn_ultrazvuk.adv_p3">Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
     </div>
 
-    <div class="learn-board-tie" data-i18n="learn_ultrazvuk.board_tie">
+    <div class="learn-board-tie level-advanced" data-i18n="learn_ultrazvuk.board_tie">
       <b>Na desce Shieldio RED:</b> senzor HC-SR04 se zasouvá do patic J1/J7 (Socket A/B). Jeho naměřená vzdálenost rozhoduje, kdy se v návodu na závoru otevře servo, nebo kdy parkovací asistent spustí varování.
     </div>
 
@@ -164,6 +164,11 @@
       <p data-i18n="learn_ultrazvuk.eq_speed_label"><b>Rychlost zvuku ve vzduchu</b> mírně roste s teplotou, konstanta 0,0343 cm/µs platí přesně jen kolem pokojové teploty (asi 20 °C):</p>
       <div class="learn-eq-block">\[ v\ [\text{m/s}] = 331{,}3 + 0{,}606 \times T \]</div>
       <p data-i18n="learn_ultrazvuk.eq_conclusion">Při 20 °C vyjde v ≈ 343,4 m/s, přesně hodnota použitá v konstantě výše. Ve výrazně chladnější nebo teplejší místnosti by se přesnost měření o pár procent posunula.</p>
+      <h3 data-i18n="learn_ultrazvuk.pro_error_h3">Převod jednotek a nejistota měření</h3>
+      <p data-i18n="learn_ultrazvuk.pro_units_p">Když je čas v mikrosekundách, rychlost v metrech za sekundu a výsledek chceme v centimetrech, převod jednotek vytvoří dělitel 20 000.</p>
+      <div class="learn-eq-block">\[ d\ [\text{cm}]=\frac{t\ [\mu\text{s}]\cdot v\ [\text{m/s}]}{20\,000} \]</div>
+      <p data-i18n="learn_ultrazvuk.pro_error_p">Pro hrubý odhad nejhoršího případu lze relativní příspěvky nejistoty času a rychlosti zvuku sečíst. Navíc existují systematické chyby od šikmého povrchu, více odrazů a mrtvé zóny senzoru, které tento jednoduchý vztah nezachytí.</p>
+      <div class="learn-eq-block">\[ \frac{\Delta d}{d}\approx\frac{\Delta t}{t}+\frac{\Delta v}{v} \]</div>
     </div>
 
     <div class="topic-nav">

@@ -165,6 +165,12 @@
       <p data-i18n="learn_dioda.eq_sub_label">S konstantami \( h = 6{,}626 \times 10^{-34}\,\text{J·s} \) a \( c = 3 \times 10^{8}\,\text{m/s} \), pro červenou LED s vlnovou délkou přibližně 660 nm:</p>
       <div class="learn-eq-block">\[ E = \frac{6{,}626 \times 10^{-34} \times 3 \times 10^{8}}{660 \times 10^{-9}} \approx 3{,}01 \times 10^{-19}\,\text{J} \approx 1{,}88\,\text{eV} \]</div>
       <p data-i18n="learn_dioda.eq_conclusion">Tahle energie v elektronvoltech přibližně odpovídá prahovému napětí, které červená LED potřebuje k rozsvícení, přesně to napětí je vidět jako "úbytek na LED" v kalkulačce u <a href="../ohmuv-zakon/index.html">Ohmova zákona</a>. Kratší vlnová délka (modrá, fialová LED) znamená vyšší energii fotonu, a tedy i vyšší prahové napětí.</p>
+      <h3 data-i18n="learn_dioda.pro_operating_h3">Pracovní bod diody</h3>
+      <p data-i18n="learn_dioda.pro_operating_p">Proud diodou není určen samotnou diodou. V sériovém obvodu musí současně vyhovět voltampérové charakteristice diody a přímce dané zdrojem a rezistorem. Jejich průsečík je pracovní bod.</p>
+      <div class="learn-eq-block">\[ I_D\approx I_S\left(e^{U_D/(nU_T)}-1\right),\qquad I_D=\frac{U_S-U_D}{R} \]</div>
+      <p data-i18n="learn_dioda.pro_model_note">V exponenciálním modelu je \(I_S\) saturační proud, \(n\) emisní činitel a \(U_T\) teplotní napětí. Jejich hodnoty závisejí na typu diody a teplotě, proto se pro běžný návrh LED často používá katalogový propustný úbytek.</p>
+      <p data-i18n="learn_dioda.pro_example_p">Pro praktický odhad červené LED použijeme úbytek 2 V. Se zdrojem 5 V a rezistorem 220 Ω vyjde proud přibližně 13,6 mA; přesná hodnota závisí na konkrétní LED a teplotě.</p>
+      <div class="learn-eq-block">\[ I_D\approx\frac{5-2}{220}\,\text{A}\approx13{,}6\,\text{mA} \]</div>
     </div>
 
     <div class="learn-photo">
@@ -172,7 +178,7 @@
       <p class="learn-diagram-caption" data-i18n="learn_dioda.photo_caption">Usměrňovací dioda, jaká se pájí na desku RED jako D3 — proužek na pouzdru značí katodu.</p>
     </div>
 
-    <div class="learn-board-tie" data-i18n="learn_dioda.board_tie">
+    <div class="learn-board-tie level-advanced" data-i18n="learn_dioda.board_tie">
       <b>Na desce Shieldio RED:</b> D3 je usměrňovací dioda 1N5817, chrání desku před obráceně zapojeným napájením. D1 (červená) a D2 (zelená) jsou LED, každá se svým proudovým omezovacím rezistorem, R1 a R2, viz <a href="../ohmuv-zakon/index.html">Ohmův zákon</a>.
     </div>
 
