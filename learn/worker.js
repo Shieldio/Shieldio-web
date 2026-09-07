@@ -24,9 +24,9 @@ export default {
 
     let assetPath;
     if (/^\/maturita\/otazka\/[^/]+\/$/.test(publicPath)) {
-      assetPath = `${STATIC_PREFIX}/maturita/otazka/index.html`;
+      assetPath = `${STATIC_PREFIX}/maturita/otazka/`;
     } else if (publicPath.endsWith("/")) {
-      assetPath = `${STATIC_PREFIX}${publicPath}index.html`;
+      assetPath = `${STATIC_PREFIX}${publicPath}`;
     } else {
       assetPath = `${STATIC_PREFIX}${publicPath}`;
     }
