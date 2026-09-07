@@ -10,3 +10,4 @@ README.md
 wrangler.jsonc
 wrangler.learn.jsonc
 learn/worker.js
+learn/CONTENT.md
