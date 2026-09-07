@@ -6,10 +6,10 @@
 
 (function () {
   const RED = "#f72338";
-  const GOLD = "#ffbf00"; // Scratch "Events" — when things start
-  const ORANGE = "#ffab19"; // Scratch "Control" — loops / repetition
-  const SENSE_BLUE = "#5cb1d6"; // Scratch "Sensing" — conditions / booleans
-  const OPERATOR_GREEN = "#59c059"; // Scratch "Operators" — math + text
+  const GOLD = "#b7791f";
+  const ORANGE = "#c05621";
+  const SENSE_BLUE = "#2878a5";
+  const OPERATOR_GREEN = "#21835a";
 
   // ---------- start blocks (two separate hats, not one combined block —
   // mirrors how Arduino itself splits setup()/loop(), and how Scratch uses
@@ -109,6 +109,29 @@
       this.setInputsInline(true);
     },
   };
+
+  // Ready-made condition blocks replace Blockly's mutator gear. Pupils can
+  // choose the shape they need directly instead of assembling it in a popup.
+  function defineConditionBlock(type, withElseIf, withElse) {
+    Blockly.Blocks[type] = {
+      init: function () {
+        this.appendValueInput("IF0").setCheck("Boolean").appendField("pokud");
+        this.appendStatementInput("DO0").appendField("proveď");
+        if (withElseIf) {
+          this.appendValueInput("IF1").setCheck("Boolean").appendField("jinak pokud");
+          this.appendStatementInput("DO1").appendField("proveď");
+        }
+        if (withElse) this.appendStatementInput("ELSE").appendField("jinak");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(SENSE_BLUE);
+        this.setTooltip("Rozhodne, které příkazy se provedou podle zadané podmínky.");
+      },
+    };
+  }
+  defineConditionBlock("shieldio_if", false, false);
+  defineConditionBlock("shieldio_if_else", false, true);
+  defineConditionBlock("shieldio_if_elseif_else", true, true);
 
   // ---------- OLED (0.96", SSD1306, I2C over the Nano's fixed A4/A5 bus) ----------
 
@@ -222,6 +245,9 @@
     }
     return code;
   };
+  ["shieldio_if", "shieldio_if_else", "shieldio_if_elseif_else"].forEach(type => {
+    arduino.forBlock[type] = arduino.forBlock["controls_if"];
+  });
 
   arduino.forBlock["logic_compare"] = function (block) {
     const OPERATORS = { EQ: "==", NEQ: "!=", LT: "<", LTE: "<=", GT: ">", GTE: ">=" };
@@ -317,7 +343,9 @@
         name: "Logika",
         colour: SENSE_BLUE,
         contents: [
-          { kind: "block", type: "controls_if" },
+          { kind: "block", type: "shieldio_if" },
+          { kind: "block", type: "shieldio_if_else" },
+          { kind: "block", type: "shieldio_if_elseif_else" },
           { kind: "block", type: "logic_compare" },
           { kind: "block", type: "logic_operation" },
           { kind: "block", type: "logic_negate" },

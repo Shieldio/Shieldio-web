@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function buildShieldioTheme(isDark) {
     return Blockly.Theme.defineTheme("shieldio-" + (isDark ? "dark" : "light"), {
       base: Blockly.Themes.Classic,
-      fontStyle: { family: "'Inter', -apple-system, sans-serif", weight: "500", size: 12 },
+      fontStyle: { family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Arial, sans-serif", weight: "500", size: 12 },
       componentStyles: {
         workspaceBackgroundColour: isDark ? "#1c1c1e" : "#f5f5f7",
         toolboxBackgroundColour: isDark ? "#000000" : "#ffffff",
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const PRESETS = {
     zavora(ws, loop) {
       function ifServo(op, threshold, angle) {
-        const ifB = ws.newBlock("controls_if");
+        const ifB = ws.newBlock("shieldio_if");
         ifB.initSvg();
         ifB.render();
 

@@ -83,7 +83,7 @@ window.SHIELDIO_GUIDE = {
       what: "JST konektor, kterým se dvě desky Shieldio propojují mezi sebou, sdílí napájení i data.",
       how: "Konektor je klíčovaný, má na jedné straně pouzdra zub, takže do patice na desce zapadne jen jedním jediným směrem.",
       fact: "I kdybys chtěl, obráceně ho nezasuneš, tvar pouzdra to nedovolí.", datasheet: null },
-    { id: "pajecka", name: "Pájecí stanice", photo: "../../../../assets/images/red-build-clean/19-pajecka.jpg",
+    { id: "pajecka", name: "Pájecí stanice", photo: "../../../../assets/images/red-build-clean/19-pajecka-studio.png",
       what: "Nástroj, kterým roztavíš cín a vytvoříš elektricky vodivý spoj.",
       how: "Nastav teplotu kolem 350 °C. Při nižší teplotě se cín špatně roztéká, při výrazně vyšší zase spaluješ součástky a plošky.",
       fact: null, datasheet: null },
