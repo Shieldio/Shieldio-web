@@ -198,7 +198,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "usb",
       name: { cs: "USB-C kabel", en: "USB-C Cable" },
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/15-usb-a-usb-c-kabel.jpg",
       what: {
         cs: "Propojuje desku s počítačem. V sestavené i nesestavené kompletní sadě je součástí balení 1,5m USB-A na USB-C kabel.",
         en: "Connects the board to your computer. Both the assembled and unassembled complete kits include a 1.5 m USB-A to USB-C cable.",

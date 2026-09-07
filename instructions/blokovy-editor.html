@@ -52,13 +52,19 @@
 </div>
 
 <section style="padding-top:24px;">
-  <div class="wrap">
+  <div class="wrap blockly-editor-wrap">
     <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:4px;">
       <p id="editorStatus" class="form-status" style="text-align:left; min-height:0; margin:0;"></p>
-      <button type="button" id="toggleCodeBtn" class="blockly-toggle-code" aria-expanded="false">Zobrazit kód</button>
+      <div class="blockly-workspace-actions">
+        <button type="button" id="saveBlocksBtn" class="blockly-toggle-code">Uložit bloky</button>
+        <button type="button" id="loadBlocksBtn" class="blockly-toggle-code">Načíst bloky</button>
+        <input type="file" id="loadBlocksInput" accept=".json,.shieldio.json,application/json" hidden>
+        <button type="button" id="toggleCodeBtn" class="blockly-toggle-code" aria-expanded="false">Zobrazit kód</button>
+      </div>
     </div>
     <div class="blockly-editor-grid" id="blocklyGrid">
       <div id="blocklyDiv"></div>
+      <div class="blockly-splitter" id="blocklySplitter" role="separator" aria-orientation="vertical" aria-label="Změnit poměr bloků a kódu" aria-valuemin="30" aria-valuemax="75" aria-valuenow="58" tabindex="0"></div>
       <div class="blockly-code-panel">
         <div class="blockly-code-actions">
           <button type="button" id="copyCodeBtn" class="btn btn-ghost" style="padding:8px 16px; font-size:13px; border-color:var(--line); color:var(--ink-soft);">Zkopírovat kód</button>
@@ -74,7 +80,7 @@
   <div class="wrap" style="max-width:700px;">
     <div class="section-head" style="margin-bottom:0;">
       <span class="eyebrow-dark">Co tenhle prototyp neumí (zatím)</span>
-      <p>OLED bloky počítají se standardním 0,96" displejem SSD1306 po I2C (SDA na A4, SCL na A5), pro jejich vygenerovaný kód budeš v Arduino IDE potřebovat knihovny <b>Adafruit_SSD1306</b> a <b>Adafruit_GFX</b>. Proměnné a přímé nahrávání do desky z prohlížeče tu zatím nejsou. To by vyžadovalo výrazně víc práce (a možná backend). Tlačítka počítají se zapojením přes vnitřní pull-up rezistor (běžné pro tenhle typ desky), stisk = LOW.</p>
+      <p>Knihovny pro OLED se do kódu přidají jen tehdy, když použiješ blok displeje. Tlačítka na RED využívají externí pull-up rezistory, proto editor nastaví vstupy jako <b>INPUT</b> a stisk čte jako LOW. Rozpracované bloky si můžeš uložit do souboru a později znovu načíst. Přímé nahrávání do desky z prohlížeče zatím není dostupné; hotový <b>.ino</b> soubor nahraj přes Arduino IDE.</p>
     </div>
   </div>
 </section>

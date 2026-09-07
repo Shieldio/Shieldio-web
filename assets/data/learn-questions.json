@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "subjects": [
+    {
+      "id": "elektronika",
+      "title": "Elektronika",
+      "description": "Základní pojmy, součástky a obvody.",
+      "questionSlugs": ["demo-otazka-01", "demo-otazka-02"]
+    },
+    {
+      "id": "automatizace",
+      "title": "Automatizace",
+      "description": "Řízení, regulace a automatizační technika.",
+      "questionSlugs": ["demo-otazka-03"]
+    }
+  ],
+  "questions": [
+    {
+      "slug": "demo-otazka-01",
+      "subject": "elektronika",
+      "number": "01",
+      "title": "Demo otázka 01",
+      "summary": "Ukázka struktury budoucí maturitní otázky.",
+      "sections": [
+        { "title": "Co budeš umět", "body": "Na tomto místě bude stručný seznam očekávaných znalostí." },
+        { "title": "Výklad", "body": "Sem přijde odborný výklad, schémata a interaktivní vysvětlení." },
+        { "title": "Kontrolní otázky", "body": "Tady budou otázky pro samostatné ověření." }
+      ]
+    },
+    {
+      "slug": "demo-otazka-02",
+      "subject": "elektronika",
+      "number": "02",
+      "title": "Demo otázka 02",
+      "summary": "Druhá ukázka pro ověření seznamu a postupu.",
+      "sections": [
+        { "title": "Co budeš umět", "body": "Obsah bude doplněn po schválení odborné osnovy." },
+        { "title": "Výklad", "body": "Připravené místo pro text, vzorce a obrázky." }
+      ]
+    },
+    {
+      "slug": "demo-otazka-03",
+      "subject": "automatizace",
+      "number": "03",
+      "title": "Demo otázka 03",
+      "summary": "Ukázka otázky v předmětu Automatizace.",
+      "sections": [
+        { "title": "Co budeš umět", "body": "Obsah bude doplněn po schválení odborné osnovy." },
+        { "title": "Výklad", "body": "Připravené místo pro text, diagramy a příklady." }
+      ]
+    }
+  ]
+}

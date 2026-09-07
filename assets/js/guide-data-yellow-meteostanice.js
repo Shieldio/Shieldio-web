@@ -82,7 +82,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "usb",
       name: "USB-C kabel",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/15-usb-a-usb-c-kabel.jpg",
       what: "Propojuje desku s počítačem.",
       how: "Slouží k nahrání programu i k napájení během programování.",
       fact: null,

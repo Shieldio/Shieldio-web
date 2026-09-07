@@ -115,7 +115,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "usb",
       name: "USB-C kabel",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/15-usb-a-usb-c-kabel.jpg",
       what: "Propojuje desku s počítačem. V sestavené i nesestavené kompletní sadě je součástí balení 1,5m USB-A na USB-C kabel.",
       how: "Slouží k nahrání programu i k napájení během programování. Pokud dodaný kabel nemáš po ruce, funguje jakýkoli jiný funkční USB-C datový kabel.",
       fact: null,

@@ -1,0 +1,12 @@
+.git
+.github
+.codex
+.wrangler
+.DS_Store
+**/.DS_Store
+AGENTS.md
+BRAND.md
+README.md
+wrangler.jsonc
+wrangler.learn.jsonc
+learn/worker.js

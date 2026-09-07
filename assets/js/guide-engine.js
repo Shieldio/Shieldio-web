@@ -383,6 +383,17 @@
   // ---------- wiring step ----------
 
   function renderTroubleshoot(troubleshoot) {
+    const fallback = {
+      title: { cs: "Rychlá kontrola zapojení", en: "Quick wiring check" },
+      items: [
+        { cs: "Porovnej orientaci a pozici součástky s fotografií. Zkontroluj také popisek na desce.", en: "Compare the part orientation and position with the photo. Check the label on the board too." },
+        { cs: "Prohlédni každý pájený spoj: cín má smáčet plošku i nožičku a nesmí spojovat dvě sousední plošky.", en: "Inspect every solder joint: solder should wet both the pad and lead and must not bridge neighbouring pads." },
+        { cs: "Vrať se o krok zpět a zkus postup zopakovat. Před další manipulací odpoj desku od napájení.", en: "Go back one step and repeat it. Disconnect the board from power before handling it again." },
+      ],
+    };
+    troubleshoot = troubleshoot && Array.isArray(troubleshoot.items) && troubleshoot.items.length
+      ? troubleshoot
+      : fallback;
     const items = troubleshoot.items.slice(0, 3).map((t2, i) => `
       <div class="guide-tip" data-tip="${i}">
         <p>${t(t2)}</p>
@@ -575,7 +586,15 @@
   function renderDone() {
     const next = DATA.next || {};
     const tryDifferent = next.tryDifferent || [];
-    const moreProjects = next.moreProjects || [];
+    const currentPath = location.pathname.replace(/\/index\.html$/, "/").replace(/\/+$/, "");
+    const moreProjects = (next.moreProjects || []).filter(project => {
+      try {
+        const path = new URL(project.href, location.href).pathname.replace(/\/index\.html$/, "/").replace(/\/+$/, "");
+        return path !== currentPath;
+      } catch (_) {
+        return true;
+      }
+    });
     const levelUp = next.levelUp || null;
     const hasNext = tryDifferent.length || moreProjects.length || levelUp;
 
