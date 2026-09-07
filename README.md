@@ -3,6 +3,8 @@ Official website of Shieldio – a modular STEM platform helping schools teach e
 
 ## Shieldio Learn – deployment
 
+Redakční pravidla a stav obsahu jsou v `learn/CONTENT.md`.
+
 Shieldio Learn je samostatná statická větev v adresáři `learn/`, nasazovaná ze stejného repozitáře jako druhý Cloudflare Worker. Hlavní web používá `wrangler.jsonc`; Learn používá `wrangler.learn.jsonc`. Díky tomu se změny routingu Learn nedotýkají `shieldio.cz`.
 
 ### První nasazení
