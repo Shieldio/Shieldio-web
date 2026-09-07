@@ -110,8 +110,8 @@
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Do hloubky</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
       </div>
     </div>
   </div>
@@ -120,7 +120,7 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="learn-body level-simple-only">
-      <p data-i18n="learn_pwm.simple_p1">Arduino umí na výstupu jen 0 V nebo 5 V. LED stmívá rychlým přepínáním a změnou střídy PWM. Servo také dostává pulzy, ale polohu určuje jejich délka 1 až 2 ms, ne střída pro LED.</p>
+      <p data-i18n="learn_pwm.simple_p1">Deska umí světlo velmi rychle zapínat a vypínat. Oko jednotlivé záblesky nevidí: když světlo svítí kratší část času, vypadá slabší, a když delší, vypadá jasnější.</p>
     </div>
 
     <div class="level-advanced learn-body">
@@ -153,18 +153,19 @@
       <div class="pwm-sim-controls">
         <label class="pwm-control-label" id="pwmControlLabel">Střída LED <b id="pwmControlValue">50 %</b></label>
         <input type="range" id="pwmSlider" min="0" max="100" value="50" aria-label="Střída v procentech" data-i18n-aria-label="learn_pwm.slider_alt">
-        <div class="pwm-sim-readout">
+        <div class="pwm-sim-readout lab-depth-advanced">
           <span><b id="pwmPct">50 %</b> <span data-i18n="learn_pwm.readout_duty">střída signálu</span></span>
           <span data-pwm-readout="led"><b id="pwmAvg">2,5 V</b> <span>průměr při 5 V</span></span>
           <span data-pwm-readout="servo"><b id="pwmMs">1,50 ms</b> <span data-i18n="learn_pwm.readout_servo_pulse">pulz serva</span></span>
           <span data-pwm-readout="servo"><b id="pwmDeg">90°</b> <span data-i18n="learn_pwm.readout_servo_angle">úhel serva</span></span>
         </div>
       </div>
-      <p class="learn-diagram-caption" data-i18n="learn_pwm.sim_caption">Přepni mezi LED a servem. U LED měníš střídu 0–100 %, u serva délku pulzu 1–2 ms v periodě 20 ms.</p>
+      <p class="learn-diagram-caption level-simple-only" data-i18n="learn_pwm.sim_caption_simple">Přepni mezi LED a servem. Posuvníkem měníš jas světla nebo polohu ramene a na obrázku vidíš opakované pokyny desky.</p>
+      <p class="learn-diagram-caption level-advanced" data-i18n="learn_pwm.sim_caption">Přepni mezi LED a servem. U LED měníš střídu 0–100 %, u serva délku pulzu 1–2 ms v periodě 20 ms.</p>
     </div>
 
     <div class="learn-body level-simple-only">
-      <p data-i18n="learn_pwm.simple_p2">U <b>LED</b> oko nerozliší jednotlivé záblesky a vnímá průměrný jas. <b>Servo</b> naopak měří délku každého řídicího pulzu; přibližně 1 ms odpovídá jednomu kraji, 1,5 ms středu a 2 ms druhému kraji.</p>
+      <p data-i18n="learn_pwm.simple_p2">U <b>LED</b> tak deska mění jas. <b>Servu</b> posílá krátké opakované pokyny: kratší pokyn natočí rameno k jednomu kraji, delší ke druhému.</p>
     </div>
 
     <div class="level-advanced learn-body">

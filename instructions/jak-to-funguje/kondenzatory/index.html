@@ -118,8 +118,8 @@
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Do hloubky</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
       </div>
     </div>
   </div>
@@ -131,15 +131,15 @@
       <h2 data-i18n="learn_cap.h2_purpose">K čemu je kondenzátor vůbec dobrý.</h2>
     </div>
     <div class="learn-body level-simple-only">
-      <p data-i18n="learn_cap.simple_p1">Kondenzátor ukládá elektrický náboj do elektrického pole a umí ho rychle přijmout i odevzdat. Pomáhá proto tlumit krátké výkyvy napájení, třeba při změně odběru serva nebo bzučáku.</p>
-      <p data-i18n="learn_cap.simple_p2">Existují dva hlavní druhy: keramický, který nemá polaritu a dá se pájet libovolně otočený, a elektrolytický, který se musí zapojit správným směrem.</p>
+      <p data-i18n="learn_cap.simple_p1">Kondenzátor na krátkou dobu uchová část elektrické energie. Dokáže ji rychle přijmout i vrátit, a proto pomáhá vyrovnat krátké kolísání napájení.</p>
+      <p data-i18n="learn_cap.simple_p2">Malý keramický kondenzátor můžeš otočit oběma směry. Válcový elektrolytický má označené plus a minus a musí se zapojit správně.</p>
     </div>
 
     <div class="level-advanced learn-body">
       <p data-i18n="learn_cap.adv_p1">Kondenzátor ukládá energii do elektrického pole mezi dvěma elektrodami. Napětí na něm se nemůže změnit skokem, takže při krátkém poklesu napájení může dodat část náboje a při krátké špičce ho naopak přijmout. Kondenzátor umístěný blízko napájecích pinů tím omezuje rychlé změny napětí; tomuto použití se říká blokování nebo decoupling. Nenahrazuje však zdroj ani baterii při delším nebo příliš velkém odběru.</p>
     </div>
 
-    <div class="learn-diagram">
+    <div class="learn-diagram level-advanced">
       <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vnitřní struktura keramického a elektrolytického kondenzátoru" data-i18n-aria-label="learn_cap.svg_diagram_alt">
         <text x="120" y="20" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="var(--ink)">keramický (104)</text>
         <rect x="60" y="40" width="14" height="120" fill="var(--accent)"/>
@@ -172,7 +172,7 @@
       <h2 data-i18n="learn_cap.h2_noise">Jak kondenzátor tlumí šum a zákmity.</h2>
     </div>
     <div class="learn-body level-simple-only">
-      <p data-i18n="learn_cap.noise_simple">Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, takže dokáže rychlé výkyvy napětí (šum) vyhladit. Pomalé, potřebné napětí tím zůstane skoro nedotčené.</p>
+      <p data-i18n="learn_cap.noise_simple">Kondenzátor se nabíjí a vybíjí postupně, ne naráz. Krátké výkyvy napětí proto zmenší, podobně jako tlumič zjemní náraz.</p>
     </div>
     <div class="level-advanced learn-body">
       <p data-i18n="learn_cap.noise_adv_p1">Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, čím rychlejší je změna napětí, tím snáz ji "propustí" skrz sebe, a čím pomalejší, tím víc ji vyhladí. Prakticky to znamená: rychlé výkyvy a šum se přes kondenzátor částečně vybijí a zploští, zatímco pomalé, užitečné napětí zůstává skoro nedotčené. Přesně tenhle efekt se využívá dvěma způsoby, které se na první pohled zdají nesouvisející, ale je za nimi stejná fyzika:</p>
@@ -182,6 +182,46 @@
 
     <div class="learn-board-tie" data-i18n="learn_cap.board_tie">
       <b>Na desce Shieldio RED:</b> tři keramické kondenzátory C1, C2 a C4 (104, tedy 100 nF) sedí poblíž napájecích pinů a vyhlazují drobné výkyvy. Elektrolytický kondenzátor C3 (100 µF) je větší a pomalejší, drží napájení stabilní ve chvílích, kdy servo nebo bzučák najednou odeberou víc proudu.
+    </div>
+
+    <div class="level-advanced transient-section">
+      <div class="section-head" style="max-width:760px; margin-top:56px;">
+        <h2 data-i18n="learn_cap.transient_h2">Přechodové děje: kondenzátor a cívka.</h2>
+        <p data-i18n="learn_cap.transient_intro">Po zapnutí nebo vypnutí obvod nepřejde do nového stavu vždy okamžitě. Krátká změna mezi starým a novým ustáleným stavem se nazývá přechodový děj.</p>
+      </div>
+      <div class="transient-grid">
+        <article class="transient-card">
+          <svg viewBox="0 0 420 180" role="img" aria-label="RC obvod a průběh napětí kondenzátoru" data-i18n-aria-label="learn_cap.rc_svg_alt">
+            <path class="lab-wire" d="M28 48 H92 M148 48 H205 V126 H28 V48"/><path class="lab-symbol" d="M92 48 l10 -10 10 20 10 -20 10 20 10 -20 6 10"/><line class="lab-symbol" x1="205" y1="76" x2="205" y2="104"/><line class="lab-symbol" x1="224" y1="76" x2="224" y2="104"/><path class="transient-axis" d="M250 132 H402 M250 132 V28"/><path class="transient-curve transient-curve-cap" d="M250 132 C278 128 292 82 322 56 C350 33 374 29 402 28"/>
+            <text class="lab-svg-label" x="117" y="28">R</text><text class="lab-svg-label" x="211" y="68">C</text><text class="lab-svg-label" x="320" y="154">t</text><text class="lab-svg-label" x="258" y="22">U<tspan baseline-shift="sub">C</tspan></text>
+          </svg>
+          <h3 data-i18n="learn_cap.rc_card_h3">Kondenzátor v RC obvodu</h3>
+          <p data-i18n="learn_cap.rc_card_p">Napětí na kondenzátoru nemůže skočit. Při nabíjení roste a při vybíjení klesá plynule; odpor určuje, jak rychle se proud i napětí mění.</p>
+        </article>
+        <article class="transient-card">
+          <svg viewBox="0 0 420 180" role="img" aria-label="RL obvod a průběh proudu cívkou" data-i18n-aria-label="learn_cap.rl_svg_alt">
+            <path class="lab-wire" d="M28 48 H92 M148 48 H174 M230 48 H230 V126 H28 V48"/><path class="lab-symbol" d="M92 48 l10 -10 10 20 10 -20 10 20 10 -20 6 10"/><path class="lab-symbol" d="M174 48 c0 -24 14 -24 14 0 c0 -24 14 -24 14 0 c0 -24 14 -24 14 0 c0 -24 14 -24 14 0"/><path class="transient-axis" d="M250 132 H402 M250 132 V28"/><path class="transient-curve transient-curve-coil" d="M250 132 C278 128 292 82 322 56 C350 33 374 29 402 28"/>
+            <text class="lab-svg-label" x="117" y="28">R</text><text class="lab-svg-label" x="198" y="25">L</text><text class="lab-svg-label" x="320" y="154">t</text><text class="lab-svg-label" x="258" y="22">I<tspan baseline-shift="sub">L</tspan></text>
+          </svg>
+          <h3 data-i18n="learn_cap.rl_card_h3">Cívka v RL obvodu</h3>
+          <p data-i18n="learn_cap.rl_card_p">Proud ideální cívkou nemůže skočit. Cívka změně proudu odporuje a ukládá energii do magnetického pole. Při odpojení může vytvořit vysoké napětí, proto se u relé a motorů používá ochranná dioda.</p>
+        </article>
+      </div>
+      <div class="equivalent-model">
+        <div>
+          <span class="eyebrow-dark" data-i18n="learn_cap.equiv_eyebrow">Náhradní schéma</span>
+          <h3 data-i18n="learn_cap.equiv_h3">Skutečná součástka není ideální.</h3>
+          <p data-i18n="learn_cap.equiv_p">Reálný kondenzátor se modeluje ideální kapacitou C, sériovým odporem ESR, malou sériovou indukčností ESL a velkým svodovým odporem. U cívky se k ideální indukčnosti L přidává odpor vinutí a parazitní kapacita mezi závity. Tyto skryté prvky začnou být důležité hlavně u rychlých změn.</p>
+        </div>
+        <svg viewBox="0 0 640 190" role="img" aria-label="Náhradní schéma reálného kondenzátoru" data-i18n-aria-label="learn_cap.equiv_svg_alt">
+          <path class="lab-wire" d="M28 95 H86 M150 95 H200 M270 95 H322 M360 95 H612"/>
+          <path class="lab-symbol" d="M86 95 c0 -22 16 -22 16 0 c0 -22 16 -22 16 0 c0 -22 16 -22 16 0 c0 -22 16 -22 16 0"/>
+          <rect class="lab-component" x="200" y="72" width="70" height="46" rx="8"/><path class="lab-symbol" d="M212 95 l9 -10 9 20 9 -20 9 20 10 -10"/>
+          <line class="lab-symbol" x1="322" y1="68" x2="322" y2="122"/><line class="lab-symbol" x1="360" y1="68" x2="360" y2="122"/>
+          <path class="lab-wire" d="M304 95 V160 H316 M366 160 H378 V95"/><rect class="lab-component" x="316" y="140" width="50" height="38" rx="8"/>
+          <text class="lab-svg-label" x="112" y="55" text-anchor="middle">ESL</text><text class="lab-svg-label" x="235" y="55" text-anchor="middle">ESR</text><text class="lab-svg-label" x="341" y="55" text-anchor="middle">C</text><text class="lab-svg-label" x="341" y="166" text-anchor="middle">R<tspan baseline-shift="sub">svod</tspan></text>
+        </svg>
+      </div>
     </div>
 
     <div class="level-advanced learn-body">
@@ -195,7 +235,7 @@
     </div>
 
     <div class="level-equations learn-body">
-      <p data-i18n="learn_cap.eq_units">Značení jednotek: <b>R</b> odpor [Ω], <b>C</b> kapacita [F], <b>τ</b> časová konstanta [s], <b>f</b> frekvence [Hz], <b>X_C</b> kapacitní reaktance [Ω].</p>
+      <p data-i18n="learn_cap.eq_units">Značení jednotek: <b>R</b> odpor [Ω], <b>C</b> kapacita [F], <b>L</b> indukčnost [H], <b>U</b> napětí [V], <b>I</b> proud [A], <b>τ</b> časová konstanta [s], <b>f</b> frekvence [Hz].</p>
       <p data-i18n="learn_cap.eq_rc_label"><b>RC časová konstanta:</b></p>
       <div class="learn-eq-block">\[ \tau\ [\text{s}] = R \times C \]</div>
       <p data-i18n="learn_cap.eq_rc_sub_label">Pro debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ:</p>
@@ -208,6 +248,14 @@
       <p data-i18n="learn_cap.eq_phasor_label"><b>Fázorová (komplexní) analýza:</b> kondenzátor má impedanci</p>
       <div class="learn-eq-block">\[ Z_C = \frac{1}{j\omega C}, \qquad \omega = 2\pi f \]</div>
       <p data-i18n="learn_cap.eq_phasor_note">kde \(j\) je imaginární jednotka. Proud kondenzátorem předbíhá napětí na něm o 90°, na rozdíl od rezistoru, kde jsou proud a napětí vždy ve fázi.</p>
+      <h3 data-i18n="learn_cap.pro_transient_h3">Přechodové děje na maturitní úrovni</h3>
+      <p data-i18n="learn_cap.pro_transient_p">Pro obvod prvního řádu určuje časová konstanta rychlost změny. Kondenzátor při vybíjení a proud cívkou po odpojení klesají exponenciálně:</p>
+      <div class="learn-eq-block">\[ \tau_{RC}=RC, \qquad U_C(t)=U_0 e^{-t/(RC)} \]</div>
+      <div class="learn-eq-block">\[ \tau_{RL}=\frac{L}{R}, \qquad I_L(t)=I_0 e^{-tR/L} \]</div>
+      <p data-i18n="learn_cap.pro_energy_p">Energie kondenzátoru je uložena v elektrickém poli, energie cívky v magnetickém poli:</p>
+      <div class="learn-eq-block">\[ W_C=\frac{1}{2}CU^2, \qquad W_L=\frac{1}{2}LI^2 \]</div>
+      <p data-i18n="learn_cap.pro_model_p">Zjednodušená sériová impedance reálného kondenzátoru je součtem ESR, indukčnosti vývodů a ideální kapacity. Svodový odpor je v úplném náhradním schématu paralelně ke kapacitě:</p>
+      <div class="learn-eq-block">\[ Z(j\omega) \approx ESR + j\omega ESL + \frac{1}{j\omega C} \]</div>
     </div>
 
     <div class="topic-nav">

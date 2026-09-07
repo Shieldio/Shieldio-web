@@ -16,11 +16,11 @@
       title: "Interaktivní model",
       change: "Změň hodnoty a sleduj, co se stane.",
       voltage: "Napětí", resistance: "Odpor", current: "Proud", power: "Výkon",
-      press: "Simulovat stisk", debounce: "Doba debounce", rawEdges: "Změn bez ošetření", accepted: "Uznané stisky",
+      press: "Simulovat stisk", debounce: "Čekání programu po stisku", rawEdges: "Změn bez ošetření", accepted: "Uznané stisky",
       diodeType: "Součástka", silicon: "Křemíková dioda", redLed: "Červená LED", blueLed: "Modrá LED",
       direction: "Směr", forward: "propustný", reverse: "závěrný", threshold: "Prahové napětí", dark: "nesvítí", shines: "svítí",
       distance: "Vzdálenost", temperature: "Teplota vzduchu", ping: "Vyslat pulz", echo: "Čas ozvěny", soundSpeed: "Rychlost zvuku",
-      mode: "Průběh", charge: "Nabíjení", discharge: "Vybíjení", capacitance: "Kapacita", time: "Čas", tau: "Časová konstanta",
+      mode: "Průběh", charge: "Nabíjení", discharge: "Vybíjení", capacitance: "Kapacita", time: "Čas od začátku", tau: "Časová konstanta", speed: "Rychlost změny", slow: "pomalá", medium: "střední", fast: "rychlá", timeAxis: "čas →", voltageAxis: "napětí",
       width: "Šířka cestičky", length: "Délka cestičky", thickness: "Tloušťka mědi", drop: "Úbytek napětí", loss: "Ztrátový výkon",
       pcbNote: "Model počítá elektrický odpor a ztráty. Bezpečný proud nelze určit jen ze šířky; záleží i na chlazení, vrstvě a dovolené teplotě.",
       ohmAlt: "Obvod s napětím, rezistorem a animovaným proudem", debounceAlt: "Časový průběh zákmitů tlačítka před a po ošetření", diodeAlt: "Zjednodušený model diody v propustném a závěrném směru",
@@ -29,18 +29,18 @@
       debounceSimple: "Jeden mechanický stisk vytvoří několik rychlých hran. Debounce je sloučí do jedné události.",
       diodeSimple: "V propustném směru proud kolem typického úbytku prudce roste. Zjednodušený model ho v závěrném směru blokuje.",
       ultrasonicSimple: "Pulz urazí cestu k překážce i zpět. Proto se při výpočtu vzdálenosti dráha dělí dvěma.",
-      capacitorSimple: "Po jedné časové konstantě je kondenzátor nabitý asi na 63 %. Po pěti téměř úplně.",
+      capacitorSimple: "Kondenzátor se nenabije ani nevybije naráz. Posuň čas a sleduj, jak se napětí mění postupně.",
       pcbSimple: "Delší a užší měděná cestička má větší odpor. Při stejném proudu proto ztrácí víc energie jako teplo.",
     },
     en: {
       title: "Interactive model",
       change: "Change the values and watch what happens.",
       voltage: "Voltage", resistance: "Resistance", current: "Current", power: "Power",
-      press: "Simulate press", debounce: "Debounce time", rawEdges: "Raw transitions", accepted: "Accepted presses",
+      press: "Simulate press", debounce: "Program wait after a press", rawEdges: "Raw transitions", accepted: "Accepted presses",
       diodeType: "Component", silicon: "Silicon diode", redLed: "Red LED", blueLed: "Blue LED",
       direction: "Direction", forward: "forward", reverse: "reverse", threshold: "Threshold voltage", dark: "off", shines: "on",
       distance: "Distance", temperature: "Air temperature", ping: "Send pulse", echo: "Echo time", soundSpeed: "Speed of sound",
-      mode: "Curve", charge: "Charging", discharge: "Discharging", capacitance: "Capacitance", time: "Time", tau: "Time constant",
+      mode: "Curve", charge: "Charging", discharge: "Discharging", capacitance: "Capacitance", time: "Time since start", tau: "Time constant", speed: "Rate of change", slow: "slow", medium: "medium", fast: "fast", timeAxis: "time →", voltageAxis: "voltage",
       width: "Trace width", length: "Trace length", thickness: "Copper thickness", drop: "Voltage drop", loss: "Power loss",
       pcbNote: "The model calculates electrical resistance and loss. Safe current cannot be determined from width alone; cooling, layer placement, and allowed temperature also matter.",
       ohmAlt: "Circuit with voltage, a resistor, and animated current", debounceAlt: "Button bounce waveform before and after debouncing", diodeAlt: "Simplified diode model in forward and reverse direction",
@@ -49,7 +49,7 @@
       debounceSimple: "One mechanical press creates several fast transitions. Debouncing merges them into one event.",
       diodeSimple: "In the forward direction, current rises steeply around the typical voltage drop. The simplified model blocks it in reverse.",
       ultrasonicSimple: "The pulse travels to the obstacle and back. That is why the travelled distance is divided by two.",
-      capacitorSimple: "After one time constant, the capacitor is about 63% charged. After five, it is almost full.",
+      capacitorSimple: "A capacitor does not charge or discharge all at once. Move time and watch the voltage change gradually.",
       pcbSimple: "A longer, narrower copper trace has more resistance. At the same current, it loses more energy as heat.",
     },
   };
@@ -62,8 +62,8 @@
       minimumFractionDigits: digits,
     });
   }
-  function field(label, input, output) {
-    return `<label class="concept-lab-field"><span>${label} <output>${output}</output></span>${input}</label>`;
+  function field(label, input, output, className) {
+    return `<label class="concept-lab-field${className ? " " + className : ""}"><span>${label} <output>${output}</output></span>${input}</label>`;
   }
   function shell(simpleText, controls, visual, readings, equation) {
     return `<div class="concept-lab-head"><div><span class="eyebrow-dark">${tx("title")}</span><h2>${tx("change")}</h2></div></div>
@@ -174,19 +174,21 @@
   function capacitor(root) {
     root.innerHTML = shell(tx("capacitorSimple"),
       `<div class="concept-lab-segment" data-lab="mode"><button type="button" class="active" data-mode="charge">${tx("charge")}</button><button type="button" data-mode="discharge">${tx("discharge")}</button></div>`+
-      field(tx("resistance"), '<input data-lab="r" type="range" min="1" max="100" step="1" value="10">', '<span data-lab-out="r">10 kΩ</span>')+
-      field(tx("capacitance"), '<select data-lab="c"><option value="0.1">0,1 µF</option><option value="1">1 µF</option><option value="10">10 µF</option><option value="100" selected>100 µF</option><option value="1000">1000 µF</option></select>', "")+
-      field(tx("time"), '<input data-lab="time" type="range" min="0" max="5" step="0.1" value="1">', '<span data-lab-out="time">1,0 τ</span>'),
-      `<svg viewBox="0 0 620 270" role="img" aria-label="${tx("capacitorAlt")}"><line x1="65" y1="220" x2="570" y2="220" class="lab-axis"/><line x1="65" y1="35" x2="65" y2="220" class="lab-axis"/><path data-lab="curve" class="lab-curve" d=""/><circle data-lab="point" r="8" class="lab-point"/><g data-lab="plates"><line x1="500" y1="70" x2="500" y2="180" class="lab-symbol"/><line x1="540" y1="70" x2="540" y2="180" class="lab-symbol"/></g><text x="317" y="248" text-anchor="middle" class="lab-svg-label">t / τ</text><text x="38" y="128" text-anchor="middle" class="lab-svg-label" transform="rotate(-90 38 128)">U / Uₛ</text></svg>`,
+      field(tx("speed"), '<input data-lab="speed" type="range" min="1" max="5" step="1" value="3">', '<span data-lab-out="speed">'+tx("medium")+'</span>', "lab-depth-simple")+
+      field(tx("resistance"), '<input data-lab="r" type="range" min="1" max="100" step="1" value="10">', '<span data-lab-out="r">10 kΩ</span>', "lab-depth-advanced")+
+      field(tx("capacitance"), '<select data-lab="c"><option value="0.1">0,1 µF</option><option value="1">1 µF</option><option value="10">10 µF</option><option value="100" selected>100 µF</option><option value="1000">1000 µF</option></select>', "", "lab-depth-advanced")+
+      field(tx("time"), '<input data-lab="time" type="range" min="0" max="10" step="0.1" value="1">', '<span data-lab-out="time">1,0 s</span>'),
+      `<svg viewBox="0 0 620 270" role="img" aria-label="${tx("capacitorAlt")}"><line x1="65" y1="220" x2="570" y2="220" class="lab-axis"/><line x1="65" y1="35" x2="65" y2="220" class="lab-axis"/><path data-lab="curve" class="lab-curve" d=""/><circle data-lab="point" r="8" class="lab-point"/><g data-lab="plates"><line x1="500" y1="70" x2="500" y2="180" class="lab-symbol"/><line x1="540" y1="70" x2="540" y2="180" class="lab-symbol"/></g><text x="317" y="248" text-anchor="middle" class="lab-svg-label">${tx("timeAxis")}</text><text x="38" y="128" text-anchor="middle" class="lab-svg-label" transform="rotate(-90 38 128)">${tx("voltageAxis")}</text></svg>`,
       reading(tx("tau"), "1,00 s", "tau") + reading(tx("voltage"), "3,16 V", "voltage"),
       '<span data-lab-out="formula">U_C(t) = U_S · (1 − e^(−t/RC))</span>');
     let mode="charge";
-    const update=()=>{const r=+root.querySelector('[data-lab="r"]').value,c=+root.querySelector('[data-lab="c"]').value,n=+root.querySelector('[data-lab="time"]').value,tau=r*1000*c/1e6;const ratio=mode==="charge"?1-Math.exp(-n):Math.exp(-n),u=5*ratio;
-      root.querySelector('[data-lab-out="r"]').textContent=num(r,0)+" kΩ";root.querySelector('[data-lab-out="time"]').textContent=num(n,1)+" τ";root.querySelector('[data-lab-out="tau"]').textContent=tau<1?num(tau*1000,0)+" ms":num(tau,2)+" s";root.querySelector('[data-lab-out="voltage"]').textContent=num(u,2)+" V";
-      const pts=[];for(let i=0;i<=100;i++){const x=65+i/100*430,q=mode==="charge"?1-Math.exp(-i/20):Math.exp(-i/20),y=220-q*175;pts.push((i?"L":"M")+x+" "+y)}root.querySelector('[data-lab="curve"]').setAttribute("d",pts.join(" "));const px=65+n/5*430,py=220-ratio*175;root.querySelector('[data-lab="point"]').setAttribute("cx",px);root.querySelector('[data-lab="point"]').setAttribute("cy",py);
+    const update=()=>{const r=+root.querySelector('[data-lab="r"]').value,c=+root.querySelector('[data-lab="c"]').value,elapsed=+root.querySelector('[data-lab="time"]').value,tau=r*1000*c/1e6,n=elapsed/tau;const ratio=mode==="charge"?1-Math.exp(-n):Math.exp(-n),u=5*ratio;
+      const speed=+root.querySelector('[data-lab="speed"]').value;root.querySelector('[data-lab-out="speed"]').textContent=speed<3?tx("slow"):speed>3?tx("fast"):tx("medium");
+      root.querySelector('[data-lab-out="r"]').textContent=num(r,0)+" kΩ";root.querySelector('[data-lab-out="time"]').textContent=num(elapsed,1)+" s";root.querySelector('[data-lab-out="tau"]').textContent=tau<1?num(tau*1000,0)+" ms":num(tau,2)+" s";root.querySelector('[data-lab-out="voltage"]').textContent=num(u,2)+" V";
+      const pts=[];for(let i=0;i<=100;i++){const x=65+i/100*430,t=i/10,q=mode==="charge"?1-Math.exp(-t/tau):Math.exp(-t/tau),y=220-q*175;pts.push((i?"L":"M")+x+" "+y)}root.querySelector('[data-lab="curve"]').setAttribute("d",pts.join(" "));const px=65+elapsed/10*430,py=220-ratio*175;root.querySelector('[data-lab="point"]').setAttribute("cx",px);root.querySelector('[data-lab="point"]').setAttribute("cy",py);
       root.querySelector('[data-lab-out="formula"]').textContent=mode==="charge"?`U_C(t) = U_S · (1 − e^(−t/RC)) = ${num(u,2)} V`:`U_C(t) = U_0 · e^(−t/RC) = ${num(u,2)} V`;
     };
-    root.querySelectorAll("input,select").forEach(x=>x.addEventListener("input",update));root.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.mode;root.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle("active",x===b));update()}));update();
+    root.querySelector('[data-lab="speed"]').addEventListener("input",e=>{root.querySelector('[data-lab="r"]').value=[100,33,10,3,1][+e.target.value-1];update()});root.querySelectorAll('[data-lab="r"],[data-lab="c"],[data-lab="time"]').forEach(x=>x.addEventListener("input",update));root.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.mode;root.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle("active",x===b));update()}));update();
   }
 
   function pcb(root) {
@@ -194,7 +196,7 @@
       field(tx("width"), '<input data-lab="w" type="range" min="0.2" max="3" step="0.1" value="1">', '<span data-lab-out="w">1,0 mm</span>')+
       field(tx("length"), '<input data-lab="l" type="range" min="20" max="300" step="10" value="100">', '<span data-lab-out="l">100 mm</span>')+
       field(tx("current"), '<input data-lab="i" type="range" min="0.1" max="3" step="0.1" value="1">', '<span data-lab-out="i-control">1,0 A</span>')+
-      field(tx("thickness"), '<select data-lab="t"><option value="35">35 µm (1 oz)</option><option value="70">70 µm (2 oz)</option></select>', ""),
+      field(tx("thickness"), '<select data-lab="t"><option value="35">35 µm (1 oz)</option><option value="70">70 µm (2 oz)</option></select>', "", "lab-depth-advanced"),
       `<svg viewBox="0 0 620 240" role="img" aria-label="${tx("pcbAlt")}"><rect x="40" y="35" width="540" height="170" rx="18" class="lab-board"/><circle cx="90" cy="120" r="26" class="lab-pad"/><circle cx="530" cy="120" r="26" class="lab-pad"/><line data-lab="trace" x1="115" y1="120" x2="505" y2="120" class="lab-trace"/><text x="310" y="185" text-anchor="middle" class="lab-svg-label" data-lab-out="trace-label"></text></svg>`,
       reading(tx("resistance"), "0,048 Ω", "r-result")+reading(tx("drop"),"0,048 V","drop")+reading(tx("loss"),"0,048 W","loss"),
       '<span data-lab-out="formula">R = ρ · L / (w · h)</span><p class="concept-lab-note">'+tx("pcbNote")+'</p>');

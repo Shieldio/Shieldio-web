@@ -1805,19 +1805,19 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 .fact-card p b{ color:var(--ink); }
 .fact-card p a{ color:var(--accent-deep); }
 :root[data-theme="dark"] .fact-card p a{ color:var(--accent-soft); }
-/* three cumulative depth levels: simple → advanced → equations.
-   "advanced" content stays visible in "equations" too (it's a superset, not a swap).
+/* three cumulative depth levels: simple → advanced → pro/equations.
+   Advanced content stays visible in Profi too (it's a superset, not a swap).
    animated with max-height+opacity instead of display, so switching levels fades/slides
    instead of snapping. */
 .level-advanced, .level-equations, .level-simple-only{
   overflow:hidden; transition:opacity .3s var(--ease), max-height .35s var(--ease);
 }
-.level-advanced, .level-equations{ opacity:0; max-height:0; }
+.level-advanced, .level-equations{ opacity:0; max-height:0; visibility:hidden; pointer-events:none; }
 :root[data-learn-level="advanced"] .level-advanced,
 :root[data-learn-level="equations"] .level-advanced,
-:root[data-learn-level="equations"] .level-equations{ opacity:1; max-height:4000px; }
+:root[data-learn-level="equations"] .level-equations{ opacity:1; max-height:12000px; visibility:visible; pointer-events:auto; }
 :root[data-learn-level="advanced"] .level-simple-only,
-:root[data-learn-level="equations"] .level-simple-only{ opacity:0; max-height:0; }
+:root[data-learn-level="equations"] .level-simple-only{ opacity:0; max-height:0; visibility:hidden; pointer-events:none; }
 .katex-display{ margin:1.4em 0; overflow-x:auto; overflow-y:hidden; }
 .learn-eq-block{ margin:20px 0; padding:18px 20px; background:var(--paper-2); border-radius:12px; overflow-x:auto; }
 .learn-table{ width:100%; border-collapse:collapse; margin:20px 0; font-size:14px; }
@@ -1908,6 +1908,9 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 .concept-lab-equation{ margin-top:16px; padding:16px 18px; border-radius:12px; background:var(--paper-2); color:var(--ink); font:13px/1.6 'JetBrains Mono'; overflow-x:auto; }
 .concept-lab-note{ margin-top:10px; color:var(--ink-soft); font:12px/1.55 Inter,sans-serif; }
 .lab-depth-advanced,.lab-depth-equations{ display:none; }
+.lab-depth-simple{ display:grid; }
+:root[data-learn-level="advanced"] .lab-depth-simple,
+:root[data-learn-level="equations"] .lab-depth-simple{ display:none; }
 :root[data-learn-level="advanced"] .lab-depth-advanced,
 :root[data-learn-level="equations"] .lab-depth-advanced,
 :root[data-learn-level="equations"] .lab-depth-equations{ display:grid; }
@@ -1916,6 +1919,24 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 .concept-lab-segment{ display:grid; grid-template-columns:1fr 1fr; padding:3px; border:1px solid var(--line); border-radius:11px; background:var(--paper-2); }
 .concept-lab-segment button{ border:0; border-radius:8px; padding:9px; background:transparent; color:var(--ink-soft); cursor:pointer; }
 .concept-lab-segment button.active{ background:var(--surface); color:var(--ink); box-shadow:0 2px 8px rgba(0,0,0,.08); }
+.transient-section{ margin-top:8px; }
+.transient-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin:24px 0; }
+.transient-card,.equivalent-model{ border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); }
+.transient-card{ padding:20px; }
+.transient-card svg{ width:100%; height:auto; display:block; margin-bottom:12px; }
+.transient-card h3,.equivalent-model h3{ font-size:19px; margin:0 0 8px; }
+.transient-card p,.equivalent-model p{ color:var(--ink-soft); font-size:14px; line-height:1.65; margin:0; }
+.transient-axis{ fill:none; stroke:var(--line); stroke-width:2; }
+.transient-curve{ fill:none; stroke:var(--accent); stroke-width:4; stroke-linecap:round; stroke-dasharray:520; stroke-dashoffset:520; transition:stroke-dashoffset 1.2s var(--ease); }
+:root[data-learn-level="advanced"] .transient-curve,
+:root[data-learn-level="equations"] .transient-curve{ stroke-dashoffset:0; }
+.transient-curve-coil{ stroke:var(--tier-yellow-deep); }
+.equivalent-model{ display:grid; grid-template-columns:minmax(260px,.85fr) minmax(320px,1.15fr); gap:28px; align-items:center; padding:24px; margin:22px 0 30px; }
+.equivalent-model svg{ width:100%; height:auto; display:block; }
+@media (max-width:760px){
+  .transient-grid,.equivalent-model{ grid-template-columns:1fr; }
+  .equivalent-model{ padding:20px; }
+}
 .lab-wire,.lab-axis,.lab-guide{ fill:none; stroke:var(--ink-soft); stroke-width:3; }
 .lab-axis,.lab-guide{ stroke-width:1.5; }
 .lab-guide{ stroke-dasharray:5 7; }
@@ -1946,7 +1967,10 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
   .concept-lab-stage{ order:-1; }
   .concept-lab-readings{ grid-template-columns:1fr; }
 }
-@media(prefers-reduced-motion:reduce){ .diode-dot,.lab-sweep.is-running,.lab-pulse.is-running{ animation:none; } }
+@media(prefers-reduced-motion:reduce){
+  .diode-dot,.lab-sweep.is-running,.lab-pulse.is-running{ animation:none; }
+  .transient-curve{ transition:none; stroke-dashoffset:0; }
+}
 .learn-theory-link{
   display:inline-flex; align-items:center; gap:8px;
   font-size:13.5px; font-weight:600; color:var(--accent-deep);

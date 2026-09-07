@@ -37,6 +37,7 @@
     let mode = "led";
     const values = { led: 50, servo: 1.5 };
     const locale = () => document.documentElement.lang === "en" ? "en-US" : "cs-CZ";
+    const simple = () => (document.documentElement.dataset.learnLevel || "simple") === "simple";
 
     function render() {
       values[mode] = Number(slider.value);
@@ -51,7 +52,7 @@
       if (msOut && pulseMs !== null) msOut.textContent = pulseMs.toLocaleString(locale(), { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ms";
       if (degOut) degOut.textContent = Math.round(angle) + "°";
       if (controlValue) controlValue.textContent = mode === "servo"
-        ? pulseMs.toLocaleString(locale(), { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ms"
+        ? (simple() ? Math.round(angle) + "°" : pulseMs.toLocaleString(locale(), { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ms")
         : Math.round(values.led) + " %";
     }
 
@@ -67,12 +68,12 @@
       });
       if (mode === "servo") {
         slider.min = "1"; slider.max = "2"; slider.step = "0.05"; slider.value = String(values.servo);
-        if (controlLabel) controlLabel.firstChild.textContent = document.documentElement.lang === "en" ? "Servo pulse " : "Pulz serva ";
-        slider.setAttribute("aria-label", document.documentElement.lang === "en" ? "Servo pulse length in milliseconds" : "Délka pulzu serva v milisekundách");
+        if (controlLabel) controlLabel.firstChild.textContent = document.documentElement.lang === "en" ? (simple() ? "Servo position " : "Servo pulse ") : (simple() ? "Poloha serva " : "Pulz serva ");
+        slider.setAttribute("aria-label", document.documentElement.lang === "en" ? (simple() ? "Servo position" : "Servo pulse length in milliseconds") : (simple() ? "Poloha serva" : "Délka pulzu serva v milisekundách"));
       } else {
         slider.min = "0"; slider.max = "100"; slider.step = "1"; slider.value = String(values.led);
-        if (controlLabel) controlLabel.firstChild.textContent = document.documentElement.lang === "en" ? "LED duty cycle " : "Střída LED ";
-        slider.setAttribute("aria-label", document.documentElement.lang === "en" ? "LED duty cycle in percent" : "Střída LED v procentech");
+        if (controlLabel) controlLabel.firstChild.textContent = document.documentElement.lang === "en" ? (simple() ? "Light on time " : "LED duty cycle ") : (simple() ? "Doba rozsvícení " : "Střída LED ");
+        slider.setAttribute("aria-label", document.documentElement.lang === "en" ? (simple() ? "Proportion of time the LED is on" : "LED duty cycle in percent") : (simple() ? "Část času, kdy LED svítí" : "Střída LED v procentech"));
       }
       if (modeToggle) {
         modeToggle.querySelectorAll(".guide-mode-btn").forEach((btn) => {
@@ -93,6 +94,7 @@
 
     slider.addEventListener("input", render);
     document.addEventListener("shieldio-lang-change", () => { applyMode(); render(); });
+    document.addEventListener("shieldio-learn-level-change", () => { applyMode(); render(); });
     applyMode();
     render();
   }

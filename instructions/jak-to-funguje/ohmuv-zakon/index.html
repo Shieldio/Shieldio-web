@@ -119,8 +119,8 @@
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Do hloubky</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
       </div>
     </div>
   </div>
@@ -135,9 +135,11 @@
 
     <div class="level-advanced learn-body">
       <p data-i18n="learn_ohm.adv_p1">Ohmův zákon popisuje vztah mezi napětím, proudem a odporem v obvodu: napětí se rovná odporu krát proudu.</p>
-      <div class="learn-eq-block">\[ U = R \times I \]</div>
-      <p data-i18n="learn_ohm.adv_p2">Přeuspořádaný na výpočet odporu vypadá takto:</p>
-      <div class="learn-eq-block">\[ R = \frac{U}{I} \]</div>
+      <div class="level-equations">
+        <div class="learn-eq-block">\[ U = R \times I \]</div>
+        <p data-i18n="learn_ohm.adv_p2">Přeuspořádaný na výpočet odporu vypadá takto:</p>
+        <div class="learn-eq-block">\[ R = \frac{U}{I} \]</div>
+      </div>
       <p data-i18n="learn_ohm.adv_p3">LED dioda má při svícení určitý propustný úbytek napětí, u červené LED zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA. Deska RED má napájení 5 V. Proud LED roste s napětím velmi strmě, takže při přímém připojení bez sériového rezistoru by ho omezoval hlavně vnitřní odpor zdroje a vodičů. Mohl by rychle překročit dovolenou hodnotu a LED poškodit.</p>
       <p data-i18n="learn_ohm.adv_p4">Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
     </div>

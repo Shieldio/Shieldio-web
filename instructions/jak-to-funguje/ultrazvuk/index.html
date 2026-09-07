@@ -102,8 +102,8 @@
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
-        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Do hloubky</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
+        <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
       </div>
     </div>
   </div>
@@ -112,7 +112,7 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="learn-body level-simple-only">
-      <p data-i18n="learn_ultrazvuk.simple_p1">Senzor HC-SR04 vyšle krátký zvukový pulz a změří, za jak dlouho se odrazí zpátky. Čím dál je překážka, tím déle to trvá, takže se z toho dá spočítat vzdálenost.</p>
+      <p data-i18n="learn_ultrazvuk.simple_p1">Senzor vyšle zvuk, který člověk neslyší, a čeká na jeho ozvěnu. Čím dál je překážka, tím déle trvá, než se zvuk vrátí.</p>
     </div>
 
     <div class="level-advanced learn-body">
@@ -138,16 +138,16 @@
         </g>
         <text x="370" y="180" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="var(--tier-green)" data-i18n="learn_ultrazvuk.svg_echo">← odražená ozvěna</text>
       </svg>
-      <p class="learn-diagram-caption" data-i18n="learn_ultrazvuk.diagram_caption">Vzdálenost = (čas mezi vysláním a příjmem × rychlost zvuku) ⁄ 2.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_ultrazvuk.diagram_caption">Zvuk letí k překážce a stejnou cestou se vrací jako ozvěna.</p>
     </div>
 
     <div class="learn-body level-simple-only">
-      <p data-i18n="learn_ultrazvuk.simple_p2">Senzor změří <b>čas</b> mezi vysláním pulzu a příjmem ozvěny, a protože známe přibližnou rychlost zvuku ve vzduchu, přepočítá se čas na vzdálenost. Výsledek ovlivňuje teplota, tvar a natočení překážky; blok "vzdálenost" v mBlocku provede základní výpočet automaticky.</p>
+      <p data-i18n="learn_ultrazvuk.simple_p2">Program z doby čekání odhadne vzdálenost. Rovná tvrdá plocha vrací ozvěnu dobře, měkký nebo šikmý předmět ji může zeslabit a měření zhoršit.</p>
     </div>
 
     <div class="level-advanced learn-body">
       <p data-i18n="learn_ultrazvuk.adv_p2">Senzor změří <b>čas</b> mezi vysláním a přijetím ozvěny. Zvuk se vzduchem šíří přibližně 343 metrů za sekundu při pokojové teplotě. Součin doby a rychlosti je celá dráha tam i zpět, proto se dělí dvěma. Jde o model: přesnost ovlivňuje teplota, proudění vzduchu i to, jak dobře povrch zvuk odráží.</p>
-      <p class="learn-formula" data-i18n="learn_ultrazvuk.formula_plain">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
+      <p class="learn-formula level-equations" data-i18n="learn_ultrazvuk.formula_plain">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
       <p data-i18n="learn_ultrazvuk.adv_p3">Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
     </div>
 
