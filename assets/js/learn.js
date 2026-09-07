@@ -2,6 +2,45 @@
 (function () {
   const DATA_URL = "/assets/data/learn-questions.json";
   const STORAGE_KEY = "shieldio-learn-progress-v1";
+  const THEME_KEY = "shieldio-theme";
+
+  function storedTheme() {
+    try { return localStorage.getItem(THEME_KEY); } catch (_) { return null; }
+  }
+
+  function preferredTheme() {
+    return storedTheme() || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    document.querySelectorAll(".learn-brand img").forEach(image => {
+      image.src = `/assets/icons/${theme === "dark" ? "logo-full-white.svg" : "logo-full-color.svg"}`;
+    });
+    const toggle = document.querySelector("[data-learn-theme]");
+    if (toggle) {
+      toggle.textContent = theme === "dark" ? "☀" : "☾";
+      toggle.setAttribute("aria-label", theme === "dark" ? "Přepnout na světlý režim" : "Přepnout na tmavý režim");
+    }
+  }
+
+  applyTheme(preferredTheme());
+
+  function ensureThemeToggle() {
+    const nav = document.querySelector(".learn-nav") || document.querySelector(".learn-header-inner");
+    if (!nav || nav.querySelector("[data-learn-theme]")) return;
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "learn-theme-toggle";
+    toggle.dataset.learnTheme = "";
+    toggle.addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      try { localStorage.setItem(THEME_KEY, next); } catch (_) {}
+      applyTheme(next);
+    });
+    nav.appendChild(toggle);
+    applyTheme(preferredTheme());
+  }
 
   function internalHref(path) {
     return (location.hostname === "127.0.0.1" || location.hostname === "localhost") ? "/learn" + path : path;
@@ -150,6 +189,7 @@
 
   async function init() {
     fixLocalLinks();
+    ensureThemeToggle();
     ensurePrivacyLink();
     try {
       const response = await fetch(DATA_URL);

@@ -77,10 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.add("pointer-reactive");
       card.addEventListener("pointermove", (event) => {
         const rect = card.getBoundingClientRect();
+        card.classList.add("is-pointer-active");
         card.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
         card.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
       });
       card.addEventListener("pointerleave", () => {
+        card.classList.remove("is-pointer-active");
         card.style.removeProperty("--pointer-x");
         card.style.removeProperty("--pointer-y");
       });
