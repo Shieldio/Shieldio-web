@@ -1,52 +1,1177 @@
 {
-  "version": 1,
+  "version": 2,
+  "source": {
+    "school": "Střední průmyslová škola Zlín",
+    "programme": "26-41-M/01 Elektrotechnika",
+    "schoolYear": "2025/26",
+    "issued": "5. června 2025",
+    "note": "Názvy okruhů jsou připravené podle podkladu dodaného uživatelem; výukový obsah se doplňuje postupně."
+  },
   "subjects": [
     {
       "id": "elektronika",
       "title": "Elektronika",
-      "description": "Základní pojmy, součástky a obvody.",
-      "questionSlugs": ["demo-otazka-01", "demo-otazka-02"]
+      "description": "25 oficiálních maturitních okruhů: součástky, obvody, signály a měření.",
+      "questionSlugs": [
+        "elektronika-01-linearni-soucastky-r-l-c",
+        "elektronika-02-polovodicove-prechody-a-diody",
+        "elektronika-03-bipolarni-tranzistory",
+        "elektronika-04-unipolarni-tranzistory",
+        "elektronika-05-vicevrstve-polovodicove-soucastky-a-soucastky-rizene-neele",
+        "elektronika-06-elektronicke-zobrazovaci-jednotky",
+        "elektronika-07-pasivni-kmitoctove-zavisle-obvody",
+        "elektronika-08-prechodne-deje-v-elektronickych-obvodech",
+        "elektronika-09-zesilovace-s-malou-amplitudou-signalu",
+        "elektronika-10-zesilovace-s-velkou-amplitudou-signalu",
+        "elektronika-11-operacni-zesilovace",
+        "elektronika-12-napajeci-zdroje",
+        "elektronika-13-generatory-kmitu",
+        "elektronika-14-elektromechanicke-merici-pristroje",
+        "elektronika-15-analogove-merici-prevodniky-elektrickych-velicin",
+        "elektronika-16-digitalizace-a-cislicove-zpracovani-signalu",
+        "elektronika-17-analogove-cislicove-prevodniky",
+        "elektronika-18-cislicove-analogove-prevodniky",
+        "elektronika-19-merici-generatory",
+        "elektronika-20-osciloskopy",
+        "elektronika-21-mereni-vykonu-a-spotreby-elektricke-energie",
+        "elektronika-22-mereni-kmitoctu-a-fazoveho-posunu",
+        "elektronika-23-mereni-odporu-kapacity-indukcnosti-a-impedance",
+        "elektronika-24-merici-systemy",
+        "elektronika-25-mereni-neelektrickych-velicin"
+      ]
     },
     {
       "id": "automatizace",
       "title": "Automatizace",
-      "description": "Řízení, regulace a automatizační technika.",
-      "questionSlugs": ["demo-otazka-03"]
+      "description": "25 oficiálních maturitních okruhů: číslicová technika, řízení, regulace a robotika.",
+      "questionSlugs": [
+        "automatizace-01-zaklady-cislicove-techniky",
+        "automatizace-02-sekvencni-obvody",
+        "automatizace-03-jednocipovy-mikropocitac-architektura-pamet-klopne-obvody",
+        "automatizace-04-jednocipovy-mikropocitac-casovace-citace-a-seriove-rozhran",
+        "automatizace-05-programovani-jednocipovych-mikropocitacu-a-plc",
+        "automatizace-06-seriovy-a-paralelni-prenos-posuvne-registry",
+        "automatizace-07-navrh-kombinacnich-a-sekvencnich-obvodu-fuzzy-logika",
+        "automatizace-08-pocitace-v-ovladacich-a-ridicich-systemech-programovatelne",
+        "automatizace-09-inteligentni-budovy-nadstavbove-systemy-a-inteligentni-dom",
+        "automatizace-10-inteligentni-budovy-poplachove-zabezpecovaci-a-tisnove-sys",
+        "automatizace-11-inteligentni-budovy-elektricka-pozarni-signalizace-a-kamer",
+        "automatizace-12-automatizacni-prostredky-druhy-vlastnosti-a-pouzivane-ener",
+        "automatizace-13-automatizacni-prostredky-vystupni-cleny",
+        "automatizace-14-regulacni-technika-regulacni-obvod-a-regulovane-soustavy",
+        "automatizace-15-regulacni-technika-druhy-regulatoru-a-nespojite-regulatory",
+        "automatizace-16-regulacni-technika-spojite-regulatory-a-reseni-regulacnich",
+        "automatizace-17-vyssi-formy-rizeni-cislicove-rizeni-a-blokova-algebra",
+        "automatizace-18-prumyslove-roboty-deleni-vlastnosti-a-manipulatory",
+        "automatizace-19-prumyslove-roboty-vyrobni-stroje-linky-rizeni-a-inkrementa",
+        "automatizace-20-mobilni-roboty-deleni-interni-a-opticke-senzory-pohon",
+        "automatizace-21-mobilni-roboty-taktilni-kapacitni-a-indukcni-senzory-sonar",
+        "automatizace-22-mobilni-roboty-pneumaticke-pohony-rizeni-konstrukce-mikros",
+        "automatizace-23-pameti-pc",
+        "automatizace-24-vstupni-periferie-pc",
+        "automatizace-25-vystupni-periferie-pc"
+      ]
     }
   ],
   "questions": [
     {
-      "slug": "demo-otazka-01",
+      "slug": "elektronika-01-linearni-soucastky-r-l-c",
       "subject": "elektronika",
       "number": "01",
-      "title": "Demo otázka 01",
-      "summary": "Ukázka struktury budoucí maturitní otázky.",
+      "title": "Lineární součástky R, L, C",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
       "sections": [
-        { "title": "Co budeš umět", "body": "Na tomto místě bude stručný seznam očekávaných znalostí." },
-        { "title": "Výklad", "body": "Sem přijde odborný výklad, schémata a interaktivní vysvětlení." },
-        { "title": "Kontrolní otázky", "body": "Tady budou otázky pro samostatné ověření." }
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
       ]
     },
     {
-      "slug": "demo-otazka-02",
+      "slug": "elektronika-02-polovodicove-prechody-a-diody",
       "subject": "elektronika",
       "number": "02",
-      "title": "Demo otázka 02",
-      "summary": "Druhá ukázka pro ověření seznamu a postupu.",
+      "title": "Polovodičové přechody a diody",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
       "sections": [
-        { "title": "Co budeš umět", "body": "Obsah bude doplněn po schválení odborné osnovy." },
-        { "title": "Výklad", "body": "Připravené místo pro text, vzorce a obrázky." }
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
       ]
     },
     {
-      "slug": "demo-otazka-03",
+      "slug": "elektronika-03-bipolarni-tranzistory",
+      "subject": "elektronika",
+      "number": "03",
+      "title": "Bipolární tranzistory",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-04-unipolarni-tranzistory",
+      "subject": "elektronika",
+      "number": "04",
+      "title": "Unipolární tranzistory",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-05-vicevrstve-polovodicove-soucastky-a-soucastky-rizene-neele",
+      "subject": "elektronika",
+      "number": "05",
+      "title": "Vícevrstvé polovodičové součástky a součástky řízené neelektrickou veličinou",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-06-elektronicke-zobrazovaci-jednotky",
+      "subject": "elektronika",
+      "number": "06",
+      "title": "Elektronické zobrazovací jednotky",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-07-pasivni-kmitoctove-zavisle-obvody",
+      "subject": "elektronika",
+      "number": "07",
+      "title": "Pasivní kmitočtově závislé obvody",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-08-prechodne-deje-v-elektronickych-obvodech",
+      "subject": "elektronika",
+      "number": "08",
+      "title": "Přechodné děje v elektronických obvodech",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-09-zesilovace-s-malou-amplitudou-signalu",
+      "subject": "elektronika",
+      "number": "09",
+      "title": "Zesilovače s malou amplitudou signálu",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-10-zesilovace-s-velkou-amplitudou-signalu",
+      "subject": "elektronika",
+      "number": "10",
+      "title": "Zesilovače s velkou amplitudou signálu",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-11-operacni-zesilovace",
+      "subject": "elektronika",
+      "number": "11",
+      "title": "Operační zesilovače",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-12-napajeci-zdroje",
+      "subject": "elektronika",
+      "number": "12",
+      "title": "Napájecí zdroje",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-13-generatory-kmitu",
+      "subject": "elektronika",
+      "number": "13",
+      "title": "Generátory kmitů",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-14-elektromechanicke-merici-pristroje",
+      "subject": "elektronika",
+      "number": "14",
+      "title": "Elektromechanické měřicí přístroje",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-15-analogove-merici-prevodniky-elektrickych-velicin",
+      "subject": "elektronika",
+      "number": "15",
+      "title": "Analogové měřicí převodníky elektrických veličin",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-16-digitalizace-a-cislicove-zpracovani-signalu",
+      "subject": "elektronika",
+      "number": "16",
+      "title": "Digitalizace a číslicové zpracování signálu",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-17-analogove-cislicove-prevodniky",
+      "subject": "elektronika",
+      "number": "17",
+      "title": "Analogově číslicové převodníky",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-18-cislicove-analogove-prevodniky",
+      "subject": "elektronika",
+      "number": "18",
+      "title": "Číslicově analogové převodníky",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-19-merici-generatory",
+      "subject": "elektronika",
+      "number": "19",
+      "title": "Měřicí generátory",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-20-osciloskopy",
+      "subject": "elektronika",
+      "number": "20",
+      "title": "Osciloskopy",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-21-mereni-vykonu-a-spotreby-elektricke-energie",
+      "subject": "elektronika",
+      "number": "21",
+      "title": "Měření výkonu a spotřeby elektrické energie",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-22-mereni-kmitoctu-a-fazoveho-posunu",
+      "subject": "elektronika",
+      "number": "22",
+      "title": "Měření kmitočtu a fázového posunu",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-23-mereni-odporu-kapacity-indukcnosti-a-impedance",
+      "subject": "elektronika",
+      "number": "23",
+      "title": "Měření odporu, kapacity, indukčnosti a impedance",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-24-merici-systemy",
+      "subject": "elektronika",
+      "number": "24",
+      "title": "Měřicí systémy",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "elektronika-25-mereni-neelektrickych-velicin",
+      "subject": "elektronika",
+      "number": "25",
+      "title": "Měření neelektrických veličin",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-01-zaklady-cislicove-techniky",
+      "subject": "automatizace",
+      "number": "01",
+      "title": "Základy číslicové techniky",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-02-sekvencni-obvody",
+      "subject": "automatizace",
+      "number": "02",
+      "title": "Sekvenční obvody",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-03-jednocipovy-mikropocitac-architektura-pamet-klopne-obvody",
       "subject": "automatizace",
       "number": "03",
-      "title": "Demo otázka 03",
-      "summary": "Ukázka otázky v předmětu Automatizace.",
+      "title": "Jednočipový mikropočítač: architektura, paměť, klopné obvody a přerušení",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
       "sections": [
-        { "title": "Co budeš umět", "body": "Obsah bude doplněn po schválení odborné osnovy." },
-        { "title": "Výklad", "body": "Připravené místo pro text, diagramy a příklady." }
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-04-jednocipovy-mikropocitac-casovace-citace-a-seriove-rozhran",
+      "subject": "automatizace",
+      "number": "04",
+      "title": "Jednočipový mikropočítač: časovače, čítače a sériové rozhraní",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-05-programovani-jednocipovych-mikropocitacu-a-plc",
+      "subject": "automatizace",
+      "number": "05",
+      "title": "Programování jednočipových mikropočítačů a PLC",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-06-seriovy-a-paralelni-prenos-posuvne-registry",
+      "subject": "automatizace",
+      "number": "06",
+      "title": "Sériový a paralelní přenos, posuvné registry",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-07-navrh-kombinacnich-a-sekvencnich-obvodu-fuzzy-logika",
+      "subject": "automatizace",
+      "number": "07",
+      "title": "Návrh kombinačních a sekvenčních obvodů, fuzzy logika",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-08-pocitace-v-ovladacich-a-ridicich-systemech-programovatelne",
+      "subject": "automatizace",
+      "number": "08",
+      "title": "Počítače v ovládacích a řídicích systémech, programovatelné automaty",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-09-inteligentni-budovy-nadstavbove-systemy-a-inteligentni-dom",
+      "subject": "automatizace",
+      "number": "09",
+      "title": "Inteligentní budovy: nadstavbové systémy a inteligentní domácnost",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-10-inteligentni-budovy-poplachove-zabezpecovaci-a-tisnove-sys",
+      "subject": "automatizace",
+      "number": "10",
+      "title": "Inteligentní budovy: poplachové, zabezpečovací a tísňové systémy, ESKV",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-11-inteligentni-budovy-elektricka-pozarni-signalizace-a-kamer",
+      "subject": "automatizace",
+      "number": "11",
+      "title": "Inteligentní budovy: elektrická požární signalizace a kamerové systémy",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-12-automatizacni-prostredky-druhy-vlastnosti-a-pouzivane-ener",
+      "subject": "automatizace",
+      "number": "12",
+      "title": "Automatizační prostředky: druhy, vlastnosti a používané energie",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-13-automatizacni-prostredky-vystupni-cleny",
+      "subject": "automatizace",
+      "number": "13",
+      "title": "Automatizační prostředky: výstupní členy",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-14-regulacni-technika-regulacni-obvod-a-regulovane-soustavy",
+      "subject": "automatizace",
+      "number": "14",
+      "title": "Regulační technika: regulační obvod a regulované soustavy",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-15-regulacni-technika-druhy-regulatoru-a-nespojite-regulatory",
+      "subject": "automatizace",
+      "number": "15",
+      "title": "Regulační technika: druhy regulátorů a nespojité regulátory",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-16-regulacni-technika-spojite-regulatory-a-reseni-regulacnich",
+      "subject": "automatizace",
+      "number": "16",
+      "title": "Regulační technika: spojité regulátory a řešení regulačních obvodů",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-17-vyssi-formy-rizeni-cislicove-rizeni-a-blokova-algebra",
+      "subject": "automatizace",
+      "number": "17",
+      "title": "Vyšší formy řízení, číslicové řízení a bloková algebra",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-18-prumyslove-roboty-deleni-vlastnosti-a-manipulatory",
+      "subject": "automatizace",
+      "number": "18",
+      "title": "Průmyslové roboty: dělení, vlastnosti a manipulátory",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-19-prumyslove-roboty-vyrobni-stroje-linky-rizeni-a-inkrementa",
+      "subject": "automatizace",
+      "number": "19",
+      "title": "Průmyslové roboty: výrobní stroje, linky, řízení a inkrementální senzory",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-20-mobilni-roboty-deleni-interni-a-opticke-senzory-pohon",
+      "subject": "automatizace",
+      "number": "20",
+      "title": "Mobilní roboty: dělení, interní a optické senzory, pohon",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-21-mobilni-roboty-taktilni-kapacitni-a-indukcni-senzory-sonar",
+      "subject": "automatizace",
+      "number": "21",
+      "title": "Mobilní roboty: taktilní, kapacitní a indukční senzory, sonary",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-22-mobilni-roboty-pneumaticke-pohony-rizeni-konstrukce-mikros",
+      "subject": "automatizace",
+      "number": "22",
+      "title": "Mobilní roboty: pneumatické pohony, řízení, konstrukce, mikrosenzory a SMART kamery",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-23-pameti-pc",
+      "subject": "automatizace",
+      "number": "23",
+      "title": "Paměti PC",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-24-vstupni-periferie-pc",
+      "subject": "automatizace",
+      "number": "24",
+      "title": "Vstupní periferie PC",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
+      ]
+    },
+    {
+      "slug": "automatizace-25-vystupni-periferie-pc",
+      "subject": "automatizace",
+      "number": "25",
+      "title": "Výstupní periferie PC",
+      "status": "outline",
+      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "sections": [
+        {
+          "title": "Co bude okruh obsahovat",
+          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+        },
+        {
+          "title": "Připravované názorné prvky",
+          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+        },
+        {
+          "title": "Ověření znalostí",
+          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+        }
       ]
     }
   ]

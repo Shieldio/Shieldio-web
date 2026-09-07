@@ -1,4 +1,4 @@
-// Shieldio Learn prototype — demo content and progress stay in this browser only.
+// Shieldio Learn — topic catalogue and progress stay in this browser only.
 (function () {
   const DATA_URL = "/assets/data/learn-questions.json";
   const STORAGE_KEY = "shieldio-learn-progress-v1";
@@ -42,18 +42,23 @@
   }
 
   function renderDashboard(data, progress) {
+    const pageHead = document.querySelector(".learn-page-head");
+    if (pageHead && document.querySelector("[data-overall-progress]")) {
+      pageHead.querySelector(".learn-eyebrow").textContent = "SPŠ Zlín · Elektrotechnika · 2025/26";
+      pageHead.querySelector("p").textContent = "50 připravených okruhů z elektroniky a automatizace. Výklady, animace, grafy a interaktivní úlohy budeme doplňovat postupně.";
+    }
     document.querySelectorAll("[data-subject-card]").forEach(card => {
       const subject = data.subjects.find(item => item.id === card.dataset.subjectCard);
       if (!subject) return;
       const stats = subjectStats(subject, data, progress);
-      card.querySelector("[data-question-count]").textContent = `${stats.total} demo ${stats.total === 1 ? "otázka" : "otázky"}`;
+      card.querySelector("[data-question-count]").textContent = `${stats.total} maturitních okruhů`;
       card.querySelector("[data-progress-slot]").innerHTML = progressMarkup(stats);
     });
     const all = data.questions.length;
     const done = data.questions.filter(question => progress.completed.includes(question.slug)).length;
     document.querySelector("[data-overall-progress]")?.style.setProperty("--learn-progress", `${all ? done / all * 100 : 0}%`);
     const overall = document.querySelector("[data-overall-copy]");
-    if (overall) overall.textContent = `${done} z ${all} demo otázek dokončeno`;
+    if (overall) overall.textContent = `${done} z ${all} okruhů dokončeno`;
   }
 
   function renderSubject(data, progress) {
@@ -69,7 +74,7 @@
       <a class="learn-question-row" href="${questionHref(question.slug)}">
         <span class="learn-question-number">${question.number}</span>
         <span><b>${question.title}</b><small>${question.summary}</small></span>
-        <span class="learn-question-state ${progress.completed.includes(question.slug) ? "is-done" : ""}">${progress.completed.includes(question.slug) ? "Hotovo" : "Otevřít"}</span>
+        <span class="learn-question-state ${progress.completed.includes(question.slug) ? "is-done" : ""}">${progress.completed.includes(question.slug) ? "Hotovo" : (question.status === "outline" ? "Osnova" : "Otevřít")}</span>
       </a>`).join("");
   }
 
@@ -89,8 +94,18 @@
     root.querySelector("[data-question-subject]").textContent = subject.title;
     root.querySelector("[data-question-title]").textContent = question.title;
     root.querySelector("[data-question-summary]").textContent = question.summary;
+    const footerNote = document.querySelector(".learn-footer span");
+    if (footerNote) footerNote.textContent = "SPŠ Zlín · obor 26-41-M/01 Elektrotechnika · školní rok 2025/26";
+    if (question.status === "outline") {
+      root.querySelector("[data-question-summary]").insertAdjacentHTML("beforebegin", '<span class="learn-status-badge">Připravená osnova · obsah se doplňuje</span>');
+    }
     root.querySelector("[data-question-sections]").innerHTML = question.sections.map(section => `<section class="learn-answer-section"><h2>${section.title}</h2><p>${section.body}</p></section>`).join("");
     const button = root.querySelector("[data-complete-question]");
+    if (question.status === "outline") {
+      button.textContent = "Obsah se připravuje";
+      button.disabled = true;
+      return;
+    }
     const updateButton = () => {
       const done = progress.completed.includes(question.slug);
       button.textContent = done ? "✓ Označeno jako hotové" : "Označit jako hotové";
@@ -108,8 +123,15 @@
   function renderPractice(data, progress) {
     const root = document.querySelector("[data-practice-page]");
     if (!root) return;
-    const unanswered = data.questions.filter(question => !progress.completed.includes(question.slug));
-    const pool = unanswered.length ? unanswered : data.questions;
+    const available = data.questions.filter(question => question.status !== "outline");
+    if (!available.length) {
+      root.querySelector("[data-practice-title]").textContent = "První procvičování se připravuje";
+      root.querySelector("[data-practice-summary]").textContent = "Osnova všech 50 okruhů je založená. Procvičování zpřístupníme spolu s prvním dokončeným výkladem.";
+      root.querySelector("[data-practice-link]").hidden = true;
+      return;
+    }
+    const unanswered = available.filter(question => !progress.completed.includes(question.slug));
+    const pool = unanswered.length ? unanswered : available;
     const question = pool[Math.floor(Math.random() * pool.length)];
     const link = root.querySelector("[data-practice-link]");
     link.href = questionHref(question.slug);
