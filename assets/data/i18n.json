@@ -2063,6 +2063,14 @@
     "cs": "Web využívá službu Cloudflare Web Analytics, která funguje bez cookies a bez sledování napříč weby a neshromažďuje osobní údaje umožňující identifikaci konkrétního návštěvníka, správci jsou dostupné pouze souhrnné, anonymizované statistiky (počet návštěv, zdroj návštěvnosti, rychlost načítání). Vzhledem k tomu, že se nejedná o zpracování osobních údajů ve smyslu čl. 4 odst. 1 GDPR, právní základ se neuplatňuje.",
     "en": "The site uses Cloudflare Web Analytics, which operates without cookies and without cross-site tracking, and does not collect personal data that would identify an individual visitor; the controller only has access to aggregated, anonymized statistics (visit counts, traffic source, load speed). As this does not constitute processing of personal data within the meaning of Art. 4(1) GDPR, no legal basis applies."
   },
+  "privacy.s2_4_label": {
+    "cs": "2.4 Reklama Google AdSense",
+    "en": "2.4 Google AdSense advertising"
+  },
+  "privacy.s2_4_p": {
+    "cs": "Web je připojen ke službě Google AdSense. Google může při načítání a zobrazování reklamy zpracovávat údaje o zařízení, IP adresu, údaje o požadavku a volby souhlasu. Reklamní cookies a personalizace se návštěvníkům v Evropském hospodářském prostoru zpřístupňují pouze podle volby udělené prostřednictvím certifikované platformy pro správu souhlasu. Souhlas lze následně změnit nebo odvolat.",
+    "en": "The site is connected to Google AdSense. When loading and displaying advertising, Google may process device data, the IP address, request data and consent choices. Advertising cookies and personalisation are made available to visitors in the European Economic Area only according to the choice given through a certified consent management platform. Consent can subsequently be changed or withdrawn."
+  },
   "privacy.s3_h2": {
     "cs": "3. Doba uchování údajů",
     "en": "3. Data retention period"
@@ -2091,6 +2099,10 @@
     "cs": "<b>Cloudflare, Inc.</b>, hosting webu a anonymní analytika návštěvnosti",
     "en": "<b>Cloudflare, Inc.</b>, website hosting and anonymous traffic analytics"
   },
+  "privacy.s4_li4": {
+    "cs": "<b>Google Ireland Limited / Google LLC</b>, provoz reklamního systému Google AdSense a správa souhlasu",
+    "en": "<b>Google Ireland Limited / Google LLC</b>, operation of the Google AdSense advertising system and consent management"
+  },
   "privacy.s4_p2": {
     "cs": "Uvedení poskytovatelé mohou v rámci své infrastruktury zpracovávat údaje i mimo Evropskou unii/Evropský hospodářský prostor (typicky v USA). Jde o etablované poskytovatele, kteří pro takový přenos deklarují vlastní záruky souladu s GDPR (např. standardní smluvní doložky). Aktuální informace o zpracování údajů u těchto služeb jsou dostupné v jejich vlastních zásadách ochrany osobních údajů.",
     "en": "As part of their infrastructure, the above providers may process data outside the European Union/European Economic Area (typically in the USA). These are established providers who declare their own GDPR-compliance safeguards for such transfers (e.g. standard contractual clauses). Current information about data processing by these services is available in their own privacy policies."
@@ -2100,8 +2112,8 @@
     "en": "5. Cookies"
   },
   "privacy.s5_p": {
-    "cs": "Tento web nepoužívá žádné sledovací ani reklamní cookies. Analytika návštěvnosti (viz bod 2.3) funguje bez ukládání cookies do zařízení návštěvníka.",
-    "en": "This site does not use any tracking or advertising cookies. Traffic analytics (see section 2.3) operates without storing cookies on the visitor’s device."
+    "cs": "Cloudflare Web Analytics funguje bez cookies. Služba Google AdSense může používat cookies nebo jiné lokální úložiště podle regionu a volby návštěvníka v zobrazeném dialogu souhlasu. Nezbytné volby souhlasu mohou být uloženy, aby je web respektoval při další návštěvě.",
+    "en": "Cloudflare Web Analytics operates without cookies. Google AdSense may use cookies or other local storage depending on the region and the visitor’s choice in the displayed consent dialog. Necessary consent choices may be stored so that the site can respect them on a later visit."
   },
   "privacy.s6_h2": {
     "cs": "6. Práva subjektu údajů",
@@ -2176,8 +2188,8 @@
     "en": "This policy may be updated from time to time, in particular in connection with a change in the operator’s legal form or the scope of data processed. The version published on this page is always the authoritative one."
   },
   "privacy.s9_p2": {
-    "cs": "Naposledy upraveno: 5. září 2026. Aktualizaci provedl Codex.",
-    "en": "Last updated: September 5, 2026. Updated by Codex."
+    "cs": "Naposledy upraveno: 7. září 2026. Aktualizaci provedl Codex.",
+    "en": "Last updated: September 7, 2026. Updated by Codex."
   },
   "red.teacher_link": {
     "cs": "Pro učitele: návrh metodiky k prvnímu projektu →",

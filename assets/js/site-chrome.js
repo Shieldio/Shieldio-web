@@ -1,8 +1,7 @@
-// Shieldio — shared page chrome: scroll progress bar, back-to-top, cookie banner, last-updated note.
+// Shieldio — shared page chrome: scroll progress bar, back-to-top, last-updated note.
 // Bump LAST_UPDATED by hand after a deploy that changes visible content — no build step to automate it.
 
-const LAST_UPDATED = "26. 8. 2026";
-const COOKIE_CONSENT_KEY = "shieldio-cookie-consent";
+const LAST_UPDATED = "7. 9. 2026";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -45,41 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   window.addEventListener("scroll", updateBackToTop, { passive: true });
   updateBackToTop();
-
-  // ---------- cookie consent banner ----------
-  let consent;
-  try { consent = localStorage.getItem(COOKIE_CONSENT_KEY); } catch (e) { consent = "accepted"; }
-
-  if (!consent) {
-    // depth of the current page relative to site root, so the privacy link always resolves
-    const depth = (document.querySelector('link[rel="canonical"]')?.getAttribute("href") || "")
-      ? window.location.pathname.split("/").filter(Boolean).length
-      : 0;
-    const prefix = depth > 1 ? "../".repeat(depth - 1) : "";
-    const privacyHref = window.location.pathname.includes("/company/") ? "privacy.html" : prefix + "company/privacy.html";
-
-    const banner = document.createElement("div");
-    banner.className = "cookie-banner";
-    banner.innerHTML = `
-      <p>Web používá základní cookies pro fungování a volitelně analytiku návštěvnosti. Víc v <a href="${privacyHref}">Ochraně údajů</a>.</p>
-      <div class="cookie-banner-actions">
-        <button type="button" class="btn btn-primary" data-consent="accepted">Přijmout</button>
-        <button type="button" class="btn btn-ghost" data-consent="declined" style="border-color:var(--line); color:var(--ink-soft);">Odmítnout</button>
-      </div>
-    `;
-    document.body.appendChild(banner);
-    document.body.classList.add("has-cookie-banner");
-    requestAnimationFrame(() => banner.classList.add("visible"));
-
-    banner.querySelectorAll("[data-consent]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        try { localStorage.setItem(COOKIE_CONSENT_KEY, btn.dataset.consent); } catch (e) {}
-        banner.classList.remove("visible");
-        document.body.classList.remove("has-cookie-banner");
-        setTimeout(() => banner.remove(), 400);
-      });
-    });
-  }
 
   // ---------- last updated note in footer ----------
   const footerInner = document.querySelector("footer .footer-inner");

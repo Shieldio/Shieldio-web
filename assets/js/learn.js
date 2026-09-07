@@ -22,6 +22,15 @@
     });
   }
 
+  function ensurePrivacyLink() {
+    const footer = document.querySelector(".learn-footer-inner");
+    if (!footer || footer.querySelector('[href*="privacy"]')) return;
+    const link = document.createElement("a");
+    link.href = "https://shieldio.cz/company/privacy.html";
+    link.textContent = "Ochrana soukromí";
+    footer.appendChild(link);
+  }
+
   function getProgress() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { completed: [] }; }
     catch (_) { return { completed: [] }; }
@@ -141,6 +150,7 @@
 
   async function init() {
     fixLocalLinks();
+    ensurePrivacyLink();
     try {
       const response = await fetch(DATA_URL);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
