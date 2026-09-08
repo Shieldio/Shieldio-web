@@ -3,7 +3,12 @@
   const result = document.querySelector("[data-probe-result]");
   const grades = document.querySelector("[data-probe-grades]");
   const metrics = document.querySelector("[data-probe-metrics]");
-  if (!form || !result || !grades || !metrics) return;
+  const loginView = document.querySelector("[data-login-view]");
+  const dashboard = document.querySelector("[data-dashboard]");
+  const dashboardStatus = document.querySelector("[data-dashboard-status]");
+  const subjects = document.querySelector("[data-subject-averages]");
+  const timetable = document.querySelector("[data-timetable]");
+  if (!form || !result || !grades || !metrics || !loginView || !dashboard || !subjects || !timetable) return;
   const renderMetrics = payload => {
     metrics.replaceChildren();
     const cards = [
@@ -19,6 +24,43 @@
       card.append(small, strong, note); metrics.append(card);
     }
     metrics.hidden = false;
+  };
+  const renderSubjects = items => {
+    subjects.replaceChildren();
+    for (const item of items || []) {
+      const row = document.createElement("div");
+      const name = document.createElement("strong");
+      const count = document.createElement("span");
+      const average = document.createElement("b");
+      name.textContent = item.subject; count.textContent = `${item.counted} známek`; average.textContent = item.average?.toLocaleString("cs-CZ") ?? "—";
+      row.append(name, count, average); subjects.append(row);
+    }
+    if (!subjects.children.length) subjects.textContent = "Pro výpočet nejsou dostupné číselné známky.";
+  };
+  const renderTimetable = data => {
+    timetable.replaceChildren();
+    const days = ["Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek"];
+    const monday = data?.monday ? new Date(`${data.monday}T12:00:00Z`) : null;
+    for (let index = 0; index < 5; index += 1) {
+      const date = monday ? new Date(monday) : null;
+      if (date) date.setUTCDate(monday.getUTCDate() + index);
+      const key = date?.toISOString().slice(0, 10);
+      const column = document.createElement("div");
+      const heading = document.createElement("h3");
+      heading.textContent = days[index]; column.append(heading);
+      const lessons = (data?.lessons || []).filter(lesson => lesson.date === key);
+      for (const lesson of lessons) {
+        const card = document.createElement("div");
+        if (lesson.cancelled) card.classList.add("is-cancelled");
+        const time = document.createElement("span"); const subject = document.createElement("strong"); const room = document.createElement("small");
+        time.textContent = lesson.start && lesson.end ? `${lesson.start}–${lesson.end}` : `${lesson.period}. hodina`;
+        subject.textContent = lesson.subject; room.textContent = lesson.room || "učebna neuvedena";
+        card.append(time, subject, room); column.append(card);
+      }
+      if (!lessons.length) { const empty = document.createElement("p"); empty.textContent = "Bez výuky"; column.append(empty); }
+      timetable.append(column);
+    }
+    if (!data) timetable.textContent = "Rozvrh se nepodařilo načíst v podporovaném formátu.";
   };
   const renderGrades = items => {
     grades.replaceChildren();
@@ -48,8 +90,6 @@
     result.className = "edupage-probe-result is-working";
     result.textContent = "Ověřuji spojení…";
     button.disabled = true;
-    grades.hidden = true;
-    metrics.hidden = true;
     try {
       const response = await fetch("/api/edupage/probe", {
         method: "POST",
@@ -62,6 +102,12 @@
       if (payload.ok) {
         renderMetrics(payload);
         renderGrades(Array.isArray(payload.grades) ? payload.grades : []);
+        renderSubjects(payload.averages?.subjects);
+        renderTimetable(payload.timetable);
+        dashboardStatus.textContent = payload.message;
+        loginView.hidden = true;
+        dashboard.hidden = false;
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch {
       result.className = "edupage-probe-result is-error";
@@ -70,5 +116,8 @@
       form.elements.password.value = "";
       button.disabled = false;
     }
+  });
+  document.querySelector("[data-dashboard-close]")?.addEventListener("click", () => {
+    dashboard.hidden = true; loginView.hidden = false; form.reset(); result.textContent = ""; grades.replaceChildren(); metrics.replaceChildren(); subjects.replaceChildren(); timetable.replaceChildren();
   });
 })();

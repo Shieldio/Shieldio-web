@@ -117,6 +117,53 @@ function attendanceSummary(html) {
   return { current, periods };
 }
 
+function weekBounds() {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Prague", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date()).map(part => [part.type, part.value]));
+  const today = new Date(`${parts.year}-${parts.month}-${parts.day}T12:00:00Z`);
+  const monday = new Date(today);
+  monday.setUTCDate(today.getUTCDate() - ((today.getUTCDay() + 6) % 7));
+  const friday = new Date(monday);
+  friday.setUTCDate(monday.getUTCDate() + 4);
+  const iso = date => date.toISOString().slice(0, 10);
+  return { monday: iso(monday), friday: iso(friday) };
+}
+
+async function timetableSummary(base, jar, userData) {
+  const range = weekBounds();
+  const page = await edupageFetch(`${base}/dashboard/eb.php?mode=ttday&date=${range.monday}`, { method: "GET" }, jar);
+  if (!page.ok) return null;
+  const html = await page.text();
+  const gpid = html.match(/gpid=(\d+)&/)?.[1];
+  const gsh = html.match(/gsh=([^"&]+)/)?.[1];
+  const user = String(userData?.userid || "");
+  if (!gpid || !gsh || !user) return null;
+  const form = new URLSearchParams({ gpid: String(Number(gpid) + 1), gsh, action: "loadData", user, changes: "{}", date: range.monday, dateto: range.friday, _LJSL: "4096" });
+  const response = await edupageFetch(`${base}/gcall`, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: form.toString() }, jar);
+  if (!response.ok) return null;
+  const data = jsonArgument(await response.text(), `${user}",`);
+  if (!data?.dates) return null;
+  const subjects = { ...(userData?.dbi?.subjects || {}), ...(data?.dbi?.subjects || {}) };
+  const classrooms = { ...(userData?.dbi?.classrooms || {}), ...(data?.dbi?.classrooms || {}) };
+  const lessons = [];
+  for (const [date, day] of Object.entries(data.dates)) {
+    for (const item of Array.isArray(day?.plan) ? day.plan : []) {
+      if (item?.type !== "lesson" || item?.removed || !item?.subjectid) continue;
+      const roomIds = Array.isArray(item.classroomids) ? item.classroomids : [];
+      lessons.push({
+        date,
+        period: String(item.uniperiod || item.period || ""),
+        start: String(item.starttime || ""),
+        end: String(item.endtime || ""),
+        subject: String(subjects[String(item.subjectid)]?.short || subjects[String(item.subjectid)]?.name || "Předmět"),
+        room: roomIds.map(id => classrooms[String(id)]?.short || classrooms[String(id)]?.name).filter(Boolean).join(", "),
+        cancelled: Boolean(item?.flags?.dp0?.cancelled || item?.cancelled),
+      });
+    }
+  }
+  lessons.sort((a, b) => `${a.date} ${a.start}`.localeCompare(`${b.date} ${b.start}`));
+  return { ...range, lessons };
+}
+
 async function edupageFetch(url, options, jar) {
   const headers = new Headers(options?.headers || {});
   const currentCookies = cookies(jar);
@@ -184,9 +231,12 @@ async function probeEdupage(request, env) {
     const gradeData = jsonArgument(await gradesPage.text(), ".znamkyStudentViewer(");
     if (!gradeData) return json({ ok: false, code: "grades-format", message: "Přihlášení funguje, ale formát známek tento účet neposkytl v očekávané podobě." }, 502);
     const grades = publicGrades(gradeData, userData);
-    const attendancePage = await edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: "GET" }, jar);
+    const [attendancePage, timetable] = await Promise.all([
+      edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: "GET" }, jar),
+      timetableSummary(base, jar, userData),
+    ]);
     const attendance = attendancePage.ok ? attendanceSummary(await attendancePage.text()) : null;
-    return json({ ok: true, message: `Připojení funguje. Načteno známek: ${grades.length}. Údaje ani relace nebyly uloženy.`, grades, averages: gradeAverages(grades), attendance });
+    return json({ ok: true, message: `Načteno známek: ${grades.length}.`, grades, averages: gradeAverages(grades), attendance, timetable });
   } catch {
     return json({ ok: false, code: "network", message: "Spojení s EduPage se nepodařilo dokončit. Zkuste to znovu později." }, 502);
   }
