@@ -1113,20 +1113,49 @@
       "subject": "automatizace",
       "number": "23",
       "title": "Paměti PC",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "memory-lab",
+      "summary": "Od jednoho bitu přes RAM a cache až k SSD, optickým a magnetickým médiím. S interaktivními modely a maturitní osnovou.",
       "sections": [
         {
-          "title": "Co bude okruh obsahovat",
-          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+          "title": "Co je paměť a proč existuje hierarchie",
+          "level": "L0",
+          "body": "Paměť uchovává informaci. Procesor potřebuje malou a velmi rychlou paměť blízko sebe, zatímco soubory potřebujeme uložit trvale a ve velkém objemu. Proto PC kombinuje registry, cache, operační paměť a sekundární úložiště. Žádná jediná technologie neumí současně nabídnout nejvyšší rychlost, kapacitu, nízkou cenu a trvalost."
         },
         {
-          "title": "Připravované názorné prvky",
-          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+          "title": "SRAM, DRAM, SDRAM a DDR",
+          "level": "L1",
+          "body": "SRAM udržuje bit v bistabilním obvodu po dobu napájení. Je rychlá, ale zabírá více plochy, proto se používá hlavně pro cache. DRAM ukládá stav jako elektrický náboj, který postupně uniká, a proto se musí obnovovat refreshem. SDRAM pracuje synchronně s hodinami. DDR přenáší data na obou hranách hodinového signálu; označení MT/s proto není totéž co frekvence v MHz."
         },
         {
-          "title": "Ověření znalostí",
-          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+          "title": "Adresování a přenos dat",
+          "level": "L2",
+          "body": "Adresa určuje paměťové místo, obsah je hodnota uložená na tomto místě. n adresních bitů vytvoří 2ⁿ různých kombinací. Adresová část vybírá místo, datová cesta přenáší hodnotu a řídicí signály určují čtení nebo zápis. Skutečná kapacita závisí také na šířce adresovatelné jednotky."
+        },
+        {
+          "title": "ROM, PROM, EPROM, EEPROM a Flash",
+          "level": "L2",
+          "body": "PROM lze naprogramovat jednou, EPROM se typicky maže UV zářením a EEPROM elektricky. Flash je nevolatilní polovodičová paměť, u které se mazání a zápis organizují po větších blocích. Moderní firmware bývá ve přepisovatelné Flash paměti; zkratka ROM se v tomto kontextu často používá příliš volně."
+        },
+        {
+          "title": "HDD, SSD a přenosná média",
+          "level": "L2",
+          "body": "HDD ukládá data magneticky na rotující plotny a jeho přístup zahrnuje pohyb hlavy. SSD používá NAND Flash a řadič, který řeší mapování bloků a rozložení opotřebení. TRIM dovoluje systému oznámit, které bloky už nejsou potřeba. USB Flash a SD karta také používají Flash, ale liší se provedením, řadičem a rozhraním."
+        },
+        {
+          "title": "Formát, rozhraní a protokol",
+          "level": "L3",
+          "body": "M.2 popisuje fyzické provedení modulu a konektoru, ne rychlost ani protokol. M.2 SSD může komunikovat přes SATA nebo přes PCIe. NVMe je protokol navržený pro nevolatilní paměti, který typicky využívá PCIe. Proto neplatí M.2 = NVMe ani PCIe = NVMe."
+        },
+        {
+          "title": "Magnetický, optický a mechanický záznam",
+          "level": "L3",
+          "body": "HDD, disketa a páska ukládají informaci magneticky. CD, DVD a Blu-ray čte laser; varianty ROM, R a RW se liší možností zápisu. Vinylová deska je pouze rozšiřující kontrast: zvuk je uložen mechanicky v drážce a nejde o běžnou počítačovou paměť ani optické médium."
+        },
+        {
+          "title": "Parametry, volba a diagnostika",
+          "level": "L3",
+          "body": "Při volbě RAM porovnávej kapacitu, datovou rychlost v MT/s, časování, počet kanálů, generaci a fyzický formát. Při potížích nejprve bezpečně ověř osazení a kompatibilitu, potom jednotlivé moduly a sloty, nastavení firmware a až následně spusť test paměti. U úložiště odliš kapacitu, propustnost, latenci, rozhraní a požadovanou životnost."
         }
       ]
     },
