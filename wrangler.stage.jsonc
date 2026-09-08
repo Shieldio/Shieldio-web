@@ -1,0 +1,9 @@
+{
+  "name": "shieldio-learn-stage",
+  "main": "learn/worker.js",
+  "compatibility_date": "2026-09-08",
+  "workers_dev": true,
+  "routes": [{ "pattern": "stage.learn.shieldio.cz", "custom_domain": true }],
+  "vars": { "EDUPAGE_ENABLED": "true", "PUBLIC_HOST": "stage.learn.shieldio.cz" },
+  "assets": { "directory": ".", "binding": "ASSETS", "run_worker_first": true, "not_found_handling": "404-page" }
+}

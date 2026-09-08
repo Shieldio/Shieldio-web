@@ -2,6 +2,100 @@
 // Public /maturita URLs are mapped to the isolated /learn static tree.
 const STATIC_PREFIX = "/learn";
 const SHARED_PATHS = ["/assets/", "/favicon.ico"];
+const probeAttempts = new Map();
+
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      "content-type": "application/json; charset=UTF-8",
+      "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
+    },
+  });
+}
+
+function cookieHeader(headers, jar) {
+  const values = typeof headers.getSetCookie === "function"
+    ? headers.getSetCookie()
+    : [headers.get("set-cookie")].filter(Boolean);
+  for (const value of values) {
+    const pair = value.split(";", 1)[0];
+    const separator = pair.indexOf("=");
+    if (separator > 0) jar.set(pair.slice(0, separator), pair.slice(separator + 1));
+  }
+}
+
+function cookies(jar) {
+  return [...jar].map(([name, value]) => `${name}=${value}`).join("; ");
+}
+
+async function edupageFetch(url, options, jar) {
+  const headers = new Headers(options?.headers || {});
+  const currentCookies = cookies(jar);
+  if (currentCookies) headers.set("cookie", currentCookies);
+  const response = await fetch(url, { ...options, headers, redirect: "manual" });
+  cookieHeader(response.headers, jar);
+  return response;
+}
+
+async function followEdupage(response, jar, limit = 5) {
+  let current = response;
+  for (let index = 0; index < limit && current.status >= 300 && current.status < 400; index += 1) {
+    const location = current.headers.get("location");
+    if (!location) break;
+    current = await edupageFetch(new URL(location, current.url), { method: "GET" }, jar);
+  }
+  return current;
+}
+
+async function probeEdupage(request, env) {
+  if (env.EDUPAGE_ENABLED !== "true") return json({ ok: false, code: "disabled", message: "Test připojení není zapnutý." }, 503);
+  const origin = request.headers.get("origin");
+  if (origin !== "https://stage.learn.shieldio.cz") return json({ ok: false, code: "origin", message: "Požadavek přišel z nepovolené stránky." }, 403);
+  const client = request.headers.get("cf-connecting-ip") || "unknown";
+  const now = Date.now();
+  const recent = (probeAttempts.get(client) || []).filter(time => now - time < 10 * 60 * 1000);
+  if (recent.length >= 5) return json({ ok: false, code: "rate", message: "Příliš mnoho pokusů. Zkuste to znovu za deset minut." }, 429);
+  recent.push(now);
+  probeAttempts.set(client, recent);
+
+  let body;
+  try { body = await request.json(); } catch { return json({ ok: false, code: "input", message: "Neplatná data formuláře." }, 400); }
+  const school = String(body.school || "").trim().toLowerCase().replace(/\.edupage\.org\/?$/, "");
+  const username = String(body.username || "").trim();
+  const password = String(body.password || "");
+  if (!/^[a-z0-9-]{1,63}$/.test(school) || !username || username.length > 160 || !password || password.length > 300) {
+    return json({ ok: false, code: "input", message: "Zkontrolujte adresu školy, uživatelské jméno a heslo." }, 400);
+  }
+
+  const base = `https://${school}.edupage.org`;
+  const jar = new Map();
+  try {
+    const loginPage = await edupageFetch(`${base}/login/?cmd=MainLogin`, { method: "GET" }, jar);
+    if (!loginPage.ok) return json({ ok: false, code: "school", message: "Přihlašovací stránka školy neodpověděla." }, 502);
+    const html = await loginPage.text();
+    const csrf = html.match(/"csrftoken"\s*:\s*"([^"]+)"/)?.[1];
+    if (!csrf) return json({ ok: false, code: "protocol", message: "EduPage změnil přihlašovací stránku. Připojení je potřeba aktualizovat." }, 502);
+
+    const form = new URLSearchParams({ csrfauth: csrf, username, password });
+    let result = await edupageFetch(`${base}/login/edubarLogin.php`, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: form.toString(),
+    }, jar);
+    result = await followEdupage(result, jar);
+    const finalUrl = result.url || "";
+    const resultHtml = await result.text();
+    if (finalUrl.includes("twofactor")) return json({ ok: false, code: "twofactor", message: "Účet vyžaduje druhý faktor. První krok přihlášení funguje; podporu 2FA doplníme zvlášť." }, 409);
+    if (finalUrl.includes("cap=1") || finalUrl.includes("lerr=b43b43")) return json({ ok: false, code: "captcha", message: "EduPage vyžádal CAPTCHA. Automatické připojení pro tento účet nyní nelze dokončit." }, 409);
+    if (finalUrl.includes("bad=1")) return json({ ok: false, code: "credentials", message: "EduPage přihlášení odmítl. Zkontrolujte údaje." }, 401);
+    if (!resultHtml.includes("userhome(") || !jar.has("PHPSESSID")) return json({ ok: false, code: "protocol", message: "Přihlášení nebylo potvrzeno. EduPage mohl změnit svůj postup." }, 502);
+    return json({ ok: true, message: "Připojení funguje. EduPage vytvořil platnou relaci; údaje ani relace nebyly uloženy." });
+  } catch {
+    return json({ ok: false, code: "network", message: "Spojení s EduPage se nepodařilo dokončit. Zkuste to znovu později." }, 502);
+  }
+}
 
 function seoTransform(response, page) {
   if (!page) return response;
@@ -23,6 +117,10 @@ function assetRequest(request, pathname) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === "/api/edupage/probe" && request.method === "POST") {
+      return probeEdupage(request, env);
+    }
 
     if (url.pathname === "/sitemap.xml") {
       const dataResponse = await env.ASSETS.fetch(assetRequest(request, "/assets/data/learn-questions.json"));
