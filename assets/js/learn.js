@@ -252,4 +252,11 @@
   }
 
   document.addEventListener("DOMContentLoaded", init);
+
+  // Every Learn route loads this shared file, so the timer follows the user
+  // without duplicating a script tag across all static page shells.
+  const timerScript = document.createElement("script");
+  timerScript.src = "/assets/js/study-timer.js";
+  timerScript.defer = true;
+  document.head.appendChild(timerScript);
 })();
