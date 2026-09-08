@@ -8,6 +8,12 @@
   const dashboardStatus = document.querySelector("[data-dashboard-status]");
   const subjects = document.querySelector("[data-subject-averages]");
   const timetable = document.querySelector("[data-timetable]");
+  const predictSubject = document.querySelector("[data-predict-subject]");
+  const predictWeight = document.querySelector("[data-predict-weight]");
+  const predictGrade = document.querySelector("[data-predict-grade]");
+  const predictTarget = document.querySelector("[data-predict-target]");
+  const prediction = document.querySelector("[data-prediction]");
+  let currentGrades = [];
   if (!form || !result || !grades || !metrics || !loginView || !dashboard || !subjects || !timetable) return;
   const renderMetrics = payload => {
     metrics.replaceChildren();
@@ -36,6 +42,25 @@
       row.append(name, count, average); subjects.append(row);
     }
     if (!subjects.children.length) subjects.textContent = "Pro výpočet nejsou dostupné číselné známky.";
+  };
+  const numericGradesFor = subject => currentGrades.filter(item => item.subject === subject && item.kind === "grade" && Number.isInteger(Number(item.value)) && Number(item.value) >= 1 && Number(item.value) <= 5).map(item => ({ value: Number(item.value), weight: Number(item.weight) > 0 ? Number(item.weight) : 1 }));
+  const updatePrediction = () => {
+    const items = numericGradesFor(predictSubject.value);
+    const oldWeight = items.reduce((sum, item) => sum + item.weight, 0);
+    const oldPoints = items.reduce((sum, item) => sum + item.value * item.weight, 0);
+    const testWeight = Math.max(.05, Number(predictWeight.value) || 1);
+    const proposed = Number(predictGrade.value);
+    const target = Number(predictTarget.value);
+    if (!oldWeight) { prediction.textContent = "Tento předmět zatím nemá číselné známky."; return; }
+    const projected = (oldPoints + proposed * testWeight) / (oldWeight + testWeight);
+    const needed = (target * (oldWeight + testWeight) - oldPoints) / testWeight;
+    const neededText = needed < 1 ? "jedním takovým testem nelze dosáhnout" : needed >= 5 ? "stačí jakákoli známka 1–5" : `potřebuješ ${Math.floor(needed)} nebo lepší`;
+    prediction.textContent = `Po známce ${proposed} bude průměr ${projected.toLocaleString("cs-CZ", { maximumFractionDigits: 2 })}. Pro cíl ${target.toLocaleString("cs-CZ")} ${neededText}.`;
+  };
+  const setupPredictor = averages => {
+    predictSubject.replaceChildren();
+    for (const item of averages?.subjects || []) { const option = document.createElement("option"); option.value = item.subject; option.textContent = `${item.subject} · ${item.average?.toLocaleString("cs-CZ") ?? "—"}`; predictSubject.append(option); }
+    updatePrediction();
   };
   const renderTimetable = data => {
     timetable.replaceChildren();
@@ -100,9 +125,11 @@
       result.className = `edupage-probe-result ${payload.ok ? "is-success" : "is-error"}`;
       result.textContent = payload.message;
       if (payload.ok) {
+        currentGrades = Array.isArray(payload.grades) ? payload.grades : [];
         renderMetrics(payload);
-        renderGrades(Array.isArray(payload.grades) ? payload.grades : []);
+        renderGrades(currentGrades);
         renderSubjects(payload.averages?.subjects);
+        setupPredictor(payload.averages);
         renderTimetable(payload.timetable);
         dashboardStatus.textContent = payload.message;
         loginView.hidden = true;
@@ -118,6 +145,7 @@
     }
   });
   document.querySelector("[data-dashboard-close]")?.addEventListener("click", () => {
-    dashboard.hidden = true; loginView.hidden = false; form.reset(); result.textContent = ""; grades.replaceChildren(); metrics.replaceChildren(); subjects.replaceChildren(); timetable.replaceChildren();
+    currentGrades = []; dashboard.hidden = true; loginView.hidden = false; form.reset(); result.textContent = ""; grades.replaceChildren(); metrics.replaceChildren(); subjects.replaceChildren(); timetable.replaceChildren();
   });
+  [predictSubject, predictWeight, predictGrade, predictTarget].forEach(control => control?.addEventListener("input", updatePrediction));
 })();
