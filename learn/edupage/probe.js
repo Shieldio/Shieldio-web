@@ -8,13 +8,15 @@
   const dashboardStatus = document.querySelector("[data-dashboard-status]");
   const subjects = document.querySelector("[data-subject-averages]");
   const timetable = document.querySelector("[data-timetable]");
+  const attendanceSubjects = document.querySelector("[data-subject-attendance]");
   const predictSubject = document.querySelector("[data-predict-subject]");
-  const predictWeight = document.querySelector("[data-predict-weight]");
-  const predictGrade = document.querySelector("[data-predict-grade]");
-  const predictTarget = document.querySelector("[data-predict-target]");
-  const prediction = document.querySelector("[data-prediction]");
+  const predictCurrent = document.querySelector("[data-predict-current]");
+  const predictResult = document.querySelector("[data-predict-result]");
+  const futureGrades = document.querySelector("[data-future-grades]");
+  const addGrade = document.querySelector("[data-add-grade]");
+  const customSchool = document.querySelector("[data-custom-school]");
   let currentGrades = [];
-  if (!form || !result || !grades || !metrics || !loginView || !dashboard || !subjects || !timetable) return;
+  if (!form || !result || !grades || !metrics || !loginView || !dashboard || !subjects || !timetable || !attendanceSubjects || !predictSubject || !predictCurrent || !predictResult || !futureGrades || !addGrade) return;
   const renderMetrics = payload => {
     metrics.replaceChildren();
     const cards = [
@@ -43,23 +45,50 @@
     }
     if (!subjects.children.length) subjects.textContent = "Pro výpočet nejsou dostupné číselné známky.";
   };
+  const renderSubjectAttendance = items => {
+    attendanceSubjects.replaceChildren();
+    for (const item of items || []) {
+      const row = document.createElement("div"); const name = document.createElement("strong"); const count = document.createElement("span"); const percent = document.createElement("b");
+      name.textContent = item.subject; count.textContent = `${item.absent}/${item.total} hodin`; percent.textContent = `${item.percent.toLocaleString("cs-CZ")} %`;
+      row.append(name, count, percent); attendanceSubjects.append(row);
+    }
+    if (!attendanceSubjects.children.length) attendanceSubjects.textContent = "EduPage neposkytl dost údajů pro spolehlivý výpočet po předmětech.";
+  };
   const numericGradesFor = subject => currentGrades.filter(item => item.subject === subject && item.kind === "grade" && Number.isInteger(Number(item.value)) && Number(item.value) >= 1 && Number(item.value) <= 5).map(item => ({ value: Number(item.value), weight: Number(item.weight) > 0 ? Number(item.weight) : 1 }));
   const updatePrediction = () => {
     const items = numericGradesFor(predictSubject.value);
     const oldWeight = items.reduce((sum, item) => sum + item.weight, 0);
     const oldPoints = items.reduce((sum, item) => sum + item.value * item.weight, 0);
-    const testWeight = Math.max(.05, Number(predictWeight.value) || 1);
-    const proposed = Number(predictGrade.value);
-    const target = Number(predictTarget.value);
-    if (!oldWeight) { prediction.textContent = "Tento předmět zatím nemá číselné známky."; return; }
-    const projected = (oldPoints + proposed * testWeight) / (oldWeight + testWeight);
-    const needed = (target * (oldWeight + testWeight) - oldPoints) / testWeight;
-    const neededText = needed < 1 ? "jedním takovým testem nelze dosáhnout" : needed >= 5 ? "stačí jakákoli známka 1–5" : `potřebuješ ${Math.floor(needed)} nebo lepší`;
-    prediction.textContent = `Po známce ${proposed} bude průměr ${projected.toLocaleString("cs-CZ", { maximumFractionDigits: 2 })}. Pro cíl ${target.toLocaleString("cs-CZ")} ${neededText}.`;
+    const future = [...futureGrades.querySelectorAll("[data-future-grade]")].map(row => ({ value: Number(row.querySelector("[data-grade]").value), weight: Number(row.querySelector("[data-weight]").value) })).filter(item => item.value >= 1 && item.value <= 5 && item.weight > 0);
+    const futureWeight = future.reduce((sum, item) => sum + item.weight, 0);
+    const futurePoints = future.reduce((sum, item) => sum + item.value * item.weight, 0);
+    const format = value => value === null ? "—" : value.toLocaleString("cs-CZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const current = oldWeight ? oldPoints / oldWeight : null;
+    const projected = oldWeight + futureWeight ? (oldPoints + futurePoints) / (oldWeight + futureWeight) : null;
+    predictCurrent.textContent = format(current);
+    predictResult.textContent = format(projected);
+  };
+  const weightOptions = [0.25, 0.5, 1, 2, 3, 5];
+  const addFutureGrade = () => {
+    const row = document.createElement("div"); row.className = "edupage-future-grade"; row.dataset.futureGrade = "";
+    const gradeLabel = document.createElement("label"); gradeLabel.textContent = "Známka";
+    const gradeSelect = document.createElement("select"); gradeSelect.dataset.grade = "";
+    for (let value = 1; value <= 5; value += 1) { const option = document.createElement("option"); option.value = String(value); option.textContent = String(value); gradeSelect.append(option); }
+    gradeLabel.append(gradeSelect);
+    const weightLabel = document.createElement("label"); weightLabel.textContent = "Váha";
+    const weightSelect = document.createElement("select"); weightSelect.dataset.weight = "";
+    for (const value of weightOptions) { const option = document.createElement("option"); option.value = String(value); option.textContent = String(value).replace(".", ","); if (value === 1) option.selected = true; weightSelect.append(option); }
+    const custom = document.createElement("option"); custom.value = "custom"; custom.textContent = "Jiná…"; weightSelect.append(custom); weightLabel.append(weightSelect);
+    const customWeight = document.createElement("input"); customWeight.type = "number"; customWeight.min = "0.05"; customWeight.max = "100"; customWeight.step = "0.05"; customWeight.placeholder = "Vlastní"; customWeight.hidden = true;
+    const remove = document.createElement("button"); remove.type = "button"; remove.className = "edupage-remove-grade"; remove.setAttribute("aria-label", "Odebrat známku"); remove.textContent = "×";
+    weightSelect.addEventListener("change", () => { const isCustom = weightSelect.value === "custom"; customWeight.hidden = !isCustom; if (isCustom) { customWeight.dataset.weight = ""; delete weightSelect.dataset.weight; customWeight.focus(); } else { weightSelect.dataset.weight = ""; delete customWeight.dataset.weight; } updatePrediction(); });
+    row.addEventListener("input", updatePrediction); remove.addEventListener("click", () => { row.remove(); updatePrediction(); });
+    row.append(gradeLabel, weightLabel, customWeight, remove); futureGrades.append(row); updatePrediction();
   };
   const setupPredictor = averages => {
     predictSubject.replaceChildren();
-    for (const item of averages?.subjects || []) { const option = document.createElement("option"); option.value = item.subject; option.textContent = `${item.subject} · ${item.average?.toLocaleString("cs-CZ") ?? "—"}`; predictSubject.append(option); }
+    for (const item of averages?.subjects || []) { const option = document.createElement("option"); option.value = item.subject; option.textContent = item.subject; predictSubject.append(option); }
+    futureGrades.replaceChildren(); addFutureGrade();
     updatePrediction();
   };
   const renderTimetable = data => {
@@ -119,7 +148,7 @@
       const response = await fetch("/api/edupage/probe", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ school: data.get("school"), username: data.get("username"), password: data.get("password") }),
+        body: JSON.stringify({ school: data.get("schoolChoice") === "custom" ? data.get("customSchool") : "spszl", username: data.get("username"), password: data.get("password"), privacyConsent: data.get("privacyConsent") === "on" }),
       });
       const payload = await response.json();
       result.className = `edupage-probe-result ${payload.ok ? "is-success" : "is-error"}`;
@@ -129,6 +158,7 @@
         renderMetrics(payload);
         renderGrades(currentGrades);
         renderSubjects(payload.averages?.subjects);
+        renderSubjectAttendance(payload.subjectAttendance);
         setupPredictor(payload.averages);
         renderTimetable(payload.timetable);
         dashboardStatus.textContent = payload.message;
@@ -145,7 +175,8 @@
     }
   });
   document.querySelector("[data-dashboard-close]")?.addEventListener("click", () => {
-    currentGrades = []; dashboard.hidden = true; loginView.hidden = false; form.reset(); result.textContent = ""; grades.replaceChildren(); metrics.replaceChildren(); subjects.replaceChildren(); timetable.replaceChildren();
+    currentGrades = []; dashboard.hidden = true; loginView.hidden = false; form.reset(); form.elements.schoolChoice.value = "spszl"; customSchool.hidden = true; result.textContent = ""; grades.replaceChildren(); metrics.replaceChildren(); subjects.replaceChildren(); attendanceSubjects.replaceChildren(); futureGrades.replaceChildren(); timetable.replaceChildren();
   });
-  [predictSubject, predictWeight, predictGrade, predictTarget].forEach(control => control?.addEventListener("input", updatePrediction));
+  predictSubject.addEventListener("change", updatePrediction); addGrade.addEventListener("click", addFutureGrade);
+  form.querySelectorAll('[name="schoolChoice"]').forEach(control => control.addEventListener("change", () => { const show = form.elements.schoolChoice.value === "custom"; customSchool.hidden = !show; form.elements.customSchool.required = show; if (show) form.elements.customSchool.focus(); }));
 })();

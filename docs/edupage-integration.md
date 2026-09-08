@@ -28,6 +28,14 @@ Skutečný adapter musí běžet pouze serverově. Doporučená session: náhodn
 
 Logy smějí obsahovat typ operace, dobu, výsledek a cache hit/miss. Nesmějí obsahovat heslo, cookie, session token, známky, absence, jméno ani obsah zpráv. Povinné jsou timeouty, omezení pokusů o login a request rate limiting. CAPTCHA nebo 2FA se nesmí obcházet.
 
+### Kontrola soukromí stage verze
+
+- Přihlášení zůstává jednorázové. Heslo ani EduPage session se neukládají do cookies, KV, databáze, logů ani úložiště prohlížeče.
+- Odpověď obsahuje jen předmět, známku, váhu, datum, agregovanou docházku a rozvrh. Jméno, učitelé, spolužáci, komentáře a zprávy se zahazují na serveru.
+- Přihlašovací stránka má `noindex`, omezenou CSP, `no-referrer` a nenačítá Google Fonts, analytiku ani reklamu.
+- Distribuovaný Cloudflare Rate Limiting omezuje pět pokusů za minutu pro zahashovanou kombinaci klienta, školy a uživatelského jména. Samotné identifikátory nejsou klíčem limitu.
+- Integrace je neoficiální. Před přesunem na produkční doménu je stále nutné doplnit provozovatele a kontakt do finálního informačního textu podle skutečného správce služby.
+
 ## Cache a odolnost budoucího adaptéru
 
 Rozvrh a suplování: doporučené TTL 2–5 minut. Známky, absence a úkoly: 5–15 minut. Statická metadata předmětů: déle. Cache musí být oddělená podle uživatelské session. Při chybě lze vrátit poslední známá data s `stale: true` a časem synchronizace. Paralelní načtení nesmí vytvořit waterfall; adapter používá omezené paralelní požadavky, timeout a retry s backoffem pouze u bezpečných čtení.

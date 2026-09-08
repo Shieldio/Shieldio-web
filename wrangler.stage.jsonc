@@ -5,5 +5,6 @@
   "workers_dev": true,
   "routes": [{ "pattern": "stage.learn.shieldio.cz", "custom_domain": true }],
   "vars": { "EDUPAGE_ENABLED": "true", "PUBLIC_HOST": "stage.learn.shieldio.cz" },
+  "ratelimits": [{ "name": "EDUPAGE_RATE_LIMITER", "namespace_id": "26090801", "simple": { "limit": 5, "period": 60 } }],
   "assets": { "directory": ".", "binding": "ASSETS", "run_worker_first": true, "not_found_handling": "404-page" }
 }

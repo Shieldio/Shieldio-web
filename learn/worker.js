@@ -2,7 +2,6 @@
 // Public /maturita URLs are mapped to the isolated /learn static tree.
 const STATIC_PREFIX = "/learn";
 const SHARED_PATHS = ["/assets/", "/favicon.ico"];
-const probeAttempts = new Map();
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -11,6 +10,8 @@ function json(data, status = 200) {
       "content-type": "application/json; charset=UTF-8",
       "cache-control": "no-store",
       "x-content-type-options": "nosniff",
+      "referrer-policy": "no-referrer",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
     },
   });
 }
@@ -51,6 +52,66 @@ function jsonArgument(source, marker) {
     else if (character === "}" && --depth === 0) return JSON.parse(source.slice(start, index + 1));
   }
   return null;
+}
+
+function balanced(source, openAt) {
+  const pairs = { "(": ")", "[": "]", "{": "}" };
+  const stack = [];
+  let quoted = false, escaped = false;
+  for (let index = openAt; index < source.length; index += 1) {
+    const character = source[index];
+    if (quoted) { if (escaped) escaped = false; else if (character === "\\") escaped = true; else if (character === '"') quoted = false; continue; }
+    if (character === '"') quoted = true;
+    else if (pairs[character]) stack.push(pairs[character]);
+    else if (character === stack.at(-1)) { stack.pop(); if (!stack.length) return source.slice(openAt, index + 1); }
+  }
+  return null;
+}
+
+function callArguments(source, marker, from = 0) {
+  const markerAt = source.indexOf(marker, from);
+  const openAt = markerAt < 0 ? -1 : source.indexOf("(", markerAt + marker.length);
+  const value = openAt < 0 ? null : balanced(source, openAt);
+  if (!value) return null;
+  const args = []; let start = 1, depth = 0, quoted = false, escaped = false;
+  for (let index = 1; index < value.length - 1; index += 1) {
+    const character = value[index];
+    if (quoted) { if (escaped) escaped = false; else if (character === "\\") escaped = true; else if (character === '"') quoted = false; continue; }
+    if (character === '"') quoted = true;
+    else if ("([{".includes(character)) depth += 1;
+    else if (")]}".includes(character)) depth -= 1;
+    else if (character === "," && depth === 0) { args.push(value.slice(start, index).trim()); start = index + 1; }
+  }
+  args.push(value.slice(start, -1).trim());
+  return args;
+}
+
+function decodeAscJson(payload) {
+  const values = payload[0], library = payload[1], keyCache = []; let pointer = 0;
+  const read = () => {
+    const token = values[pointer++];
+    if (token === -1) return Array.from({ length: values[pointer++] }, read);
+    if (token === -2) { const size = values[pointer++], keys = Array.from({ length: size }, read), object = {}; keyCache.push(keys); keys.forEach(key => { object[key] = read(); }); return object; }
+    if (token === -3) return [];
+    if (token === -4) return [read()];
+    if (token === -5) return [read(), read()];
+    if (token < 0) { const object = {}; (keyCache[-token - 10] || []).forEach(key => { object[key] = read(); }); return object; }
+    const value = library[token]; return Array.isArray(value) ? value.slice() : value;
+  };
+  return read();
+}
+
+function serializedValue(source) {
+  const text = String(source || "").trim();
+  if (!text.startsWith("ASC.json_dc")) return JSON.parse(text);
+  const payload = balanced(text, text.indexOf("("));
+  return decodeAscJson(JSON.parse(payload.slice(1, -1)));
+}
+
+function attendancePayload(html) {
+  const markerAt = html.indexOf("/dashboard/dochadzka.js#initZiak");
+  const args = markerAt < 0 ? null : callArguments(html, "return f", markerAt);
+  return args?.[2] ? serializedValue(args[2]) : null;
 }
 
 function publicGrades(gradeData, userData) {
@@ -115,6 +176,76 @@ function attendanceSummary(html) {
   const preferred = new Date().getUTCMonth() >= 1 && new Date().getUTCMonth() <= 7 ? "2" : "1";
   const current = periods.find(period => period.key === preferred) || periods.at(-1);
   return { current, periods };
+}
+
+function localToday() {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Prague", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(new Date()).map(part => [part.type, part.value]));
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
+function lessonSubject(item) { return String(item?.subjectid || item?.flags?.dp0?.subjectid || ""); }
+function lessonPeriods(item) {
+  const value = String(item?.uniperiod || item?.period || item?.periodorbreak || "");
+  const range = value.match(/^(\d+)-(\d+)$/);
+  if (range) return Array.from({ length: Number(range[2]) - Number(range[1]) + 1 }, (_, index) => Number(range[1]) + index);
+  return /^\d+$/.test(value) ? [Number(value)] : [];
+}
+
+async function subjectAttendanceSummary(base, jar, userData, attendanceHtml) {
+  const payload = attendancePayload(attendanceHtml);
+  const absenceTypes = jsonArgument(attendanceHtml, '"ciselnik0":') || jsonArgument(attendanceHtml, '"studentabsent_types":') || {};
+  const countsAsAbsence = record => {
+    if (String(record?.presence || "") !== "A") return false;
+    const type = absenceTypes[String(record?.studentabsent_typeid || "")];
+    if (!type) return true;
+    const category = String(type.et || "").toLowerCase();
+    if (category) return category === "o" || category === "n";
+    const label = `${type.short || ""} ${type.name || ""}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    return !/(^|\s)r($|\s)|reprezent/.test(label);
+  };
+  const order = Array.isArray(payload?.order) ? payload.order : [];
+  const studentKeys = Object.keys(payload?.students || {});
+  if (order.length > 1 || studentKeys.length > 1) return null;
+  const studentId = String(order[0] || studentKeys[0] || "");
+  if (!studentId) return null;
+  const today = localToday();
+  const month = Number(today.slice(5, 7));
+  const year = Number(today.slice(0, 4));
+  const start = month >= 2 && month <= 8 ? `${year}-02-01` : `${month >= 9 ? year : year - 1}-09-01`;
+  const page = await edupageFetch(`${base}/dashboard/eb.php?mode=ttday&date=${today}`, { method: "GET" }, jar);
+  if (!page.ok) return null;
+  const html = await page.text();
+  const gpid = html.match(/gpid=(\d+)&/)?.[1], gsh = html.match(/gsh=([^"&]+)/)?.[1], user = String(userData?.userid || "");
+  if (!gpid || !gsh || !user) return null;
+  const form = new URLSearchParams({ gpid: String(Number(gpid) + 1), gsh, action: "loadData", user, changes: "{}", date: start, datefrom: start, dateto: today, _LJSL: "4096" });
+  const response = await edupageFetch(`${base}/gcall`, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: form.toString() }, jar);
+  if (!response.ok) return null;
+  const classbook = jsonArgument(await response.text(), `${user}",`);
+  if (!classbook?.dates) return null;
+  const subjects = { ...(userData?.dbi?.subjects || {}), ...(classbook?.dbi?.subjects || {}) };
+  const stats = new Map();
+  const entry = id => { if (!stats.has(id)) stats.set(id, { subject: String(subjects[id]?.short || subjects[id]?.name || `Předmět ${id}`), absent: 0, total: 0 }); return stats.get(id); };
+  for (const day of Object.values(classbook.dates)) for (const item of Array.isArray(day?.plan) ? day.plan : []) {
+    const id = lessonSubject(item);
+    if (item?.type !== "lesson" || !id || item?.removed || item?.cancelled || item?.flags?.dp0?.cancelled) continue;
+    entry(id).total += Math.max(1, Number(item.durationperiods) || lessonPeriods(item).length || 1);
+  }
+  for (const [date, records] of Object.entries(payload.students[studentId] || {})) {
+    if (date < start || date > today) continue;
+    const plan = Array.isArray(classbook.dates[date]?.plan) ? classbook.dates[date].plan : [];
+    for (const [periodKey, record] of Object.entries(records || {})) {
+      if (periodKey === "ad" || !countsAsAbsence(record)) continue;
+      const direct = String(record?.subjectid || "");
+      const period = Number(periodKey);
+      const id = direct || lessonSubject(plan.find(item => lessonPeriods(item).includes(period)));
+      if (id) entry(id).absent += 1;
+    }
+    const allDay = records?.ad;
+    if (countsAsAbsence(allDay) && !Object.keys(records).some(key => key !== "ad" && countsAsAbsence(records[key]))) {
+      for (const item of plan) { const id = lessonSubject(item); if (item?.type === "lesson" && id) entry(id).absent += Math.max(1, Number(item.durationperiods) || lessonPeriods(item).length || 1); }
+    }
+  }
+  return [...stats.values()].filter(item => item.total > 0).map(item => ({ ...item, percent: Math.round((item.absent / item.total) * 10000) / 100 })).sort((a, b) => a.subject.localeCompare(b.subject, "cs"));
 }
 
 function weekBounds() {
@@ -191,22 +322,21 @@ async function followEdupage(response, jar, limit = 5) {
 async function probeEdupage(request, env) {
   if (env.EDUPAGE_ENABLED !== "true") return json({ ok: false, code: "disabled", message: "Test připojení není zapnutý." }, 503);
   const origin = request.headers.get("origin");
-  if (origin !== "https://stage.learn.shieldio.cz") return json({ ok: false, code: "origin", message: "Požadavek přišel z nepovolené stránky." }, 403);
-  const client = request.headers.get("cf-connecting-ip") || "unknown";
-  const now = Date.now();
-  const recent = (probeAttempts.get(client) || []).filter(time => now - time < 10 * 60 * 1000);
-  if (recent.length >= 5) return json({ ok: false, code: "rate", message: "Příliš mnoho pokusů. Zkuste to znovu za deset minut." }, 429);
-  recent.push(now);
-  probeAttempts.set(client, recent);
-
+  if (origin !== `https://${env.PUBLIC_HOST}`) return json({ ok: false, code: "origin", message: "Požadavek přišel z nepovolené stránky." }, 403);
   let body;
   try { body = await request.json(); } catch { return json({ ok: false, code: "input", message: "Neplatná data formuláře." }, 400); }
   const school = String(body.school || "").trim().toLowerCase().replace(/\.edupage\.org\/?$/, "");
   const username = String(body.username || "").trim();
   const password = String(body.password || "");
+  if (body.privacyConsent !== true) return json({ ok: false, code: "consent", message: "Pro jednorázové zpracování údajů je potřeba potvrdit souhlas." }, 400);
   if (!/^[a-z0-9-]{1,63}$/.test(school) || !username || username.length > 160 || !password || password.length > 300) {
     return json({ ok: false, code: "input", message: "Zkontrolujte adresu školy, uživatelské jméno a heslo." }, 400);
   }
+  if (!env.EDUPAGE_RATE_LIMITER) return json({ ok: false, code: "rate-config", message: "Ochrana přihlášení není dostupná." }, 503);
+  const rateMaterial = `${request.headers.get("cf-connecting-ip") || "unknown"}|${school}|${username.toLowerCase()}`;
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(rateMaterial));
+  const rateKey = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
+  if (!(await env.EDUPAGE_RATE_LIMITER.limit({ key: rateKey })).success) return json({ ok: false, code: "rate", message: "Příliš mnoho pokusů. Zkuste to znovu za minutu." }, 429);
 
   const base = `https://${school}.edupage.org`;
   const jar = new Map();
@@ -236,12 +366,16 @@ async function probeEdupage(request, env) {
     const gradeData = jsonArgument(await gradesPage.text(), ".znamkyStudentViewer(");
     if (!gradeData) return json({ ok: false, code: "grades-format", message: "Přihlášení funguje, ale formát známek tento účet neposkytl v očekávané podobě." }, 502);
     const grades = publicGrades(gradeData, userData);
-    const [attendancePage, timetable] = await Promise.all([
-      edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: "GET" }, jar),
+    const attendancePage = await edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: "GET" }, jar);
+    const attendanceHtml = attendancePage.ok ? await attendancePage.text() : "";
+    const [timetableResult, attendanceResult] = await Promise.allSettled([
       timetableSummary(base, jar, userData, resultHtml.match(/ASC\.gsechash="([^"]+)"/)?.[1]),
+      subjectAttendanceSummary(base, jar, userData, attendanceHtml),
     ]);
-    const attendance = attendancePage.ok ? attendanceSummary(await attendancePage.text()) : null;
-    return json({ ok: true, message: `Načteno známek: ${grades.length}.`, grades, averages: gradeAverages(grades), attendance, timetable });
+    const timetable = timetableResult.status === "fulfilled" ? timetableResult.value : null;
+    const subjectAttendance = attendanceResult.status === "fulfilled" ? attendanceResult.value : null;
+    const attendance = attendanceHtml ? attendanceSummary(attendanceHtml) : null;
+    return json({ ok: true, message: `Načteno známek: ${grades.length}.`, grades, averages: gradeAverages(grades), attendance, subjectAttendance, timetable });
   } catch {
     return json({ ok: false, code: "network", message: "Spojení s EduPage se nepodařilo dokončit. Zkuste to znovu později." }, 502);
   }
