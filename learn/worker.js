@@ -191,6 +191,32 @@ function lessonPeriods(item) {
   return /^\d+$/.test(value) ? [Number(value)] : [];
 }
 
+function timetableFromClassbook(classbook, userData) {
+  const range = weekBounds();
+  const subjects = { ...(userData?.dbi?.subjects || {}), ...(classbook?.dbi?.subjects || {}) };
+  const classrooms = { ...(userData?.dbi?.classrooms || {}), ...(classbook?.dbi?.classrooms || {}) };
+  const lessons = [];
+  for (const [date, day] of Object.entries(classbook?.dates || {})) {
+    if (date < range.monday || date > range.friday) continue;
+    for (const item of Array.isArray(day?.plan) ? day.plan : []) {
+      const subjectId = lessonSubject(item);
+      if (!subjectId || item?.header || item?.type === "absent" || item?.removed) continue;
+      const roomIds = Array.isArray(item.classroomids) ? item.classroomids : [];
+      lessons.push({
+        date,
+        period: String(item.uniperiod || item.period || item.periodorbreak || ""),
+        start: String(item.starttime || "").replace("24:00", "23:59"),
+        end: String(item.endtime || "").replace("24:00", "23:59"),
+        subject: String(subjects[subjectId]?.short || subjects[subjectId]?.name || "Předmět"),
+        room: roomIds.map(id => classrooms[String(id)]?.short || classrooms[String(id)]?.name).filter(Boolean).join(", "),
+        cancelled: Boolean(item?.cancelled || item?.flags?.dp0?.cancelled || item?.type === ""),
+      });
+    }
+  }
+  lessons.sort((a, b) => `${a.date} ${a.start} ${a.period}`.localeCompare(`${b.date} ${b.start} ${b.period}`));
+  return { ...range, lessons };
+}
+
 async function subjectAttendanceSummary(base, jar, userData, attendanceHtml) {
   const payload = attendancePayload(attendanceHtml);
   const absenceTypes = jsonArgument(attendanceHtml, '"ciselnik0":') || jsonArgument(attendanceHtml, '"studentabsent_types":') || {};
@@ -203,11 +229,6 @@ async function subjectAttendanceSummary(base, jar, userData, attendanceHtml) {
     const label = `${type.short || ""} ${type.name || ""}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     return !/(^|\s)r($|\s)|reprezent/.test(label);
   };
-  const order = Array.isArray(payload?.order) ? payload.order : [];
-  const studentKeys = Object.keys(payload?.students || {});
-  if (order.length > 1 || studentKeys.length > 1) return null;
-  const studentId = String(order[0] || studentKeys[0] || "");
-  if (!studentId) return null;
   const today = localToday();
   const month = Number(today.slice(5, 7));
   const year = Number(today.slice(0, 4));
@@ -222,6 +243,12 @@ async function subjectAttendanceSummary(base, jar, userData, attendanceHtml) {
   if (!response.ok) return null;
   const classbook = jsonArgument(await response.text(), `${user}",`);
   if (!classbook?.dates) return null;
+  const timetable = timetableFromClassbook(classbook, userData);
+  const order = Array.isArray(payload?.order) ? payload.order : [];
+  const studentKeys = Object.keys(payload?.students || {});
+  if (order.length > 1 || studentKeys.length > 1) return { attendance: null, timetable };
+  const studentId = String(order[0] || studentKeys[0] || "");
+  if (!studentId) return { attendance: null, timetable };
   const subjects = { ...(userData?.dbi?.subjects || {}), ...(classbook?.dbi?.subjects || {}) };
   const stats = new Map();
   const entry = id => { if (!stats.has(id)) stats.set(id, { subject: String(subjects[id]?.short || subjects[id]?.name || `Předmět ${id}`), absent: 0, total: 0 }); return stats.get(id); };
@@ -245,7 +272,8 @@ async function subjectAttendanceSummary(base, jar, userData, attendanceHtml) {
       for (const item of plan) { const id = lessonSubject(item); if (item?.type === "lesson" && id) entry(id).absent += Math.max(1, Number(item.durationperiods) || lessonPeriods(item).length || 1); }
     }
   }
-  return [...stats.values()].filter(item => item.total > 0).map(item => ({ ...item, percent: Math.round((item.absent / item.total) * 10000) / 100 })).sort((a, b) => a.subject.localeCompare(b.subject, "cs"));
+  const attendance = [...stats.values()].filter(item => item.total > 0).map(item => ({ ...item, percent: Math.round((item.absent / item.total) * 10000) / 100 })).sort((a, b) => a.subject.localeCompare(b.subject, "cs"));
+  return { attendance, timetable };
 }
 
 function weekBounds() {
@@ -372,8 +400,10 @@ async function probeEdupage(request, env) {
       timetableSummary(base, jar, userData, resultHtml.match(/ASC\.gsechash="([^"]+)"/)?.[1]),
       subjectAttendanceSummary(base, jar, userData, attendanceHtml),
     ]);
-    const timetable = timetableResult.status === "fulfilled" ? timetableResult.value : null;
-    const subjectAttendance = attendanceResult.status === "fulfilled" ? attendanceResult.value : null;
+    const attendanceDetail = attendanceResult.status === "fulfilled" ? attendanceResult.value : null;
+    const currentTimetable = timetableResult.status === "fulfilled" ? timetableResult.value : null;
+    const timetable = currentTimetable?.lessons?.length ? currentTimetable : attendanceDetail?.timetable || currentTimetable;
+    const subjectAttendance = attendanceDetail?.attendance || null;
     const attendance = attendanceHtml ? attendanceSummary(attendanceHtml) : null;
     return json({ ok: true, message: `Načteno známek: ${grades.length}.`, grades, averages: gradeAverages(grades), attendance, subjectAttendance, timetable });
   } catch {
