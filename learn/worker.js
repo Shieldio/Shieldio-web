@@ -77,6 +77,46 @@ function publicGrades(gradeData, userData) {
     });
 }
 
+function gradeAverages(grades) {
+  const groups = new Map([["__all__", []]]);
+  for (const grade of grades) {
+    const value = Number(grade.value);
+    if (grade.kind !== "grade" || !Number.isInteger(value) || value < 1 || value > 5) continue;
+    const item = { value, weight: Number.isFinite(grade.weight) && grade.weight > 0 ? grade.weight : 1 };
+    groups.get("__all__").push(item);
+    if (!groups.has(grade.subject)) groups.set(grade.subject, []);
+    groups.get(grade.subject).push(item);
+  }
+  const average = items => {
+    const weight = items.reduce((sum, item) => sum + item.weight, 0);
+    return weight ? Math.round((items.reduce((sum, item) => sum + item.value * item.weight, 0) / weight) * 100) / 100 : null;
+  };
+  return {
+    overall: average(groups.get("__all__")),
+    counted: groups.get("__all__").length,
+    subjects: [...groups].filter(([name]) => name !== "__all__").map(([subject, items]) => ({ subject, average: average(items), counted: items.length })),
+  };
+}
+
+function attendanceSummary(html) {
+  const halfStats = jsonArgument(html, '"halfStats":');
+  const halves = jsonArgument(html, '"halves":') || { "1": "1. pololetí", "2": "2. pololetí" };
+  const studentIds = Object.keys(halfStats || {});
+  if (studentIds.length !== 1) return null;
+  const periods = Object.entries(halfStats[studentIds[0]] || {}).flatMap(([key, values]) => {
+    const present = Number(values?.present) || 0;
+    const absent = Number(values?.absent) || 0;
+    const distant = Number(values?.distant) || 0;
+    const total = present + absent;
+    if (total <= 0 && distant <= 0) return [];
+    return [{ key, label: String(halves[key] || `${key}. pololetí`), absent, total, distant, percent: total > 0 ? Math.round((absent / total) * 10000) / 100 : null }];
+  });
+  if (!periods.length) return null;
+  const preferred = new Date().getUTCMonth() >= 1 && new Date().getUTCMonth() <= 7 ? "2" : "1";
+  const current = periods.find(period => period.key === preferred) || periods.at(-1);
+  return { current, periods };
+}
+
 async function edupageFetch(url, options, jar) {
   const headers = new Headers(options?.headers || {});
   const currentCookies = cookies(jar);
@@ -144,7 +184,9 @@ async function probeEdupage(request, env) {
     const gradeData = jsonArgument(await gradesPage.text(), ".znamkyStudentViewer(");
     if (!gradeData) return json({ ok: false, code: "grades-format", message: "Přihlášení funguje, ale formát známek tento účet neposkytl v očekávané podobě." }, 502);
     const grades = publicGrades(gradeData, userData);
-    return json({ ok: true, message: `Připojení funguje. Načteno známek: ${grades.length}. Údaje ani relace nebyly uloženy.`, grades });
+    const attendancePage = await edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: "GET" }, jar);
+    const attendance = attendancePage.ok ? attendanceSummary(await attendancePage.text()) : null;
+    return json({ ok: true, message: `Připojení funguje. Načteno známek: ${grades.length}. Údaje ani relace nebyly uloženy.`, grades, averages: gradeAverages(grades), attendance });
   } catch {
     return json({ ok: false, code: "network", message: "Spojení s EduPage se nepodařilo dokončit. Zkuste to znovu později." }, 502);
   }
