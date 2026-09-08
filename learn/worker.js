@@ -128,29 +128,34 @@ function weekBounds() {
   return { monday: iso(monday), friday: iso(friday) };
 }
 
-async function timetableSummary(base, jar, userData) {
+async function timetableSummary(base, jar, userData, gsecHash) {
   const range = weekBounds();
-  const page = await edupageFetch(`${base}/dashboard/eb.php?mode=ttday&date=${range.monday}`, { method: "GET" }, jar);
-  if (!page.ok) return null;
-  const html = await page.text();
-  const gpid = html.match(/gpid=(\d+)&/)?.[1];
-  const gsh = html.match(/gsh=([^"&]+)/)?.[1];
   const user = String(userData?.userid || "");
-  if (!gpid || !gsh || !user) return null;
-  const form = new URLSearchParams({ gpid: String(Number(gpid) + 1), gsh, action: "loadData", user, changes: "{}", date: range.monday, dateto: range.friday, _LJSL: "4096" });
-  const response = await edupageFetch(`${base}/gcall`, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: form.toString() }, jar);
-  if (!response.ok) return null;
-  const data = jsonArgument(await response.text(), `${user}",`);
-  if (!data?.dates) return null;
-  const subjects = { ...(userData?.dbi?.subjects || {}), ...(data?.dbi?.subjects || {}) };
-  const classrooms = { ...(userData?.dbi?.classrooms || {}), ...(data?.dbi?.classrooms || {}) };
+  const studentId = user.match(/^Student(?:Only)?(\d+)$/)?.[1];
+  const year = userData?.dp?.year;
+  if (!studentId || !year || !gsecHash) return null;
+  const monday = new Date(`${range.monday}T12:00:00Z`);
+  const dates = Array.from({ length: 5 }, (_, index) => {
+    const date = new Date(monday);
+    date.setUTCDate(monday.getUTCDate() + index);
+    return date.toISOString().slice(0, 10);
+  });
+  const dayResults = await Promise.all(dates.map(async date => {
+    const body = { __args: [null, { year, datefrom: date, dateto: date, table: "students", id: studentId, showColors: true, showIgroupsInClasses: true, showOrig: true, log_module: "CurrentTTView" }], __gsh: gsecHash };
+    const response = await edupageFetch(`${base}/timetable/server/currenttt.js?__func=curentttGetData`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }, jar);
+    if (!response.ok) return { date, items: [] };
+    const payload = await response.json();
+    return { date, items: Array.isArray(payload?.r?.ttitems) ? payload.r.ttitems : [] };
+  }));
+  const subjects = userData?.dbi?.subjects || {};
+  const classrooms = userData?.dbi?.classrooms || {};
   const lessons = [];
-  for (const [date, day] of Object.entries(data.dates)) {
-    for (const item of Array.isArray(day?.plan) ? day.plan : []) {
-      if (item?.type !== "lesson" || item?.removed || !item?.subjectid) continue;
+  for (const day of dayResults) {
+    for (const item of day.items) {
+      if (item?.removed || !item?.subjectid || item?.type === "absent") continue;
       const roomIds = Array.isArray(item.classroomids) ? item.classroomids : [];
       lessons.push({
-        date,
+        date: day.date,
         period: String(item.uniperiod || item.period || ""),
         start: String(item.starttime || ""),
         end: String(item.endtime || ""),
@@ -233,7 +238,7 @@ async function probeEdupage(request, env) {
     const grades = publicGrades(gradeData, userData);
     const [attendancePage, timetable] = await Promise.all([
       edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: "GET" }, jar),
-      timetableSummary(base, jar, userData),
+      timetableSummary(base, jar, userData, resultHtml.match(/ASC\.gsechash="([^"]+)"/)?.[1]),
     ]);
     const attendance = attendancePage.ok ? attendanceSummary(await attendancePage.text()) : null;
     return json({ ok: true, message: `Načteno známek: ${grades.length}.`, grades, averages: gradeAverages(grades), attendance, timetable });
