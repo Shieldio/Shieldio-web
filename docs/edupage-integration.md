@@ -2,7 +2,7 @@
 
 ## Stav a hranice technického testu
 
-Na `stage.learn.shieldio.cz/edupage/` běží jednorázový test přihlášení. Ověří, zda konkrétní školní účet podporuje jednoduchý přihlašovací postup EduPage. Heslo server použije pouze v průběhu jednoho požadavku. Neukládá heslo, cookies ani vytvořenou relaci a neposílá je zpět prohlížeči. Test zatím nečte známky, rozvrh ani jiné osobní údaje.
+Na `stage.learn.shieldio.cz/edupage/` běží jednorázový náhled známek. Ověří přihlášení, ve stejné serverové operaci načte stránku známek a vrátí pouze předmět, hodnotu, datum, typ, váhu a maximum bodů. Heslo server použije pouze v průběhu jednoho požadavku. Neukládá heslo, cookies ani vytvořenou relaci.
 
 ## Architektura
 

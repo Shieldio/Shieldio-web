@@ -30,6 +30,53 @@ function cookies(jar) {
   return [...jar].map(([name, value]) => `${name}=${value}`).join("; ");
 }
 
+function jsonArgument(source, marker) {
+  const markerAt = source.indexOf(marker);
+  if (markerAt < 0) return null;
+  const start = source.indexOf("{", markerAt + marker.length);
+  if (start < 0) return null;
+  let depth = 0;
+  let quoted = false;
+  let escaped = false;
+  for (let index = start; index < source.length; index += 1) {
+    const character = source[index];
+    if (quoted) {
+      if (escaped) escaped = false;
+      else if (character === "\\") escaped = true;
+      else if (character === '"') quoted = false;
+      continue;
+    }
+    if (character === '"') quoted = true;
+    else if (character === "{") depth += 1;
+    else if (character === "}" && --depth === 0) return JSON.parse(source.slice(start, index + 1));
+  }
+  return null;
+}
+
+function publicGrades(gradeData, userData) {
+  const details = gradeData?.vsetkyUdalosti?.edupage || {};
+  const subjects = userData?.dbi?.subjects || {};
+  return (Array.isArray(gradeData?.vsetkyZnamky) ? gradeData.vsetkyZnamky : [])
+    .slice(0, 200)
+    .flatMap(grade => {
+      const detail = details[String(grade?.udalostid)] || {};
+      const subjectId = String(detail.PredmetID || "");
+      if (!subjectId || subjectId === "vsetky") return [];
+      const type = String(detail.p_typ_udalosti || "");
+      const rawValue = String(grade.data || "").split(" (", 1)[0].trim();
+      if (!rawValue) return [];
+      const numeric = value => Number.isFinite(Number(value)) ? Number(value) : null;
+      return [{
+        subject: String(subjects[subjectId]?.short || subjects[subjectId]?.name || `Předmět ${subjectId}`),
+        value: rawValue,
+        date: String(grade.datum || "").slice(0, 10),
+        kind: type === "2" ? "points" : type === "3" ? "percent" : "grade",
+        weight: type === "1" || type === "3" ? (numeric(detail.p_vaha) === null ? null : numeric(detail.p_vaha) / 20) : null,
+        maxPoints: type === "2" ? numeric(detail.p_vaha) : type === "3" ? numeric(detail.p_vaha_body) : null,
+      }];
+    });
+}
+
 async function edupageFetch(url, options, jar) {
   const headers = new Headers(options?.headers || {});
   const currentCookies = cookies(jar);
@@ -91,7 +138,13 @@ async function probeEdupage(request, env) {
     if (finalUrl.includes("cap=1") || finalUrl.includes("lerr=b43b43")) return json({ ok: false, code: "captcha", message: "EduPage vyžádal CAPTCHA. Automatické připojení pro tento účet nyní nelze dokončit." }, 409);
     if (finalUrl.includes("bad=1")) return json({ ok: false, code: "credentials", message: "EduPage přihlášení odmítl. Zkontrolujte údaje." }, 401);
     if (!resultHtml.includes("userhome(") || !jar.has("PHPSESSID")) return json({ ok: false, code: "protocol", message: "Přihlášení nebylo potvrzeno. EduPage mohl změnit svůj postup." }, 502);
-    return json({ ok: true, message: "Připojení funguje. EduPage vytvořil platnou relaci; údaje ani relace nebyly uloženy." });
+    const userData = jsonArgument(resultHtml, "userhome(");
+    const gradesPage = await edupageFetch(`${base}/znamky/`, { method: "GET" }, jar);
+    if (!gradesPage.ok) return json({ ok: false, code: "grades", message: "Přihlášení funguje, ale stránku se známkami se nepodařilo načíst." }, 502);
+    const gradeData = jsonArgument(await gradesPage.text(), ".znamkyStudentViewer(");
+    if (!gradeData) return json({ ok: false, code: "grades-format", message: "Přihlášení funguje, ale formát známek tento účet neposkytl v očekávané podobě." }, 502);
+    const grades = publicGrades(gradeData, userData);
+    return json({ ok: true, message: `Připojení funguje. Načteno známek: ${grades.length}. Údaje ani relace nebyly uloženy.`, grades });
   } catch {
     return json({ ok: false, code: "network", message: "Spojení s EduPage se nepodařilo dokončit. Zkuste to znovu později." }, 502);
   }
