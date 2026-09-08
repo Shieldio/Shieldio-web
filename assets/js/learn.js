@@ -19,7 +19,9 @@
     });
     const toggle = document.querySelector("[data-learn-theme]");
     if (toggle) {
-      toggle.textContent = theme === "dark" ? "☀" : "☾";
+      toggle.innerHTML = theme === "dark"
+        ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg>'
+        : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"/></svg>';
       toggle.setAttribute("aria-label", theme === "dark" ? "Přepnout na světlý režim" : "Přepnout na tmavý režim");
     }
   }
@@ -253,10 +255,12 @@
 
   document.addEventListener("DOMContentLoaded", init);
 
-  // Every Learn route loads this shared file, so the timer follows the user
-  // without duplicating a script tag across all static page shells.
-  const timerScript = document.createElement("script");
-  timerScript.src = "/assets/js/study-timer.js";
-  timerScript.defer = true;
-  document.head.appendChild(timerScript);
+  // EduPage++ is a quick personal dashboard; the floating study timer would
+  // cover its controls, so it belongs only to the learning routes.
+  if (!location.pathname.includes("/edupage/")) {
+    const timerScript = document.createElement("script");
+    timerScript.src = "/assets/js/study-timer.js";
+    timerScript.defer = true;
+    document.head.appendChild(timerScript);
+  }
 })();
