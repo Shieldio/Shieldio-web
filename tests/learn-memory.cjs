@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const context = {window:{}};
 vm.createContext(context);
-for(const file of ['learn-memory-data.js','learn-memory.js']) {
+for(const file of ['learn-memory-data-v2.js','learn-memory-v2.js']) {
   vm.runInContext(fs.readFileSync(`assets/js/${file}`,'utf8'),context);
 }
 const data=context.window.ShieldioMemoryData;

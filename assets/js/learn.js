@@ -178,9 +178,9 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-memory.css";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-memory-v2.css";
     document.head.appendChild(css);
-    load("/assets/js/learn-memory-data.js").then(() => load("/assets/js/learn-memory.js"))
+    load("/assets/js/learn-memory-data-v2.js").then(() => load("/assets/js/learn-memory-v2.js"))
       .then(() => window.renderShieldioMemory(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }

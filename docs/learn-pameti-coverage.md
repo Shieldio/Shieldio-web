@@ -31,8 +31,8 @@ Výkon je samostatný výklad: latence nemá být zaměňována se sekvenční p
 
 ## Implementace a omezení
 
-- `learn-memory-data.js`: výklad, srovnávací tabulky, cíle, zdroje a praktické otázky.
-- `learn-memory.js`: řízené modely, třídění, READ/WRITE, LRU, CL, diagnostika,
+- `learn-memory-data-v2.js`: výklad, srovnávací tabulky, cíle, zdroje a praktické otázky.
+- `learn-memory-v2.js`: řízené modely, třídění, READ/WRITE, LRU, CL, diagnostika,
   otevřené odpovědi a ústní sebehodnocení. Automatické skóre se neprezentuje jako zvládnutí maturity.
 - Fotografie navržené v podkladu jsou zatím nahrazené označenými výukovými schématy.
   Nejde o tvrzení, že byly dodány reálné fotografie EPROM nebo rozložené diskety.
