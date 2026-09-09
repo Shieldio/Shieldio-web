@@ -118,12 +118,19 @@
     root.querySelector("[data-subject-title]").textContent = subject.title;
     root.querySelector("[data-subject-description]").textContent = subject.description;
     root.querySelector("[data-subject-progress]").innerHTML = progressMarkup(subjectStats(subject, data, progress));
-    root.querySelector("[data-question-list]").innerHTML = questions.map(question => `
-      <a class="learn-question-row" href="${questionHref(question.slug)}">
+    root.querySelector("[data-question-list]").innerHTML = questions.map(question => {
+      const available = question.status !== "outline";
+      const done = progress.completed.includes(question.slug);
+      const state = done ? "Hotovo" : question.status === "complete" ? "Vypracováno" : question.status === "in-progress" ? "Rozpracováno" : "Připravuje se";
+      const tag = available ? "a" : "div";
+      const href = available ? ` href="${questionHref(question.slug)}"` : "";
+      return `
+      <${tag} class="learn-question-row ${available ? "is-available" : "is-locked"} ${done ? "is-studied" : ""}"${href}${available ? "" : ' aria-disabled="true"'}>
         <span class="learn-question-number">${question.number}</span>
         <span><b>${question.title}</b><small>${question.summary}</small></span>
-        <span class="learn-question-state ${progress.completed.includes(question.slug) ? "is-done" : ""}">${progress.completed.includes(question.slug) ? "Hotovo" : (question.status === "outline" ? "Osnova" : "Otevřít")}</span>
-      </a>`).join("");
+        <span class="learn-question-state ${done ? "is-done" : available ? "is-ready" : ""}">${state}</span>
+      </${tag}>`;
+    }).join("");
   }
 
   function renderQuestion(data, progress) {
@@ -149,6 +156,7 @@
     }
     const sectionRoot = root.querySelector("[data-question-sections]");
     if (question.template === "memory-lab") renderMemoryLab(sectionRoot, question);
+    else if (question.template === "rlc-study") renderRlcStudy(sectionRoot, question);
     else sectionRoot.innerHTML = question.sections.map(section => `<section class="learn-answer-section"><h2>${section.title}</h2><p>${section.body}</p></section>`).join("");
     const button = root.querySelector("[data-complete-question]");
     if (question.status === "outline") {
@@ -182,6 +190,21 @@
     document.head.appendChild(css);
     load("/assets/js/learn-memory-data-v2.js").then(() => load("/assets/js/learn-memory-v2.js"))
       .then(() => window.renderShieldioMemory(root))
+      .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
+  }
+
+  function renderRlcStudy(root) {
+    root.textContent = "Načítám učební materiál RLC…";
+    const load = src => new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src; script.onload = resolve; script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    const css = document.createElement("link");
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-rlc-v1.css";
+    document.head.appendChild(css);
+    load("/assets/js/learn-rlc-data-v1.js").then(() => load("/assets/js/learn-rlc-v1.js"))
+      .then(() => window.renderShieldioRlc(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
 

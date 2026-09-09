@@ -79,8 +79,9 @@
       "subject": "elektronika",
       "number": "01",
       "title": "Lineární součástky R, L, C",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "rlc-study",
+      "summary": "Kompletní učební materiál: ideální a reálné R, L, C, značení, parametry, střídavé obvody, rezonance, cívky a transformátory.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",

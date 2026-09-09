@@ -1,0 +1,17 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const context = { window: {} };
+vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/js/learn-rlc-data-v1.js'), 'utf8'), context);
+const data = context.window.ShieldioRlcData;
+assert.equal(data.version, 1);
+assert.ok(data.chapters.length >= 15, 'RLC musí mít nejméně 15 tematických kapitol');
+const text = data.chapters.map(c => `${c.title} ${c.lead} ${c.html}`).join(' ');
+for (const required of ['EIA‑96','E192','R = ρ·l/S','ESR','ESL','X<sub>L</sub>','X<sub>C</sub>','rezonance','A<sub>L</sub>','M = k','Transformátor','tečková konvence','zaplnění okna','derating']) assert.ok(text.includes(required), `chybí ${required}`);
+const catalogue = JSON.parse(fs.readFileSync(path.join(root, 'assets/data/learn-questions.json'), 'utf8'));
+const rlc = catalogue.questions.find(q => q.slug === 'elektronika-01-linearni-soucastky-r-l-c');
+assert.equal(rlc.status, 'complete');
+assert.equal(rlc.template, 'rlc-study');
+console.log(`RLC OK: ${data.chapters.length} kapitol`);
