@@ -8,8 +8,8 @@
     },
     C: {
       label: 'Náhradní schéma reálného kondenzátoru',
-      note: 'ESL a ESR jsou sériové parazitní prvky. Riso je svodový odpor paralelně k ideální kapacitě C.',
-      svg: `<svg viewBox="0 0 700 270" role="img" aria-label="Náhradní schéma reálného kondenzátoru"><g class="wire"><path d="M25 135h55M200 135h35M335 135h45M380 135V72m0 63v63M380 72h45M545 72h45M380 198h70M520 198h70M590 72v126M590 135h85"/><path class="coil" d="M80 135c0-28 30-28 30 0c0-28 30-28 30 0c0-28 30-28 30 0c0-28 30-28 30 0"/><rect x="235" y="115" width="100" height="40"/><path d="M425 135h28m0-28v56m34-56v56m0-28h58"/><rect x="450" y="178" width="70" height="40"/><circle cx="380" cy="135" r="5"/><circle cx="590" cy="135" r="5"/></g><g class="labels"><text x="110" y="91">ESL</text><text x="265" y="105">ESR</text><text x="463" y="98">C</text><text x="462" y="247">R<tspan baseline-shift="sub">iso</tspan></text></g></svg>`
+      note: 'Indukčnost vývodů a ztrátový odpor jsou v sérii s ideální kapacitou. Izolační odpor je paralelní svod přes dielektrikum.',
+      svg: `<svg viewBox="0 0 700 270" role="img" aria-label="Náhradní schéma reálného kondenzátoru"><g class="wire"><path d="M25 135h55M200 135h35M335 135h45M380 135V72m0 63v63M380 72h45M545 72h45M380 198h70M520 198h70M590 72v126M590 135h85"/><path class="coil" d="M80 135c0-28 30-28 30 0c0-28 30-28 30 0c0-28 30-28 30 0c0-28 30-28 30 0"/><rect x="235" y="115" width="100" height="40"/><path d="M425 135h28m0-28v56m34-56v56m0-28h58"/><rect x="450" y="178" width="70" height="40"/><circle cx="380" cy="135" r="5"/><circle cx="590" cy="135" r="5"/></g><g class="labels"><text x="92" y="91">L vývodů</text><text x="244" y="105">R ztrát</text><text x="463" y="98">C</text><text x="442" y="247">R izolace</text></g></svg>`
     },
     L: {
       label: 'Náhradní schéma reálné cívky',

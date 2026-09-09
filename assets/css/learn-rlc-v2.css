@@ -9,3 +9,10 @@
 .rlc-symbol[data-model-diagram] .labels{fill:currentColor;stroke:none}
 .rlc-symbol[data-model-diagram] .labels text{font-size:18px;font-weight:700}
 .rlc-symbol[data-model-diagram] circle{fill:currentColor;stroke:none}
+.rlc-construction{margin:20px 0;padding:18px;border:1px solid var(--learn-line);border-radius:16px;background:var(--learn-bg);overflow:auto}
+.rlc-construction svg{display:block;width:min(100%,720px);height:auto;margin:auto}
+.rlc-construction .part,.rlc-construction .track,.rlc-construction .wiper,.rlc-construction .lead,.rlc-construction .arrow{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.rlc-construction .track{stroke:var(--learn-red);stroke-width:12}
+.rlc-construction .case{fill:none;stroke:currentColor;stroke-width:4}
+.rlc-construction .anode{fill:#aeb4bc}.rlc-construction .oxide{fill:#e5a94b}.rlc-construction .paper{fill:#e7d8b8}.rlc-construction .cathode{fill:#7b838d}
+.rlc-construction text{fill:currentColor;font:16px 'Inter',sans-serif}
