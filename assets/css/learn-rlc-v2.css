@@ -3,3 +3,9 @@
 .rlc-formula .katex-display{margin:0;text-align:left}
 .rlc-symbol[data-model-diagram] svg{width:min(100%,620px);min-height:150px}
 .rlc-symbol[data-model-diagram] text{fill:currentColor;stroke:none;font:15px 'JetBrains Mono',monospace}
+.rlc-symbol[data-model-diagram]{padding:14px;overflow:hidden}
+[data-do="model"]{display:none}
+.rlc-symbol[data-model-diagram] .wire{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.rlc-symbol[data-model-diagram] .labels{fill:currentColor;stroke:none}
+.rlc-symbol[data-model-diagram] .labels text{font-size:18px;font-weight:700}
+.rlc-symbol[data-model-diagram] circle{fill:currentColor;stroke:none}
