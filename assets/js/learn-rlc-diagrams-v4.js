@@ -9,7 +9,7 @@
     C: {
       label: 'Náhradní schéma reálného kondenzátoru',
       note: 'Indukčnost vývodů a ztrátový odpor jsou v sérii s ideální kapacitou. Izolační odpor je paralelní svod přes dielektrikum.',
-      svg: `<svg viewBox="0 0 700 270" role="img" aria-label="Náhradní schéma reálného kondenzátoru"><g class="wire"><path d="M25 135h55M200 135h35M335 135h45M380 135V72m0 63v63M380 72h45M545 72h45M380 198h70M520 198h70M590 72v126M590 135h85"/><path class="coil" d="M80 135c0-28 30-28 30 0c0-28 30-28 30 0c0-28 30-28 30 0c0-28 30-28 30 0"/><rect x="235" y="115" width="100" height="40"/><path d="M425 135h28m0-28v56m34-56v56m0-28h58"/><rect x="450" y="178" width="70" height="40"/><circle cx="380" cy="135" r="5"/><circle cx="590" cy="135" r="5"/></g><g class="labels"><text x="92" y="91">L vývodů</text><text x="244" y="105">R ztrát</text><text x="463" y="98">C</text><text x="442" y="247">R izolace</text></g></svg>`
+      svg: `<svg viewBox="0 0 760 300" role="img" aria-label="Náhradní schéma reálného kondenzátoru"><g class="wire"><path d="M25 150h55M200 150h35M335 150h95M430 150V90M430 90h65M535 90h115M430 150v70M430 220h50M600 220h50M650 90v130M650 150h85"/><path class="coil" d="M80 150c0-34 40-34 40 0c0-34 40-34 40 0c0-34 40-34 40 0"/><rect x="235" y="126" width="100" height="48"/><path d="M495 58v64M535 58v64"/><rect x="480" y="196" width="120" height="48"/><circle cx="430" cy="150" r="6"/><circle cx="650" cy="150" r="6"/></g><g class="labels"><text x="91" y="101">L vývodů</text><text x="238" y="112">R ztrát</text><text x="505" y="46">C</text><text x="483" y="278">R izolace</text><text x="20" y="180">A</text><text x="716" y="180">B</text></g></svg>`
     },
     L: {
       label: 'Náhradní schéma reálné cívky',
