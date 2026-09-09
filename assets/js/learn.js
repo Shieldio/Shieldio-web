@@ -209,7 +209,7 @@
       document.head.appendChild(mathCss);
     }
     const mathReady = window.katex ? Promise.resolve() : load("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js");
-    mathReady.then(() => load("/assets/js/learn-rlc-data-v3.js")).then(() => load("/assets/js/learn-rlc-v2.js")).then(() => load("/assets/js/learn-rlc-diagrams-v4.js"))
+    mathReady.then(() => load("/assets/js/learn-rlc-data-v3.js?v=4")).then(() => load("/assets/js/learn-rlc-v2.js?v=4")).then(() => load("/assets/js/learn-rlc-diagrams-v4.js?v=4"))
       .then(() => window.renderShieldioRlc(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
