@@ -52,9 +52,9 @@
     "en": "ELECTRONICS AND ROBOTICS, MADE SIMPLE FOR EVERYONE"
   },
   "home.title": {
-    "cs": "Shieldio · Arduino stavebnice pro školu, kroužek i domov",
-    "en": "Shieldio · Arduino kit for school, clubs, and home"
-  },
+  "cs": "Shieldio · Stavebnice kompatibilní s Arduino® pro školu, kroužek i domov",
+  "en": "Shieldio · Arduino®-compatible kit for school, clubs, and home"
+},
   "home.topbar_cta": {
     "cs": "Domluvit ukázku",
     "en": "Book a demo"
@@ -64,9 +64,9 @@
     "en": "Educational electronics for schools and home"
   },
   "home.hero.h1": {
-    "cs": "<em>Arduino stavebnice</em> pro školu, kroužek i domácí dílnu.",
-    "en": "An <em>Arduino kit</em> for school, clubs, and the home workshop."
-  },
+  "cs": "<em>Stavebnice kompatibilní s Arduino®</em> pro školu, kroužek i domácí dílnu.",
+  "en": "An <em>Arduino®-compatible kit</em> for school, clubs, and the home workshop."
+},
   "home.hero.lead": {
     "cs": "Programování a elektronika bez složitého zapojování. Pro školy, kroužky i domácí tvoření.",
     "en": "Programming and electronics without complicated wiring. For schools, clubs, and making at home."
@@ -340,9 +340,9 @@
     "en": "What's in the box"
   },
   "home.box.in_box_li1": {
-    "cs": "Deska Shieldio RED se všemi součástkami (Arduino Nano, ultrazvukový senzor, servo, OLED displej)",
-    "en": "The Shieldio RED board with all components (Arduino Nano, ultrasonic sensor, servo, OLED display)"
-  },
+  "cs": "Deska Shieldio RED se všemi součástkami (modul kompatibilní s Arduino® Nano, ultrazvukový senzor, servo, OLED displej)",
+  "en": "The Shieldio RED board with all components (Arduino® Nano-compatible module, ultrasonic sensor, servo, OLED display)"
+},
   "home.box.in_box_li2": {
     "cs": "1,5m USB-A na USB-C kabel",
     "en": "1.5m USB-A to USB-C cable"
@@ -432,9 +432,9 @@
     "en": "The most advanced Baseline board combines ultrasonic distance sensing, a servo, and a display on a single 100×100&nbsp;mm PCB, with component labels printed right on the board."
   },
   "home.deepdive.spec1": {
-    "cs": "<b>Arduino Nano</b> jako řídicí jednotka, program nahráváte přímo přes USB-C.",
-    "en": "<b>Arduino Nano</b> as the controller, you upload your program straight over USB-C."
-  },
+  "cs": "<b>Modul kompatibilní s Arduino® Nano</b> jako řídicí jednotka, program nahráváte přímo přes USB-C.",
+  "en": "<b>Arduino® Nano-compatible module</b> as the controller, you upload your program straight over USB-C."
+},
   "home.deepdive.spec2": {
     "cs": "<b>Ultrazvukový snímač</b> vzdálenosti pro měření okolí.",
     "en": "<b>Ultrasonic sensor</b> for measuring distance to the surroundings."
@@ -652,9 +652,9 @@
     "en": "Send message"
   },
   "home.form.privacy_note": {
-    "cs": "Odesláním souhlasíte se <a href=\"company/privacy.html\">zpracováním osobních údajů</a>.",
-    "en": "By sending this, you agree to the <a href=\"company/privacy.html\">processing of personal data</a>."
-  },
+  "cs": "Informace o zpracování údajů: <a href=\"company/privacy.html\">Zásady ochrany osobních údajů</a>.",
+  "en": "Information about data processing: <a href=\"company/privacy.html\">Privacy Policy</a>."
+},
   "home.form.name_placeholder": {
     "cs": "Jana Nováková",
     "en": "Jane Smith"
@@ -1056,9 +1056,9 @@
     "en": "Basic assembled"
   },
   "red.opt_basic_desc": {
-    "cs": "Připájené jen součástky přímo na desce, bez ultrazvuku, Arduina, displeje a kabelu.",
-    "en": "Only the components soldered directly to the board, no ultrasonic sensor, Arduino, display, or cable."
-  },
+  "cs": "Připájené jen součástky přímo na desce, bez ultrazvuku, řídicího modulu, displeje a kabelu.",
+  "en": "Only the components soldered directly to the board, no ultrasonic sensor, controller module, display, or cable."
+},
   "red.opt_eduset_name": {
     "cs": "EduSET<span class=\"preorder-badge\">5×</span>",
     "en": "EduSET<span class=\"preorder-badge\">5×</span>"
@@ -1096,9 +1096,9 @@
     "en": "Send pre-order"
   },
   "red.privacy_note": {
-    "cs": "Odesláním souhlasíte se <a href=\"../company/privacy.html\">zpracováním osobních údajů</a>.",
-    "en": "By sending this, you agree to the <a href=\"../company/privacy.html\">processing of personal data</a>."
-  },
+  "cs": "Informace o zpracování údajů: <a href=\"../company/privacy.html\">Zásady ochrany osobních údajů</a>.",
+  "en": "Information about data processing: <a href=\"../company/privacy.html\">Privacy Policy</a>."
+},
   "red.disclaimer": {
     "cs": "Předobjednávka nic hned nestrhává, je to nezávazná rezervace, platbu a termín domluvíme e-mailem.",
     "en": "A pre-order doesn't charge you anything right away, it's a non-binding reservation, we'll arrange payment and timing by email."
@@ -1208,9 +1208,9 @@
     "en": "What is Shieldio?"
   },
   "faq.a1": {
-    "cs": "Shieldio je výukový projekt s Arduino deskami, vedenými návody a blokovým programováním. RED je první reálná deska a lze ji předobjednat v sestavené i DIY variantě; Green a Yellow jsou zatím koncepty.",
-    "en": "Shieldio is an educational Arduino board project with guided tutorials and block-based programming. RED is the first physical board and can be pre-ordered assembled or as a DIY kit; Green and Yellow are still concepts."
-  },
+  "cs": "Shieldio je výukový projekt s deskami kompatibilními s Arduino®, vedenými návody a blokovým programováním. RED je první reálná deska a lze ji předobjednat v sestavené i DIY variantě; Green a Yellow jsou zatím koncepty.",
+  "en": "Shieldio is an educational project using Arduino®-compatible boards with guided tutorials and block-based programming. RED is the first physical board and can be pre-ordered assembled or as a DIY kit; Green and Yellow are still concepts."
+},
   "faq.q2": {
     "cs": "Potřebuju zkušenosti s elektronikou nebo programováním?",
     "en": "Do I need experience with electronics or programming?"
@@ -1444,9 +1444,9 @@
     "en": "Pilot validation at school"
   },
   "about.step3_p": {
-    "cs": "Termín pilotního ověření zveřejníme po potvrzení s partnerskou školou.",
-    "en": "We will publish the pilot date once it has been confirmed with a partner school."
-  },
+  "cs": "Termín pilotního ověření zveřejníme po potvrzení s pilotní školou.",
+  "en": "We will publish the pilot date once it has been confirmed with a pilot school."
+},
   "about.step4_h3": {
     "cs": "Rozsáhlejší testování",
     "en": "Broader testing"
@@ -1460,9 +1460,9 @@
     "en": "Testing at more schools"
   },
   "about.step5_p": {
-    "cs": "Shieldio se dostává i k dalším partnerským školám, abychom ověřili, že řešení funguje v různých třídách a s různými učiteli.",
-    "en": "Shieldio reaches more partner schools, so we can confirm the solution works across different classrooms and teachers."
-  },
+  "cs": "Chceme zapojit další pilotní školy a ověřit řešení v různých třídách a s různými učiteli.",
+  "en": "We aim to involve more pilot schools and test the solution across different classrooms and teachers."
+},
   "about.step6_h3": {
     "cs": "Rozšíření dostupnosti",
     "en": "Expanding availability"
@@ -1476,9 +1476,9 @@
     "en": "Accelerators"
   },
   "about.step7_p": {
-    "cs": "Rádi bychom prošli akcelerátory jako Samsung Solve for Tomorrow, Be Next nebo Můj první milion, a posunuli tak Shieldio dál.",
-    "en": "We'd like to go through accelerators like Samsung Solve for Tomorrow, Be Next, or Můj první milion, and use them to push Shieldio further."
-  },
+  "cs": "Do budoucna zvažujeme přihlášení do vzdělávacích a rozvojových programů. Zmínka o Samsung Solve for Tomorrow, Be Next či Můj první milion není potvrzením účasti, podpory ani partnerství.",
+  "en": "We may apply to educational and development programmes in future. References to Samsung Solve for Tomorrow, Be Next or Můj první milion do not confirm participation, support or partnership."
+},
   "about.cta_h2": {
     "cs": "Chcete být součástí vývoje Shieldio?",
     "en": "Want to be part of building Shieldio?"
@@ -1841,7 +1841,7 @@
   "learn_pwm.h1": { "cs": "PWM: jak deska řídí LED i servo.", "en": "PWM: how the board drives an LED and a servo." },
   "learn_pwm.lead": { "cs": "Arduino umí na výstupu jen 0 V nebo 5 V. Jak z toho vznikne plynulé stmívání a přesné natočení serva.", "en": "Arduino can only output 0 V or 5 V. How that turns into smooth dimming and precise servo positioning." },
   "learn_pwm.simple_p1": { "cs": "Deska umí světlo velmi rychle zapínat a vypínat. Oko jednotlivé záblesky nevidí: když světlo svítí kratší část času, vypadá slabší, a když delší, vypadá jasnější.", "en": "The board can switch a light on and off very quickly. Your eye cannot see the separate flashes: if the light is on for less of the time it looks dimmer, and if it is on for longer it looks brighter." },
-  "learn_pwm.adv_p1": { "cs": "Arduino Nano umí na digitálním výstupu nastavit jen 0 V nebo 5 V. Jas LED řídí pomocí <b>PWM</b>: výstup rychle přepíná a podíl času stráveného na 5 V se nazývá střída (duty cycle). Řídicí signál hobby serva je také pulzní, ale má jinou interpretaci a časové měřítko.", "en": "An Arduino Nano can set only 0 V or 5 V on a digital output. It controls LED brightness with <b>PWM</b>: the output switches rapidly, and the fraction of time spent at 5 V is the duty cycle. A hobby servo control signal is also pulsed, but it uses a different interpretation and time scale." },
+  "learn_pwm.adv_p1": { "cs": "Modul v desce RED, kompatibilní s Arduino® Nano, umí na digitálním výstupu nastavit jen 0 V nebo 5 V. Jas LED řídí pomocí <b>PWM</b>: výstup rychle přepíná a podíl času stráveného na 5 V se nazývá střída (duty cycle). Řídicí signál hobby serva je také pulzní, ale má jinou interpretaci a časové měřítko.", "en": "The module used in RED, compatible with Arduino® Nano, can set only 0 V or 5 V on a digital output. It controls LED brightness with <b>PWM</b>: the output switches rapidly, and the fraction of time spent at 5 V is the duty cycle. A hobby servo control signal is also pulsed, but it uses a different interpretation and time scale." },
   "learn_pwm.servo_label": { "cs": "Servo", "en": "Servo" },
   "learn_pwm.svg_led_alt": { "cs": "Simulovaná LED, jas se mění podle střídy", "en": "A simulated LED, brightness changes with the duty cycle" },
   "learn_pwm.svg_servo_alt": { "cs": "Simulované servo, úhel natočení ramene se mění podle délky pulzu", "en": "A simulated servo, the arm's angle changes with the pulse length" },
@@ -2020,17 +2020,17 @@
     "en": "Privacy Policy."
   },
   "privacy.lead": {
-    "cs": "Tyto zásady popisují, jak shieldio.cz zpracovává osobní údaje v souladu s Nařízením Evropského parlamentu a Rady (EU) 2016/679 (GDPR) a zákonem č. 110/2019 Sb., o zpracování osobních údajů.",
-    "en": "This policy describes how shieldio.cz processes personal data in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council (GDPR) and Czech Act No. 110/2019 Coll., on the processing of personal data."
-  },
+  "cs": "Informace o zpracování údajů na shieldio.cz. Údaje označené TODO musí provozovatel doplnit; tento dokument zatím není finální.",
+  "en": "Information about data processing on shieldio.cz. The operator must complete the TODO items; this document is not yet final."
+},
   "privacy.s1_h2": {
     "cs": "1. Správce osobních údajů",
     "en": "1. Data controller"
   },
   "privacy.s1_p1": {
-    "cs": "Správcem osobních údajů zpracovávaných v souvislosti s provozem webu shieldio.cz je jeho autor a provozovatel (dále jen „správce“). Shieldio je v současné době provozováno jako osobní, nekomerční projekt fyzické osoby, studenta střední školy, bez vlastního IČO. Jakmile bude projekt provozován v rámci registrované podnikatelské činnosti, budou tyto zásady aktualizovány o příslušné identifikační údaje.",
-    "en": "The data controller for personal data processed in connection with operating shieldio.cz is its author and operator (the “controller”). Shieldio is currently run as a personal, non-commercial project by an individual, a secondary school student, without a registered business ID. Once the project is operated as a registered business activity, this policy will be updated with the corresponding identification details."
-  },
+  "cs": "Web Shieldio představuje výukovou elektroniku a přijímá nezávazné rezervace placených produktů. Správce osobních údajů: TODO — doplnit ověřené jméno nebo obchodní firmu, adresu a případné IČO. Kontaktní e-mail nenahrazuje identifikaci správce.",
+  "en": "Shieldio presents educational electronics and accepts non-binding reservations for paid products. Data controller: TODO — provide the verified name or business name, address and registration number where applicable. A contact email does not replace controller identification."
+},
   "privacy.s1_p2": {
     "cs": "Kontaktní e-mail správce pro veškeré záležitosti týkající se ochrany osobních údajů: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>.",
     "en": "Contact e-mail of the controller for all matters regarding personal data protection: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>."
@@ -2040,53 +2040,53 @@
     "en": "2. What data we process, for what purpose, and on what legal basis"
   },
   "privacy.s2_1_label": {
-    "cs": "2.1 Kontaktní formulář",
-    "en": "2.1 Contact form"
-  },
+  "cs": "2.1 Kontaktní formuláře a nezávazné rezervace",
+  "en": "2.1 Contact forms and non-binding reservations"
+},
   "privacy.s2_1_p": {
-    "cs": "Zpracovávané údaje: jméno, e-mailová adresa, obsah zprávy, případně kategorie „píšete za“ a „co potřebujete“. Účel zpracování: vyřízení dotazu nebo poptávky. Právní základ: čl. 6 odst. 1 písm. b) GDPR (jednání o uzavření smlouvy / plnění poptávky na žádost subjektu údajů), případně písm. f) (oprávněný zájem správce na vyřízení komunikace, kterou subjekt údajů sám iniciuje). Údaje jsou odesílány prostřednictvím služby Web3Forms na e-mail správce.",
-    "en": "Data processed: name, e-mail address, message content, and optionally the “writing as” and “what you need” categories. Purpose of processing: handling the inquiry or request. Legal basis: Art. 6(1)(b) GDPR (steps taken at the request of the data subject prior to entering into a contract / fulfilling a request), or alternatively (f) (the controller’s legitimate interest in handling communication initiated by the data subject). Data is sent via the Web3Forms service to the controller’s e-mail."
-  },
+  "cs": "Formuláře odesílají jméno, e-mail, zprávu a podle formuláře také kategorii kontaktu, důvod dotazu a nepovinnou školu či organizaci. Rezervace obsahuje navíc variantu produktu, počet kusů, vypočtenou cenu a případnou poznámku. Web3Forms zajišťuje doručení na kontaktní e-mail. Účelem je odpověď, podpora nebo vyřízení rezervace. Právním základem je jednání o smlouvě na vaši žádost (čl. 6 odst. 1 písm. b GDPR), u ostatní komunikace oprávněný zájem na jejím vyřízení (písm. f). Odeslání není souhlasem s marketingem. Povinná pole slouží k vyřízení požadavku; bez kontaktního e-mailu nelze odpovědět. Do zprávy nevkládejte citlivé údaje ani osobní údaje žáků.",
+  "en": "Forms send your name, email and message and, depending on the form, your contact category, enquiry reason and optional school or organisation. Reservations also include the product variant, quantity, calculated price and optional note. Web3Forms delivers submissions to the contact email. The purpose is to respond, provide support or handle a reservation. The basis is steps towards a contract at your request (GDPR Art. 6(1)(b)), or legitimate interests in handling other correspondence (Art. 6(1)(f)). Submission is not marketing consent. Required fields enable us to handle your request; we cannot reply without an email address. Do not include sensitive data or pupils’ personal data."
+},
   "privacy.s2_2_label": {
     "cs": "2.2 Validační dotazník pro školy",
     "en": "2.2 Validation questionnaire for schools"
   },
   "privacy.s2_2_p": {
-    "cs": "Zpracovávané údaje: odpovědi vyplněné v dotazníku na stránce <a href=\"dotaznik.html\">Dotazník pro školy</a>, provozovaném prostřednictvím služby Microsoft Forms. Účel zpracování: průzkum potřeb škol a kroužků pro účely vývoje produktu. Právní základ: čl. 6 odst. 1 písm. a) GDPR (souhlas subjektu údajů vyjádřený vyplněním a odesláním dotazníku). Souhlas lze kdykoliv odvolat žádostí na kontaktní e-mail správce.",
-    "en": "Data processed: answers submitted in the questionnaire on the <a href=\"dotaznik.html\">Questionnaire for Schools</a> page, run via the Microsoft Forms service. Purpose of processing: researching the needs of schools and clubs for product development purposes. Legal basis: Art. 6(1)(a) GDPR (consent of the data subject expressed by completing and submitting the questionnaire). Consent can be withdrawn at any time by request to the controller’s contact e-mail."
-  },
+  "cs": "Stránka <a href=\"dotaznik.html\">Dotazník pro školy</a> načítá vložený Microsoft Forms již při otevření. Microsoft tak obdrží technické údaje o připojení; vyplněné odpovědi slouží k průzkumu potřeb škol. Samotné odeslání nelze automaticky považovat za souhlas se všemi způsoby zpracování. TODO — ověřit nastavení účtu, sběr identifikátorů, přesná pole, právní základ, příjemce a dobu uchování a uvést je také před vyplněním dotazníku.",
+  "en": "The <a href=\"dotaznik.html\">school survey</a> page loads embedded Microsoft Forms when opened. Microsoft therefore receives technical connection data; submitted answers support research into schools’ needs. Submission alone is not consent to every form of processing. TODO — verify account settings, identifier collection, exact fields, legal basis, recipients and retention, and disclose them before the survey is completed."
+},
   "privacy.s2_3_label": {
     "cs": "2.3 Analytika návštěvnosti",
     "en": "2.3 Traffic analytics"
   },
   "privacy.s2_3_p": {
-    "cs": "Web využívá službu Cloudflare Web Analytics, která funguje bez cookies a bez sledování napříč weby a neshromažďuje osobní údaje umožňující identifikaci konkrétního návštěvníka, správci jsou dostupné pouze souhrnné, anonymizované statistiky (počet návštěv, zdroj návštěvnosti, rychlost načítání). Vzhledem k tomu, že se nejedná o zpracování osobních údajů ve smyslu čl. 4 odst. 1 GDPR, právní základ se neuplatňuje.",
-    "en": "The site uses Cloudflare Web Analytics, which operates without cookies and without cross-site tracking, and does not collect personal data that would identify an individual visitor; the controller only has access to aggregated, anonymized statistics (visit counts, traffic source, load speed). As this does not constitute processing of personal data within the meaning of Art. 4(1) GDPR, no legal basis applies."
-  },
+  "cs": "Hosting zajišťuje Cloudflare. Při doručení stránky může zpracovávat IP adresu, údaje o prohlížeči, čase a požadavku pro provoz a zabezpečení služby; právním základem je oprávněný zájem na funkčním a bezpečném webu. Ve zdrojovém kódu není vložen měřicí skript Cloudflare Web Analytics. TODO — ověřit analytiku případně zapnutou v administraci Cloudflare, rozsah provozních logů, dobu uchování a příslušný právní základ. Absence cookies sama o sobě neznamená absenci osobních údajů.",
+  "en": "Cloudflare provides hosting and may process IP addresses, browser, time and request data to operate and secure the service, based on the legitimate interest in a functioning, secure website. No Cloudflare Web Analytics measurement script is embedded in the source code. TODO — verify any analytics enabled in the Cloudflare dashboard, operational logs, retention and the applicable legal basis. Absence of cookies does not itself mean absence of personal data."
+},
   "privacy.s2_4_label": {
     "cs": "2.4 Reklama Google AdSense",
     "en": "2.4 Google AdSense advertising"
   },
   "privacy.s2_4_p": {
-    "cs": "Web je připojen ke službě Google AdSense. Google může při načítání a zobrazování reklamy zpracovávat údaje o zařízení, IP adresu, údaje o požadavku a volby souhlasu. Reklamní cookies a personalizace se návštěvníkům v Evropském hospodářském prostoru zpřístupňují pouze podle volby udělené prostřednictvím certifikované platformy pro správu souhlasu. Souhlas lze následně změnit nebo odvolat.",
-    "en": "The site is connected to Google AdSense. When loading and displaying advertising, Google may process device data, the IP address, request data and consent choices. Advertising cookies and personalisation are made available to visitors in the European Economic Area only according to the choice given through a certified consent management platform. Consent can subsequently be changed or withdrawn."
-  },
+  "cs": "Automatické načítání Google AdSense je v této verzi vypnuté: v projektu není doložena funkční správa reklamního souhlasu. Soubor ads.txt sám reklamu ani cookies nenačítá. Před případným zapnutím reklamy je nutné ověřit poskytovatele, datové toky a dobu uchování, zajistit požadovaný souhlas před načítáním a umožnit jeho odmítnutí a odvolání. TODO — doplnit finální nastavení a aktualizovat tyto zásady před aktivací.",
+  "en": "Automatic loading of Google AdSense is disabled in this version: functioning advertising consent management is not documented in the project. The ads.txt file does not itself load ads or cookies. Before enabling ads, the operator must verify providers, data flows and retention, obtain required consent before loading and allow refusal and withdrawal. TODO — document the final configuration and update this policy before activation."
+},
   "privacy.s3_h2": {
     "cs": "3. Doba uchování údajů",
     "en": "3. Data retention period"
   },
   "privacy.s3_p": {
-    "cs": "Údaje z kontaktního formuláře jsou uchovávány po dobu nezbytnou k vyřízení dotazu, nejdéle však 24 měsíců od přijetí. Údaje z validačního dotazníku jsou uchovávány po dobu probíhajícího vývoje produktu, nejdéle však 36 měsíců od vyplnění. V obou případech lze požádat o dřívější výmaz, viz bod 6.",
-    "en": "Data from the contact form is retained for as long as necessary to handle the inquiry, but no longer than 24 months from receipt. Data from the validation questionnaire is retained for the duration of ongoing product development, but no longer than 36 months from submission. In both cases, earlier deletion can be requested, see section 6."
-  },
+  "cs": "Údaje se mají uchovávat jen po dobu potřebnou k vyřízení komunikace či rezervace, případně pro splnění zákonných povinností nebo ochranu právních nároků. TODO — provozovatel musí stanovit konkrétní lhůty nebo ověřitelná kritéria pro e-maily, rezervace, dotazník, provozní logy a zálohy, včetně mazání u poskytovatelů. Dřívější údaje o 24 a 36 měsících nebyly doloženy.",
+  "en": "Data should be retained only as needed to handle correspondence or reservations, meet legal duties or protect legal claims. TODO — the operator must establish specific periods or verifiable criteria for emails, reservations, surveys, operational logs and backups, including provider-side deletion. The previously stated 24- and 36-month periods were not substantiated."
+},
   "privacy.s4_h2": {
     "cs": "4. Příjemci osobních údajů a předání do zahraničí",
     "en": "4. Recipients of personal data and international transfers"
   },
   "privacy.s4_p1": {
-    "cs": "Osobní údaje nejsou prodávány ani sdíleny za účelem marketingu třetích stran. Ke zpracování jsou využívány následující zpracovatelé:",
-    "en": "Personal data is not sold or shared for third-party marketing purposes. The following processors are used for processing:"
-  },
+  "cs": "Při použití webu a jeho formulářů mohou údaje získávat následující poskytovatelé. Jejich role závisí na konkrétní službě a smluvním nastavení; ne všichni musí být pouze zpracovateli:",
+  "en": "The following providers may receive data when you use this website and its forms. Their roles depend on the service and contractual configuration; not all necessarily act solely as processors:"
+},
   "privacy.s4_li1": {
     "cs": "<b>Web3Forms</b>, doručení zprávy z kontaktního formuláře",
     "en": "<b>Web3Forms</b>, delivery of the contact form message"
@@ -2096,33 +2096,33 @@
     "en": "<b>Microsoft Corporation (Microsoft Forms)</b>, validation questionnaire for schools"
   },
   "privacy.s4_li3": {
-    "cs": "<b>Cloudflare, Inc.</b>, hosting webu a anonymní analytika návštěvnosti",
-    "en": "<b>Cloudflare, Inc.</b>, website hosting and anonymous traffic analytics"
-  },
+  "cs": "<b>Cloudflare</b> — hosting, doručení a zabezpečení webu",
+  "en": "<b>Cloudflare</b> — hosting, content delivery and website security"
+},
   "privacy.s4_li4": {
-    "cs": "<b>Google Ireland Limited / Google LLC</b>, provoz reklamního systému Google AdSense a správa souhlasu",
-    "en": "<b>Google Ireland Limited / Google LLC</b>, operation of the Google AdSense advertising system and consent management"
-  },
+  "cs": "<b>Google Fonts a poskytovatelé CDN</b> — externí písma a knihovny načítané některými stránkami; při požadavku obdrží technické údaje včetně IP adresy. AdSense je vypnuté.",
+  "en": "<b>Google Fonts and CDN providers</b> — external fonts and libraries loaded by some pages; requests disclose technical data including the IP address. AdSense is disabled."
+},
   "privacy.s4_p2": {
-    "cs": "Uvedení poskytovatelé mohou v rámci své infrastruktury zpracovávat údaje i mimo Evropskou unii/Evropský hospodářský prostor (typicky v USA). Jde o etablované poskytovatele, kteří pro takový přenos deklarují vlastní záruky souladu s GDPR (např. standardní smluvní doložky). Aktuální informace o zpracování údajů u těchto služeb jsou dostupné v jejich vlastních zásadách ochrany osobních údajů.",
-    "en": "As part of their infrastructure, the above providers may process data outside the European Union/European Economic Area (typically in the USA). These are established providers who declare their own GDPR-compliance safeguards for such transfers (e.g. standard contractual clauses). Current information about data processing by these services is available in their own privacy policies."
-  },
+  "cs": "TODO — doplnit poskytovatele e-mailové schránky a ověřit konkrétní smluvní subjekty, zpracovatelské smlouvy, země zpracování a mechanismy případného předání mimo EHP. Samotná známost poskytovatele není zárukou souladu. Další informace: <a href=\"https://web3forms.com/privacy\">Web3Forms</a>, <a href=\"https://privacy.microsoft.com/privacystatement\">Microsoft</a>, <a href=\"https://www.cloudflare.com/privacypolicy/\">Cloudflare</a>, <a href=\"https://policies.google.com/privacy\">Google</a>.",
+  "en": "TODO — identify the mailbox provider and verify contracting entities, processing agreements, processing countries and safeguards for transfers outside the EEA. A provider’s reputation is not a compliance guarantee. Further information: <a href=\"https://web3forms.com/privacy\">Web3Forms</a>, <a href=\"https://privacy.microsoft.com/privacystatement\">Microsoft</a>, <a href=\"https://www.cloudflare.com/privacypolicy/\">Cloudflare</a>, <a href=\"https://policies.google.com/privacy\">Google</a>."
+},
   "privacy.s5_h2": {
     "cs": "5. Cookies",
     "en": "5. Cookies"
   },
   "privacy.s5_p": {
-    "cs": "Cloudflare Web Analytics funguje bez cookies. Služba Google AdSense může používat cookies nebo jiné lokální úložiště podle regionu a volby návštěvníka v zobrazeném dialogu souhlasu. Nezbytné volby souhlasu mohou být uloženy, aby je web respektoval při další návštěvě.",
-    "en": "Cloudflare Web Analytics operates without cookies. Google AdSense may use cookies or other local storage depending on the region and the visitor’s choice in the displayed consent dialog. Necessary consent choices may be stored so that the site can respect them on a later visit."
-  },
+  "cs": "Web používá localStorage pro jazyk, vzhled, úroveň vysvětlení, průchod návody a nastavení některých nástrojů. Tyto údaje zůstávají v prohlížeči do smazání dat webu nebo změny nastavení; neslouží k reklamnímu sledování. Externí Microsoft Forms může používat vlastní úložiště podle nastavení služby. Reklamní skript je vypnutý. TODO — ověřit skutečné cookies a externí služby v produkci a jejich účely a životnost; netechnické cookies a obdobné sledování nesmějí být zapnuty bez požadovaného souhlasu.",
+  "en": "The site uses localStorage for language, appearance, explanation level, guide progress and some tool settings. These remain in the browser until site data is cleared or settings are changed; they are not used for advertising tracking. Embedded Microsoft Forms may use its own storage depending on its configuration. The advertising script is disabled. TODO — verify actual production cookies, external services, purposes and lifetimes; non-essential cookies and similar tracking must not be enabled without required consent."
+},
   "privacy.s6_h2": {
     "cs": "6. Práva subjektu údajů",
     "en": "6. Data subject rights"
   },
   "privacy.s6_p1": {
-    "cs": "V souladu s GDPR máte právo:",
-    "en": "In accordance with the GDPR, you have the right to:"
-  },
+  "cs": "Za podmínek stanovených GDPR máte podle příslušného právního základu právo:",
+  "en": "Subject to GDPR conditions and the applicable legal basis, you have the right:"
+},
   "privacy.s6_li1": {
     "cs": "na přístup ke svým osobním údajům (čl. 15 GDPR)",
     "en": "access your personal data (Art. 15 GDPR)"
@@ -2152,9 +2152,9 @@
     "en": "withdraw given consent at any time, without affecting the lawfulness of processing based on consent given before its withdrawal"
   },
   "privacy.s6_p2": {
-    "cs": "Uplatnit tato práva můžete zasláním žádosti na <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. Žádost bude vyřízena bez zbytečného odkladu, nejpozději do jednoho měsíce od jejího obdržení.",
-    "en": "You can exercise these rights by sending a request to <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. The request will be handled without undue delay, no later than one month after receipt."
-  },
+  "cs": "Práva můžete uplatnit na <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. Správce má reagovat bez zbytečného odkladu, zpravidla do jednoho měsíce. Případné prodloužení za podmínek GDPR musí v této lhůtě oznámit a zdůvodnit.",
+  "en": "You can exercise your rights at <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. The controller must respond without undue delay, normally within one month. Any extension permitted by GDPR must be explained and notified within that period."
+},
   "privacy.s6_p3_intro": {
     "cs": "Pokud se domníváte, že vaše osobní údaje jsou zpracovávány v rozporu s právními předpisy, máte právo podat stížnost u dozorového úřadu, kterým je:",
     "en": "If you believe your personal data is being processed in violation of the law, you have the right to lodge a complaint with the supervisory authority, which is:"
@@ -2168,17 +2168,17 @@
     "en": "7. Data security"
   },
   "privacy.s7_p": {
-    "cs": "Web je provozován výhradně přes zabezpečené HTTPS připojení. Přístup k přijatým údajům (např. e-mailům z kontaktního formuláře) má výhradně správce. Vzhledem k povaze projektu jako osobní iniciativy jednotlivce nejsou zavedeny formální systémy řízení bezpečnosti informací, jaké by byly očekávány u větší organizace. Přiměřeně tomu je omezen i rozsah a citlivost zpracovávaných údajů (viz bod 2).",
-    "en": "The site operates exclusively over a secure HTTPS connection. Access to received data (e.g. e-mails from the contact form) is limited exclusively to the controller. Given the nature of the project as an individual’s personal initiative, formal information security management systems of the kind expected from a larger organization are not in place. The scope and sensitivity of the data processed is limited accordingly (see section 2)."
-  },
+  "cs": "Formuláře odesílají údaje na HTTPS rozhraní Web3Forms. TODO — ověřit a popsat přístup k přijímající schránce, správu účtů, zabezpečení a mazání záloh. Neposílejte hesla, zdravotní údaje ani jiné citlivé informace.",
+  "en": "Forms submit data to the Web3Forms HTTPS endpoint. TODO — verify and describe access to the receiving mailbox, account management, security and backup deletion. Do not send passwords, health information or other sensitive data."
+},
   "privacy.s8_h2": {
-    "cs": "8. Umělá inteligence (nařízení EU 2024/1689)",
-    "en": "8. Artificial intelligence (EU Regulation 2024/1689)"
-  },
+  "cs": "8. Automatizované rozhodování",
+  "en": "8. Automated decision-making"
+},
   "privacy.s8_p": {
-    "cs": "Shieldio na tomto webu aktuálně nepoužívá žádný systém umělé inteligence ve smyslu čl. 3 bodu 1 nařízení Evropského parlamentu a Rady (EU) 2024/1689 (tzv. AI Act). <a href=\"../instructions/blokovy-editor.html\">Blokový editor</a> pro programování desky RED je čistě pravidly řízený nástroj, z bloků, které si sám poskládáš, generuje Arduino kód podle pevně daných šablon, bez strojového učení, statistických modelů nebo autonomního rozhodování. Povinnosti podle AI Actu se proto na tento web v současné době nevztahují. Pokud v budoucnu přidáme funkci skutečně založenou na umělé inteligenci, budou tyto zásady aktualizovány o odpovídající informace o transparentnosti podle příslušných povinností nařízení.",
-    "en": "Shieldio does not currently use any artificial intelligence system on this website within the meaning of Art. 3(1) of Regulation (EU) 2024/1689 of the European Parliament and of the Council (the “AI Act”). The <a href=\"../instructions/blokovy-editor.html\">block editor</a> for programming the RED board is a purely rule-based tool: from the blocks you assemble yourself, it generates Arduino code according to fixed templates, without machine learning, statistical models, or autonomous decision-making. Obligations under the AI Act therefore do not currently apply to this website. If we add a feature genuinely based on artificial intelligence in the future, this policy will be updated with the corresponding transparency information required by the regulation."
-  },
+  "cs": "Kontaktní a rezervační formuláře v kódu webu neprovádějí automatizované rozhodování s právními nebo obdobně významnými účinky. Blokový editor generuje program z předem definovaných bloků. TODO — ověřit případná další zpracování u externích služeb; tento popis není obecným prohlášením o povinnostech podle AI Actu.",
+  "en": "The contact and reservation forms in the website code do not make automated decisions with legal or similarly significant effects. The block editor generates programs from predefined blocks. TODO — verify any further processing by external services; this description is not a general statement about AI Act obligations."
+},
   "privacy.s9_h2": {
     "cs": "9. Změny těchto zásad",
     "en": "9. Changes to this policy"
@@ -2188,11 +2188,90 @@
     "en": "This policy may be updated from time to time, in particular in connection with a change in the operator’s legal form or the scope of data processed. The version published on this page is always the authoritative one."
   },
   "privacy.s9_p2": {
-    "cs": "Naposledy upraveno: 7. září 2026. Aktualizaci provedl Codex.",
-    "en": "Last updated: September 7, 2026. Updated by Codex."
-  },
+  "cs": "Pracovní aktualizace: 9. září 2026. TODO položky vyžadují doplnění provozovatelem.",
+  "en": "Draft updated: 9 September 2026. TODO items require completion by the operator."
+},
   "red.teacher_link": {
     "cs": "Pro učitele: návrh metodiky k prvnímu projektu →",
     "en": "For teachers: draft methodology for the first project →"
   }
+,
+"legal.links": {
+  "cs": "<a href=\"/company/terms.html\">Obchodní podmínky (návrh)</a> · <a href=\"/company/terms.html#reklamace\">Reklamace</a> · <a href=\"/company/terms.html#odstoupeni\">Odstoupení</a> · <a href=\"/company/terms.html#doprava\">Doprava</a> · <a href=\"/company/terms.html#platba\">Platba</a> · <a href=\"/index.html#kontakt\">Kontakt</a>",
+  "en": "<a href=\"/company/terms.html\">Terms (draft)</a> · <a href=\"/company/terms.html#reklamace\">Complaints</a> · <a href=\"/company/terms.html#odstoupeni\">Withdrawal</a> · <a href=\"/company/terms.html#doprava\">Delivery</a> · <a href=\"/company/terms.html#platba\">Payment</a> · <a href=\"/index.html#kontakt\">Contact</a>"
+}
+,
+"legal.trademarks": {
+  "cs": "Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.",
+  "en": "Arduino® is a trademark of Arduino SA. Shieldio is not an official Arduino product. Arduino, mBlock and other third-party names identify compatibility or provide references, not partnership, certification or endorsement."
+}
+,
+"terms.title": {
+  "cs": "Obchodní podmínky — návrh | Shieldio",
+  "en": "Terms — draft | Shieldio"
+},
+"terms.h1": {
+  "cs": "Obchodní podmínky — pracovní návrh",
+  "en": "Terms — working draft"
+},
+"terms.lead": {
+  "cs": "Nedokončený dokument: TODO položky musí provozovatel doplnit a ověřit před závazným prodejem. Aktualizováno 9. září 2026.",
+  "en": "Incomplete document: the operator must complete and verify TODO items before binding sales. Updated 9 September 2026."
+},
+"terms.provozovatel_h": {
+  "cs": "Provozovatel a kontakt",
+  "en": "Operator and contact"
+},
+"terms.provozovatel": {
+  "cs": "TODO — doplnit ověřené jméno nebo obchodní firmu, adresu, IČO a zápis v evidenci, pokud jsou relevantní, DIČ / režim DPH a telefon. Kontakt: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>.",
+  "en": "TODO — provide the verified name or business name, address, registration details where applicable, tax / VAT status and phone. Contact: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>."
+},
+"terms.rezervace_h": {
+  "cs": "Nezávazná rezervace",
+  "en": "Non-binding reservation"
+},
+"terms.rezervace": {
+  "cs": "Formulář RED je nezávazná rezervace bez okamžité platby, nikoli uzavření kupní smlouvy. Ceny variant jsou uvedeny u formuláře. TODO — doplnit pravidla uzavření smlouvy, potvrzení objednávky, konečné ceny včetně daní a poplatků, dostupnost, termín dodání a zrušení rezervace. Finální informace musí zákazník dostat před závaznou objednávkou.",
+  "en": "The RED form is a non-binding reservation without immediate payment, not a sales contract. Variant prices appear in the form. TODO — specify contract formation, order confirmation, final prices including taxes and fees, availability, delivery dates and cancellation. Customers must receive final information before a binding order."
+},
+"terms.doprava_h": {
+  "cs": "Doprava",
+  "en": "Delivery"
+},
+"terms.doprava": {
+  "cs": "TODO — dopravci, doručované země, cena dopravy, osobní převzetí a termíny odeslání a doručení. Dopravu zdarma ani konkrétní termín tento návrh neslibuje.",
+  "en": "TODO — carriers, destination countries, shipping costs, collection options and dispatch and delivery dates. This draft promises neither free shipping nor a specific date."
+},
+"terms.platba_h": {
+  "cs": "Platba",
+  "en": "Payment"
+},
+"terms.platba": {
+  "cs": "Při rezervaci se nic nestrhává; platbu a termín podle popisu formuláře domlouváme e-mailem. TODO — platební metody, splatnost, zálohy, poplatky, doklady a vrácení peněz.",
+  "en": "No payment is collected on reservation; payment and timing are arranged by email according to the form. TODO — payment methods, due dates, deposits, fees, invoicing and refunds."
+},
+"terms.reklamace_h": {
+  "cs": "Reklamace a práva z vad",
+  "en": "Complaints and defective goods"
+},
+"terms.reklamace": {
+  "cs": "Kontakt pro dotazy: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. TODO — adresa pro reklamace a zaslání zboží, postup a potvrzení přijetí, poučení o právech z vad a nákladech. Spotřebitelská reklamace včetně odstranění vady musí být vyřízena a spotřebitel informován nejpozději do 30 dnů, není-li dohodnuta delší lhůta. <a href=\"https://coi.gov.cz/faq/reklamace/\">Informace ČOI</a>.",
+  "en": "Enquiries: <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. TODO — complaints and returns address, receipt procedure and confirmation, statutory remedies and costs. Consumer complaints, including remedying the defect and notifying the consumer, must be handled within 30 days unless a longer period is agreed. <a href=\"https://coi.gov.cz/faq/reklamace/\">Czech Trade Inspection guidance</a>."
+},
+"terms.odstoupeni_h": {
+  "cs": "Odstoupení od smlouvy",
+  "en": "Withdrawal"
+},
+"terms.odstoupeni": {
+  "cs": "U běžného nákupu zboží na dálku má spotřebitel zpravidla právo odstoupit bez udání důvodu do 14 dnů od převzetí. TODO — úplné poučení, vzorový formulář, adresa pro vrácení, postup a lhůty vrácení zboží a peněz, náklady a případné skutečně použitelné zákonné výjimky. Samotná DIY varianta ani předobjednávka právo odstoupit nevylučují. <a href=\"https://coi.gov.cz/faq/a-nakup-pres-internet-2/\">Informace ČOI</a>.",
+  "en": "Consumers buying ordinary goods remotely generally have 14 days from receipt to withdraw without a reason. TODO — full notice, model form, returns address, goods and payment return procedures and deadlines, costs and genuinely applicable statutory exceptions. A DIY variant or pre-order alone does not exclude withdrawal rights. <a href=\"https://coi.gov.cz/faq/a-nakup-pres-internet-2/\">Czech Trade Inspection guidance</a>."
+},
+"terms.spory_h": {
+  "cs": "Spory a osobní údaje",
+  "en": "Disputes and privacy"
+},
+"terms.spory": {
+  "cs": "TODO — ověřit a doplnit poučení o mimosoudním řešení spotřebitelských sporů pro konkrétního prodávajícího; informace poskytuje <a href=\"https://coi.gov.cz/informace-o-adr/\">ČOI</a>. Zpracování údajů popisují <a href=\"privacy.html\">Zásady ochrany osobních údajů</a>. Tento návrh neomezuje zákonná práva spotřebitele.",
+  "en": "TODO — verify and complete alternative dispute resolution information for the actual seller; see the <a href=\"https://coi.gov.cz/informace-o-adr/\">Czech Trade Inspection Authority</a>. See the <a href=\"privacy.html\">Privacy Policy</a> for data processing. This draft does not limit statutory consumer rights."
+}
 }
