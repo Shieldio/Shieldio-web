@@ -170,45 +170,19 @@
     updateButton();
   }
 
-  function renderMemoryLab(root, question) {
-    root.innerHTML = `
-      <section class="memory-levels" aria-label="Úroveň podpory">
-        <button class="is-active" data-memory-level="L0">Potřebuji základy</button>
-        <button data-memory-level="L2">Standard SPŠ</button>
-        <button data-memory-level="L3">Maturitní režim</button>
-        <button data-memory-level="L4">Do hloubky</button>
-      </section>
-      <section class="memory-hero-lab" aria-labelledby="memory-hierarchy-title">
-        <div><span class="learn-eyebrow">Interaktivní model</span><h2 id="memory-hierarchy-title">Jak daleko jsou data od CPU?</h2><p data-hierarchy-copy>Registry drží právě zpracovávané hodnoty přímo v procesoru.</p></div>
-        <input type="range" min="0" max="4" value="0" step="1" aria-label="Vrstva paměťové hierarchie" data-hierarchy>
-        <div class="memory-hierarchy" data-hierarchy-items>
-          <button class="is-active">Registry</button><button>Cache</button><button>RAM</button><button>SSD</button><button>HDD</button>
-        </div>
-        <div class="memory-meters"><span>Rychlost <b data-speed></b></span><span>Kapacita <b data-capacity></b></span><span>Trvalost <b data-persistence></b></span></div>
-      </section>
-      ${question.sections.map(section => `<section class="learn-answer-section memory-content" data-level="${section.level}"><span class="memory-level-tag">${section.level}</span><h2>${section.title}</h2><p>${section.body}</p></section>`).join("")}
-      <section class="memory-lab-grid">
-        <article class="memory-tool"><span class="learn-eyebrow">DRAM</span><h2>Co udělá refresh?</h2><div class="dram-cell"><span data-charge></span></div><p data-refresh-copy>Náboj reprezentuje uložený bit. Bez obnovování postupně klesá.</p><button class="memory-action" data-refresh>Spustit bez refreshe</button></article>
-        <article class="memory-tool"><span class="learn-eyebrow">Adresování</span><h2>Kolik adres vytvoří n bitů?</h2><label>Počet adresních bitů <input type="number" min="1" max="32" value="8" data-address-bits></label><p class="memory-result"><strong data-address-result>256</strong> různých adres</p><p>Výpočet: 2<sup data-address-power>8</sup></p></article>
-      </section>
-      <section class="memory-tool"><span class="learn-eyebrow">Třídění pojmů</span><h2>Co je technologie, formát, rozhraní nebo protokol?</h2><div class="memory-classifier" data-classifier>${["M.2","NVMe","PCIe","SATA","NAND Flash","2,5 palce"].map(x => `<button data-term="${x}">${x}</button>`).join("")}</div><p class="memory-classifier-answer" data-classifier-answer>Vyber pojem a zkus ho nejdřív zařadit sám.</p></section>
-      <section class="memory-tool"><span class="learn-eyebrow">Maturita nanečisto</span><h2>Osnova souvislé odpovědi</h2><ol class="memory-oral"><li>Definuj paměť a vysvětli důvod hierarchie.</li><li>Rozděl paměti podle volatility a principu záznamu.</li><li>Porovnej registry, cache, RAM a sekundární úložiště.</li><li>Vysvětli SRAM, DRAM, refresh, SDRAM a DDR.</li><li>Popiš ROM rodinu, Flash, HDD, SSD a optická média.</li><li>Odděl formát M.2, rozhraní PCIe/SATA a protokol NVMe.</li><li>Uzavři parametry, praktickou volbou a diagnostikou.</li></ol><details><summary>Kontrolní chytáky</summary><p>SSD není RAM. M.2 není synonymum NVMe. Firmware není automaticky „ROM“. USB označuje komunikaci, Flash technologii uložení. Vinyl není optické médium.</p></details></section>`;
-
-    const hierarchy = [
-      ["Registry drží právě zpracovávané hodnoty přímo v procesoru.",95,5,5],
-      ["Cache zachytává pravděpodobně potřebná data blízko CPU.",82,15,5],
-      ["RAM je pracovní prostor spuštěných programů; bez napájení data ztratí.",58,55,5],
-      ["SSD uchovává soubory trvale v NAND Flash bez mechanických částí.",32,82,100],
-      ["HDD nabízí velkou kapacitu, ale náhodný přístup zpomaluje mechanika.",18,95,100]
-    ];
-    const slider=root.querySelector("[data-hierarchy]");
-    const updateHierarchy=()=>{ const i=Number(slider.value),v=hierarchy[i]; root.querySelector("[data-hierarchy-copy]").textContent=v[0]; root.querySelectorAll("[data-hierarchy-items] button").forEach((b,n)=>b.classList.toggle("is-active",n===i)); [["speed",v[1]],["capacity",v[2]],["persistence",v[3]]].forEach(([n,x])=>root.querySelector(`[data-${n}]`).style.width=x+"%"); };
-    slider.addEventListener("input",updateHierarchy); root.querySelectorAll("[data-hierarchy-items] button").forEach((b,i)=>b.addEventListener("click",()=>{slider.value=i;updateHierarchy();})); updateHierarchy();
-    root.querySelectorAll("[data-memory-level]").forEach(button=>button.addEventListener("click",()=>{ const level=button.dataset.memoryLevel; root.querySelectorAll("[data-memory-level]").forEach(b=>b.classList.toggle("is-active",b===button)); root.querySelectorAll("[data-level]").forEach(s=>s.hidden=level!=="L4" && Number(s.dataset.level.slice(1))>Number(level.slice(1))); }));
-    const bits=root.querySelector("[data-address-bits]"); const updateAddress=()=>{const n=Math.max(1,Math.min(32,Number(bits.value)||1)); root.querySelector("[data-address-result]").textContent=(2**n).toLocaleString("cs-CZ"); root.querySelector("[data-address-power]").textContent=n;}; bits.addEventListener("input",updateAddress);
-    root.querySelector("[data-refresh]").addEventListener("click",event=>{const charge=root.querySelector("[data-charge]"); charge.classList.toggle("is-draining"); event.currentTarget.textContent=charge.classList.contains("is-draining")?"Obnovit refresh":"Spustit bez refreshe"; root.querySelector("[data-refresh-copy]").textContent=charge.classList.contains("is-draining")?"Bez refreshe náboj klesá a reprezentovaný stav by se ztratil. Refresh neznamená načtení ze SSD.":"Refresh periodicky obnovuje náboj dřív, než se uložený stav ztratí.";});
-    const classes={"M.2":"fyzický formát modulu a konektoru","NVMe":"komunikační protokol pro nevolatilní paměti","PCIe":"vysokorychlostní sériová sběrnice / rozhraní","SATA":"rozhraní pro HDD a SATA SSD","NAND Flash":"polovodičová technologie uchování dat","2,5 palce":"fyzický formát zařízení"}; root.querySelectorAll("[data-term]").forEach(b=>b.addEventListener("click",()=>{root.querySelector("[data-classifier-answer]").innerHTML=`<strong>${b.dataset.term}</strong> je ${classes[b.dataset.term]}.`; }));
-    root.querySelector("[data-memory-level='L0']").click();
+  function renderMemoryLab(root) {
+    root.textContent = "Načítám kapitoly pamětí…";
+    const load = src => new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src; script.onload = resolve; script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    const css = document.createElement("link");
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-memory.css";
+    document.head.appendChild(css);
+    load("/assets/js/learn-memory-data.js").then(() => load("/assets/js/learn-memory.js"))
+      .then(() => window.renderShieldioMemory(root))
+      .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
 
   function renderPractice(data, progress) {
