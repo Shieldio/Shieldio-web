@@ -19,3 +19,5 @@ Zdroj: `LEARN_RLC_pasivni_linearni_soucastky_MASTER_v2_ROZSIRENY.docx` dodaný m
 | 11, 14 a 29 srovnání a maturitní osnova | 15 |
 
 Empirické koeficienty návrhu cívky a transformátoru nejsou převzaty do automatické kalkulačky, protože master výslovně požaduje ruční potvrzení jejich jednotkové konvence učitelem. Lekce tento postup vysvětluje, ale nevydává neověřený koeficient za obecně platný údaj.
+
+Rovnice se v prohlížeči sázejí pomocí KaTeXu z LaTeXového zápisu. Značky R, C a L i náhradní schémata používají evropský obdélníkový rezistor, deskovou značku kondenzátoru a cívku se třemi oblouky.

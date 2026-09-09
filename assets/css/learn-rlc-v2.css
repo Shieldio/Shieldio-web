@@ -1,0 +1,5 @@
+@import url('/assets/css/learn-rlc-v1.css');
+.rlc-formula{font-family:inherit;font-size:clamp(16px,2.5vw,21px)}
+.rlc-formula .katex-display{margin:0;text-align:left}
+.rlc-symbol[data-model-diagram] svg{width:min(100%,620px);min-height:150px}
+.rlc-symbol[data-model-diagram] text{fill:currentColor;stroke:none;font:15px 'JetBrains Mono',monospace}

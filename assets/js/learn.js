@@ -201,9 +201,15 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-rlc-v1.css";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-rlc-v2.css";
     document.head.appendChild(css);
-    load("/assets/js/learn-rlc-data-v1.js").then(() => load("/assets/js/learn-rlc-v1.js"))
+    if (!document.querySelector('link[href*="katex.min.css"]')) {
+      const mathCss = document.createElement("link");
+      mathCss.rel = "stylesheet"; mathCss.href = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css";
+      document.head.appendChild(mathCss);
+    }
+    const mathReady = window.katex ? Promise.resolve() : load("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js");
+    mathReady.then(() => load("/assets/js/learn-rlc-data-v2.js")).then(() => load("/assets/js/learn-rlc-v2.js"))
       .then(() => window.renderShieldioRlc(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
