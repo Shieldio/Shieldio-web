@@ -452,9 +452,11 @@ export default {
     }
 
     let publicPath = url.pathname.replace(/\/index\.html$/, "/");
-    if (publicPath === "/edupage/" || publicPath.startsWith("/edupage/soukromi/")) {
-      const suffix = publicPath.slice("/edupage".length);
-      return Response.redirect(`${url.origin}/edupage++${suffix}${url.search}`, 308);
+    if (publicPath.startsWith("/edupage/")) {
+      return Response.redirect(`${url.origin}/plus/${publicPath.slice("/edupage/".length)}${url.search}`, 308);
+    }
+    if (publicPath.startsWith("/edupage++/")) {
+      return Response.redirect(`${url.origin}/plus/${publicPath.slice("/edupage++/".length)}${url.search}`, 308);
     }
     if (!publicPath.endsWith("/") && !publicPath.split("/").pop().includes(".")) {
       return Response.redirect(`${url.origin}${publicPath}/${url.search}`, 308);
@@ -475,8 +477,8 @@ export default {
           url: `https://learn.shieldio.cz${publicPath}`
         };
       }
-    } else if (publicPath.startsWith("/edupage++/")) {
-      assetPath = `${STATIC_PREFIX}/edupage/${publicPath.slice("/edupage++/".length)}`;
+    } else if (publicPath.startsWith("/plus/")) {
+      assetPath = `${STATIC_PREFIX}/edupage/${publicPath.slice("/plus/".length)}`;
     } else if (publicPath.endsWith("/")) {
       assetPath = `${STATIC_PREFIX}${publicPath}`;
     } else {

@@ -9,6 +9,7 @@
   const subjects = document.querySelector("[data-subject-averages]");
   const timetable = document.querySelector("[data-timetable]");
   const attendanceSubjects = document.querySelector("[data-subject-attendance]");
+  const attendanceLimit = document.querySelector("[data-attendance-limit]");
   const predictSubject = document.querySelector("[data-predict-subject]");
   const predictCurrent = document.querySelector("[data-predict-current]");
   const predictResult = document.querySelector("[data-predict-result]");
@@ -16,7 +17,8 @@
   const addGrade = document.querySelector("[data-add-grade]");
   const customSchool = document.querySelector("[data-custom-school]");
   let currentGrades = [];
-  if (!form || !result || !grades || !metrics || !loginView || !dashboard || !subjects || !timetable || !attendanceSubjects || !predictSubject || !predictCurrent || !predictResult || !futureGrades || !addGrade) return;
+  let currentSubjectAttendance = [];
+  if (!form || !result || !grades || !metrics || !loginView || !dashboard || !subjects || !timetable || !attendanceSubjects || !attendanceLimit || !predictSubject || !predictCurrent || !predictResult || !futureGrades || !addGrade) return;
   const renderMetrics = payload => {
     metrics.replaceChildren();
     const cards = [
@@ -46,11 +48,17 @@
     if (!subjects.children.length) subjects.textContent = "Pro výpočet nejsou dostupné číselné známky.";
   };
   const renderSubjectAttendance = items => {
+    currentSubjectAttendance = Array.isArray(items) ? items : [];
     attendanceSubjects.replaceChildren();
-    for (const item of items || []) {
-      const row = document.createElement("div"); const name = document.createElement("strong"); const count = document.createElement("span"); const percent = document.createElement("b");
-      name.textContent = item.subject; count.textContent = `${item.absent}/${item.total} hodin`; percent.textContent = `${item.percent.toLocaleString("cs-CZ")} %`;
-      row.append(name, count, percent); attendanceSubjects.append(row);
+    const limit = Math.min(99, Math.max(1, Number(attendanceLimit.value) || 25)) / 100;
+    for (const item of currentSubjectAttendance) {
+      const row = document.createElement("div"); const name = document.createElement("strong"); const count = document.createElement("span"); const percent = document.createElement("b"); const reserve = document.createElement("small");
+      const remaining = item.absent / item.total >= limit ? -1 : Math.max(0, Math.floor(((limit * item.total - item.absent) / (1 - limit)) + 1e-9));
+      name.textContent = item.subject; count.textContent = `${item.absent}/${item.total} zameškaných hodin`; percent.textContent = `${item.percent.toLocaleString("cs-CZ")} %`;
+      if (remaining < 0) { reserve.textContent = `Na zvolené hranici ${(limit * 100).toLocaleString("cs-CZ")} % nebo nad ní`; row.classList.add("is-danger"); }
+      else if (remaining === 0) { reserve.textContent = "Další zameškaná hodina už překročí hranici"; row.classList.add("is-warning"); }
+      else { reserve.textContent = `Rezerva: ještě ${remaining} ${remaining === 1 ? "celá hodina" : remaining < 5 ? "celé hodiny" : "celých hodin"}`; if (remaining <= 2) row.classList.add("is-warning"); }
+      row.append(name, count, reserve, percent); attendanceSubjects.append(row);
     }
     if (!attendanceSubjects.children.length) attendanceSubjects.textContent = "EduPage neposkytl dost údajů pro spolehlivý výpočet po předmětech.";
   };
@@ -175,8 +183,9 @@
     }
   });
   document.querySelector("[data-dashboard-close]")?.addEventListener("click", () => {
-    currentGrades = []; dashboard.hidden = true; loginView.hidden = false; form.reset(); form.elements.schoolChoice.value = "spszl"; customSchool.hidden = true; result.textContent = ""; grades.replaceChildren(); metrics.replaceChildren(); subjects.replaceChildren(); attendanceSubjects.replaceChildren(); futureGrades.replaceChildren(); timetable.replaceChildren();
+    currentGrades = []; currentSubjectAttendance = []; dashboard.hidden = true; loginView.hidden = false; form.reset(); form.elements.schoolChoice.value = "spszl"; customSchool.hidden = true; result.textContent = ""; grades.replaceChildren(); metrics.replaceChildren(); subjects.replaceChildren(); attendanceSubjects.replaceChildren(); futureGrades.replaceChildren(); timetable.replaceChildren();
   });
   predictSubject.addEventListener("change", updatePrediction); addGrade.addEventListener("click", addFutureGrade);
+  attendanceLimit.addEventListener("input", () => renderSubjectAttendance(currentSubjectAttendance));
   form.querySelectorAll('[name="schoolChoice"]').forEach(control => control.addEventListener("change", () => { const show = form.elements.schoolChoice.value === "custom"; customSchool.hidden = !show; form.elements.customSchool.required = show; if (show) form.elements.customSchool.focus(); }));
 })();

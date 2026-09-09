@@ -1,8 +1,8 @@
-# EduPage Lab integrace
+# Learn+ — integrace služby EduPage
 
 ## Stav a hranice technického testu
 
-Na `stage.learn.shieldio.cz/edupage/` běží jednorázový studijní přehled. Ověří přihlášení, ve stejné serverové operaci načte známky a souhrn docházky. Vrátí pouze předmět, hodnotu, datum, typ, váhu a maximum bodů plus agregované počty hodin. Heslo server použije pouze v průběhu jednoho požadavku. Neukládá heslo, cookies ani vytvořenou relaci.
+Na `stage.learn.shieldio.cz/plus/` běží modul Learn+ s jednorázovým připojením k externí službě EduPage. Ověří přihlášení, ve stejné serverové operaci načte známky a souhrn docházky. Vrátí pouze předmět, hodnotu, datum, typ, váhu a maximum bodů plus agregované počty hodin. Heslo server použije pouze v průběhu jednoho požadavku. Neukládá heslo, cookies ani vytvořenou relaci.
 
 ## Architektura
 
