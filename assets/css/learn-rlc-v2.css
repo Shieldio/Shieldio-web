@@ -1,4 +1,6 @@
 @import url('/assets/css/learn-rlc-v1.css');
+.rlc-study{--rlc-curve-secondary:#16855f;--rlc-curve-tertiary:#356fc2;--rlc-cap-dark:#202631;--rlc-cap-mid:#4d5868;--rlc-cap-edge:#171b23;--rlc-metal:#cfd4da}
+:root[data-theme="dark"] .rlc-study{--rlc-curve-secondary:#39d49d;--rlc-curve-tertiary:#78a8ff;--rlc-cap-dark:#202631;--rlc-cap-mid:#586577;--rlc-cap-edge:#11141a;--rlc-metal:#d9dde2}
 .rlc-formula{font-family:inherit;font-size:clamp(16px,2.5vw,21px)}
 .rlc-formula .katex-display{margin:0;text-align:left}
 .rlc-symbol[data-model-diagram] svg{width:min(100%,620px);min-height:150px}
@@ -16,3 +18,39 @@
 .rlc-construction .case{fill:none;stroke:currentColor;stroke-width:4}
 .rlc-construction .anode{fill:#aeb4bc}.rlc-construction .oxide{fill:#e5a94b}.rlc-construction .paper{fill:#e7d8b8}.rlc-construction .cathode{fill:#7b838d}
 .rlc-construction text{fill:currentColor;font:16px 'Inter',sans-serif}
+.rlc-photo{margin:24px 0;border:1px solid var(--learn-line);border-radius:18px;overflow:hidden;background:#fff}
+.rlc-photo img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.rlc-photo figcaption{padding:12px 16px;color:#555;background:#fff;font-size:14px;line-height:1.5}
+.rlc-chart-card,.rlc-polarity,[data-rlc-derating],[data-rlc-pot-graph],[data-rlc-tech-frequency]{margin:20px 0;padding:clamp(16px,3vw,26px);border:1px solid var(--learn-line);border-radius:18px;background:var(--learn-card)}
+.rlc-tech-chart{display:block;width:100%;height:auto;max-height:440px;margin:14px auto;color:var(--learn-ink)}
+.rlc-tech-chart .axis,.rlc-tech-chart .tick,.rlc-tech-chart .grid,.rlc-tech-chart .guide{fill:none;stroke:currentColor;stroke-width:2}
+.rlc-tech-chart .grid{opacity:.13}.rlc-tech-chart .guide{stroke:var(--learn-red);stroke-dasharray:7 7}
+.rlc-tech-chart .curve-r,.rlc-tech-chart .curve-l,.rlc-tech-chart .curve-c,.rlc-tech-chart .pot-linear,.rlc-tech-chart .pot-log,.rlc-tech-chart .pot-reverse{fill:none;stroke-width:5;stroke-linecap:round}
+.rlc-tech-chart .curve-r,.rlc-tech-chart .pot-linear{stroke:var(--learn-red)}
+.rlc-tech-chart .curve-l,.rlc-tech-chart .pot-reverse{stroke:var(--rlc-curve-secondary)}
+.rlc-tech-chart .curve-c,.rlc-tech-chart .pot-log{stroke:var(--rlc-curve-tertiary)}
+.rlc-tech-chart .chart-point{fill:var(--learn-red);stroke:var(--learn-card);stroke-width:3}
+.rlc-tech-chart text{fill:currentColor;font:15px 'JetBrains Mono',monospace}
+.rlc-polarity label,[data-rlc-derating] label,[data-rlc-pot-graph] label{display:grid;gap:10px}
+.rlc-polarity input,[data-rlc-derating] input,[data-rlc-pot-graph] input{width:100%;accent-color:var(--learn-red)}
+.polarity-circuit{position:relative;height:190px;margin:20px 0;border-radius:15px;background:linear-gradient(90deg,rgba(24,169,120,.08),transparent);border:1px solid var(--learn-line)}
+.polarity-circuit::before{content:"";position:absolute;left:14%;right:14%;top:50%;height:3px;background:currentColor}
+.source-plus,.source-minus{position:absolute;top:38%;z-index:2;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--learn-card);border:2px solid currentColor;font-weight:800;font-size:24px}
+.source-plus{left:8%;color:var(--rlc-curve-secondary)}.source-minus{right:8%;color:var(--rlc-curve-tertiary)}
+.rlc-polarity[data-state="reverse"] .source-plus{left:auto;right:8%}.rlc-polarity[data-state="reverse"] .source-minus{right:auto;left:8%}
+.capacitor-can{position:absolute;left:50%;top:18%;transform:translateX(-50%);width:86px;height:122px;border-radius:12px 12px 20px 20px;background:linear-gradient(90deg,var(--rlc-cap-dark),var(--rlc-cap-mid) 55%,var(--rlc-cap-edge));box-shadow:inset 0 4px 0 var(--rlc-metal)}
+.negative-stripe{position:absolute;right:8px;top:0;width:24px;height:100%;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;color:var(--rlc-cap-edge);background:var(--rlc-metal);font-weight:900;letter-spacing:8px}
+.rlc-polarity[data-state="reverse"]{border-color:var(--learn-red);background:color-mix(in srgb,var(--learn-red) 10%,var(--learn-card))}
+.rlc-polarity[data-state="reverse"] .polarity-circuit{animation:rlc-warning .65s ease-in-out 2}
+.rlc-small{font-size:14px;color:var(--learn-muted)}
+@keyframes rlc-warning{50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--learn-red) 22%,transparent)}}
+.rlc-connection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.rlc-connection-grid>section{padding:20px;border:1px solid var(--learn-line);border-radius:18px;background:var(--learn-card)}
+.rlc-circuit{display:block;width:100%;height:auto;margin:14px 0}.rlc-circuit path,.rlc-circuit rect{fill:none;stroke:currentColor;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.rlc-circuit circle{fill:currentColor}.rlc-circuit text{fill:currentColor;font:18px 'JetBrains Mono',monospace}
+.rlc-finish{margin-top:28px;padding:28px;border:1px solid var(--learn-red);border-radius:18px;text-align:center;background:color-mix(in srgb,var(--learn-red) 8%,var(--learn-card))}.rlc-finish>span{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 14px;border-radius:50%;background:var(--learn-red);color:#fff;font-size:30px;font-weight:900}.rlc-finish a{display:inline-block;margin-top:10px;color:var(--learn-red);font-weight:800}
+.resistor-color-tool{margin:26px 0;padding:clamp(18px,3vw,28px);border:1px solid var(--learn-line);border-radius:18px;background:var(--learn-card)}.resistor-color-tool h2{font-size:clamp(22px,3vw,30px);margin-bottom:8px}.resistor-color-tool>p{color:var(--learn-muted)}
+.resistor-tool-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}.resistor-tool-tab{border:1px solid var(--learn-line);background:var(--learn-paper);color:var(--learn-ink);padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:700}.resistor-tool-tab[aria-selected="true"]{background:var(--learn-red);border-color:var(--learn-red);color:#fff}.resistor-tool-panel[hidden]{display:none}
+.resistor-tool-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}.resistor-tool-field{display:grid;gap:7px}.resistor-tool-field input,.resistor-tool-field select{width:100%;padding:10px;border:1px solid var(--learn-line);border-radius:9px;background:var(--learn-paper);color:var(--learn-ink)}
+.resistor-visual{display:flex;justify-content:center;padding:26px}.resistor-body{display:flex;gap:18px;width:min(320px,90%);height:82px;padding:0 48px;border-radius:38px;background:#d9bd82;box-shadow:inset 0 -8px 16px rgba(80,45,5,.15)}.resistor-band{width:18px;height:100%}.resistor-tool-result{font-weight:800;color:var(--learn-red)}.resistor-color-table-wrap{overflow:auto;margin-top:24px}.resistor-color-swatch{display:inline-block;width:16px;height:16px;margin-right:7px;border:1px solid rgba(0,0,0,.2);border-radius:50%;vertical-align:-3px}
+@media(max-width:700px){.rlc-connection-grid{grid-template-columns:1fr}.rlc-tech-chart text{font-size:12px}.rlc-photo figcaption{font-size:12px}.resistor-body{gap:10px;padding:0 28px;height:65px}}
+@media(prefers-reduced-motion:reduce){.rlc-polarity[data-state="reverse"] .polarity-circuit{animation:none}}

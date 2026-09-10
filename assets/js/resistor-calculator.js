@@ -201,6 +201,7 @@
     render();
   }
 
+  window.ShieldioInitResistorColorTool = initColorTool;
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".resistor-calc").forEach(init);
     document.querySelectorAll(".resistor-color-tool").forEach(initColorTool);

@@ -201,7 +201,7 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-rlc-v2.css";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-rlc-v2.css?v=4";
     document.head.appendChild(css);
     if (!document.querySelector('link[href*="katex.min.css"]')) {
       const mathCss = document.createElement("link");
@@ -209,7 +209,11 @@
       document.head.appendChild(mathCss);
     }
     const mathReady = window.katex ? Promise.resolve() : load("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js");
-    mathReady.then(() => load("/assets/js/learn-rlc-data-v3.js?v=4")).then(() => load("/assets/js/learn-rlc-v2.js?v=4")).then(() => load("/assets/js/learn-rlc-diagrams-v4.js?v=5"))
+    mathReady.then(() => load("/assets/js/learn-rlc-data-v3.js?v=4"))
+      .then(() => load("/assets/js/resistor-calculator.js?v=2"))
+      .then(() => load("/assets/js/learn-rlc-v2.js?v=5"))
+      .then(() => load("/assets/js/learn-rlc-diagrams-v4.js?v=5"))
+      .then(() => load("/assets/js/learn-rlc-enhancements-v1.js?v=2"))
       .then(() => window.renderShieldioRlc(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
