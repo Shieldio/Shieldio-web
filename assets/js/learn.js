@@ -215,6 +215,7 @@
       .then(() => load("/assets/js/learn-rlc-v2.js?v=5"))
       .then(() => load("/assets/js/learn-rlc-diagrams-v4.js?v=5"))
       .then(() => load("/assets/js/learn-rlc-enhancements-v1.js?v=2"))
+      .then(() => load("/assets/js/learn-rlc-revision-v2.js?v=1"))
       .then(() => window.renderShieldioRlc(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }

@@ -1,4 +1,5 @@
 @import url('/assets/css/learn-rlc-v1.css');
+@import url('/assets/css/learn-rlc-revision-v2.css?v=1');
 .rlc-study{--rlc-curve-secondary:#16855f;--rlc-curve-tertiary:#356fc2;--rlc-cap-dark:#202631;--rlc-cap-mid:#4d5868;--rlc-cap-edge:#171b23;--rlc-metal:#cfd4da}
 :root[data-theme="dark"] .rlc-study{--rlc-curve-secondary:#39d49d;--rlc-curve-tertiary:#78a8ff;--rlc-cap-dark:#202631;--rlc-cap-mid:#586577;--rlc-cap-edge:#11141a;--rlc-metal:#d9dde2}
 .rlc-formula{font-family:inherit;font-size:clamp(16px,2.5vw,21px)}
