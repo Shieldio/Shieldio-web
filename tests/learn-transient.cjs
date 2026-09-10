@@ -1,0 +1,16 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const context = {window:{}};
+vm.runInNewContext(fs.readFileSync(path.join(root,'assets/js/learn-transient-data-v1.js'),'utf8'),context);
+const data=context.window.ShieldioTransientData;
+assert.equal(data.version,1);
+assert.equal(data.chapters.length,14);
+const text=data.chapters.map(chapter=>`${chapter.title} ${chapter.lead} ${chapter.html}`).join(' ');
+for(const term of ['komutace','0^+','Přirozená odezva','Vynucená odezva','tau_{RC}','tau_{RL}','63,2 %','99,3 %','Volnoběžná dioda','Zener/TVS','nadkritické','kritické','podkritické','osciloskop','data-tr-sim="rc"','data-tr-sim="rl"','Gratul']) assert.ok(text.includes(term),`chybí ${term}`);
+const catalogue=JSON.parse(fs.readFileSync(path.join(root,'assets/data/learn-questions.json'),'utf8'));
+const question=catalogue.questions.find(item=>item.slug==='elektronika-08-prechodne-deje-v-elektronickych-obvodech');
+assert.equal(question.status,'complete'); assert.equal(question.template,'transient-study');
+console.log(`Přechodné děje OK: ${data.chapters.length} kapitol`);

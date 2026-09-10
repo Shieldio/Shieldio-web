@@ -157,6 +157,7 @@
     const sectionRoot = root.querySelector("[data-question-sections]");
     if (question.template === "memory-lab") renderMemoryLab(sectionRoot, question);
     else if (question.template === "rlc-study") renderRlcStudy(sectionRoot, question);
+    else if (question.template === "transient-study") renderTransientStudy(sectionRoot, question);
     else sectionRoot.innerHTML = question.sections.map(section => `<section class="learn-answer-section"><h2>${section.title}</h2><p>${section.body}</p></section>`).join("");
     const button = root.querySelector("[data-complete-question]");
     if (question.status === "outline") {
@@ -215,6 +216,28 @@
       .then(() => load("/assets/js/learn-rlc-diagrams-v4.js?v=5"))
       .then(() => load("/assets/js/learn-rlc-enhancements-v1.js?v=2"))
       .then(() => window.renderShieldioRlc(root))
+      .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
+  }
+
+  function renderTransientStudy(root) {
+    root.textContent = "Načítám učební materiál o přechodných dějích…";
+    const load = src => new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src; script.onload = resolve; script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    const css = document.createElement("link");
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-transient-v1.css?v=1";
+    document.head.appendChild(css);
+    if (!document.querySelector('link[href*="katex.min.css"]')) {
+      const mathCss = document.createElement("link");
+      mathCss.rel = "stylesheet"; mathCss.href = "https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css";
+      document.head.appendChild(mathCss);
+    }
+    const mathReady = window.katex ? Promise.resolve() : load("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js");
+    mathReady.then(() => load("/assets/js/learn-transient-data-v1.js?v=1"))
+      .then(() => load("/assets/js/learn-transient-v1.js?v=1"))
+      .then(() => window.renderShieldioTransient(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
 

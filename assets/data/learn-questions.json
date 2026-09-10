@@ -234,8 +234,9 @@
       "subject": "elektronika",
       "number": "08",
       "title": "Přechodné děje v elektronických obvodech",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "transient-study",
+      "summary": "Vznik přechodného děje, komutace, časové konstanty RC a RL, exponenciální průběhy, energie, ochrana kontaktů a řešené příklady.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
