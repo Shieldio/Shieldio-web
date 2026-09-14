@@ -3,12 +3,14 @@
   "main": "learn/worker.js",
   "compatibility_date": "2026-09-07",
   "workers_dev": true,
+  "vars": { "EDUPAGE_ENABLED": "true", "PUBLIC_HOST": "learn.shieldio.cz" },
   "routes": [
     {
       "pattern": "learn.shieldio.cz",
       "custom_domain": true
     }
   ],
+  "ratelimits": [{ "name": "EDUPAGE_RATE_LIMITER", "namespace_id": "26090802", "simple": { "limit": 5, "period": 60 } }],
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
