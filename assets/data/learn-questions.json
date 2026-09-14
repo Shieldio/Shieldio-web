@@ -631,8 +631,9 @@
       "subject": "automatizace",
       "number": "01",
       "title": "Základy číslicové techniky",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Soustavy, dvojkový a šestnáctkový zápis, logické funkce, hradla, Booleova algebra a kombinační obvody.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -653,8 +654,9 @@
       "subject": "automatizace",
       "number": "02",
       "title": "Sekvenční obvody",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Paměťové prvky, klopné obvody, registry, čítače, synchronizace a rozlišení od kombinačních obvodů.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -675,8 +677,9 @@
       "subject": "automatizace",
       "number": "03",
       "title": "Jednočipový mikropočítač: architektura, paměť, klopné obvody a přerušení",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "CPU, paměti, sběrnice, I/O, přerušení, registry a základní návrh programu pro mikrokontrolér.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -777,8 +780,9 @@
       "subject": "automatizace",
       "number": "06",
       "title": "Sériový a paralelní přenos, posuvné registry",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Sériový a paralelní přenos, časování, UART, SPI, I²C a funkce posuvných registrů.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -799,8 +803,9 @@
       "subject": "automatizace",
       "number": "07",
       "title": "Návrh kombinačních a sekvenčních obvodů, fuzzy logika",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Od zadání a pravdivostní tabulky přes minimalizaci až po stavové automaty a princip fuzzy řízení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -931,8 +936,9 @@
       "subject": "automatizace",
       "number": "13",
       "title": "Automatizační prostředky: výstupní členy",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Výstupní členy, relé, stykače, ventily, pohony, výkonové spínání a zásady bezpečného rozhraní.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1041,8 +1047,9 @@
       "subject": "automatizace",
       "number": "18",
       "title": "Průmyslové roboty: dělení, vlastnosti a manipulátory",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Kinematika, pracovní prostor, osy, efektory, bezpečnost a volba průmyslového manipulátoru.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1202,8 +1209,9 @@
       "subject": "automatizace",
       "number": "24",
       "title": "Vstupní periferie PC",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Vstupní zařízení, principy snímání, rozhraní, ovladače a praktické parametry myší, klávesnic, skenerů a kamer.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1224,8 +1232,9 @@
       "subject": "automatizace",
       "number": "25",
       "title": "Výstupní periferie PC",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Monitory, tiskárny, zvuková zařízení, rozhraní, parametry obrazu a převod digitální informace na fyzický výstup.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
