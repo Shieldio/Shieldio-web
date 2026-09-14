@@ -1,18 +1,30 @@
-// Neveřejný výběr součástek: uprav ceny a nabídku pouze v tomto poli.
+// Neveřejný výběr součástek. Ceny a varianty upravuj pouze v tomto poli.
 (function () {
+  const image = name => `/assets/images/${name}`;
   const products = [
-    { id: "nano", name: "Arduino Nano", detail: "kompatibilní deska · USB-C", price: 95, icon: "N", category: "Řízení" },
-    { id: "ultrasonic", name: "Ultrazvuk HC-SR04", detail: "měření vzdálenosti", price: 38, icon: "US", category: "Senzory" },
-    { id: "ir", name: "IR senzor", detail: "odrazový / sledování čáry", price: 32, icon: "IR", category: "Senzory" },
-    { id: "servo", name: "Servo SG90", detail: "9 g · mikroservo", price: 58, icon: "S", category: "Pohyb" },
-    { id: "motor", name: "DC motor", detail: "malý motor pro projekty", price: 45, icon: "M", category: "Pohyb" },
-    { id: "led", name: "LED diody", detail: "balení 10 ks · mix barev", price: 18, icon: "LED", category: "Základy" },
-    { id: "resistors", name: "Rezistory", detail: "balení 20 ks · běžné hodnoty", price: 15, icon: "Ω", category: "Základy" },
-    { id: "button", name: "Tlačítko", detail: "tact switch · balení 5 ks", price: 12, icon: "BTN", category: "Základy" },
-    { id: "wires", name: "Propojovací vodiče", detail: "Dupont M–M · balení", price: 45, icon: "MM", category: "Prototypování" },
-    { id: "breadboard", name: "Nepájivé pole", detail: "mini breadboard", price: 38, icon: "▦", category: "Prototypování" },
+    { id: "nano", name: "Arduino Nano", detail: "kompatibilní deska · USB-C", price: 95, image: image("red-build-clean/15-arduino-nano.jpg"), category: "Řízení" },
+    { id: "ultrasonic", name: "Ultrazvuk HC-SR04", detail: "měření vzdálenosti", price: 38, image: image("red-build-clean/16-ultrazvuk.jpg"), category: "Senzory" },
+    { id: "servo-sg90", name: "Servo SG90", detail: "9 g · plastové převody", price: 58, image: image("shop-servo-sg90.png"), category: "Pohyb" },
+    { id: "servo-mg90", name: "Servo MG90S", detail: "9 g · kovové převody", price: 95, image: image("shop-servo-sg90.png"), category: "Pohyb" },
+    { id: "n20", name: "Převodový motor N20", detail: "vyber rovnou napětí i otáčky", category: "Pohyb", mark: "N20", options: [{ id: "3v-30", label: "3 V · 30 ot/min", price: 48 }, { id: "3v-100", label: "3 V · 100 ot/min", price: 48 }, { id: "6v-100", label: "6 V · 100 ot/min", price: 52 }, { id: "6v-300", label: "6 V · 300 ot/min", price: 55 }, { id: "6v-1000", label: "6 V · 1 000 ot/min", price: 62 }] },
+    { id: "dc130", name: "DC motor 130", detail: "běžný motor pro školní projekty · 3–6 V", price: 25, mark: "130", category: "Pohyb" },
+    { id: "battery-18650", name: "Li-ion 18650", detail: "nominální kapacita 1 500 mAh", price: 20, mark: "18650", category: "Napájení" },
+    { id: "potentiometer", name: "Potenciometr", detail: "otočný · 3 vývody", category: "Vstup", mark: "POT", options: [{ id: "10k", label: "10 kΩ", price: 18 }, { id: "50k", label: "50 kΩ", price: 18 }, { id: "100k", label: "100 kΩ", price: 18 }] },
+    { id: "led", name: "LED dioda", detail: "kusově", category: "Základy", image: image("red-build-clean/09-led.jpg"), options: [{ id: "red", label: "červená", price: 1 }, { id: "green", label: "zelená", price: 1 }, { id: "blue", label: "modrá", price: 1 }, { id: "yellow", label: "žlutá", price: 1 }, { id: "white", label: "bílá", price: 1 }] },
+    { id: "resistor", name: "Rezistor", detail: "kusově · vlastní hodnota", price: 1, category: "Základy", image: image("red-build-clean/07-vsechny-rezistory.jpg"), field: { label: "Odpor", placeholder: "např. 4,7 kΩ", required: true } },
+    { id: "resistor-set", name: "Sada rezistorů", detail: "základní řada pro zásobu", category: "Základy", image: image("red-build-clean/07-vsechny-rezistory.jpg"), options: [{ id: "e12", label: "E12 · 20 hodnot · 10 ks od hodnoty", price: 65 }, { id: "e24", label: "E24 · 30 hodnot · 10 ks od hodnoty", price: 95 }] },
+    { id: "ceramic-cap", name: "Keramický kondenzátor", detail: "kusově", category: "Základy", image: image("red-build-clean/46-keramicke-kondenzatory.jpg"), options: [{ id: "100n", label: "100 nF", price: 1 }, { id: "220n", label: "220 nF", price: 1 }, { id: "1u", label: "1 µF", price: 2 }, { id: "custom", label: "jiná hodnota", price: null }], field: { label: "Kapacita u jiné hodnoty", placeholder: "např. 47 nF" } },
+    { id: "electrolytic-cap", name: "Elektrolytický kondenzátor", detail: "kusově · polarizovaný", category: "Základy", image: image("red-build-clean/57-elektrolyticky-kondenzator.jpg"), options: [{ id: "10u", label: "10 µF · 25 V", price: 3 }, { id: "100u", label: "100 µF · 25 V", price: 5 }, { id: "470u", label: "470 µF · 25 V", price: 8 }, { id: "custom", label: "jiná hodnota", price: null }], field: { label: "Kapacita u jiné hodnoty", placeholder: "např. 220 µF / 16 V" } },
+    { id: "dupont", name: "Dupont vodiče", detail: "vodiče s konektory", category: "Prototypování", image: image("red-build-clean/13-konektory.jpg"), options: [{ id: "mm-10", label: "male–male · 10 cm · sada", price: 35 }, { id: "mf-20", label: "male–female · 20 cm · sada", price: 45 }, { id: "ff-20", label: "female–female · 20 cm · sada", price: 45 }, { id: "mm-30", label: "male–male · 30 cm · sada", price: 48 }] },
+    { id: "jst", name: "JST konektor s kabelem", detail: "pár konektorů", category: "Prototypování", image: image("red-build-clean/13-konektory.jpg"), options: [{ id: "2", label: "2pin", price: 9 }, { id: "3", label: "3pin", price: 11 }, { id: "4", label: "4pin", price: 13 }, { id: "5", label: "5pin", price: 15 }] },
+    { id: "cable", name: "Běžný kabel", detail: "pro napájení a vlastní zapojení", category: "Prototypování", image: image("red-build-clean/15-usb-a-usb-c-kabel.jpg"), options: [{ id: "single", label: "jednožilový · 1 m", price: 9 }, { id: "two-core", label: "dvojlinka · 1 m", price: 18 }, { id: "usb-c", label: "USB-A ↔ USB-C · 1 m", price: 35 }] },
+    { id: "breadboard", name: "Nepájivé pole", detail: "mini breadboard", price: 38, mark: "BB", category: "Prototypování" },
+    { id: "perfboard", name: "Pájivé univerzální pole", detail: "děrovaná destička pro trvalé zapojení", price: 22, image: image("red-build-clean/58-cela-pcb-hotova.jpg"), category: "Prototypování" },
+    { id: "button", name: "Tlačítko", detail: "kusově", category: "Základy", image: image("red-build-clean/12-tlacitka.jpg"), options: [{ id: "small", label: "malé tact tlačítko", price: 2 }, { id: "large", label: "velké panelové tlačítko", price: 12 }] },
+    { id: "solder", name: "Pájecí cín", detail: "Sn60/Pb40 · průměr 0,8 mm", category: "Nářadí", image: image("red-build-clean/20-cin.jpg"), options: [{ id: "10", label: "10 g", price: 14 }, { id: "25", label: "25 g", price: 30 }, { id: "50", label: "50 g", price: 55 }] },
+    { id: "print", name: "Zakázkový 3D tisk", detail: "zadej odhad váhy jednoho kusu", category: "Na přání", image: image("red-build-clean/59-backplate-dil.jpg"), calculator: { label: "Gramáž 1 kusu", placeholder: "např. 15", rate: 4 }, field: { label: "Co vytisknout", placeholder: "popiš díl / pošli model" } },
   ];
-  const key = "shieldio-parts-shop-cart-v1";
+  const key = "shieldio-parts-shop-cart-v2";
   const productRoot = document.querySelector("[data-products]");
   const itemRoot = document.querySelector("[data-cart-items]");
   const countRoot = document.querySelector("[data-cart-count]");
@@ -23,29 +35,26 @@
   const statusRoot = document.querySelector("[data-copy-status]");
   let cart = load();
   const money = value => new Intl.NumberFormat("cs-CZ", { style: "currency", currency: "CZK", maximumFractionDigits: 0 }).format(value);
+  const escape = value => String(value || "").replace(/[&<>\"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char]);
 
   function load() { try { return JSON.parse(localStorage.getItem(key)) || {}; } catch (_) { return {}; } }
   function save() { try { localStorage.setItem(key, JSON.stringify(cart)); } catch (_) {} }
-  function amount(id) { return Math.max(0, Number(cart[id]) || 0); }
-  function setAmount(id, value) { const next = Math.max(0, Math.min(99, Number(value) || 0)); if (next) cart[id] = next; else delete cart[id]; save(); render(); }
-  function visibleItems() { return products.filter(product => amount(product.id)); }
-  function orderTotal() { return visibleItems().reduce((sum, product) => sum + product.price * amount(product.id), 0); }
-  function message() {
-    const rows = visibleItems().map(product => `• ${product.name} — ${amount(product.id)} ${amount(product.id) === 1 ? "ks" : "ks"} × ${money(product.price)} = ${money(product.price * amount(product.id))}`);
-    return ["Ahoj, chtěl/a bych přidat k další objednávce:", "", ...rows, "", `Orientační součet: ${money(orderTotal())}`, "", "Prosím o potvrzení dostupnosti a finální ceny. Díky!"].join("\n");
-  }
-  function renderProducts() {
-    productRoot.innerHTML = products.map(product => `<article class="parts-product"><div class="parts-product-visual" aria-hidden="true">${product.icon}</div><div class="parts-product-main"><span>${product.category}</span><h2>${product.name}</h2><p>${product.detail}</p><strong>${money(product.price)}</strong></div><div class="parts-stepper" aria-label="Počet pro ${product.name}"><button type="button" data-change="-1" data-id="${product.id}" aria-label="Odebrat ${product.name}">−</button><output data-product-count="${product.id}">${amount(product.id)}</output><button type="button" data-change="1" data-id="${product.id}" aria-label="Přidat ${product.name}">+</button></div></article>`).join("");
-  }
-  function renderCart() {
-    const items = visibleItems(); const total = orderTotal(); const count = items.reduce((sum, product) => sum + amount(product.id), 0);
-    countRoot.textContent = `${count} ${count === 1 ? "položka" : count < 5 ? "položky" : "položek"}`;
-    totalRoot.textContent = money(total);
-    itemRoot.innerHTML = items.length ? items.map(product => `<div class="parts-cart-row"><span><b>${product.name}</b><small>${amount(product.id)} ks × ${money(product.price)}</small></span><strong>${money(product.price * amount(product.id))}</strong></div>`).join("") : '<p class="parts-empty">Zatím nic. Vyber součástky vlevo.</p>';
-    clearButton.hidden = !items.length; copyButton.disabled = !items.length; downloadButton.disabled = !items.length;
-  }
+  function state(product) { const stored = cart[product.id]; if (stored && typeof stored === "object") return { quantity: Math.max(0, Number(stored.quantity) || 0), option: stored.option || product.options?.[0]?.id || "", custom: stored.custom || "", grams: stored.grams || "" }; return { quantity: 0, option: product.options?.[0]?.id || "", custom: "", grams: "" }; }
+  function update(product, changes) { const next = { ...state(product), ...changes }; if (next.quantity) cart[product.id] = next; else delete cart[product.id]; save(); render(); }
+  function selectedOption(product, current) { return product.options?.find(option => option.id === current.option) || null; }
+  function unitPrice(product, current) { if (product.calculator) { const grams = Number(String(current.grams).replace(",", ".")); return grams > 0 ? grams * product.calculator.rate : null; } return product.options ? selectedOption(product, current)?.price ?? null : product.price; }
+  function productVariant(product, current) { const bits = []; const option = selectedOption(product, current); if (option) bits.push(option.label); if (product.field && current.custom) bits.push(current.custom); if (product.calculator && current.grams) bits.push(`${current.grams} g / ks`); return bits.join(" · "); }
+  function visibleItems() { return products.filter(product => state(product).quantity); }
+  function linePrice(product, current) { const unit = unitPrice(product, current); return Number.isFinite(unit) ? unit * current.quantity : null; }
+  function orderTotal() { return visibleItems().reduce((sum, product) => sum + (linePrice(product, state(product)) || 0), 0); }
+  function message() { const rows = visibleItems().map(product => { const current = state(product); const line = linePrice(product, current); const variant = productVariant(product, current); return `• ${product.name}${variant ? ` (${variant})` : ""} — ${current.quantity} ks${line === null ? " · cenu potvrdit" : ` = ${money(line)}`}`; }); return ["Ahoj, chtěl/a bych přidat k další objednávce:", "", ...rows, "", `Orientační součet naceněných položek: ${money(orderTotal())}`, "", "Prosím o potvrzení dostupnosti a finální ceny. Díky!"].join("\n"); }
+  function priceText(product, current) { const unit = unitPrice(product, current); return unit === null ? "cena po domluvě" : product.calculator ? `${money(unit)} / kus` : money(unit); }
+  function productControls(product, current) { const options = product.options ? `<label><span>Varianta</span><select data-option="${product.id}">${product.options.map(option => `<option value="${option.id}"${option.id === current.option ? " selected" : ""}>${option.label}${option.price === null ? " · cena po domluvě" : ` · ${money(option.price)}`}</option>`).join("")}</select></label>` : ""; const field = product.field ? `<label><span>${product.field.label}</span><input data-custom="${product.id}" value="${escape(current.custom)}" placeholder="${product.field.placeholder}"></label>` : ""; const grams = product.calculator ? `<label><span>${product.calculator.label} · ${money(product.calculator.rate)}/g</span><input data-grams="${product.id}" inputmode="decimal" value="${escape(current.grams)}" placeholder="${product.calculator.placeholder}"></label>` : ""; return options || field || grams ? `<div class="parts-config">${options}${field}${grams}</div>` : ""; }
+  function renderProducts() { productRoot.innerHTML = products.map(product => { const current = state(product); const media = product.image ? `<img class="parts-product-image" src="${product.image}" alt="${product.name}" loading="lazy">` : `<div class="parts-product-mark" aria-hidden="true">${product.mark || "DIY"}</div>`; return `<article class="parts-product">${media}<div class="parts-product-main"><span>${product.category}</span><h2>${product.name}</h2><p>${product.detail}</p><strong>${priceText(product, current)}</strong></div>${productControls(product, current)}<div class="parts-stepper" aria-label="Počet pro ${product.name}"><button type="button" data-change="-1" data-id="${product.id}" aria-label="Odebrat ${product.name}">−</button><output>${current.quantity}</output><button type="button" data-change="1" data-id="${product.id}" aria-label="Přidat ${product.name}">+</button></div></article>`; }).join(""); }
+  function renderCart() { const items = visibleItems(); const total = orderTotal(); const count = items.reduce((sum, product) => sum + state(product).quantity, 0); const unpriced = items.some(product => linePrice(product, state(product)) === null); countRoot.textContent = `${count} ${count === 1 ? "položka" : count < 5 ? "položky" : "položek"}`; totalRoot.textContent = money(total); itemRoot.innerHTML = items.length ? items.map(product => { const current = state(product); const line = linePrice(product, current); return `<div class="parts-cart-row"><span><b>${product.name}</b><small>${current.quantity} ks${productVariant(product, current) ? ` · ${escape(productVariant(product, current))}` : ""}</small></span><strong>${line === null ? "dohodou" : money(line)}</strong></div>`; }).join("") : '<p class="parts-empty">Zatím nic. Vyber součástky vlevo.</p>'; document.querySelector("[data-cart-note]").textContent = unpriced ? "Položky s cenou po domluvě nejsou v součtu. Pošli mi výpis; potvrdím dostupnost a finální cenu." : "Pošli mi výpis; teprve potom spolu potvrdíme dostupnost a přesnou cenu."; clearButton.hidden = !items.length; copyButton.disabled = !items.length; downloadButton.disabled = !items.length; }
   function render() { renderProducts(); renderCart(); }
-  productRoot.addEventListener("click", event => { const button = event.target.closest("[data-change]"); if (button) setAmount(button.dataset.id, amount(button.dataset.id) + Number(button.dataset.change)); });
+  productRoot.addEventListener("click", event => { const button = event.target.closest("[data-change]"); if (!button) return; const product = products.find(item => item.id === button.dataset.id); if (product) update(product, { quantity: Math.max(0, state(product).quantity + Number(button.dataset.change)) }); });
+  productRoot.addEventListener("change", event => { const id = event.target.dataset.option || event.target.dataset.custom || event.target.dataset.grams; const product = products.find(item => item.id === id); if (!product) return; if (event.target.dataset.option) update(product, { option: event.target.value }); else update(product, event.target.dataset.grams ? { grams: event.target.value } : { custom: event.target.value }); });
   clearButton.addEventListener("click", () => { cart = {}; save(); statusRoot.textContent = "Košík je prázdný."; render(); });
   copyButton.addEventListener("click", async () => { try { await navigator.clipboard.writeText(message()); statusRoot.textContent = "Zpráva je zkopírovaná. Vlož ji do soukromé zprávy."; } catch (_) { statusRoot.textContent = "Kopírování se nepovedlo — stáhni si seznam .txt."; } });
   downloadButton.addEventListener("click", () => { const blob = new Blob([message()], { type: "text/plain;charset=utf-8" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "shieldio-objednavka.txt"; link.click(); URL.revokeObjectURL(link.href); statusRoot.textContent = "Seznam byl stažen."; });
