@@ -697,20 +697,56 @@
       "subject": "automatizace",
       "number": "04",
       "title": "Jednočipový mikropočítač: časovače, čítače a sériové rozhraní",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "summary": "Časovač a čítač mikrokontroléru, předdělička, přetečení, porovnání, PWM a principy UART, SPI a I²C.",
       "sections": [
         {
-          "title": "Co bude okruh obsahovat",
-          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+          "title": "1. Co je časovač a co čítač",
+          "body": "Jde o hardwarový registr, který při každém vybraném taktu změní hodnotu, aniž by procesor musel vykonat instrukci pro každý krok. Jestli takty přicházejí z vnitřních hodin, měří čas (časovač); jestli přicházejí z externího vstupu, počítá události (čítač). Stejný periferní blok často umí oba režimy. Není to totéž co softwarová čekací smyčka: při běhu časovače může CPU dělat jinou práci."
         },
         {
-          "title": "Připravované názorné prvky",
-          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+          "title": "2. Blokové schéma a předdělička",
+          "body": "Zdroj hodin → předdělička (prescaler) → čítací registr → logika přetečení/porovnání → příznak, přerušení nebo výstup. Předdělička dělí vstupní frekvenci celým číslem P: například 16 MHz / 64 = 250 kHz, tedy jeden krok každé 4 µs. Přesný seznam dostupných dělicích poměrů závisí na konkrétním čipu."
         },
         {
-          "title": "Ověření znalostí",
-          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+          "title": "3. Šířka registru a přetečení",
+          "body": "nbitový čítač má 2^n stavů od 0 do 2^n−1. Osmibitový čítač proto přeteče po 256 krocích, šestnáctibitový po 65 536 krocích. Při taktu čítače 250 kHz trvá 256 kroků 1,024 ms. Přetečení nastaví příznak a podle nastavení může vyvolat přerušení; kód musí příznak obsloužit podle dokumentace daného mikrokontroléru."
+        },
+        {
+          "title": "4. Porovnání a zachycení vstupu",
+          "body": "Režim porovnání sleduje, kdy čítací registr dosáhne naprogramované hodnoty. Pak může přepnout výstup, nastavit příznak, vyvolat přerušení nebo vynulovat čítač. Vstupní zachycení (input capture) naopak při hraně externího signálu uloží aktuální hodnotu čítače; rozdíl dvou zachycených hodnot určí periodu, frekvenci nebo délku impulzu."
+        },
+        {
+          "title": "5. Perioda přerušení a řešený příklad",
+          "body": "Při čítání od nuly do hodnoty TOP včetně je perioda T = P·(TOP+1)/f_clk, pokud zvolený režim generuje událost jednou za tento cyklus. Pro f_clk = 16 MHz, P = 64 a TOP = 249 vyjde T = 64·250/16 000 000 = 1 ms. Za sekundu tedy nastane 1000 událostí. Při jiném režimu, například obousměrném PWM, se vztah může lišit."
+        },
+        {
+          "title": "6. PWM z časovače",
+          "body": "Časovač opakovaně vytváří periodu a komparátor určuje, jakou část periody je výstup v logické jedničce. Střída D = t_zap/T. Při T = 1 ms a t_zap = 0,25 ms je D = 25 %. PWM mění střední hodnotu napětí na zátěži, ne amplitudu digitálního výstupu. Hodí se k řízení jasu LED nebo výkonu motoru přes vhodný výkonový stupeň."
+        },
+        {
+          "title": "7. Přerušení versus dotazování",
+          "body": "Při dotazování (polling) program opakovaně kontroluje příznak periférie. Přerušení upozorní CPU až při události; procesor uloží potřebný kontext, spustí krátkou obslužnou rutinu a vrátí se. V obsluze se nemá dlouho čekat ani blokovat. Časovač může periodicky vzorkovat vstup, plánovat úlohy nebo hlídat timeout komunikace."
+        },
+        {
+          "title": "8. Co znamená sériový přenos",
+          "body": "Bity jdou po vodiči postupně v čase; paralelní přenos používá více datových vodičů zároveň. Před komunikací musí obě strany znát rámování a rychlost nebo sdílet hodinový signál. Sériové rozhraní je periférie mikrokontroléru, která převádí bajty mezi čítacím registrem a přenosovým rámcem. Napěťové úrovně pinů MCU nejsou automaticky stejné jako úrovně standardu RS-232."
+        },
+        {
+          "title": "9. UART: asynchronní rámec",
+          "body": "UART obvykle používá TX, RX a společnou zem; nepotřebuje hodinový vodič. Oba účastníci nastaví stejnou přenosovou rychlost (baud), počet datových bitů, případnou paritu a počet stop bitů. Běžné nastavení 8N1 znamená 1 start bit, 8 datových bitů, bez parity a 1 stop bit; jeden bajt tak zabere 10 bitových dob. Při 9600 Bd je to přibližně 1,04 ms na bajt. Baud je počet symbolů za sekundu; u běžné dvoustavové UART linky odpovídá bitům za sekundu."
+        },
+        {
+          "title": "10. SPI: synchronní přenos",
+          "body": "SPI má hodinový vodič SCLK, datové směry MOSI a MISO a výběr zařízení CS/SS. Řadič určuje takt; data se posouvají po hranách hodin a výměna může probíhat v obou směrech současně. Zařízení se mohou lišit polaritou a fází hodin (CPOL/CPHA), proto musí být režim nastaven podle datasheetu. SPI je vhodné třeba pro displej nebo paměť, za cenu více vodičů."
+        },
+        {
+          "title": "11. I²C: dvouvodičová sběrnice",
+          "body": "I²C sdílí SCL (hodiny) a SDA (data) mezi více zařízeními. Vodiče pracují s otevřeným kolektorem/odtokem, proto potřebují pull-up rezistory; aktivní účastník stahuje linku k nule. Přenos zahrnuje START, adresu zařízení, potvrzení ACK/NACK, datové bajty a STOP. Výhodou jsou dva signálové vodiče pro více zařízení; rychlost a délku sběrnice omezuje mimo jiné kapacita vodičů a hodnota pull-upů."
+        },
+        {
+          "title": "12. Srovnání a maturitní odpověď",
+          "body": "UART: asynchronní spojení typicky mezi dvěma účastníky, bez hodinového vodiče. SPI: synchronní komunikace s hodinami a výběrem CS, často vysoká rychlost. I²C: synchronní adresovaná sběrnice na dvou vodičích s pull-upy. U maturity nejprve nakresli blok časovače, vysvětli prescaler, přetečení a porovnání, spočítej jednoduchou periodu a PWM, pak ukaž rámec 8N1 a porovnej tři rozhraní podle vodičů, hodin, adresace a použití."
         }
       ]
     },

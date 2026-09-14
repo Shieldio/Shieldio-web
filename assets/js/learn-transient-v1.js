@@ -25,6 +25,8 @@
   }
   function widgets(panel) {
     panel.querySelectorAll('[data-tr-sim]').forEach(node => { node.innerHTML = simulation(node.dataset.trSim); updateSimulator(node.firstElementChild); });
+    const signals=panel.querySelector('[data-tr-signals]');
+    if(signals) signals.innerHTML=`<section class="tr-signal-lab"><div class="tr-signal-actions"><button type="button" data-tr-signal="step" aria-pressed="true">Jednotkový skok</button><button type="button" data-tr-signal="pulse" aria-pressed="false">Krátký impulz</button></div><svg viewBox="0 0 600 240" role="img" aria-label="Časový průběh zkušebního signálu"><path class="tr-axis" d="M45 20v185h510"/><path class="tr-signal-path" data-tr-signal-path d="M45 190H285V55H555"/><text x="15" y="62">1</text><text x="275" y="230">0</text><text x="535" y="230">t</text></svg><label data-tr-width-control hidden>Šířka pulzu <input type="range" data-tr-width min="30" max="100" value="70"></label><p data-tr-signal-explain>Skok v čase t = 0 přejde z nuly na jedničku a už na ní zůstane.</p></section>`;
     const tau = panel.querySelector('[data-tr-tau]');
     if (tau) tau.innerHTML = `<section class="tr-simulator"><label>Násobek τ: <b data-tr-tau-label>1,0</b><input data-tr-tau-input type="range" min="0" max="5" value="1" step="0.1"></label>${graph('narůstání', 'pokles')}<output class="tr-result" data-tr-tau-out></output></section>`;
     const protection = panel.querySelector('[data-tr-protection]');
@@ -48,13 +50,22 @@
     const path = Array.from({length:121}, (_, i) => { const t=i/20; let y; if(mode===0)y=1-Math.exp(-.45*t)*Math.cos(2.8*t); else if(mode===1)y=1-(1+t)*Math.exp(-t); else y=1-.7*Math.exp(-.35*t)-.3*Math.exp(-2*t); return `${i?'L':'M'}${55+i/120*520} ${215-y*150}`; }).join(' ');
     panel.querySelector('[data-tr-damping-curve]').setAttribute('d', path);
   }
+  function updateSignal(panel,mode) {
+    const box=panel.querySelector('[data-tr-signals]'); if(!box)return;
+    const width=+box.querySelector('[data-tr-width]').value;
+    box.dataset.mode=mode;
+    box.querySelectorAll('[data-tr-signal]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.trSignal===mode)));
+    box.querySelector('[data-tr-width-control]').hidden=mode==='step';
+    box.querySelector('[data-tr-signal-path]').setAttribute('d',mode==='step'?'M45 190H285V55H555':`M45 190H285V${190-4500/width}H${285+width}V190H555`);
+    box.querySelector('[data-tr-signal-explain]').textContent=mode==='step'?'Skok v čase t = 0 přejde z nuly na jedničku a už na ní zůstane.':'Krátký pulz má konečnou šířku. Při přibližování ideálnímu impulzu musí s klesající šířkou růst výška tak, aby plocha zůstala 1.';
+  }
   window.renderShieldioTransient = root => {
     root.className = 'tr-study'; let current = 0;
     root.innerHTML = `<nav class="tr-nav" aria-label="Kapitoly přechodných dějů">${data.chapters.map((chapter,index)=>`<button type="button" data-tr-chapter="${index}">${String(index+1).padStart(2,'0')} ${esc(chapter.title)}</button>`).join('')}</nav><div data-tr-panel></div><div class="tr-footer"><button type="button" data-tr-nav="prev">← Předchozí</button><button type="button" data-tr-nav="next">Další →</button></div>`;
     const panel = root.querySelector('[data-tr-panel]');
     const render = (index, scroll = false) => { current = Math.max(0, Math.min(data.chapters.length-1,index)); const chapter=data.chapters[current]; root.querySelectorAll('[data-tr-chapter]').forEach((button,i)=>button.setAttribute('aria-current',String(i===current))); panel.innerHTML=`<article class="tr-chapter"><span class="tr-kicker">${current+1} / ${data.chapters.length} · maturitní otázka</span><h2>${chapter.title}</h2><p class="tr-lead">${chapter.lead}</p>${chapter.html}</article>`; root.querySelector('[data-tr-nav="prev"]').disabled=current===0; const next=root.querySelector('[data-tr-nav="next"]'); next.disabled=current===data.chapters.length-1; next.textContent=next.disabled?'Hotovo ✓':'Další →'; panel.querySelectorAll('[data-tr-math]').forEach(node=>window.katex.render(node.dataset.trMath,node,{displayMode:true,throwOnError:false,strict:false})); widgets(panel); if(scroll)root.scrollIntoView({behavior:'smooth',block:'start'}); };
-    root.addEventListener('click', event => { const chapter=event.target.closest('[data-tr-chapter]'); if(chapter){render(+chapter.dataset.trChapter,true);return;} const nav=event.target.closest('[data-tr-nav]'); if(nav){render(current+(nav.dataset.trNav==='next'?1:-1),true);return;} if(event.target.matches('[data-tr-check]')){const value=+panel.querySelector('[data-tr-answer]').value, output=panel.querySelector('[data-tr-check-out]'); output.textContent=Math.abs(value-1.386)<.06?'Správně: t ≈ 1,39 s.':'Zkus znovu. Použij −ln(1−9/12), protože RC = 1 s.';} });
-    root.addEventListener('input', event => { const simulator=event.target.closest('.tr-simulator[data-kind]'); if(simulator)updateSimulator(simulator); if(event.target.matches('[data-tr-tau-input]'))updateTau(panel); if(event.target.matches('[data-tr-damping-input]'))updateDamping(panel); });
+    root.addEventListener('click', event => { const chapter=event.target.closest('[data-tr-chapter]'); if(chapter){render(+chapter.dataset.trChapter,true);return;} const nav=event.target.closest('[data-tr-nav]'); if(nav){render(current+(nav.dataset.trNav==='next'?1:-1),true);return;} const signal=event.target.closest('[data-tr-signal]'); if(signal){updateSignal(panel,signal.dataset.trSignal);return;} if(event.target.matches('[data-tr-check]')){const value=+panel.querySelector('[data-tr-answer]').value, output=panel.querySelector('[data-tr-check-out]'); output.textContent=Math.abs(value-1.386)<.06?'Správně: t ≈ 1,39 s.':'Zkus znovu. Použij −ln(1−9/12), protože RC = 1 s.';} });
+    root.addEventListener('input', event => { const simulator=event.target.closest('.tr-simulator[data-kind]'); if(simulator)updateSimulator(simulator); if(event.target.matches('[data-tr-tau-input]'))updateTau(panel); if(event.target.matches('[data-tr-damping-input]'))updateDamping(panel); if(event.target.matches('[data-tr-width]'))updateSignal(panel,'pulse'); });
     root.addEventListener('change', event => { if(event.target.matches('[data-tr-diode]')){panel.querySelector('[data-tr-protection]').classList.toggle('is-safe',event.target.checked); panel.querySelector('[data-tr-protection-out]').textContent=event.target.checked?'S diodou: proud cívky má uzavřenou cestu a napětí na spínači je omezené.':'Bez ochrany: při rozepnutí hrozí vysoké napětí a jiskření.';} });
     render(0);
   };

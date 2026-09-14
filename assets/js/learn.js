@@ -230,7 +230,7 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-transient-v1.css?v=2";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-transient-v1.css?v=3";
     document.head.appendChild(css);
     if (!document.querySelector('link[href*="katex.min.css"]')) {
       const mathCss = document.createElement("link");
@@ -238,8 +238,9 @@
       document.head.appendChild(mathCss);
     }
     const mathReady = window.katex ? Promise.resolve() : load("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js");
-    mathReady.then(() => load("/assets/js/learn-transient-data-v1.js?v=2"))
-      .then(() => load("/assets/js/learn-transient-v1.js?v=2"))
+    mathReady.then(() => load("/assets/js/learn-transient-data-v1.js?v=3"))
+      .then(() => load("/assets/js/learn-transient-schematics-v3.js?v=3"))
+      .then(() => load("/assets/js/learn-transient-v1.js?v=3"))
       .then(() => window.renderShieldioTransient(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
