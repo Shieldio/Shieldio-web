@@ -254,10 +254,10 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v1.css?v=1";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v1.css?v=3";
     document.head.appendChild(css);
     load("/assets/js/learn-automation-foundations-data-v1.js?v=1")
-      .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=1"))
+      .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=3"))
       .then(() => window.renderShieldioAutomationFoundations(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
