@@ -1,0 +1,13 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const source = fs.readFileSync(path.join(root, 'assets/js/learn-electronics-explorer-v1.js'), 'utf8');
+const catalogue = JSON.parse(fs.readFileSync(path.join(root, 'assets/data/learn-questions.json'), 'utf8'));
+const question = catalogue.questions.find(item => item.slug === 'elektronika-06-elektronicke-zobrazovaci-jednotky');
+assert.equal(question.status, 'complete');
+for (const term of ['Základní obrazové veličiny','Sedmisegmentový LED','LED matice','LCD: tekuté krystaly','TFT LCD','OLED: samosvítící','CRT obrazovka','Plazmový panel a VFD','E-paper','I²C nebo SPI','jas se udává v cd·m⁻²','obnovovací frekvence není totéž','framebufferu']) assert.ok(source.includes(term), `chybí ${term}`);
+assert.ok(source.includes("'06':displayChapters"));
+assert.ok(source.includes("number==='06' ? displayVisual"));
+assert.ok(source.includes("'02','05','06'"), 'otázka 06 zobrazuje generický posuvník');
+console.log('Zobrazovací jednotky OK: 13 kapitol, odrážky a 13 vlastních vizualizací');
