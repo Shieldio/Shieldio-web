@@ -171,10 +171,29 @@
     '12':'<svg viewBox="0 0 640 250" role="img" aria-label="Blokové schéma lineárního napájecího zdroje"><rect x="30" y="75" width="120" height="70" rx="10"/><rect x="185" y="75" width="120" height="70" rx="10"/><rect x="340" y="75" width="120" height="70" rx="10"/><rect x="495" y="75" width="120" height="70" rx="10"/><path d="M150 110h35m120 0h35m120 0h35" class="ee-accent"/><text x="90" y="116">transformátor</text><text x="245" y="105">Graetzův</text><text x="245" y="126">můstek</text><text x="400" y="116">filtr C</text><text x="555" y="105">stabilizace</text><text x="555" y="126">Uout</text><path d="M35 200q25-55 50 0t50 0M190 200q25-55 50 0t50 0M345 185q30-20 60 0t50 0M500 185h110" stroke-width="3"/></svg>'
   })[number] || '';
   const lessonPhoto = number => ({
+    '02': {src:'/assets/images/learn/semiconductors-studio-v1.png',alt:'Diody, LED a další polovodičové součástky na výukové desce',caption:'Názorný snímek · dioda a další polovodičové přechody.'},
+    '03': {src:'/assets/images/learn/semiconductors-studio-v1.png',alt:'Bipolární tranzistory a další polovodičové součástky',caption:'Názorný snímek · pouzdra polovodičů včetně tranzistorů.'},
     '04': {src:'/assets/images/learn/mosfet-studio-v1.png',alt:'Výkonový MOSFET v pouzdru TO-220 na výukové desce',caption:'Vygenerovaný názorný snímek · reálný prvek v praxi.'},
+    '05': {src:'/assets/images/learn/semiconductors-studio-v1.png',alt:'Tyristor, optočlen a polovodičové součástky',caption:'Názorný snímek · vícevrstvé a optoelektronické prvky.'},
+    '06': {src:'/assets/images/learn/digital-conversion-studio-v1.png',alt:'Elektronická deska s obrazovým a číslicovým výstupem',caption:'Názorný snímek · elektronické zobrazování a řízení pixelů.'},
+    '07': {src:'/assets/images/learn/signals-lab-studio-v1.png',alt:'Osciloskop, generátor a elektronický filtr',caption:'Názorný snímek · měření kmitočtově závislého obvodu.'},
+    '09': {src:'/assets/images/learn/signals-lab-studio-v1.png',alt:'Laboratorní měření malého střídavého signálu',caption:'Názorný snímek · zesílení a kontrola průběhu signálu.'},
     '10': {src:'/assets/images/learn/power-amplifier-studio-v1.png',alt:'Výkonový audio zesilovač s výkonovými tranzistory a chladičem',caption:'Vygenerovaný názorný snímek · výkonový stupeň a chlazení.'},
     '11': {src:'https://commons.wikimedia.org/wiki/Special:FilePath/LM358%20low-cost%20op%20amp.jpg',alt:'Integrovaný operační zesilovač LM358 v pouzdru DIP-8',caption:'Foto: Wikimedia Commons · LM358 low-cost op amp · CC0.',credit:'https://commons.wikimedia.org/wiki/File:LM358_low-cost_op_amp.jpg'},
-    '12': {src:'/assets/images/learn/power-supply-studio-v1.png',alt:'Nízkofrekvenční napájecí zdroj s transformátorem a filtračním kondenzátorem',caption:'Vygenerovaný názorný snímek · transformátor, usměrnění a filtrace.'}
+    '12': {src:'/assets/images/learn/power-supply-studio-v1.png',alt:'Nízkofrekvenční napájecí zdroj s transformátorem a filtračním kondenzátorem',caption:'Vygenerovaný názorný snímek · transformátor, usměrnění a filtrace.'},
+    '13': {src:'/assets/images/learn/signals-lab-studio-v1.png',alt:'Generátor a osciloskop zobrazující periodický signál',caption:'Názorný snímek · vznik a ověření elektrických kmitů.'},
+    '14': {src:'/assets/images/learn/measurement-sensors-studio-v1.png',alt:'Analogový a digitální elektrický měřicí přístroj',caption:'Názorný snímek · měřicí systémy a odečet hodnoty.'},
+    '15': {src:'/assets/images/learn/measurement-sensors-studio-v1.png',alt:'Elektrické měřicí přístroje a převodníky',caption:'Názorný snímek · převod elektrické veličiny na měřitelný údaj.'},
+    '16': {src:'/assets/images/learn/digital-conversion-studio-v1.png',alt:'Analogový průběh a jeho číslicové vzorky na výukové desce',caption:'Názorný snímek · vzorkování, kvantování a číslicové zpracování.'},
+    '17': {src:'/assets/images/learn/digital-conversion-studio-v1.png',alt:'Výukový obvod analogově číslicového převodníku',caption:'Názorný snímek · převod analogového napětí na číslicový kód.'},
+    '18': {src:'/assets/images/learn/digital-conversion-studio-v1.png',alt:'Výukový obvod číslicově analogového převodníku s odporovou sítí',caption:'Názorný snímek · převod číslicového kódu na analogový signál.'},
+    '19': {src:'/assets/images/learn/signals-lab-studio-v1.png',alt:'Laboratorní generátor elektrických průběhů',caption:'Názorný snímek · zdroj známého testovacího signálu.'},
+    '20': {src:'/assets/images/learn/signals-lab-studio-v1.png',alt:'Digitální osciloskop se sinusovým průběhem a sondami',caption:'Názorný snímek · zobrazení napětí v čase.'},
+    '21': {src:'/assets/images/learn/measurement-sensors-studio-v1.png',alt:'Měřicí přístroje pro elektrické napětí proud a výkon',caption:'Názorný snímek · měření elektrického výkonu a energie.'},
+    '22': {src:'/assets/images/learn/signals-lab-studio-v1.png',alt:'Osciloskop a generátor pro měření kmitočtu a fáze',caption:'Názorný snímek · porovnání časového průběhu signálů.'},
+    '23': {src:'/assets/images/learn/measurement-sensors-studio-v1.png',alt:'LCR měřicí přístroj a měřicí vodiče',caption:'Názorný snímek · měření odporu, kapacity, indukčnosti a impedance.'},
+    '24': {src:'/assets/images/learn/measurement-sensors-studio-v1.png',alt:'Datová akviziční deska, snímače a měřicí přístroje',caption:'Názorný snímek · cesta od snímače ke zpracování výsledku.'},
+    '25': {src:'/assets/images/learn/measurement-sensors-studio-v1.png',alt:'Snímače teploty a tlaku vedle měřicího systému',caption:'Názorný snímek · převod neelektrické veličiny na elektrický signál.'}
   })[number] || null;
   const model = (number,value,chapter=0) => {
     if(number==='11'){
