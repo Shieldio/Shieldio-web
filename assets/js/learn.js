@@ -1,6 +1,6 @@
 // Shieldio Learn — topic catalogue and progress stay in this browser only.
 (function () {
-  const DATA_URL = "/assets/data/learn-questions.json?v=20260915-diode-1";
+  const DATA_URL = "/assets/data/learn-questions.json?v=20260915-diode-2";
   const STORAGE_KEY = "shieldio-learn-progress-v1";
   const THEME_KEY = "shieldio-theme";
 
@@ -279,8 +279,8 @@
     root.textContent = "Načítám studijní model…";
     const load = src => new Promise((resolve, reject) => { const script=document.createElement("script"); script.src=src; script.onload=resolve; script.onerror=reject; document.head.appendChild(script); });
     const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v1.css?v=8"; document.head.appendChild(css);
-    const interactionCss = document.createElement("link"); interactionCss.rel="stylesheet"; interactionCss.href="/assets/css/learn-interactions-v1.css?v=4"; document.head.appendChild(interactionCss);
-    load("/assets/js/learn-electronics-explorer-v1.js?v=8").then(() => window.renderShieldioElectronicsExplorer(root, question)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
+    const interactionCss = document.createElement("link"); interactionCss.rel="stylesheet"; interactionCss.href="/assets/css/learn-interactions-v1.css?v=5"; document.head.appendChild(interactionCss);
+    load("/assets/js/learn-electronics-explorer-v1.js?v=9").then(() => window.renderShieldioElectronicsExplorer(root, question)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
 
   function renderPractice(data, progress) {
