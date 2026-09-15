@@ -850,8 +850,9 @@
       "subject": "automatizace",
       "number": "09",
       "title": "Inteligentní budovy: nadstavbové systémy a inteligentní domácnost",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Nadstavbové systémy budov, inteligentní domácnost, snímače, akční členy, sběrnice a bezpečný návrh.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -872,8 +873,9 @@
       "subject": "automatizace",
       "number": "10",
       "title": "Inteligentní budovy: poplachové, zabezpečovací a tísňové systémy, ESKV",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Poplachové, zabezpečovací a tísňové systémy, ESKV, detekce, komunikace a bezpečnostní zásady.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -894,8 +896,9 @@
       "subject": "automatizace",
       "number": "11",
       "title": "Inteligentní budovy: elektrická požární signalizace a kamerové systémy",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Elektrická požární signalizace, kamerové systémy, detekce, záznam a provozní souvislosti.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -916,8 +919,9 @@
       "subject": "automatizace",
       "number": "12",
       "title": "Automatizační prostředky: druhy, vlastnosti a používané energie",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Snímače, řídicí jednotky, akční členy, energie, parametry a volba automatizačních prostředků.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -961,8 +965,9 @@
       "subject": "automatizace",
       "number": "14",
       "title": "Regulační technika: regulační obvod a regulované soustavy",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Regulační obvod, regulovaná soustava, zpětná vazba, poruchy, stabilita a kvalita regulace.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -983,8 +988,9 @@
       "subject": "automatizace",
       "number": "15",
       "title": "Regulační technika: druhy regulátorů a nespojité regulátory",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Druhy regulátorů, hystereze, dvoupolohová a třípolohová regulace a praktické použití.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1005,8 +1011,9 @@
       "subject": "automatizace",
       "number": "16",
       "title": "Regulační technika: spojité regulátory a řešení regulačních obvodů",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "P, I, D a PID regulátory, jejich účinek, odezva, stabilita a praktické naladění.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1027,8 +1034,9 @@
       "subject": "automatizace",
       "number": "17",
       "title": "Vyšší formy řízení, číslicové řízení a bloková algebra",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Vyšší formy řízení, číslicové řízení, bloková schémata a zpracování signálů.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1072,8 +1080,9 @@
       "subject": "automatizace",
       "number": "19",
       "title": "Průmyslové roboty: výrobní stroje, linky, řízení a inkrementální senzory",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Výrobní stroje a linky, řízení robotů, inkrementální senzory, bezpečnost a diagnostika.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1094,8 +1103,9 @@
       "subject": "automatizace",
       "number": "20",
       "title": "Mobilní roboty: dělení, interní a optické senzory, pohon",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Mobilní roboty, pohony, interní a optické senzory, navigace a energie.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1116,8 +1126,9 @@
       "subject": "automatizace",
       "number": "21",
       "title": "Mobilní roboty: taktilní, kapacitní a indukční senzory, sonary",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Taktilní, kapacitní a indukční snímače, sonar, parametry, omezení a fúze senzorů.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -1138,8 +1149,9 @@
       "subject": "automatizace",
       "number": "22",
       "title": "Mobilní roboty: pneumatické pohony, řízení, konstrukce, mikrosenzory a SMART kamery",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-pack",
+      "summary": "Pneumatické pohony, mobilní roboty, mikrosenzory, SMART kamery a bezpečné použití.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
