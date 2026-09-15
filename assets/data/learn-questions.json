@@ -125,7 +125,7 @@
       "subject": "elektronika",
       "number": "03",
       "title": "Bipolární tranzistory",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
       "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
@@ -171,9 +171,9 @@
       "subject": "elektronika",
       "number": "05",
       "title": "Vícevrstvé polovodičové součástky a součástky řízené neelektrickou veličinou",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Kompletní výklad: PNPN prvky, tyristor, triak, diak, fázové řízení a součástky řízené světlem, teplotou, magnetickým polem i silou.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",

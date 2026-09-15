@@ -18,5 +18,5 @@ for (const term of [
 assert.ok(source.includes("question.number==='02'"), 'chybí živá aktualizace simulace');
 assert.ok(source.includes('deepGraphic(question.number,current,value)'), 'graf nedostává hodnotu posuvníku');
 assert.ok(source.includes('M305 110v160M305 190h20M325 190L455 115v150z'), 'značka nemá katodovou čáru nebo správnou orientaci');
-assert.ok(source.includes("question.number!=='02'||current===4"), 'zbytečné posuvníky nejsou omezené pouze na VA simulaci');
+assert.ok(source.includes("question.number==='02'&&current===4"), 'zbytečné posuvníky nejsou omezené pouze na VA simulaci');
 console.log('Polovodiče a diody OK: 13 tematických kapitol, značky, Graetzův můstek a živá VA simulace');
