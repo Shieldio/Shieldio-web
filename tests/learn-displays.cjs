@@ -9,5 +9,5 @@ assert.equal(question.status, 'complete');
 for (const term of ['Základní obrazové veličiny','Sedmisegmentový LED','LED matice','LCD: tekuté krystaly','TFT LCD','OLED: samosvítící','CRT obrazovka','Plazmový panel a VFD','E-paper','I²C nebo SPI','jas se udává v cd·m⁻²','obnovovací frekvence není totéž','framebufferu']) assert.ok(source.includes(term), `chybí ${term}`);
 assert.ok(source.includes("'06':displayChapters"));
 assert.ok(source.includes("number==='06' ? displayVisual"));
-assert.ok(source.includes("'02','05','06'"), 'otázka 06 zobrazuje generický posuvník');
+assert.ok(source.includes("'02','05','06','07'"), 'otázka 06 zobrazuje generický posuvník');
 console.log('Zobrazovací jednotky OK: 13 kapitol, odrážky a 13 vlastních vizualizací');

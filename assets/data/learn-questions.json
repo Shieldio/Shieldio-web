@@ -217,9 +217,9 @@
       "subject": "elektronika",
       "number": "07",
       "title": "Pasivní kmitočtově závislé obvody",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Kompletní výklad pasivních filtrů: komplexní impedance, fázory, RC a RL propusti, Bodeho diagramy, rezonance RLC, činitel jakosti, pásmo a měření.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
