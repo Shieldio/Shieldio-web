@@ -1,0 +1,3 @@
+.ee-controls{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:20px 0;padding:14px;border:1px solid var(--learn-line);border-radius:14px;background:var(--learn-card)}
+.ee-controls label{display:flex;flex:1 1 270px;align-items:center;gap:12px;font-weight:750}.ee-controls input{accent-color:var(--learn-red);flex:1}.ee-controls output{font:700 15px 'JetBrains Mono',monospace;color:var(--learn-red-deep)}
+.ee-visual svg,.ap-visual svg{display:block;max-height:250px}.ee-visual .ee-accent,.ap-visual .ap-accent{stroke:var(--learn-red);stroke-width:5}.ee-visual .ee-fill{fill:var(--learn-red);stroke:none}

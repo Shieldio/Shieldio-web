@@ -102,8 +102,9 @@
       "subject": "elektronika",
       "number": "02",
       "title": "Polovodičové přechody a diody",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -124,8 +125,9 @@
       "subject": "elektronika",
       "number": "03",
       "title": "Bipolární tranzistory",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -146,8 +148,9 @@
       "subject": "elektronika",
       "number": "04",
       "title": "Unipolární tranzistory",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -168,8 +171,9 @@
       "subject": "elektronika",
       "number": "05",
       "title": "Vícevrstvé polovodičové součástky a součástky řízené neelektrickou veličinou",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -190,8 +194,9 @@
       "subject": "elektronika",
       "number": "06",
       "title": "Elektronické zobrazovací jednotky",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -212,8 +217,9 @@
       "subject": "elektronika",
       "number": "07",
       "title": "Pasivní kmitočtově závislé obvody",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -257,8 +263,9 @@
       "subject": "elektronika",
       "number": "09",
       "title": "Zesilovače s malou amplitudou signálu",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -279,8 +286,9 @@
       "subject": "elektronika",
       "number": "10",
       "title": "Zesilovače s velkou amplitudou signálu",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -301,8 +309,9 @@
       "subject": "elektronika",
       "number": "11",
       "title": "Operační zesilovače",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -323,8 +332,9 @@
       "subject": "elektronika",
       "number": "12",
       "title": "Napájecí zdroje",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -345,8 +355,9 @@
       "subject": "elektronika",
       "number": "13",
       "title": "Generátory kmitů",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -367,8 +378,9 @@
       "subject": "elektronika",
       "number": "14",
       "title": "Elektromechanické měřicí přístroje",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -389,8 +401,9 @@
       "subject": "elektronika",
       "number": "15",
       "title": "Analogové měřicí převodníky elektrických veličin",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -411,8 +424,9 @@
       "subject": "elektronika",
       "number": "16",
       "title": "Digitalizace a číslicové zpracování signálu",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -433,8 +447,9 @@
       "subject": "elektronika",
       "number": "17",
       "title": "Analogově číslicové převodníky",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -455,8 +470,9 @@
       "subject": "elektronika",
       "number": "18",
       "title": "Číslicově analogové převodníky",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -477,8 +493,9 @@
       "subject": "elektronika",
       "number": "19",
       "title": "Měřicí generátory",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -499,8 +516,9 @@
       "subject": "elektronika",
       "number": "20",
       "title": "Osciloskopy",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -521,8 +539,9 @@
       "subject": "elektronika",
       "number": "21",
       "title": "Měření výkonu a spotřeby elektrické energie",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -543,8 +562,9 @@
       "subject": "elektronika",
       "number": "22",
       "title": "Měření kmitočtu a fázového posunu",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -565,8 +585,9 @@
       "subject": "elektronika",
       "number": "23",
       "title": "Měření odporu, kapacity, indukčnosti a impedance",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -587,8 +608,9 @@
       "subject": "elektronika",
       "number": "24",
       "title": "Měřicí systémy",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -609,8 +631,9 @@
       "subject": "elektronika",
       "number": "25",
       "title": "Měření neelektrických veličin",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "in-progress",
+      "template": "electronics-explorer",
+      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
