@@ -148,9 +148,9 @@
       "subject": "elektronika",
       "number": "04",
       "title": "Unipolární tranzistory",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Výklad podle skript: JFET, MOSFET, typy kanálů, charakteristiky, značky, spínání a bezpečné pracovní meze v deseti obrazovkách.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -286,9 +286,9 @@
       "subject": "elektronika",
       "number": "10",
       "title": "Zesilovače s velkou amplitudou signálu",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Výkonové zesilovače podle skript: samostatně třídy A, B, AB, C, G, H a D, pracovní body, PWM, účinnost, chlazení a ochrany.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -332,9 +332,9 @@
       "subject": "elektronika",
       "number": "12",
       "title": "Napájecí zdroje",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Dvacet kapitol podle skript: transformátor, usměrňovače, filtry, stabilizátory, PWM a neoddělené i oddělené spínané měniče.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
