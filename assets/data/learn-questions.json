@@ -758,8 +758,9 @@
       "subject": "automatizace",
       "number": "05",
       "title": "Programování jednočipových mikropočítačů a PLC",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Návrh programu pro MCU a PLC, vstupy a výstupy, cyklus PLC, jazyky IEC 61131-3, diagnostika a bezpečnost.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -826,8 +827,9 @@
       "subject": "automatizace",
       "number": "08",
       "title": "Počítače v ovládacích a řídicích systémech, programovatelné automaty",
-      "status": "outline",
-      "summary": "Oficiální maturitní okruh je založený; odborný výklad a interaktivní prvky se připravují.",
+      "status": "complete",
+      "template": "automation-foundations",
+      "summary": "Řídicí systémy, PLC, průmyslová komunikace, distribuované I/O, diagnostika, kybernetická bezpečnost a spolehlivost.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",

@@ -1,6 +1,6 @@
 // Shieldio Learn — topic catalogue and progress stay in this browser only.
 (function () {
-  const DATA_URL = "/assets/data/learn-questions.json?v=20260914-automation-2";
+  const DATA_URL = "/assets/data/learn-questions.json?v=20260915-automation-3";
   const STORAGE_KEY = "shieldio-learn-progress-v1";
   const THEME_KEY = "shieldio-theme";
 
@@ -254,10 +254,10 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v1.css?v=4";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v1.css?v=5";
     document.head.appendChild(css);
     load("/assets/js/learn-automation-foundations-data-v1.js?v=1")
-      .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=4"))
+      .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=5"))
       .then(() => window.renderShieldioAutomationFoundations(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }

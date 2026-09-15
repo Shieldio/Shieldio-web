@@ -114,6 +114,78 @@
         ['Maturitní kostra', 'Porovnej monitor, tiskárnu a zvukový výstup podle principu a parametrů. Vysvětli cestu digitálních dat k obrazu nebo zvuku, pojmenuj rozhraní a ukaž, proč se zařízení vybírá podle účelu, ne jen podle jednoho čísla v katalogu.']
       ],
       lab: 'output'
+    },
+    'automatizace-05-programovani-jednocipovych-mikropocitacu-a-plc': {
+      title: 'Programování jednočipových mikropočítačů a PLC',
+      chapters: [
+        ['Úloha programu v řízení', 'Program převádí požadavky technologie na opakovatelnou posloupnost čtení vstupů, vyhodnocení podmínek a ovládání výstupů. Nejdřív popiš technologii, vstupy, výstupy, mezní stavy a bezpečný stav. Kód je až poslední krok návrhu, ne náhrada za zadání.'],
+        ['Program MCU', 'Mikrokontrolér po resetu nastaví hodiny, piny a periferie, pak obvykle běží hlavní smyčka. V ní může číst vstupy, aktualizovat stavový automat a řídit výstupy; časově kritické události obsluhují přerušení. Rozděl program na inicializaci, periodické úlohy a obsluhy událostí.'],
+        ['Debounce a stav tlačítka', 'Mechanické tlačítko při stisku krátce kmitá. Jednoduché zpoždění není vždy vhodné; robustní řešení vzorkuje stav v čase a potvrdí změnu až po stabilním intervalu. Pro reakci na jeden stisk rozliš aktuální stav, předchozí stav a hranu změny.'],
+        ['PLC a cyklus skenu', 'PLC opakuje cyklus: načte obraz vstupů, vykoná program, zapíše obraz výstupů a provede systémové úlohy. Proto se fyzický vstup nemění v každém řádku programu okamžitě a dlouhý program prodlužuje dobu cyklu. Časovače a čítače mají přesně určené chování podle konkrétního prostředí.'],
+        ['Jazyky IEC 61131-3', 'LD (Ladder Diagram) připomíná reléové schéma, FBD spojuje funkční bloky, ST je textový strukturovaný jazyk a SFC popisuje sekvenci kroků a přechodů. Volba jazyka závisí na úloze, týmu a údržbě; všechny musí popisovat stejné bezpečné chování technologie.'],
+        ['Diagnostika a verze', 'Program měj pod verzí, komentuj signály podle reálné technologie a odděl konfiguraci od logiky. Při poruše sleduj fyzický stav, obraz vstupů, proměnné, stavové kroky a výstupy. Nikdy neměň online více neověřených věcí najednou a před změnou zvaž bezpečný dopad na stroj.'],
+        ['Maturitní odpověď', 'Začni analýzou I/O a bezpečného stavu. Porovnej smyčku MCU s cyklem PLC, vysvětli debounce, přerušení a stavový automat. Potom charakterizuj LD, FBD, ST a SFC a uzavři diagnostikou, dokumentací a řízením změn.']
+      ],
+      lab: 'none'
+    },
+    'automatizace-08-pocitace-v-ovladacich-a-ridicich-systemech-programovatelne': {
+      title: 'Počítače v ovládacích a řídicích systémech, programovatelné automaty',
+      chapters: [
+        ['Ovládání a řízení', 'Ovládání provede příkaz bez nutného měření výsledku; řízení využívá informace o procesu a podle nich rozhoduje. Řídicí systém zahrnuje snímače, vstupní moduly, řídicí jednotku, komunikaci, výstupní moduly, akční členy a obslužné rozhraní.'],
+        ['PLC: konstrukce a moduly', 'PLC tvoří CPU, napájecí zdroj, paměť, komunikační rozhraní a moduly vstupů/výstupů. Kompaktní PLC má části v jednom tělese, modulární systém je rozšiřitelný. Digitální I/O pracuje se stavy, analogové I/O převádí spojitou veličinu přes A/D nebo D/A převodník a vyžaduje správné měřítko i diagnostiku.'],
+        ['Průmyslová komunikace', 'Sběrnice propojuje PLC, vzdálené I/O, měniče, HMI a nadřazené systémy. Při návrhu rozliš fyzickou vrstvu, protokol, topologii, adresování, dobu odezvy a diagnostiku. Ethernetový konektor sám neříká, zda je komunikace vhodná pro časově kritické řízení.'],
+        ['Distribuované I/O a HMI', 'Vzdálené I/O zkracuje kabeláž od snímačů a akčních členů, ale vyžaduje návrh napájení, komunikace a bezpečného chování při výpadku spojení. HMI zobrazuje stav, alarmy a umožňuje obsluze zadávat povolené hodnoty; nesmí nahrazovat bezpečnostní funkce.'],
+        ['Spolehlivost a bezpečnost', 'Systém řeší výpadek napájení, přerušený kabel, chybu snímače, výpadek komunikace a chybu programu. Bezpečný stav se určí z rizik technologie. Zálohy projektu, řízení přístupu, segmentace sítě a aktualizace jsou součástí kybernetické bezpečnosti průmyslového řízení.'],
+        ['Maturitní odpověď', 'Nakresli řetězec snímač → I/O → PLC → výstupní člen → akční člen. Popiš CPU, digitální i analogové moduly, cyklus PLC, komunikaci a HMI. Uzavři poruchovými stavy, bezpečným stavem, diagnostikou a odpovědným přístupem do sítě.']
+      ],
+      lab: 'none'
     }
   };
+  const maturityExtensions = {
+    'automatizace-01-zaklady-cislicove-techniky': [
+      ['Kódování a reprezentace hodnot', 'Číslo, znak a stav nejsou totéž. Nezáporné celé číslo lze zapsat přímo binárně, znak se převádí přes kódování jako ASCII nebo Unicode a záporná čísla se v procesorech obvykle ukládají ve dvojkovém doplňku. Uveď rozdíl mezi 8bitovým rozsahem bez znaménka 0 až 255 a se znaménkem −128 až 127.'],
+      ['Kombinační bloky v praxi', 'Multiplexor vybere jeden datový vstup podle adresních vstupů, dekodér aktivuje jeden z výstupů podle binárního kódu a komparátor vyhodnotí A>B, A=B nebo A<B. U každého blokového obvodu řekni, zda má paměť: nemá, proto je jeho výstup po průchodu zpožděním určen aktuálními vstupy.'],
+      ['Návrh a ověření funkce', 'Při návrhu nejprve pojmenuj vstupy i výstupy, sestav pravdivostní tabulku, odvoď rovnici a minimalizuj ji. Až potom kresli hradla. Funkci ověř všemi řádky tabulky; simulace či zapojení může odhalit i chybu názvu signálu nebo opačnou aktivní úroveň.']
+    ],
+    'automatizace-02-sekvencni-obvody': [
+      ['Asynchronní a synchronní návrh', 'Asynchronní obvod může změnit stav okamžitě po změně vstupu, což komplikuje zpoždění a hazardy. Synchronní obvod mění stav při hraně společného CLK, proto lze chování rozdělit na kombinační logiku mezi paměťovými prvky a stav uložený ve flip-flopech.'],
+      ['Registry a posuv dat', 'Paralelní registr uloží několik bitů naráz. Posuvný registr přesune při každé hraně obsah o jednu pozici; SIPO převádí sériový vstup na více výstupů a PISO načte paralelní hodnotu pro sériové vyslání. Prakticky tím rozšíříš počet pinů řídicí jednotky.'],
+      ['Čítače a dělení frekvence', 'T klopný obvod při T=1 mění stav při každé aktivní hraně a na výstupu vytváří poloviční frekvenci. Řetězec n bitů dělí kmitočet a prochází 2ⁿ stavy. Odliš asynchronní ripple čítač se zpožděním mezi stupni od synchronního čítače se společným CLK.']
+    ],
+    'automatizace-03-jednocipovy-mikropocitac-architektura-pamet-klopne-obvody': [
+      ['Paměťová mapa a periferie', 'MCU nevnímá GPIO, časovač ani UART jako abstraktní ikony: jejich řídicí a stavové registry jsou na adresách paměťové mapy. Zápisem bitu do registru můžeš nastavit směr pinu, režim časovače nebo povolit přerušení; čtením získáš stav periferie.'],
+      ['Vstup, výstup a výkonové rozhraní', 'GPIO může být vstup, výstup nebo alternativní funkce periférie. Vstup nesmí plavat; používá se pull-up nebo pull-down. Výstup MCU má omezený proud a přímo nenapájí motor ani relé: pro výkonovou zátěž patří budič, tranzistor, ochrana proti přepětí a společně promyšlená zem.'],
+      ['Priorita a sdílená data', 'Při současných přerušeních rozhoduje priorita a maskování konkrétní architektury. Proměnnou používanou ISR i hlavním programem je nutné navrhnout bezpečně: označení volatile řeší optimalizaci kompilátoru, ale samo nevytvoří atomickou operaci ani nevyloučí souběh.']
+    ],
+    'automatizace-06-seriovy-a-paralelni-prenos-posuvne-registry': [
+      ['Přenosová rychlost a propustnost', 'Baud vyjadřuje počet symbolů za sekundu, bit/s počet bitů za sekundu; u jednoduchého binárního UARTu se často číselně shodují, ale pojmy nejsou univerzální synonyma. U UARTu do propustnosti započítej start, stop a případně paritní bit, nejen osm datových bitů.'],
+      ['Elektrické vrstvy a robustnost', 'Logický protokol neurčuje automaticky elektrické úrovně ani vzdálenost kabelu. Pro delší či rušené vedení se volí vhodná fyzická vrstva, zakončení, společná reference nebo diferenciální přenos. Nezaměňuj UART jako formát komunikace s konkrétním konektorem USB.'],
+      ['Adresování a sdílená sběrnice', 'I²C umožňuje více zařízení na dvou linkách; zařízení má adresu a linky potřebují pull-up odpory, protože výstup běžně aktivně stahuje logickou nulu. U SPI je typicky každý slave volen vlastním CS; výhodou je jednoduchost a rychlost, nevýhodou více signálů.']
+    ],
+    'automatizace-07-navrh-kombinacnich-a-sekvencnich-obvodu-fuzzy-logika': [
+      ['Karnaughova mapa a minimalizace', 'Karnaughova mapa uspořádá kombinace v Grayově kódu, takže sousední pole se liší jedinou proměnnou. Skupiny jedniček o velikosti 1, 2, 4 nebo 8 zjednoduší členy rovnice. Mapa minimalizuje logickou funkci, ale nenahrazuje ověření všech stavů.'],
+      ['Stavový automat', 'Pro sekvenční zadání nakresli stavy a šipky podmíněné vstupy. Potom vytvoř tabulku současného stavu, vstupu, příštího stavu a případného výstupu. Rozliš Mooreův automat, kde výstup závisí na stavu, a Mealyho automat, kde závisí i přímo na vstupu.'],
+      ['Fuzzy regulace na příkladu', 'Pro teplotu zvol například množiny nízká, střední, vysoká a pro výkon malý, střední, velký. Pravidla mohou být „je-li teplota nízká, výkon velký“ a „je-li teplota střední, výkon střední“. Defuzzifikace z výsledných stupňů příslušnosti vytvoří jednu řídicí hodnotu.']
+    ],
+    'automatizace-13-automatizacni-prostredky-vystupni-cleny': [
+      ['Spínací parametry a ztráty', 'Při volbě výstupu porovnej jmenovité napětí, proud, špičkový proud, typ zátěže, spínací frekvenci a ztrátový výkon. Mechanické kontakty trpí obloukem a opotřebením, polovodičový spínač má vodivý úbytek a musí odvést teplo.'],
+      ['Motory a reverzace', 'DC motor se reverzuje změnou polarity pomocí H-můstku nebo vhodného stykačového zapojení. Nikdy nespínej oba směry současně; potřebuješ blokování a bezpečný čas přechodu. U motoru se hodnotí napětí, proud, rozběhový proud, moment, rychlost a ochrana proti přetížení.'],
+      ['Bezpečnostní funkce', 'Nouzové zastavení, bezpečnostní relé, dveřní spínač a běžný programový výstup nejsou zaměnitelné. Bezpečnostní funkce se navrhuje podle rizika a ověřuje pro celé zařízení. Diagnostika musí poznat například zkrat, přerušený vodič nebo nesoulad příkazu a skutečného stavu.']
+    ],
+    'automatizace-18-prumyslove-roboty-deleni-vlastnosti-a-manipulatory': [
+      ['Přesnost, opakovatelnost a kalibrace', 'Přesnost říká, jak blízko robot dojede k absolutně požadovanému bodu; opakovatelnost, jak přesně opakuje stejný pohyb. Pro montáž bývá často kritická opakovatelnost. Kalibrace os, nástroje a souřadného systému obrobku rozhoduje o skutečném výsledku.'],
+      ['Plánování dráhy a singularity', 'Řídicí systém plánuje dráhu kloubů nebo nástroje s omezením rychlosti a zrychlení. Některé konfigurace kloubového robotu vedou k singularitě, kde malé požadavky na pohyb nástroje vyžadují nepřiměřený pohyb os. Programátor proto sleduje i konfiguraci a bezpečné přiblížení.'],
+      ['Výběr efektoru', 'Chapadlo se volí podle tvaru, materiálu, hmotnosti, potřebné síly a tolerance polohy. Vakuový efektor potřebuje vhodný povrch a kontrolu podtlaku, mechanické čelisti řeší sílu a deformaci dílu. Nosnost robotu zahrnuje břemeno, efektor, kabely a dynamické síly.']
+    ],
+    'automatizace-25-vystupni-periferie-pc': [
+      ['Technologie obrazovek', 'LCD moduluje podsvícení tekutými krystaly, OLED vytváří světlo přímo v jednotlivých pixelech. Při srovnání vysvětli princip, jas, kontrast, odezvu, možná omezení dlouhodobého zobrazení a proč nativní rozlišení LCD není libovolně zaměnitelné za jiné.'],
+      ['Obrazová rozhraní', 'HDMI a DisplayPort jsou digitální rozhraní obrazu a mohou nést i zvuk. Možnost konkrétního rozlišení a obnovovací frekvence závisí na verzi zdroje, kabelu, přijímače i nastavení barevného formátu. Konektor sám neprokazuje maximální datový tok celé sestavy.'],
+      ['Tiskový řetězec a diagnostika', 'Aplikace vytváří tiskovou úlohu, ovladač ji převede do jazyka zařízení a fronta ji předá tiskárně přes USB, síť nebo Wi‑Fi. Při poruše odliš konektivitu, frontu, ovladač, papír, toner či inkoust, mechaniku a stavové hlášení zařízení.']
+    ]
+  };
+  Object.entries(maturityExtensions).forEach(([slug, chapters]) => {
+    const lesson = window.ShieldioAutomationFoundations[slug];
+    const last = lesson.chapters.pop();
+    lesson.chapters.push(...chapters, last);
+  });
 })();
