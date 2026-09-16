@@ -11,9 +11,30 @@
     'Zkouška v autoškole', 'Přijímací zkouška', 'Den otevřených dveří školy',
     'Účast na vzdělávací akci', 'Účast na odborné soutěži',
     'Účast na sportovní soutěži', 'Účast na kulturní akci',
-    'Mimořádná dopravní komplikace', 'Stěhování'
+    'Mimořádná dopravní komplikace', 'Stěhování',
+    'Preventivní lékařská prohlídka', 'Kontrolní lékařské vyšetření',
+    'Odběr krve', 'Očkování', 'Plánovaný ambulantní zákrok', 'Darování krve',
+    'Neodkladná péče o člena rodiny', 'Péče o dítě', 'Svatba v rodině',
+    'Soudní jednání', 'Vyřízení osobních dokladů', 'Pracovní pohovor',
+    'Jednání kvůli nástupu do zaměstnání', 'Zkouška profesní kvalifikace',
+    'Státní jazyková zkouška', 'Talentová zkouška',
+    'Výběrové řízení na studijní pobyt', 'Účast na odborném semináři',
+    'Neodkladná havárie v domácnosti', 'Zrušení dopravního spoje'
   ];
-  const jokes = ['Kočka mi zakázala opustit byt.','Postel aktivovala magnetické pole.','Budík měl dnes home office.','Čekám, až se mi aktualizuje motivace.','Pes snědl nejen úkol, ale i můj rozvrh.','Zasekl jsem se v načítací obrazovce.','Gravitace mě drží pod peřinou.','Moje ponožky vyhlásily pátrání po dvojčeti.','Dnes testuji offline režim člověka.','Tramvaj odjela v jiné časové ose.','Mozek hlásí: zařízení není připraveno.','Lednička potřebovala technický dozor.','Mám konflikt s ranním firmwarem.','Dveře čekají na dvoufázové ověření.','Můj batoh přešel do režimu letadlo.','Ve snu jsem už jednu školní směnu odchodil.','Dnes jsem vedoucí oddělení nicnedělání.','Probíhá plánovaná údržba mého vstávání.','Kalendář a já máme tvůrčí neshody.','Domácí Wi-Fi mě nepustila z dosahu.'];
+  const jokes = [
+    'Zlín je město práce. Dnes pracuju na tom, abych vstal.',
+    'Baťovský plán: vstát v 6:00. Realita: revize plánu v 11:40.',
+    'Na třídě Tomáše Bati jsem hledal zkratku. Našel jsem další pololetí.',
+    'EduPage už mě omluvil. Teď ještě přesvědčit EduPage.',
+    'Do Zlína jsem dorazil. Do správné učebny už ne.',
+    'Ranní spoj měl odjet až po mém příchodu. Bohužel jsme se na tom nedomluvili.',
+    'Na průmyslovce mám zkrat. Bohužel ne cestou do školy.',
+    'Podle Ohmova zákona kladu rannímu vstávání příliš velký odpor.',
+    'Omluvenku jsem zapojil správně, ale chybí mi pull-up na vstávání.',
+    'Našel jsem chybu v rozvrhu: počítá s tím, že jsem ráno funkční.',
+    'Maturitní otázku „přechodné děje“ dnes předvádím přechodem zpátky do postele.',
+    'Zlínská docházka: tělem doma, myšlenkami v dílně, v EduPage nepřítomen.'
+  ];
   const items = reasons.map(text => ({text, funny:false})).concat(jokes.map(text => ({text, funny:true})));
   const rotor = box.querySelector('[data-wheel-rotor]');
   const spin = box.querySelector('[data-wheel-spin]');
@@ -36,7 +57,7 @@
   function reset() {
     cancelAnimationFrame(frame); frame = 0; selected = null;
     spin.disabled = false; mode.disabled = false; apply.hidden = true;
-    badge.textContent = '40 nápadů · žádné automatické odeslání'; result.textContent = 'Tak co nám dnes padne?';
+    badge.textContent = '40 věcných návrhů + 12 studentských hlášek'; result.textContent = 'Tak co nám dnes padne?';
     box.classList.remove('is-spinning','is-revealed'); box.removeAttribute('aria-busy');
   }
   function render() {
