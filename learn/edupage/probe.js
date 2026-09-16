@@ -157,18 +157,12 @@
       const response = await fetch("/api/edupage/probe", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ school: data.get("schoolChoice") === "custom" ? data.get("customSchool") : "spszl", username: data.get("username"), password: data.get("password"), privacyConsent: data.get("privacyConsent") === "on", inspectAbsenceNotes: data.get("inspectAbsenceNotes") === "on" }),
+        body: JSON.stringify({ school: data.get("schoolChoice") === "custom" ? data.get("customSchool") : "spszl", username: data.get("username"), password: data.get("password"), privacyConsent: data.get("privacyConsent") === "on" }),
       });
       const payload = await response.json();
       result.className = `edupage-probe-result ${payload.ok ? "is-success" : "is-error"}`;
       result.textContent = payload.message;
       if (payload.ok) {
-        const inspection = document.querySelector('[data-note-inspection]');
-        if (inspection) {
-          const note = payload.absenceNotes;
-          const labels = { reason: 'důvod', dates: 'datum', periods: 'hodiny' };
-          inspection.textContent = !note ? 'Kontrola formuláře nebyla zapnutá.' : note.status === 'recognized' ? `Prázdný formulář načten. Rozpoznaná pole: ${(note.fields || []).map(key => labels[key]).filter(Boolean).join(', ')}. ${note.protocolRecognized ? 'Ukládací struktura dialogu rozpoznána.' : 'Ukládací struktura dialogu zatím nerozpoznána.'} Přímé odesílání ještě není ověřené. Nic nebylo odesláno.` : note.status === 'unavailable' ? 'Formulář se nepodařilo načíst. Přístup ověř přímo v EduPage; samotný přehled funguje dál.' : 'EduPage odpověděl, ale strukturu formuláře zatím neumíme rozpoznat. Nejde o potvrzení ani zamítnutí oprávnění účtu.';
-        }
         currentGrades = Array.isArray(payload.grades) ? payload.grades : [];
         renderMetrics(payload);
         renderGrades(currentGrades);
