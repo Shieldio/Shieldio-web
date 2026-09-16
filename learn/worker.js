@@ -437,7 +437,14 @@ function buildAbsenceNoteRequest(dialog, note, verifiedDefaults) {
     if (typeof values[field] !== 'string') throw new Error('defaults-unverified');
     body.set(field, values[field]);
   }
+  // Observed native serializer appends the loaded-library mask.
+  body.set('_LJSL', '4096');
   return body;
+}
+
+function absenceNoteDefaults() {
+  // Observed single-day, non-advanced request. Pure data; no submission.
+  return { day_periodfrom: '', day_periodto: '', advanced_mode: '', day0: '0', day1: '0', day2: '0', day3: '0', day4: '0', day5: '0', day6: '0', remove_menu_evidence: '0' };
 }
 
 function absenceNoteFormProfile(source) {

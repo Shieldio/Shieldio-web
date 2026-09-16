@@ -34,3 +34,10 @@ assert.throws(() => context.buildAbsenceNoteRequest(dialog, { ...note, date: '20
 assert.throws(() => context.buildAbsenceNoteRequest(dialog, { ...note, first: 10 }, defaults));
 assert.throws(() => context.buildAbsenceNoteRequest(dialog, { ...note, reason: '   ' }, defaults));
 console.log('Adaptér: nové dialogy, odmítnutí změněného protokolu, UTF-8 a validace OK; bez síťového odeslání');
+const completeDialog = { gpid: '123', gsh: 'TESTTOKEN', fields: ['datefrom','dateto','periodfrom','periodto','note','day_periodfrom','day_periodto','advanced_mode','day0','day1','day2','day3','day4','day5','day6','remove_menu_evidence'] };
+const exact = context.buildAbsenceNoteRequest(completeDialog, { date: '2026-09-17', first: 7, last: 9, reason: 'Kulturní akce' }, context.absenceNoteDefaults());
+assert.deepEqual(Object.fromEntries(exact), {
+  gpid:'123',gsh:'TESTTOKEN',action:'ok',datefrom:'2026-09-17',dateto:'2026-09-17',periodfrom:'7',periodto:'9',note:'Kulturní akce',
+  day_periodfrom:'',day_periodto:'',advanced_mode:'',day0:'0',day1:'0',day2:'0',day3:'0',day4:'0',day5:'0',day6:'0',remove_menu_evidence:'0',_LJSL:'4096'
+});
+console.log('Přesná shoda s doloženým Request Data OK; tokeny fixture jsou fiktivní');

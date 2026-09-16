@@ -20,6 +20,15 @@ Před zapnutím zbývá ověřit reálné Request Data včetně checkboxů, ochr
 duplicitou a nezávislé ověření záznamu po serverovém potvrzení. ASC_cop=ok samo
 o sobě není takovým nezávislým ověřením.
 
+Request Data nyní uživatel doložil: důvod v `note`, prázdné `day_periodfrom`,
+`day_periodto`, `advanced_mode`, nulové `day0` až `day6` a
+`remove_menu_evidence`, maska `_LJSL=4096`. Přesný serializer je pokrytý
+offline testem bez sítě. Přístupové údaje z příloh nejsou součástí fixture.
+Produkční odesílání nebylo implementováno ani zapnuto: bezpečnostní kontrola
+vyžaduje samostatné schválení aktivace zápisu do školního systému. Před případnou
+aktivací ještě dokončit trvalou ochranu duplicit a nezávislé ověření uložené
+omluvenky. Již uloženou omluvenku nikdy nepoužívat k opakovanému testovacímu zápisu.
+
 ## Ověřeno
 
 - Skutečný formulář školy umožňuje důvod, rozsah dat a vyučovacích hodin.
