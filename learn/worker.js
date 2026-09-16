@@ -404,6 +404,42 @@ async function followEdupage(response, jar, limit = 5) {
 }
 
 // Only return fixed labels/booleans. Never expose upstream code, tokens or IDs.
+function parseAbsenceNoteDialog(source) {
+  const match = source.match(/\b(gi\d+)\._gclass\s*=\s*["']OspravedlnenkaDlg["']/);
+  if (!match) return null;
+  const ref = match[1];
+  const path = source.match(new RegExp(`${ref}\\.myphpfile\\s*=\\s*["']([^"']+)["']`))?.[1];
+  const rawParams = source.match(new RegExp(`${ref}\\._gparam\\s*=\\s*["']([^"']+)["']`))?.[1];
+  const params = new URLSearchParams(rawParams || '');
+  const gpid = params.get('gpid'), gsh = params.get('gsh');
+  if (path !== '/gcall' || !/^\d+$/.test(gpid || '') || !/^[a-zA-Z0-9]+$/.test(gsh || '')) return null;
+  const fieldsMatch = source.match(new RegExp(`ASC\\.jscFieldsParams\\(${ref},\\s*\\[([^\\]]+)\\]\\)`));
+  if (!fieldsMatch || !source.includes(`${ref}.ASC_action('ok',`) && !source.includes(`${ref}.ASC_action("ok",`)) return null;
+  const fields = [...fieldsMatch[1].matchAll(/["']([a-z0-9_]+)["']/g)].map(m => m[1]);
+  const allowed = ['datefrom', 'dateto', 'periodfrom', 'periodto', 'note', 'day_periodfrom', 'day_periodto', 'advanced_mode', 'day0', 'day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'remove_menu_evidence'];
+  if (fields.some(field => !allowed.includes(field)) || !['datefrom', 'dateto', 'periodfrom', 'periodto', 'note'].every(field => fields.includes(field))) return null;
+  // Ephemeral protocol material stays server-side. Do not serialize this object.
+  return { gpid, gsh, fields };
+}
+
+function buildAbsenceNoteRequest(dialog, note, verifiedDefaults) {
+  // Not wired to any HTTP handler. Caller must supply observed defaults and
+  // independently enforce one-shot submission before enabling the adapter.
+  if (!dialog || !verifiedDefaults) throw new Error('protocol-unverified');
+  const date = String(note.date || '');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(`${date}T12:00:00Z`)) || new Date(`${date}T12:00:00Z`).toISOString().slice(0, 10) !== date) throw new Error('date');
+  if (!Number.isInteger(note.first) || !Number.isInteger(note.last) || note.first < 0 || note.last > 20 || note.first > note.last) throw new Error('periods');
+  if (typeof note.reason !== 'string' || !note.reason.trim() || note.reason.length > 1000) throw new Error('reason');
+  const values = { ...verifiedDefaults, datefrom: date, dateto: date, periodfrom: String(note.first), periodto: String(note.last), note: note.reason.trim() };
+  if (values.advanced_mode !== '' || values.remove_menu_evidence !== '0') throw new Error('defaults-unverified');
+  const body = new URLSearchParams({ gpid: dialog.gpid, gsh: dialog.gsh, action: 'ok' });
+  for (const field of dialog.fields) {
+    if (typeof values[field] !== 'string') throw new Error('defaults-unverified');
+    body.set(field, values[field]);
+  }
+  return body;
+}
+
 function absenceNoteFormProfile(source) {
   const has = pattern => pattern.test(source);
   const fields = [];
@@ -411,7 +447,7 @@ function absenceNoteFormProfile(source) {
   if (has(/datefrom|dateFrom|datepicker|dateRange/i)) fields.push("dates");
   if (has(/periodfrom|periodFrom|periodto|periodTo/i)) fields.push("periods");
   const parameterHints = ["datefrom", "dateto", "periodfrom", "periodto", "reason", "text", "studentid", "studentids"].filter(name => new RegExp(`\\b${name}\\b`, "i").test(source));
-  return { status: fields.includes("reason") && fields.includes("dates") ? "recognized" : "unknown", fields, parameterHints, hasJscAction: has(/ASC_action\s*\(/), hasTimelineRequest: has(/\/timeline\/\?cmd=creator/), directSending: false };
+  return { status: fields.includes("reason") && fields.includes("dates") ? "recognized" : "unknown", fields, parameterHints, hasJscAction: has(/ASC_action\s*\(/), hasTimelineRequest: has(/\/timeline\/\?cmd=creator/), protocolRecognized: Boolean(parseAbsenceNoteDialog(source)), directSending: false };
 }
 
 async function inspectAbsenceNoteForm(base, jar) {

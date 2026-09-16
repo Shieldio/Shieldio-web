@@ -10,6 +10,16 @@ Rozpoznání je heuristika, nikoli ověření ukládacího protokolu nebo opráv
 Skutečný účet ještě musí tuto kontrolu spustit. Syntetický test UI a test
 `tests/plus-note-profile.cjs` ověřují rozpoznání a neúnik citlivých hodnot.
 
+Adaptér `parseAbsenceNoteDialog` rozpoznává pouze OspravedlnenkaDlg, pevnou
+cestu /gcall a povolená pole. Nové gpid/gsh ponechává na serveru.
+`buildAbsenceNoteRequest` je čistý serializer, není dostupný přes HTTP a nic
+neodesílá. Podporuje zatím jeden den a souvislý rozsah hodin. Vyžaduje explicitně
+ověřené hodnoty vedlejších polí; žádná hodnota z uživatelovy přílohy není použita
+pro přihlášení. Fixture obsahuje pouze fiktivní identifikátor/token.
+Před zapnutím zbývá ověřit reálné Request Data včetně checkboxů, ochranu před
+duplicitou a nezávislé ověření záznamu po serverovém potvrzení. ASC_cop=ok samo
+o sobě není takovým nezávislým ověřením.
+
 ## Ověřeno
 
 - Skutečný formulář školy umožňuje důvod, rozsah dat a vyučovacích hodin.

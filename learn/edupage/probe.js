@@ -167,7 +167,7 @@
         if (inspection) {
           const note = payload.absenceNotes;
           const labels = { reason: 'důvod', dates: 'datum', periods: 'hodiny' };
-          inspection.textContent = !note ? 'Kontrola formuláře nebyla zapnutá.' : note.status === 'recognized' ? `Prázdný formulář načten. Rozpoznaná pole: ${(note.fields || []).map(key => labels[key]).filter(Boolean).join(', ')}. Přímé odesílání ještě není ověřené. Nic nebylo odesláno.` : note.status === 'unavailable' ? 'Formulář se nepodařilo načíst. Přístup ověř přímo v EduPage; samotný přehled funguje dál.' : 'EduPage odpověděl, ale strukturu formuláře zatím neumíme rozpoznat. Nejde o potvrzení ani zamítnutí oprávnění účtu.';
+          inspection.textContent = !note ? 'Kontrola formuláře nebyla zapnutá.' : note.status === 'recognized' ? `Prázdný formulář načten. Rozpoznaná pole: ${(note.fields || []).map(key => labels[key]).filter(Boolean).join(', ')}. ${note.protocolRecognized ? 'Ukládací struktura dialogu rozpoznána.' : 'Ukládací struktura dialogu zatím nerozpoznána.'} Přímé odesílání ještě není ověřené. Nic nebylo odesláno.` : note.status === 'unavailable' ? 'Formulář se nepodařilo načíst. Přístup ověř přímo v EduPage; samotný přehled funguje dál.' : 'EduPage odpověděl, ale strukturu formuláře zatím neumíme rozpoznat. Nejde o potvrzení ani zamítnutí oprávnění účtu.';
         }
         currentGrades = Array.isArray(payload.grades) ? payload.grades : [];
         renderMetrics(payload);
