@@ -1,0 +1,17 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const source = fs.readFileSync(require('node:path').join(__dirname, '../learn/worker.js'), 'utf8');
+const context = vm.createContext({});
+vm.runInContext(source.slice(source.indexOf('function absenceNoteFormProfile('), source.indexOf('async function inspectAbsenceNoteForm(')), context);
+const profile = html => JSON.parse(JSON.stringify(context.absenceNoteFormProfile(html)));
+assert.equal(profile('<textarea></textarea> datepicker periodfrom').status, 'recognized');
+assert.equal(profile('<html>Login</html>').status, 'unknown');
+assert.equal(profile('datepicker').status, 'unknown');
+const sensitive = profile('<textarea></textarea> datepicker studentid="PRIVATE_ID" gsh="SECRET" password="PASSWORD" ASC_action("save", {})');
+assert.equal(sensitive.directSending, false);
+assert.equal(sensitive.hasJscAction, true);
+assert.ok(!JSON.stringify(sensitive).match(/PRIVATE_ID|SECRET|PASSWORD|save/));
+assert.deepEqual(sensitive.fields, ['reason', 'dates']);
+assert.deepEqual(sensitive.parameterHints, ['studentid']);
+console.log('Profil formuláře: rozpoznání, neznámá odpověď a ochrana citlivých hodnot OK');

@@ -3,6 +3,13 @@
 Aktuální implementace je pouze místní návrh. Nevytváří omluvenku v EduPage.
 Není implementovaný zápisový endpoint ani uchovávání relace nebo hesla.
 
+Volitelná kontrola při připojení načítá prázdný dialog přes pozorovaný
+`/timeline/?cmd=creator&akcia=ospravedlnenkaDlg` s prázdným tělem. Zdroj se
+nespouští a neukládá; vracejí se pouze pevné názvy polí a booleovské příznaky.
+Rozpoznání je heuristika, nikoli ověření ukládacího protokolu nebo oprávnění.
+Skutečný účet ještě musí tuto kontrolu spustit. Syntetický test UI a test
+`tests/plus-note-profile.cjs` ověřují rozpoznání a neúnik citlivých hodnot.
+
 ## Ověřeno
 
 - Skutečný formulář školy umožňuje důvod, rozsah dat a vyučovacích hodin.

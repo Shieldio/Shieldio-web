@@ -403,6 +403,27 @@ async function followEdupage(response, jar, limit = 5) {
   return current;
 }
 
+// Only return fixed labels/booleans. Never expose upstream code, tokens or IDs.
+function absenceNoteFormProfile(source) {
+  const has = pattern => pattern.test(source);
+  const fields = [];
+  if (has(/textarea/i)) fields.push("reason");
+  if (has(/datefrom|dateFrom|datepicker|dateRange/i)) fields.push("dates");
+  if (has(/periodfrom|periodFrom|periodto|periodTo/i)) fields.push("periods");
+  const parameterHints = ["datefrom", "dateto", "periodfrom", "periodto", "reason", "text", "studentid", "studentids"].filter(name => new RegExp(`\\b${name}\\b`, "i").test(source));
+  return { status: fields.includes("reason") && fields.includes("dates") ? "recognized" : "unknown", fields, parameterHints, hasJscAction: has(/ASC_action\s*\(/), hasTimelineRequest: has(/\/timeline\/\?cmd=creator/), directSending: false };
+}
+
+async function inspectAbsenceNoteForm(base, jar) {
+  // Observed native Start-menu action opens a blank dialog. Empty request only:
+  // no reason, dates, student IDs or save action are ever transmitted here.
+  const response = await edupageFetch(`${base}/timeline/?cmd=creator&akcia=ospravedlnenkaDlg`, {
+    method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: "", signal: AbortSignal.timeout(12000),
+  }, jar);
+  if (!response.ok || response.status >= 300) return { status: "unavailable", directSending: false };
+  return absenceNoteFormProfile(await response.text());
+}
+
 async function probeEdupage(request, env) {
   if (env.EDUPAGE_ENABLED !== "true") return json({ ok: false, code: "disabled", message: "Test připojení není zapnutý." }, 503);
   const origin = request.headers.get("origin");
@@ -461,7 +482,12 @@ async function probeEdupage(request, env) {
     const timetable = currentTimetable?.lessons?.length ? currentTimetable : attendanceDetail?.timetable || currentTimetable;
     const subjectAttendance = attendanceDetail?.attendance || null;
     const attendance = attendanceHtml ? attendanceSummary(attendanceHtml) : null;
-    return json({ ok: true, message: `Načteno známek: ${grades.length}.`, grades, averages: gradeAverages(grades), attendance, subjectAttendance, timetable });
+    let absenceNotes = null;
+    if (body.inspectAbsenceNotes === true) {
+      try { absenceNotes = await inspectAbsenceNoteForm(base, jar); }
+      catch { absenceNotes = { status: "unavailable", directSending: false }; }
+    }
+    return json({ ok: true, message: `Načteno známek: ${grades.length}.`, grades, averages: gradeAverages(grades), attendance, subjectAttendance, timetable, absenceNotes });
   } catch {
     return json({ ok: false, code: "network", message: "Spojení s EduPage se nepodařilo dokončit. Zkuste to znovu později." }, 502);
   }
