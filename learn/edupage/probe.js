@@ -24,6 +24,7 @@
     const cards = [
       ["Vážený průměr", payload.averages?.overall === null || payload.averages?.overall === undefined ? "—" : payload.averages.overall.toLocaleString("cs-CZ"), payload.averages?.counted ? `z ${payload.averages.counted} číselných známek` : "bez číselných známek"],
       ["Absence", payload.attendance?.current?.percent === null || payload.attendance?.current?.percent === undefined ? "—" : `${payload.attendance.current.percent.toLocaleString("cs-CZ")} %`, payload.attendance?.current ? `${payload.attendance.current.label} · ${payload.attendance.current.absent}/${payload.attendance.current.total} hodin` : "údaj nebyl dostupný"],
+      ["Pozdní příchody", Number.isInteger(payload.attendance?.lateArrivals) ? payload.attendance.lateArrivals.toLocaleString("cs-CZ") : "—", Number.isInteger(payload.attendance?.lateArrivals) ? `${payload.attendance.current.label} · počet hodin s evidovaným pozdním příchodem` : "údaj nebyl dostupný"],
     ];
     for (const [label, value, detail] of cards) {
       const card = document.createElement("div");

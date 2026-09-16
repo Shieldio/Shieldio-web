@@ -199,8 +199,9 @@ function gradeAverages(grades) {
 }
 
 function attendanceSummary(html) {
-  const halfStats = jsonArgument(html, '"halfStats":');
-  const halves = jsonArgument(html, '"halves":') || { "1": "1. pololetí", "2": "2. pololetí" };
+  const payload = attendancePayload(html);
+  const halfStats = payload?.halfStats || jsonArgument(html, '"halfStats":');
+  const halves = payload?.halves || jsonArgument(html, '"halves":') || { "1": "1. pololetí", "2": "2. pololetí" };
   const studentIds = Object.keys(halfStats || {});
   if (studentIds.length !== 1) return null;
   const periods = Object.entries(halfStats[studentIds[0]] || {}).flatMap(([key, values]) => {
@@ -214,7 +215,23 @@ function attendanceSummary(html) {
   if (!periods.length) return null;
   const preferred = new Date().getUTCMonth() >= 1 && new Date().getUTCMonth() <= 7 ? "2" : "1";
   const current = periods.find(period => period.key === preferred) || periods.at(-1);
-  return { current, periods };
+  const today = localToday();
+  const year = Number(today.slice(0, 4));
+  const month = Number(today.slice(5, 7));
+  const schoolYear = month >= 9 ? year : year - 1;
+  const from = current.key === "2" ? `${schoolYear + 1}-02-01` : `${schoolYear}-09-01`;
+  const to = current.key === "2" ? `${schoolYear + 1}-08-31` : `${schoolYear + 1}-01-31`;
+  const records = payload?.students?.[studentIds[0]];
+  let lateArrivals = null;
+  if (records && typeof records === "object" && !Array.isArray(records)) {
+    lateArrivals = 0;
+    for (const [date, day] of Object.entries(records)) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < from || date > to || date > today) continue;
+      const lessons = Object.entries(day || {}).filter(([period]) => /^\d+$/.test(period));
+      lateArrivals += lessons.filter(([, record]) => record?.presence === "L").length;
+    }
+  }
+  return { current, periods, lateArrivals };
 }
 
 function localToday() {
