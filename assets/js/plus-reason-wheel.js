@@ -33,7 +33,12 @@
     'Omluvenku jsem zapojil správně, ale chybí mi pull-up na vstávání.',
     'Našel jsem chybu v rozvrhu: počítá s tím, že jsem ráno funkční.',
     'Maturitní otázku „přechodné děje“ dnes předvádím přechodem zpátky do postele.',
-    'Zlínská docházka: tělem doma, myšlenkami v dílně, v EduPage nepřítomen.'
+    'Zlínská docházka: tělem doma, myšlenkami v dílně, v EduPage nepřítomen.',
+    'Výpomoc panu Hanulíkovi při pájení. Cín už teče, čas na docházku ne.',
+    'Mazání tabule pana Mazala. Jméno zavazuje, dnes mažu já.',
+    'Výpomoc panu Drgovi. Mise přijata, návrat do výuky zatím neznámý.',
+    'Stavění lega pro bývalého ředitele pana Nadbala. Chybí poslední kostička a moje docházka.',
+    'Potvrzování Pythagorovy věty. Přepona sedí, já do školy zatím ne.'
   ];
   const items = reasons.map(text => ({text, funny:false})).concat(jokes.map(text => ({text, funny:true})));
   const rotor = box.querySelector('[data-wheel-rotor]');
@@ -57,7 +62,7 @@
   function reset() {
     cancelAnimationFrame(frame); frame = 0; selected = null;
     spin.disabled = false; mode.disabled = false; apply.hidden = true;
-    badge.textContent = '40 věcných návrhů + 12 studentských hlášek'; result.textContent = 'Tak co nám dnes padne?';
+    badge.textContent = `${reasons.length} věcných návrhů + ${jokes.length} studentských hlášek`; result.textContent = 'Tak co nám dnes padne?';
     box.classList.remove('is-spinning','is-revealed'); box.removeAttribute('aria-busy');
   }
   function render() {
