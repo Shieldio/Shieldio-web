@@ -422,14 +422,27 @@ function parseAbsenceNoteDialog(source) {
   return { gpid, gsh, fields };
 }
 
+function noteDates(note) {
+  const start = String(note.date || '');
+  const end = String(note.to || start);
+  for (const date of [start, end]) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(`${date}T12:00:00Z`)) || new Date(`${date}T12:00:00Z`).toISOString().slice(0, 10) !== date) throw new Error('date');
+  }
+  const count = (Date.parse(end) - Date.parse(start)) / 86400000 + 1;
+  if (count < 1 || count > 40) throw new Error('range');
+  if (note.scope !== undefined && !['days','periods'].includes(note.scope)) throw new Error('scope');
+  if (note.scope !== 'days' && count !== 1) throw new Error('range');
+  return Array.from({ length: count }, (_, i) => new Date(Date.parse(start) + i * 86400000).toISOString().slice(0, 10));
+}
+
 function buildAbsenceNoteRequest(dialog, note, verifiedDefaults) {
   // The sender must claim a persistent guard before issuing this request.
   if (!dialog || !verifiedDefaults) throw new Error('protocol-unverified');
-  const date = String(note.date || '');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(`${date}T12:00:00Z`)) || new Date(`${date}T12:00:00Z`).toISOString().slice(0, 10) !== date) throw new Error('date');
-  if (!Number.isInteger(note.first) || !Number.isInteger(note.last) || note.first < 0 || note.last > 20 || note.first > note.last) throw new Error('periods');
+  const dates = noteDates(note);
+  const wholeDays = note.scope === 'days';
+  if (!wholeDays && (!Number.isInteger(note.first) || !Number.isInteger(note.last) || note.first < 0 || note.last > 20 || note.first > note.last)) throw new Error('periods');
   if (typeof note.reason !== 'string' || !note.reason.trim() || note.reason.length > 1000) throw new Error('reason');
-  const values = { ...verifiedDefaults, datefrom: date, dateto: date, periodfrom: String(note.first), periodto: String(note.last), note: note.reason.trim() };
+  const values = { ...verifiedDefaults, datefrom: dates[0], dateto: dates.at(-1), periodfrom: wholeDays ? '' : String(note.first), periodto: wholeDays ? '' : String(note.last), note: note.reason.trim() };
   if (values.advanced_mode !== '' || values.remove_menu_evidence !== '0') throw new Error('defaults-unverified');
   const body = new URLSearchParams({ gpid: dialog.gpid, gsh: dialog.gsh, action: 'ok' });
   for (const field of dialog.fields) {
@@ -494,34 +507,44 @@ export class NoteSubmissionGuard {
 }
 
 async function sendAbsenceNote(base, jar, school, note, env) {
+  const dates = noteDates(note);
   const page = await edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: 'GET', signal: AbortSignal.timeout(12000) }, jar);
   const before = page.ok ? attendancePayload(await page.text()) : null;
   const students = Object.keys(before?.students || {});
   if (students.length !== 1) return json({ ok: false, code: 'notes-account', message: 'Nelze jednoznačně určit studenta. Omluvenku odešli přímo v EduPage.' }, 409);
   const student = students[0];
-  if (noteRecords(before, student, note.date).length) return json({ ok: false, code: 'notes-existing', message: 'Pro tento den už je v EduPage omluvenka. Nic nebylo znovu odesláno. Případnou změnu proveď přímo v EduPage.' }, 409);
+  if (dates.some(date => noteRecords(before, student, date).length)) return json({ ok: false, code: 'notes-existing', message: 'V tomto rozsahu už je v EduPage omluvenka. Nic nebylo znovu odesláno. Případnou změnu proveď přímo v EduPage.' }, 409);
   const dialogResponse = await edupageFetch(`${base}/timeline/?cmd=creator&akcia=ospravedlnenkaDlg`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: '', signal: AbortSignal.timeout(12000) }, jar);
   const source = dialogResponse.ok ? await dialogResponse.text() : '';
   const dialog = parseAbsenceNoteDialog(source);
   const expectedFields = ['datefrom','dateto','periodfrom','periodto','note',...Object.keys(absenceNoteDefaults())];
   if (!dialog || dialog.fields.length !== expectedFields.length || !expectedFields.every(field => dialog.fields.includes(field))) return json({ ok: false, code: 'notes-protocol', message: 'Ukládací formulář účtu není podporovaný. Nic nebylo odesláno.' }, 409);
-  if (!notePeriodOptions(source, 'periodfrom').includes(String(note.first)) || !notePeriodOptions(source, 'periodto').includes(String(note.last))) return json({ ok: false, code: 'notes-input', message: 'Vybrané hodiny nejsou v načteném formuláři školy. Zkontroluj rozsah v EduPage. Nic nebylo odesláno.' }, 400);
+  if (!notePeriodOptions(source, 'periodfrom').includes(note.scope === 'days' ? '' : String(note.first)) || !notePeriodOptions(source, 'periodto').includes(note.scope === 'days' ? '' : String(note.last))) return json({ ok: false, code: 'notes-input', message: 'Vybraný rozsah není v načteném formuláři školy. Nic nebylo odesláno.' }, 400);
   const outgoing = buildAbsenceNoteRequest(dialog, note, absenceNoteDefaults());
-  const fingerprint = await hmac(JSON.stringify(['absence:v1', school, student, note.date]), env.LEARN_SESSION_SECRET);
-  const guard = env.NOTE_SUBMISSIONS.get(env.NOTE_SUBMISSIONS.idFromName(fingerprint));
-  const claim = await guard.fetch(new Request('https://guard/claim', { method: 'POST' }));
-  if (!claim.ok || !(await claim.json()).claimed) return json({ ok: false, code: 'notes-duplicate', message: 'Pro tento den už proběhl pokus o odeslání. Kvůli riziku duplicity jej neopakujeme. Zkontroluj omluvenky v EduPage.' }, 409);
+  // Reserve every calendar day before the single write. Partial reservations
+  // remain blocked on collision/error: safety takes priority over retrying.
+  const guards = [];
+  for (const date of dates) {
+    const fingerprint = await hmac(JSON.stringify(['absence:v1', school, student, date]), env.LEARN_SESSION_SECRET);
+    const guard = env.NOTE_SUBMISSIONS.get(env.NOTE_SUBMISSIONS.idFromName(fingerprint));
+    const claim = await guard.fetch(new Request('https://guard/claim', { method: 'POST' }));
+    if (!claim.ok || !(await claim.json()).claimed) return json({ ok: false, code: 'notes-duplicate', message: 'V tomto rozsahu už proběhl pokus o odeslání. Kvůli riziku duplicity jej neopakujeme. Zkontroluj omluvenky v EduPage.' }, 409);
+    guards.push(guard);
+  }
   let verified = false;
   try {
     const result = await edupageFetch(`${base}/gcall`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: outgoing.toString(), signal: AbortSignal.timeout(20000) }, jar);
     if (result.ok && noteDialogAccepted(await result.text(), dialog.gpid)) {
       const check = await edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: 'GET', signal: AbortSignal.timeout(12000) }, jar);
       const after = check.ok ? attendancePayload(await check.text()) : null;
-      const oldIds = new Set(noteRecords(before, student, note.date).map(row => row.sa_note_subId));
-      verified = noteRecords(after, student, note.date).some(row => !oldIds.has(row.sa_note_subId) && row.sanote.trim() === note.reason.trim());
+      verified = dates.every(date => {
+        const oldIds = new Set(noteRecords(before, student, date).map(row => row.sa_note_subId));
+        return noteRecords(after, student, date).some(row => !oldIds.has(row.sa_note_subId) && row.sanote.trim() === note.reason.trim());
+      });
     }
   } catch { /* A write may have reached EduPage. Never retry or unlock. */ }
-  try { await guard.fetch(new Request('https://guard/finish', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ state: verified ? 'verified' : 'uncertain' }) })); } catch { /* durable claim remains */ }
+  // Multi-day claims stay pending until expiry to keep subrequests bounded.
+  if (guards.length === 1) try { await guards[0].fetch(new Request('https://guard/finish', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ state: verified ? 'verified' : 'uncertain' }) })); } catch { /* durable claim remains */ }
   return verified ? json({ ok: true, code: 'notes-verified', message: 'EduPage potvrdil odeslání a v docházce byl nalezen nový záznam se zadaným datem a důvodem. Přijetí omluvenky školou tím není potvrzené.' }) : json({ ok: false, code: 'notes-uncertain', message: 'Výsledek nelze bezpečně potvrdit. Omluvenka mohla být uložena. Neposílej ji znovu a zkontroluj EduPage.' }, 409);
 }
 
@@ -555,7 +578,7 @@ async function probeEdupage(request, env, noteMode = false) {
     if (body.submissionConsent !== true) return json({ ok: false, code: 'notes-consent', message: 'Potvrď odeslání konkrétní omluvenky škole.' }, 400);
     if (env.EDUPAGE_NOTES_ENABLED !== 'true' || !env.NOTE_SUBMISSIONS || !env.LEARN_SESSION_SECRET) return json({ ok: false, code: 'notes-disabled', message: 'Přímé odesílání není zapnuté.' }, 503);
     try { buildAbsenceNoteRequest({ gpid: '0', gsh: 'VALIDATION', fields: [] }, body.note || {}, absenceNoteDefaults()); }
-    catch { return json({ ok: false, code: 'notes-input', message: 'Zkontroluj datum, rozsah hodin a důvod. Podporujeme zatím jeden den s konkrétními hodinami.' }, 400); }
+    catch { return json({ ok: false, code: 'notes-input', message: 'Zkontroluj datum, rozsah a důvod. Celé dny nejvýše 40 kalendářních dnů; konkrétní hodiny pouze v jednom dni.' }, 400); }
   }
   const school = String(body.school || "").trim().toLowerCase().replace(/\.edupage\.org\/?$/, "");
   const username = String(body.username || "").trim();

@@ -1,9 +1,9 @@
 # Omluvenky Learn+
 
-- POST `/api/edupage/absence-note`, jeden den a konkrétní souvislý rozsah hodin.
+- POST `/api/edupage/absence-note`, konkrétní hodiny jednoho dne nebo celé dny (nejvýše 40 kalendářních dnů včetně).
 - Potvrzení až uvnitř přihlášeného dashboardu, po náhledu a zopakování hesla.
 - Heslo ani relace se neuchovávají. Odeslání provádí nové přihlášení.
-- Celé dny a vícedenní návrhy se dokončují v EduPage.
+- Celé dny posílají periodfrom/periodto prázdné; datefrom/dateto vymezují rozsah. Prázdná volba a čištění hodin při změně rozsahu jsou doloženy nativním dialogem. Zápis vždy jedním požadavkem.
 - Vyžaduje jediného studenta v docházce a podporovaný OspravedlnenkaDlg.
 - Nové gpid/gsh pouze z nového dialogu, žádný eval, pevná cesta /gcall.
 - Serializer doložen uživatelem: prázdná pokročilá pole, nulové checkboxy,
@@ -11,13 +11,19 @@
 
 ## Duplicity
 
-Před zápisem kontrola existující omluvenky pro den, poté atomický Durable Object
+Před zápisem kontrola existující omluvenky pro každý den, poté atomický Durable Object
 claim v HMAC namespace škola/student/den. Uchovává jen stav a čas sedm dnů.
 Po claimu žádný retry ani odblokování při timeoutu/chybě. Změna důvodu nebo hodin
 neobejde blokaci téhož dne. Doplnění téhož dne musí uživatel řešit v EduPage.
+Vícedenní návrh rezervuje všechny dny před jediným zápisem. Při kolizi zůstanou
+i již získané rezervace blokované; žádný zápis se neprovede. Vícedenní rezervace
+zůstávají pending do expirace (limit počtu subrequestů), bez ukládání obsahu.
 
 Úspěch vyžaduje ASC_cop=ok + dlg.hide správného dialogu a následný GET docházky
-s novým sa_note_subId, správným dnem a shodným sanote. Docházková data této
+s novým sa_note_subId, správným dnem a shodným sanote. Data následné
+kontroly musí obsahovat nový záznam pro každý kalendářní den rozsahu; pokud
+EduPage např. vynechá víkend, odpověď je konzervativně nejasná, nikoli retry.
+Docházková data této
 kontroly nepotvrzují samostatně hodiny; ty jsou součástí akceptovaného požadavku.
 Odeslání není schválení školou. Nejasný výsledek = kontrola v EduPage, ne retry.
 

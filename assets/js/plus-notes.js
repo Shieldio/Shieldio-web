@@ -40,8 +40,12 @@
     text.textContent = draft;
     open.href = `https://${school}.edupage.org/dashboard/eb.php?mode=attendance`;
     preview.hidden = false;
-    if (scope.value === 'periods' && from.value === to.value && !blockedDays.has(`${school}:${from.value}`)) {
-      outgoing = { school, username: login.elements.username.value.trim(), note: { date: from.value, first: Number(first.value), last: Number(last.value), reason: reason.value.trim() } };
+    const count = (Date.parse(to.value) - Date.parse(from.value)) / 86400000 + 1;
+    const days = Array.from({ length: Math.min(count, 40) }, (_, i) => new Date(Date.parse(from.value) + i * 86400000).toISOString().slice(0, 10));
+    if (count > 40) { status.textContent = 'Přímé odeslání podporuje nejvýše 40 kalendářních dnů v jednom návrhu. Tento rozsah dokonči v EduPage.'; return; }
+    if (days.some(date => blockedDays.has(`${school}:${date}`))) { status.textContent = 'V tomto rozsahu už proběhl pokus o odeslání. Neopakuj jej; zkontroluj EduPage.'; return; }
+    {
+      outgoing = { school, username: login.elements.username.value.trim(), note: { date: from.value, to: to.value, scope: scope.value, ...(scope.value === 'periods' ? { first: Number(first.value), last: Number(last.value) } : {}), reason: reason.value.trim() } };
       account.textContent = `Škola: ${school}.edupage.org · účet: ${outgoing.username}`;
       confirm.hidden = false;
       form.elements.notePassword.disabled = false;
@@ -55,7 +59,8 @@
     const consent = form.elements.noteConsent;
     if (!password.value || !consent.checked) { status.textContent = 'Zadej znovu heslo a potvrď odeslání zkontrolované omluvenky.'; if (!password.value) password.focus(); else consent.focus(); return; }
     const payload = { ...outgoing, password: password.value, privacyConsent: true, submissionConsent: true };
-    const dayKey = `${outgoing.school}:${outgoing.note.date}`;
+    const count = (Date.parse(outgoing.note.to) - Date.parse(outgoing.note.date)) / 86400000 + 1;
+    const dayKeys = Array.from({ length: count }, (_, i) => `${outgoing.school}:${new Date(Date.parse(outgoing.note.date) + i * 86400000).toISOString().slice(0, 10)}`);
     const controls = Array.from(form.elements).concat(document.querySelector('[data-dashboard-close]') || []);
     const previous = controls.map(control => control.disabled);
     sending = true; controls.forEach(control => { control.disabled = true; });
@@ -66,9 +71,9 @@
       status.textContent = result.message || 'Výsledek není potvrzený. Zkontroluj EduPage a odeslání neopakuj.';
       // Only explicit pre-write failures allow another attempt in this page.
       const safe = ['notes-consent','notes-disabled','notes-input','notes-account','notes-protocol','credentials','captcha','twofactor','input','consent','origin','rate','rate-config','school','protocol'];
-      if (result.ok || !safe.includes(result.code)) { blockedDays.add(dayKey); outgoing = null; confirm.hidden = true; }
+      if (result.ok || !safe.includes(result.code)) { dayKeys.forEach(key => blockedDays.add(key)); outgoing = null; confirm.hidden = true; }
     } catch {
-      blockedDays.add(dayKey); outgoing = null; confirm.hidden = true;
+      dayKeys.forEach(key => blockedDays.add(key)); outgoing = null; confirm.hidden = true;
       status.textContent = 'Spojení se přerušilo. Omluvenka mohla být uložena. Neposílej ji znovu a zkontroluj EduPage.';
     } finally {
       payload.password = ''; password.value = ''; consent.checked = false;
