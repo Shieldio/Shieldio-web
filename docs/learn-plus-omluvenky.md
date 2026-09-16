@@ -1,53 +1,34 @@
-# Omluvenky v Learn+
+# Omluvenky Learn+
 
-Aktuální implementace je pouze místní návrh. Nevytváří omluvenku v EduPage.
-Není implementovaný zápisový endpoint ani uchovávání relace nebo hesla.
+- POST `/api/edupage/absence-note`, jeden den a konkrétní souvislý rozsah hodin.
+- Potvrzení až uvnitř přihlášeného dashboardu, po náhledu a zopakování hesla.
+- Heslo ani relace se neuchovávají. Odeslání provádí nové přihlášení.
+- Celé dny a vícedenní návrhy se dokončují v EduPage.
+- Vyžaduje jediného studenta v docházce a podporovaný OspravedlnenkaDlg.
+- Nové gpid/gsh pouze z nového dialogu, žádný eval, pevná cesta /gcall.
+- Serializer doložen uživatelem: prázdná pokročilá pole, nulové checkboxy,
+  remove_menu_evidence=0, _LJSL=4096. Testy používají falešné tokeny.
 
-Volitelná kontrola při připojení načítá prázdný dialog přes pozorovaný
-`/timeline/?cmd=creator&akcia=ospravedlnenkaDlg` s prázdným tělem. Zdroj se
-nespouští a neukládá; vracejí se pouze pevné názvy polí a booleovské příznaky.
-Rozpoznání je heuristika, nikoli ověření ukládacího protokolu nebo oprávnění.
-Skutečný účet ještě musí tuto kontrolu spustit. Syntetický test UI a test
-`tests/plus-note-profile.cjs` ověřují rozpoznání a neúnik citlivých hodnot.
+## Duplicity
 
-Adaptér `parseAbsenceNoteDialog` rozpoznává pouze OspravedlnenkaDlg, pevnou
-cestu /gcall a povolená pole. Nové gpid/gsh ponechává na serveru.
-`buildAbsenceNoteRequest` je čistý serializer, není dostupný přes HTTP a nic
-neodesílá. Podporuje zatím jeden den a souvislý rozsah hodin. Vyžaduje explicitně
-ověřené hodnoty vedlejších polí; žádná hodnota z uživatelovy přílohy není použita
-pro přihlášení. Fixture obsahuje pouze fiktivní identifikátor/token.
-Před zapnutím zbývá ověřit reálné Request Data včetně checkboxů, ochranu před
-duplicitou a nezávislé ověření záznamu po serverovém potvrzení. ASC_cop=ok samo
-o sobě není takovým nezávislým ověřením.
+Před zápisem kontrola existující omluvenky pro den, poté atomický Durable Object
+claim v HMAC namespace škola/student/den. Uchovává jen stav a čas sedm dnů.
+Po claimu žádný retry ani odblokování při timeoutu/chybě. Změna důvodu nebo hodin
+neobejde blokaci téhož dne. Doplnění téhož dne musí uživatel řešit v EduPage.
 
-Request Data nyní uživatel doložil: důvod v `note`, prázdné `day_periodfrom`,
-`day_periodto`, `advanced_mode`, nulové `day0` až `day6` a
-`remove_menu_evidence`, maska `_LJSL=4096`. Přesný serializer je pokrytý
-offline testem bez sítě. Přístupové údaje z příloh nejsou součástí fixture.
-Produkční odesílání nebylo implementováno ani zapnuto: bezpečnostní kontrola
-vyžaduje samostatné schválení aktivace zápisu do školního systému. Před případnou
-aktivací ještě dokončit trvalou ochranu duplicit a nezávislé ověření uložené
-omluvenky. Již uloženou omluvenku nikdy nepoužívat k opakovanému testovacímu zápisu.
+Úspěch vyžaduje ASC_cop=ok + dlg.hide správného dialogu a následný GET docházky
+s novým sa_note_subId, správným dnem a shodným sanote. Docházková data této
+kontroly nepotvrzují samostatně hodiny; ty jsou součástí akceptovaného požadavku.
+Odeslání není schválení školou. Nejasný výsledek = kontrola v EduPage, ne retry.
 
-## Ověřeno
+## Konfigurace a ověření
 
-- Skutečný formulář školy umožňuje důvod, rozsah dat a vyučovacích hodin.
-- Na testovaném studentském účtu je formulář dostupný; nelze zobecnit na všechny účty.
-- Lokálně v prohlížeči se syntetickým přihlášením: celé dny, jednotlivé hodiny,
-  odmítnutí obráceného pořadí hodin, náhled a odkaz na vybranou školu.
-- Důvod se vykresluje přes textContent, bez interpretace HTML.
-- Změna vstupů ruší náhled. Odpojení resetuje formulář i návrh.
+EDUPAGE_NOTES_ENABLED=true, NOTE_SUBMISSIONS SQLite Durable Object (notes-v1),
+existující LEARN_SESSION_SECRET a rate limiter. Bez bindingu/secretu fail closed.
+POST ani upstream zdroj se nelogují. Odpovědi API no-store.
 
-## Před přímým odesíláním
-
-1. Ověřit skutečný zápisový protokol, parametry a ochranu požadavku, nikoli
-   zaměnit učitelské omlouvání docházky s elektronickou omluvenkou studenta.
-2. Ověřit oprávnění konkrétního účtu a identitu příjemce.
-3. Zobrazit přesný náhled a samostatné potvrzení odeslání.
-4. Zamezit dvojímu odeslání; při timeoutu nesmí následovat automatický retry.
-5. Ověřit vznik konkrétní omluvenky, ne pouze HTTP 200.
-6. Upravit soukromí pro přenos důvodu a uchovávání omluvenky u školy/EduPage.
-
-Žádná skutečná omluvenka nebyla při této práci odeslána. Formulář v EduPage
-nebyl vyplněn ani potvrzen. Kopírování může uchovat návrh v systémové schránce;
-uživatel je o tom informován na stránce soukromí.
+tests/plus-note-profile.cjs: parser, token isolation, UTF-8, přesný payload.
+tests/plus-note-send.cjs: syntetické EduPage, existující záznam, duplicity,
+úspěch, timeout, změněný protokol, odmítnuté potvrzení, obnovení guardu.
+Při implementaci neposílat žádné skutečné omluvenky. První reálné odeslání
+provádí výhradně uživatel pro novou absenci po kontrole náhledu.

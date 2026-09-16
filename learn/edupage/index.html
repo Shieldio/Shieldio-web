@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'"><meta name="referrer" content="no-referrer">
-  <title>Learn+ | Shieldio Learn</title><meta name="description" content="Studentský přehled známek, průměrů, absence a rozvrhu."><link rel="stylesheet" href="/assets/css/learn.css?v=20260909"><link rel="stylesheet" href="/assets/css/plus-notes.css?v=20260916"><link rel="icon" href="/assets/icons/favicon.svg">
+  <title>Learn+ | Shieldio Learn</title><meta name="description" content="Studentský přehled známek, průměrů, absence a rozvrhu."><link rel="stylesheet" href="/assets/css/learn.css?v=20260909"><link rel="stylesheet" href="/assets/css/plus-notes.css?v=20260916-send1"><link rel="icon" href="/assets/icons/favicon.svg">
 </head>
 <body class="learn-site learn-plus">
   <header class="learn-header"><div class="learn-wrap learn-header-inner"><a class="learn-brand" href="/"><img src="/assets/icons/logo-full-color.svg" alt="Shieldio"><span>LEARN</span></a><nav class="learn-nav"><a href="/maturita/">Maturita</a><a href="/plus/" aria-current="page">Learn+</a></nav></div></header>
@@ -25,7 +25,7 @@
       <section class="edupage-section"><div class="edupage-section-head"><div><h2>Chytřejší absence</h2><p>Procenta a orientační rezerva podle reálně evidované výuky v aktuálním pololetí.</p></div><label>Varovat od <span><input data-attendance-limit type="number" min="1" max="99" step="1" value="25"> %</span></label></div><p class="edupage-attendance-note">Hranice je pouze váš scénář, nikoli potvrzené pravidlo školy. Rezerva počítá, kolik dalších celých hodin lze zameškat, než se zvolená hranice překročí.</p><div class="edupage-subjects edupage-attendance-subjects" data-subject-attendance></div></section>
       <section class="edupage-section"><h2>Průměry podle předmětů</h2><p>Vážený výpočet ze známek 1–5. Body a slovní hodnocení se nezapočítávají.</p><div class="edupage-subjects" data-subject-averages></div></section>
       <section class="edupage-section edupage-predictor-section"><h2>Předvídač průměru</h2><p>Vyber předmět a přidej jednu nebo více budoucích známek. Výpočet probíhá jen v prohlížeči.</p><div class="edupage-predictor-head"><label>Předmět<select data-predict-subject></select></label><div><span>Aktuální průměr</span><strong data-predict-current>—</strong></div><div><span>Odhadovaný průměr</span><strong data-predict-result>—</strong></div></div><div class="edupage-future-grades" data-future-grades></div><button class="learn-button edupage-add-grade" type="button" data-add-grade>+ Přidat známku</button></section>
-      <section class="edupage-section"><h2>Omluvenka</h2><p>Připrav si návrh a zkopíruj jej do EduPage. Learn+ zatím omluvenky přímo neodesílá ani neověřuje oprávnění účtu; dostupnost odeslání zkontroluj v EduPage.</p>
+      <section class="edupage-section"><h2>Omluvenka</h2><p>Připrav a zkontroluj návrh. Jeden den s konkrétními hodinami můžeš odeslat přímo z Learn+ po potvrzení níže. Ostatní rozsahy dokonči v EduPage. Odeslání závisí na oprávnění účtu a podpoře formuláře školy.</p>
         <p data-note-inspection role="status" aria-live="polite">Kontrolu načtení formuláře lze zapnout při připojení.</p>
         <form class="plus-note-form" data-note-form>
           <div class="plus-note-grid"><label>Od<input name="from" type="date" required></label><label>Do<input name="to" type="date" required></label></div>
@@ -33,7 +33,10 @@
           <div class="plus-note-grid" data-note-periods hidden><label>Od hodiny<input name="first" type="number" min="0" max="20" step="1" value="1"></label><label>Do hodiny<input name="last" type="number" min="0" max="20" step="1" value="1"></label></div>
           <label>Důvod absence<textarea name="reason" rows="3" maxlength="1000" placeholder="Stručný důvod bez diagnózy a zdravotních podrobností" required></textarea></label>
           <button class="learn-button" type="submit">Zkontrolovat návrh</button>
-          <div data-note-preview hidden><h3>Návrh · ještě neodesláno</h3><p data-note-text class="plus-note-text"></p><div class="plus-note-actions"><button class="learn-button" type="button" data-note-copy>Zkopírovat návrh</button><a class="learn-button" data-note-open target="_blank" rel="noopener noreferrer">Otevřít omluvenky v EduPage</a></div><p>V EduPage vyber data a hodiny, vlož důvod a vše znovu zkontroluj. Odeslání potvrzuješ až tam; omluvenku následně zpracuje škola.</p></div>
+          <div data-note-preview hidden><h3>Návrh · ještě neodesláno</h3><p data-note-text class="plus-note-text"></p><div class="plus-note-actions"><button class="learn-button" type="button" data-note-copy>Zkopírovat návrh</button><a class="learn-button" data-note-open target="_blank" rel="noopener noreferrer">Otevřít omluvenky v EduPage</a></div>
+            <fieldset data-note-confirm hidden><legend>Potvrzení odeslání škole</legend><p data-note-account></p><p>Pro jednorázové nové přihlášení zopakuj heslo. Relaci ani heslo neuchováváme. Omluvenku uchovává EduPage a škola; odeslání není totéž jako schválení školou.</p><label>Heslo z EduPage pro odeslání<input name="notePassword" type="password" autocomplete="current-password" disabled></label><label class="edupage-consent"><input name="noteConsent" type="checkbox" disabled><span>Potvrzuji odeslání výše uvedené omluvenky škole a jednorázové zpracování údajů pro tento účel. Přečetl/a jsem si <a href="/plus/soukromi/" target="_blank" rel="noopener">informace o soukromí</a>.</span></label><button class="learn-button learn-button-primary" type="button" data-note-send>Potvrdit a odeslat omluvenku</button></fieldset>
+            <p data-note-fallback>V EduPage vyber data a hodiny, vlož pouze důvod a vše znovu zkontroluj. Odeslání potvrzuješ až tam.</p>
+          </div>
           <p data-note-status role="status" aria-live="polite"></p>
         </form>
       </section>
@@ -41,5 +44,5 @@
       <details class="edupage-section"><summary><strong>Poslední známky</strong></summary><div class="edupage-grades" data-probe-grades></div></details>
     </section>
   </main>
-  <footer class="learn-footer"><div class="learn-wrap learn-footer-inner"><span>Learn+ · experimentální přehled</span><a href="/plus/soukromi/">Soukromí</a></div></footer><script src="/assets/js/learn.js?v=20260908b"></script><script src="/plus/probe.js?v=20260916b"></script><script src="/assets/js/plus-notes.js?v=20260916"></script>
+  <footer class="learn-footer"><div class="learn-wrap learn-footer-inner"><span>Learn+ · experimentální přehled</span><a href="/plus/soukromi/">Soukromí</a></div></footer><script src="/assets/js/learn.js?v=20260908b"></script><script src="/plus/probe.js?v=20260916b"></script><script src="/assets/js/plus-notes.js?v=20260916-send1"></script>
 </body></html>

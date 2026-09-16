@@ -423,8 +423,7 @@ function parseAbsenceNoteDialog(source) {
 }
 
 function buildAbsenceNoteRequest(dialog, note, verifiedDefaults) {
-  // Not wired to any HTTP handler. Caller must supply observed defaults and
-  // independently enforce one-shot submission before enabling the adapter.
+  // The sender must claim a persistent guard before issuing this request.
   if (!dialog || !verifiedDefaults) throw new Error('protocol-unverified');
   const date = String(note.date || '');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(`${date}T12:00:00Z`)) || new Date(`${date}T12:00:00Z`).toISOString().slice(0, 10) !== date) throw new Error('date');
@@ -447,6 +446,85 @@ function absenceNoteDefaults() {
   return { day_periodfrom: '', day_periodto: '', advanced_mode: '', day0: '0', day1: '0', day2: '0', day3: '0', day4: '0', day5: '0', day6: '0', remove_menu_evidence: '0' };
 }
 
+function noteRecords(payload, student, date) {
+  return Object.values(payload?.students?.[student]?.[date] || {}).filter(row => row?.sa_note_subId && typeof row.sanote === 'string');
+}
+
+function notePeriodOptions(source, field) {
+  const ref = source.match(/\b(gi\d+)\._gclass\s*=\s*["']OspravedlnenkaDlg["']/)?.[1];
+  if (!ref) return [];
+  const control = source.match(new RegExp(`${ref}\\.${field}\\s*=\\s*(gi\\d+)\\s*;`))?.[1];
+  const at = control ? source.indexOf(`var ${control}_c`) : -1;
+  const args = at < 0 ? null : callArguments(source, 'new ASC.ui.ComboBox', at);
+  const options = args?.[2] ? serializedValue(args[2]) : null;
+  return Array.isArray(options) ? options.map(option => String(option.value)) : [];
+}
+
+function noteDialogAccepted(source, gpid) {
+  const ref = source.match(new RegExp(`var\\s+(gi\\d+)\\s*=\\s*document\\.getElementById\\(["']gip${gpid}["']\\)\\.ASC_gjsc`))?.[1];
+  return Boolean(ref && new RegExp(`${ref}\\.ASC_cop\\s*=\\s*["']ok["']`).test(source) && new RegExp(`${ref}\\.dlg\\.hide\\(\\)`).test(source));
+}
+
+// Per-account/day HMAC namespace, no credentials, IDs or note text in storage.
+export class NoteSubmissionGuard {
+  constructor(ctx) { this.ctx = ctx; }
+  async fetch(request) {
+    if (request.method !== 'POST') return json({ ok: false }, 405);
+    const path = new URL(request.url).pathname;
+    if (path === '/claim') {
+      const claimed = await this.ctx.storage.transaction(async tx => {
+        if (await tx.get('claim')) return false;
+        await tx.put('claim', { state: 'pending', created: Date.now() });
+        return true;
+      });
+      if (claimed) await this.ctx.storage.setAlarm(Date.now() + 7 * 86400000);
+      return json({ claimed });
+    }
+    if (path === '/finish') {
+      const { state } = await request.json();
+      if (!['verified', 'uncertain'].includes(state)) return json({ ok: false }, 400);
+      const claim = await this.ctx.storage.get('claim');
+      if (!claim) return json({ ok: false }, 409);
+      await this.ctx.storage.put('claim', { ...claim, state });
+      return json({ ok: true });
+    }
+    return json({ ok: false }, 404);
+  }
+  async alarm() { await this.ctx.storage.deleteAll(); }
+}
+
+async function sendAbsenceNote(base, jar, school, note, env) {
+  const page = await edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: 'GET', signal: AbortSignal.timeout(12000) }, jar);
+  const before = page.ok ? attendancePayload(await page.text()) : null;
+  const students = Object.keys(before?.students || {});
+  if (students.length !== 1) return json({ ok: false, code: 'notes-account', message: 'Nelze jednoznačně určit studenta. Omluvenku odešli přímo v EduPage.' }, 409);
+  const student = students[0];
+  if (noteRecords(before, student, note.date).length) return json({ ok: false, code: 'notes-existing', message: 'Pro tento den už je v EduPage omluvenka. Nic nebylo znovu odesláno. Případnou změnu proveď přímo v EduPage.' }, 409);
+  const dialogResponse = await edupageFetch(`${base}/timeline/?cmd=creator&akcia=ospravedlnenkaDlg`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: '', signal: AbortSignal.timeout(12000) }, jar);
+  const source = dialogResponse.ok ? await dialogResponse.text() : '';
+  const dialog = parseAbsenceNoteDialog(source);
+  const expectedFields = ['datefrom','dateto','periodfrom','periodto','note',...Object.keys(absenceNoteDefaults())];
+  if (!dialog || dialog.fields.length !== expectedFields.length || !expectedFields.every(field => dialog.fields.includes(field))) return json({ ok: false, code: 'notes-protocol', message: 'Ukládací formulář účtu není podporovaný. Nic nebylo odesláno.' }, 409);
+  if (!notePeriodOptions(source, 'periodfrom').includes(String(note.first)) || !notePeriodOptions(source, 'periodto').includes(String(note.last))) return json({ ok: false, code: 'notes-input', message: 'Vybrané hodiny nejsou v načteném formuláři školy. Zkontroluj rozsah v EduPage. Nic nebylo odesláno.' }, 400);
+  const outgoing = buildAbsenceNoteRequest(dialog, note, absenceNoteDefaults());
+  const fingerprint = await hmac(JSON.stringify(['absence:v1', school, student, note.date]), env.LEARN_SESSION_SECRET);
+  const guard = env.NOTE_SUBMISSIONS.get(env.NOTE_SUBMISSIONS.idFromName(fingerprint));
+  const claim = await guard.fetch(new Request('https://guard/claim', { method: 'POST' }));
+  if (!claim.ok || !(await claim.json()).claimed) return json({ ok: false, code: 'notes-duplicate', message: 'Pro tento den už proběhl pokus o odeslání. Kvůli riziku duplicity jej neopakujeme. Zkontroluj omluvenky v EduPage.' }, 409);
+  let verified = false;
+  try {
+    const result = await edupageFetch(`${base}/gcall`, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: outgoing.toString(), signal: AbortSignal.timeout(20000) }, jar);
+    if (result.ok && noteDialogAccepted(await result.text(), dialog.gpid)) {
+      const check = await edupageFetch(`${base}/dashboard/eb.php?mode=attendance`, { method: 'GET', signal: AbortSignal.timeout(12000) }, jar);
+      const after = check.ok ? attendancePayload(await check.text()) : null;
+      const oldIds = new Set(noteRecords(before, student, note.date).map(row => row.sa_note_subId));
+      verified = noteRecords(after, student, note.date).some(row => !oldIds.has(row.sa_note_subId) && row.sanote.trim() === note.reason.trim());
+    }
+  } catch { /* A write may have reached EduPage. Never retry or unlock. */ }
+  try { await guard.fetch(new Request('https://guard/finish', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ state: verified ? 'verified' : 'uncertain' }) })); } catch { /* durable claim remains */ }
+  return verified ? json({ ok: true, code: 'notes-verified', message: 'EduPage potvrdil odeslání a v docházce byl nalezen nový záznam se zadaným datem a důvodem. Přijetí omluvenky školou tím není potvrzené.' }) : json({ ok: false, code: 'notes-uncertain', message: 'Výsledek nelze bezpečně potvrdit. Omluvenka mohla být uložena. Neposílej ji znovu a zkontroluj EduPage.' }, 409);
+}
+
 function absenceNoteFormProfile(source) {
   const has = pattern => pattern.test(source);
   const fields = [];
@@ -467,12 +545,18 @@ async function inspectAbsenceNoteForm(base, jar) {
   return absenceNoteFormProfile(await response.text());
 }
 
-async function probeEdupage(request, env) {
+async function probeEdupage(request, env, noteMode = false) {
   if (env.EDUPAGE_ENABLED !== "true") return json({ ok: false, code: "disabled", message: "Test připojení není zapnutý." }, 503);
   const origin = request.headers.get("origin");
   if (origin !== `https://${env.PUBLIC_HOST}`) return json({ ok: false, code: "origin", message: "Požadavek přišel z nepovolené stránky." }, 403);
   let body;
   try { body = await request.json(); } catch { return json({ ok: false, code: "input", message: "Neplatná data formuláře." }, 400); }
+  if (noteMode) {
+    if (body.submissionConsent !== true) return json({ ok: false, code: 'notes-consent', message: 'Potvrď odeslání konkrétní omluvenky škole.' }, 400);
+    if (env.EDUPAGE_NOTES_ENABLED !== 'true' || !env.NOTE_SUBMISSIONS || !env.LEARN_SESSION_SECRET) return json({ ok: false, code: 'notes-disabled', message: 'Přímé odesílání není zapnuté.' }, 503);
+    try { buildAbsenceNoteRequest({ gpid: '0', gsh: 'VALIDATION', fields: [] }, body.note || {}, absenceNoteDefaults()); }
+    catch { return json({ ok: false, code: 'notes-input', message: 'Zkontroluj datum, rozsah hodin a důvod. Podporujeme zatím jeden den s konkrétními hodinami.' }, 400); }
+  }
   const school = String(body.school || "").trim().toLowerCase().replace(/\.edupage\.org\/?$/, "");
   const username = String(body.username || "").trim();
   const password = String(body.password || "");
@@ -509,6 +593,7 @@ async function probeEdupage(request, env) {
     if (finalUrl.includes("bad=1")) return json({ ok: false, code: "credentials", message: "EduPage přihlášení odmítl. Zkontrolujte údaje." }, 401);
     if (!resultHtml.includes("userhome(") || !jar.has("PHPSESSID")) return json({ ok: false, code: "protocol", message: "Přihlášení nebylo potvrzeno. EduPage mohl změnit svůj postup." }, 502);
     const userData = jsonArgument(resultHtml, "userhome(");
+    if (noteMode) return await sendAbsenceNote(base, jar, school, body.note, env);
     const gradesPage = await edupageFetch(`${base}/znamky/`, { method: "GET" }, jar);
     if (!gradesPage.ok) return json({ ok: false, code: "grades", message: "Přihlášení funguje, ale stránku se známkami se nepodařilo načíst." }, 502);
     const gradeData = jsonArgument(await gradesPage.text(), ".znamkyStudentViewer(");
@@ -569,6 +654,7 @@ export default {
     const normalizedPath = url.pathname.replace(/\/index\.html$/, "/");
     if (isElectronicsPath(normalizedPath) && !(await hasElectronicsAccess(request, env))) return accessPage(`${normalizedPath}${url.search}`);
 
+    if (url.pathname === '/api/edupage/absence-note' && request.method === 'POST') return probeEdupage(request, env, true);
     if (url.pathname === "/api/edupage/probe" && request.method === "POST") {
       return probeEdupage(request, env);
     }
