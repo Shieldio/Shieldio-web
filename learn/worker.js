@@ -49,10 +49,24 @@ function json(data, status = 200) {
       "content-type": "application/json; charset=UTF-8",
       "cache-control": "no-store",
       "x-content-type-options": "nosniff",
-      "referrer-policy": "no-referrer",
+      "referrer-policy": "strict-origin-when-cross-origin",
       "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "strict-transport-security": "max-age=31536000",
+      "content-security-policy": "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      "x-frame-options": "DENY",
     },
   });
+}
+
+function secureLearnPlus(response) {
+  const headers = new Headers(response.headers);
+  headers.set("strict-transport-security", "max-age=31536000");
+  headers.set("content-security-policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'");
+  headers.set("x-content-type-options", "nosniff");
+  headers.set("referrer-policy", "strict-origin-when-cross-origin");
+  headers.set("permissions-policy", "camera=(), microphone=(), geolocation=()");
+  headers.set("x-frame-options", "DENY");
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
 }
 
 function cookieHeader(headers, jar) {
@@ -569,7 +583,7 @@ async function inspectAbsenceNoteForm(base, jar) {
 }
 
 async function probeEdupage(request, env, noteMode = false) {
-  if (env.EDUPAGE_ENABLED !== "true") return json({ ok: false, code: "disabled", message: "Test připojení není zapnutý." }, 503);
+  if (env.EDUPAGE_LOCAL_ENABLED !== "true") return json({ ok: false, code: "disabled", message: "Integrace čeká na schválení EduPage a školy." }, 503);
   const origin = request.headers.get("origin");
   if (origin !== `https://${env.PUBLIC_HOST}`) return json({ ok: false, code: "origin", message: "Požadavek přišel z nepovolené stránky." }, 403);
   let body;
@@ -665,13 +679,14 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Learn+ is suspended. Keep its source in the repository, but make every
-    // former public entry point leave the feature immediately.
-    if (/^\/(?:plus|edupage|edupage\+\+|learn\/edupage)(?:\/|$)/.test(url.pathname)) {
-      return Response.redirect("https://learn.shieldio.cz/", 302);
-    }
+    // Former aliases intentionally land on the safe public Learn+ page.
+    if (/^\/(?:edupage|edupage\+\+|learn\/edupage)(?:\/|$)/.test(url.pathname)) return Response.redirect("https://learn.shieldio.cz/plus/", 302);
     if (url.pathname.startsWith("/api/edupage/")) {
-      return json({ ok: false, code: "feature-suspended" }, 410);
+      const local = ["localhost", "127.0.0.1", "::1"].includes(url.hostname);
+      if (!local || env.EDUPAGE_LOCAL_ENABLED !== "true") return json({ ok: false, code: "integration-pending", message: "Integrace čeká na schválení EduPage a školy." }, 503);
+      if (url.pathname === "/api/edupage/probe" && request.method === "POST") return probeEdupage(request, env);
+      if (url.pathname === "/api/edupage/absence-note" && request.method === "POST") return probeEdupage(request, env, true);
+      return json({ ok: false, code: "not-found" }, 404);
     }
 
     if (url.pathname === ACCESS_PATH && request.method === "POST") {
@@ -721,6 +736,8 @@ export default {
           url: `https://learn.shieldio.cz${publicPath}`
         };
       }
+    } else if (publicPath.startsWith("/plus/")) {
+      assetPath = `${STATIC_PREFIX}/edupage/${publicPath.slice("/plus/".length)}`;
     } else if (publicPath.endsWith("/")) {
       assetPath = `${STATIC_PREFIX}${publicPath}`;
     } else {
@@ -728,7 +745,7 @@ export default {
     }
 
     const response = await env.ASSETS.fetch(assetRequest(request, assetPath));
-    if (response.status !== 404) return seoTransform(response, seoPage);
+    if (response.status !== 404) return publicPath.startsWith("/plus/") ? secureLearnPlus(response) : seoTransform(response, seoPage);
     const notFound = await env.ASSETS.fetch(assetRequest(request, `${STATIC_PREFIX}/404.html`));
     return new Response(notFound.body, { status: 404, headers: notFound.headers });
   },

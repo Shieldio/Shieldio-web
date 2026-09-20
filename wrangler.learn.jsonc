@@ -3,7 +3,7 @@
   "main": "learn/worker.js",
   "compatibility_date": "2026-09-07",
   "workers_dev": true,
-  "vars": { "EDUPAGE_ENABLED": "true", "EDUPAGE_NOTES_ENABLED": "true", "PUBLIC_HOST": "learn.shieldio.cz" },
+  "vars": { "EDUPAGE_LOCAL_ENABLED": "false", "PUBLIC_HOST": "learn.shieldio.cz" },
   "durable_objects": { "bindings": [{ "name": "NOTE_SUBMISSIONS", "class_name": "NoteSubmissionGuard" }] },
   "migrations": [{ "tag": "notes-v1", "new_sqlite_classes": ["NoteSubmissionGuard"] }],
   "routes": [

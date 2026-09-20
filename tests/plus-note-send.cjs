@@ -22,7 +22,7 @@ const response = (url,body,extra={}) => { const r = new Response(body,extra); Ob
 function harness(mode='success') {
   let writes=0, requests=0, currentNote=note;
   const guards = new Map();
-  const env = { EDUPAGE_ENABLED:'true',EDUPAGE_NOTES_ENABLED:'true',PUBLIC_HOST:'learn.shieldio.cz',LEARN_SESSION_SECRET:'FAKE_SECRET',EDUPAGE_RATE_LIMITER:{limit:async()=>({success:true})},NOTE_SUBMISSIONS:{idFromName:k=>k,get:k=>{if(!guards.has(k)) guards.set(k,new ctx.api.NoteSubmissionGuard({storage:new Storage()}));return guards.get(k);}} };
+  const env = { EDUPAGE_LOCAL_ENABLED:'true',EDUPAGE_NOTES_ENABLED:'true',PUBLIC_HOST:'learn.shieldio.cz',LEARN_SESSION_SECRET:'FAKE_SECRET',EDUPAGE_RATE_LIMITER:{limit:async()=>({success:true})},NOTE_SUBMISSIONS:{idFromName:k=>k,get:k=>{if(!guards.has(k)) guards.set(k,new ctx.api.NoteSubmissionGuard({storage:new Storage()}));return guards.get(k);}} };
   ctx.fetch = async (url,opts) => {
     requests++;
     const path = new URL(url).pathname;
