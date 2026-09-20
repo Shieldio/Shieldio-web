@@ -665,6 +665,15 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // Learn+ is suspended. Keep its source in the repository, but make every
+    // former public entry point leave the feature immediately.
+    if (/^\/(?:plus|edupage|edupage\+\+|learn\/edupage)(?:\/|$)/.test(url.pathname)) {
+      return Response.redirect("https://learn.shieldio.cz/", 302);
+    }
+    if (url.pathname.startsWith("/api/edupage/")) {
+      return json({ ok: false, code: "feature-suspended" }, 410);
+    }
+
     if (url.pathname === ACCESS_PATH && request.method === "POST") {
       const form = await request.formData();
       const code = String(form.get("code") || "");
@@ -676,11 +685,6 @@ export default {
 
     const normalizedPath = url.pathname.replace(/\/index\.html$/, "/");
     if (isElectronicsPath(normalizedPath) && !(await hasElectronicsAccess(request, env))) return accessPage(`${normalizedPath}${url.search}`);
-
-    if (url.pathname === '/api/edupage/absence-note' && request.method === 'POST') return probeEdupage(request, env, true);
-    if (url.pathname === "/api/edupage/probe" && request.method === "POST") {
-      return probeEdupage(request, env);
-    }
 
     if (url.pathname === "/sitemap.xml") {
       const dataResponse = await env.ASSETS.fetch(assetRequest(request, "/assets/data/learn-questions.json"));
@@ -698,12 +702,6 @@ export default {
     }
 
     let publicPath = url.pathname.replace(/\/index\.html$/, "/");
-    if (publicPath.startsWith("/edupage/")) {
-      return Response.redirect(`${url.origin}/plus/${publicPath.slice("/edupage/".length)}${url.search}`, 308);
-    }
-    if (publicPath.startsWith("/edupage++/")) {
-      return Response.redirect(`${url.origin}/plus/${publicPath.slice("/edupage++/".length)}${url.search}`, 308);
-    }
     if (!publicPath.endsWith("/") && !publicPath.split("/").pop().includes(".")) {
       return Response.redirect(`${url.origin}${publicPath}/${url.search}`, 308);
     }
@@ -723,8 +721,6 @@ export default {
           url: `https://learn.shieldio.cz${publicPath}`
         };
       }
-    } else if (publicPath.startsWith("/plus/")) {
-      assetPath = `${STATIC_PREFIX}/edupage/${publicPath.slice("/plus/".length)}`;
     } else if (publicPath.endsWith("/")) {
       assetPath = `${STATIC_PREFIX}${publicPath}`;
     } else {
