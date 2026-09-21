@@ -5,8 +5,8 @@
     "url": "/aktuality/index.html"
   },
   {
-    "title": "RED jde předobjednat",
-    "desc": "Deska Shieldio RED se dá nově předobjednat, ve čtyřech variantách podle toho, kolik si chceš sestavit a napájet sám.",
+    "title": "RED ve vývojové sérii",
+    "desc": "Deska Shieldio RED je vývojový prototyp. Zjišťujeme zájem škol, kroužků a domácích kutilů o budoucí využití.",
     "url": "/aktuality/predobjednavka-red.html"
   },
   {
@@ -46,7 +46,7 @@
   },
   {
     "title": "Shieldio, Elektronika a robotika srozumitelně pro každého",
-    "desc": "Shieldio je výukový projekt s Arduino deskou RED, vedenými návody a blokovým programováním. RED lze předobjednat sestavenou nebo jako DIY sadu; další úrovně jsou koncepty.",
+    "desc": "Shieldio je výukový projekt s Arduino deskou RED, vedenými návody a blokovým programováním. RED je vývojový prototyp; další úrovně jsou koncepty.",
     "url": "/"
   },
   {

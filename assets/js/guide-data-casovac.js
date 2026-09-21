@@ -35,7 +35,7 @@ window.SHIELDIO_GUIDE = {
       term: "Arduino",
       photo: "../../../../assets/images/RED_detail_nano_oled_white.jpg",
       text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu ovládá senzory a výstupy.",
-      fact: "Deska RED používá konkrétně Arduino Nano.",
+      fact: "Deska RED používá modul kompatibilní s Arduino® Nano.",
       datasheet: null,
     },
     pin: {
@@ -74,8 +74,8 @@ window.SHIELDIO_GUIDE = {
       name: "Shieldio RED",
       photo: "../../../../assets/images/RED_hand_hold_with_parts.jpeg",
       what: "Hlavní deska celého projektu. V sestavené sadě jsou ultrazvukový senzor i OLED displej už zapojené, v nesestavené je zasuneš sám do patic z návodu na pájení.",
-      how: "Uvnitř desky je Arduino Nano, které podle nahraného programu měří čas mezi událostmi zachycenými senzorem.",
-      fact: "Deska RED vychází z otestovaných prototypů; první malá série je k předobjednání.",
+      how: "Uvnitř desky je modul kompatibilní s Arduino® Nano, které podle nahraného programu měří čas mezi událostmi zachycenými senzorem.",
+      fact: "Deska RED vychází z otestovaných prototypů; u vývojové série zjišťujeme zájem o budoucí využití.",
       datasheet: null,
     },
     {
@@ -84,7 +84,7 @@ window.SHIELDIO_GUIDE = {
       photo: "../../../../assets/images/red-build-clean/15-arduino-nano.jpg",
       what: "Malý počítač na desce, který podle nahraného programu měří čas mezi událostmi zachycenými senzorem.",
       how: "Pokud máš nesestavenou sadu, je už zasunutý v patici na desce z návodu na pájení. Nic dalšího s ním dělat nemusíš.",
-      fact: "Deska RED používá konkrétně Arduino Nano.",
+      fact: "Deska RED používá modul kompatibilní s Arduino® Nano.",
       datasheet: null,
     },
     {

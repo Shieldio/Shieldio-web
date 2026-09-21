@@ -17,7 +17,7 @@ Each of the above has a "Simple / Advanced / Equations" depth toggle; the equati
 
 ## Products
 
-- [RED board](https://shieldio.cz/products/RED.html): the flagship board, Arduino Nano + ultrasonic sensor + servo + OLED display + buttons + buzzer on one PCB, pre-order available.
+- [RED board](https://shieldio.cz/products/RED.html): the flagship development prototype, Arduino Nano-compatible module + ultrasonic sensor + servo + OLED display + buttons + buzzer on one PCB, interest survey available.
 - [All products](https://shieldio.cz/products/index.html): RED (available), PowerAdd (prototype), Green/Yellow/PRO (concept stage), with development-status percentages against a Concept → Prototype → Testing → Pilot school → Available scale.
 
 ## Step-by-step project guides (interactive, adapt to assembled vs. self-soldered kit)

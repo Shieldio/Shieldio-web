@@ -49,7 +49,7 @@ window.SHIELDIO_GUIDE = {
       term: "Arduino",
       photo: "../../../../assets/images/RED_detail_nano_oled_white.jpg",
       text: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu vyhodnocuje vzdálenost a ovládá bzučák.",
-      fact: "Deska RED používá konkrétně Arduino Nano.",
+      fact: "Deska RED používá modul kompatibilní s Arduino® Nano.",
       datasheet: null,
     },
     senzor: {
@@ -74,8 +74,8 @@ window.SHIELDIO_GUIDE = {
       name: "Shieldio RED",
       photo: "../../../../assets/images/RED_hand_hold_with_parts.jpeg",
       what: "Hlavní deska projektu. Bzučák je napájený přímo na desce. V sestavené sadě je ultrazvukový senzor už zapojený, v nesestavené ho zasuneš sám do patice z návodu na pájení.",
-      how: "Uvnitř desky je Arduino Nano, které podle naměřené vzdálenosti mění výšku tónu bzučáku.",
-      fact: "Deska RED vychází z otestovaných prototypů; první malá série je k předobjednání.",
+      how: "Uvnitř desky je modul kompatibilní s Arduino® Nano, které podle naměřené vzdálenosti mění výšku tónu bzučáku.",
+      fact: "Deska RED vychází z otestovaných prototypů; u vývojové série zjišťujeme zájem o budoucí využití.",
       datasheet: null,
     },
     {
@@ -84,7 +84,7 @@ window.SHIELDIO_GUIDE = {
       photo: "../../../../assets/images/red-build-clean/15-arduino-nano.jpg",
       what: "Malý počítač na desce, který podle naměřené vzdálenosti mění výšku tónu bzučáku.",
       how: "Pokud máš nesestavenou sadu, je už zasunutý v patici na desce z návodu na pájení. Nic dalšího s ním dělat nemusíš.",
-      fact: "Deska RED používá konkrétně Arduino Nano.",
+      fact: "Deska RED používá modul kompatibilní s Arduino® Nano.",
       datasheet: null,
     },
     {

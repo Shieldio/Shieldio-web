@@ -90,7 +90,7 @@ window.SHIELDIO_GUIDE = {
         cs: "Malý počítač (mikrokontrolér) uvnitř desky Shieldio, který podle nahraného programu ovládá senzory a výstupy.",
         en: "A small computer (microcontroller) inside the Shieldio board, it controls sensors and outputs according to the program you upload.",
       },
-      fact: { cs: "Deska RED používá konkrétně Arduino Nano.", en: "The RED board specifically uses an Arduino Nano." },
+      fact: { cs: "Deska RED používá modul kompatibilní s Arduino® Nano.", en: "The RED board uses a module compatible with Arduino® Nano." },
       datasheet: null,
     },
     pin: {
@@ -135,10 +135,10 @@ window.SHIELDIO_GUIDE = {
         en: "The main board for the whole project. The servo and ultrasonic sensor both connect to it.",
       },
       how: {
-        cs: "Uvnitř desky je Arduino Nano, které podle nahraného programu ovládá vše připojené.",
-        en: "Inside the board is an Arduino Nano, which controls everything connected to it according to the uploaded program.",
+        cs: "Uvnitř desky je modul kompatibilní s Arduino® Nano, které podle nahraného programu ovládá vše připojené.",
+        en: "Inside the board is a module compatible with Arduino® Nano, which controls everything connected to it according to the uploaded program.",
       },
-      fact: { cs: "Deska RED vychází z otestovaných prototypů; první malá série je k předobjednání.", en: "The RED board builds on tested prototypes; its first small batch is available for pre-order." },
+      fact: { cs: "Deska RED vychází z otestovaných prototypů; u vývojové série zjišťujeme zájem o budoucí využití.", en: "The RED board builds on tested prototypes; its first small batch is available for pre-order." },
       datasheet: null,
     },
     {
@@ -153,7 +153,7 @@ window.SHIELDIO_GUIDE = {
         cs: "Pokud máš nesestavenou sadu, je už zasunutý v patici na desce z návodu na pájení. Nic dalšího s ním dělat nemusíš.",
         en: "If you have the unassembled kit, it's already plugged into the socket on the board from the soldering guide. You don't need to do anything else with it.",
       },
-      fact: { cs: "Deska RED používá konkrétně Arduino Nano.", en: "The RED board specifically uses an Arduino Nano." },
+      fact: { cs: "Deska RED používá modul kompatibilní s Arduino® Nano.", en: "The RED board uses a module compatible with Arduino® Nano." },
       datasheet: null,
     },
     {

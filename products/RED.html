@@ -9,8 +9,6 @@
 <meta name="description" content="Deska Shieldio RED, robotika v pohybu. Ultrazvukový senzor, servo a OLED displej na jedné 100×100 mm desce.">
 <link rel="canonical" href="https://shieldio.cz/products/RED.html">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
@@ -39,17 +37,8 @@
   "@type": "Product",
   "name": "Shieldio RED",
   "image": "https://shieldio.cz/assets/images/RED_hand_hold_with_parts.jpeg",
-  "description": "Deska Shieldio RED, robotika v pohybu. Ultrazvukový senzor, servo a OLED displej na jedné 100×100 mm desce. Výchozí projekt: funkční prototyp závory.",
-  "brand": { "@type": "Brand", "name": "Shieldio" },
-  "offers": {
-    "@type": "AggregateOffer",
-    "priceCurrency": "CZK",
-    "lowPrice": "120",
-    "highPrice": "3500",
-    "offerCount": "5",
-    "availability": "https://schema.org/PreOrder",
-    "url": "https://shieldio.cz/products/RED.html#preorder"
-  }
+  "description": "Vývojový prototyp desky Shieldio RED pro výuku robotiky. Ultrazvukový senzor, servo a OLED displej na jedné desce.",
+  "brand": { "@type": "Brand", "name": "Shieldio" }
 }
 </script>
 </head>
@@ -85,7 +74,7 @@
       <h1 data-i18n="red.h1">Deska <em class="text-tier-red">RED</em>.</h1>
       <p class="lead" data-i18n="red.lead">Robotika v pohybu, ultrazvukový senzor vzdálenosti, servo a OLED displej na jedné desce. Výchozí projekt: funkční prototyp závory.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#preorder" data-i18n="red.hero_preorder">Předobjednat</a>
+        <a class="btn btn-primary" href="#zajem" data-i18n="red.hero_preorder">Mám zájem o RED</a>
         <a class="btn btn-ghost" href="../instructions/baseline/red/index.html" data-i18n="red.hero_guide">Zobrazit návod</a>
       </div>
     </div>
@@ -143,7 +132,7 @@
             <p data-i18n="red.deepdive.spec7"><b>100×100 mm</b> formát, stejný napříč celou řadou Baseline.</p>
           </div>
         </div>
-        <div class="dev-badge" style="margin-top:24px;" data-i18n="red.badge_first_batch">První série · k předobjednání</div>
+        <div class="dev-badge" style="margin-top:24px;" data-i18n="red.badge_first_batch">Vývojová série · průzkum zájmu</div>
       </div>
     </div>
   </div>
@@ -187,142 +176,28 @@
   </div>
 </section>
 
-<section id="preorder" tabindex="-1" style="background:var(--paper-2); scroll-margin-top:88px;">
+<section id="zajem" tabindex="-1" style="background:var(--paper-2); scroll-margin-top:88px;">
   <div class="wrap">
     <div class="preorder-head-grid">
       <div class="section-head" style="margin-bottom:0;">
-        <span class="eyebrow-dark" data-i18n="red.preorder_eyebrow">Pre-order</span>
-        <h2 data-i18n="red.preorder_h2">Předobjednejte si <span class="text-tier-red">RED</span>.</h2>
-        <p data-i18n="red.preorder_p">Vyberte si, zda chcete Shieldio sestavit sami, nebo rovnou programovat. Předobjednávka je nezávazná rezervace kusu z aktuální malé série, platbu a přesný termín dodání domluvíme e-mailem.</p>
-        <p style="margin-top:14px;">
-          <a href="../company/pro-ucitele.html" class="learn-theory-link" data-i18n="red.teacher_link">Pro učitele: návrh metodiky k prvnímu projektu →</a>
-        </p>
+        <span class="eyebrow-dark">Vývojová série</span>
+        <h2>Mám zájem o <span class="text-tier-red">RED</span>.</h2>
+        <p>RED je vývojový prototyp. Formulář nám pomůže zjistit, komu by budoucí vývojová série dávala smysl — ve škole, kroužku nebo doma.</p>
       </div>
       <div class="photo-frame"><img src="../assets/images/RED_detail_button_qr_clean.jpg" width="1400" height="1400" loading="lazy" alt="Detail sestavené desky Shieldio RED s tlačítkem a QR kódem"></div>
     </div>
-
     <form class="web3form preorder" action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="a13ed669-5fc4-4329-bf27-a4e40dd0b1e7">
-      <input type="hidden" name="subject" value="Předobjednávka Shieldio RED">
+      <input type="hidden" name="subject" value="Zájem o vývojovou sérii Shieldio RED">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-
-      <div class="model-group-label" data-i18n="red.group_recommended">Doporučujeme</div>
-      <div class="preorder-options preorder-options-featured">
-        <label class="preorder-option featured">
-          <input type="radio" name="varianta" value="RED DIY, 550 Kč" data-price="550" data-kit="unassembled">
-          <span class="preorder-option-body">
-            <span class="preorder-option-head">
-              <span class="preorder-option-name" data-i18n="red.opt_unassembled_name">RED DIY<span class="preorder-badge">Pájení</span></span>
-              <span class="preorder-option-price">550 Kč</span>
-            </span>
-            <span class="preorder-option-desc" data-i18n="red.opt_unassembled_desc">Pájení a sestavení vlastními silami.</span>
-            <a class="preorder-option-guide-link" href="../instructions/baseline/red/sestaveni/index.html" data-i18n="red.opt_guide_link">Co budete sestavovat, podrobný fotonávod</a>
-          </span>
-        </label>
-        <label class="preorder-option featured">
-          <input type="radio" name="varianta" value="RED READY, 750 Kč" data-price="750" data-kit="assembled" checked>
-          <span class="preorder-option-body">
-            <span class="preorder-option-head">
-              <span class="preorder-option-name" data-i18n="red.opt_assembled_name">RED READY<span class="preorder-badge badge-accent">Školy</span></span>
-              <span class="preorder-option-price">750 Kč</span>
-            </span>
-            <span class="preorder-option-desc" data-i18n="red.opt_assembled_desc">Sestavená. Připojit a programovat.</span>
-          </span>
-        </label>
-      </div>
-
-      <div class="box-list-grid" style="margin-bottom:32px;">
-        <div class="box-list-card">
-          <h3 data-i18n="red.box_in_h3">Co dostanete</h3>
-          <ul class="box-list">
-            <li data-i18n="red.box_in_li1">Deska Shieldio RED (DIY: díly k zapájení · READY: hotová, stačí připojit)</li>
-            <li data-i18n="red.box_in_li2">1,5m USB-A na USB-C kabel</li>
-            <li data-i18n="red.box_in_li3">Přístup k blokovému editoru v prohlížeči, zdarma</li>
-            <li data-i18n="red.box_in_li4">Krok-za-krokem návod k sestavení i prvnímu projektu</li>
-            <li data-i18n="red.box_in_li5">Upravitelný návrh metodiky a pracovní list pro učitele</li>
-          </ul>
-        </div>
-        <div class="box-list-card">
-          <h3 data-i18n="red.box_need_h3">Co budete potřebovat</h3>
-          <ul class="box-list">
-            <li data-i18n="red.box_need_li1">Počítač nebo notebook s prohlížečem</li>
-            <li data-i18n="red.box_need_li2">Nic dalšího, kabel je součástí balení</li>
-          </ul>
-        </div>
-      </div>
-
-      <label class="eduset-callout preorder-option">
-        <input type="radio" name="varianta" value="EduSET, 5× sestavená kompletní, 3500 Kč" data-price="3500" data-kit="assembled">
-        <span class="eduset-callout-text">
-          <span class="eduset-callout-label" data-i18n="red.eduset_label">Pro školu nebo kroužek</span>
-          <span class="eduset-callout-h3" data-i18n="red.eduset_h3">5× Shieldio RED · 3 500 Kč</span>
-          <span class="eduset-callout-p" data-i18n="red.eduset_p">Kompletně sestavené desky a výukový plán. To je 700 Kč za desku, méně než jednotlivá RED READY.</span>
-        </span>
-        <span class="eduset-callout-btn" data-i18n="red.eduset_btn">Objednat EduSET</span>
-      </label>
-
-      <details class="preorder-more">
-        <summary data-i18n="red.more_variants_toggle">Další varianty pro bastlíře</summary>
-        <div class="preorder-options preorder-options-standard" style="margin-top:20px;">
-          <label class="preorder-option compact">
-            <input type="radio" name="varianta" value="Holá deska (PCB), nepájená, 120 Kč" data-price="120" data-kit="unassembled">
-            <span class="preorder-option-body">
-              <span class="preorder-option-head">
-                <span class="preorder-option-name" data-i18n="red.opt_bare_name">Holá deska (PCB)<span class="preorder-badge">Pájení</span><button type="button" class="guide-info-btn" data-photo="../assets/images/RED_layout_labeled.png" data-photo-alt="Holá deska Shieldio RED (PCB) bez součástek, pohled kolmo shora" aria-label="Zobrazit fotku holé desky" style="margin-left:6px;">?</button></span>
-                <span class="preorder-option-price">120 Kč</span>
-              </span>
-              <span class="preorder-option-desc" data-i18n="red.opt_bare_desc">Jen samotný plošný spoj, bez součástek, pro stavbu úplně od nuly.</span>
-              <a class="preorder-option-guide-link" href="../instructions/baseline/red/sestaveni/index.html" data-i18n="red.opt_guide_link">Co budete sestavovat, podrobný fotonávod</a>
-            </span>
-          </label>
-          <label class="preorder-option compact">
-            <input type="radio" name="varianta" value="Sestavená základní, 220 Kč" data-price="220" data-kit="assembled">
-            <span class="preorder-option-body">
-              <span class="preorder-option-head">
-                <span class="preorder-option-name" data-i18n="red.opt_basic_name">Sestavená základní</span>
-                <span class="preorder-option-price">220 Kč</span>
-              </span>
-              <span class="preorder-option-desc" data-i18n="red.opt_basic_desc">Připájené jen součástky přímo na desce, bez ultrazvuku, řídicího modulu, displeje a kabelu.</span>
-            </span>
-          </label>
-        </div>
-      </details>
-
-      <div class="preorder-summary">
-        <div class="field">
-          <label for="preorder-qty" data-i18n="red.qty_label">Počet kusů</label>
-          <input type="number" id="preorder-qty" name="pocet" value="1" min="1" max="20" class="mono" style="width:100px;">
-        </div>
-        <div class="preorder-total">
-          <span data-i18n="red.total_label">Celkem</span>
-          <b id="preorder-total-price">750 Kč</b>
-        </div>
-      </div>
-      <input type="hidden" name="celkova_cena" id="preorder-total-hidden" value="750 Kč">
-
-      <p class="preorder-kit-hint">
-        <span data-i18n="red.kit_hint">Návody na webu podle vybrané sady rovnou počítají s tím, jestli budete pájet, nebo ne.</span>
-        <a id="preorder-guide-link" href="../instructions/baseline/red/index.html?kit=assembled" data-i18n="red.kit_hint_link">Zobrazit návody</a>
-      </p>
-
-      <div class="field">
-        <label for="preorder-name" data-i18n="home.form.name_label">Jméno</label>
-        <input id="preorder-name" name="jmeno" type="text" autocomplete="name" placeholder="Jana Nováková" data-i18n-placeholder="home.form.name_placeholder" required>
-      </div>
-      <div class="field">
-        <label for="preorder-email" data-i18n="home.form.email_label">E-mail</label>
-        <input id="preorder-email" name="email" type="email" autocomplete="email" spellcheck="false" placeholder="jana.novakova@email.cz" required>
-      </div>
-      <div class="field">
-        <label for="preorder-note" data-i18n="red.note_label">Poznámka (nepovinné)</label>
-        <textarea id="preorder-note" name="poznamka" placeholder="Preferovaný termín, počet kusů pro kroužek, cokoliv dalšího…" data-i18n-placeholder="red.note_placeholder"></textarea>
-      </div>
-
-      <p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Obchodní podmínky (návrh)</a> · <a href="/company/terms.html#reklamace">Reklamace</a> · <a href="/company/terms.html#odstoupeni">Odstoupení</a> · <a href="/company/terms.html#doprava">Doprava</a> · <a href="/company/terms.html#platba">Platba</a> · <a href="/index.html#kontakt">Kontakt</a></p>
-      <button class="btn btn-primary" type="submit" data-i18n="red.submit">Odeslat předobjednávku</button>
-      <p class="form-privacy-note" data-i18n="red.privacy_note">Informace o zpracování údajů: <a href="../company/privacy.html">Zásady ochrany osobních údajů</a>.</p>
+      <div class="field"><label for="interest-name">Jméno</label><input id="interest-name" name="jmeno" type="text" autocomplete="name" placeholder="Jana Nováková" required></div>
+      <div class="field"><label for="interest-email">E-mail</label><input id="interest-email" name="email" type="email" autocomplete="email" spellcheck="false" placeholder="jana.novakova.cz" required></div>
+      <div class="field"><label for="interest-school">Škola nebo organizace (nepovinné)</label><input id="interest-school" name="skola" type="text" autocomplete="organization"></div>
+      <div class="field"><label for="interest-message">Zpráva (nepovinné)</label><textarea id="interest-message" name="zprava" placeholder="K čemu by vám RED pomohla?"></textarea></div>
+      <button class="btn btn-primary" type="submit">Odeslat nezávazný zájem</button>
+      <p class="form-privacy-note">Údaje použijeme pouze k vyřízení této zprávy. Podrobnosti najdete v <a href="../company/privacy.html">Zásadách ochrany osobních údajů</a>.</p>
+      <p class="preorder-disclaimer">Odesláním formuláře nevzniká objednávka, rezervace, kupní smlouva ani povinnost produkt koupit nebo dodat. Formulář slouží pouze k ověření zájmu o připravovaný studentský projekt.</p>
       <p class="form-status" aria-live="polite"></p>
-      <p class="preorder-disclaimer" data-i18n="red.disclaimer">Předobjednávka nic hned nestrhává, je to nezávazná rezervace, platbu a termín domluvíme e-mailem.</p>
     </form>
   </div>
 </section>
@@ -357,7 +232,7 @@
     <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div>© 2026 Shieldio</div>
   </div>
-  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Obchodní podmínky (návrh)</a> · <a href="/company/terms.html#reklamace">Reklamace</a> · <a href="/company/terms.html#odstoupeni">Odstoupení</a> · <a href="/company/terms.html#doprava">Doprava</a> · <a href="/company/terms.html#platba">Platba</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
 </footer>
 
 <script src="../assets/js/animations.js"></script>
@@ -368,6 +243,5 @@
 <script src="../assets/js/site-chrome.js"></script>
 <script src="../assets/js/lightbox.js"></script>
 <script src="../assets/js/contact-form.js"></script>
-<script src="../assets/js/preorder.js"></script>
 </body>
 </html>
