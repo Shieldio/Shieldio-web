@@ -378,9 +378,9 @@
       "subject": "elektronika",
       "number": "14",
       "title": "Elektromechanické měřicí přístroje",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Čtrnáct kapitol: momenty, tlumení, magnetoelektrické, elektromagnetické, elektrodynamické a ferodynamické přístroje, AC úpravy, srovnání i bezpečné měření.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
