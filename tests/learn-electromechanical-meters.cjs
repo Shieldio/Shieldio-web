@@ -12,7 +12,7 @@ assert(script.includes('const meterDetails = ['));
 assert(script.includes('const meterVisual = chapter =>'));
 assert(script.includes("'14':meterChapters"));
 assert(script.includes("number==='14' ? meterVisual(chapter)"));
-assert(script.includes("'02','05','06','07','14'"), 'Otázka 14 nesmí zobrazovat obecný nefunkční slider');
+assert(script.includes("'02','05','06','07','14','15'"), 'Otázka 14 nesmí zobrazovat obecný nefunkční slider');
 
 const chapterBlock = script.match(/const meterChapters = \[(.*?)\n  \];/s);
 const visualBlock = script.match(/const meterVisual = chapter => \{(.*?)\n  \};/s);

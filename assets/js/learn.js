@@ -1,6 +1,6 @@
 // Shieldio Learn — topic catalogue and progress stay in this browser only.
 (function () {
-  const DATA_URL = "/assets/data/learn-questions.json?v=20260921-meters-1";
+  const DATA_URL = "/assets/data/learn-questions.json?v=20260921-converters-1";
   const STORAGE_KEY = "shieldio-learn-progress-v1";
   const THEME_KEY = "shieldio-theme";
 
@@ -280,7 +280,7 @@
     const load = src => new Promise((resolve, reject) => { const script=document.createElement("script"); script.src=src; script.onload=resolve; script.onerror=reject; document.head.appendChild(script); });
     const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v1.css?v=8"; document.head.appendChild(css);
     const interactionCss = document.createElement("link"); interactionCss.rel="stylesheet"; interactionCss.href="/assets/css/learn-interactions-v1.css?v=6"; document.head.appendChild(interactionCss);
-    load("/assets/js/learn-electronics-explorer-v1.js?v=13").then(() => window.renderShieldioElectronicsExplorer(root, question)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
+    load("/assets/js/learn-electronics-explorer-v1.js?v=14").then(() => window.renderShieldioElectronicsExplorer(root, question)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
 
   function renderPractice(data, progress) {
