@@ -704,7 +704,7 @@ export default {
     if (url.pathname === "/sitemap.xml") {
       const dataResponse = await env.ASSETS.fetch(assetRequest(request, "/assets/data/learn-questions.json"));
       const data = await dataResponse.json();
-      const fixedPaths = ["/", "/maturita/", "/maturita/automatizace/"];
+      const fixedPaths = ["/", "/maturita/", "/maturita/automatizace/", "/pc-sestava/"];
       const topicPaths = data.questions.filter(topic => topic.subject !== "elektronika").map(topic => `/maturita/otazka/${topic.slug}/`);
       const urls = [...fixedPaths, ...topicPaths].map(path => `  <url><loc>https://learn.shieldio.cz${path}</loc><changefreq>${path.includes("/otazka/") ? "weekly" : "monthly"}</changefreq></url>`).join("\n");
       return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`, {

@@ -1,0 +1,17 @@
+const fs = require('fs');
+const vm = require('vm');
+const assert = require('assert');
+const source = fs.readFileSync('assets/js/pc-build-data.js', 'utf8');
+const context = { window: {} };
+vm.createContext(context);
+vm.runInContext(source, context);
+const data = context.window.PC_BUILD_DATA;
+const total = items => items.reduce((sum, item) => sum + item.price, 0);
+const pcTotal = total(data.pc);
+const macTotal = total(data.mac) + total(data.appleExtras);
+assert.strictEqual(pcTotal, 29143);
+assert.strictEqual(macTotal, 32149);
+assert.ok(pcTotal <= data.limit && macTotal <= data.limit, 'Obě sestavy musí být pod limitem.');
+assert.ok(data.pc.every(item => Object.hasOwn(item, 'alzaUrl')), 'Každá PC položka má pole alzaUrl.');
+assert.strictEqual(data.pc.find(item => item.id === 'cpu').specs[0], '6 jader / 12 vláken');
+console.log('PC sestava: data, ceny a limity OK');
