@@ -261,8 +261,11 @@
     const interactionCss = document.createElement("link");
     interactionCss.rel = "stylesheet"; interactionCss.href = "/assets/css/learn-interactions-v1.css?v=3";
     document.head.appendChild(interactionCss);
-    load("/assets/js/learn-automation-foundations-data-v1.js?v=2")
-      .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=9"))
+    const ready = window.ShieldioAutomationFoundations && window.renderShieldioAutomationFoundations
+      ? Promise.resolve()
+      : load("/assets/js/learn-automation-foundations-data-v1.js?v=2")
+          .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=9"));
+    ready
       .then(() => window.renderShieldioAutomationFoundations(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
