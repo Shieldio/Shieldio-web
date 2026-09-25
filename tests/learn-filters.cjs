@@ -3,7 +3,8 @@ const root=path.resolve(__dirname,'..'),source=fs.readFileSync(path.join(root,'a
 const questions=JSON.parse(fs.readFileSync(path.join(root,'assets/data/learn-questions.json'),'utf8')).questions;
 const q=questions.find(x=>x.slug==='elektronika-07-pasivni-kmitoctove-zavisle-obvody');
 assert.equal(q.status,'complete');
-for(const term of ['Komplexní impedance R, L a C','H(jω) = Z2/(Z1 + Z2)','RC dolní propust','RC horní propust','20 dB na dekádu','Integrační a derivační','Sériová rezonance RLC','Paralelní rezonance RLC','Q = ω0L/R','B = f0/Q','výstupní odpor generátoru bývá 50 Ω','φ=360°·Δt/T']) assert.ok(source.includes(term),`chybí ${term}`);
+for(const term of ['Komplexní impedance R, L a C','H(jω) = Z2/(Z1 + Z2)','RC dolní propust','RC horní propust','20 dB na dekádu','Integrační a derivační','Sériová rezonance RLC','Paralelní rezonance RLC','výstupní odpor generátoru bývá 50 Ω','φ=360°·Δt/T']) assert.ok(source.includes(term),`chybí ${term}`);
+for(const equation of ['Q = <span class="ee-frac"><span>ω<sub>0</sub>L</span><span>R</span></span>','B = <span class="ee-frac"><span>f<sub>0</sub></span><span>Q</span></span>','X<sub>C</sub> = <span class="ee-frac"><span>1</span><span>2πfC</span></span>']) assert.ok(source.includes(equation),`chybí vysázený vztah ${equation}`);
 for(const file of ['Low-pass%20filter%20diagram.svg','RLC%20circuit.png','Tuned%20circuit%20animation%203.gif']) assert.ok(source.includes(file),`chybí Wikimedia ${file}`);
 assert.ok(source.includes("'07':filterChapters"));assert.ok(source.includes("number==='07' ? filterVisual"));
 console.log('Pasivní kmitočtové obvody OK: 14 kapitol, 14 grafů a 3 licencované Wikimedia materiály');

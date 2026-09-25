@@ -679,19 +679,19 @@
       "title": "Sekvenční obvody",
       "status": "complete",
       "template": "automation-foundations",
-      "summary": "Paměťové prvky, klopné obvody, registry, čítače, synchronizace a rozlišení od kombinačních obvodů.",
+      "summary": "Stav a zpětná vazba, synchronní a asynchronní obvody, RS, D, JK a T, časování, registry, čítače a stavové automaty.",
       "sections": [
         {
-          "title": "Co bude okruh obsahovat",
-          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+          "title": "Paměť a klopné obvody",
+          "body": "Blokové schéma se zpětnou vazbou, latch a flip-flop, úplné tabulky RS, D, JK a T včetně zakázaných stavů."
         },
         {
-          "title": "Připravované názorné prvky",
-          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+          "title": "Časování a spolehlivost",
+          "body": "Hodinový signál, aktivní hrana, setup, hold, clock-to-Q, metastabilita a synchronizace asynchronních vstupů."
         },
         {
-          "title": "Ověření znalostí",
-          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+          "title": "Registry, čítače a automaty",
+          "body": "Posuvné registry, synchronní a ripple čítače, dělení kmitočtu, stavový diagram a praktické použití."
         }
       ]
     },
