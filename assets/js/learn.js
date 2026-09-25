@@ -332,7 +332,7 @@
   // cover its controls, so it belongs only to the learning routes.
   if (!location.pathname.includes("/edupage")) {
     const timerScript = document.createElement("script");
-    timerScript.src = "/assets/js/study-timer.js";
+    timerScript.src = "/assets/js/study-timer.js?v=2";
     timerScript.defer = true;
     document.head.appendChild(timerScript);
   }

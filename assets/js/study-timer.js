@@ -192,6 +192,25 @@
     goal.addEventListener("change", () => { const value = Math.max(10, Math.min(600, Number(goal.value) || 60)); localStorage.setItem(DAY_GOAL_KEY, String(value)); render(); });
   }
 
+  function keepClearOfFooter(host) {
+    const footer = document.querySelector(".learn-footer");
+    if (!footer) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const visibleFooter = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
+      const offset = Math.min(footer.getBoundingClientRect().height, visibleFooter);
+      host.style.setProperty("--timer-footer-offset", `${Math.ceil(offset)}px`);
+    };
+    const scheduleUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    if (window.ResizeObserver) new ResizeObserver(scheduleUpdate).observe(footer);
+    update();
+  }
+
   function render() {
     const host = document.querySelector("[data-study-timer]");
     if (!host) return;
@@ -225,6 +244,7 @@
 
   function init() {
     template();
+    keepClearOfFooter(document.querySelector("[data-study-timer]"));
     if (state.status === "running") {
       if (remainingNow() <= 0) finish(); else schedule();
     }
