@@ -9,5 +9,7 @@ for (const number of ['01', '02', '03', '05', '06', '07', '08', '13', '18', '24'
   assert.equal(question.template, 'automation-foundations');
 }
 const source = fs.readFileSync(path.join(root, 'assets/js/learn-automation-foundations-data-v1.js'), 'utf8');
-for (const term of ['Booleova algebra', 'metastabilitu', 'Flash/ROM', 'Přerušení', 'T klopný obvod', 'Programování jednočipových', 'posuvný registr', 'Fuzzy řízení', 'programovatelné automaty', 'výstupní člen', 'pracovní prostor', 'Vstupní periferie', 'Výstupní zařízení']) assert.ok(source.includes(term), `chybí ${term}`);
+for (const term of ['Booleova algebra', '11010₂', 'Grayově pořadí', 'don’t care', 'NAND–NAND', 'metastabilitu', 'Flash/ROM', 'Přerušení', 'T klopný obvod', 'Programování jednočipových', 'posuvný registr', 'Fuzzy řízení', 'programovatelné automaty', 'výstupní člen', 'pracovní prostor', 'Vstupní periferie', 'Výstupní zařízení']) assert.ok(source.includes(term), `chybí ${term}`);
+const engine = fs.readFileSync(path.join(root, 'assets/js/learn-automation-foundations-v1.js'), 'utf8');
+for (const term of ['Převodník číselných soustav', 'data-af-from-base', 'Opakované dělení', 'Vyřešený příklad krok za krokem', 'NAND–NAND realizace']) assert.ok(engine.includes(term), `chybí interaktivní část ${term}`);
 console.log('Automatizace 01–03, 05–08, 13, 18, 24 a 25 OK');

@@ -256,13 +256,13 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v1.css?v=7";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v2.css?v=1";
     document.head.appendChild(css);
     const interactionCss = document.createElement("link");
     interactionCss.rel = "stylesheet"; interactionCss.href = "/assets/css/learn-interactions-v1.css?v=3";
     document.head.appendChild(interactionCss);
-    load("/assets/js/learn-automation-foundations-data-v1.js?v=1")
-      .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=8"))
+    load("/assets/js/learn-automation-foundations-data-v1.js?v=2")
+      .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=9"))
       .then(() => window.renderShieldioAutomationFoundations(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
@@ -270,17 +270,17 @@
   function renderAutomationPack(root) {
     root.textContent = "Načítám učební materiál…";
     const load = src => new Promise((resolve, reject) => { const script=document.createElement("script"); script.src=src; script.onload=resolve; script.onerror=reject; document.head.appendChild(script); });
-    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v1.css?v=7"; document.head.appendChild(css);
+    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v2.css?v=1"; document.head.appendChild(css);
     const interactionCss = document.createElement("link"); interactionCss.rel="stylesheet"; interactionCss.href="/assets/css/learn-interactions-v1.css?v=3"; document.head.appendChild(interactionCss);
-    load("/assets/js/learn-automation-pack-v1.js?v=2").then(() => load("/assets/js/learn-automation-pack-renderer-v1.js?v=4")).then(() => window.renderShieldioAutomationPack(root)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
+    load("/assets/js/learn-automation-pack-v1.js?v=2").then(() => load("/assets/js/learn-automation-pack-renderer-v1.js?v=5")).then(() => window.renderShieldioAutomationPack(root)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
 
   function renderElectronicsExplorer(root, question) {
     root.textContent = "Načítám studijní model…";
     const load = src => new Promise((resolve, reject) => { const script=document.createElement("script"); script.src=src; script.onload=resolve; script.onerror=reject; document.head.appendChild(script); });
-    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v1.css?v=8"; document.head.appendChild(css);
+    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v2.css?v=1"; document.head.appendChild(css);
     const interactionCss = document.createElement("link"); interactionCss.rel="stylesheet"; interactionCss.href="/assets/css/learn-interactions-v1.css?v=6"; document.head.appendChild(interactionCss);
-    load("/assets/js/learn-electronics-explorer-v1.js?v=14").then(() => window.renderShieldioElectronicsExplorer(root, question)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
+    load("/assets/js/learn-electronics-explorer-v1.js?v=15").then(() => window.renderShieldioElectronicsExplorer(root, question)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
 
   function renderPractice(data, progress) {

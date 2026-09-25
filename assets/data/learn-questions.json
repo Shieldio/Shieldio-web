@@ -656,19 +656,19 @@
       "title": "Základy číslicové techniky",
       "status": "complete",
       "template": "automation-foundations",
-      "summary": "Soustavy, dvojkový a šestnáctkový zápis, logické funkce, hradla, Booleova algebra a kombinační obvody.",
+      "summary": "Převody číselných soustav, logické úrovně a hradla, Booleova algebra, Karnaughovy mapy, NAND realizace a kombinační obvody.",
       "sections": [
         {
-          "title": "Co bude okruh obsahovat",
-          "body": "Srozumitelný výklad pojmů a principů, maturitní souvislosti a přehled toho, co je potřeba umět vysvětlit."
+          "title": "Číselné soustavy",
+          "body": "Převody dělením i pozičním rozkladem, řešené příklady a interaktivní převodník soustav."
         },
         {
-          "title": "Připravované názorné prvky",
-          "body": "Animace nebo schéma jevu, interaktivní graf či simulace, práce se vzorci a řešený příklad."
+          "title": "Logické funkce",
+          "body": "Pravdivostní tabulky, Booleova algebra, De Morganovy věty a vyřešená Karnaughova mapa."
         },
         {
-          "title": "Ověření znalostí",
-          "body": "Krátké kontrolní otázky, úloha k samostatnému řešení a nácvik ústní maturitní odpovědi."
+          "title": "Realizace obvodu",
+          "body": "Realizace pouze hradly NAND, půlsčítačka a kontrolní osnova patnáctiminutové odpovědi."
         }
       ]
     },
