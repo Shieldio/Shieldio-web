@@ -94,7 +94,7 @@
   function renderDashboard(data, progress) {
     const pageHead = document.querySelector(".learn-page-head");
     if (pageHead && document.querySelector("[data-overall-progress]")) {
-      pageHead.querySelector(".learn-eyebrow").textContent = "SPŠ Zlín · Elektrotechnika · 2025/26";
+      pageHead.querySelector(".learn-eyebrow").textContent = "Maturitní obor · Elektrotechnika";
       pageHead.querySelector("p").textContent = "50 připravených okruhů z elektroniky a automatizace. Výklady, animace, grafy a interaktivní úlohy budeme doplňovat postupně.";
     }
     document.querySelectorAll("[data-subject-card]").forEach(card => {
@@ -152,7 +152,7 @@
     root.querySelector("[data-question-title]").textContent = question.title;
     root.querySelector("[data-question-summary]").textContent = question.summary;
     const footerNote = document.querySelector(".learn-footer span");
-    if (footerNote) footerNote.textContent = "SPŠ Zlín · obor 26-41-M/01 Elektrotechnika · školní rok 2025/26";
+    if (footerNote) footerNote.textContent = "Maturitní obor · Elektrotechnika · školní rok 2025/26";
     if (question.status === "outline") {
       root.querySelector("[data-question-summary]").insertAdjacentHTML("beforebegin", '<span class="learn-status-badge">Připravená osnova · obsah se doplňuje</span>');
     }
@@ -256,15 +256,15 @@
       document.head.appendChild(script);
     });
     const css = document.createElement("link");
-    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v2.css?v=2";
+    css.rel = "stylesheet"; css.href = "/assets/css/learn-automation-foundations-v2.css?v=4";
     document.head.appendChild(css);
     const interactionCss = document.createElement("link");
     interactionCss.rel = "stylesheet"; interactionCss.href = "/assets/css/learn-interactions-v1.css?v=7";
     document.head.appendChild(interactionCss);
     const ready = window.ShieldioAutomationFoundations && window.renderShieldioAutomationFoundations
       ? Promise.resolve()
-      : load("/assets/js/learn-automation-foundations-data-v1.js?v=4")
-          .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=10"));
+      : load("/assets/js/learn-automation-foundations-data-v1.js?v=5")
+          .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=12"));
     ready
       .then(() => window.renderShieldioAutomationFoundations(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
@@ -273,7 +273,7 @@
   function renderAutomationPack(root) {
     root.textContent = "Načítám učební materiál…";
     const load = src => new Promise((resolve, reject) => { const script=document.createElement("script"); script.src=src; script.onload=resolve; script.onerror=reject; document.head.appendChild(script); });
-    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v2.css?v=2"; document.head.appendChild(css);
+    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v2.css?v=4"; document.head.appendChild(css);
     const interactionCss = document.createElement("link"); interactionCss.rel="stylesheet"; interactionCss.href="/assets/css/learn-interactions-v1.css?v=3"; document.head.appendChild(interactionCss);
     load("/assets/js/learn-automation-pack-v1.js?v=2").then(() => load("/assets/js/learn-automation-pack-renderer-v1.js?v=5")).then(() => window.renderShieldioAutomationPack(root)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
@@ -281,7 +281,7 @@
   function renderElectronicsExplorer(root, question) {
     root.textContent = "Načítám studijní model…";
     const load = src => new Promise((resolve, reject) => { const script=document.createElement("script"); script.src=src; script.onload=resolve; script.onerror=reject; document.head.appendChild(script); });
-    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v2.css?v=2"; document.head.appendChild(css);
+    const css = document.createElement("link"); css.rel="stylesheet"; css.href="/assets/css/learn-automation-foundations-v2.css?v=4"; document.head.appendChild(css);
     const interactionCss = document.createElement("link"); interactionCss.rel="stylesheet"; interactionCss.href="/assets/css/learn-interactions-v1.css?v=7"; document.head.appendChild(interactionCss);
     load("/assets/js/learn-electronics-explorer-v1.js?v=16").then(() => window.renderShieldioElectronicsExplorer(root, question)).catch(() => { root.textContent="Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
   }
