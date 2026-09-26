@@ -2113,6 +2113,9 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 :root[data-theme="dark"] .learn-theory-link{ color:var(--accent-soft); border-color:var(--accent-deep); }
 .blockly-toggle-code.active{ color:var(--tier-red-deep); border-color:var(--tier-red-deep); }
 
+/* Trademark marks stay present but do not disturb the rhythm of running text. */
+.trademark{ font-size:.52em; line-height:0; vertical-align:super; margin-left:.04em; }
+
 /* ---------- teacher preparation and printable worksheet ---------- */
 .guide-teacher-summary{
   margin:24px 0; padding:14px 16px; border:1px solid var(--line);

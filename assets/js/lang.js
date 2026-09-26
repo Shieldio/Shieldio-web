@@ -37,6 +37,30 @@
     if (titleKey && dict[titleKey] && dict[titleKey][lang] != null) {
       document.title = dict[titleKey][lang];
     }
+    formatTrademarkMarks();
+  }
+
+  function formatTrademarkMarks() {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.parentElement && !node.parentElement.closest("script, style, sup") && node.nodeValue.includes("Arduino®")) nodes.push(node);
+    }
+    nodes.forEach((textNode) => {
+      const fragment = document.createDocumentFragment();
+      textNode.nodeValue.split("Arduino®").forEach((part, index) => {
+        if (index) {
+          fragment.append("Arduino");
+          const mark = document.createElement("sup");
+          mark.className = "trademark";
+          mark.textContent = "®";
+          fragment.append(mark);
+        }
+        fragment.append(part);
+      });
+      textNode.replaceWith(fragment);
+    });
   }
 
   function setLang(lang) {
