@@ -168,7 +168,7 @@
         : kind==='flip'
           ? (flipVisuals[current]||'')
           : (current===0?topicVisual+(labs[lesson.lab]||''):'');
-      panel.innerHTML=`<span class="af-kicker">${current+1} / ${chapters.length} · maturitní otázka</span><h2>${t}</h2><p>${b}</p>${chapterVisual}${renderLogicExample(current)}<div class="af-exam"><b>Zkoušková věta:</b> Vysvětli bod vlastními slovy, pojmenuj veličiny a doplň příklad použití.</div><div class="af-footer"><button data-af-prev ${current===0?'disabled':''}>← Předchozí</button><button data-af-next ${current===chapters.length-1?'disabled':''}>Další →</button></div>`;
+      panel.innerHTML=`<span class="af-kicker">${current+1} / ${chapters.length} · maturitní otázka</span><h2>${t}</h2><p>${b}</p>${chapterVisual}${renderLogicExample(current)}<div class="af-footer"><button data-af-prev ${current===0?'disabled':''}>← Předchozí</button><button data-af-next ${current===chapters.length-1?'disabled':''}>Další →</button></div>`;
       update();
     };
     root.addEventListener('click',e=>{
