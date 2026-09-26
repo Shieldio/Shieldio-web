@@ -236,8 +236,8 @@
     "en": "One board, clear colour-coding, growing difficulty."
   },
   "home.solution.p": {
-    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod. RED je vývojový prototyp, u kterého zjišťujeme zájem; Green a Yellow jsou ve fázi konceptu.",
-    "en": "Each level has one main component and one documented project as a starting point. RED is a development prototype for which we are gathering interest; Green and Yellow are concepts."
+    "cs": "Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod. RED V4 nyní testujeme a připravujeme V5; Green a Yellow jsou ve fázi konceptu.",
+    "en": "Each level has one main component and one documented project as a starting point. RED V4 is currently being tested while V5 is in preparation; Green and Yellow are concepts."
   },
   "home.tier_green.label": {
     "cs": "Úroveň 1 · Základ",
@@ -692,8 +692,8 @@
     "en": "Shieldio boards. <em>Clearly labeled by status.</em>"
   },
   "products_index.lead": {
-    "cs": "<span class=\"text-tier-red\">RED</span> je vývojový prototyp, u kterého zjišťujeme zájem. PowerAdd je ve vývoji jako prototyp. <span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span> a <span class=\"text-tier-pro\">PRO</span> jsou zatím ve fázi konceptu.",
-    "en": "<span class=\"text-tier-red\">RED</span> is a development prototype for which we are gathering interest. PowerAdd is a prototype in development. <span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, and <span class=\"text-tier-pro\">PRO</span> are still at the concept stage."
+    "cs": "<span class=\"text-tier-red\">RED V4</span> nyní testujeme a připravujeme V5. PowerAdd je ve vývoji jako prototyp. <span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span> a <span class=\"text-tier-pro\">PRO</span> jsou zatím ve fázi konceptu.",
+    "en": "<span class=\"text-tier-red\">RED V4</span> is currently being tested while V5 is in preparation. PowerAdd is a prototype in development. <span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, and <span class=\"text-tier-pro\">PRO</span> are still at the concept stage."
   },
   "products_index.group_preorder": {
     "cs": "Vývojový prototyp",
@@ -732,12 +732,12 @@
     "en": "Where each board stands right now."
   },
   "products_index.dev_p": {
-    "cs": "Procento orientačně popisuje stav vývoje, od konceptu po ověřování ve výuce.",
-    "en": "The percentage is an indicative development status, from concept to educational testing."
+    "cs": "Procento orientačně popisuje stav vývoje. RED V4 právě ověřujeme v testování a současně připravujeme V5.",
+    "en": "The percentage is an indicative development status. RED V4 is currently being tested while V5 is in preparation."
   },
   "products_index.dev_red_sub": {
-    "cs": "Vývojová série · průzkum zájmu",
-    "en": "Development series · interest survey"
+    "cs": "V4 v testování · V5 v přípravě",
+    "en": "V4 in testing · V5 in preparation"
   },
   "products_index.dev_yellow_sub": {
     "cs": "Koncept, první nápad hotový",
