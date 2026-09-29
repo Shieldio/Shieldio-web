@@ -447,9 +447,9 @@
       "subject": "elektronika",
       "number": "17",
       "title": "Analogově číslicové převodníky",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: rozlišení a chyby ADC, flash, SAR, integrační a delta-sigma převodníky, reference, vstupní úprava a měření.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -470,9 +470,9 @@
       "subject": "elektronika",
       "number": "18",
       "title": "Číslicově analogové převodníky",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: převodní charakteristika, váhový a R–2R DAC, proudový výstup, statické a dynamické chyby, PWM a měření.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -493,9 +493,9 @@
       "subject": "elektronika",
       "number": "19",
       "title": "Měřicí generátory",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: sinusové, funkční, DDS a arbitrární generátory, impedance 50 Ω, amplituda, modulace, sweep a bezpečné měření.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -516,9 +516,9 @@
       "subject": "elektronika",
       "number": "20",
       "title": "Osciloskopy",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: bloky osciloskopu, svislá a časová osa, trigger, vzorkování, pásmo, sondy, uzemnění, FFT a měřicí postup.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -539,9 +539,9 @@
       "subject": "elektronika",
       "number": "21",
       "title": "Měření výkonu a spotřeby elektrické energie",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: okamžitý, činný, jalový a zdánlivý výkon, účiník, wattmetry, třífázové měření, elektroměry a bezpečnost.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -562,9 +562,9 @@
       "subject": "elektronika",
       "number": "22",
       "title": "Měření kmitočtu a fázového posunu",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: perioda, přímé a reciproční čítání, hradlovací doba, osciloskop, časový posun, Lissajousovy obrazce a chyby.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -585,9 +585,9 @@
       "subject": "elektronika",
       "number": "23",
       "title": "Měření odporu, kapacity, indukčnosti a impedance",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: ohmmetr, voltampérová a Kelvinova metoda, můstky, měření C a L, komplexní impedance, LCR metr a kompenzace.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -608,9 +608,9 @@
       "subject": "elektronika",
       "number": "24",
       "title": "Měřicí systémy",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: snímače, úprava signálu, DAQ, multiplexování, průmyslový přenos, synchronizace, oddělení, kalibrace, HMI a návrh.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -631,9 +631,9 @@
       "subject": "elektronika",
       "number": "25",
       "title": "Měření neelektrických veličin",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: snímače teploty, síly, tlaku, polohy, rychlosti, světla, vlhkosti a plynů, úprava signálu a kalibrace.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
