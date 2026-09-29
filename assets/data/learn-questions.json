@@ -263,9 +263,9 @@
       "subject": "elektronika",
       "number": "09",
       "title": "Zesilovače s malou amplitudou signálu",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: pracovní bod, zapojení se společným emitorem, impedanční přizpůsobení, zesílení, šířka pásma, zkreslení a měření.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -355,9 +355,9 @@
       "subject": "elektronika",
       "number": "13",
       "title": "Generátory kmitů",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: Barkhausenova podmínka, RC, Wienovy, LC a krystalové oscilátory, relaxační generátory, 555, VCO a PLL.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
@@ -424,9 +424,9 @@
       "subject": "elektronika",
       "number": "16",
       "title": "Digitalizace a číslicové zpracování signálu",
-      "status": "in-progress",
+      "status": "complete",
       "template": "electronics-explorer",
-      "summary": "Rozpracovaný studijní model: výklad po krocích, schéma nebo graf a ovladač pro názorné procvičení.",
+      "summary": "Deset kapitol: vzorkování, Nyquistova podmínka, aliasing, kvantování, datový tok, rekonstrukce, filtrace a FFT.",
       "sections": [
         {
           "title": "Co bude okruh obsahovat",
