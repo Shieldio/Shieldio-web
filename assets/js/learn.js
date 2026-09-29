@@ -264,7 +264,7 @@
     const ready = window.ShieldioAutomationFoundations && window.renderShieldioAutomationFoundations
       ? Promise.resolve()
       : load("/assets/js/learn-automation-foundations-data-v1.js?v=5")
-          .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=14"));
+          .then(() => load("/assets/js/learn-automation-foundations-v1.js?v=15"));
     ready
       .then(() => window.renderShieldioAutomationFoundations(root))
       .catch(() => { root.textContent = "Lekci se nepodařilo načíst. Obnov stránku a zkontroluj připojení."; });
