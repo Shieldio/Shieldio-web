@@ -31,3 +31,13 @@ Po nasazení otevřete:
 - `https://learn.shieldio.cz/maturita/otazka/demo-otazka-01/`
 
 Ověřte stav 200, platný HTTPS certifikát a to, že `https://shieldio.cz/` dál zobrazuje hlavní produktový web. Lokálně lze obsah kontrolovat bez Worker routingu na `http://127.0.0.1:PORT/learn/`; host-based routing se testuje pomocí `npx wrangler dev --config wrangler.learn.jsonc`.
+
+## Light – deployment
+
+Veřejná iniciativa Light je samostatný statický web v adresáři `light/`. Nasazuje se jako Worker `shieldio-light` s Custom Domain `light.shieldio.cz`, stejným způsobem jako Learn, ale bez aplikačního Worker skriptu:
+
+```bash
+npx wrangler deploy --config wrangler.light.jsonc
+```
+
+Konfigurace je oddělená od hlavního webu i Learn. Formuláře odesílají přes schválený Web3Forms tok; repozitář neobsahuje formulářový backend ani databázi.

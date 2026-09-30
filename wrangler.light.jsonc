@@ -1,0 +1,15 @@
+{
+  "name": "shieldio-light",
+  "compatibility_date": "2026-09-30",
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "light.shieldio.cz",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "light",
+    "not_found_handling": "404-page"
+  }
+}
