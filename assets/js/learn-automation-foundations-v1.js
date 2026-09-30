@@ -177,6 +177,11 @@
       if(kind!=='logic'||!example)return'';
       return `<details class="af-worked"><summary><span>Řešený příklad</span><b>${example.title}</b><i>Rozbalit přesný postup</i></summary><div class="af-worked-body"><p class="af-worked-task"><b>Zadání:</b> ${example.task}</p><ol>${example.steps.map(step=>`<li>${step}</li>`).join('')}</ol><div class="af-worked-result"><span>Výsledek</span><strong>${example.result}</strong></div><div class="af-practice"><span>Příklad k vypočítání</span><p>${example.practice}</p><details><summary>Zobrazit správné řešení</summary><p>${example.answer}</p></details></div></div></details>`;
     };
+    const renderCompletionExample=index=>{
+      const number=slug.match(/automatizace-(\d+)/)?.[1],example=window.ShieldioAutomationCompletionExamples?.[number]?.[index];
+      if(!example||kind==='logic')return'';
+      return `<details class="af-worked"><summary><span>Řešený příklad</span><b>${chapters[index][0]}</b><i>Rozbalit postup</i></summary><div class="af-worked-body"><p>${example}</p><p><b>Kontrola odpovědi:</b> pojmenuj vstupy, výstupy, jednotky nebo logické stavy a ověř mezní či poruchovou situaci.</p></div></details>`;
+    };
     const show=i=>{
       current=Math.max(0,Math.min(chapters.length-1,i));
       const [t,b]=chapters[current];
@@ -185,8 +190,8 @@
         ? (logicVisuals[current]||'')
         : kind==='flip'
           ? (flipVisuals[current]||'')
-          : kind==='interrupt' ? mcuVisual(current) : (current===0?topicVisual+(labs[lesson.lab]||''):'');
-      panel.innerHTML=`<span class="af-kicker">${current+1} / ${chapters.length} · maturitní otázka</span><h2>${t}</h2><p>${b}</p>${chapterVisual}${renderLogicExample(current)}<div class="af-footer"><button data-af-prev ${current===0?'disabled':''}>← Předchozí</button><button data-af-next ${current===chapters.length-1?'disabled':''}>Další →</button></div>`;
+          : kind==='interrupt' ? mcuVisual(current) : `${current===0?topicVisual+(labs[lesson.lab]||''):''}<section class="af-visual"><h3>${t} · tok informace</h3><div class="af-flow"><span>vstupní podmínka</span><b>→</b><span>${t}</span><b>→</b><span>výsledek a kontrola</span></div><p>Ve schématu vlastními slovy doplň konkrétní signál, rozhodnutí a způsob ověření výsledku pro probíraný bod.</p></section>`;
+      panel.innerHTML=`<span class="af-kicker">${current+1} / ${chapters.length} · maturitní otázka</span><h2>${t}</h2><p>${b}</p>${chapterVisual}${renderLogicExample(current)}${renderCompletionExample(current)}<div class="af-footer"><button data-af-prev ${current===0?'disabled':''}>← Předchozí</button><button data-af-next ${current===chapters.length-1?'disabled':''}>Další →</button></div>`;
       update();
     };
     root.addEventListener('click',e=>{
