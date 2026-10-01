@@ -1,0 +1,35 @@
+name: Nasadit Luxmaxing na Cloudflare Workers
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'luxmaxing/**'
+      - 'wrangler.luxmaxing.jsonc'
+      - '.github/workflows/deploy-luxmaxing.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-luxmaxing
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ověřit přihlašovací údaje
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::error::Nastavte repository secrets CLOUDFLARE_API_TOKEN a CLOUDFLARE_ACCOUNT_ID pro nasazení Luxmaxing."
+            exit 1
+          fi
+      - name: Nasadit Worker a vlastní doménu
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy --config wrangler.luxmaxing.jsonc

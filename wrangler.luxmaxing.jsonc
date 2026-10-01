@@ -1,0 +1,15 @@
+{
+  "name": "shieldio-luxmaxing",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "luxmaxing.shieldio.cz",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "luxmaxing",
+    "not_found_handling": "404-page"
+  }
+}
