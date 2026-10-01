@@ -1,6 +1,6 @@
 # Luxmaxing
 Samostatný český statický web v adresáři luxmaxing/.
-Worker: shieldio-luxmaxing. Vlastní doména: luxmaxing.shieldio.cz.
+Worker: luxmaxing. Vlastní doména: luxmaxing.shieldio.cz.
 
 ## Nasazení
 Push na main spouští .github/workflows/deploy-luxmaxing.yml.
@@ -15,3 +15,6 @@ Cloudflare vytvoří Custom Domain i DNS a TLS certifikát. Existující koliduj
 Po nasazení ověřte https://luxmaxing.shieldio.cz/ a stažení pruvodce.txt.
 E-mailový odběr zatím není aktivní; stránka to uvádí. Žádné osobní údaje nesbírá.
 Vzhled je izolovaný od společného CSS a web nemění stávající jazykové klíče.
+
+## Existující ručně nasazený Worker
+V Cloudflare otevřete existující aplikaci luxmaxing. Při propojení repozitáře používejte větev main, kořen repozitáře a deploy command npx wrangler deploy --config wrangler.luxmaxing.jsonc. Tato konfigurace publikuje pouze složku luxmaxing, nikoli hlavní web Shieldio.
