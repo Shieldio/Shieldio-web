@@ -331,7 +331,7 @@
 
   // EduPage++ is a quick personal dashboard; the floating study timer would
   // cover its controls, so it belongs only to the learning routes.
-  if (!location.pathname.includes("/edupage")) {
+  if (!location.pathname.includes("/edupage") && !location.pathname.includes("/pc-sestava")) {
     const timerScript = document.createElement("script");
     timerScript.src = "/assets/js/study-timer.js?v=2";
     timerScript.defer = true;

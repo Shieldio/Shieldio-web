@@ -9,23 +9,23 @@
   <meta name="theme-color" content="#0d9488">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/learn.css?v=pc-build-5">
-  <link rel="stylesheet" href="/assets/css/pc-build-refined.css?v=pc-build-5">
+  <link rel="stylesheet" href="/assets/css/learn.css?v=pc-build-8">
+  <link rel="stylesheet" href="/assets/css/pc-build-refined.css?v=pc-build-8">
   <link rel="icon" href="/assets/icons/favicon.svg">
 </head>
 <body class="learn-site pc-build-page">
   <header class="learn-header">
     <div class="learn-wrap learn-header-inner">
       <a class="learn-brand" href="/"><img src="/assets/icons/logo-full-color.svg" alt="Shieldio"><span>LEARN</span></a>
-      <nav class="learn-nav"><a href="/maturita/">Maturita</a><a href="#srovnani">Srovnání</a><a href="https://shieldio.cz">Shieldio.cz ↗</a></nav>
+      <nav class="learn-nav"><a href="#srovnani">Mac vs. Windows</a><a href="https://shieldio.cz">Shieldio.cz ↗</a></nav>
     </div>
   </header>
   <main>
     <section class="pc-hero">
       <div class="learn-wrap pc-hero-grid">
         <div>
-          <p class="learn-eyebrow">Sestava na míru · 8. října 2026</p>
-          <h1>Windows PC.<br><em>Ověřeně.</em><br>Bez vaty.</h1>
+          <p class="learn-eyebrow">Kompletní sestava · ověřeno 8. října 2026</p>
+          <h1>PC sestava<br>na míru.<br><em>31 083 Kč.</em></h1>
           <p class="pc-lead">Kompletní pracovní a herní setup do 31 083 Kč: počítač, monitor, klávesnice, myš, headset i samostatné reproduktory. Každé tlačítko vede na konkrétní produkt Alzy.</p>
           <a class="learn-button" href="#explorer">Prohlédnout sestavu ↓</a>
           <p class="pc-price-note">Ceny a dostupnost byly ověřeny 8. 10. 2026. Slevu nezapočítávám, pokud ji nelze k tomuto datu doložit; konkrétní cena se může mezitím změnit.</p>
@@ -56,34 +56,24 @@
       <div class="pc-compat-grid" id="compatibility"></div>
     </section>
 
-    <section class="pc-flow-section">
-      <div class="learn-wrap">
-        <div class="pc-section-head"><p class="learn-eyebrow">Jak spolu mluví</p><h2>SSD není RAM.<br>GPU není monitor.</h2><p>Klikni na část cesty a uvidíš její roli v reálném počítači.</p></div>
-        <div class="pc-flow" id="dataFlow"><button data-flow="ssd">SSD<br><small>trvalá data</small></button><b>→</b><button data-flow="cpu">CPU<br><small>výpočet</small></button><b>↔</b><button data-flow="ram">RAM<br><small>pracovní data</small></button><b>→</b><button data-flow="gpu">GPU + VRAM<br><small>obraz</small></button><b>→</b><button data-flow="monitor">MONITOR<br><small>výstup</small></button></div>
-        <article class="pc-flow-detail" id="flowDetail">Klikni na blok: zobrazí se význam součástky a její propojení.</article>
-      </div>
-    </section>
-
     <section class="learn-wrap pc-section pc-conclusion">
       <p class="learn-eyebrow">Závěr</p><h2>Rezerva je součást návrhu.</h2><p>Celý setup se do limitu vejde i bez uměle započítané slevy. Zbytek rozpočtu může zůstat na dopravu, montáž, větší disk nebo kvalitnější periferii — ne na náhodný „upgrade“ bez důvodu.</p>
-      <a class="learn-button" href="#srovnani">Porovnat s Macem ↓</a>
-    </section>
-
-    <section class="learn-wrap pc-section pc-mac-section">
-      <div class="pc-section-head"><p class="learn-eyebrow">Až potom srovnání</p><h2>Co by změnil Mac?</h2><p>Mac mini je referenční alternativa; není součástí tohoto rozpočtu ani důvodem vybírat komponenty pro Windows setup.</p></div>
-      <div class="pc-mac-explorer"><div class="pc-mac-cutaway"><b>M4</b><span>integrovaný SoC</span></div><div class="pc-mac-tabs" id="macTabs"></div><article class="pc-component-detail" id="macDetail"></article></div>
+      <a class="learn-button" href="#srovnani">Co by přinesl Mac ↓</a>
     </section>
 
     <section class="pc-compare-section" id="srovnani">
       <div class="learn-wrap">
-        <div class="pc-section-head"><p class="learn-eyebrow">Srovnání bez fanouškovství</p><h2>Neexistuje univerzální vítěz.</h2><p>Rozhoduje konkrétní software, hry, preferovaný způsob práce a to, zda chceš později měnit jednotlivé díly.</p></div>
-        <div class="pc-compare-tabs" id="compareTabs"></div><div class="pc-compare-result" id="compareResult"></div>
+        <div class="pc-section-head"><p class="learn-eyebrow">Kdy bych zvolil Mac</p><h2>Pro střih videa a aplikace<br>pro Apple Silicon bych začal u M4.</h2><p>Ne proto, že by Mac vyhrál každou disciplínu. Má ale konkrétní výhody pro ProRes, Final Cut Pro a aplikace využívající Metal nebo Core ML — v kompaktním počítači.</p></div>
+        <div class="pc-mac-benefits" id="macBenefits"></div>
+        <div class="pc-mac-explorer"><div class="pc-mac-cutaway"><b>M4</b><span>Apple Silicon · 16 GB unified memory</span></div><article class="pc-component-detail" id="macDetail"></article></div>
+        <section class="pc-apple-setup" id="macSetup" aria-label="Kompletní pracovní set s Macem"></section>
+        <details class="pc-tradeoffs"><summary>Kde naopak Windows PC dává víc</summary><ul id="macLimits"></ul></details>
       </div>
     </section>
   </main>
   <footer class="learn-footer"><div class="learn-wrap learn-footer-inner"><span>Shieldio Learn · školní projekt</span><a href="/">Zpět na Learn</a></div></footer>
-  <script src="/assets/js/learn.js?v=pc-build-3"></script>
-  <script src="/assets/js/pc-build-data.js?v=pc-build-3"></script>
-  <script src="/assets/js/pc-build.js?v=pc-build-3"></script>
+  <script src="/assets/js/learn.js?v=pc-build-8"></script>
+  <script src="/assets/js/pc-build-data.js?v=pc-build-8"></script>
+  <script src="/assets/js/pc-build.js?v=pc-build-8"></script>
 </body>
 </html>

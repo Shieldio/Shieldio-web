@@ -24,56 +24,11 @@
     renderDetail(data.pc.find(item=>item.id===button.dataset.id));
   });
 
-  const macTabs=document.querySelector('#macTabs');
-  const macDetail=document.querySelector('#macDetail');
-  function renderMac(item){
-    macDetail.innerHTML=`<p class="learn-eyebrow">${item.category}</p><h3>${item.name}</h3><p>${item.description}</p><ul>${item.specs.map(spec=>`<li>${spec}</li>`).join('')}</ul><dl><dt>Rozšíření</dt><dd>${item.upgradeInfo}</dd></dl>`;
-  }
-  macTabs.innerHTML=data.mac.map((item,index)=>`<button class="${index?'':'is-active'}" data-id="${item.id}">${item.category}</button>`).join('');
-  renderMac(data.mac[0]);
-  macTabs.addEventListener('click',event=>{
-    const button=event.target.closest('button');
-    if(!button)return;
-    macTabs.querySelectorAll('button').forEach(item=>item.classList.toggle('is-active',item===button));
-    renderMac(data.mac.find(item=>item.id===button.dataset.id));
-  });
-
-  const compareTabs=document.querySelector('#compareTabs');
-  const compareResult=document.querySelector('#compareResult');
-  function renderComparison(key){
-    const item=data.compare[key];
-    compareResult.innerHTML=`<h3>${item.title}</h3><div><article><span>TVŮJ WINDOWS PC</span><p>${item.pc}</p></article><article><span>MAC MINI M4</span><p>${item.mac}</p></article></div>`;
-  }
-  compareTabs.innerHTML=Object.entries(data.compare).map(([key,item],index)=>`<button data-key="${key}" class="${index?'':'is-active'}">${item.title}</button>`).join('');
-  renderComparison('games');
-  compareTabs.addEventListener('click',event=>{
-    const button=event.target.closest('button');
-    if(!button)return;
-    compareTabs.querySelectorAll('button').forEach(item=>item.classList.toggle('is-active',item===button));
-    renderComparison(button.dataset.key);
-  });
-
+  const mac=data.mac;
+  document.querySelector('#macDetail').innerHTML=`<p class="learn-eyebrow">M4 · REFERENČNÍ PRACOVNÍ VARIANTA</p><h3>${mac.name}</h3><strong class="pc-detail-price">${money(mac.price)}</strong><p class="pc-price-status">${mac.priceNote}</p><p>${mac.description}</p><ul>${mac.specs.map(spec=>`<li>${spec}</li>`).join('')}</ul><a class="pc-source" href="${mac.sourceUrl}" target="_blank" rel="noopener">${mac.sourceLabel} ↗</a>`;
+  document.querySelector('#macBenefits').innerHTML=data.macBenefits.map((item,index)=>`<article><b>${String(index+1).padStart(2,'0')} · ${item.metric}</b><h3>${item.title}</h3><p>${item.description}</p></article>`).join('');
+  const extrasTotal=mac.price+sum(data.appleExtras);
+  document.querySelector('#macSetup').innerHTML=`<div class="pc-apple-setup-head"><p class="learn-eyebrow">Kompletní pracovní stůl s Macem</p><h3>${money(extrasTotal)}</h3><p>Mac mini, QHD monitor, klávesnice, myš, headset a aktivní stereo. Cena Macu je převzatá z podkladu srovnání; příslušenství má přímé odkazy na konkrétní produkty.</p></div><div class="pc-apple-setup-list"><article><span>MAC</span><b>${mac.name}</b><strong>${money(mac.price)}</strong></article>${data.appleExtras.map(item=>`<article><span>${item.category}</span><b>${item.name}</b><strong>${money(item.price)}</strong><small>${item.note}</small>${item.alzaUrl?`<a href="${item.alzaUrl}" target="_blank" rel="noopener">Detail Alza ↗</a>`:''}</article>`).join('')}</div>`;
+  document.querySelector('#macLimits').innerHTML=data.macLimits.map(item=>`<li>${item}</li>`).join('');
   document.querySelector('#compatibility').innerHTML=data.compat.map(([title,text],index)=>`<article><b>${String(index+1).padStart(2,'0')}</b><h3>${title}</h3><p>${text}</p></article>`).join('');
-  const flow={
-    ssd:'SSD uchovává data i bez napájení. Přes NVMe používá linky PCIe; po otevření programu se potřebná data načtou do RAM.',
-    cpu:'CPU provádí obecné instrukce programu. S RAM komunikuje velmi rychle, s GPU předává úlohy například přes PCIe.',
-    ram:'RAM je rychlá dočasná pracovní paměť. Není to úložiště: po vypnutí její obsah zmizí.',
-    gpu:'GPU zpracuje obrazová data; VRAM je její vlastní rychlá paměť pro textury a framebuffer. Grafika pošle hotový obraz do monitoru.',
-    monitor:'Monitor přijímá hotový obrazový signál z grafické karty. Obnovovací frekvence popisuje, kolikrát za sekundu může obraz obnovit.'
-  };
-  const flowDetail=document.querySelector('#flowDetail');
-  document.querySelector('#dataFlow').addEventListener('click',event=>{
-    const button=event.target.closest('button');
-    if(!button)return;
-    document.querySelectorAll('#dataFlow button').forEach(item=>item.classList.toggle('is-active',item===button));
-    flowDetail.textContent=flow[button.dataset.flow];
-  });
-
-  const main=document.querySelector('main');
-  const mac=document.querySelector('.pc-mac-section');
-  const comparison=document.querySelector('.pc-compare-section');
-  const conclusion=document.querySelector('.pc-conclusion');
-  main.append(mac,comparison);
-  conclusion.querySelector('a').href='#srovnani';
-  conclusion.querySelector('a').textContent='Porovnat s Macem ↓';
 })();
