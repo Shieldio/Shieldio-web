@@ -1,4 +1,8 @@
 :root{
+  --accent:#0d9488;
+  --accent-deep:#0b7a70;
+  --accent-soft:#5eead4;
+  --on-accent:#fff;
   --learn-red:#f72338;
   --learn-red-deep:#d30f24;
   --learn-ink:#171719;
@@ -10,6 +14,10 @@
   color-scheme:light;
 }
 :root[data-theme="dark"]{
+  --accent:#0d9488;
+  --accent-deep:#0b7a70;
+  --accent-soft:#5eead4;
+  --on-accent:#fff;
   --learn-red:#ff3b4f;
   --learn-red-deep:#ff6172;
   --learn-ink:#f5f5f7;
@@ -21,6 +29,10 @@
 }
 @media(prefers-color-scheme:dark){
   :root:not([data-theme]){
+    --accent:#0d9488;
+    --accent-deep:#0b7a70;
+    --accent-soft:#5eead4;
+    --on-accent:#fff;
     --learn-red:#ff3b4f;
     --learn-red-deep:#ff6172;
     --learn-ink:#f5f5f7;
