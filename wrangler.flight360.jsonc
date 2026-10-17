@@ -1,0 +1,15 @@
+{
+  "name": "shieldio-flight360",
+  "compatibility_date": "2026-10-17",
+  "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "flight360.shieldio.cz",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "experiments/flight360",
+    "not_found_handling": "404-page"
+  }
+}
