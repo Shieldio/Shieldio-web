@@ -13,6 +13,12 @@ let scenes = [], active = null, gl = null, program = null, texture = null, unifo
 let yaw = 0, pitch = -8, fov = 75, dirty = true, hasFrame = false, started = false, seeking = false;
 let requestedTime = 0, pendingSharedView = false, fallback = false, waitingTimer, hintTimer, frameTime = -1;
 let lastFocus = null, dialogKind = "share", loadingScene = false, loadTimer;
+let presentedTime = null;
+if(typeof video.requestVideoFrameCallback==="function"){
+const onFrame=(_now,metadata)=>{presentedTime=metadata.mediaTime;dirty=true;video.requestVideoFrameCallback(onFrame);};
+video.requestVideoFrameCallback(onFrame);
+}
+video.addEventListener("seeking",()=>{presentedTime=null;});
 const pointers = new Map();
 let pinchDistance = 0, pinchFov = 75;
 
@@ -72,9 +78,8 @@ for(const data of active?.hotspots||[]){
 if(!Array.isArray(data.keyframes)||data.keyframes.length<2)continue;
 const node=document.createElement("div");node.className="place-hotspot";node.hidden=true;
 const button=document.createElement("button");button.type="button";button.className="place-point";button.setAttribute("aria-label","Prozkoumat: "+data.label);button.setAttribute("aria-expanded","false");
-const dot=document.createElement("span");dot.className="place-point-icon";dot.textContent="+";dot.setAttribute("aria-hidden","true");
 const title=document.createElement("span");title.className="place-point-name";title.textContent=data.label;
-button.append(dot,title);button.addEventListener("click",()=>openPlace(data,button));
+button.append(title);button.addEventListener("click",()=>openPlace(data,button));
 const stem=document.createElement("span");stem.className="place-hotspot-stem";
 const anchor=document.createElement("span");anchor.className="place-hotspot-dot";
 node.append(button,stem,anchor);hotspotLayer.append(node);hotspotNodes.push({data,node,button});
@@ -105,7 +110,7 @@ const tan=Math.tan(fov*Math.PI/360);
 return {x:width/2*(1+viewX/(viewZ*tan*width/height)),y:height/2*(1-viewY/(viewZ*tan))};
 }
 function updateHotspots(){
-const width=canvas.clientWidth,height=canvas.clientHeight,time=video.currentTime;
+const width=canvas.clientWidth,height=canvas.clientHeight,time=frameTime>=0?frameTime:video.currentTime;
 for(const {data,node} of hotspotNodes){
 const point=(!fallback&&hasFrame&&started&&hotspotCheck.checked)?trackedPoint(data,time):null;
 const screen=point?projectHotspot(point,width,height):null;
@@ -170,7 +175,8 @@ $("reset").disabled=true;
 }
 try {initGL();} catch(e) {nativeFallback();}
 function render() {
-if(gl&&!fallback&&!document.hidden&&hasFrame&&video.readyState>=2&&(dirty||(!video.paused&&video.currentTime!==frameTime))){
+const mediaTime=presentedTime??video.currentTime;
+if(gl&&!fallback&&!document.hidden&&hasFrame&&!video.seeking&&video.readyState>=2&&(dirty||(!video.paused&&mediaTime!==frameTime))){
 try {
 const dpr=Math.min(devicePixelRatio||1,2), w=Math.round(canvas.clientWidth*dpr),h=Math.round(canvas.clientHeight*dpr);
 if(w&&h){
@@ -179,7 +185,7 @@ gl.viewport(0,0,w,h);gl.useProgram(program);
 gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,video);
 gl.uniform1f(uniforms.aspect,w/h);gl.uniform1f(uniforms.viewFov,Math.tan(fov*Math.PI/360));
 gl.uniform1f(uniforms.yaw,yaw*Math.PI/180);gl.uniform1f(uniforms.pitch,pitch*Math.PI/180);
-gl.drawArrays(gl.TRIANGLES,0,6);dirty=false;frameTime=video.currentTime;
+gl.drawArrays(gl.TRIANGLES,0,6);dirty=false;frameTime=mediaTime;
 }
 } catch(e){nativeFallback();}
 }
@@ -265,7 +271,7 @@ selectScene(scenes.find(s=>s.id===params.get("scene"))||scenes[0],false,params);
 finally{loadingScene=false;}
 }
 function selectScene(scene,play,params=null) {
-video.pause();active=scene;stage.classList.remove("has-frame");const poster=availableURL(scene.poster);$("scene-poster").hidden=!poster;if(poster)$("scene-poster").src=poster;started=false;hasFrame=false;frameTime=-1;dirty=true;
+video.pause();active=scene;stage.classList.remove("has-frame");const poster=availableURL(scene.poster);$("scene-poster").hidden=!poster;if(poster)$("scene-poster").src=poster;started=false;hasFrame=false;frameTime=-1;presentedTime=null;dirty=true;
 prepareHotspots();
 $("player-error").hidden=true;$("start-cover").hidden=false;$("start").disabled=true;
 $("start-label").textContent="Načítám prohlídku";$("play").disabled=true;$("seek").disabled=true;
