@@ -4,9 +4,9 @@ Samostatný statický web a interaktivní 360° prohlídky na https://flight360.
 
 ## Obsah a scény
 
-Galerie je v `videos.json`. Každá položka má stabilní unikátní `id`, `title`, `description`, `url`, volitelnou délku `duration` v sekundách a `initialView: {yaw, pitch, fov}` ve stupních. Aktuálně jsou zveřejněny dva skutečné záznamy: 25s výběr Les a louka a 15s Let nad obcí. Celý původní záznam Les a louka má 120,5 s a zůstává v uživatelových souborech. Názvy lokalit a klientské reference se nesmějí domýšlet.
+Galerie je v `videos.json`. Každá položka má stabilní unikátní `id`, `title`, `description`, `url`, volitelnou délku `duration` v sekundách a `initialView: {yaw, pitch, fov}` ve stupních. Aktuálně jsou zveřejněny dva skutečné záznamy: celý 120,5s záznam Les a louka z R2 a 15s Let nad obcí. Názvy lokalit a klientské reference se nesmějí domýšlet.
 
-Nové scény doplníte do JSON; přehrávač automaticky doplní navigaci. Video musí být equirectangular 2:1, MP4/H.264 + AAC, doporučené 3840 × 1920. Aktuální přehrávač z bezpečnostních důvodů přijímá jen videa ze stejného originu. Při pozdějším přechodu na mediální CDN upravte validaci adres a CSP a povolte CORS na médiích. Návštěvníci nemají upload ani administraci.
+Nové scény doplníte do JSON; přehrávač automaticky doplní navigaci. Video musí být equirectangular 2:1, MP4/H.264 + AAC, doporučené 3840 × 1920. Přehrávač přijímá videa ze stejného originu a z https://flight360-media.shieldio.cz. Doména je výslovně povolená ve validaci i CSP. R2 bucket `flight360-media` používá Standard storage a CORS z `r2-cors.json`; HTML video má `crossorigin="anonymous"` kvůli WebGL. Návštěvníci nemají upload ani administraci.
 
 ## Návštěvnické funkce
 
@@ -30,4 +30,8 @@ Z kořene repozitáře: `npx wrangler deploy --config wrangler.flight360.jsonc`.
 
 ## Provozní hranice
 
-Tato verze je připravený veřejný statický web, nikoli systém pro placené účty, správu zákazníků, rezervace nebo nahrávání médií. Není tu měřená mapa ani telemetrie. Dlouhé záznamy a více zákaznických lokalit budou vyžadovat samostatné mediální úložiště a navazující správu obsahu. Sdílená orientace je relativní směr záznamu, nikoli zeměpisný azimut.
+Tato verze je připravený veřejný statický web, nikoli systém pro placené účty, správu zákazníků, rezervace nebo nahrávání médií. Není tu měřená mapa ani telemetrie. Dlouhé záznamy jsou v R2; správa více zákaznických lokalit bude vyžadovat navazující správu obsahu. Sdílená orientace je relativní směr záznamu, nikoli zeměpisný azimut.
+
+## Dlouhá videa v R2
+
+Celý let: `https://flight360-media.shieldio.cz/360%20free/les-a-louka-cely-let.mp4` (212 403 781 B, 3840 × 1920, H.264/AAC, faststart). MP4 se načítá přes HTTP Range podle přehrávání a posunu; nejde o adaptivní HLS. Další videa exportujte s `-movflags +faststart`, nahrajte do tohoto bucketu a doplňte URL do `videos.json`. Ve jménech preferujte pomlčky, mezery v URL kódujte jako `%20`. Velká média neukládejte do GitHubu ani mezi statické assety Workeru. Při náhradě videa používejte nový název souboru kvůli cache. CORS origins jsou omezené na produkční web a jeho workers.dev adresu; veřejné soubory může kdokoli stáhnout.

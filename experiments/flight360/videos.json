@@ -2,10 +2,10 @@
   {
     "id": "les-a-louka",
     "title": "Les a louka",
-    "description": "Louka, okraj lesa a otevřený výhled do krajiny. 25sekundový výběr ze skutečného letu. Pozastavte obraz a rozhlédněte se vlastním tempem.",
-    "url": "./les-a-louka.mp4",
+    "description": "Celý dvouminutový let nad loukou a okrajem lesa. Pozastavte obraz, rozhlédněte se nebo přejděte na libovolný okamžik záznamu.",
+    "url": "https://flight360-media.shieldio.cz/360%20free/les-a-louka-cely-let.mp4",
     "label": "Ukázkový záznam",
-    "duration": 25,
+    "duration": 120.533333,
     "initialView": {
       "yaw": 0,
       "pitch": -8,

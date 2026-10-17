@@ -1,0 +1,22 @@
+[
+  {
+    "AllowedOrigins": [
+      "https://flight360.shieldio.cz",
+      "https://shieldio-flight360.swwzr5pj2f.workers.dev"
+    ],
+    "AllowedMethods": [
+      "GET",
+      "HEAD"
+    ],
+    "AllowedHeaders": [
+      "Range"
+    ],
+    "ExposeHeaders": [
+      "Accept-Ranges",
+      "Content-Range",
+      "Content-Length",
+      "ETag"
+    ],
+    "MaxAgeSeconds": 86400
+  }
+]

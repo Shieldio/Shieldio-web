@@ -126,7 +126,7 @@ clearTimeout(loadTimer);busy(false);video.pause();$("player-error").hidden=false
 $("error-copy").textContent=message;$("status").textContent="Prohlídka je dočasně nedostupná.";
 }
 function availableURL(raw) {
-try{const u=new URL(raw,location.href);return u.origin===location.origin&&/^https?:$/.test(u.protocol)?u.href:null;}catch(e){return null;}
+try{if(typeof raw!=="string")return null;const u=new URL(raw,location.href);const allowed=u.origin===location.origin||u.origin==="https://flight360-media.shieldio.cz";return allowed&&/^https?:$/.test(u.protocol)&&!u.username&&!u.password?u.href:null;}catch(e){return null;}
 }
 async function loadGallery() {
 loadingScene=true;
