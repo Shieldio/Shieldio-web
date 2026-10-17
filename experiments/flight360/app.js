@@ -15,6 +15,70 @@ let requestedTime = 0, pendingSharedView = false, fallback = false, waitingTimer
 let lastFocus = null, dialogKind = "share", loadingScene = false, loadTimer;
 const pointers = new Map();
 let pinchDistance = 0, pinchFov = 75;
+
+// Tracked spherical points are measured in the source panorama, not screen pixels.
+const hotspotLayer=document.createElement("div");
+hotspotLayer.className="hotspot-layer";hotspotLayer.setAttribute("aria-label","Místa v záznamu");
+stage.append(hotspotLayer);
+const hotspotToggle=document.createElement("label");
+hotspotToggle.className="autoplay-option hotspot-option";hotspotToggle.hidden=true;
+const hotspotCheck=document.createElement("input");hotspotCheck.type="checkbox";hotspotCheck.checked=true;
+const hotspotToggleText=document.createElement("span");hotspotToggleText.textContent="Zobrazit místa v záznamu";
+hotspotToggle.append(hotspotCheck,hotspotToggleText);
+$("autoplay").closest("label").after(hotspotToggle);
+hotspotCheck.addEventListener("change",()=>{dirty=true;updateHotspots();});
+let hotspotNodes=[];
+function prepareHotspots(){
+hotspotLayer.replaceChildren();hotspotNodes=[];
+for(const data of active?.hotspots||[]){
+if(!Array.isArray(data.keyframes)||data.keyframes.length<2)continue;
+const node=document.createElement("div");node.className="place-hotspot";node.hidden=true;
+node.setAttribute("role","img");node.setAttribute("aria-label",data.label);
+const label=document.createElement("span");label.className="place-hotspot-label";
+const title=document.createElement("strong");title.textContent=data.label;
+const subtitle=document.createElement("small");subtitle.textContent=data.subtitle||"";
+label.append(title,subtitle);
+const stem=document.createElement("span");stem.className="place-hotspot-stem";
+const dot=document.createElement("span");dot.className="place-hotspot-dot";
+node.append(label,stem,dot);hotspotLayer.append(node);hotspotNodes.push({data,node});
+}
+hotspotToggle.hidden=hotspotNodes.length===0;
+}
+function trackedPoint(data,time){
+const keys=data.keyframes;
+if(time<data.start||time>data.end)return null;
+let a=keys[0],b=keys[keys.length-1];
+for(let i=1;i<keys.length;i++){if(time<=keys[i].time){a=keys[i-1];b=keys[i];break;}}
+const mix=clamp((time-a.time)/(b.time-a.time),0,1);
+const du=((b.u-a.u+.5)%1+1)%1-.5;
+return {u:a.u+du*mix,v:a.v+(b.v-a.v)*mix};
+}
+function projectHotspot(point,width,height){
+const longitude=(point.u-.5)*Math.PI*2,latitude=(.5-point.v)*Math.PI;
+const x=Math.sin(longitude)*Math.cos(latitude),y=Math.sin(latitude),z=Math.cos(longitude)*Math.cos(latitude);
+const yawRad=yaw*Math.PI/180,pitchRad=pitch*Math.PI/180;
+const viewX=x*Math.cos(yawRad)-z*Math.sin(yawRad);
+const yawZ=x*Math.sin(yawRad)+z*Math.cos(yawRad);
+const viewY=y*Math.cos(pitchRad)-yawZ*Math.sin(pitchRad);
+const viewZ=y*Math.sin(pitchRad)+yawZ*Math.cos(pitchRad);
+if(viewZ<=0)return null;
+const tan=Math.tan(fov*Math.PI/360);
+return {x:width/2*(1+viewX/(viewZ*tan*width/height)),y:height/2*(1-viewY/(viewZ*tan))};
+}
+function updateHotspots(){
+const width=canvas.clientWidth,height=canvas.clientHeight,time=video.currentTime;
+for(const {data,node} of hotspotNodes){
+const point=(!fallback&&hasFrame&&started&&hotspotCheck.checked)?trackedPoint(data,time):null;
+const screen=point?projectHotspot(point,width,height):null;
+const visible=screen&&screen.x>75&&screen.x<width-75&&screen.y>112&&screen.y<height-52;
+node.hidden=!visible;
+if(visible){
+node.style.transform="translate("+screen.x.toFixed(2)+"px,"+screen.y.toFixed(2)+"px)";
+node.style.opacity=String(clamp((data.end-time)/.6,0,1));
+}
+}
+}
+
 const fragment = `precision highp float;
 uniform sampler2D image;
 uniform float aspect;
@@ -76,6 +140,7 @@ gl.drawArrays(gl.TRIANGLES,0,6);dirty=false;frameTime=video.currentTime;
 }
 } catch(e){nativeFallback();}
 }
+updateHotspots();
 requestAnimationFrame(render);
 }
 requestAnimationFrame(render);
@@ -158,6 +223,7 @@ finally{loadingScene=false;}
 }
 function selectScene(scene,play,params=null) {
 video.pause();active=scene;started=false;hasFrame=false;frameTime=-1;dirty=true;
+prepareHotspots();
 $("player-error").hidden=true;$("start-cover").hidden=false;$("start").disabled=true;
 $("start-label").textContent="Načítám prohlídku";$("play").disabled=true;$("seek").disabled=true;
 $("tour-name").textContent=scene.title;$("scene-caption").textContent=scene.title;
