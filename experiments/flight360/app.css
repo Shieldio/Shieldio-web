@@ -152,12 +152,12 @@ dialog{padding:20px}.dialog-heading h2{font-size:21px}.dialog-actions{gap:12px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 
 /* Compact, keyboard-accessible place points. Details open only on demand. */
-.place-point{position:absolute;left:0;bottom:var(--lift,34px);transform:translateX(-50%);display:flex;align-items:center;min-height:24px;padding:4px 7px;border:0;border-radius:3px;background:rgba(14,24,22,.5);color:var(--white);white-space:nowrap;pointer-events:auto;backdrop-filter:blur(5px);text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.place-point{position:absolute;left:var(--label-x,0px);bottom:var(--lift,34px);transform:translateX(-50%);display:flex;align-items:center;min-height:24px;padding:4px 7px;border:0;border-radius:3px;background:rgba(14,24,22,.5);color:var(--white);white-space:nowrap;pointer-events:auto;backdrop-filter:blur(5px);text-shadow:0 1px 2px rgba(0,0,0,.3)}
 .place-point::before{content:"";position:absolute;inset:-10px -5px}
 .place-point-name{font-size:11px;font-weight:400;line-height:1.35}
 .place-point:hover,.place-point[aria-expanded=true]{background:rgba(14,24,22,.8)}
 .place-point:focus-visible{outline:2px solid var(--white);outline-offset:3px}
-.place-hotspot-stem{height:calc(var(--lift,34px) - 2px);bottom:2px;background:rgba(255,255,255,.7)}
+.place-hotspot-stem{height:var(--stem-length,calc(var(--lift,34px) - 2px));bottom:2px;transform-origin:50% 100%;transform:rotate(var(--stem-angle,0deg));background:rgba(255,255,255,.7)}
 .place-hotspot-dot{width:4px;height:4px;left:-2px;top:-2px;border:0;background:var(--white);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
 .places-panel{border-top:1px solid var(--line);padding-top:16px;margin:-6px 0 22px}
 .places-panel h4{font-size:11px;font-weight:550;margin:0 0 10px}

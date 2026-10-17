@@ -117,9 +117,12 @@ const screen=point?projectHotspot(point,width,height):null;
 const visible=screen&&screen.x>44&&screen.x<width-44&&screen.y>76&&screen.y<height-42;
 node.hidden=!visible;
 if(visible){
-const lift=finite(data.labelLift,34);
+const lift=finite(data.labelLift,34),offsetX=finite(data.labelOffsetX,0);
 if(screen.y-lift<46){node.hidden=true;continue;}
 node.style.setProperty("--lift",lift+"px");
+node.style.setProperty("--label-x",offsetX+"px");
+node.style.setProperty("--stem-length",Math.hypot(offsetX,lift-2)+"px");
+node.style.setProperty("--stem-angle",Math.atan2(offsetX,lift-2)*180/Math.PI+"deg");
 node.style.transform="translate("+screen.x.toFixed(2)+"px,"+screen.y.toFixed(2)+"px)";
 const fadeIn=data.start===0?1:clamp((time-data.start)/.45,0,1);
 node.style.opacity=String(Math.min(fadeIn,clamp((data.end-time)/.6,0,1)));

@@ -518,48 +518,67 @@
         "label": "Járek",
         "title": "Potok Járek",
         "category": "Příroda · vodní tok",
-        "description": "Potok Járek protéká Štítnou. V úvodní části letu ho uvidíte pod dronem podél luk a zahrad. Obec na svém webu popisuje také opravenou lávku přes Járek u penzionu.",
+        "description": "Zelenský potok, místně nazývaný Járek, protéká Štítnou směrem k Vláře. Konektor v úvodu letu označuje úsek toku u lávky na jižní straně fotbalového areálu.",
         "start": 0,
         "end": 6,
         "focusTime": 1,
         "keyframes": [
           {
             "time": 0,
-            "u": 0.520833,
-            "v": 0.942708
+            "u": 0.3125,
+            "v": 0.7645833
           },
           {
             "time": 1,
-            "u": 0.520833,
-            "v": 0.9375
+            "u": 0.3151042,
+            "v": 0.76875
           },
           {
             "time": 2,
-            "u": 0.520833,
-            "v": 0.927083
+            "u": 0.3239583,
+            "v": 0.7802083
           },
           {
             "time": 3,
-            "u": 0.520833,
-            "v": 0.911458
+            "u": 0.3416667,
+            "v": 0.796875
+          },
+          {
+            "time": 3.5,
+            "u": 0.3625,
+            "v": 0.8010417
           },
           {
             "time": 4,
-            "u": 0.520833,
-            "v": 0.885417
+            "u": 0.3890625,
+            "v": 0.8104167
+          },
+          {
+            "time": 4.5,
+            "u": 0.4171875,
+            "v": 0.8125
           },
           {
             "time": 5,
-            "u": 0.520833,
-            "v": 0.864583
+            "u": 0.4505208,
+            "v": 0.8104167
+          },
+          {
+            "time": 5.5,
+            "u": 0.4828125,
+            "v": 0.796875
           },
           {
             "time": 6,
-            "u": 0.520833,
-            "v": 0.84375
+            "u": 0.5119792,
+            "v": 0.778125
           }
         ],
         "links": [
+          {
+            "label": "Úsek toku na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.9796289&y=49.0709653&z=19"
+          },
           {
             "label": "Lávka přes Járek",
             "url": "https://www.stitna-popov.cz/urad/dokumenty-obecniho-uradu/projekty-obce-1/projekty-zakazky-dotace/opravena-lavka-pres-potok-jarek-u-penzionu-243cs.html"
@@ -578,48 +597,48 @@
         "keyframes": [
           {
             "time": 0,
-            "u": 0.4375,
-            "v": 0.646875
+            "u": 0.4322917,
+            "v": 0.6333333
           },
           {
             "time": 1,
-            "u": 0.445833,
-            "v": 0.646875
-          },
-          {
-            "time": 2,
-            "u": 0.457813,
-            "v": 0.646875
-          },
-          {
-            "time": 3,
-            "u": 0.471354,
-            "v": 0.645833
-          },
-          {
-            "time": 4,
-            "u": 0.4875,
-            "v": 0.644792
-          },
-          {
-            "time": 5,
-            "u": 0.505208,
-            "v": 0.641667
-          },
-          {
-            "time": 6,
-            "u": 0.525,
-            "v": 0.636458
-          },
-          {
-            "time": 7,
-            "u": 0.546875,
+            "u": 0.4385417,
             "v": 0.63125
           },
           {
+            "time": 2,
+            "u": 0.4479167,
+            "v": 0.6291667
+          },
+          {
+            "time": 3,
+            "u": 0.459375,
+            "v": 0.625
+          },
+          {
+            "time": 4,
+            "u": 0.4729167,
+            "v": 0.61875
+          },
+          {
+            "time": 5,
+            "u": 0.4869792,
+            "v": 0.6083333
+          },
+          {
+            "time": 6,
+            "u": 0.5026042,
+            "v": 0.6
+          },
+          {
+            "time": 7,
+            "u": 0.51875,
+            "v": 0.5864583
+          },
+          {
             "time": 8,
-            "u": 0.570313,
-            "v": 0.626042
+            "u": 0.5348958,
+            "v": 0.5791667
           }
         ],
         "links": [
@@ -818,11 +837,11 @@
         ]
       },
       {
-        "id": "urad-posta",
-        "label": "Úřad a pošta",
-        "title": "Obecní úřad a pošta",
+        "id": "urad",
+        "label": "Obecní úřad",
+        "title": "Obecní úřad Štítná nad Vláří-Popov",
         "category": "Služby · č. p. 72",
-        "description": "Obecní úřad Štítná nad Vláří-Popov a pobočka České pošty sídlí ve společné budově č. p. 72. Kontakty na úřad a aktuální informace o poště najdete v odkazech.",
+        "description": "Obecní úřad sídlí v budově č. p. 72. Ve stejném objektu je také pobočka pošty, která má vlastní popisek a detail.",
         "start": 15,
         "end": 32,
         "focusTime": 22,
@@ -944,14 +963,144 @@
             "url": "https://www.stitna-popov.cz/kontakty/kontakty-na-urad/"
           },
           {
+            "label": "Poloha úřadu na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.9771178&y=49.0691878&z=19"
+          }
+        ],
+        "labelOffsetX": -50
+      },
+      {
+        "id": "posta",
+        "label": "Pošta",
+        "title": "Pošta Štítná nad Vláří",
+        "category": "Služby · č. p. 72",
+        "description": "Pobočka České pošty 763 33 v budově č. p. 72, ve stejném objektu jako obecní úřad. Aktuální služby a otevírací dobu najdete na webu pošty.",
+        "start": 15,
+        "end": 32,
+        "focusTime": 22,
+        "keyframes": [
+          {
+            "time": 15,
+            "u": 0.171875,
+            "v": 0.560417
+          },
+          {
+            "time": 16,
+            "u": 0.172917,
+            "v": 0.571875
+          },
+          {
+            "time": 17,
+            "u": 0.178125,
+            "v": 0.5875
+          },
+          {
+            "time": 18,
+            "u": 0.186979,
+            "v": 0.605208
+          },
+          {
+            "time": 19,
+            "u": 0.200521,
+            "v": 0.629167
+          },
+          {
+            "time": 20,
+            "u": 0.220833,
+            "v": 0.663542
+          },
+          {
+            "time": 20.5,
+            "u": 0.233333,
+            "v": 0.6875
+          },
+          {
+            "time": 21,
+            "u": 0.248958,
+            "v": 0.703125
+          },
+          {
+            "time": 21.5,
+            "u": 0.270313,
+            "v": 0.730208
+          },
+          {
+            "time": 22,
+            "u": 0.297917,
+            "v": 0.755208
+          },
+          {
+            "time": 22.5,
+            "u": 0.335938,
+            "v": 0.78125
+          },
+          {
+            "time": 23,
+            "u": 0.38125,
+            "v": 0.797917
+          },
+          {
+            "time": 23.5,
+            "u": 0.428125,
+            "v": 0.807292
+          },
+          {
+            "time": 24,
+            "u": 0.469792,
+            "v": 0.8
+          },
+          {
+            "time": 25,
+            "u": 0.535417,
+            "v": 0.769792
+          },
+          {
+            "time": 26,
+            "u": 0.569271,
+            "v": 0.729167
+          },
+          {
+            "time": 27,
+            "u": 0.592708,
+            "v": 0.702083
+          },
+          {
+            "time": 28,
+            "u": 0.605208,
+            "v": 0.6875
+          },
+          {
+            "time": 29,
+            "u": 0.61875,
+            "v": 0.664583
+          },
+          {
+            "time": 30,
+            "u": 0.621354,
+            "v": 0.653125
+          },
+          {
+            "time": 31,
+            "u": 0.626042,
+            "v": 0.644792
+          },
+          {
+            "time": 32,
+            "u": 0.633333,
+            "v": 0.628125
+          }
+        ],
+        "links": [
+          {
             "label": "Pobočka pošty · služby a otevírací doba",
             "url": "https://www.postaonline.cz/detail-pobocky/-/pobocky/detail/76333"
           },
           {
-            "label": "Poloha na mapě",
-            "url": "https://mapy.com/cs/zakladni?x=17.9770074&y=49.0692791&z=19"
+            "label": "Poloha pošty na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.9768812&y=49.0692735&z=19"
           }
-        ]
+        ],
+        "labelOffsetX": 45
       },
       {
         "id": "jestrabi",
