@@ -127,6 +127,414 @@
             "u": 0.59375,
             "v": 0.515625
           }
+        ],
+        "title": "Kostel sv. Josefa",
+        "category": "Památka",
+        "description": "Farní kostel sv. Josefa u místního hřbitova. Prohlédněte si jeho věž a okolí z ptačí perspektivy.",
+        "focusTime": 3,
+        "links": [
+          {
+            "label": "Web farnosti",
+            "url": "https://farnosts.cz/"
+          },
+          {
+            "label": "Poloha na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.978683&y=49.070133&z=19"
+          }
+        ]
+      },
+      {
+        "id": "skola",
+        "label": "Škola",
+        "title": "ZŠ Gabry a Málinky",
+        "category": "Škola · č. p. 417",
+        "description": "Základní škola Gabry a Málinky. Součástí školního areálu je také obecní knihovna a minimuzeum věnované Gabře a Málince.",
+        "start": 0,
+        "end": 15,
+        "focusTime": 6,
+        "keyframes": [
+          {
+            "time": 0,
+            "u": 0.088542,
+            "v": 0.564583
+          },
+          {
+            "time": 1,
+            "u": 0.084896,
+            "v": 0.563542
+          },
+          {
+            "time": 2,
+            "u": 0.080729,
+            "v": 0.563542
+          },
+          {
+            "time": 3,
+            "u": 0.075521,
+            "v": 0.563542
+          },
+          {
+            "time": 4,
+            "u": 0.069792,
+            "v": 0.564583
+          },
+          {
+            "time": 5,
+            "u": 0.063542,
+            "v": 0.565625
+          },
+          {
+            "time": 6,
+            "u": 0.05625,
+            "v": 0.566667
+          },
+          {
+            "time": 7,
+            "u": 0.046875,
+            "v": 0.567708
+          },
+          {
+            "time": 8,
+            "u": 0.036458,
+            "v": 0.56875
+          },
+          {
+            "time": 9,
+            "u": 0.025,
+            "v": 0.570833
+          },
+          {
+            "time": 10,
+            "u": 0.013021,
+            "v": 0.572917
+          },
+          {
+            "time": 11,
+            "u": 0,
+            "v": 0.573958
+          },
+          {
+            "time": 12,
+            "u": 0.984375,
+            "v": 0.577083
+          },
+          {
+            "time": 13,
+            "u": 0.973958,
+            "v": 0.579167
+          },
+          {
+            "time": 14,
+            "u": 0.960938,
+            "v": 0.58125
+          },
+          {
+            "time": 15,
+            "u": 0.95,
+            "v": 0.584375
+          }
+        ],
+        "links": [
+          {
+            "label": "Web školy",
+            "url": "https://www.zsgm.cz/skola"
+          },
+          {
+            "label": "Poloha na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.979427&y=49.069366&z=19"
+          }
+        ]
+      },
+      {
+        "id": "kulturak",
+        "label": "Kulturák",
+        "title": "Kulturní dům",
+        "category": "Kultura · č. p. 415",
+        "description": "Kulturní dům ve Štítné nad Vláří. Na webu obce najdete informace o rezervaci prostor a kulturních akcích.",
+        "start": 0,
+        "end": 15,
+        "focusTime": 12,
+        "keyframes": [
+          {
+            "time": 0,
+            "u": 0.153646,
+            "v": 0.558333
+          },
+          {
+            "time": 1,
+            "u": 0.150521,
+            "v": 0.560417
+          },
+          {
+            "time": 2,
+            "u": 0.146875,
+            "v": 0.561458
+          },
+          {
+            "time": 3,
+            "u": 0.142708,
+            "v": 0.561458
+          },
+          {
+            "time": 4,
+            "u": 0.1375,
+            "v": 0.5625
+          },
+          {
+            "time": 5,
+            "u": 0.131771,
+            "v": 0.563542
+          },
+          {
+            "time": 6,
+            "u": 0.125,
+            "v": 0.564583
+          },
+          {
+            "time": 7,
+            "u": 0.117188,
+            "v": 0.566667
+          },
+          {
+            "time": 8,
+            "u": 0.108854,
+            "v": 0.569792
+          },
+          {
+            "time": 9,
+            "u": 0.098958,
+            "v": 0.573958
+          },
+          {
+            "time": 10,
+            "u": 0.089063,
+            "v": 0.578125
+          },
+          {
+            "time": 11,
+            "u": 0.078125,
+            "v": 0.584375
+          },
+          {
+            "time": 12,
+            "u": 0.06875,
+            "v": 0.591667
+          },
+          {
+            "time": 13,
+            "u": 0.060937,
+            "v": 0.598958
+          },
+          {
+            "time": 14,
+            "u": 0.052604,
+            "v": 0.609375
+          },
+          {
+            "time": 15,
+            "u": 0.047396,
+            "v": 0.620833
+          }
+        ],
+        "links": [
+          {
+            "label": "Informace a rezervace",
+            "url": "https://www.stitna-popov.cz/kultura-a-volny-cas/kulturni-dum-rezervace/"
+          },
+          {
+            "label": "Poloha na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.97821&y=49.069212&z=19"
+          }
+        ]
+      },
+      {
+        "id": "fara",
+        "label": "Fara",
+        "title": "Fara ve Štítné",
+        "category": "Farnost · č. p. 123",
+        "description": "Sídlo Římskokatolické farnosti Štítná nad Vláří poblíž kostela sv. Josefa. Podrobnosti a informace o farnosti najdete na jejím webu.",
+        "start": 0,
+        "end": 15,
+        "focusTime": 13,
+        "keyframes": [
+          {
+            "time": 0,
+            "u": 0.203125,
+            "v": 0.570833
+          },
+          {
+            "time": 2,
+            "u": 0.202604,
+            "v": 0.569792
+          },
+          {
+            "time": 4,
+            "u": 0.202604,
+            "v": 0.570833
+          },
+          {
+            "time": 6,
+            "u": 0.203646,
+            "v": 0.573958
+          },
+          {
+            "time": 8,
+            "u": 0.207292,
+            "v": 0.580208
+          },
+          {
+            "time": 10,
+            "u": 0.215625,
+            "v": 0.590625
+          },
+          {
+            "time": 11,
+            "u": 0.222917,
+            "v": 0.597917
+          },
+          {
+            "time": 12,
+            "u": 0.232813,
+            "v": 0.60625
+          },
+          {
+            "time": 13,
+            "u": 0.246875,
+            "v": 0.617708
+          },
+          {
+            "time": 14,
+            "u": 0.267708,
+            "v": 0.629167
+          },
+          {
+            "time": 15,
+            "u": 0.298438,
+            "v": 0.640625
+          }
+        ],
+        "links": [
+          {
+            "label": "Web farnosti",
+            "url": "https://farnosts.cz/"
+          },
+          {
+            "label": "Poloha na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.977744&y=49.069854&z=19"
+          }
+        ]
+      },
+      {
+        "id": "centrum",
+        "label": "Centrum",
+        "title": "Centrum obce",
+        "category": "Okolí · COOP, park a zastávka",
+        "description": "Pohled směrem do centra Štítné. Prodejnu COOP, blízký park a autobusovou zastávku najdete jednotlivě v mapových odkazech. Bod označuje tuto část obce.",
+        "start": 0,
+        "end": 15,
+        "focusTime": 5,
+        "keyframes": [
+          {
+            "time": 0,
+            "u": 0.221354,
+            "v": 0.54375
+          },
+          {
+            "time": 3,
+            "u": 0.227604,
+            "v": 0.54375
+          },
+          {
+            "time": 6,
+            "u": 0.239063,
+            "v": 0.545833
+          },
+          {
+            "time": 9,
+            "u": 0.25625,
+            "v": 0.548958
+          },
+          {
+            "time": 12,
+            "u": 0.285417,
+            "v": 0.553125
+          },
+          {
+            "time": 15,
+            "u": 0.325521,
+            "v": 0.557292
+          }
+        ],
+        "links": [
+          {
+            "label": "COOP · č. p. 74",
+            "url": "https://mapy.com/cs/zakladni?x=17.975497&y=49.069437&z=19"
+          },
+          {
+            "label": "Park u COOPu",
+            "url": "https://mapy.com/cs/zakladni?x=17.975217&y=49.069725&z=19"
+          },
+          {
+            "label": "Autobusová zastávka Štítná",
+            "url": "https://mapy.com/cs/zakladni?x=17.975386&y=49.069725&z=19"
+          },
+          {
+            "label": "Služby v obci",
+            "url": "https://www.stitna-popov.cz/obec/sluzby-v-obci/podnikatele-a-sluzby/"
+          }
+        ]
+      },
+      {
+        "id": "jarek",
+        "label": "Járek",
+        "title": "Potok Járek",
+        "category": "Příroda · vodní tok",
+        "description": "Potok Járek protéká Štítnou. V úvodní části letu ho uvidíte pod dronem podél luk a zahrad. Obec na svém webu popisuje také opravenou lávku přes Járek u penzionu.",
+        "start": 0,
+        "end": 6,
+        "focusTime": 1,
+        "keyframes": [
+          {
+            "time": 0,
+            "u": 0.520833,
+            "v": 0.942708
+          },
+          {
+            "time": 1,
+            "u": 0.520833,
+            "v": 0.9375
+          },
+          {
+            "time": 2,
+            "u": 0.520833,
+            "v": 0.927083
+          },
+          {
+            "time": 3,
+            "u": 0.520833,
+            "v": 0.911458
+          },
+          {
+            "time": 4,
+            "u": 0.520833,
+            "v": 0.885417
+          },
+          {
+            "time": 5,
+            "u": 0.520833,
+            "v": 0.864583
+          },
+          {
+            "time": 6,
+            "u": 0.520833,
+            "v": 0.84375
+          }
+        ],
+        "links": [
+          {
+            "label": "Lávka přes Járek",
+            "url": "https://www.stitna-popov.cz/urad/dokumenty-obecniho-uradu/projekty-obce-1/projekty-zakazky-dotace/opravena-lavka-pres-potok-jarek-u-penzionu-243cs.html"
+          }
         ]
       }
     ],

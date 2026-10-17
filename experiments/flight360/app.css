@@ -150,3 +150,28 @@ body.embed .stage{height:100dvh;min-height:160px;border-radius:0}
 dialog{padding:20px}.dialog-heading h2{font-size:21px}.dialog-actions{gap:12px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Compact, keyboard-accessible place points. Details open only on demand. */
+.place-point{position:absolute;left:0;bottom:var(--lift,34px);transform:translateX(-50%);display:flex;align-items:center;gap:6px;min-height:34px;padding:4px 8px 4px 5px;border:1px solid var(--white);border-radius:20px;background:var(--overlay);color:var(--white);white-space:nowrap;pointer-events:auto;backdrop-filter:blur(8px)}
+.place-point-icon{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:var(--accent);font-size:16px;line-height:1}
+.place-point-name{font-size:10px;font-weight:550;line-height:1.2}
+.place-point:hover,.place-point[aria-expanded=true]{background:var(--viewer);border-color:var(--accent)}
+.place-hotspot-stem{height:calc(var(--lift,34px) - 4px);bottom:4px}
+.place-hotspot-dot{width:6px;height:6px;left:-3px;top:-3px;border-width:1px}
+.places-panel{border-top:1px solid var(--line);padding-top:16px;margin:-6px 0 22px}
+.places-panel h4{font-size:11px;font-weight:550;margin:0 0 10px}
+.places-list{display:flex;flex-wrap:wrap;gap:6px}
+.places-list button{border:1px solid var(--line);border-radius:20px;background:transparent;padding:7px 10px;min-height:34px;font-size:10px}
+.places-list button:hover{border-color:var(--accent);color:var(--accent)}
+.places-panel>p{font-size:10px;line-height:1.5;color:var(--muted);margin:10px 0 0}
+.place-card{position:absolute;z-index:6;left:14px;bottom:14px;width:280px;max-width:calc(100% - 28px);max-height:calc(100% - 80px);overflow:auto;padding:20px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);box-shadow:0 8px 28px var(--overlay-soft)}
+.place-card-close{position:absolute;top:5px;right:6px;display:grid;place-items:center;width:36px;height:36px;background:transparent;border:0;font-size:24px;line-height:1}
+.place-card .eyebrow{display:block;max-width:calc(100% - 20px);font-size:8px;color:var(--muted);line-height:1.5}
+.place-card h3{font-size:19px;font-weight:550;letter-spacing:-.025em;margin:12px 0 9px;line-height:1.2}
+.place-card p{font-size:12px;line-height:1.6;color:var(--muted);margin:0 0 13px}
+.place-card-links{display:grid;gap:4px}
+.place-card-links a{font-size:11px;text-decoration:none;color:var(--accent);padding:7px 0;min-height:32px}
+.place-card-links a:hover{text-decoration:underline}
+@media(max-width:580px){.place-card{padding:16px;max-height:calc(100% - 75px);width:260px}.place-point{min-height:36px}.place-card h3{font-size:18px}}
+
+.hotspot-option{margin:12px 0}.places-panel{margin:16px 0 0;flex-basis:100%;max-width:560px}.place-card{bottom:88px;max-height:calc(100% - 160px)}.place-card .eyebrow{font-family:inherit;text-transform:none;letter-spacing:0}.place-point-name{font-family:var(--type)}

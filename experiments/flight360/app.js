@@ -27,22 +27,61 @@ const hotspotToggleText=document.createElement("span");hotspotToggleText.textCon
 hotspotToggle.append(hotspotCheck,hotspotToggleText);
 $("autoplay").closest("label").after(hotspotToggle);
 hotspotCheck.addEventListener("change",()=>{dirty=true;updateHotspots();});
-let hotspotNodes=[];
+let hotspotNodes=[], selectedPlace=null, placeTrigger=null;
+const placesPanel=document.createElement("section");
+placesPanel.className="places-panel";placesPanel.hidden=true;
+const placesHeading=document.createElement("h4");placesHeading.textContent="Prozkoumejte místo";
+const placesList=document.createElement("div");placesList.className="places-list";
+const placesNote=document.createElement("p");placesNote.textContent="Vyberte bod v obrazu nebo název místa. Kliknutím se let pozastaví.";
+placesPanel.append(placesHeading,placesList,placesNote);hotspotToggle.after(placesPanel);
+const placeCard=document.createElement("section");placeCard.className="place-card";placeCard.hidden=true;
+placeCard.setAttribute("role","dialog");placeCard.setAttribute("aria-modal","false");placeCard.setAttribute("aria-labelledby","place-card-title");
+const placeClose=document.createElement("button");placeClose.type="button";placeClose.className="place-card-close";placeClose.textContent="×";placeClose.setAttribute("aria-label","Zavřít detail místa");
+const placeCategory=document.createElement("span");placeCategory.className="eyebrow";
+const placeTitle=document.createElement("h3");placeTitle.id="place-card-title";
+const placeDescription=document.createElement("p");
+const placeLinks=document.createElement("div");placeLinks.className="place-card-links";
+placeCard.append(placeClose,placeCategory,placeTitle,placeDescription,placeLinks);stage.append(placeCard);
+function closePlace(returnFocus=false){
+placeCard.hidden=true;selectedPlace=null;
+for(const {button} of hotspotNodes)button.setAttribute("aria-expanded","false");
+if(returnFocus){if(placeTrigger&&!placeTrigger.closest("[hidden]"))placeTrigger.focus({preventScroll:true});else canvas.focus({preventScroll:true});}
+}
+placeClose.addEventListener("click",()=>closePlace(true));
+placeCard.addEventListener("keydown",e=>{if(e.key==="Escape"){e.stopPropagation();closePlace(true);}});
+function openPlace(data,trigger,focusView=false){
+if(video.readyState<2)return;
+video.pause();placeTrigger=trigger;selectedPlace=data.id;
+if(focusView){
+const time=clamp(finite(data.focusTime,data.start+.5),data.start,data.end-.1),point=trackedPoint(data,time);
+if(point){started=true;$("start-cover").hidden=true;video.currentTime=time;yaw=(point.u-.5)*360;pitch=(.5-point.v)*180;fov=70;updateView();}
+}
+placeTitle.textContent=data.title||data.label;placeCategory.textContent=data.category||"Štítná nad Vláří";
+placeDescription.textContent=data.description||"";placeLinks.replaceChildren();
+for(const link of data.links||[]){
+let url;try{url=new URL(link.url);if(url.protocol!=="https:")continue;}catch(e){continue;}
+const a=document.createElement("a");a.href=url.href;a.target="_blank";a.rel="noopener noreferrer";a.textContent=link.label+" ↗";placeLinks.append(a);
+}
+placeCard.hidden=false;
+for(const {data:point,button} of hotspotNodes)button.setAttribute("aria-expanded",String(point.id===selectedPlace));
+placeClose.focus({preventScroll:true});$("status").textContent="Detail místa. Let je pozastavený; pokračujte tlačítkem Přehrát.";
+}
 function prepareHotspots(){
-hotspotLayer.replaceChildren();hotspotNodes=[];
+closePlace();hotspotLayer.replaceChildren();placesList.replaceChildren();hotspotNodes=[];
 for(const data of active?.hotspots||[]){
 if(!Array.isArray(data.keyframes)||data.keyframes.length<2)continue;
 const node=document.createElement("div");node.className="place-hotspot";node.hidden=true;
-node.setAttribute("role","img");node.setAttribute("aria-label",data.label);
-const label=document.createElement("span");label.className="place-hotspot-label";
-const title=document.createElement("strong");title.textContent=data.label;
-const subtitle=document.createElement("small");subtitle.textContent=data.subtitle||"";
-label.append(title,subtitle);
+const button=document.createElement("button");button.type="button";button.className="place-point";button.setAttribute("aria-label","Prozkoumat: "+data.label);button.setAttribute("aria-expanded","false");
+const dot=document.createElement("span");dot.className="place-point-icon";dot.textContent="+";dot.setAttribute("aria-hidden","true");
+const title=document.createElement("span");title.className="place-point-name";title.textContent=data.label;
+button.append(dot,title);button.addEventListener("click",()=>openPlace(data,button));
 const stem=document.createElement("span");stem.className="place-hotspot-stem";
-const dot=document.createElement("span");dot.className="place-hotspot-dot";
-node.append(label,stem,dot);hotspotLayer.append(node);hotspotNodes.push({data,node});
+const anchor=document.createElement("span");anchor.className="place-hotspot-dot";
+node.append(button,stem,anchor);hotspotLayer.append(node);hotspotNodes.push({data,node,button});
+const item=document.createElement("button");item.type="button";item.textContent=data.label;item.addEventListener("click",()=>openPlace(data,item,true));placesList.append(item);
 }
 hotspotToggle.hidden=hotspotNodes.length===0;
+placesPanel.hidden=hotspotNodes.length===0;
 }
 function trackedPoint(data,time){
 const keys=data.keyframes;
@@ -67,12 +106,17 @@ return {x:width/2*(1+viewX/(viewZ*tan*width/height)),y:height/2*(1-viewY/(viewZ*
 }
 function updateHotspots(){
 const width=canvas.clientWidth,height=canvas.clientHeight,time=video.currentTime;
+const occupied=[];
 for(const {data,node} of hotspotNodes){
 const point=(!fallback&&hasFrame&&started&&hotspotCheck.checked)?trackedPoint(data,time):null;
 const screen=point?projectHotspot(point,width,height):null;
-const visible=screen&&screen.x>75&&screen.x<width-75&&screen.y>112&&screen.y<height-52;
+const visible=screen&&screen.x>44&&screen.x<width-44&&screen.y>76&&screen.y<height-42;
 node.hidden=!visible;
 if(visible){
+let lift=34;const halfWidth=node.querySelector("button").offsetWidth/2+5;
+while(lift<124&&occupied.some(r=>Math.abs(r.x-screen.x)<r.halfWidth+halfWidth&&Math.abs(r.y-(screen.y-lift))<38))lift+=38;
+if(screen.y-lift<46){node.hidden=true;continue;}
+node.style.setProperty("--lift",lift+"px");occupied.push({x:screen.x,y:screen.y-lift,halfWidth});
 node.style.transform="translate("+screen.x.toFixed(2)+"px,"+screen.y.toFixed(2)+"px)";
 node.style.opacity=String(clamp((data.end-time)/.6,0,1));
 }
@@ -276,6 +320,7 @@ error(code===3||code===4?"Prohlížeč tento záznam nemůže přehrát. Zkuste 
 });
 async function start() {
 if(!active)return;
+closePlace();
 started=true;$("start-cover").hidden=true;busy(true);
 try{await video.play();if(!fallback){$("status").textContent="Přehrává se. Táhněte obrazem a rozhlédněte se.";if(!reduced){$("view-hint").classList.add("visible");hintTimer=setTimeout(dismissHint,3500);}}}
 catch(e){busy(false);started=false;$("start-cover").hidden=false;$("start-label").textContent="Spustit prohlídku";$("status").textContent="Pro spuštění klepněte na Spustit prohlídku.";}
