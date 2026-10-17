@@ -81,7 +81,7 @@ footer{font-size:12px;color:#6c7e98;margin-top:42px}
 </div>
 <footer>© Shieldio · Flight360 je nezávislý experimentální prototyp. Není oficiální aplikací DJI.</footer>
 </main>
-<video id="video" playsinline preload="metadata" crossorigin="anonymous" loop style="display:none"></video>
+<video id="video" playsinline muted preload="metadata" crossorigin="anonymous" loop style="display:none"></video>
 <script type="module">
 const $=id=>document.getElementById(id);
 const canvas=$("scene"),video=$("video");let renderer,camera,material,texture,drag=false,x=0,y=0,lon=0,lat=0,fov=75,clips=[],activeClip=-1;
@@ -106,6 +106,7 @@ new ResizeObserver(resize).observe(canvas);resize();
 function frame(){const phi=THREE.MathUtils.degToRad(90-lat),theta=THREE.MathUtils.degToRad(lon);camera.lookAt(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta));renderer.render(scene,camera);requestAnimationFrame(frame)}frame();
 function switchVideo(){if(!video.videoWidth)return;if(texture)texture.dispose();texture=new THREE.VideoTexture(video);texture.colorSpace=THREE.SRGBColorSpace;material.map=texture;material.needsUpdate=true; $("source").textContent="Připravený let";$("resolution").textContent=video.videoWidth+" × "+video.videoHeight;$("live").textContent="360° VIDEO";}
 video.addEventListener("loadeddata",switchVideo);
+if(video.readyState>=2)switchVideo();
 $("status").textContent="Prohlížeč připraven.";
 }catch(e){$("status").textContent="3D zobrazení se nepodařilo spustit (WebGL nebo načtení Three.js). "+e.message;console.error(e)}
 }
