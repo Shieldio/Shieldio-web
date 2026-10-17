@@ -1,0 +1,271 @@
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+const video = $("video"), canvas = $("view"), stage = $("stage");
+const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+const finite = (v, fallback) => Number.isFinite(Number(v)) ? Number(v) : fallback;
+const fmt = t => Number.isFinite(t) ? Math.floor(t / 60) + ":" + String(Math.floor(t % 60)).padStart(2, "0") : "0:00";
+const icon = (id, name) => $(id).setAttribute("href", "#i-" + name);
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const embedMode = new URLSearchParams(location.search).get("embed") === "1";
+document.body.classList.toggle("embed", embedMode);
+let scenes = [], active = null, gl = null, program = null, texture = null, uniforms = null;
+let yaw = 0, pitch = -8, fov = 75, dirty = true, hasFrame = false, started = false, seeking = false;
+let requestedTime = 0, pendingSharedView = false, fallback = false, waitingTimer, hintTimer, frameTime = -1;
+let lastFocus = null, dialogKind = "share", loadingScene = false, loadTimer;
+const pointers = new Map();
+let pinchDistance = 0, pinchFov = 75;
+const fragment = `precision highp float;
+uniform sampler2D image;
+uniform float aspect;
+uniform float viewFov;
+uniform float yaw;
+uniform float pitch;
+varying vec2 point;
+const float PI=3.141592653589793;
+void main(){
+vec3 ray=normalize(vec3(point.x*aspect*viewFov,point.y*viewFov,1.0));
+float y=ray.y*cos(pitch)+ray.z*sin(pitch);
+float z=-ray.y*sin(pitch)+ray.z*cos(pitch);
+ray=vec3(ray.x*cos(yaw)+z*sin(yaw),y,-ray.x*sin(yaw)+z*cos(yaw));
+vec2 uv=vec2(atan(ray.x,ray.z)/(2.0*PI)+0.5,acos(clamp(ray.y,-1.0,1.0))/PI);
+gl_FragColor=texture2D(image,uv);
+}`;
+const vertex = "attribute vec2 position;varying vec2 point;void main(){point=position;gl_Position=vec4(position,0.,1.);}";
+function compile(type, source) {
+const shader=gl.createShader(type);gl.shaderSource(shader,source);gl.compileShader(shader);
+if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS))throw new Error("Shader unavailable");
+return shader;
+}
+function initGL() {
+gl=canvas.getContext("webgl",{alpha:false,antialias:false,preserveDrawingBuffer:false});
+if(!gl)throw new Error("WebGL unavailable");
+if(gl.getParameter(gl.MAX_TEXTURE_SIZE)<3840)throw new Error("Texture size unavailable");
+program=gl.createProgram();
+gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));
+gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error("Renderer unavailable");
+gl.useProgram(program);
+const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pos=gl.getAttribLocation(program,"position");gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);
+gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([23,39,31,255]));
+uniforms={};["image","aspect","viewFov","yaw","pitch"].forEach(n=>uniforms[n]=gl.getUniformLocation(program,n));gl.uniform1i(uniforms.image,0);
+dirty=true;frameTime=-1;
+}
+function nativeFallback() {
+fallback=true;stage.classList.add("native-video");video.controls=true;
+$("stage-label").textContent="PANORAMATICKÉ VIDEO";
+$("status").textContent="360° zobrazení není v tomto zařízení dostupné. Video lze přehrát v plochém zobrazení.";
+$("fov").disabled=true;$("reset").disabled=true;
+}
+try {initGL();} catch(e) {nativeFallback();}
+function render() {
+if(gl&&!fallback&&!document.hidden&&hasFrame&&video.readyState>=2&&(dirty||(!video.paused&&video.currentTime!==frameTime))){
+try {
+const dpr=Math.min(devicePixelRatio||1,2), w=Math.round(canvas.clientWidth*dpr),h=Math.round(canvas.clientHeight*dpr);
+if(w&&h){
+if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
+gl.viewport(0,0,w,h);gl.useProgram(program);
+gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,video);
+gl.uniform1f(uniforms.aspect,w/h);gl.uniform1f(uniforms.viewFov,Math.tan(fov*Math.PI/360));
+gl.uniform1f(uniforms.yaw,yaw*Math.PI/180);gl.uniform1f(uniforms.pitch,pitch*Math.PI/180);
+gl.drawArrays(gl.TRIANGLES,0,6);dirty=false;frameTime=video.currentTime;
+}
+} catch(e){nativeFallback();}
+}
+requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
+new ResizeObserver(()=>{dirty=true;}).observe(stage);
+canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();video.pause();$("status").textContent="Zobrazení bylo přerušeno. Obnovuji prohlídku…";});
+canvas.addEventListener("webglcontextrestored",()=>{try{initGL();hasFrame=video.readyState>=2;$("status").textContent="Zobrazení obnoveno. Pokračujte tlačítkem Přehrát.";}catch(e){nativeFallback();}});
+function updateView() {
+yaw=((yaw%360)+360)%360;pitch=clamp(pitch,-80,80);fov=clamp(fov,40,95);
+$("fov").value=String(Math.round(fov));
+$("zoom-value").value=(75/fov).toLocaleString("cs-CZ",{maximumFractionDigits:1})+"×";
+$("orientation").textContent="POHLED "+String(Math.round(yaw)%360).padStart(3,"0")+"°";
+dirty=true;
+}
+function dismissHint(){clearTimeout(hintTimer);$("view-hint").classList.remove("visible");}
+canvas.addEventListener("pointerdown",e=>{
+canvas.focus({preventScroll:true});dismissHint();pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});canvas.setPointerCapture(e.pointerId);
+if(pointers.size===2){const a=[...pointers.values()];pinchDistance=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);pinchFov=fov;}
+});
+canvas.addEventListener("pointermove",e=>{
+const old=pointers.get(e.pointerId);if(!old)return;
+pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+if(pointers.size===2){const a=[...pointers.values()],distance=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(distance>0)fov=pinchFov*pinchDistance/distance;}
+else if(pointers.size===1){yaw-=(e.clientX-old.x)*.16;pitch+=(e.clientY-old.y)*.16;}
+updateView();
+});
+["pointerup","pointercancel","lostpointercapture"].forEach(n=>canvas.addEventListener(n,e=>pointers.delete(e.pointerId)));
+canvas.addEventListener("wheel",e=>{e.preventDefault();fov+=Math.sign(e.deltaY)*3;dismissHint();updateView();},{passive:false});
+canvas.addEventListener("keydown",e=>{
+if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","+","=","-"," ","Home"].includes(e.key)){
+e.preventDefault();dismissHint();
+if(e.key==="ArrowRight")yaw+=5;if(e.key==="ArrowLeft")yaw-=5;
+if(e.key==="ArrowUp")pitch+=5;if(e.key==="ArrowDown")pitch-=5;
+if(e.key==="+"||e.key==="=")fov-=5;if(e.key==="-")fov+=5;
+if(e.key==="Home")reset();if(e.key===" ")togglePlay();updateView();
+}
+});
+$("fov").addEventListener("input",e=>{fov=+e.target.value;updateView();});
+function reset(){const v=active?.initialView||{};yaw=finite(v.yaw,0);pitch=finite(v.pitch,-8);fov=finite(v.fov,75);updateView();}
+$("reset").addEventListener("click",reset);
+$("speed").addEventListener("change",e=>{video.playbackRate=finite(e.target.value,1);});
+function busy(show) {
+clearTimeout(waitingTimer);
+if(show)waitingTimer=setTimeout(()=>{if(started)$("loading").hidden=false;},650);
+else $("loading").hidden=true;
+}
+function error(message) {
+clearTimeout(loadTimer);busy(false);video.pause();$("player-error").hidden=false;$("start-cover").hidden=true;
+$("error-copy").textContent=message;$("status").textContent="Prohlídka je dočasně nedostupná.";
+}
+function availableURL(raw) {
+try{const u=new URL(raw,location.href);return u.origin===location.origin&&/^https?:$/.test(u.protocol)?u.href:null;}catch(e){return null;}
+}
+async function loadGallery() {
+loadingScene=true;
+try{
+const response=await fetch("./videos.json",{cache:"no-cache"});if(!response.ok)throw new Error("Gallery unavailable");
+const data=await response.json();
+scenes=Array.isArray(data)?data.filter(s=>s&&typeof s.title==="string"&&typeof s.id==="string"&&availableURL(s.url)):[];
+if(!scenes.length)throw new Error("Empty gallery");
+const list=$("scene-list");list.replaceChildren();
+scenes.forEach((s,i)=>{
+const b=document.createElement("button");b.type="button";b.className="scene-button";b.dataset.scene=s.id;
+const thumb=document.createElement("span");thumb.className="scene-thumb";thumb.setAttribute("aria-hidden","true");
+thumb.innerHTML='<svg><use href="#i-play"/></svg>';
+const detail=document.createElement("span"),title=document.createElement("span"),meta=document.createElement("span");
+title.className="scene-title";title.textContent=s.title;meta.className="scene-meta";meta.textContent="360° video · "+fmt(finite(s.duration,0));
+detail.append(title,meta);const arrow=document.createElementNS("http://www.w3.org/2000/svg","svg");arrow.classList.add("scene-arrow");
+const use=document.createElementNS("http://www.w3.org/2000/svg","use");use.setAttribute("href","#i-arrow");arrow.append(use);b.append(thumb,detail,arrow);
+b.addEventListener("click",()=>{if(active?.id===s.id){video.currentTime=0;start();}else selectScene(s,true);});
+list.append(b);
+});
+$("scene-count").textContent=String(scenes.length).padStart(2,"0")+(scenes.length===1?" SCÉNA":scenes.length<5?" SCÉNY":" SCÉN");
+const params=new URLSearchParams(location.hash.slice(1));
+selectScene(scenes.find(s=>s.id===params.get("scene"))||scenes[0],false,params);
+} catch(e){error("Seznam prohlídek se nepodařilo načíst. Zkuste to prosím znovu.");}
+finally{loadingScene=false;}
+}
+function selectScene(scene,play,params=null) {
+video.pause();active=scene;started=false;hasFrame=false;frameTime=-1;dirty=true;
+$("player-error").hidden=true;$("start-cover").hidden=false;$("start").disabled=true;
+$("start-label").textContent="Načítám prohlídku";$("play").disabled=true;$("seek").disabled=true;
+$("tour-name").textContent=scene.title;$("scene-caption").textContent=scene.title;
+$("place-title").textContent=scene.title;
+$("place-description").textContent=scene.description||"Rozhlédněte se ve 360° záznamu. Let můžete kdykoli zastavit.";
+document.querySelectorAll(".scene-button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.scene===scene.id)));
+reset();requestedTime=0;pendingSharedView=!!params;
+if(params){yaw=finite(params.get("yaw")??yaw,yaw);pitch=finite(params.get("pitch")??pitch,pitch);fov=finite(params.get("fov")??fov,fov);requestedTime=Math.max(0,finite(params.get("t")??0,0));updateView();}
+video.src=availableURL(scene.url);video.playbackRate=finite($("speed").value,1);video.load();
+clearTimeout(loadTimer);loadTimer=setTimeout(()=>{if(!hasFrame)error("Načítání trvá příliš dlouho. Zkontrolujte připojení a zkuste to znovu.");},30000);
+$("status").textContent="Načítám záznam…";if(play)start();
+}
+video.addEventListener("loadedmetadata",()=>{
+if(Math.abs(video.videoWidth/video.videoHeight-2)>.12){error("Tento záznam nemá podporovaný panoramatický formát.");return;}
+const duration=video.duration;
+$("duration").textContent=fmt(duration);$("seek").disabled=false;$("play").disabled=false;$("start").disabled=false;
+$("start-label").textContent="Spustit prohlídku";$("quality").textContent="360° VIDEO · "+(video.videoWidth>=3840?"4K":video.videoWidth+" PX");
+const target=clamp(requestedTime,0,Math.max(0,duration-.1));video.currentTime=target>0?target:.03;
+if(!fallback)$("status").textContent=pendingSharedView?"Sdílený pohled je připravený.":"Táhněte obrazem a rozhlédněte se.";
+});
+function frameReady(){
+if(video.readyState<2)return;hasFrame=true;dirty=true;clearTimeout(loadTimer);
+if(!started)$("start").disabled=false;
+busy(false);
+if(!fallback) {
+try{
+const preview=document.createElement("canvas");preview.width=192;preview.height=96;const ctx=preview.getContext("2d");ctx.drawImage(video,0,0,192,96);
+const button=[...document.querySelectorAll(".scene-button")].find(b=>b.dataset.scene===active?.id),thumb=button?.querySelector(".scene-thumb");
+if(thumb&&!thumb.querySelector("img")){const img=document.createElement("img");img.alt="";img.src=preview.toDataURL("image/jpeg",.75);thumb.replaceChildren(img);}
+}catch(e){/* The panorama remains usable without a thumbnail. */}
+}
+}
+video.addEventListener("loadeddata",frameReady);video.addEventListener("seeked",()=>{frameReady();seeking=false;});
+video.addEventListener("canplay",()=>busy(false));
+video.addEventListener("waiting",()=>busy(true));
+video.addEventListener("playing",()=>{busy(false);clearTimeout(loadTimer);});
+video.addEventListener("error",()=>{
+const code=video.error?.code;
+error(code===3||code===4?"Prohlížeč tento záznam nemůže přehrát. Zkuste aktuální Safari, Chrome, Firefox nebo Edge.":"Video se nepodařilo stáhnout. Zkontrolujte připojení a zkuste to znovu.");
+});
+async function start() {
+if(!active)return;
+started=true;$("start-cover").hidden=true;busy(true);
+try{await video.play();if(!fallback){$("status").textContent="Let běží ve smyčce. Pohled ovládáte vy.";if(!reduced){$("view-hint").classList.add("visible");hintTimer=setTimeout(dismissHint,3500);}}}
+catch(e){busy(false);started=false;$("start-cover").hidden=false;$("start-label").textContent="Spustit prohlídku";$("status").textContent="Pro spuštění klepněte na Spustit prohlídku.";}
+}
+function togglePlay(){if(video.paused)start();else{video.pause();$("status").textContent="Let je pozastavený. Můžete se dál rozhlížet.";}}
+$("start").addEventListener("click",start);$("play").addEventListener("click",togglePlay);
+video.addEventListener("play",()=>{icon("play-icon","pause");$("play").setAttribute("aria-label","Pozastavit");});
+video.addEventListener("pause",()=>{icon("play-icon","play");$("play").setAttribute("aria-label","Přehrát");busy(false);dirty=true;});
+video.addEventListener("timeupdate",()=>{
+$("current").textContent=fmt(video.currentTime);
+if(!seeking&&Number.isFinite(video.duration)&&video.duration>0)$("seek").value=String(Math.round(1000*video.currentTime/video.duration));
+$("seek").setAttribute("aria-valuetext",fmt(video.currentTime)+" z "+fmt(video.duration));
+});
+$("seek").addEventListener("input",e=>{if(Number.isFinite(video.duration)){seeking=true;video.currentTime=video.duration*(+e.target.value)/1000;dirty=true;}});
+$("mute").addEventListener("click",()=>{video.muted=!video.muted;icon("mute-icon",video.muted?"muted":"volume");const label=video.muted?"Zapnout zvuk":"Vypnout zvuk";$("mute").setAttribute("aria-label",label);$("mute").title=label;});
+$("retry").addEventListener("click",()=>{if(active)selectScene(active,false);else loadGallery();});
+document.addEventListener("visibilitychange",()=>{if(document.hidden)video.pause();});
+function closeExpanded(){stage.classList.remove("is-expanded");$("fullscreen").setAttribute("aria-label","Celá obrazovka");dirty=true;}
+$("fullscreen").addEventListener("click",async()=>{
+try{
+if(document.fullscreenElement)await document.exitFullscreen();
+else if(stage.classList.contains("is-expanded"))closeExpanded();
+else if(stage.requestFullscreen){await stage.requestFullscreen();canvas.focus({preventScroll:true});}
+else{stage.classList.add("is-expanded");$("fullscreen").setAttribute("aria-label","Zavřít celou obrazovku");canvas.focus({preventScroll:true});}
+}catch(e){stage.classList.toggle("is-expanded");canvas.focus({preventScroll:true});}
+dirty=true;
+});
+$("exit-fullscreen").addEventListener("click",()=>{if(document.fullscreenElement)document.exitFullscreen().catch(closeExpanded);else closeExpanded();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&stage.classList.contains("is-expanded"))closeExpanded();});
+document.addEventListener("fullscreenchange",()=>{
+const expanded=!!document.fullscreenElement;$("fullscreen").setAttribute("aria-label",expanded?"Zavřít celou obrazovku":"Celá obrazovka");dirty=true;
+});
+function shareURL() {
+const url=new URL(location.href);url.search="";url.hash=new URLSearchParams({scene:active?.id||"",t:video.currentTime.toFixed(1),yaw:yaw.toFixed(1),pitch:pitch.toFixed(1),fov:fov.toFixed(0)}).toString();return url.href;
+}
+function showDialog(kind) {
+if(kind!=="help"&&!active)return;
+dialogKind=kind;lastFocus=document.activeElement;$("copy-status").textContent="";
+$("share-output").hidden=kind==="help";$("output-label").hidden=kind==="help";$("copy").hidden=kind==="help";
+if(kind==="share"){
+$("dialog-title").textContent="Sdílet tento pohled";
+$("dialog-copy").textContent="Odkaz otevře stejný záznam ve stejném čase a směru pohledu.";
+$("output-label").textContent="Odkaz na pohled";$("share-output").value=shareURL();
+$("copy").innerHTML='Kopírovat odkaz <svg><use href="#i-share"/></svg>';
+}else if(kind==="embed"){
+$("dialog-title").textContent="Prohlídka na vašem webu";
+$("dialog-copy").textContent="Vložte tento kód do HTML svého webu. Šířka se přizpůsobí prostoru, přehrávač zůstane pod značkou Flight360.";
+const url=new URL(shareURL());url.search="?embed=1";
+$("output-label").textContent="HTML kód";
+$("share-output").value='<iframe src="'+url.href.replace(/&/g,"&amp;")+'" title="Flight360 — interaktivní prohlídka" width="100%" height="600" loading="lazy" allow="fullscreen" allowfullscreen style="border:0"></iframe>';
+$("copy").innerHTML='Kopírovat kód <svg><use href="#i-code"/></svg>';
+}else {
+$("dialog-title").textContent="Rozhlédněte se po svém";
+$("dialog-copy").textContent="Myš nebo prst: táhněte obrazem. Přiblížení: kolečko myši nebo dva prsty. Klávesnice v obrazu: šipky mění směr, + a − přiblížení, mezerník zastaví nebo spustí let, Home vrátí výchozí pohled. Video se opakuje ve smyčce. Pohled se otáčí v natočeném záznamu; trasu letu nelze změnit.";
+}
+$("dialog").showModal();
+if(kind!=="help"){$("share-output").focus();$("share-output").select();}
+}
+$("share").addEventListener("click",()=>showDialog("share"));$("embed").addEventListener("click",()=>showDialog("embed"));$("help").addEventListener("click",()=>showDialog("help"));
+$("close-dialog").addEventListener("click",()=>$("dialog").close());
+$("dialog").addEventListener("click",e=>{const rect=$("dialog").getBoundingClientRect();if(e.target===$("dialog")&&(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom))$("dialog").close();});
+$("dialog").addEventListener("close",()=>lastFocus?.focus({preventScroll:true}));
+$("copy").addEventListener("click",async()=>{
+try{await navigator.clipboard.writeText($("share-output").value);$("copy-status").textContent=dialogKind==="embed"?"Kód zkopírován.":"Odkaz zkopírován.";}
+catch(e){$("share-output").focus();$("share-output").select();$("copy-status").textContent="Použijte Ctrl+C nebo ⌘C.";}
+});
+window.addEventListener("hashchange",()=>{
+const params=new URLSearchParams(location.hash.slice(1));if(!params.has("scene"))return;
+const scene=scenes.find(s=>s.id===params.get("scene"));if(scene)selectScene(scene,false,params);
+});
+updateView();loadGallery();
+})();

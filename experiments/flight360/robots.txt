@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://flight360.shieldio.cz/sitemap.xml

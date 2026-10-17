@@ -1,7 +1,28 @@
 [
   {
-    "title": "První let · DJI Avata 360",
-    "description": "15 sekund · 360° panorama · 4K",
-    "url": "./flight360-demo.mp4"
+    "id": "les-a-louka",
+    "title": "Les a louka",
+    "description": "Louka, okraj lesa a otevřený výhled do krajiny. 25sekundový výběr ze skutečného letu. Pozastavte obraz a rozhlédněte se vlastním tempem.",
+    "url": "./les-a-louka.mp4",
+    "label": "Ukázkový záznam",
+    "duration": 25,
+    "initialView": {
+      "yaw": 0,
+      "pitch": -8,
+      "fov": 75
+    }
+  },
+  {
+    "id": "let-nad-obci",
+    "title": "Let nad obcí",
+    "description": "Krátký let nad zástavbou a okolní krajinou. Zastavte záznam a prohlédněte si detail, nebo se během letu rozhlížejte.",
+    "url": "./flight360-demo.mp4",
+    "label": "Ukázkový záznam",
+    "duration": 15,
+    "initialView": {
+      "yaw": 0,
+      "pitch": -8,
+      "fov": 75
+    }
   }
 ]

@@ -1,33 +1,33 @@
-# Shieldio Flight360 – veřejná galerie letů
+# Flight360
 
-Samostatné responzivní demo 360° video přehrávače s kurátorským výběrem videí. **Návštěvníci na web nenahrávají soubory.** Můžou se rozhlížet myší, dotykem nebo šipkami; zoomovat; zastavit video; přepínat ukázky; posouvat čas; změnit rychlost a přejít na celou obrazovku. Videa se přehrávají ve smyčce. Pokud prohlížeč blokuje autoplay se zvukem, návštěvník klepne na Přehrát.
+Samostatný statický web a interaktivní 360° prohlídky na https://flight360.shieldio.cz. Projekt Shieldio; vlastní CSS a žádné externí JS knihovny ani fonty.
 
-## Přidání videa správcem
+## Obsah a scény
 
-Do `videos.json` přidejte položky, např.:
+Galerie je v `videos.json`. Každá položka má stabilní unikátní `id`, `title`, `description`, `url`, volitelnou délku `duration` v sekundách a `initialView: {yaw, pitch, fov}` ve stupních. Aktuálně jsou zveřejněny dva skutečné záznamy: 25s výběr Les a louka a 15s Let nad obcí. Celý původní záznam Les a louka má 120,5 s a zůstává v uživatelových souborech. Názvy lokalit a klientské reference se nesmějí domýšlet.
 
-```json
-[
-  {
-    "title": "Let nad krajinou",
-    "description": "360° záznam z DJI dronu",
-    "url": "https://media.example.org/flight360/krajina-360.mp4"
-  }
-]
-```
+Nové scény doplníte do JSON; přehrávač automaticky doplní navigaci. Video musí být equirectangular 2:1, MP4/H.264 + AAC, doporučené 3840 × 1920. Aktuální přehrávač z bezpečnostních důvodů přijímá jen videa ze stejného originu. Při pozdějším přechodu na mediální CDN upravte validaci adres a CSP a povolte CORS na médiích. Návštěvníci nemají upload ani administraci.
 
-Adresa musí vést na veřejně dostupné **equirectangular video 2:1**, ne reframovaný výřez. Pro veřejné nasazení 8K videí je vhodné komprimované MP4 H.264/H.265 dle podpory prohlížečů, případně adaptivní stream v další verzi. Pokud je video na jiné doméně, server musí povolit CORS, protože video slouží jako WebGL textura. V GitHubu zatím není nahrané žádné reálné video: `videos.json` obsahuje prázdný seznam a viewer ukazuje pouze ilustrační panorama.
+## Návštěvnické funkce
+
+- Ovládání myší, dotykem, dvěma prsty, šipkami, +/− a Home; mezerník spouští/zastavuje let při zaměření obrazu.
+- Pozastavení, časová osa, rychlost, zvuk, výchozí pohled a celá obrazovka (včetně náhradního režimu pro mobilní Safari).
+- Sdílení scény, času, směru a zorného úhlu v URL fragmentu; nový pohled se otevírá pozastavený.
+- `?embed=1` zobrazí samotný přehrávač s označením Flight360. Dialog poskytuje kód iframe.
+- Bez automatického spuštění pohybu a bez externí analytiky či cookies. Video se po spuštění opakuje; při skrytí karty se zastaví.
+- Základní režim přehraje ploché panoramatické video, pokud zařízení nepodporuje WebGL nebo potřebnou velikost textury.
+- Zřetelné chybové a načítací stavy, opakování pokusu, klávesnice a přístupné dialogy.
+
+Kontaktní tlačítko otevírá e-mail na info@shieldio.cz; web nemá formulář ani předstíraný backend. Veškeré materiály na webu jsou veřejné.
+
+## Lokální kontrola
+
+Z této složky spusťte `python3 -m http.server 8080`. Nepoužívejte file://; galerie se načítá přes fetch. Otestujte přehrávání, otáčení, posun času, sdílený odkaz, embed a mobilní šířku.
 
 ## Nasazení
 
-Repozitář obsahuje samostatnou konfiguraci `wrangler.flight360.jsonc`. Po schválení a přípravě domény `flight360.shieldio.cz` v Cloudflare lze nasadit z kořene:
+Z kořene repozitáře: `npx wrangler deploy --config wrangler.flight360.jsonc`. Cloudflare build je připojen k větvi main. Měňte pouze `experiments/flight360/`; nepřepisujte ostatní konfigurace Workerů. `_headers` nastavuje CSP, cache a základní bezpečnostní hlavičky; frame-ancestors povoluje vložení veřejné prohlídky do jiných webů.
 
-```sh
-npx wrangler deploy --config wrangler.flight360.jsonc
-```
+## Provozní hranice
 
-Konfigurace se nedotýká hlavního webu ani projektů Learn/Light. Samotný commit ani merge automaticky nezaručují, že web běží — vyžaduje Cloudflare deploy. Alternativní doména `flight360.io.cz` by vyžadovala kontrolu vlastnictví a DNS.
-
-## Stav
-
-Implementace je zatím prototyp; bez skutečného 360° videa a testu v prohlížeči nelze potvrdit produkční kvalitu. Nejde o volný 3D let, pouze změnu úhlu pohledu během skutečně natočené trasy. Telemetrie/GPS chybí. Three.js se načítá z CDN.
+Tato verze je připravený veřejný statický web, nikoli systém pro placené účty, správu zákazníků, rezervace nebo nahrávání médií. Není tu měřená mapa ani telemetrie. Dlouhé záznamy a více zákaznických lokalit budou vyžadovat samostatné mediální úložiště a navazující správu obsahu. Sdílená orientace je relativní směr záznamu, nikoli zeměpisný azimut.
