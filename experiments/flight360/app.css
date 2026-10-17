@@ -11,3 +11,5 @@ body.embed .site-header,body.embed .intro,body.embed .section-heading,body.embed
 .stage-tools{display:flex;gap:8px}.exit-fullscreen{display:none}.stage:fullscreen .exit-fullscreen,.stage.is-expanded .exit-fullscreen{display:grid}
 
 @media(max-width:580px){.site-header{gap:10px}}
+
+body.embed .stage{aspect-ratio:auto;height:calc(100dvh - 119px);min-height:160px}@media(max-width:580px){body.embed .stage{height:calc(100dvh - 104px)}}

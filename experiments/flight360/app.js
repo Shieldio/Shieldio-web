@@ -161,7 +161,7 @@ $("tour-name").textContent=scene.title;$("scene-caption").textContent=scene.titl
 $("place-title").textContent=scene.title;
 $("place-description").textContent=scene.description||"Rozhlédněte se ve 360° záznamu. Let můžete kdykoli zastavit.";
 document.querySelectorAll(".scene-button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.scene===scene.id)));
-reset();requestedTime=0;pendingSharedView=!!params;
+reset();requestedTime=0;pendingSharedView=!!params?.has("scene");
 if(params){yaw=finite(params.get("yaw")??yaw,yaw);pitch=finite(params.get("pitch")??pitch,pitch);fov=finite(params.get("fov")??fov,fov);requestedTime=Math.max(0,finite(params.get("t")??0,0));updateView();}
 video.src=availableURL(scene.url);video.playbackRate=finite($("speed").value,1);video.load();
 clearTimeout(loadTimer);loadTimer=setTimeout(()=>{if(!hasFrame)error("Načítání trvá příliš dlouho. Zkontrolujte připojení a zkuste to znovu.");},30000);
