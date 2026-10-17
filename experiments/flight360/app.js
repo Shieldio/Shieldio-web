@@ -171,6 +171,15 @@ video.src=availableURL(scene.url);updateSpeed();video.load();
 clearTimeout(loadTimer);loadTimer=setTimeout(()=>{if(!hasFrame)error("Načítání trvá příliš dlouho. Zkontrolujte připojení a zkuste to znovu.");},30000);
 $("status").textContent="Načítám záznam…";if(play)start();
 }
+video.loop=false;
+video.addEventListener("ended",()=>{
+if(!$("autoplay").checked || scenes.length<2){
+$("status").textContent="Záznam skončil. Vyberte další nebo ho spusťte znovu.";
+return;
+}
+const next=(scenes.findIndex(scene=>scene.id===active?.id)+1)%scenes.length;
+selectScene(scenes[next],true);
+});
 video.addEventListener("loadedmetadata",()=>{
 if(Math.abs(video.videoWidth/video.videoHeight-2)>.12){error("Tento záznam nemá podporovaný panoramatický formát.");return;}
 const duration=video.duration;
@@ -205,7 +214,7 @@ started=true;$("start-cover").hidden=true;busy(true);
 try{await video.play();if(!fallback){$("status").textContent="Přehrává se. Táhněte obrazem a rozhlédněte se.";if(!reduced){$("view-hint").classList.add("visible");hintTimer=setTimeout(dismissHint,3500);}}}
 catch(e){busy(false);started=false;$("start-cover").hidden=false;$("start-label").textContent="Spustit prohlídku";$("status").textContent="Pro spuštění klepněte na Spustit prohlídku.";}
 }
-function togglePlay(){if(video.paused)start();else{video.pause();$("status").textContent="Let je pozastavený. Můžete se dál rozhlížet.";}}
+function togglePlay(){if(video.paused){if(video.ended)video.currentTime=0;start();}else{video.pause();$("status").textContent="Let je pozastavený. Můžete se dál rozhlížet.";}}
 $("start").addEventListener("click",start);$("play").addEventListener("click",togglePlay);
 video.addEventListener("play",()=>{icon("play-icon","pause");$("play").setAttribute("aria-label","Pozastavit");});
 video.addEventListener("pause",()=>{icon("play-icon","play");$("play").setAttribute("aria-label","Přehrát");busy(false);dirty=true;});
@@ -254,7 +263,7 @@ $("share-output").value='<iframe src="'+url.href.replace(/&/g,"&amp;")+'" title=
 $("copy").innerHTML='Kopírovat kód <svg><use href="#i-code"/></svg>';
 }else {
 $("dialog-title").textContent="Rozhlédněte se po svém";
-$("dialog-copy").textContent="Myš nebo prst: táhněte obrazem. Přiblížení: kolečko myši nebo dva prsty. Klávesnice v obrazu: šipky mění směr, + a − přiblížení, mezerník zastaví nebo spustí let, Home vrátí výchozí pohled. Video se opakuje ve smyčce. Pohled se otáčí v natočeném záznamu; trasu letu nelze změnit.";
+$("dialog-copy").textContent="Myš nebo prst: táhněte obrazem. Přiblížení: kolečko myši nebo dva prsty. Klávesnice v obrazu: šipky mění směr, + a − přiblížení, mezerník zastaví nebo spustí let, Home vrátí výchozí pohled. Při zapnutém postupném přehrávání po konci záznamu pokračuje další video. Pohled se otáčí v natočeném záznamu; trasu letu nelze změnit.";
 }
 $("dialog").showModal();
 if(kind!=="help"){$("share-output").focus();$("share-output").select();}
