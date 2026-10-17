@@ -149,89 +149,94 @@
         "title": "ZŠ Gabry a Málinky",
         "category": "Škola · č. p. 417",
         "description": "Základní škola Gabry a Málinky. Součástí školního areálu je také obecní knihovna a minimuzeum věnované Gabře a Málince.",
-        "start": 0,
-        "end": 15,
-        "focusTime": 6,
+        "start": 16,
+        "end": 24,
+        "focusTime": 18,
         "keyframes": [
           {
-            "time": 0,
-            "u": 0.088542,
-            "v": 0.564583
+            "time": 16,
+            "u": 0.842187,
+            "v": 0.55625
           },
           {
-            "time": 1,
-            "u": 0.084896,
-            "v": 0.563542
+            "time": 16.5,
+            "u": 0.815104,
+            "v": 0.558333
           },
           {
-            "time": 2,
-            "u": 0.080729,
-            "v": 0.563542
+            "time": 17,
+            "u": 0.796875,
+            "v": 0.558333
           },
           {
-            "time": 3,
-            "u": 0.075521,
-            "v": 0.563542
+            "time": 17.5,
+            "u": 0.776042,
+            "v": 0.55625
           },
           {
-            "time": 4,
-            "u": 0.069792,
-            "v": 0.564583
+            "time": 18,
+            "u": 0.760417,
+            "v": 0.552083
           },
           {
-            "time": 5,
-            "u": 0.063542,
-            "v": 0.565625
+            "time": 18.5,
+            "u": 0.75,
+            "v": 0.55
           },
           {
-            "time": 6,
-            "u": 0.05625,
-            "v": 0.566667
+            "time": 19,
+            "u": 0.743229,
+            "v": 0.55
           },
           {
-            "time": 7,
-            "u": 0.046875,
-            "v": 0.567708
+            "time": 19.5,
+            "u": 0.736979,
+            "v": 0.55
           },
           {
-            "time": 8,
-            "u": 0.036458,
-            "v": 0.56875
+            "time": 20,
+            "u": 0.733854,
+            "v": 0.548958
           },
           {
-            "time": 9,
-            "u": 0.025,
-            "v": 0.570833
+            "time": 20.5,
+            "u": 0.729167,
+            "v": 0.548958
           },
           {
-            "time": 10,
-            "u": 0.013021,
-            "v": 0.572917
+            "time": 21,
+            "u": 0.725,
+            "v": 0.548958
           },
           {
-            "time": 11,
-            "u": 0,
-            "v": 0.573958
+            "time": 21.5,
+            "u": 0.722396,
+            "v": 0.548958
           },
           {
-            "time": 12,
-            "u": 0.984375,
-            "v": 0.577083
+            "time": 22,
+            "u": 0.71875,
+            "v": 0.548958
           },
           {
-            "time": 13,
-            "u": 0.973958,
-            "v": 0.579167
+            "time": 22.5,
+            "u": 0.715104,
+            "v": 0.548958
           },
           {
-            "time": 14,
-            "u": 0.960938,
-            "v": 0.58125
+            "time": 23,
+            "u": 0.711979,
+            "v": 0.547917
           },
           {
-            "time": 15,
-            "u": 0.95,
-            "v": 0.584375
+            "time": 23.5,
+            "u": 0.709375,
+            "v": 0.547917
+          },
+          {
+            "time": 24,
+            "u": 0.706771,
+            "v": 0.547917
           }
         ],
         "links": [
@@ -251,89 +256,49 @@
         "title": "Kulturní dům",
         "category": "Kultura · č. p. 415",
         "description": "Kulturní dům ve Štítné nad Vláří. Na webu obce najdete informace o rezervaci prostor a kulturních akcích.",
-        "start": 0,
+        "start": 11.5,
         "end": 15,
-        "focusTime": 12,
+        "focusTime": 13,
         "keyframes": [
           {
-            "time": 0,
-            "u": 0.153646,
-            "v": 0.558333
-          },
-          {
-            "time": 1,
-            "u": 0.150521,
-            "v": 0.560417
-          },
-          {
-            "time": 2,
-            "u": 0.146875,
-            "v": 0.561458
-          },
-          {
-            "time": 3,
-            "u": 0.142708,
-            "v": 0.561458
-          },
-          {
-            "time": 4,
-            "u": 0.1375,
-            "v": 0.5625
-          },
-          {
-            "time": 5,
-            "u": 0.131771,
-            "v": 0.563542
-          },
-          {
-            "time": 6,
-            "u": 0.125,
-            "v": 0.564583
-          },
-          {
-            "time": 7,
-            "u": 0.117188,
-            "v": 0.566667
-          },
-          {
-            "time": 8,
-            "u": 0.108854,
-            "v": 0.569792
-          },
-          {
-            "time": 9,
-            "u": 0.098958,
-            "v": 0.573958
-          },
-          {
-            "time": 10,
-            "u": 0.089063,
-            "v": 0.578125
-          },
-          {
-            "time": 11,
-            "u": 0.078125,
-            "v": 0.584375
+            "time": 11.5,
+            "u": 0.110937,
+            "v": 0.553125
           },
           {
             "time": 12,
-            "u": 0.06875,
-            "v": 0.591667
+            "u": 0.10625,
+            "v": 0.55625
+          },
+          {
+            "time": 12.5,
+            "u": 0.102604,
+            "v": 0.560417
           },
           {
             "time": 13,
-            "u": 0.060937,
-            "v": 0.598958
+            "u": 0.1,
+            "v": 0.565625
+          },
+          {
+            "time": 13.5,
+            "u": 0.097917,
+            "v": 0.569792
           },
           {
             "time": 14,
-            "u": 0.052604,
-            "v": 0.609375
+            "u": 0.096354,
+            "v": 0.573958
+          },
+          {
+            "time": 14.5,
+            "u": 0.095833,
+            "v": 0.580208
           },
           {
             "time": 15,
-            "u": 0.047396,
-            "v": 0.620833
+            "u": 0.096354,
+            "v": 0.5875
           }
         ],
         "links": [
@@ -353,40 +318,10 @@
         "title": "Fara ve Štítné",
         "category": "Farnost · č. p. 123",
         "description": "Sídlo Římskokatolické farnosti Štítná nad Vláří poblíž kostela sv. Josefa. Podrobnosti a informace o farnosti najdete na jejím webu.",
-        "start": 0,
+        "start": 11,
         "end": 15,
         "focusTime": 13,
         "keyframes": [
-          {
-            "time": 0,
-            "u": 0.203125,
-            "v": 0.570833
-          },
-          {
-            "time": 2,
-            "u": 0.202604,
-            "v": 0.569792
-          },
-          {
-            "time": 4,
-            "u": 0.202604,
-            "v": 0.570833
-          },
-          {
-            "time": 6,
-            "u": 0.203646,
-            "v": 0.573958
-          },
-          {
-            "time": 8,
-            "u": 0.207292,
-            "v": 0.580208
-          },
-          {
-            "time": 10,
-            "u": 0.215625,
-            "v": 0.590625
-          },
           {
             "time": 11,
             "u": 0.222917,
@@ -422,7 +357,8 @@
             "label": "Poloha na mapě",
             "url": "https://mapy.com/cs/zakladni?x=17.977744&y=49.069854&z=19"
           }
-        ]
+        ],
+        "labelLift": 76
       },
       {
         "id": "centrum",
@@ -430,39 +366,49 @@
         "title": "Centrum obce",
         "category": "Okolí · COOP, park a zastávka",
         "description": "Pohled směrem do centra Štítné. Prodejnu COOP, blízký park a autobusovou zastávku najdete jednotlivě v mapových odkazech. Bod označuje tuto část obce.",
-        "start": 0,
-        "end": 15,
-        "focusTime": 5,
+        "start": 26,
+        "end": 40,
+        "focusTime": 32,
         "keyframes": [
           {
-            "time": 0,
-            "u": 0.221354,
-            "v": 0.54375
+            "time": 26,
+            "u": 0.416667,
+            "v": 0.644792
           },
           {
-            "time": 3,
-            "u": 0.227604,
-            "v": 0.54375
+            "time": 28,
+            "u": 0.443229,
+            "v": 0.6375
           },
           {
-            "time": 6,
-            "u": 0.239063,
-            "v": 0.545833
+            "time": 30,
+            "u": 0.470833,
+            "v": 0.640625
           },
           {
-            "time": 9,
-            "u": 0.25625,
-            "v": 0.548958
+            "time": 32,
+            "u": 0.494271,
+            "v": 0.640625
           },
           {
-            "time": 12,
-            "u": 0.285417,
-            "v": 0.553125
+            "time": 34,
+            "u": 0.515625,
+            "v": 0.642708
           },
           {
-            "time": 15,
-            "u": 0.325521,
-            "v": 0.557292
+            "time": 36,
+            "u": 0.532292,
+            "v": 0.640625
+          },
+          {
+            "time": 38,
+            "u": 0.546875,
+            "v": 0.6375
+          },
+          {
+            "time": 40,
+            "u": 0.560417,
+            "v": 0.635417
           }
         ],
         "links": [
@@ -534,6 +480,73 @@
           {
             "label": "Lávka přes Járek",
             "url": "https://www.stitna-popov.cz/urad/dokumenty-obecniho-uradu/projekty-obce-1/projekty-zakazky-dotace/opravena-lavka-pres-potok-jarek-u-penzionu-243cs.html"
+          }
+        ]
+      },
+      {
+        "id": "fotbal",
+        "label": "Fotbalové hřiště",
+        "title": "Fotbalové hřiště TJ Štítná nad Vláří",
+        "category": "Sport",
+        "description": "Fotbalové hřiště ve sportovním areálu TJ Štítná nad Vláří. V úvodu letu je napravo od kostela a hřbitova.",
+        "start": 0,
+        "end": 8,
+        "focusTime": 2,
+        "keyframes": [
+          {
+            "time": 0,
+            "u": 0.4375,
+            "v": 0.646875
+          },
+          {
+            "time": 1,
+            "u": 0.445833,
+            "v": 0.646875
+          },
+          {
+            "time": 2,
+            "u": 0.457813,
+            "v": 0.646875
+          },
+          {
+            "time": 3,
+            "u": 0.471354,
+            "v": 0.645833
+          },
+          {
+            "time": 4,
+            "u": 0.4875,
+            "v": 0.644792
+          },
+          {
+            "time": 5,
+            "u": 0.505208,
+            "v": 0.641667
+          },
+          {
+            "time": 6,
+            "u": 0.525,
+            "v": 0.636458
+          },
+          {
+            "time": 7,
+            "u": 0.546875,
+            "v": 0.63125
+          },
+          {
+            "time": 8,
+            "u": 0.570313,
+            "v": 0.626042
+          }
+        ],
+        "links": [
+          {
+            "label": "Poloha na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.97927&y=49.07205&z=18"
+          },
+          {
+            "label": "TJ Štítná nad Vláří",
+            "url": "https://stitnafotbal.estranky.cz/"
           }
         ]
       }

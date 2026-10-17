@@ -106,19 +106,18 @@ return {x:width/2*(1+viewX/(viewZ*tan*width/height)),y:height/2*(1-viewY/(viewZ*
 }
 function updateHotspots(){
 const width=canvas.clientWidth,height=canvas.clientHeight,time=video.currentTime;
-const occupied=[];
 for(const {data,node} of hotspotNodes){
 const point=(!fallback&&hasFrame&&started&&hotspotCheck.checked)?trackedPoint(data,time):null;
 const screen=point?projectHotspot(point,width,height):null;
 const visible=screen&&screen.x>44&&screen.x<width-44&&screen.y>76&&screen.y<height-42;
 node.hidden=!visible;
 if(visible){
-let lift=34;const halfWidth=node.querySelector("button").offsetWidth/2+5;
-while(lift<124&&occupied.some(r=>Math.abs(r.x-screen.x)<r.halfWidth+halfWidth&&Math.abs(r.y-(screen.y-lift))<38))lift+=38;
+const lift=finite(data.labelLift,34);
 if(screen.y-lift<46){node.hidden=true;continue;}
-node.style.setProperty("--lift",lift+"px");occupied.push({x:screen.x,y:screen.y-lift,halfWidth});
+node.style.setProperty("--lift",lift+"px");
 node.style.transform="translate("+screen.x.toFixed(2)+"px,"+screen.y.toFixed(2)+"px)";
-node.style.opacity=String(clamp((data.end-time)/.6,0,1));
+const fadeIn=data.start===0?1:clamp((time-data.start)/.45,0,1);
+node.style.opacity=String(Math.min(fadeIn,clamp((data.end-time)/.6,0,1)));
 }
 }
 }
