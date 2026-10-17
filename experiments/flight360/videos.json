@@ -30,5 +30,21 @@
     "subtitle": "Nad Záhumením",
     "location": "Štítná nad Vláří",
     "category": "Nad obcí"
+  },
+  {
+    "id": "stitna-zapad-slunce",
+    "title": "Štítná při západu slunce",
+    "description": "Celý přelet nad Štítnou nad Vláří při západu slunce. Od kostela přes školu až nad Záhumení. Zastavte let a rozhlédněte se po obci i okolní krajině.",
+    "url": "https://flight360-media.shieldio.cz/Stitna_sunset.mov",
+    "label": "Ukázkový záznam",
+    "duration": 84.633333,
+    "initialView": {
+      "yaw": 0,
+      "pitch": -8,
+      "fov": 75
+    },
+    "subtitle": "Od kostela nad Záhumení",
+    "location": "Štítná nad Vláří",
+    "category": "Západ slunce"
   }
 ]
