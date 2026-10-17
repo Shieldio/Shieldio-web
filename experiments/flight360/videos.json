@@ -1,40 +1,8 @@
 [
   {
-    "id": "les-a-louka",
-    "title": "Mezi Štítnou a Popovem",
-    "description": "Les a louka mezi Štítnou nad Vláří a Popovem. Celý dvouminutový záznam můžete kdykoli zastavit a rozhlédnout se po okolí.",
-    "url": "https://flight360-media.shieldio.cz/360%20free/les-a-louka-cely-let.mp4",
-    "label": "Ukázkový záznam",
-    "duration": 120.533333,
-    "initialView": {
-      "yaw": 0,
-      "pitch": -8,
-      "fov": 75
-    },
-    "subtitle": "Les a louka",
-    "location": "Štítná nad Vláří · Popov",
-    "category": "Krajina"
-  },
-  {
-    "id": "let-nad-obci",
-    "title": "Štítná · Záhumení",
-    "description": "Krátký přelet nad částí Záhumení ve Štítné nad Vláří. Prohlédněte si zástavbu a její okolí z vlastního úhlu.",
-    "url": "./flight360-demo.mp4",
-    "label": "Ukázkový záznam",
-    "duration": 15,
-    "initialView": {
-      "yaw": 0,
-      "pitch": -8,
-      "fov": 75
-    },
-    "subtitle": "Nad Záhumením",
-    "location": "Štítná nad Vláří",
-    "category": "Nad obcí"
-  },
-  {
     "id": "stitna-zapad-slunce",
     "title": "Štítná při západu slunce",
-    "description": "Celý přelet nad Štítnou nad Vláří při západu slunce. Od kostela přes školu až nad Záhumení. Zastavte let a rozhlédněte se po obci i okolní krajině.",
+    "description": "Přelet od kostela přes školu a Záhumení při západu slunce.",
     "url": "https://flight360-media.shieldio.cz/Stitna_sunset.mov",
     "label": "Ukázkový záznam",
     "duration": 84.633333,
@@ -161,6 +129,41 @@
           }
         ]
       }
-    ]
+    ],
+    "poster": "./sunset-poster.jpg"
+  },
+  {
+    "id": "les-a-louka",
+    "title": "Mezi Štítnou a Popovem",
+    "description": "Dvouminutový let nad lesem a loukou mezi Štítnou a Popovem.",
+    "url": "https://flight360-media.shieldio.cz/360%20free/les-a-louka-cely-let.mp4",
+    "label": "Ukázkový záznam",
+    "duration": 120.533333,
+    "initialView": {
+      "yaw": 0,
+      "pitch": -8,
+      "fov": 75
+    },
+    "subtitle": "Les a louka",
+    "location": "Štítná nad Vláří a Popov",
+    "category": "Krajina",
+    "poster": "./landscape-poster.jpg"
+  },
+  {
+    "id": "let-nad-obci",
+    "title": "Nad Záhumením",
+    "description": "Krátký přelet nad Záhumením ve Štítné nad Vláří.",
+    "url": "./flight360-demo.mp4",
+    "label": "Ukázkový záznam",
+    "duration": 15,
+    "initialView": {
+      "yaw": 0,
+      "pitch": -8,
+      "fov": 75
+    },
+    "subtitle": "Nad Záhumením",
+    "location": "Štítná nad Vláří",
+    "category": "Nad obcí",
+    "poster": "./village-poster.jpg"
   }
 ]

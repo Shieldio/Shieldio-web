@@ -121,7 +121,7 @@ dirty=true;frameTime=-1;
 }
 function nativeFallback() {
 fallback=true;stage.classList.add("native-video");video.controls=true;
-$("stage-label").textContent="PANORAMATICKÉ VIDEO";
+$("stage-label").textContent="Panoramatické video";
 $("status").textContent="360° zobrazení není v tomto zařízení dostupné. Video lze přehrát v plochém zobrazení.";
 $("reset").disabled=true;
 }
@@ -207,22 +207,22 @@ const list=$("scene-list");list.replaceChildren();
 scenes.forEach((s,i)=>{
 const b=document.createElement("button");b.type="button";b.className="scene-button";b.dataset.scene=s.id;
 const thumb=document.createElement("span");thumb.className="scene-thumb";thumb.setAttribute("aria-hidden","true");
-thumb.innerHTML='<svg><use href="#i-play"/></svg>';
+if(s.poster&&availableURL(s.poster)){const img=document.createElement("img");img.src=availableURL(s.poster);img.alt="";img.loading="lazy";img.width=640;img.height=360;thumb.append(img);}else{thumb.innerHTML='<svg><use href="#i-play"/></svg>';}
 const detail=document.createElement("span"),title=document.createElement("span"),meta=document.createElement("span");
-title.className="scene-title";title.textContent=s.title;meta.className="scene-meta";meta.textContent=(s.category||"Prohlídka místa")+" · "+fmt(finite(s.duration,0));
+title.className="scene-title";title.textContent=s.title;meta.className="scene-meta";meta.textContent=fmt(finite(s.duration,0));
 detail.append(title,meta);const arrow=document.createElementNS("http://www.w3.org/2000/svg","svg");arrow.classList.add("scene-arrow");
 const use=document.createElementNS("http://www.w3.org/2000/svg","use");use.setAttribute("href","#i-arrow");arrow.append(use);b.append(thumb,detail,arrow);
-b.addEventListener("click",()=>{if(active?.id===s.id){video.currentTime=0;start();}else selectScene(s,true);});
+b.addEventListener("click",()=>{if(active?.id===s.id){video.currentTime=0;start();}else selectScene(s,true);if(!embedMode)$("prohlidka").scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});});
 list.append(b);
 });
-$("scene-count").textContent=String(scenes.length).padStart(2,"0")+(scenes.length===1?" ZÁZNAM":scenes.length<5?" ZÁZNAMY":" ZÁZNAMŮ");
+$("scene-count").textContent=String(scenes.length)+(scenes.length===1?" záznam":scenes.length<5?" záznamy":" záznamů");
 const params=new URLSearchParams(location.hash.slice(1));
 selectScene(scenes.find(s=>s.id===params.get("scene"))||scenes[0],false,params);
 } catch(e){error("Seznam prohlídek se nepodařilo načíst. Zkuste to prosím znovu.");}
 finally{loadingScene=false;}
 }
 function selectScene(scene,play,params=null) {
-video.pause();active=scene;started=false;hasFrame=false;frameTime=-1;dirty=true;
+video.pause();active=scene;stage.classList.remove("has-frame");const poster=availableURL(scene.poster);$("scene-poster").hidden=!poster;if(poster)$("scene-poster").src=poster;started=false;hasFrame=false;frameTime=-1;dirty=true;
 prepareHotspots();
 $("player-error").hidden=true;$("start-cover").hidden=false;$("start").disabled=true;
 $("start-label").textContent="Načítám prohlídku";$("play").disabled=true;$("seek").disabled=true;
@@ -250,12 +250,12 @@ video.addEventListener("loadedmetadata",()=>{
 if(Math.abs(video.videoWidth/video.videoHeight-2)>.12){error("Tento záznam nemá podporovaný panoramatický formát.");return;}
 const duration=video.duration;
 $("duration").textContent=fmt(duration);$("seek").disabled=false;$("play").disabled=false;$("start").disabled=false;
-$("start-label").textContent="Spustit prohlídku";$("quality").textContent="360° VIDEO · "+(video.videoWidth>=3840?"4K":video.videoWidth+" PX");
+$("start-label").textContent="Spustit prohlídku";$("quality").textContent="Rozlišení "+(video.videoWidth>=3840?"4K":video.videoWidth+" px");
 const target=clamp(requestedTime,0,Math.max(0,duration-.1));video.currentTime=target>0?target:.03;
 if(!fallback)$("status").textContent=pendingSharedView?"Sdílený pohled je připravený.":"Táhněte obrazem a rozhlédněte se.";
 });
 function frameReady(){
-if(video.readyState<2)return;hasFrame=true;dirty=true;clearTimeout(loadTimer);
+if(video.readyState<2)return;hasFrame=true;stage.classList.add("has-frame");dirty=true;clearTimeout(loadTimer);
 if(!started)$("start").disabled=false;
 busy(false);
 if(!fallback) {
