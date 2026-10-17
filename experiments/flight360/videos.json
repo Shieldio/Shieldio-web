@@ -149,10 +149,55 @@
         "title": "ZŠ Gabry a Málinky",
         "category": "Škola · č. p. 417",
         "description": "Základní škola Gabry a Málinky. Součástí školního areálu je také obecní knihovna a minimuzeum věnované Gabře a Málince.",
-        "start": 16,
+        "start": 8,
         "end": 24,
-        "focusTime": 18,
+        "focusTime": 10,
         "keyframes": [
+          {
+            "time": 8,
+            "u": 0.089063,
+            "v": 0.552083
+          },
+          {
+            "time": 9,
+            "u": 0.084375,
+            "v": 0.552083
+          },
+          {
+            "time": 10,
+            "u": 0.075521,
+            "v": 0.551042
+          },
+          {
+            "time": 11,
+            "u": 0.061979,
+            "v": 0.55
+          },
+          {
+            "time": 12,
+            "u": 0.038021,
+            "v": 0.548958
+          },
+          {
+            "time": 12.5,
+            "u": 0.002083,
+            "v": 0.55
+          },
+          {
+            "time": 13,
+            "u": 0.978646,
+            "v": 0.551042
+          },
+          {
+            "time": 14,
+            "u": 0.934896,
+            "v": 0.551042
+          },
+          {
+            "time": 15,
+            "u": 0.890104,
+            "v": 0.552083
+          },
           {
             "time": 16,
             "u": 0.842187,
@@ -256,49 +301,54 @@
         "title": "Kulturní dům",
         "category": "Kultura · č. p. 415",
         "description": "Kulturní dům ve Štítné nad Vláří. Na webu obce najdete informace o rezervaci prostor a kulturních akcích.",
-        "start": 11.5,
-        "end": 15,
-        "focusTime": 13,
+        "start": 16,
+        "end": 24,
+        "focusTime": 20,
         "keyframes": [
           {
-            "time": 11.5,
-            "u": 0.110937,
-            "v": 0.553125
+            "time": 16,
+            "u": 0.015625,
+            "v": 0.588542
           },
           {
-            "time": 12,
-            "u": 0.10625,
-            "v": 0.55625
+            "time": 17,
+            "u": 0.953125,
+            "v": 0.604167
           },
           {
-            "time": 12.5,
-            "u": 0.102604,
-            "v": 0.560417
+            "time": 18,
+            "u": 0.892188,
+            "v": 0.621875
           },
           {
-            "time": 13,
-            "u": 0.1,
-            "v": 0.565625
+            "time": 19,
+            "u": 0.838542,
+            "v": 0.635417
           },
           {
-            "time": 13.5,
-            "u": 0.097917,
-            "v": 0.569792
+            "time": 20,
+            "u": 0.802604,
+            "v": 0.64375
           },
           {
-            "time": 14,
-            "u": 0.096354,
-            "v": 0.573958
+            "time": 21,
+            "u": 0.778125,
+            "v": 0.645833
           },
           {
-            "time": 14.5,
-            "u": 0.095833,
-            "v": 0.580208
+            "time": 22,
+            "u": 0.757813,
+            "v": 0.646875
           },
           {
-            "time": 15,
-            "u": 0.096354,
-            "v": 0.5875
+            "time": 23,
+            "u": 0.740104,
+            "v": 0.644792
+          },
+          {
+            "time": 24,
+            "u": 0.725,
+            "v": 0.642708
           }
         ],
         "links": [
@@ -361,72 +411,45 @@
         "labelLift": 76
       },
       {
-        "id": "centrum",
-        "label": "Centrum",
-        "title": "Centrum obce",
-        "category": "Okolí · COOP, park a zastávka",
-        "description": "Pohled směrem do centra Štítné. Prodejnu COOP, blízký park a autobusovou zastávku najdete jednotlivě v mapových odkazech. Bod označuje tuto část obce.",
+        "id": "park",
+        "label": "Park",
+        "title": "Park v centru Štítné",
+        "category": "Odpočinek · zeleň",
+        "description": "Park v centru obce, poblíž prodejny COOP a autobusové zastávky. V tomto úseku letu je vidět v zadní části záběru.",
         "start": 26,
-        "end": 40,
-        "focusTime": 32,
+        "end": 34,
+        "focusTime": 30,
         "keyframes": [
           {
             "time": 26,
-            "u": 0.416667,
-            "v": 0.644792
+            "u": 0.417708,
+            "v": 0.575
           },
           {
             "time": 28,
-            "u": 0.443229,
-            "v": 0.6375
+            "u": 0.442188,
+            "v": 0.573958
           },
           {
             "time": 30,
-            "u": 0.470833,
-            "v": 0.640625
+            "u": 0.464583,
+            "v": 0.573958
           },
           {
             "time": 32,
-            "u": 0.494271,
-            "v": 0.640625
+            "u": 0.484896,
+            "v": 0.575
           },
           {
             "time": 34,
-            "u": 0.515625,
-            "v": 0.642708
-          },
-          {
-            "time": 36,
-            "u": 0.532292,
-            "v": 0.640625
-          },
-          {
-            "time": 38,
-            "u": 0.546875,
-            "v": 0.6375
-          },
-          {
-            "time": 40,
-            "u": 0.560417,
-            "v": 0.635417
+            "u": 0.503125,
+            "v": 0.576042
           }
         ],
         "links": [
           {
-            "label": "COOP · č. p. 74",
-            "url": "https://mapy.com/cs/zakladni?x=17.975497&y=49.069437&z=19"
-          },
-          {
-            "label": "Park u COOPu",
+            "label": "Poloha parku na mapě",
             "url": "https://mapy.com/cs/zakladni?x=17.975217&y=49.069725&z=19"
-          },
-          {
-            "label": "Autobusová zastávka Štítná",
-            "url": "https://mapy.com/cs/zakladni?x=17.975386&y=49.069725&z=19"
-          },
-          {
-            "label": "Služby v obci",
-            "url": "https://www.stitna-popov.cz/obec/sluzby-v-obci/podnikatele-a-sluzby/"
           }
         ]
       },
@@ -547,6 +570,100 @@
           {
             "label": "TJ Štítná nad Vláří",
             "url": "https://stitnafotbal.estranky.cz/"
+          }
+        ]
+      },
+      {
+        "id": "skolka",
+        "label": "Školka",
+        "title": "Mateřská škola Štítná nad Vláří",
+        "category": "Školka · č. p. 460",
+        "description": "Mateřská škola v části Záhumení. Kliknutím přejdete na web školky nebo její polohu na mapě.",
+        "start": 35,
+        "end": 40,
+        "focusTime": 35,
+        "keyframes": [
+          {
+            "time": 35,
+            "u": 0.146875,
+            "v": 0.616667
+          },
+          {
+            "time": 36,
+            "u": 0.1375,
+            "v": 0.628125
+          },
+          {
+            "time": 38,
+            "u": 0.120833,
+            "v": 0.66875
+          },
+          {
+            "time": 40,
+            "u": 0.086458,
+            "v": 0.733333
+          }
+        ],
+        "links": [
+          {
+            "label": "Web školky",
+            "url": "https://www.msstitna.cz/"
+          },
+          {
+            "label": "Poloha na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.9750461&y=49.0673786&z=19"
+          }
+        ]
+      },
+      {
+        "id": "dubecky",
+        "label": "Dubečky",
+        "title": "Lyžařský areál Dubečky",
+        "category": "Sport · lyžování",
+        "description": "Lyžařský areál Dubečky na svahu nad Štítnou. Prohlédněte si polohu areálu na mapě a podrobnosti o jeho zázemí.",
+        "start": 46,
+        "end": 55,
+        "focusTime": 50,
+        "keyframes": [
+          {
+            "time": 46,
+            "u": 0.170833,
+            "v": 0.570833
+          },
+          {
+            "time": 48,
+            "u": 0.164063,
+            "v": 0.58125
+          },
+          {
+            "time": 50,
+            "u": 0.154167,
+            "v": 0.595833
+          },
+          {
+            "time": 52,
+            "u": 0.140625,
+            "v": 0.604167
+          },
+          {
+            "time": 54,
+            "u": 0.125521,
+            "v": 0.613542
+          },
+          {
+            "time": 55,
+            "u": 0.117188,
+            "v": 0.61875
+          }
+        ],
+        "links": [
+          {
+            "label": "Poloha areálu na mapě",
+            "url": "https://mapy.com/cs/zakladni?x=17.9709544&y=49.0654078&z=17"
+          },
+          {
+            "label": "Informace o areálu",
+            "url": "https://www.aldr.cz/skiatlas/lyzarsky-areal-dubecky"
           }
         ]
       }
