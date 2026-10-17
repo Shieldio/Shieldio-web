@@ -4,14 +4,14 @@ Samostatný statický web a interaktivní 360° prohlídky na https://flight360.
 
 ## Obsah a scény
 
-Galerie je v `videos.json`. Každá položka má stabilní unikátní `id`, `title`, `description`, `url`, volitelnou délku `duration` v sekundách a `initialView: {yaw, pitch, fov}` ve stupních. Aktuálně jsou zveřejněny dva skutečné záznamy: celý 120,5s záznam Les a louka z R2 a 15s Let nad obcí. Názvy lokalit a klientské reference se nesmějí domýšlet.
+Galerie je v `videos.json`. Každá položka má stabilní unikátní `id`, `title`, `description`, `url`, volitelný `subtitle`, `location`, `category`, délku `duration` v sekundách a `initialView: {yaw, pitch, fov}` ve stupních. Aktuálně jsou zveřejněny dva skutečné záznamy: celý 120,5s záznam Mezi Štítnou a Popovem (les a louka) z R2 a 15s Štítná · Záhumení. Lokality potvrdil majitel. Názvy lokalit a klientské reference se nesmějí domýšlet.
 
 Nové scény doplníte do JSON; přehrávač automaticky doplní navigaci. Video musí být equirectangular 2:1, MP4/H.264 + AAC, doporučené 3840 × 1920. Přehrávač přijímá videa ze stejného originu a z https://flight360-media.shieldio.cz. Doména je výslovně povolená ve validaci i CSP. R2 bucket `flight360-media` používá Standard storage a CORS z `r2-cors.json`; HTML video má `crossorigin="anonymous"` kvůli WebGL. Návštěvníci nemají upload ani administraci.
 
 ## Návštěvnické funkce
 
-- Ovládání myší, dotykem, dvěma prsty, šipkami, +/− a Home; mezerník spouští/zastavuje let při zaměření obrazu.
-- Pozastavení, časová osa, rychlost, zvuk, výchozí pohled a celá obrazovka (včetně náhradního režimu pro mobilní Safari).
+- Ovládání myší, dotykem, dvěma prsty, šipkami, +/− a Home; mezerník spouští/zastavuje let při zaměření obrazu. Přiblížení je gestem nebo kolečkem, bez samostatného posuvníku. Číselný směr pohledu se návštěvníkům nezobrazuje; ve sdílených odkazech se stále zachovává.
+- Pozastavení, časová osa, posuvník rychlosti přehrávání 0,5–1,5×, zvuk, výchozí pohled a celá obrazovka (včetně náhradního režimu pro mobilní Safari).
 - Sdílení scény, času, směru a zorného úhlu v URL fragmentu; nový pohled se otevírá pozastavený.
 - `?embed=1` zobrazí samotný přehrávač s označením Flight360. Dialog poskytuje kód iframe.
 - Bez automatického spuštění pohybu a bez externí analytiky či cookies. Video se po spuštění opakuje; při skrytí karty se zastaví.

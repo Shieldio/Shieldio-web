@@ -59,7 +59,7 @@ function nativeFallback() {
 fallback=true;stage.classList.add("native-video");video.controls=true;
 $("stage-label").textContent="PANORAMATICKÉ VIDEO";
 $("status").textContent="360° zobrazení není v tomto zařízení dostupné. Video lze přehrát v plochém zobrazení.";
-$("fov").disabled=true;$("reset").disabled=true;
+$("reset").disabled=true;
 }
 try {initGL();} catch(e) {nativeFallback();}
 function render() {
@@ -84,9 +84,6 @@ canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();video.pause();
 canvas.addEventListener("webglcontextrestored",()=>{try{initGL();hasFrame=video.readyState>=2;$("status").textContent="Zobrazení obnoveno. Pokračujte tlačítkem Přehrát.";}catch(e){nativeFallback();}});
 function updateView() {
 yaw=((yaw%360)+360)%360;pitch=clamp(pitch,-80,80);fov=clamp(fov,40,95);
-$("fov").value=String(Math.round(fov));
-$("zoom-value").value=(75/fov).toLocaleString("cs-CZ",{maximumFractionDigits:1})+"×";
-$("orientation").textContent="POHLED "+String(Math.round(yaw)%360).padStart(3,"0")+"°";
 dirty=true;
 }
 function dismissHint(){clearTimeout(hintTimer);$("view-hint").classList.remove("visible");}
@@ -112,10 +109,16 @@ if(e.key==="+"||e.key==="=")fov-=5;if(e.key==="-")fov+=5;
 if(e.key==="Home")reset();if(e.key===" ")togglePlay();updateView();
 }
 });
-$("fov").addEventListener("input",e=>{fov=+e.target.value;updateView();});
 function reset(){const v=active?.initialView||{};yaw=finite(v.yaw,0);pitch=finite(v.pitch,-8);fov=finite(v.fov,75);updateView();}
 $("reset").addEventListener("click",reset);
-$("speed").addEventListener("change",e=>{video.playbackRate=finite(e.target.value,1);});
+function updateSpeed() {
+const rate=clamp(finite($("speed").value,1),.5,1.5);
+video.playbackRate=rate;
+const label=rate===1?"Normální":rate.toLocaleString("cs-CZ",{maximumFractionDigits:2})+"×";
+$("speed-value").value=label;
+$("speed").setAttribute("aria-valuetext",rate===1?"Normální rychlost":label+" běžné rychlosti");
+}
+$("speed").addEventListener("input",updateSpeed);
 function busy(show) {
 clearTimeout(waitingTimer);
 if(show)waitingTimer=setTimeout(()=>{if(started)$("loading").hidden=false;},650);
@@ -141,13 +144,13 @@ const b=document.createElement("button");b.type="button";b.className="scene-butt
 const thumb=document.createElement("span");thumb.className="scene-thumb";thumb.setAttribute("aria-hidden","true");
 thumb.innerHTML='<svg><use href="#i-play"/></svg>';
 const detail=document.createElement("span"),title=document.createElement("span"),meta=document.createElement("span");
-title.className="scene-title";title.textContent=s.title;meta.className="scene-meta";meta.textContent="360° video · "+fmt(finite(s.duration,0));
+title.className="scene-title";title.textContent=s.title;meta.className="scene-meta";meta.textContent=(s.category||"Prohlídka místa")+" · "+fmt(finite(s.duration,0));
 detail.append(title,meta);const arrow=document.createElementNS("http://www.w3.org/2000/svg","svg");arrow.classList.add("scene-arrow");
 const use=document.createElementNS("http://www.w3.org/2000/svg","use");use.setAttribute("href","#i-arrow");arrow.append(use);b.append(thumb,detail,arrow);
 b.addEventListener("click",()=>{if(active?.id===s.id){video.currentTime=0;start();}else selectScene(s,true);});
 list.append(b);
 });
-$("scene-count").textContent=String(scenes.length).padStart(2,"0")+(scenes.length===1?" SCÉNA":scenes.length<5?" SCÉNY":" SCÉN");
+$("scene-count").textContent=String(scenes.length).padStart(2,"0")+(scenes.length===1?" ZÁZNAM":scenes.length<5?" ZÁZNAMY":" ZÁZNAMŮ");
 const params=new URLSearchParams(location.hash.slice(1));
 selectScene(scenes.find(s=>s.id===params.get("scene"))||scenes[0],false,params);
 } catch(e){error("Seznam prohlídek se nepodařilo načíst. Zkuste to prosím znovu.");}
@@ -158,12 +161,13 @@ video.pause();active=scene;started=false;hasFrame=false;frameTime=-1;dirty=true;
 $("player-error").hidden=true;$("start-cover").hidden=false;$("start").disabled=true;
 $("start-label").textContent="Načítám prohlídku";$("play").disabled=true;$("seek").disabled=true;
 $("tour-name").textContent=scene.title;$("scene-caption").textContent=scene.title;
-$("place-title").textContent=scene.title;
+$("place-title").textContent=scene.subtitle||scene.title;
+$("scene-location").textContent=scene.location||"Štítná nad Vláří a okolí";
 $("place-description").textContent=scene.description||"Rozhlédněte se ve 360° záznamu. Let můžete kdykoli zastavit.";
 document.querySelectorAll(".scene-button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.scene===scene.id)));
 reset();requestedTime=0;pendingSharedView=!!params?.has("scene");
 if(params){yaw=finite(params.get("yaw")??yaw,yaw);pitch=finite(params.get("pitch")??pitch,pitch);fov=finite(params.get("fov")??fov,fov);requestedTime=Math.max(0,finite(params.get("t")??0,0));updateView();}
-video.src=availableURL(scene.url);video.playbackRate=finite($("speed").value,1);video.load();
+video.src=availableURL(scene.url);updateSpeed();video.load();
 clearTimeout(loadTimer);loadTimer=setTimeout(()=>{if(!hasFrame)error("Načítání trvá příliš dlouho. Zkontrolujte připojení a zkuste to znovu.");},30000);
 $("status").textContent="Načítám záznam…";if(play)start();
 }
@@ -198,7 +202,7 @@ error(code===3||code===4?"Prohlížeč tento záznam nemůže přehrát. Zkuste 
 async function start() {
 if(!active)return;
 started=true;$("start-cover").hidden=true;busy(true);
-try{await video.play();if(!fallback){$("status").textContent="Let běží ve smyčce. Pohled ovládáte vy.";if(!reduced){$("view-hint").classList.add("visible");hintTimer=setTimeout(dismissHint,3500);}}}
+try{await video.play();if(!fallback){$("status").textContent="Přehrává se. Táhněte obrazem a rozhlédněte se.";if(!reduced){$("view-hint").classList.add("visible");hintTimer=setTimeout(dismissHint,3500);}}}
 catch(e){busy(false);started=false;$("start-cover").hidden=false;$("start-label").textContent="Spustit prohlídku";$("status").textContent="Pro spuštění klepněte na Spustit prohlídku.";}
 }
 function togglePlay(){if(video.paused)start();else{video.pause();$("status").textContent="Let je pozastavený. Můžete se dál rozhlížet.";}}
@@ -267,5 +271,5 @@ window.addEventListener("hashchange",()=>{
 const params=new URLSearchParams(location.hash.slice(1));if(!params.has("scene"))return;
 const scene=scenes.find(s=>s.id===params.get("scene"));if(scene)selectScene(scene,false,params);
 });
-updateView();loadGallery();
+updateView();updateSpeed();loadGallery();
 })();

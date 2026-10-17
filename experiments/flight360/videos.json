@@ -1,8 +1,8 @@
 [
   {
     "id": "les-a-louka",
-    "title": "Les a louka",
-    "description": "Celý dvouminutový let nad loukou a okrajem lesa. Pozastavte obraz, rozhlédněte se nebo přejděte na libovolný okamžik záznamu.",
+    "title": "Mezi Štítnou a Popovem",
+    "description": "Les a louka mezi Štítnou nad Vláří a Popovem. Celý dvouminutový záznam můžete kdykoli zastavit a rozhlédnout se po okolí.",
     "url": "https://flight360-media.shieldio.cz/360%20free/les-a-louka-cely-let.mp4",
     "label": "Ukázkový záznam",
     "duration": 120.533333,
@@ -10,12 +10,15 @@
       "yaw": 0,
       "pitch": -8,
       "fov": 75
-    }
+    },
+    "subtitle": "Les a louka",
+    "location": "Štítná nad Vláří · Popov",
+    "category": "Krajina"
   },
   {
     "id": "let-nad-obci",
-    "title": "Let nad obcí",
-    "description": "Krátký let nad zástavbou a okolní krajinou. Zastavte záznam a prohlédněte si detail, nebo se během letu rozhlížejte.",
+    "title": "Štítná · Záhumení",
+    "description": "Krátký přelet nad částí Záhumení ve Štítné nad Vláří. Prohlédněte si zástavbu a její okolí z vlastního úhlu.",
     "url": "./flight360-demo.mp4",
     "label": "Ukázkový záznam",
     "duration": 15,
@@ -23,6 +26,9 @@
       "yaw": 0,
       "pitch": -8,
       "fov": 75
-    }
+    },
+    "subtitle": "Nad Záhumením",
+    "location": "Štítná nad Vláří",
+    "category": "Nad obcí"
   }
 ]
