@@ -23,8 +23,7 @@ h1{font-size:clamp(33px,5.5vw,70px);letter-spacing:-.055em;line-height:1.02;marg
 .overlay span{background:#07101fc9;border-radius:9px;padding:9px 11px;font-size:12px}
 .panel{background:#111b2b;border:1px solid #2b394e;border-radius:18px;padding:22px}
 .panel h2{margin:0 0 15px;font-size:19px;letter-spacing:-.02em}.panel p,.small{font-size:13px;color:#9daec8;line-height:1.5}
-.upload{display:block;text-align:center;padding:18px 10px;border:1px dashed #57b7a5;border-radius:12px;color:#c5fff0;cursor:pointer;font-size:13px;background:#142b32;margin:16px 0}
-.upload input{position:absolute;width:1px;height:1px;opacity:0}
+.playlist{display:grid;gap:9px;margin:16px 0}.clip{display:block;width:100%;text-align:left;background:#13273a;border:1px solid #365166;border-radius:10px;color:#e2f5ff;padding:12px}.clip.active{border-color:#70e7c7;background:#173c3c}.clip small{display:block;color:#9eb4cd;margin-top:5px}
 .status{min-height:40px;font-size:12px;color:#b4c6e1;overflow-wrap:anywhere}
 hr{border:0;border-top:1px solid #2b394e;margin:22px 0}
 label.caption{display:block;font-size:12px;color:#bbcae2;margin:10px 0 7px}
@@ -46,7 +45,7 @@ footer{font-size:12px;color:#6c7e98;margin-top:42px}
 <main>
 <div class="eyebrow">360° DRONE EXPERIENCE / PROTOTYP 01</div>
 <h1>Proleť se. <br>Rozhlédni se kamkoli.</h1>
-<p class="intro">Interaktivní přehrávač sférického videa. Přetáhni myší nebo prstem a změň směr pohledu během letu. Zatím běží ilustrační panorama — vlastní 360° video nahraješ přímo z počítače, bez odesílání na server.</p>
+<p class="intro">Interaktivní přehrávač sférického videa. Přetáhni myší nebo prstem a změň směr pohledu během letu. Vyber si z připravených záznamů a rozhlížej se během letu. Záběry se přehrávají ve smyčce; vlastní video sem návštěvníci nenahrávají.</p>
 <div class="workspace">
 <section>
 <div class="viewer" aria-label="Interaktivní 360stupňový pohled">
@@ -63,10 +62,10 @@ footer{font-size:12px;color:#6c7e98;margin-top:42px}
 <div class="note"><strong>Co je a není možné:</strong> V 360° videu můžeš otáčet hlavu a zoomovat, ale nelze se přesunout mimo skutečnou trasu dronu. Volný let WASD by vyžadoval 3D rekonstrukci scény.</div>
 </section>
 <aside class="panel">
-<h2>Vlastní záznam</h2>
-<p>Vyber MP4/WebM ve formátu <strong>equirectangular 2:1</strong> (360° panorama). Video zůstane ve tvém zařízení.</p>
-<label class="upload">＋ Vybrat 360° video<input type="file" id="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"></label>
-<div id="status" class="status" role="status">Připraveno. Prohlédni si ilustrační scénu nebo nahraj video.</div>
+<h2>Vyber let</h2>
+<p>Veřejná galerie připravených 360° záznamů. Nová videa přidává správce webu v souboru <strong>videos.json</strong>.</p>
+<div class="playlist" id="playlist"><span class="small">Načítám nabídku letů…</span></div>
+<div id="status" class="status" role="status">Načítám galerii…</div>
 <hr>
 <h2>Nastavení pohledu</h2>
 <label class="caption" for="fov">Úhel záběru <output id="fovval">75°</output></label>
@@ -77,15 +76,15 @@ footer{font-size:12px;color:#6c7e98;margin-top:42px}
 <div class="statrow"><span>Zdroj</span><strong id="source">Ilustrace</strong></div>
 <div class="statrow"><span>Rozlišení</span><strong id="resolution">—</strong></div>
 <div class="statrow"><span>Telemetrie</span><strong>Není načtena</strong></div>
-<p class="small">GPS a rychlost se nezobrazují, dokud nebudeme mít skutečná letová data. Pro velká videa při zveřejnění doporučujeme samostatné úložiště/CDN.</p>
+<p class="small">GPS a rychlost se nezobrazují, dokud nebudeme mít skutečná letová data. Velká videa ukládejte na CDN nebo objektové úložiště (s povoleným CORS).</p>
 </aside>
 </div>
 <footer>© Shieldio · Flight360 je nezávislý experimentální prototyp. Není oficiální aplikací DJI.</footer>
 </main>
-<video id="video" playsinline preload="metadata" crossorigin="anonymous" style="display:none"></video>
+<video id="video" playsinline preload="metadata" crossorigin="anonymous" loop style="display:none"></video>
 <script type="module">
 const $=id=>document.getElementById(id);
-const canvas=$("scene"),video=$("video");let renderer,camera,material,texture,drag=false,x=0,y=0,lon=0,lat=0,fov=75,objectURL=null;
+const canvas=$("scene"),video=$("video");let renderer,camera,material,texture,drag=false,x=0,y=0,lon=0,lat=0,fov=75,clips=[],activeClip=-1;
 const demo=document.createElement("canvas");demo.width=2048;demo.height=1024;
 const c=demo.getContext("2d");const gradient=c.createLinearGradient(0,0,0,1024);
 gradient.addColorStop(0,"#142d53");gradient.addColorStop(.48,"#5d98ad");gradient.addColorStop(.55,"#fed7a0");gradient.addColorStop(.58,"#a5bc93");gradient.addColorStop(1,"#21352c");
@@ -93,7 +92,7 @@ c.fillStyle=gradient;c.fillRect(0,0,2048,1024);
 for(let layer=0;layer<3;layer++){c.beginPath();c.moveTo(0,660+layer*90);for(let i=0;i<=2048;i+=16){const h=70*Math.sin(i*.007+layer*2)+38*Math.cos(i*.022+layer);c.lineTo(i,590+layer*82+h);}c.lineTo(2048,1024);c.lineTo(0,1024);c.closePath();c.fillStyle=["#536f72","#38595b","#263f3d"][layer];c.fill();}
 c.fillStyle="#fff8d7";c.beginPath();c.arc(1400,345,60,0,Math.PI*2);c.fill();
 for(let i=0;i<38;i++){let xx=(i*137.2)%2048,yy=650+((i*37)%150);c.fillStyle=i%3?"#243c33":"#355043";c.beginPath();c.moveTo(xx-21,yy+30);c.lineTo(xx,yy-60-(i%5)*9);c.lineTo(xx+22,yy+30);c.fill();}
-c.fillStyle="#f6fffd";c.font="bold 34px system-ui";c.fillText("ILUSTRAČNÍ PANORAMA — NAHRAJ SVÉ 360° VIDEO",70,105);
+c.fillStyle="#f6fffd";c.font="bold 34px system-ui";c.fillText("ILUSTRAČNÍ PANORAMA — UKÁZKOVÉ LETY BRZY",70,105);
 async function start(){
 try{
 const THREE=await import("https://cdn.jsdelivr.net/npm/three@0.180.0/+esm");
@@ -105,9 +104,9 @@ material=new THREE.MeshBasicMaterial({map:texture});scene.add(new THREE.Mesh(sph
 function resize(){const rect=canvas.getBoundingClientRect();renderer.setSize(Math.max(1,rect.width),Math.max(1,rect.height),false);camera.aspect=rect.width/Math.max(1,rect.height);camera.updateProjectionMatrix()}
 new ResizeObserver(resize).observe(canvas);resize();
 function frame(){const phi=THREE.MathUtils.degToRad(90-lat),theta=THREE.MathUtils.degToRad(lon);camera.lookAt(500*Math.sin(phi)*Math.cos(theta),500*Math.cos(phi),500*Math.sin(phi)*Math.sin(theta));renderer.render(scene,camera);requestAnimationFrame(frame)}frame();
-function switchVideo(){if(!video.videoWidth)return;if(texture)texture.dispose();texture=new THREE.VideoTexture(video);texture.colorSpace=THREE.SRGBColorSpace;material.map=texture;material.needsUpdate=true; $("source").textContent="Lokální video";$("resolution").textContent=video.videoWidth+" × "+video.videoHeight;$("live").textContent="360° VIDEO";}
+function switchVideo(){if(!video.videoWidth)return;if(texture)texture.dispose();texture=new THREE.VideoTexture(video);texture.colorSpace=THREE.SRGBColorSpace;material.map=texture;material.needsUpdate=true; $("source").textContent="Připravený let";$("resolution").textContent=video.videoWidth+" × "+video.videoHeight;$("live").textContent="360° VIDEO";}
 video.addEventListener("loadeddata",switchVideo);
-$("status").textContent="Prohlížeč připraven. Vyber MP4/WebM pro přehrávání.";
+$("status").textContent="Prohlížeč připraven.";
 }catch(e){$("status").textContent="3D zobrazení se nepodařilo spustit (WebGL nebo načtení Three.js). "+e.message;console.error(e)}
 }
 start();
@@ -123,8 +122,11 @@ $("fov").addEventListener("input",e=>{fov=+e.target.value;setFov()});
 $("reset").addEventListener("click",()=>{lon=0;lat=0;fov=75;$("fov").value=fov;setFov();updateDir()});
 $("fullscreen").addEventListener("click",()=>{const v=document.querySelector(".viewer");if(document.fullscreenElement)document.exitFullscreen?.();else v.requestFullscreen?.()});
 function fmt(t){if(!Number.isFinite(t))return "0:00";return Math.floor(t/60)+":"+String(Math.floor(t%60)).padStart(2,"0")}
-$("file").addEventListener("change",e=>{const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith("video/")&&!/\.(mp4|webm|mov)$/i.test(file.name)){$("status").textContent="Vyber videosoubor MP4/WebM/MOV.";return}video.pause();if(objectURL)URL.revokeObjectURL(objectURL);objectURL=URL.createObjectURL(file);video.src=objectURL;video.load();$("status").textContent="Načítám: "+file.name+" ("+(file.size/1048576).toFixed(1)+" MB)";$("play").disabled=false;$("seek").disabled=false;});
-video.addEventListener("loadedmetadata",()=>{const r=video.videoWidth/video.videoHeight;$("duration").textContent=fmt(video.duration);$("status").textContent=(Math.abs(r-2)>.12?"Pozor: soubor nemá poměr 2:1. Obraz může být zkreslený. ":"")+"Nahráno pouze lokálně.";});
+async function loadGallery(){
+try{const res=await fetch("./videos.json",{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const data=await res.json();clips=Array.isArray(data)?data.filter(v=>typeof v.url==="string"&&v.url.trim()&&typeof v.title==="string"):[];const p=$("playlist");p.replaceChildren();if(!clips.length){p.textContent="Zatím nemáme publikované video. Ilustrační panorama je připravené."; $("status").textContent="První záznam bude doplněn správcem webu.";return}clips.forEach((clip,i)=>{const b=document.createElement("button");b.type="button";b.className="clip";b.textContent=clip.title;const sub=document.createElement("small");sub.textContent=clip.description||"360° záznam";b.appendChild(sub);b.addEventListener("click",()=>selectClip(i));p.appendChild(b)});selectClip(0);}catch(e){$("playlist").textContent="Galerii se nepodařilo načíst.";$("status").textContent="Chyba načtení videos.json: "+e.message}}
+function selectClip(i){if(!clips[i])return;activeClip=i;video.pause();video.src=clips[i].url;video.load();video.playbackRate=Number($("speed").value);$("play").disabled=false;$("seek").disabled=false;$("status").textContent="Vybráno: "+clips[i].title;$("playlist").querySelectorAll("button").forEach((b,j)=>{b.classList.toggle("active",i===j);b.setAttribute("aria-pressed",String(i===j))});video.play().catch(()=>{$("status").textContent="Vyber let a klikni na Přehrát. Automatické spuštění může prohlížeč blokovat.";});}
+loadGallery();
+video.addEventListener("loadedmetadata",()=>{const r=video.videoWidth/video.videoHeight;$("duration").textContent=fmt(video.duration);$("status").textContent=(Math.abs(r-2)>.12?"Pozor: soubor nemá poměr 2:1. Obraz může být zkreslený. ":"")+"Připraveno k přehrávání ve smyčce.";});
 video.addEventListener("error",()=>{$("status").textContent="Video nelze dekódovat v tomto prohlížeči. Zkus MP4 (H.264) nebo WebM.";});
 $("play").addEventListener("click",async()=>{if(video.paused){try{await video.play()}catch(e){$("status").textContent="Přehrávání selhalo: "+e.message}}else video.pause()});
 video.addEventListener("play",()=>{$("play").textContent="Ⅱ Pauza"});
@@ -132,6 +134,6 @@ video.addEventListener("pause",()=>{$("play").textContent="▶ Přehrát"});
 video.addEventListener("timeupdate",()=>{if(Number.isFinite(video.duration)&&video.duration>0){$("seek").value=Math.round(1000*video.currentTime/video.duration);$("current").textContent=fmt(video.currentTime)}});
 $("seek").addEventListener("input",e=>{if(Number.isFinite(video.duration)&&video.duration>0)video.currentTime=video.duration*(+e.target.value)/1000});
 $("speed").addEventListener("change",e=>video.playbackRate=+e.target.value);
-window.addEventListener("pagehide",()=>{if(objectURL)URL.revokeObjectURL(objectURL)});
+video.addEventListener("ended",()=>{video.currentTime=0;video.play().catch(()=>{})});
 </script>
 </body></html>
