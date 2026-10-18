@@ -9,7 +9,7 @@
     "initialView": {
       "yaw": -111.2,
       "pitch": -14,
-      "fov": 75
+      "fov": 65
     },
     "subtitle": "Od kostela nad Záhumení",
     "location": "Štítná nad Vláří",
@@ -1279,7 +1279,7 @@
     "initialView": {
       "yaw": 0,
       "pitch": -8,
-      "fov": 75
+      "fov": 65
     },
     "subtitle": "Les a louka",
     "location": "Štítná nad Vláří a Popov",
@@ -1296,7 +1296,7 @@
     "initialView": {
       "yaw": 0,
       "pitch": -8,
-      "fov": 75
+      "fov": 65
     },
     "subtitle": "Nad Záhumením",
     "location": "Štítná nad Vláří",

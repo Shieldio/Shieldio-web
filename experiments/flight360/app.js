@@ -13,7 +13,8 @@ const embedScene = embedPath?.[1] || new URLSearchParams(location.hash.slice(1))
 document.body.classList.toggle("embed", embedMode);
 if(embedMode){$("autoplay").checked=false;$("autoplay").disabled=true;}
 let scenes = [], active = null, gl = null, program = null, texture = null, uniforms = null;
-let yaw = 0, pitch = -8, fov = 75, dirty = true, hasFrame = false, started = false, seeking = false;
+const DEFAULT_FOV = 65;
+let yaw = 0, pitch = -8, fov = DEFAULT_FOV, dirty = true, hasFrame = false, started = false, seeking = false;
 let requestedTime = 0, pendingSharedView = false, fallback = false, waitingTimer, hintTimer, frameTime = -1;
 let lastFocus = null, dialogKind = "share", loadingScene = false, loadTimer;
 let presentedTime = null;
@@ -23,7 +24,7 @@ video.requestVideoFrameCallback(onFrame);
 }
 video.addEventListener("seeking",()=>{presentedTime=null;});
 const pointers = new Map();
-let pinchDistance = 0, pinchFov = 75;
+let pinchDistance = 0, pinchFov = DEFAULT_FOV;
 
 // Tracked spherical points are measured in the source panorama, not screen pixels.
 const hotspotLayer=document.createElement("div");
@@ -229,7 +230,7 @@ if(e.key==="+"||e.key==="=")fov-=5;if(e.key==="-")fov+=5;
 if(e.key==="Home")reset();if(e.key===" ")togglePlay();updateView();
 }
 });
-function reset(){const v=active?.initialView||{};yaw=finite(v.yaw,0);pitch=finite(v.pitch,-8);fov=finite(v.fov,75);updateView();}
+function reset(){const v=active?.initialView||{};yaw=finite(v.yaw,0);pitch=finite(v.pitch,-8);fov=finite(v.fov,DEFAULT_FOV);updateView();}
 $("reset").addEventListener("click",reset);
 function updateSpeed() {
 const rate=clamp(finite($("speed").value,1),.5,1.5);
