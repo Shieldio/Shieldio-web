@@ -99,7 +99,7 @@ let a=keys[0],b=keys[keys.length-1];
 for(let i=1;i<keys.length;i++){if(time<=keys[i].time){a=keys[i-1];b=keys[i];break;}}
 const mix=clamp((time-a.time)/(b.time-a.time),0,1);
 const du=((b.u-a.u+.5)%1+1)%1-.5;
-return {u:a.u+du*mix,v:a.v+(b.v-a.v)*mix};
+return {u:((a.u+du*mix)%1+1)%1,v:a.v+(b.v-a.v)*mix};
 }
 function projectHotspot(point,width,height){
 const longitude=(point.u-.5)*Math.PI*2,latitude=(.5-point.v)*Math.PI;

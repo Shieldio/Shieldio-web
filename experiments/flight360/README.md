@@ -38,11 +38,10 @@ Celý let: `https://flight360-media.shieldio.cz/360%20free/les-a-louka-cely-let.
 
 ## Nová scéna: exteriér štítenského kostela
 
-Manifest obsahuje rezervovanou položku `stitna-kostel-exterier` s `published: false` a `url: null`. Nejde o již existující přelet od kostela při západu slunce. Žádná URL videa, délka ani orientace záběru nebyla domyšlena. Po dodání záznamu:
-
-1. Nahrajte skutečné panoramatické video do R2 `flight360-media`, ověřte formát a HTTP Range.
-2. Doplňte skutečnou URL, popis, délku, případný poster a výchozí pohled; značky měřte v novém záznamu, nekopírujte je z jiného letu.
-3. Změňte `published` na `true`, nasaďte a ověřte `/embed/stitna-kostel-exterier` i v cizím webu. Teprve potom zkopírujte iframe do firemních stránek.
+Scéna `stitna-kostel-exterier` je publikovaná a používá skutečný 83,23s originál z R2.
+Kontrola kotev, podkladové snímky, referenční souřadnice a omezení přesnosti jsou
+popsány v [tracking-review.md](tracking-review.md). Před další změnou ověřte totožnost
+stavby proti tomuto letu. Počet časových stop není počet různých památek.
 
 ## Hlavičky a R2
 
