@@ -31,7 +31,7 @@ test('published embed uses shared player and permits framing without inherited X
 });
 
 test('missing, unpublished and malformed routes never substitute a published scene', async () => {
-  for (const path of ['/embed/no-such-scene', '/embed/stitna-kostel-exterier', '/embed', '/embed/', '/embed/a/b', '/embed/%3Cscript%3E']) {
+  for (const path of ['/embed/no-such-scene', '/embed', '/embed/', '/embed/a/b', '/embed/%3Cscript%3E']) {
     const response = await fetchEmbed(path);
     assert.equal(response.status, 404, path);
     assert.doesNotMatch(await response.text(), /<video|<script/);
@@ -72,9 +72,28 @@ test('static and Worker security policies stay consistent', async () => {
   assert.match(headers, /! X-Frame-Options/);
 });
 
-test('reserved church exterior has no invented media URL and no duplicate scene id', () => {
-  const draft = manifest.find(s => s.id === 'stitna-kostel-exterier');
-  assert.equal(draft.published, false);
-  assert.equal(draft.url, null);
+test('published church exterior has validated source and tracked landmarks', async () => {
+  const church = manifest.find(s => s.id === 'stitna-kostel-exterier');
+  assert.equal(church.published, true);
+  assert.equal(church.url, 'https://flight360-media.shieldio.cz/kostel%20exterier.mov');
+  assert.ok(church.hotspots.length >= 10);
   assert.equal(new Set(manifest.map(s => s.id)).size, manifest.length);
+  for (const point of church.hotspots) {
+    assert.ok(point.keyframes.length >= 2, point.id);
+    assert.equal(point.keyframes[0].time, point.start);
+    assert.equal(point.keyframes.at(-1).time, point.end);
+    assert.ok(point.keyframes.every(key => key.u >= 0 && key.u <= 1 && key.v >= 0 && key.v <= 1), point.id);
+  }
+  assert.equal((await fetchEmbed('/embed/stitna-kostel-exterier')).status, 200);
+});
+
+test('unpublished scenes cannot be embedded even when they have a media URL', async () => {
+  const hidden = {id: 'not-public', title: 'Nezveřejněný záznam', published: false, url: 'https://flight360-media.shieldio.cz/example.mov'};
+  const bindings = {ASSETS: {async fetch(request) {
+    const path = new URL(request.url).pathname;
+    if (path === '/videos.json') return Response.json([...manifest, hidden]);
+    if (path === '/') return new Response(page);
+    return new Response('static');
+  }}};
+  assert.equal((await fetchEmbed('/embed/not-public', 'GET', bindings)).status, 404);
 });
