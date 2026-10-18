@@ -7,7 +7,7 @@ SHA-256: `b4507660f92c5805377f0da9609df239999d9fa4397092ee43c9eb123187bd2c`.
 ## Postup a meze kontroly
 
 Celý let byl prohlédnut v panoramatických přehledech včetně začátku a odletu.
-Každá z 538 výsledných kotev byla zobrazena v kontrolním výřezu skutečného
+Každá z 579 výsledných kotev byla zobrazena v kontrolním výřezu skutečného
 snímku v čase kotvy. Vodorovné okraje výřezů jsou periodické, aby bylo vidět
 navázání na spoji panoramatu. Kontrolní snímky byly zmenšené na 1920 × 960;
 nejde o ověření každého snímku při plném 4K rozlišení ani garanci pixelové přesnosti.
@@ -33,8 +33,8 @@ areálu; není to identifikace konkrétního hrobu.
   chodníku, údajné hřbitovní zdi a duplicitních náhrobků a vstupu síně.
 - Boční vstup nahrazuje nepřesně sledovaná boční okna; jde o skutečné dveře
   se stříškou uprostřed jižní strany lodi.
-- Manifest má 18 časových stop, některé ukazují tutéž stavbu v jiném úseku.
-  Toto číslo neznamená 18 různých staveb ani 18 nezávislých památek.
+- Manifest má 19 časových stop, některé ukazují tutéž stavbu v jiném úseku.
+  Toto číslo neznamená 19 různých staveb ani 19 nezávislých památek.
 
 Spoj panoramatu přechází sledované okno věže mezi 14,4 a 14,6 s, nikoli přesně
 v 11 s. Regresní test ověřuje naměřený přechod i oba směry syntetického přechodu
@@ -58,12 +58,13 @@ Souřadnice jsou v panoramatu 1920 × 960, počátek vlevo nahoře.
 | kneziste | 49 | 766 | 465 |
 | sakristie | 51 | 697 | 629 |
 | historicke-nahrobky | 54 | 301 | 666 |
-| farni-trida | 0 | 535 | 735 |
+| fara | 0 | 887 | 680 |
+| farni-trida | 0 | 920 | 625 |
 | obradni-sin-zaver | 60 | 1000 | 550 |
 | hrbitov-zaver | 70 | 1300 | 660 |
 | vezni-hodiny | 38 | 1632 | 393 |
 | bocni-vstup | 45 | 1055 | 595 |
-| farni-trida-odlet | 80 | 530 | 724 |
+| farni-trida-odlet | 80 | 1885 | 598 |
 
 ## Informační zdroje
 
@@ -91,3 +92,11 @@ z téhož originálu: přehrávání/pauza, výběr Farní třídy s posunem na 
 časový posuv na 41,6 s a dialog sdílení se správným časem. Zdrojová URL v produkci
 zůstává původní HEVC MOV; místní test nepotvrzuje jeho přehratelnost ve všech
 prohlížečích. Vestavěný prohlížeč originál v místním náhledu nepřehrál.
+
+Upřesnění podle uživatelova označeného snímku z 18:49: fara je žlutá budova
+s vikýři u silnice, Farní třída je nízká zahnutá stavba za ní. Dřívější
+nová dráha na jiném nízkém objektu byla nahrazena podle tohoto jednoznačného
+obrazového podkladu v úvodu i při odletu.
+
+Podle téhož označeného snímku přidána samostatná stopa skutečné fary (0–8 s),
+oddělená od budovy třídy za ní. Historický kontext vychází z obecní historie.

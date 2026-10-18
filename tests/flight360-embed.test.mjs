@@ -146,15 +146,15 @@ test('measured tower seam follows panorama edge rather than crossing its centre'
 test('church source landmarks remain at independently identified frame locations', () => {
   // Hand-identified reference pixels in the 1920x960 source panorama.
   for (const [id,t,x,y] of [
-    ['kostel-prvni',11,1204,600], ['vez',38,1633,430],
+    ['fara',0,887,680], ['kostel-prvni',11,1204,600], ['vez',38,1633,430],
     ['kriz',42,1295,535], ['historicke-nahrobky',54,301,666],
-    ['obradni-sin-zaver',60,1000,550], ['farni-trida',0,535,735],
-    ['farni-trida-odlet',80,530,724], ['bocni-vstup',45,1055,595]
+    ['obradni-sin-zaver',60,1000,550], ['farni-trida',0,920,625],
+    ['farni-trida-odlet',80,1885,598], ['bocni-vstup',45,1055,595]
   ]) {
     const p=trackedPoint(church.hotspots.find(h => h.id===id),t);
     assert.ok(Math.abs(p.u*1920-x)<2 && Math.abs(p.v*960-y)<2,id);
   }
-  assert.ok(!church.hotspots.some(h => ['fara','kostelni-strecha','cesta-ke-vstupu','cesta-hrbitov'].includes(h.id)));
+  assert.ok(!church.hotspots.some(h => ['kostelni-strecha','cesta-ke-vstupu','cesta-hrbitov'].includes(h.id)));
   for (const h of church.hotspots.filter(h => h.id.startsWith('farni-trida'))) {
     assert.equal(h.title,'Farní třída');
     assert.ok(h.end<=8 || h.start>=75);
