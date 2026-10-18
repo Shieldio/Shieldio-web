@@ -1,0 +1,227 @@
+{
+  "sceneId": "stitna-kostel-exterier",
+  "status": "awaiting-footage-identification-and-frame-verification",
+  "notes": "Pouze redakční podklady. Nezveřejňovat žádné body, dokud nebude přístupné přesně nahrané video a nebudou vytvořeny časové klíčové snímky {time,u,v} v equirektangulárním 2:1 obraze. Poloha ani časy se nesmějí kopírovat z jiné scény. Postupně zobrazovat maximálně několik nepřekrývajících se bodů podle skutečné viditelnosti; pro výrazný pohyb přidávat klíčový snímek po cca 0,5–2 s. U Farní třídy ověřit význam; u hrobů konkrétní nápisy. Ověřit podporu HEVC ve webových prohlížečích; preferovat široce přehratelnou H.264 variantu.",
+  "editorialSources": [
+    "https://farnosts.cz/misto.php?id=2227",
+    "https://www.ado.cz/katalog/www/farnosti/stitna-nad-vlari",
+    "https://www.stitna-popov.cz/obec/o-obci/neco-malo-z-historie-obce/",
+    "https://archmap.cz/cs/objekt/51817",
+    "https://archmap.cz/cs/objekt/52474",
+    "https://www.stitna-popov.cz/obcan/mistni-hrbitov/"
+  ],
+  "editorialPoints": [
+    {
+      "id": "kostel",
+      "label": "Kostel sv. Josefa",
+      "title": "Farní kostel sv. Josefa",
+      "category": "Památka · 1787",
+      "description": "Kostel byl dokončen roku 1787 po třech letech stavby. Spolu s ním vznikla fara a první škola na farské zahradě. Je hlavním kostelem Římskokatolické farnosti Štítná nad Vláří.",
+      "source": "https://www.stitna-popov.cz/obec/o-obci/neco-malo-z-historie-obce/",
+      "links": [
+        {
+          "label": "Web farnosti",
+          "url": "https://farnosts.cz/"
+        },
+        {
+          "label": "Historie obce",
+          "url": "https://www.stitna-popov.cz/obec/o-obci/neco-malo-z-historie-obce/"
+        },
+        {
+          "label": "Památkový katalog",
+          "url": "https://pamatkovykatalog.cz/kostel-sv-josefa-12617891"
+        }
+      ]
+    },
+    {
+      "id": "vez",
+      "label": "Kostelní věž",
+      "title": "Věž a zvonicové patro",
+      "category": "Architektura",
+      "description": "Věž vystupuje ze západního průčelí kostela. Nejvyšší zvonicové patro je otevřeno do tří stran; nad okny jsou kruhové ciferníky hodin.",
+      "source": "https://archmap.cz/cs/objekt/51817",
+      "links": [
+        {
+          "label": "Architektonický popis",
+          "url": "https://archmap.cz/cs/objekt/51817"
+        }
+      ]
+    },
+    {
+      "id": "pruceli",
+      "label": "Hlavní průčelí",
+      "title": "Západní průčelí a vstup",
+      "category": "Architektura",
+      "description": "Hlavní vstup se nachází v západním průčelí pod věží. Průčelí je členěno mělkým rizalitem a vstup kryje kovaná stříška.",
+      "source": "https://archmap.cz/cs/objekt/51817",
+      "links": [
+        {
+          "label": "Památkový katalog",
+          "url": "https://pamatkovykatalog.cz/kostel-sv-josefa-12617891"
+        }
+      ]
+    },
+    {
+      "id": "lod",
+      "label": "Kostelní loď",
+      "title": "Loď kostela",
+      "category": "Architektura",
+      "description": "Hlavní loď kostela má obdélný půdorys, na obou delších stranách tři okenní osy a sedlovou střechu.",
+      "source": "https://archmap.cz/cs/objekt/51817",
+      "links": [
+        {
+          "label": "Popis architektury",
+          "url": "https://archmap.cz/cs/objekt/51817"
+        }
+      ]
+    },
+    {
+      "id": "kneziste",
+      "label": "Kněžiště",
+      "title": "Presbytář kostela",
+      "category": "Architektura",
+      "description": "Na loď navazuje odsazené kněžiště se segmentovým zakončením. Ve vnitřním prostoru se nachází hlavní oltář svatého Josefa.",
+      "source": "https://archmap.cz/cs/objekt/51817",
+      "links": [
+        {
+          "label": "Popis památky",
+          "url": "https://archmap.cz/cs/objekt/51817"
+        }
+      ]
+    },
+    {
+      "id": "sakristie",
+      "label": "Sakristie",
+      "title": "Sakristie kostela",
+      "category": "Architektura",
+      "description": "K presbytáři přiléhá menší přízemní sakristie přibližně čtvercového půdorysu.",
+      "source": "https://archmap.cz/cs/objekt/51817",
+      "links": [
+        {
+          "label": "Popis památky",
+          "url": "https://archmap.cz/cs/objekt/51817"
+        }
+      ]
+    },
+    {
+      "id": "fara",
+      "label": "Fara",
+      "title": "Fara Štítná nad Vláří",
+      "category": "Farnost · č. p. 123",
+      "description": "Budova fary vznikla v roce 1787 souběžně s výstavbou kostela. Dnes je sídlem Římskokatolické farnosti Štítná nad Vláří.",
+      "source": "https://www.ado.cz/katalog/www/farnosti/stitna-nad-vlari",
+      "links": [
+        {
+          "label": "Web farnosti",
+          "url": "https://farnosts.cz/"
+        },
+        {
+          "label": "Arcidiecézní katalog",
+          "url": "https://www.ado.cz/katalog/www/farnosti/stitna-nad-vlari"
+        }
+      ]
+    },
+    {
+      "id": "farska-zahrada",
+      "label": "Farská zahrada",
+      "title": "Zahrada a počátky místní školy",
+      "category": "Historie · 1787",
+      "description": "Podle obecních dějin stála první škola ve Štítné od roku 1787 na farské zahradě. Není doloženo, zda se její původní budova dochovala.",
+      "source": "https://www.stitna-popov.cz/obec/o-obci/neco-malo-z-historie-obce/",
+      "links": [
+        {
+          "label": "Historie obce",
+          "url": "https://www.stitna-popov.cz/obec/o-obci/neco-malo-z-historie-obce/"
+        }
+      ]
+    },
+    {
+      "id": "smutecni-sin",
+      "label": "Smuteční síň",
+      "title": "Smuteční obřadní síň",
+      "category": "Architektura · 1975",
+      "description": "Moderní obřadní síň v jihovýchodní části hřbitova vznikla v roce 1975 podle návrhu architekta Milana Možného. Její výrazná střecha odkazuje na podobu místní vesnické zástavby.",
+      "source": "https://archmap.cz/cs/objekt/52474",
+      "links": [
+        {
+          "label": "Atlas české architektury",
+          "url": "https://archmap.cz/cs/objekt/52474"
+        },
+        {
+          "label": "Památkový katalog",
+          "url": "https://pamatkovykatalog.cz/smutecni-obradni-sin-14110307"
+        }
+      ]
+    },
+    {
+      "id": "hrbitov",
+      "label": "Hřbitov",
+      "title": "Hřbitov u kostela sv. Josefa",
+      "category": "Místo paměti",
+      "description": "Hřbitov bezprostředně navazuje na farní kostel. Informace o správě pohřebiště a nájmu hrobových míst zveřejňuje obec Štítná nad Vláří-Popov.",
+      "source": "https://www.stitna-popov.cz/obcan/mistni-hrbitov/",
+      "links": [
+        {
+          "label": "Místní hřbitov – obec",
+          "url": "https://www.stitna-popov.cz/obcan/mistni-hrbitov/"
+        }
+      ]
+    },
+    {
+      "id": "hroby-knezi",
+      "label": "Hroby kněží",
+      "title": "Hroby někdejších duchovních správců",
+      "category": "Farní paměť",
+      "description": "Na místním hřbitově jsou také hroby kněží, kteří v minulosti působili ve Štítné nad Vláří. Jednotlivá jména a přiřazení konkrétních hrobů je třeba ověřit podle náhrobků.",
+      "source": "user-confirmed",
+      "links": [
+        {
+          "label": "Web farnosti",
+          "url": "https://farnosts.cz/"
+        }
+      ]
+    },
+    {
+      "id": "kriz-hrbitov",
+      "label": "Hřbitovní kříž",
+      "title": "Kříž v areálu hřbitova",
+      "category": "Pietní místo",
+      "description": "Kříž stojící v areálu hřbitova. Podobu a umístění v prohlídce označíme podle skutečného záběru.",
+      "source": "user-confirmed",
+      "links": [
+        {
+          "label": "Místní hřbitov",
+          "url": "https://www.stitna-popov.cz/obcan/mistni-hrbitov/"
+        }
+      ]
+    },
+    {
+      "id": "farnitrida",
+      "label": "Farní třída",
+      "title": "Farní třída",
+      "category": "Farní areál",
+      "description": "Místo označené místním názvem Farní třída. Jeho přesné využití a označení ověříme u farnosti, aby popis odpovídal skutečnosti.",
+      "source": "user-confirmed",
+      "links": [
+        {
+          "label": "Web farnosti",
+          "url": "https://farnosts.cz/"
+        }
+      ]
+    },
+    {
+      "id": "zvonice-pohled",
+      "label": "Hodiny na věži",
+      "title": "Věžní hodiny",
+      "category": "Architektonický detail",
+      "description": "Nad okny zvonicového patra věže jsou umístěné novodobé kruhové kovové ciferníky hodin.",
+      "source": "https://archmap.cz/cs/objekt/51817",
+      "links": [
+        {
+          "label": "Popis kostela",
+          "url": "https://archmap.cz/cs/objekt/51817"
+        }
+      ]
+    }
+  ]
+}
