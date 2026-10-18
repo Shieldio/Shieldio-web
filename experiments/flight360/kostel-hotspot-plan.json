@@ -1,7 +1,7 @@
 {
   "sceneId": "stitna-kostel-exterier",
   "status": "awaiting-footage-identification-and-frame-verification",
-  "notes": "Pouze redakční podklady. Nezveřejňovat žádné body, dokud nebude přístupné přesně nahrané video a nebudou vytvořeny časové klíčové snímky {time,u,v} v equirektangulárním 2:1 obraze. Poloha ani časy se nesmějí kopírovat z jiné scény. Postupně zobrazovat maximálně několik nepřekrývajících se bodů podle skutečné viditelnosti; pro výrazný pohyb přidávat klíčový snímek po cca 0,5–2 s. U Farní třídy ověřit význam; u hrobů konkrétní nápisy. Ověřit podporu HEVC ve webových prohlížečích; preferovat široce přehratelnou H.264 variantu.",
+  "notes": "Pouze redakční podklady. Nezveřejňovat žádné body, dokud nebude přístupné přesně nahrané video a nebudou vytvořeny časové klíčové snímky {time,u,v} v equirektangulárním 2:1 obraze. Poloha ani časy se nesmějí kopírovat z jiné scény. Postupně zobrazovat maximálně několik nepřekrývajících se bodů podle skutečné viditelnosti; pro výrazný pohyb přidávat klíčový snímek po cca 0,5–2 s. U Farní třídy ověřit význam; u hrobů konkrétní nápisy. Ověřit podporu HEVC ve webových prohlížečích; preferovat široce přehratelnou H.264 variantu. Upřesnění Farní třídy: za farou; před veřejným trackingem zkontrolovat objekt při začátku nebo závěru a nezaměnit s okolní zástavbou.",
   "editorialSources": [
     "https://farnosts.cz/misto.php?id=2227",
     "https://www.ado.cz/katalog/www/farnosti/stitna-nad-vlari",
@@ -206,6 +206,19 @@
         {
           "label": "Web farnosti",
           "url": "https://farnosts.cz/"
+        }
+      ],
+      "locationHint": "Podle upřesnění autora videa stojí za budovou fary. V 360° záznamu je viditelná v prvních sekundách nebo při závěrečném odletu. Bez jednoznačného označení konkrétní střechy se nesmějí zveřejnit odhadnuté pohyblivé kotevní body.",
+      "possibleTimeWindows": [
+        {
+          "start": 0,
+          "end": 8,
+          "verified": false
+        },
+        {
+          "start": 75,
+          "end": 83.2,
+          "verified": false
         }
       ]
     },
