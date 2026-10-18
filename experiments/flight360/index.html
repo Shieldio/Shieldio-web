@@ -13,10 +13,10 @@
 <meta property="og:description" content="Lety nad Štítnou nad Vláří. Zastavte záznam a rozhlédněte se.">
 <meta property="og:url" content="https://flight360.shieldio.cz/">
 <meta property="og:image" content="https://flight360.shieldio.cz/sunset-poster.jpg">
-<link rel="icon" href="./favicon.svg" type="image/svg+xml">
-<link rel="preload" as="image" href="./sunset-poster.jpg" fetchpriority="high">
-<link rel="stylesheet" href="./app.css?v=20261017-places-4">
-<script src="./app.js?v=20261017-places-4" defer></script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" href="/sunset-poster.jpg" fetchpriority="high">
+<link rel="stylesheet" href="/app.css?v=20261018-embed-1">
+<script src="/app.js?v=20261018-embed-1" defer></script>
 </head>
 <body>
 <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -35,7 +35,7 @@
 </defs></svg>
 <a class="skip" href="#prohlidka">Přejít na prohlídku</a>
 <header class="site-header wrap">
-<a class="wordmark" href="./" aria-label="Flight360 — úvod">flight<span>360</span></a>
+<a class="wordmark" href="/" aria-label="Flight360 — úvod">flight<span>360</span></a>
 <p class="header-location">Štítná nad Vláří a okolí</p>
 <a class="header-contact" href="#kontakt">Vlastní prohlídka</a>
 </header>
@@ -43,11 +43,12 @@
 <section class="tour-section" id="prohlidka" aria-labelledby="tour-name">
 <div class="viewer-shell">
 <div class="stage" id="stage">
-<img class="stage-poster" id="scene-poster" src="./sunset-poster.jpg" alt="" fetchpriority="high" width="1440" height="810">
+<img class="stage-poster" id="scene-poster" src="/sunset-poster.jpg" alt="" fetchpriority="high" width="1440" height="810">
 <canvas id="view" tabindex="0" aria-label="360° prohlídka. Šipkami se rozhlížejte, klávesami plus a minus přibližujte, mezerníkem ovládejte přehrávání."></canvas>
 <video id="video" muted playsinline preload="metadata" crossorigin="anonymous" aria-label="Videozáznam prohlídky"></video>
 <span class="sr-only" id="stage-label">360° prohlídka</span>
 <div class="stage-top">
+<a class="embed-brand" id="embed-brand" href="/" target="_blank" rel="noopener">Flight360 <span>by shieldio</span></a>
 <p class="interaction-guide"><svg aria-hidden="true"><use href="#i-drag"/></svg> Tažením se rozhlédnete</p>
 <div class="stage-tools">
 <button class="glass-button exit-fullscreen" id="exit-fullscreen" aria-label="Zavřít celou obrazovku" title="Zavřít celou obrazovku"><svg><use href="#i-close"/></svg></button>

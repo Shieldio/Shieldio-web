@@ -10,6 +10,12 @@
   ],
   "assets": {
     "directory": "experiments/flight360",
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/embed",
+      "/embed/*"
+    ]
+  },
+  "main": "workers/flight360.mjs"
 }

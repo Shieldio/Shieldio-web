@@ -7,8 +7,11 @@ const finite = (v, fallback) => Number.isFinite(Number(v)) ? Number(v) : fallbac
 const fmt = t => Number.isFinite(t) ? Math.floor(t / 60) + ":" + String(Math.floor(t % 60)).padStart(2, "0") : "0:00";
 const icon = (id, name) => $(id).setAttribute("href", "#i-" + name);
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const embedMode = new URLSearchParams(location.search).get("embed") === "1";
+const embedPath = /^\/embed\/([a-zA-Z0-9_-]+)\/?$/.exec(location.pathname);
+const embedMode = location.pathname === "/embed" || location.pathname.startsWith("/embed/") || new URLSearchParams(location.search).get("embed") === "1";
+const embedScene = embedPath?.[1] || new URLSearchParams(location.hash.slice(1)).get("scene");
 document.body.classList.toggle("embed", embedMode);
+if(embedMode){$("autoplay").checked=false;$("autoplay").disabled=true;}
 let scenes = [], active = null, gl = null, program = null, texture = null, uniforms = null;
 let yaw = 0, pitch = -8, fov = 75, dirty = true, hasFrame = false, started = false, seeking = false;
 let requestedTime = 0, pendingSharedView = false, fallback = false, waitingTimer, hintTimer, frameTime = -1;
@@ -246,17 +249,21 @@ clearTimeout(loadTimer);busy(false);video.pause();$("player-error").hidden=false
 $("error-copy").textContent=message;$("status").textContent="Prohlídka je dočasně nedostupná.";
 }
 function availableURL(raw) {
-try{if(typeof raw!=="string")return null;const u=new URL(raw,location.href);const allowed=u.origin===location.origin||u.origin==="https://flight360-media.shieldio.cz";return allowed&&/^https?:$/.test(u.protocol)&&!u.username&&!u.password?u.href:null;}catch(e){return null;}
+try{if(typeof raw!=="string")return null;const u=new URL(raw,location.origin+"/");const allowed=u.origin===location.origin||u.origin==="https://flight360-media.shieldio.cz";return allowed&&/^https?:$/.test(u.protocol)&&!u.username&&!u.password?u.href:null;}catch(e){return null;}
 }
 async function loadGallery() {
 loadingScene=true;
 try{
-const response=await fetch("./videos.json",{cache:"no-cache"});if(!response.ok)throw new Error("Gallery unavailable");
+const response=await fetch("/videos.json",{cache:"no-cache"});if(!response.ok)throw new Error("Gallery unavailable");
 const data=await response.json();
-scenes=Array.isArray(data)?data.filter(s=>s&&typeof s.title==="string"&&typeof s.id==="string"&&availableURL(s.url)):[];
+scenes=Array.isArray(data)?data.filter(s=>s&&s.published!==false&&typeof s.title==="string"&&typeof s.id==="string"&&availableURL(s.url)):[];
 if(!scenes.length)throw new Error("Empty gallery");
+if(embedMode){
+scenes=scenes.filter(s=>s.id===embedScene);
+if(!scenes.length){error("Tato prohlídka zatím není zveřejněná nebo neexistuje. Zkontrolujte odkaz.");return;}
+}
 const list=$("scene-list");list.replaceChildren();
-scenes.forEach((s,i)=>{
+if(!embedMode)scenes.forEach((s,i)=>{
 const b=document.createElement("button");b.type="button";b.className="scene-button";b.dataset.scene=s.id;
 const thumb=document.createElement("span");thumb.className="scene-thumb";thumb.setAttribute("aria-hidden","true");
 if(s.poster&&availableURL(s.poster)){const img=document.createElement("img");img.src=availableURL(s.poster);img.alt="";img.loading="lazy";img.width=640;img.height=360;thumb.append(img);}else{thumb.innerHTML='<svg><use href="#i-play"/></svg>';}
@@ -274,10 +281,14 @@ selectScene(scenes.find(s=>s.id===params.get("scene"))||scenes[0],false,params);
 finally{loadingScene=false;}
 }
 function selectScene(scene,play,params=null) {
+if(embedMode&&scene.id!==embedScene)return;
 video.pause();active=scene;stage.classList.remove("has-frame");const poster=availableURL(scene.poster);$("scene-poster").hidden=!poster;if(poster)$("scene-poster").src=poster;started=false;hasFrame=false;frameTime=-1;presentedTime=null;dirty=true;
 prepareHotspots();
 $("player-error").hidden=true;$("start-cover").hidden=false;$("start").disabled=true;
 $("start-label").textContent="Načítám prohlídku";$("play").disabled=true;$("seek").disabled=true;
+$("embed-brand").href=shareURL();
+$("embed-brand").setAttribute("aria-label", "Otevřít na Flight360: "+scene.title);
+if(embedMode)document.title=scene.title+" | Flight360";
 $("tour-name").textContent=scene.title;$("scene-caption").textContent=scene.title;
 $("place-title").textContent=scene.subtitle||scene.title;
 $("scene-location").textContent=scene.location||"Štítná nad Vláří a okolí";
@@ -291,8 +302,8 @@ $("status").textContent="Načítám záznam…";if(play)start();
 }
 video.loop=false;
 video.addEventListener("ended",()=>{
-if(!$("autoplay").checked || scenes.length<2){
-$("status").textContent="Záznam skončil. Vyberte další nebo ho spusťte znovu.";
+if(embedMode || !$("autoplay").checked || scenes.length<2){
+$("status").textContent="Záznam skončil. Spusťte ho znovu tlačítkem Přehrát.";
 return;
 }
 const next=(scenes.findIndex(scene=>scene.id===active?.id)+1)%scenes.length;
@@ -362,8 +373,9 @@ document.addEventListener("fullscreenchange",()=>{
 const expanded=!!document.fullscreenElement;$("fullscreen").setAttribute("aria-label",expanded?"Zavřít celou obrazovku":"Celá obrazovka");dirty=true;
 });
 function shareURL() {
-const url=new URL(location.href);url.search="";url.hash=new URLSearchParams({scene:active?.id||"",t:video.currentTime.toFixed(1),yaw:yaw.toFixed(1),pitch:pitch.toFixed(1),fov:fov.toFixed(0)}).toString();return url.href;
+const url=new URL("/",location.origin);url.hash=new URLSearchParams({scene:active?.id||"",t:video.currentTime.toFixed(1),yaw:yaw.toFixed(1),pitch:pitch.toFixed(1),fov:fov.toFixed(0)}).toString();return url.href;
 }
+$("embed-brand").addEventListener("click",()=>{$("embed-brand").href=shareURL();});
 function showDialog(kind) {
 if(kind!=="help"&&!active)return;
 dialogKind=kind;lastFocus=document.activeElement;$("copy-status").textContent="";
@@ -376,9 +388,9 @@ $("copy").innerHTML='Kopírovat odkaz <svg><use href="#i-share"/></svg>';
 }else if(kind==="embed"){
 $("dialog-title").textContent="Prohlídka na vašem webu";
 $("dialog-copy").textContent="Vložte tento kód do HTML svého webu. Šířka se přizpůsobí prostoru, přehrávač zůstane pod značkou Flight360.";
-const url=new URL(shareURL());url.search="?embed=1";
+const url=new URL(shareURL());url.pathname="/embed/"+encodeURIComponent(active.id);
 $("output-label").textContent="HTML kód";
-$("share-output").value='<iframe src="'+url.href.replace(/&/g,"&amp;")+'" title="Flight360 — interaktivní prohlídka" width="100%" height="600" loading="lazy" allow="fullscreen" allowfullscreen style="border:0"></iframe>';
+$("share-output").value='<iframe src="'+url.href.replace(/&/g,"&amp;")+'" title="Flight360 — interaktivní prohlídka" width="100%" height="500" loading="lazy" allow="fullscreen" allowfullscreen style="display:block;width:100%;height:auto;aspect-ratio:16/9;min-height:240px;border:0"></iframe>';
 $("copy").innerHTML='Kopírovat kód <svg><use href="#i-code"/></svg>';
 }else {
 $("dialog-title").textContent="Rozhlédněte se po svém";
@@ -397,7 +409,7 @@ catch(e){$("share-output").focus();$("share-output").select();$("copy-status").t
 });
 window.addEventListener("hashchange",()=>{
 const params=new URLSearchParams(location.hash.slice(1));if(!params.has("scene"))return;
-const scene=scenes.find(s=>s.id===params.get("scene"));if(scene)selectScene(scene,false,params);
+const scene=scenes.find(s=>s.id===(embedMode?embedScene:params.get("scene")));if(scene)selectScene(scene,false,params);
 });
 updateView();updateSpeed();loadGallery();
 })();

@@ -176,3 +176,12 @@ dialog{padding:20px}.dialog-heading h2{font-size:21px}.dialog-actions{gap:12px}
 @media(max-width:580px){.place-card{padding:16px;max-height:calc(100% - 75px);width:260px}.place-point{min-height:26px}.place-card h3{font-size:18px}}
 
 .hotspot-option{margin:12px 0}.places-panel{margin:16px 0 0;flex-basis:100%;max-width:560px}.place-card{bottom:88px;max-height:calc(100% - 160px)}.place-card .eyebrow{font-family:inherit;text-transform:none;letter-spacing:0}.place-point-name{font-family:var(--type)}
+
+/* A single scene fills the embedding frame; controls and tracked points stay in the shared stage. */
+.embed-brand{display:none}
+body.embed{overflow:hidden;background:var(--viewer)}
+body.embed .stage{height:100vh;height:100dvh;min-height:0;max-height:none}
+body.embed .interaction-guide{display:none}
+body.embed .embed-brand{display:flex;align-items:center;gap:8px;pointer-events:auto;padding:9px 12px;background:var(--overlay);color:var(--white);border-radius:4px;font-size:13px;font-weight:600}
+.embed-brand span{font-size:10px;font-weight:400}
+@media(max-height:360px){body.embed .stage-top{inset:8px 8px auto}body.embed .start-disc{width:48px;height:48px}body.embed .start-button{gap:6px}body.embed .place-card{bottom:60px;max-height:calc(100% - 108px);padding:12px}}

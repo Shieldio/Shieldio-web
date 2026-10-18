@@ -1302,5 +1302,13 @@
     "location": "Štítná nad Vláří",
     "category": "Nad obcí",
     "poster": "./village-poster.jpg"
+  },
+  {
+    "id": "stitna-kostel-exterier",
+    "title": "Štítenský kostel — exteriér",
+    "description": "",
+    "published": false,
+    "url": null,
+    "hotspots": []
   }
 ]
