@@ -115,14 +115,28 @@ return {x:width/2*(1+viewX/(viewZ*tan*width/height)),y:height/2*(1-viewY/(viewZ*
 }
 function updateHotspots(){
 const width=canvas.clientWidth,height=canvas.clientHeight,time=frameTime>=0?frameTime:video.currentTime;
+const occupied=[];
 for(const {data,node} of hotspotNodes){
 const point=(!fallback&&hasFrame&&started&&hotspotCheck.checked)?trackedPoint(data,time):null;
 const screen=point?projectHotspot(point,width,height):null;
 const visible=screen&&screen.x>44&&screen.x<width-44&&screen.y>76&&screen.y<height-42;
 node.hidden=!visible;
-if(visible){
-const lift=finite(data.labelLift,34),offsetX=finite(data.labelOffsetX,0);
-if(screen.y-lift<46){node.hidden=true;continue;}
+if(!visible)continue;
+// Keep the tracking anchor fixed on the object. Only move the small text label
+// and its connecting stem when another visible label would overlap it.
+const preferredLift=finite(data.labelLift,34),preferredX=finite(data.labelOffsetX,0);
+const labelWidth=clamp(24+(data.label?.length||12)*6.8,96,200);
+const positions=[[preferredX,preferredLift],[preferredX-110,preferredLift+10],[preferredX+110,preferredLift+10],[preferredX,preferredLift+46],[preferredX-85,preferredLift+58],[preferredX+85,preferredLift+58]];
+let placement=null;
+for(const [offsetX,lift] of positions){
+const left=screen.x+offsetX-labelWidth/2,right=left+labelWidth,top=screen.y-lift-31,bottom=screen.y-lift;
+if(left<10||right>width-10||top<49||bottom>height-55)continue;
+if(occupied.some(box=>left<box.right+7&&right>box.left-7&&top<box.bottom+7&&bottom>box.top-7))continue;
+placement={offsetX,lift,left,right,top,bottom};break;
+}
+if(!placement){node.hidden=true;continue;}
+occupied.push(placement);
+const {offsetX,lift}=placement;
 node.style.setProperty("--lift",lift+"px");
 node.style.setProperty("--label-x",offsetX+"px");
 node.style.setProperty("--stem-length",Math.hypot(offsetX,lift-2)+"px");
@@ -130,7 +144,6 @@ node.style.setProperty("--stem-angle",Math.atan2(offsetX,lift-2)*180/Math.PI+"de
 node.style.transform="translate("+screen.x.toFixed(2)+"px,"+screen.y.toFixed(2)+"px)";
 const fadeIn=data.start===0?1:clamp((time-data.start)/.45,0,1);
 node.style.opacity=String(Math.min(fadeIn,clamp((data.end-time)/.6,0,1)));
-}
 }
 }
 
