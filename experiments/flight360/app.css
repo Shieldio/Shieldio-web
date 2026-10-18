@@ -32,8 +32,8 @@ canvas:focus-visible{outline:3px solid var(--white);outline-offset:-6px}
 .header-location{font-size:13px;color:var(--muted);margin:0 0 0 auto}
 .header-contact{font-size:13px;font-weight:550;margin-left:32px}
 .header-contact:hover,.contact-link:hover{color:var(--accent)}
-.viewer-shell{width:min(1680px,100% - 48px);margin-inline:auto}
-.stage{position:relative;isolation:isolate;overflow:hidden;background:var(--viewer);color:var(--white);height:clamp(420px,65svh,820px);border-radius:12px}
+.viewer-shell{width:min(1480px,100% - 48px);margin-inline:auto}
+.stage{position:relative;isolation:isolate;overflow:hidden;background:var(--viewer);color:var(--white);height:clamp(560px,80svh,940px);border-radius:12px}
 .stage-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .stage canvas{display:block;position:relative;z-index:1;width:100%;height:100%;touch-action:none;cursor:grab;opacity:0}
 .stage.has-frame canvas{opacity:1}
@@ -138,10 +138,10 @@ textarea{resize:vertical;width:100%;min-height:100px;background:var(--surface);c
 body.embed .site-header,body.embed .scene-summary,body.embed .collection,body.embed .contact-section,body.embed footer{display:none}
 body.embed .viewer-shell{width:100%;max-width:none}
 body.embed .stage{height:100dvh;min-height:160px;border-radius:0}
-@media(min-width:1681px){.stage{height:820px}}
-@media(max-width:1000px){.wrap{width:calc(100% - 64px)}.viewer-shell{width:calc(100% - 32px)}.scene-summary{gap:36px}.scene-list{gap:20px}.stage{height:60svh;min-height:420px}.header-contact{margin-left:12px}}
+@media(min-width:1681px){.stage{height:clamp(700px,80svh,940px)}}
+@media(max-width:1000px){.wrap{width:calc(100% - 64px)}.viewer-shell{width:calc(100% - 32px)}.scene-summary{gap:36px}.scene-list{gap:20px}.stage{height:76svh;min-height:480px}.header-contact{margin-left:12px}}
 @media(max-width:700px){
-.wrap{width:calc(100% - 40px)}.site-header{height:70px;gap:20px}.wordmark{font-size:26px}.header-location{display:none}.header-contact{margin-left:auto;font-size:12px}.viewer-shell{width:100%}.stage{height:60svh;min-height:360px;max-height:650px;border-radius:0}
+.wrap{width:calc(100% - 40px)}.site-header{height:70px;gap:20px}.wordmark{font-size:26px}.header-location{display:none}.header-contact{margin-left:auto;font-size:12px}.viewer-shell{width:100%}.stage{height:70svh;min-height:420px;max-height:760px;border-radius:0}
 .stage-top{inset:14px 14px auto}.interaction-guide{font-size:11px;padding:8px 10px}.interaction-guide svg{width:14px;height:14px}.glass-button{width:36px;height:36px}.start-disc{width:68px;height:68px}.start-button{font-size:13px;gap:12px}
 .player-controls{padding:30px 9px 12px;gap:4px}.control{width:38px;height:42px}.control svg{width:18px;height:18px}.time{font-size:10px;min-width:28px}#seek{margin-inline:2px}.optional-control{display:none}
 .scene-summary{display:block;padding-block:26px 32px}.scene-location{font-size:11px;margin-bottom:8px}h1{font-size:29px;max-width:23ch;letter-spacing:-1px}.scene-information{margin-top:16px}.place-description{font-size:13px;margin-bottom:10px;max-width:45ch}.scene-actions{gap:18px}.quiet-button{font-size:11px;min-height:44px}.quality-label{font-size:10px}
