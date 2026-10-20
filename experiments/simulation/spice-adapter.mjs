@@ -84,12 +84,12 @@ export function toSpice(project,options={}){
  const input=compiled.parts.find(p=>p.type==='vac'&&(!options.inputId||p.id===options.inputId));
  if(mode==='ac'&&(!input||!input.params.value))throw Error('AC analýza potřebuje generátor s nenulovou amplitudou.');
  const lines=['SHiELDiO Sim - modelove zapojeni','.options reltol=1e-5 abstol=1e-10 vntol=1e-7'],currentVectors={};
- const names=new Map(compiled.parts.map((p,i)=>[p.id,`${({resistor:'R',capacitor:'C',inductor:'L',vdc:'V',vac:'V',diode:'D',switch:'R',opamp:'E'})[p.type]}${i+1}`]));
+ const names=new Map(compiled.parts.map((p,i)=>[p.id,`${({resistor:'R',capacitor:'C',inductor:'L',vdc:'V',vac:'V',diode:'D',schottky:'D',zener:'D',tunnel:'B',switch:'R',opamp:'E'})[p.type]}${i+1}`]));
  for(const [index,p]of compiled.parts.entries()){
   const n=p.nodes,q=p.params,name=names.get(p.id);
-  if(['resistor','capacitor','switch','diode'].includes(p.type)){
+  if(['resistor','capacitor','switch','diode','schottky','zener','tunnel'].includes(p.type)){
    const sense=`sense${index}`,ammeter=`Vsense${index}`;
-   if(p.type==='diode')lines.push(`${name} ${n.a} ${sense} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27)`);
+   if(p.type==='tunnel'){const v=`v(${n.a},${sense})`;lines.push(`${name} ${n.a} ${sense} I=${si(q.value)}*(exp(min(40,${v}/${si(.02585*q.n)}))-1)+${si(q.peakCurrent)}*(${v}/${si(q.peakVoltage)})*exp(min(40,1-${v}/${si(q.peakVoltage)}))+${si(q.valleyCurrent/q.valleyVoltage)}*${v}`);}else if(['diode','schottky','zener'].includes(p.type))lines.push(`${name} ${n.a} ${sense} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27${p.type==='zener'?` BV=${si(q.breakdown)} IBV=0.001 RS=${si(q.rz)}`:''})`);
    else lines.push(`${name} ${n.a} ${sense} ${si(p.type==='switch'&&!q.closed?1e12:q.value)}`);
    lines.push(`${ammeter} ${sense} ${n.b} DC 0`);
    currentVectors[p.id]=`${ammeter.toLowerCase()}#branch`;
@@ -107,7 +107,7 @@ export function toSpice(project,options={}){
    lines.push(`${name} ${n.a} ${n.b} DC ${si(q.offset)} AC ${si(p.id===input?.id?q.value:0)} ${wave}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;
   }else if(p.type==='opamp'){
    const drive=`u${index}_drive`,state=`u${index}_state`,C=1e-6,R=q.gain/(2*Math.PI*q.gbw*C),limit=q.slew*C;
-   lines.push(`Bdrv${index} ${drive} 0 V=min(max(${si(q.gain)}*(v(${n.plus})-v(${n.minus})),-${si(q.rail)}),${si(q.rail)})`,
+   lines.push(`Bdrv${index} ${drive} 0 V=min(max(${si(q.gain)}*(v(${n.plus})-v(${n.minus})),${q.powered?`v(${n.vee})`:`-${si(q.rail)}`}),${q.powered?`v(${n.vcc})`:si(q.rail)})`,
     `Bpole${index} ${state} 0 I=min(max((v(${state})-v(${drive}))/${si(R)},-${si(limit)}),${si(limit)})`,
     `Cpole${index} ${state} 0 ${si(C)}`,`${name} ${n.out} 0 ${state} 0 1`);
    currentVectors[p.id]=`${name.toLowerCase()}#branch`;

@@ -55,3 +55,17 @@ Knihovna EEcircuit-engine 1.8.0 se při sestavení stáhne pod pevně daným kon
 - Ověření shody vybraných průběhů s ngspice pro stejný model a stejné počáteční podmínky.
 - Rozšíření přístrojů: diferenciální a matematické kanály, nezávislé osy kanálů, FFT a komfortnější kurzory.
 - Teprve po ověření rozšiřovat tranzistory, konkrétní modely IO, toleranční analýzu a smíšené analogové/číslicové zapojení.
+
+## Revize pracovního prostředí — 20. 10. 2026
+
+Úvodní volba odděluje analog, číslicovou techniku a FBD. Katalog, ukázky a měření se filtrují podle režimu; import smí obsahovat jen součástky daného režimu. Každý režim má vlastní místní rozpracovaný projekt. Přechod přes horní menu uloží původní práci. Sdílený projekt zachovává `mode`.
+
+- Horní nabídka obsahuje ukázky; žádný seznam ukázek nezabírá knihovnu součástek.
+- Světlé/tmavé prostředí, jednotky v parametrech, pravé tlačítko otáčí, Esc/Hotovo ukončí vodič. Vodič se na cílovém vývodu ukončí sám. Vkládání je jednorázové, další kopii lze duplikovat.
+- Dvojklik přepíná vstup/spínač. Pohyb bodů ukazuje konvenční směr proudu pouze na vodičích, kde lze proud určit z navazující dvouvývodové větve; animace neurčuje proud neznámé odbočky.
+- Osciloskop přehrává posouvající se okno konečného vypočteného záznamu, při konci se vrací na začátek. Rychlost je rychlost přehrávání. Pauza a kroky umožňují číst jednotlivé vzorky. Slider zdroje přepočítá záznam od nulových počátečních podmínek, neudržuje stav kondenzátorů mezi dvěma změnami.
+- Schottky: Shockleyův model s odlišným Is/n. Zener: interaktivně exponenciální propustná větev a lomený lineární závěrný průraz; ngspice používá D s BV/IBV/RS, takže průrazové křivky nejsou identické. Tunelová: analytická výuková aproximace špičkové větve + vodivost + Shockleyova větev, záporný diferenciální odpor. Není modelem konkrétního výrobku; nepokrývá všechny parazity nebo tunelové kapacity.
+- OZ nově vkládaný má `powered:true` a napájecí vývody `vcc:(0,-60)` / `vee:(0,60)`. Výstup je omezen skutečně připojenými napětími, zachovává omezení pásma a přeběhu. Model nezahrnuje klidový proud ani přenos proudu do napájecích vývodů. Starší soubory bez `powered` zachovávají původní třívývodový model s parametrem `rail`.
+- Ukázky dvojitého T a přemostěného T se testují proti analytickému přenosu. Přemostěné T je CRC se shuntem R/2 a přemostěním 2R; při f0 má přenos 1/3, nikoli úplnou zádrž.
+
+Referenční zdroje: [IEC 60617 — oficiální databáze](https://webstore.iec.ch/en/publication/2723), [HMC — twin-T a bridged-T](https://pages.hmc.edu/ruye/e84/lectures/ch6/node4.html), [ADI MT-225](https://www.analog.com/media/en/training-seminars/tutorials/MT-225.pdf). Jednotlivé licencované listy IEC nebyly přístupné; aplikace netvrdí úplnou normovou shodu. Všechny kresby jsou vlastní SVG.

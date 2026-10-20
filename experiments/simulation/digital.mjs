@@ -6,7 +6,11 @@ const pin = (id,x,y) => ({id,x,y});
 const two = [pin('a',-40,-20),pin('b',-40,20),pin('out',40,0)];
 const qPins = [pin('q',40,-20),pin('nq',40,20)];
 const bits = [pin('q0',40,-40),pin('q1',40,-20),pin('q2',40,0),pin('q3',40,20)];
-const item = (type,label,pins,defaults={},category='Číslicové') => ({type,label,pins,defaults,category});
+const sharedTypes=new Set(['input','clock','and','or','nand','nor','xor','xnor','not','buffer']);
+const item = (type,label,pins,defaults={},category='Číslicové') => {
+  const mode=category==='FBD'?'fbd':sharedTypes.has(type)?'shared':'digital';
+  return {type,label,pins,defaults,category:mode==='shared'?'Logické funkce':category,mode,modes:mode==='shared'?['digital','fbd']:[mode]};
+};
 export const digitalCatalog = [
   item('input','Logický vstup',[pin('out',40,0)],{value:0}),
   item('clock','Hodinový signál',[pin('out',40,0)],{frequency:100}),
@@ -177,8 +181,26 @@ export function digitalDC(project){return simulateDigital(project,{duration:0,st
 
 const c=(id,type,x,y,params={})=>({id,type,x,y,rotation:0,params});
 const w=(id,x1,y1,x2,y2)=>({id,a:{x:x1,y:y1},b:{x:x2,y:y2}});
+const project=(mode,title,components,wires,probes,settings={})=>({version:1,mode,title,components,wires,probes,settings:{duration:0.1,step:0.0001,acStart:10,acStop:1e6,...settings}});
+const probe=(id,label,x,y,color)=>({id,label,x,y,color});
+const logicInputWires=()=>[w('w1',200,180,280,180),w('w2',280,180,280,200),w('w3',280,200,360,200),w('w4',200,260,280,260),w('w5',280,260,280,240),w('w6',280,240,360,240)];
 export const digitalExamples=[
- {id:'digital-nand',title:'NAND a pravdivostní tabulka',description:'Změňte hodnoty vstupů A a B v jejich vlastnostech. Výstup NAND je 0 pouze pro A = B = 1.',project:{version:1,title:'NAND',components:[c('A','input',160,180,{value:1}),c('B','input',160,260,{value:1}),c('G1','nand',400,220)],wires:[w('w1',200,180,280,180),w('w2',280,180,280,200),w('w3',280,200,360,200),w('w4',200,260,280,260),w('w5',280,260,280,240),w('w6',280,240,360,240)],probes:[{id:'Q',label:'NAND Q',x:440,y:220,color:'#d77a20'}],settings:{duration:0.05,step:0.0001,acStart:10,acStop:1e6}}},
- {id:'digital-counter',title:'Čítač 4 bit',description:'Čítač přičítá při náběžné hraně hodin. Reset je aktivní v logické 1.',project:{version:1,title:'Čítač 4 bit',components:[c('CLK','clock',160,180,{frequency:100}),c('RESET','input',160,260,{value:0}),c('C1','counter',400,220,{initial:0})],wires:[w('w1',200,180,280,180),w('w2',280,180,280,200),w('w3',280,200,360,200),w('w4',200,260,280,260),w('w5',280,260,280,240),w('w6',280,240,360,240)],probes:[{id:'clk',label:'CLK',x:200,y:180,color:'#4b9fda'},...Array.from({length:4},(_,i)=>({id:`q${i}`,label:`Q${i}`,x:440,y:180+i*20,color:['#d77a20','#c45188','#8f77cf','#3aab89'][i]}))],settings:{duration:0.1,step:0.0001,acStart:10,acStop:1e6}}},
- {id:'fbd-ton',title:'FBD: zpožděné zapnutí TON',description:'Blok TON zapne výstup po nepřerušené době PT = 10 ms. Při vstupu 0 se ihned vynuluje.',project:{version:1,title:'Časovač TON',components:[c('CLK','clock',160,220,{frequency:20}),c('TON1','ton',400,220,{preset:0.01})],wires:[w('w1',200,220,360,220)],probes:[{id:'in',label:'Vstup',x:200,y:220,color:'#4b9fda'},{id:'q',label:'TON Q',x:440,y:220,color:'#d77a20'}],settings:{duration:0.1,step:0.0001,acStart:10,acStop:1e6}}}
+ {id:'digital-nand',mode:'digital',title:'NAND a pravdivostní tabulka',description:'Dvojklikem přepínejte vstupy A a B. Výstup NAND je 0 pouze pro A = B = 1.',project:project('digital','NAND',[
+   c('A','input',160,180,{value:1}),c('B','input',160,260,{value:1}),c('G1','nand',400,220)
+ ],logicInputWires(),[probe('Q','NAND Q',440,220,'#d77a20')],{duration:0.05})},
+ {id:'digital-counter',mode:'digital',title:'Čítač 4 bit',description:'Čítač přičítá při náběžné hraně hodin. Dvojklikem přepněte RESET; aktivní je v logické 1.',project:project('digital','Čítač 4 bit',[
+   c('CLK','clock',160,180,{frequency:100}),c('RESET','input',160,260,{value:0}),c('C1','counter',400,220,{initial:0})
+ ],logicInputWires(),[probe('clk','CLK',200,180,'#4b9fda'),...Array.from({length:4},(_,i)=>probe(`q${i}`,`Q${i}`,440,180+i*20,['#d77a20','#c45188','#8f77cf','#3aab89'][i]))])},
+ {id:'digital-dff',mode:'digital',title:'D klopný obvod',description:'D se přenese na Q pouze na náběžné hraně CLK. Změňte D dvojklikem a sledujte Q a negovaný výstup.',project:project('digital','D klopný obvod',[
+   c('D','input',160,180,{value:1}),c('CLK','clock',160,260,{frequency:20}),c('D1','dff',400,220,{initial:0})
+ ],logicInputWires(),[probe('d','D',200,180,'#4b9fda'),probe('clk','CLK',200,260,'#8f77cf'),probe('q','Q',440,200,'#d77a20'),probe('nq','Negované Q',440,240,'#3aab89')])},
+ {id:'digital-tff',mode:'digital',title:'T klopný obvod: dělič dvěma',description:'Při T = 1 se Q překlopí na každé náběžné hraně CLK. Jeho frekvence je poloviční; při T = 0 stav drží.',project:project('digital','T klopný obvod',[
+   c('T','input',160,180,{value:1}),c('CLK','clock',160,260,{frequency:100}),c('T1','tff',400,220,{initial:0})
+ ],logicInputWires(),[probe('clk','CLK',200,260,'#4b9fda'),probe('q','Q = CLK / 2',440,200,'#d77a20')])}
 ];
+const timerInfo={ton:['Zpožděné zapnutí TON','Zapnutí Q po nepřerušené době PT = 10 ms. Vstup 0 výstup ihned vypne.'],tof:['Zpožděné vypnutí TOF','Q se zapne ihned se vstupem. Po vypnutí vstupu zůstane ještě PT = 10 ms zapnutý.'],tp:['Impuls TP','Náběžná hrana vytvoří impuls Q délky PT = 10 ms. Nové hrany během impulsu jej neprodlužují.']};
+export const fbdExamples=Object.entries(timerInfo).map(([type,[title,description]])=>({
+ id:`fbd-${type}`,mode:'fbd',title,description,
+ project:project('fbd',title,[c('CLK','clock',160,220,{frequency:20}),c(type.toUpperCase()+'1',type,400,220,{preset:0.01})],[w('w1',200,220,360,220)],
+ [probe('in','Vstup',200,220,'#4b9fda'),probe('q',type.toUpperCase()+' Q',440,220,'#d77a20')])
+}));

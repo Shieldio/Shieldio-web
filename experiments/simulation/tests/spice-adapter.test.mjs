@@ -19,3 +19,5 @@ test('SPICE přenos počítá komplexní podíl vstupu a výstupu',()=>{
  const r=transfer({dataType:'complex',data:[{name:'frequency',type:'frequency',values:[{real:100,img:0}]},{name:'v(in)',values:[{real:2,img:0}]},{name:'v(out)',values:[{real:1,img:-1}]}]},'v(out)','v(in)')[0];
  assert.ok(Math.abs(r.gainDb+3.01029995664)<1e-8);assert.equal(r.phase,-45);
 });
+
+test('New diode models and external opamp supplies have SPICE representations',async()=>{const {examples}=await import('../examples.mjs');for(const id of ['zener','schottky','tunnel','opamp-noninverting']){const plan=toSpice(examples.find(e=>e.id===id).project,{mode:'op'});assert.ok(!plan.netlist.includes('undefined'),id);if(id==='zener')assert.match(plan.netlist,/BV=5.1/);if(id==='tunnel')assert.match(plan.netlist,/I=.*exp/);if(id==='opamp-noninverting')assert.match(plan.netlist,/Bdrv.*v\(n\d+\).*v\(n\d+\)/);}});

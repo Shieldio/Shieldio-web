@@ -87,21 +87,32 @@ const wien = standardSource(builder('Wienův článek'))
  .w([660,220],[660,280]).w([660,360],[660,440],[180,440])
  .w([820,360],[820,440],[660,440]).p('out',660,220,'Výstup Wienova článku');
 
-// Twin T notch: R-R with midpoint 2C to ground, in parallel with C-C and R/2.
+// Two independent T paths; each shunt has its own ground symbol, all pointing down.
 const twin = builder('Dvojité T — pásmová zádrž', {duration:.005,step:.000002,acStart:10,acStop:1e6});
-twin.c('V1','vac',140,340,1,90,{frequency:1591.549,offset:0,waveform:'sine'})
- .c('GND','gnd',140,560).c('GND2','gnd',440,80)
- .c('R1','resistor',340,220,1000).c('R2','resistor',540,220,1000)
- .c('C3','capacitor',440,140,200e-9,90)
- .c('C1','capacitor',340,380,100e-9).c('C2','capacitor',540,380,100e-9)
- .c('R3','resistor',440,480,500,90)
- .w([140,300],[240,300],[240,220],[300,220])
- .w([240,300],[240,380],[300,380])
- .w([380,220],[440,220],[500,220]).w([440,220],[440,180]).w([440,100],[440,80])
- .w([580,220],[700,220],[700,380],[580,380])
- .w([380,380],[440,380],[500,380]).w([440,380],[440,440])
- .w([440,520],[440,560],[140,560],[140,380])
- .p('in',240,300,'Vstup',palette.input).p('out',700,300,'Výstup dvojitého T');
+twin.c('V1','vac',100,340,1,90,{frequency:1591.549,offset:0,waveform:'sine'})
+ .c('GND','gnd',100,640).c('GND2','gnd',480,380).c('GND3','gnd',480,640)
+ .c('R1','resistor',340,220,1000).c('R2','resistor',620,220,1000)
+ .c('C3','capacitor',480,320,200e-9,90)
+ .c('C1','capacitor',340,460,100e-9).c('C2','capacitor',620,460,100e-9)
+ .c('R3','resistor',480,560,500,90)
+ .w([100,300],[100,220],[220,220],[300,220])
+ .w([220,220],[220,460],[300,460])
+ .w([380,220],[480,220],[580,220]).w([480,220],[480,280]).w([480,360],[480,380])
+ .w([660,220],[780,220],[780,460],[660,460])
+ .w([380,460],[480,460],[580,460]).w([480,460],[480,520])
+ .w([480,600],[480,640]).w([100,380],[100,640])
+ .p('in',220,220,'Vstup',palette.input).p('out',780,220,'Výstup');
+// Bridged-T: CRC T section bridged by 2R. H(f0)=1/3, not an infinite notch.
+const bridged=builder('Přemostěný T článek', {duration:.005,step:.000002,acStart:10,acStop:1e6});
+bridged.c('V1','vac',100,300,1,90,{frequency:1591.549,offset:0,waveform:'sine'})
+ .c('GND','gnd',100,560).c('GND2','gnd',480,560)
+ .c('RB','resistor',480,140,2000).c('C1','capacitor',340,300,100e-9).c('C2','capacitor',620,300,100e-9)
+ .c('R3','resistor',480,440,500,90)
+ .w([100,260],[100,220],[220,220],[220,140],[440,140])
+ .w([220,220],[220,300],[300,300]).w([380,300],[480,300],[580,300])
+ .w([520,140],[780,140],[780,300],[660,300])
+ .w([480,300],[480,400]).w([480,480],[480,560]).w([100,340],[100,560])
+ .p('in',220,220,'Vstup',palette.input).p('out',780,300,'Výstup');
 
 const tnet = standardSource(builder('Odporový T článek'))
  .c('R1','resistor',340,220,1000).c('R2','resistor',660,220,1000)
@@ -110,6 +121,25 @@ const tnet = standardSource(builder('Odporový T článek'))
  .w([500,220],[500,280]).w([700,220],[820,220],[820,280])
  .w([500,360],[500,440],[180,440]).w([820,360],[820,440],[500,440])
  .p('out',820,220,'Výstup T článku');
+
+function power(b){const u=b.project.components.find(c=>c.type==='opamp');u.params.powered=true;const x=u.x,y=u.y;
+ b.c('VP','vdc',960,80,15).c('GP','gnd',1060,80)
+  .c('VN','vdc',960,620,-15).c('GN','gnd',1060,620)
+  .w([920,80],[x,80],[x,y-60]).w([1000,80],[1060,80])
+  .w([920,620],[x,620],[x,y+60]).w([1000,620],[1060,620]);
+}
+power(noninv);power(inv);
+const schottky=standardSource(builder('Schottkyho usměrňovač'),false,2)
+ .c('D1','schottky',360,220).c('R1','resistor',560,320,1000,90)
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280]).w([560,360],[560,440],[180,440]).p('out',560,220,'Výstup');
+const zener=standardSource(builder('Zenerův stabilizátor'),true,12)
+ .c('R1','resistor',360,220,1000).c('ZD1','zener',560,320,undefined,270)
+ .c('RL','resistor',760,320,10000,90)
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280]).w([560,220],[760,220],[760,280])
+ .w([560,360],[560,440],[180,440]).w([760,360],[760,440],[560,440]).p('out',560,220,'Stabilizované napětí');
+const tunnel=standardSource(builder('Tunelová dioda — pracovní bod'),true,.2)
+ .c('R1','resistor',360,220,10).c('TD1','tunnel',560,320,undefined,90)
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280]).w([560,360],[560,440],[180,440]).p('out',560,220,'Napětí diody');
 
 export const examples = [
  entry('rc-lowpass','R = 1 kΩ, C = 100 nF. Mezní frekvence přibližně 1,59 kHz; porovnej zesílení a fázi.',low),
@@ -123,5 +153,9 @@ export const examples = [
  entry('opamp-inverting','OZ se zesílením přibližně −10 a zápornou zpětnou vazbou.',inv),
  entry('wien','Sériový a paralelní RC článek: při f₀ přenos 1/3 a fáze 0°.',wien),
  entry('twin-t','Vyvážená pásmová zádrž: R, R, R/2 a C, C, 2C. Zádrž kolem 1,59 kHz.',twin),
+ entry('bridged-t','CRC článek přemostěný odporem 2R. Při 1,59 kHz přenos 1/3 (−9,54 dB).',bridged),
+ entry('schottky','Model s menším propustným úbytkem než křemíková dioda.',schottky),
+ entry('zener','Závěrný průraz kolem 5,1 V; sériový odpor omezuje proud.',zener),
+ entry('tunnel','Výukový model se záporným diferenciálním odporem. Nejde o konkrétní katalogový typ.',tunnel),
  entry('t-network','Zatížený odporový T článek. Porovnej útlum při změně zátěže.',tnet)
 ];

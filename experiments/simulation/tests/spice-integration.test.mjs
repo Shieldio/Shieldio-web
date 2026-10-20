@@ -19,7 +19,7 @@ test('ngspice WASM: skutečný výpočet děliče a RC filtru',{skip:!available,
  assert.ok(Math.abs(20*Math.log10(Math.hypot(v.real,v.img))+3.01029995664)<1e-5);
  assert.ok(Math.abs(Math.atan2(v.img,v.real)*180/Math.PI+45)<1e-5);
  const adapterEngine={run:async netlist=>{sim.setNetList(netlist);const result=await sim.runSim();const errors=sim.getError().filter(s=>/error|fatal|unknown device|singular matrix/i.test(s));assert.deepEqual(errors,[]);return result;}};
- for(const id of ['rc-lowpass','rectifier','opamp-noninverting']){
+ for(const id of ['rc-lowpass','rectifier','opamp-noninverting','zener','schottky','tunnel']){
   const p=examples.find(e=>e.id===id).project;
   const dcPoint=await runSpice(p,{mode:'op',engine:adapterEngine});assert.ok(Object.values(dcPoint.voltages).every(Number.isFinite),id+' DC');
   const result=await runSpice(p,{mode:'tran',duration:.001,step:.000005,engine:adapterEngine});

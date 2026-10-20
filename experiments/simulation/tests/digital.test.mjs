@@ -111,3 +111,5 @@ test('digital engine rejects analog mixture and gives pure digital DC a result',
 test('all supplied digital examples produce traces without mutating source projects',()=>{
   for(const e of digitalExamples){const before=JSON.stringify(e.project),r=simulateDigital(e.project);assert.ok(r.time.length>1);assert.equal(JSON.stringify(e.project),before);assert.equal(r.traces.length,e.project.probes.length);}
 });
+
+test('Digital and FBD catalogs and examples stay in their own workspace',async()=>{const {digitalCatalog,digitalExamples,fbdExamples,simulateDigital}=await import('../digital.mjs');assert.ok(digitalCatalog.find(c=>c.type==='nand').modes.includes('fbd'));assert.deepEqual(digitalCatalog.find(c=>c.type==='dff').modes,['digital']);assert.deepEqual(digitalCatalog.find(c=>c.type==='ton').modes,['fbd']);for(const ex of [...digitalExamples,...fbdExamples]){assert.ok(ex.project.components.every(c=>digitalCatalog.find(d=>d.type===c.type).modes.includes(ex.mode)),ex.id);const r=simulateDigital(ex.project,{duration:.02,step:.0001});assert.ok(r.traces.length,ex.id);}});
