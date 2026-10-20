@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync} from 'node:fs';
+import {runSpice} from '../spice-adapter.mjs';
+import {examples} from '../examples.mjs';
 const available=existsSync(new URL('../vendor/eecircuit-engine-1.8.0.mjs',import.meta.url));
 test('ngspice WASM: skutečný výpočet děliče a RC filtru',{skip:!available,timeout:45000},async()=>{
  const {Simulation}=await import('../vendor/eecircuit-engine-1.8.0.mjs');
@@ -16,4 +18,15 @@ test('ngspice WASM: skutečný výpočet děliče a RC filtru',{skip:!available,
  const v=ac.data.find(v=>v.name.toLowerCase()==='v(out)').values[0];
  assert.ok(Math.abs(20*Math.log10(Math.hypot(v.real,v.img))+3.01029995664)<1e-5);
  assert.ok(Math.abs(Math.atan2(v.img,v.real)*180/Math.PI+45)<1e-5);
+ const adapterEngine={run:async netlist=>{sim.setNetList(netlist);const result=await sim.runSim();const errors=sim.getError().filter(s=>/error|fatal|unknown device|singular matrix/i.test(s));assert.deepEqual(errors,[]);return result;}};
+ for(const id of ['rc-lowpass','rectifier','opamp-noninverting']){
+  const p=examples.find(e=>e.id===id).project;
+  const result=await runSpice(p,{mode:'tran',duration:.001,step:.000005,engine:adapterEngine});
+  assert.equal(result.time.length,201,id);assert.ok(result.traces.length>=p.probes.length,id);
+  for(const trace of result.traces)assert.ok(trace.values.every(Number.isFinite),id+': '+trace.label);
+ }
+ const rc=examples.find(e=>e.id==='rc-lowpass').project,fc=1/(2*Math.PI*1000*100e-9);
+ const result=await runSpice(rc,{mode:'ac',start:fc,stop:fc*2,points:20,engine:adapterEngine});
+ assert.ok(Math.abs(result.traces[1].magnitude[0]+3.01029995664)<1e-5);
+ assert.ok(Math.abs(result.traces[1].phase[0]+45)<1e-5);
 });
