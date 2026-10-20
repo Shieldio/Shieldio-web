@@ -32,4 +32,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
+          wranglerVersion: '4.151.3'
           command: deploy --config wrangler.simulation.jsonc

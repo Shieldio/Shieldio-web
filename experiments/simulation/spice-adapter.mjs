@@ -109,7 +109,7 @@ export function toSpice(project,options={}){
    currentVectors[p.id]=`${name.toLowerCase()}#branch`;
   }else throw Error(`Součástka ${p.type} nemá SPICE model.`);
  }
- lines.push('.save all '+Object.values(currentVectors).filter(v=>v.startsWith('@')).join(' '));
+ lines.push('.save all '+(mode==='tran'?Object.values(currentVectors).filter(v=>v.startsWith('@')).join(' '):''));
  if(mode==='op')lines.push('.op');
  if(mode==='tran')lines.push(`.tran ${si(step)} ${si(duration)} 0 ${si(step)} uic`);
  if(mode==='ac'){
@@ -146,6 +146,13 @@ export async function runSpice(project,options={}){
   }
   const currents={},voltages={};for(const [id,name]of Object.entries(plan.currentVectors)){const values=get(name)||(name.endsWith('#branch')?get(`i(${name.replace('#branch','')})`):undefined);if(values){currents[id]=values.at(-1);if(plan.mode==='tran')traces.push({id:`I:${id}`,label:`I(${id})`,unit:'A',values});}}
   for(const [id,values]of Object.entries(nodeTraces))voltages[id]=values.at(-1);
+  if(plan.mode==='op')for(const part of plan.compiled.parts){
+   if(currents[part.id]!==undefined)continue;
+   const voltage=(voltages[part.nodes.a]||0)-(voltages[part.nodes.b]||0);
+   if(part.type==='resistor'||part.type==='switch')currents[part.id]=voltage/(part.type==='switch'&&!part.params.closed?1e12:part.params.value);
+   else if(part.type==='capacitor')currents[part.id]=0;
+   else if(part.type==='diode')currents[part.id]=part.params.value*(Math.exp(Math.min(40,voltage/(.02585*part.params.n)))-1);
+  }
   if(plan.mode==='op')return {voltages,currents,nodeMap:plan.compiled.nodeMap,engine:'ngspice'};
   const time=get('time');if(!time?.length)throw Error('SPICE nevrátil časovou osu.');
   return {time,traces,nodeMap:plan.compiled.nodeMap,nodeTraces,step:plan.step,method:'ngspice adaptive transient',engine:'ngspice',final:{voltages,currents},warnings:['Časová simulace ngspice začíná nulovým stavem kondenzátorů a cívek.']};

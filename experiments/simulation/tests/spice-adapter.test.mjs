@@ -9,6 +9,8 @@ test('Všechna výuková analogová zapojení lze exportovat jako netlist',()=>{
 test('SPICE AC a DC mají odlišná zadání a chrání rozsah',()=>{
  const p=examples.find(e=>e.id==='rc-lowpass').project;
  assert.match(toSpice(p,{mode:'op'}).netlist,/\.op/);
+ assert.doesNotMatch(toSpice(p,{mode:'op'}).netlist,/\.save all.*@/);
+ assert.doesNotMatch(toSpice(p,{mode:'ac'}).netlist,/\.save all.*@/);
  assert.match(toSpice(p,{mode:'ac',start:10,stop:1e10,points:200}).netlist,/\.ac dec/);
  assert.throws(()=>toSpice(p,{mode:'ac',stop:1e11}),/Neplatný AC rozsah/);
  assert.throws(()=>toSpice(p,{mode:'tran',duration:1,step:1e-9}),/30 000/);
