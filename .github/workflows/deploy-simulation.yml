@@ -1,0 +1,35 @@
+name: Nasadit elektrotechnickou laboratoř SHiELDiO Sim
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'experiments/simulation/**'
+      - 'workers/simulation.mjs'
+      - 'wrangler.simulation.jsonc'
+      - 'tests/simulation-worker.test.mjs'
+      - '.github/workflows/deploy-simulation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-simulation
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Připravit ověřené simulační jádro ngspice
+        run: node experiments/simulation/prepare-vendor.mjs
+      - name: Ověřit analogové výpočty, číslicovou logiku, ngspice a Worker
+        run: node --test experiments/simulation/tests/*.test.mjs tests/simulation-worker.test.mjs
+      - name: Nasadit Worker a vlastní doménu
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
+          command: deploy --config wrangler.simulation.jsonc

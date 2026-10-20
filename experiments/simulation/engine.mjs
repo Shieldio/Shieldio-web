@@ -1,0 +1,169 @@
+import {digitalCatalog,isDigital,digitalDC,simulateDigital} from './digital.mjs';
+/* SHiELDiO Sim: lumped-element MNA solver. Ideal educational models, not SPICE.
+ * Transient: backward Euler, fixed integration step; AC: linear small-signal.
+ * Wire crossings connect only at an explicit endpoint, pin or probe.
+ */
+const two = [{id:'a',x:-40,y:0},{id:'b',x:40,y:0}];
+export const catalog = [
+ ...digitalCatalog,
+ {type:'resistor',label:'Rezistor',category:'Pasivní',pins:two,defaults:{value:1000}},
+ {type:'capacitor',label:'Kondenzátor',category:'Pasivní',pins:two,defaults:{value:1e-6}},
+ {type:'inductor',label:'Cívka',category:'Pasivní',pins:two,defaults:{value:1e-3}},
+ {type:'vdc',label:'Stejnosměrný zdroj',category:'Zdroje',pins:two,defaults:{value:5}},
+ {type:'vac',label:'Generátor signálu',category:'Zdroje',pins:two,defaults:{value:1,frequency:1000,offset:0,waveform:'sine'}},
+ {type:'diode',label:'Dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.8}},
+ {type:'opamp',label:'Operační zesilovač',category:'Polovodiče',pins:[{id:'plus',x:-40,y:-20},{id:'minus',x:-40,y:20},{id:'out',x:40,y:0}],defaults:{gain:1e5,rail:15,slew:0.5e6,gbw:1e6}},
+ {type:'switch',label:'Spínač',category:'Ostatní',pins:two,defaults:{closed:true,value:0.01}},
+ {type:'gnd',label:'Zem / reference',category:'Ostatní',pins:[{id:'gnd',x:0,y:0}],defaults:{}}
+];
+const kinds = Object.fromEntries(catalog.map(c=>[c.type,c]));
+const key=(x,y)=>`${Math.round(x*1e6)/1e6},${Math.round(y*1e6)/1e6}`;
+const finite=(v,label)=>{if(!Number.isFinite(Number(v)))throw Error(`Neplatná hodnota: ${label}.`);return Number(v)};
+const positive=(v,label)=>{v=finite(v,label);if(v<=0)throw Error(`${label} musí být větší než nula.`);return v};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+export function pinsFor(c){const type=kinds[c.type];if(!type)throw Error(`Neznámá součástka: ${c.type}`);const a=(c.rotation||0)*Math.PI/180;return type.pins.map(p=>({id:p.id,x:Math.round((c.x+p.x*Math.cos(a)-p.y*Math.sin(a))*1e6)/1e6,y:Math.round((c.y+p.x*Math.sin(a)+p.y*Math.cos(a))*1e6)/1e6}));}
+const on=(p,a,b)=>Math.abs((p.x-a.x)*(b.y-a.y)-(p.y-a.y)*(b.x-a.x))<1e-6 && p.x>=Math.min(a.x,b.x)-1e-6&&p.x<=Math.max(a.x,b.x)+1e-6&&p.y>=Math.min(a.y,b.y)-1e-6&&p.y<=Math.max(a.y,b.y)+1e-6;
+export function compile(project){
+ if(!project||!Array.isArray(project.components)||!Array.isArray(project.wires))throw Error('Soubor neobsahuje platný projekt.');
+ if(project.components.length>250||project.wires.length>1500)throw Error('Beta podporuje nejvýše 250 součástek a 1 500 vodičů.');
+ if(!project.components.length)throw Error('Vložte součástky a propojte obvod.');
+ const points=new Map(), parent=new Map(), ids=new Set();
+ const add=p=>{finite(p.x,'souřadnice x');finite(p.y,'souřadnice y');const k=key(p.x,p.y);points.set(k,{x:p.x,y:p.y});if(!parent.has(k))parent.set(k,k);return k};
+ const find=k=>{let r=k;while(parent.get(r)!==r)r=parent.get(r);while(k!==r){const q=parent.get(k);parent.set(k,r);k=q}return r};
+ const union=(a,b)=>{a=find(a);b=find(b);if(a!==b)parent.set(b,a)};
+ const parts=project.components.map(c=>{
+  if(typeof c.id!=='string'||ids.has(c.id))throw Error('Každá součástka musí mít jedinečné označení.');ids.add(c.id);
+  if(!kinds[c.type])throw Error(`Nepodporovaná součástka ${c.type}.`);
+  const params={...kinds[c.type].defaults,...c.params}, pins=pinsFor(c);pins.forEach(add);
+  if(['resistor','capacitor','inductor'].includes(c.type))positive(params.value,`${c.id}: hodnota`);
+  if(c.type==='diode'){positive(params.value,`${c.id}: Is`);positive(params.n,`${c.id}: emisní koeficient`)}
+  if(c.type==='switch')positive(params.value,`${c.id}: odpor sepnutí`);
+  if(c.type==='vdc'||c.type==='vac')finite(params.value,`${c.id}: napětí`);
+  if(c.type==='vac'){positive(params.frequency,`${c.id}: frekvence`);finite(params.offset,`${c.id}: offset`);if(!['sine','square','triangle'].includes(params.waveform))throw Error('Neznámý průběh zdroje.');}
+  if(c.type==='opamp')for(const p of ['gain','rail','slew','gbw'])positive(params[p],`${c.id}: ${p}`);
+  return {...c,params,pins};
+ });
+ for(const w of project.wires){if(!w.a||!w.b)throw Error('Vodič nemá oba konce.');add(w.a);add(w.b)}
+ for(const p of project.probes||[])add(p);
+ for(const w of project.wires){const a=key(w.a.x,w.a.y);for(const [k,p]of points)if(on(p,w.a,w.b))union(a,k)}
+ const grounds=parts.filter(c=>c.type==='gnd');if(!grounds.length)throw Error('Obvodu chybí zem (GND). Vložte referenční bod.');
+ const g=key(grounds[0].pins[0].x,grounds[0].pins[0].y);for(const c of grounds)union(g,key(c.pins[0].x,c.pins[0].y));
+ const roots=new Map([[find(g),'0']]), nodes=[],nodeMap={};let next=1;
+ for(const [k,p]of points){const r=find(k);if(!roots.has(r))roots.set(r,`n${next++}`);const id=roots.get(r);nodeMap[k]=id;if(!nodes.some(n=>n.id===id))nodes.push({id,...p});}
+ const nodeAt=(x,y)=>{const exact=nodeMap[key(x,y)];if(exact!==undefined)return exact;for(const w of project.wires)if(on({x,y},w.a,w.b))return nodeMap[key(w.a.x,w.a.y)];return undefined};
+ for(const c of parts){c.nodes={};for(const p of c.pins)c.nodes[p.id]=nodeMap[key(p.x,p.y)];}
+ const active=parts.filter(c=>c.type!=='gnd');const branches=active.filter(c=>['vdc','vac','inductor','opamp'].includes(c.type));
+ const nodeIds=nodes.filter(n=>n.id!=='0').map(n=>n.id), index=Object.fromEntries(nodeIds.map((n,i)=>[n,i]));
+ branches.forEach((c,i)=>c.branch=nodeIds.length+i);
+ if(nodeIds.length+branches.length>200)throw Error('Beta podporuje nejvýše 200 nezávislých napětí a větvových proudů.');
+ return {project,parts:active,nodes,nodeIds,nodeMap,nodeAt,index,size:nodeIds.length+branches.length};
+}
+function matrix(n){return Array.from({length:n},()=>new Float64Array(n));}
+function solve(A,b){
+ const n=b.length;for(let k=0;k<n;k++){
+  let best=k,score=0;for(let i=k;i<n;i++){let scale=0;for(let j=k;j<n;j++)scale=Math.max(scale,Math.abs(A[i][j]));const s=scale?Math.abs(A[i][k])/scale:0;if(s>score){score=s;best=i}}
+  if(!score||Math.abs(A[best][k])<1e-24)throw Error('Obvod nelze vyřešit: zkontrolujte nezapojené uzly, zem a ideální zdroje zapojené proti sobě.');
+  [A[k],A[best]]=[A[best],A[k]];[b[k],b[best]]=[b[best],b[k]];
+  for(let i=k+1;i<n;i++){const f=A[i][k]/A[k][k];if(f===0)continue;A[i][k]=0;for(let j=k+1;j<n;j++)A[i][j]-=f*A[k][j];b[i]-=f*b[k]}
+ }
+ const x=new Float64Array(n);for(let i=n-1;i>=0;i--){let v=b[i];for(let j=i+1;j<n;j++)v-=A[i][j]*x[j];x[i]=v/A[i][i];if(!Number.isFinite(x[i]))throw Error('Výpočet není konečný. Zkontrolujte hodnoty součástek.');}return x;
+}
+const getV=(c,x,n)=>n==='0'?0:x[c.index[n]]||0;
+const source=(p,t,dcMode)=>{if(p.type==='vdc')return p.params.value;const q=p.params;if(dcMode)return q.offset;const a=2*Math.PI*q.frequency*t;const s=q.waveform==='square'?(Math.sin(a)>=0?1:-1):q.waveform==='triangle'?2/Math.PI*Math.asin(Math.sin(a)):Math.sin(a);return q.offset+q.value*s};
+function stampReal(c,x,mode,t,dt,previous){
+ const A=matrix(c.size),b=new Float64Array(c.size);
+ const ix=n=>n==='0'?-1:c.index[n];
+ const put=(r,s,v)=>{if(r>=0&&s>=0)A[r][s]+=v};
+ const inject=(n,v)=>{const i=ix(n);if(i>=0)b[i]+=v};
+ const conduct=(a,z,g)=>{a=ix(a);z=ix(z);put(a,a,g);put(z,z,g);put(a,z,-g);put(z,a,-g)};
+ const branch=(p,a,z)=>{const k=p.branch,aI=ix(a),zI=ix(z);put(aI,k,1);put(zI,k,-1);put(k,aI,1);put(k,zI,-1);return k};
+ for(const p of c.parts){const {type,params:q,nodes:n}=p;const v=getV(c,x,n.a)-getV(c,x,n.b),old=previous?.[p.id]||{};
+  if(type==='resistor'||type==='switch')conduct(n.a,n.b,type==='switch'&&!q.closed?1e-12:1/q.value);
+  else if(type==='capacitor'){if(mode==='transient'){const g=q.value/dt;conduct(n.a,n.b,g);const h=g*(old.v||0);inject(n.a,h);inject(n.b,-h)}}
+  else if(type==='inductor'){const k=branch(p,n.a,n.b);if(mode==='transient'){A[k][k]-=q.value/dt;b[k]=-q.value/dt*(old.i||0)}}
+  else if(type==='vdc'||type==='vac'){const k=branch(p,n.a,n.b);b[k]=source(p,t,mode==='dc')}
+  else if(type==='diode'){const vt=0.02585*q.n,ev=Math.exp(clamp(v/vt,-60,40)),g=q.value*ev/vt+1e-12,i=q.value*(ev-1)+1e-12*v;conduct(n.a,n.b,g);const h=i-g*v;inject(n.a,-h);inject(n.b,h)}
+  else if(type==='opamp'){
+   const k=branch(p,n.out,'0'),diff=getV(c,x,n.plus)-getV(c,x,n.minus);let a=q.gain,offset=0;
+   if(mode==='transient'){const alpha=dt/(dt+q.gain/(2*Math.PI*q.gbw));a*=alpha;offset=(1-alpha)*(old.v||0)}
+   let target=a*diff+offset;let lo=-q.rail,hi=q.rail;
+   if(mode==='transient'){lo=Math.max(lo,(old.v||0)-q.slew*dt);hi=Math.min(hi,(old.v||0)+q.slew*dt)}
+   if(target<lo||target>hi){target=clamp(target,lo,hi);a=0;offset=target}
+   put(k,ix(n.plus),-a);put(k,ix(n.minus),a);b[k]=offset;
+  }
+ }
+ return {A,b};
+}
+function operating(c,mode='dc',t=0,dt=1e-6,previous={},guess){
+ let x=guess?Float64Array.from(guess):new Float64Array(c.size);const nonlinear=c.parts.some(p=>p.type==='diode'||p.type==='opamp');
+ for(let it=0;it<(nonlinear?240:1);it++){
+  const {A,b}=stampReal(c,x,mode,t,dt,previous);const out=solve(A,b);let err=0,maxD=0;
+  for(let i=0;i<c.nodeIds.length;i++)maxD=Math.max(maxD,Math.abs(out[i]-x[i]));
+  // Voltage limiting keeps exponential diode models on a convergent Newton path.
+  const damp=nonlinear&&c.parts.some(p=>p.type==='diode')&&maxD>0.35?0.35/maxD:1;
+  for(let i=0;i<x.length;i++){const next=x[i]+damp*(out[i]-x[i]);err=Math.max(err,Math.abs(next-x[i])/(1+Math.abs(next)));x[i]=next}
+  if(!nonlinear||err<1e-9)return x;
+ }
+ throw Error('Nelineární výpočet nekonvergoval. Zkontrolujte zpětnou vazbu OZ a zapojení diod nebo zmenšete časový krok.');
+}
+function values(c,x,mode='dc',dt=1e-6,previous={}){
+ const voltages={'0':0},currents={},state={};for(const id of c.nodeIds)voltages[id]=x[c.index[id]];
+ for(const p of c.parts){const {nodes:n,params:q,type}=p;const v=getV(c,x,n.a)-getV(c,x,n.b);let i=0;
+  if(p.branch!==undefined)i=x[p.branch];
+  else if(type==='resistor'||type==='switch')i=v*(type==='switch'&&!q.closed?1e-12:1/q.value);
+  else if(type==='capacitor'&&mode==='transient')i=q.value/dt*(v-(previous[p.id]?.v||0));
+  else if(type==='diode')i=q.value*(Math.exp(clamp(v/(0.02585*q.n),-60,40))-1)+1e-12*v;
+  currents[p.id]=i;state[p.id]={v:type==='opamp'?getV(c,x,n.out):v,i};
+ }return {voltages,currents,state};
+}
+export function dc(project){if(isDigital(project))return digitalDC(project);const c=compile(project),x=operating(c);return {...values(c,x),nodeMap:c.nodeMap,nodes:c.nodes,engine:'MNA / ideální modely'};}
+function probeList(c){
+ const ps=c.project.probes||[];
+ return ps.length?ps.map(p=>{const node=c.nodeAt(p.x,p.y);if(node===undefined)throw Error(`Sonda ${p.label||p.id} není připojená k vodiči.`);return {id:p.id,label:p.label||p.id,node,color:p.color}}):c.nodes.filter(n=>n.id!=='0').map(n=>({id:n.id,label:`U(${n.id})`,node:n.id}));
+}
+export function transient(project,options={}){
+ if(isDigital(project))return simulateDigital(project,options);
+ const c=compile(project),duration=positive(options.duration??project.settings?.duration??0.01,'Doba simulace'),step=positive(options.step??project.settings?.step??duration/2000,'Časový krok');
+ const count=Math.ceil(duration/step);if(count>30000)throw Error('Příliš mnoho kroků: zvyšte časový krok nebo zkraťte dobu (limit 30 000).');
+ if(count*c.size*c.size>6e7)throw Error('Výpočet je pro interaktivní betu příliš rozsáhlý. Zkraťte záznam nebo zjednodušte obvod.');
+ const maxFreq=Math.max(0,...c.parts.filter(p=>p.type==='vac').map(p=>p.params.frequency));if(maxFreq*step>1/20)throw Error('Časový krok je příliš velký pro frekvenci zdroje. Použijte nejméně 20 kroků na periodu, pro přesnější výsledek 100 a více.');
+ const ps=probeList(c),traces=ps.map(p=>({id:p.id,label:p.label,unit:'V',color:p.color,values:[]}));
+ for(const p of c.parts)traces.push({id:`I:${p.id}`,label:`I(${p.id})`,unit:'A',values:[]});
+ const time=[],nodeTraces=Object.fromEntries(c.nodes.map(n=>[n.id,[]]));let previous={},x,lastResult;
+ // Initial sample uses zero capacitor voltage and inductor current. Compute the
+ // initial algebraic constraints with a tiny step; state remains zero for t>0.
+ x=operating(c,'transient',0,Math.min(step*1e-6,1e-12),{},undefined);
+ const initial=values(c,x,'transient',Math.min(step*1e-6,1e-12),{});
+ const record=(t,r)=>{lastResult=r;time.push(t);for(const id in nodeTraces)nodeTraces[id].push(r.voltages[id]);for(let i=0;i<ps.length;i++)traces[i].values.push(r.voltages[ps[i].node]);for(let i=0;i<c.parts.length;i++)traces[ps.length+i].values.push(r.currents[c.parts[i].id]);};
+ record(0,initial);
+ for(let k=1;k<=count;k++){const t=Math.min(k*step,duration),dt=t-time[time.length-1];x=operating(c,'transient',t,dt,previous,x);const r=values(c,x,'transient',dt,previous);record(t,r);previous=r.state;}
+ return {time,traces,nodeTraces,nodeMap:c.nodeMap,step,method:'Backward Euler',initialConditions:'zero',warnings:maxFreq*step>1/100?['Pro přesnější tvar průběhu zmenšete časový krok alespoň na 1/100 periody.']:[],final:lastResult};
+}
+function complexSystem(c,frequency,dcResult,input){
+ // Complex MNA expanded into a real 2N system, [Re(x), Im(x)].
+ const N=c.size,A=matrix(2*N),b=new Float64Array(2*N),ix=n=>n==='0'?-1:c.index[n],w=2*Math.PI*frequency;
+ const put=(r,s,re,im=0)=>{if(r<0||s<0)return;A[r][s]+=re;A[r][s+N]-=im;A[r+N][s]+=im;A[r+N][s+N]+=re};
+ const conduct=(a,z,re,im=0)=>{a=ix(a);z=ix(z);put(a,a,re,im);put(z,z,re,im);put(a,z,-re,-im);put(z,a,-re,-im)};
+ const branch=(p,a,z)=>{const k=p.branch;put(ix(a),k,1);put(ix(z),k,-1);put(k,ix(a),1);put(k,ix(z),-1);return k};
+ for(const p of c.parts){const {type,params:q,nodes:n}=p;
+  if(type==='resistor'||type==='switch')conduct(n.a,n.b,type==='switch'&&!q.closed?1e-12:1/q.value);
+  else if(type==='capacitor')conduct(n.a,n.b,0,w*q.value);
+  else if(type==='inductor'){const k=branch(p,n.a,n.b);put(k,k,0,-w*q.value)}
+  else if(type==='vdc'||type==='vac'){const k=branch(p,n.a,n.b);b[k]=p.id===input.id?q.value:0;}
+  else if(type==='diode'){const v=(dcResult.voltages[n.a]||0)-(dcResult.voltages[n.b]||0),g=q.value*Math.exp(clamp(v/(0.02585*q.n),-60,40))/(0.02585*q.n)+1e-12;conduct(n.a,n.b,g)}
+  else if(type==='opamp'){const k=branch(p,n.out,'0');const s=frequency/(q.gbw/q.gain),re=q.gain/(1+s*s),im=-q.gain*s/(1+s*s);put(k,ix(n.plus),-re,-im);put(k,ix(n.minus),re,im)}
+ }
+ return solve(A,b);
+}
+export function ac(project,options={}){
+ if(isDigital(project))throw Error('Frekvenční AC analýza je určena analogovým obvodům. Číslicové obvody použijte v časové simulaci.');
+ const c=compile(project),start=positive(options.start??project.settings?.acStart??1,'Počáteční frekvence'),stop=positive(options.stop??project.settings?.acStop??1e6,'Konečná frekvence'),points=Math.round(positive(options.points??300,'Počet bodů'));
+ if(stop<=start)throw Error('Konečná frekvence musí být vyšší než počáteční.');if(stop>1e10)throw Error('Frekvenční analýza podporuje nejvýše 10 GHz (ideální soustředěné modely).');if(points<2||points>1000)throw Error('Frekvenční analýza potřebuje 2 až 1 000 bodů.');
+ const input=options.inputId?c.parts.find(p=>p.id===options.inputId&&p.type==='vac'):c.parts.find(p=>p.type==='vac');if(!input||!input.params.value)throw Error('AC analýza potřebuje generátor (VAC) s nenulovou amplitudou.');
+ const bias=dc(project),ps=probeList(c),traces=ps.map(p=>({id:p.id,label:p.label,color:p.color,magnitude:[],phase:[],real:[],imag:[]})),frequency=[];
+ for(let k=0;k<points;k++){
+  const f=start*Math.pow(stop/start,k/(points-1)),x=complexSystem(c,f,bias,input);frequency.push(f);
+  for(let j=0;j<ps.length;j++){const id=ps[j].node,i=c.index[id],re=id==='0'?0:x[i]/input.params.value,im=id==='0'?0:x[i+c.size]/input.params.value;traces[j].real.push(re);traces[j].imag.push(im);traces[j].magnitude.push(20*Math.log10(Math.max(1e-15,Math.hypot(re,im))));traces[j].phase.push(Math.atan2(im,re)*180/Math.PI);}
+ }
+ return {frequency,traces,nodeMap:c.nodeMap,inputId:input.id,reference:'Vout / Vac',warnings:['AC je malý signál kolem DC pracovního bodu. Saturace a slew rate se vyhodnocují pouze v časové simulaci. Při GHz ideální model nezahrnuje parazitní jevy a šíření po vedení.']};
+}

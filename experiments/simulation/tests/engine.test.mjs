@@ -1,0 +1,26 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {dc,transient,ac,compile,pinsFor} from '../engine.mjs';
+const c=(id,type,x,y,value,rotation=0,extra={})=>({id,type,x,y,rotation,params:{value,...extra}});
+const w=(x,y,a,b)=>({a:{x,y},b:{x:a,y:b}});
+function rc(type='capacitor'){
+ return {version:1,title:'RC',components:[c('V1','vac',100,200,1,90,{frequency:100,offset:0,waveform:'sine'}),c('R1','resistor',200,160,1000),c('C1',type,240,200,type==='capacitor'?1e-6:0.01,90),c('G','gnd',100,240,0)],wires:[w(100,160,160,160),w(240,240,100,240)],probes:[{id:'in',x:100,y:160,label:'in'},{id:'out',x:240,y:160,label:'out'}]};
+}
+const near=(a,b,tol=1e-6)=>assert.ok(Math.abs(a-b)<=tol,`${a} != ${b} (tol ${tol})`);
+test('pin rotations preserve source polarity',()=>{assert.deepEqual(pinsFor(c('v','vdc',100,200,5,90)),[{id:'a',x:100,y:160},{id:'b',x:100,y:240}]);});
+test('Ohm law and current sign',()=>{const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;p.components[2].type='resistor';p.components[2].params.value=1000;const r=dc(p);near(r.voltages[r.nodeMap['240,160']],2.5);near(r.currents.R1,0.0025);near(r.currents.V1,-0.0025);});
+test('RC DC capacitor opens',()=>{const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;const r=dc(p);near(r.voltages[r.nodeMap['240,160']],5);near(r.currents.C1,0);});
+test('AC low-pass cutoff gain and phase',()=>{const p=rc(),fc=1/(2*Math.PI*1000*1e-6),r=ac(p,{start:fc,stop:fc*2,points:2});near(r.traces[1].magnitude[0],-3.01029995664,1e-7);near(r.traces[1].phase[0],-45,1e-7);near(r.traces[0].magnitude[0],0);});
+test('AC high-pass cutoff phase',()=>{const p=rc();p.components[1].type='capacitor';p.components[1].params.value=1e-6;p.components[2].type='resistor';p.components[2].params.value=1000;const fc=1/(2*Math.PI*1000*1e-6),r=ac(p,{start:fc,stop:fc*2,points:2});near(r.traces[1].magnitude[0],-3.01029995664,1e-7);near(r.traces[1].phase[0],45,1e-7);});
+test('RC transient exponential charge from zero',()=>{const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;const r=transient(p,{duration:0.005,step:1e-6}),v=r.traces[1].values;near(v[1000],5*(1-Math.exp(-1)),0.002);near(v.at(-1),5*(1-Math.exp(-5)),0.001);assert.equal(r.time[0],0);near(r.time.at(-1),0.005);});
+test('RL transient exponential current',()=>{const p=rc('inductor');p.components[0].type='vdc';p.components[0].params.value=5;p.components[1].params.value=10;const r=transient(p,{duration:.005,step:1e-6}),t=r.traces.find(t=>t.id==='I:C1');near(t.values[1000],0.5*(1-Math.exp(-1)),0.0002);});
+test('RLC resonance uses complex MNA',()=>{const p=rc();p.components.splice(1,1,c('L1','inductor',200,160,0.001));p.components[2].params.value=1e-6;/* Ideal LC lossless resonance singular, add parallel 1k damping. */p.components.push(c('R2','resistor',320,200,1000,90));p.wires.push(w(240,160,320,160),w(240,240,320,240));const r=ac(p,{start:100,stop:1e5,points:100});assert.ok(r.traces.every(t=>t.magnitude.every(Number.isFinite)));assert.ok(Math.max(...r.traces[1].magnitude)>15);});
+test('Diode forward voltage obeys exponential model',()=>{const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;p.components[2].type='diode';p.components[2].params={value:1e-12,n:1.8};const r=dc(p),v=r.voltages[r.nodeMap['240,160']];assert.ok(v>0.8&&v<1.2);near(r.currents.R1,r.currents.C1,1e-9);});
+test('Ground mandatory and floating nodes rejected',()=>{const p=rc();p.components=p.components.filter(c=>c.type!=='gnd');assert.throws(()=>dc(p),/zem/i);const q=rc();q.components.push(c('float','resistor',1000,1000,1000));assert.throws(()=>dc(q),/nelze vyřešit/);});
+test('Wire endpoint joins a T branch',()=>{const p=rc();p.wires.push(w(100,160,100,100));p.probes.push({id:'tap',x:100,y:120});const d=compile(p);assert.equal(d.nodeAt(100,120),d.nodeAt(100,160));});
+test('Crossing without a pin or endpoint is isolated',()=>{const p=rc();p.wires.push(w(600,200,800,200),w(700,100,700,300));const d=compile(p);assert.notEqual(d.nodeAt(600,200),d.nodeAt(700,100));});
+test('Oversized or undersampled transient is rejected',()=>{assert.throws(()=>transient(rc(),{duration:1,step:1e-7}),/mnoho kroků/);assert.throws(()=>transient(rc(),{duration:.1,step:.001}),/krok je příliš velký/);});
+test('AC 10 GHz ideal models supported, higher rejected',()=>{const p=rc();assert.ok(Number.isFinite(ac(p,{start:1e6,stop:1e10,points:2}).traces[1].magnitude[1]));assert.throws(()=>ac(p,{stop:1e11}),/10 GHz/);});
+function follower(){return {components:[c('V','vdc',100,180,1,90),c('U1','opamp',240,160,0,0,{gain:1e5,rail:15,slew:1e5,gbw:1e6}),c('G','gnd',100,220,0)],wires:[w(100,140,200,140),w(280,160,320,160),w(320,160,320,220),w(320,220,200,220),w(200,220,200,180)],probes:[{id:'out',x:280,y:160}]};}
+test('Opamp voltage follower finite gain and slew',()=>{const p=follower(),d=dc(p);near(d.voltages[d.nodeMap['280,160']],1e5/100001,1e-7);const r=transient(p,{duration:0.00002,step:1e-7});const v=r.traces[0].values;for(let i=1;i<v.length;i++)assert.ok(Math.abs(v[i]-v[i-1])<=0.0100001);assert.ok(v.at(-1)>0.99);});
+test('Opamp saturation respects rails',()=>{const p=follower();p.components[0].params.value=20;const d=dc(p);near(d.voltages[d.nodeMap['280,160']],15);});
