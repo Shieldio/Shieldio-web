@@ -5,7 +5,6 @@ import {digitalCatalog,isDigital,digitalDC,simulateDigital} from './digital.mjs'
  */
 const two = [{id:'a',x:-40,y:0},{id:'b',x:40,y:0}];
 export const catalog = [
- ...digitalCatalog,
  {type:'resistor',label:'Rezistor',category:'Pasivní',pins:two,defaults:{value:1000}},
  {type:'capacitor',label:'Kondenzátor',category:'Pasivní',pins:two,defaults:{value:1e-6}},
  {type:'inductor',label:'Cívka',category:'Pasivní',pins:two,defaults:{value:1e-3}},
@@ -14,7 +13,8 @@ export const catalog = [
  {type:'diode',label:'Dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.8}},
  {type:'opamp',label:'Operační zesilovač',category:'Polovodiče',pins:[{id:'plus',x:-40,y:-20},{id:'minus',x:-40,y:20},{id:'out',x:40,y:0}],defaults:{gain:1e5,rail:15,slew:0.5e6,gbw:1e6}},
  {type:'switch',label:'Spínač',category:'Ostatní',pins:two,defaults:{closed:true,value:0.01}},
- {type:'gnd',label:'Zem / reference',category:'Ostatní',pins:[{id:'gnd',x:0,y:0}],defaults:{}}
+ {type:'gnd',label:'Zem / reference',category:'Ostatní',pins:[{id:'gnd',x:0,y:0}],defaults:{}},
+ ...digitalCatalog
 ];
 const kinds = Object.fromEntries(catalog.map(c=>[c.type,c]));
 const key=(x,y)=>`${Math.round(x*1e6)/1e6},${Math.round(y*1e6)/1e6}`;

@@ -87,9 +87,13 @@ export function toSpice(project,options={}){
  const names=new Map(compiled.parts.map((p,i)=>[p.id,`${({resistor:'R',capacitor:'C',inductor:'L',vdc:'V',vac:'V',diode:'D',switch:'R',opamp:'E'})[p.type]}${i+1}`]));
  for(const [index,p]of compiled.parts.entries()){
   const n=p.nodes,q=p.params,name=names.get(p.id);
-  if(['resistor','capacitor','inductor'].includes(p.type)){lines.push(`${name} ${n.a} ${n.b} ${si(q.value)}`);currentVectors[p.id]=p.type==='inductor'?`${name.toLowerCase()}#branch`:`@${name.toLowerCase()}[i]`;}
-  else if(p.type==='switch'){lines.push(`${name} ${n.a} ${n.b} ${si(q.closed?q.value:1e12)}`);currentVectors[p.id]=`@${name.toLowerCase()}[i]`;}
-  else if(p.type==='diode'){lines.push(`${name} ${n.a} ${n.b} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27)`);currentVectors[p.id]=`@${name.toLowerCase()}[id]`;}
+  if(['resistor','capacitor','switch','diode'].includes(p.type)){
+   const sense=`sense${index}`,ammeter=`Vsense${index}`;
+   if(p.type==='diode')lines.push(`${name} ${n.a} ${sense} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27)`);
+   else lines.push(`${name} ${n.a} ${sense} ${si(p.type==='switch'&&!q.closed?1e12:q.value)}`);
+   lines.push(`${ammeter} ${sense} ${n.b} DC 0`);
+   currentVectors[p.id]=`${ammeter.toLowerCase()}#branch`;
+  }else if(p.type==='inductor'){lines.push(`${name} ${n.a} ${n.b} ${si(q.value)}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
   else if(p.type==='vdc'){lines.push(`${name} ${n.a} ${n.b} DC ${si(q.value)} AC 0`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
   else if(p.type==='vac'){
    if(!(q.frequency>0))throw Error('Frekvence generátoru musí být kladná.');
@@ -109,7 +113,7 @@ export function toSpice(project,options={}){
    currentVectors[p.id]=`${name.toLowerCase()}#branch`;
   }else throw Error(`Součástka ${p.type} nemá SPICE model.`);
  }
- lines.push('.save all '+(mode==='tran'?Object.values(currentVectors).filter(v=>v.startsWith('@')).join(' '):''));
+ lines.push('.save all');
  if(mode==='op')lines.push('.op');
  if(mode==='tran')lines.push(`.tran ${si(step)} ${si(duration)} 0 ${si(step)} uic`);
  if(mode==='ac'){

@@ -23,7 +23,8 @@ test('ngspice WASM: skutečný výpočet děliče a RC filtru',{skip:!available,
   const p=examples.find(e=>e.id===id).project;
   const dcPoint=await runSpice(p,{mode:'op',engine:adapterEngine});assert.ok(Object.values(dcPoint.voltages).every(Number.isFinite),id+' DC');
   const result=await runSpice(p,{mode:'tran',duration:.001,step:.000005,engine:adapterEngine});
-  assert.equal(result.time.length,201,id);assert.ok(result.traces.length>=p.probes.length,id);
+  assert.equal(result.time.length,201,id);
+  for(const c of p.components.filter(c=>c.type!=='gnd'))assert.ok(result.traces.some(t=>t.id==='I:'+c.id),'Proudový kanál '+c.id+' musí být dostupný v '+id);assert.ok(result.traces.length>=p.probes.length,id);
   for(const trace of result.traces)assert.ok(trace.values.every(Number.isFinite),id+': '+trace.label);
  }
  const rc=examples.find(e=>e.id==='rc-lowpass').project,fc=1/(2*Math.PI*1000*100e-9);
