@@ -204,3 +204,5 @@ export const fbdExamples=Object.entries(timerInfo).map(([type,[title,description
  project:project('fbd',title,[c('CLK','clock',160,220,{frequency:20}),c(type.toUpperCase()+'1',type,400,220,{preset:0.01})],[w('w1',200,220,360,220)],
  [probe('in','Vstup',200,220,'#4b9fda'),probe('q',type.toUpperCase()+' Q',440,220,'#d77a20')])
 }));
+
+fbdExamples.unshift({id:'fbd-manual-ton',mode:'fbd',title:'Ruční vstup a TON',description:'Dvojklikem přepněte vstup. TON zapne Q po 10 ms; při nule se ihned vynuluje.',project:project('fbd','Ruční vstup a TON',[c('IN1','input',160,220,{value:0}),c('TON1','ton',400,220,{preset:.01})],[w('w1',200,220,360,220)],[probe('in','Vstup',200,220,'#4b9fda'),probe('q','TON Q',440,220,'#d77a20')])});
