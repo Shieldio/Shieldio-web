@@ -32,4 +32,22 @@ test('Zener regulator clamps in reverse breakdown',()=>{const p=examples.find(e=
 test('Tunnel model has a negative differential resistance region',()=>{const q=catalog.find(c=>c.type==='tunnel').defaults;assert.ok(diodeModel('tunnel',q,.14).g<0);near(diodeModel('tunnel',q,0).i,0);});
 test('Filter examples match analytic centre frequency',()=>{const f=1/(2*Math.PI*1000*100e-9);for(const [id,gain] of [['wien',1/3],['bridged-t',1/3],['twin-t',0]]){const r=ac(examples.find(e=>e.id===id).project,{start:f,stop:2*f,points:2});const t=r.traces.find(t=>t.id==='out');near(Math.hypot(t.real[0],t.imag[0]),gain,1e-7);}});
 test('Opamp supplies limit output and identify missing supply',()=>{const p=JSON.parse(JSON.stringify(examples.find(e=>e.id==='opamp-noninverting').project));p.components.find(c=>c.id==='V1').type='vdc';p.components.find(c=>c.id==='V1').params.value=10;p.components.find(c=>c.id==='VP').params.value=.5;p.components.find(c=>c.id==='VN').params.value=-.5;const d=dc(p);near(d.voltages[d.nodeMap['740,240']],.5,1e-8);const q=follower();q.components.find(c=>c.id==='U1').params.powered=true;assert.throws(()=>dc(q),/U1.*napájecí/);});
-test('All analog examples solve and produce finite samples',()=>{for(const e of examples){const d=dc(e.project);assert.ok(Object.values(d.voltages).every(Number.isFinite),e.id);const t=transient(e.project,{duration:.00005,step:e.project.settings.step});assert.ok(t.traces.every(t=>t.values.every(Number.isFinite)),e.id);}});
+test('All analog examples solve and produce finite samples',()=>{for(const e of examples){if(e.id==='current-source')assert.throws(()=>dc(e.project),/nelze vyřešit/);else {const d=dc(e.project);assert.ok(Object.values(d.voltages).every(Number.isFinite),e.id);}const t=transient(e.project,{duration:.00005,step:e.project.settings.step});assert.ok(t.traces.every(t=>t.values.every(Number.isFinite)),e.id);}});
+
+
+test('Integral floating-point time boundaries never duplicate the last sample',()=>{
+ const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;
+ for(const startTime of [0,.001]){
+  const r=transient(p,{duration:.001,step:1e-6,startTime});assert.equal(r.time.length,1001);
+  for(let i=1;i<r.time.length;i++)assert.ok(r.time[i]>r.time[i-1],`strictly increasing at ${i}`);
+  near(r.time.at(-1),startTime+.001,1e-15);assert.ok(r.traces.every(t=>t.values.every(Number.isFinite)));
+ }
+ const fractional=transient(p,{duration:.0010005,step:1e-6});assert.equal(fractional.time.length,1002);near(fractional.time.at(-1),.0010005,1e-15);
+});
+test('Low-Is LED converges above the former exp(40) current ceiling',()=>{
+ const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;p.components[1].params.value=330;p.components[2].type='led';p.components[2].params={};
+ const r=dc(p),v=r.voltages[r.nodeMap['240,160']];assert.ok(v>2&&v<2.4);assert.ok(r.currents.C1>.005);
+ near(r.currents.R1,r.currents.C1,1e-9);
+ const q=catalog.find(c=>c.type==='led').defaults,at=diodeModel('led',q,v),h=1e-7,numerical=(diodeModel('led',q,v+h).i-diodeModel('led',q,v-h).i)/(2*h);
+ near(at.g,numerical,1e-7);
+});

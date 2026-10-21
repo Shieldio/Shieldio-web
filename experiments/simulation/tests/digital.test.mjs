@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { digitalGate, digitalOutputs, digitalCatalog, simulateDigital, digitalDC, digitalExamples } from '../digital.mjs';
+import { digitalGate, digitalOutputs, digitalCatalog, simulateDigital, digitalDC, digitalExamples, fbdExamples } from '../digital.mjs';
 
 test('všechna dvouvstupová hradla: úplné pravdivostní tabulky',()=>{
   const expected={and:[0,0,0,1],or:[0,1,1,1],nand:[1,1,1,0],nor:[1,0,0,0],xor:[0,1,1,0],xnor:[1,0,0,1]};
@@ -109,7 +109,71 @@ test('digital engine rejects analog mixture and gives pure digital DC a result',
   p.components.push(block('R','resistor',800,400,{value:1000}));assert.throws(()=>digitalDC(p),/samostatných/);
 });
 test('all supplied digital examples produce traces without mutating source projects',()=>{
-  for(const e of digitalExamples){const before=JSON.stringify(e.project),r=simulateDigital(e.project);assert.ok(r.time.length>1);assert.equal(JSON.stringify(e.project),before);assert.equal(r.traces.length,e.project.probes.length);}
+  for(const e of [...digitalExamples,...fbdExamples]){const before=JSON.stringify(e.project),r=simulateDigital(e.project);assert.ok(r.time.length>1);assert.equal(JSON.stringify(e.project),before);assert.equal(r.traces.length,e.project.probes.length);}
+});
+test('catalog and examples keep digital and FBD modes distinct with explicit shared logic',()=>{
+  for(const type of ['and','or','nand','input','clock'])assert.deepEqual(digitalCatalog.find(c=>c.type===type).modes,['digital','fbd']);
+  assert.deepEqual(digitalCatalog.find(c=>c.type==='ton').modes,['fbd']);
+  assert.deepEqual(digitalCatalog.find(c=>c.type==='dff').modes,['digital']);
+  for(const e of digitalExamples){assert.equal(e.mode,'digital');assert.equal(e.project.mode,'digital');assert.ok(!e.project.components.some(c=>['ton','tof','tp'].includes(c.type)));}
+  for(const e of fbdExamples){assert.equal(e.mode,'fbd');assert.equal(e.project.mode,'fbd');}
+});
+test('continuation preserves counter state and absolute clock phase',()=>{
+  const p=structuredClone(digitalExamples.find(e=>e.id==='digital-counter').project);
+  const a=simulateDigital(p,{duration:0.037,step:0.001}),frozen=JSON.stringify(a.finalState);
+  const b=simulateDigital(p,{startTime:0.037,initialState:a.finalState,duration:0.02,step:0.001});
+  const full=simulateDigital(p,{duration:0.057,step:0.001});
+  assert.equal(b.time[0],0.037);assert.ok(Math.abs(b.time.at(-1)-0.057)<1e-12);
+  for(let i=0;i<4;i++)assert.equal(last(b,`q${i}`),last(full,`q${i}`));
+  assert.equal(JSON.stringify(a.finalState),frozen);
+  assert.equal(b.states.length,b.time.length);
+});
+test('live RESET clears a running counter and release continues without replaying earlier edges',()=>{
+  const p=structuredClone(digitalExamples.find(e=>e.id==='digital-counter').project);
+  const a=simulateDigital(p,{duration:0.037,step:0.001});
+  p.components.find(c=>c.id==='RESET').params.value=1;
+  const b=simulateDigital(p,{initialState:a.finalState,duration:0.013,step:0.001});
+  for(let i=0;i<4;i++)assert.equal(b.traces.find(t=>t.id===`q${i}`).values[0],0);
+  p.components.find(c=>c.id==='RESET').params.value=0;
+  const d=simulateDigital(p,{initialState:b.finalState,duration:0.006,step:0.001});
+  assert.equal(d.traces.find(t=>t.id==='q0').values[0],0);assert.equal(last(d,'q0'),1);assert.equal(last(d,'q1'),0);
+});
+test('changing D between clock edges does not reset or prematurely overwrite the held state',()=>{
+  const p=fixture('dff',{d:0,clk:0});p.components.find(c=>c.id==='I1').type='clock';p.components.find(c=>c.id==='I1').params={frequency:20};
+  const a=simulateDigital(p,{duration:0.03,step:0.001});
+  p.components.find(c=>c.id==='I0').params.value=1;
+  const b=simulateDigital(p,{initialState:a.finalState,duration:0.05,step:0.001});
+  assert.equal(b.traces.find(t=>t.id==='q').values[0],0);assert.equal(last(b,'q'),1);
+});
+test('TON and TP pending deadlines survive segment boundaries',()=>{
+  for(const type of ['ton','tp']){
+    const p=fixture(type,{in:1},{preset:0.01});
+    const a=simulateDigital(p,{duration:0.006,step:0.001});
+    const b=simulateDigital(p,{initialState:a.finalState,duration:0.006,step:0.001});
+    assert.equal(b.traces[0].values[0],type==='ton'?0:1);
+    assert.equal(last(b,'out'),type==='ton'?1:0);
+    assert.equal(a.finalState.mem.U[type==='ton'?'since':'until'],type==='ton'?0:0.01);
+  }
+});
+test('TOF reacts to a live falling edge at the checkpoint and retains its off delay',()=>{
+  const p=fixture('tof',{in:1},{preset:0.01});
+  const a=simulateDigital(p,{duration:0.03,step:0.001});p.components.find(c=>c.id==='I0').params.value=0;
+  const b=simulateDigital(p,{initialState:a.finalState,duration:0.005,step:0.001});
+  assert.equal(b.traces[0].values[0],1);assert.equal(last(b,'out'),1);
+  const d=simulateDigital(p,{initialState:b.finalState,duration:0.006,step:0.001});assert.equal(d.traces[0].values[0],1);assert.equal(last(d,'out'),0);
+});
+test('a saved intermediate sample resumes independently of later samples',()=>{
+  const p=structuredClone(digitalExamples.find(e=>e.id==='digital-counter').project),a=simulateDigital(p,{duration:0.1,step:0.001});
+  const saved=a.states[30],frozen=JSON.stringify(saved),b=simulateDigital(p,{initialState:saved,duration:0.007,step:0.001}),full=simulateDigital(p,{duration:0.037,step:0.001});
+  for(let i=0;i<4;i++)assert.equal(last(b,`q${i}`),last(full,`q${i}`));assert.equal(JSON.stringify(saved),frozen);
+});
+test('continuation rejects incompatible wiring, changed clocks and mismatched time',()=>{
+  const p=structuredClone(digitalExamples.find(e=>e.id==='digital-counter').project),a=simulateDigital(p,{duration:0.01,step:0.001});
+  assert.throws(()=>simulateDigital(p,{initialState:a.finalState,startTime:0.02,duration:0.01,step:0.001}),/čas/);
+  p.components.find(c=>c.type==='clock').params.frequency=200;
+  assert.throws(()=>simulateDigital(p,{initialState:a.finalState,duration:0.01,step:0.001}),/zapojení|hodin/);
+  p.components.find(c=>c.type==='clock').params.frequency=100;p.wires.pop();
+  assert.throws(()=>simulateDigital(p,{initialState:a.finalState,duration:0.01,step:0.001}),/zapojení/);
 });
 
 test('Digital and FBD catalogs and examples stay in their own workspace',async()=>{const {digitalCatalog,digitalExamples,fbdExamples,simulateDigital}=await import('../digital.mjs');assert.ok(digitalCatalog.find(c=>c.type==='nand').modes.includes('fbd'));assert.deepEqual(digitalCatalog.find(c=>c.type==='dff').modes,['digital']);assert.deepEqual(digitalCatalog.find(c=>c.type==='ton').modes,['fbd']);for(const ex of [...digitalExamples,...fbdExamples]){assert.ok(ex.project.components.every(c=>digitalCatalog.find(d=>d.type===c.type).modes.includes(ex.mode)),ex.id);const r=simulateDigital(ex.project,{duration:.02,step:.0001});assert.ok(r.traces.length,ex.id);}});

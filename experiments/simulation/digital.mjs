@@ -6,13 +6,14 @@ const pin = (id,x,y) => ({id,x,y});
 const two = [pin('a',-40,-20),pin('b',-40,20),pin('out',40,0)];
 const qPins = [pin('q',40,-20),pin('nq',40,20)];
 const bits = [pin('q0',40,-40),pin('q1',40,-20),pin('q2',40,0),pin('q3',40,20)];
-const sharedTypes=new Set(['input','clock','and','or','nand','nor','xor','xnor','not','buffer']);
+const sharedTypes=new Set(['input','output','clock','and','or','nand','nor','xor','xnor','not','buffer']);
 const item = (type,label,pins,defaults={},category='Číslicové') => {
   const mode=category==='FBD'?'fbd':sharedTypes.has(type)?'shared':'digital';
   return {type,label,pins,defaults,category:mode==='shared'?'Logické funkce':category,mode,modes:mode==='shared'?['digital','fbd']:[mode]};
 };
 export const digitalCatalog = [
   item('input','Logický vstup',[pin('out',40,0)],{value:0}),
+  item('output','Logický výstup',[pin('in',-40,0)],{}),
   item('clock','Hodinový signál',[pin('out',40,0)],{frequency:100}),
   ...['and','or','nand','nor','xor','xnor'].map(t=>item(t,t.toUpperCase(),two)),
   item('not','NOT',[pin('a',-40,0),pin('out',40,0)]),
@@ -98,9 +99,15 @@ function topology(project) {
 }
 function resolve(values){const active=values.filter(v=>v!=='Z');if(!active.length)return 'Z';if(active.some(v=>v==='X'))return 'X';return active.every(v=>v===active[0])?active[0]:'X';}
 
+/** Continue a running simulation by passing a previously returned states[i] or finalState.
+ * duration is the NEW segment length; startTime and all returned timestamps are absolute seconds.
+ * Input values and timer presets may change. Circuit topology and clock frequency must match.
+ */
 export function simulateDigital(project,options={}) {
   const duration=Number(options.duration??project.settings?.duration??0.05),step=Number(options.step??project.settings?.step??0.0001);
+  const startTime=Number(options.startTime??options.initialState?.time??0),endTime=startTime+duration;
   if(!(duration>=0&&duration<=1e5&&step>0&&Number.isFinite(step)))throw new Error('Zadejte konečný nezáporný čas a kladný krok simulace.');
+  if(!(startTime>=0&&Number.isFinite(startTime)&&Number.isFinite(endTime))||(duration>0&&startTime+Math.min(step,duration)===startTime))throw new Error('Počáteční čas není platný nebo je krok příliš malý pro jeho číselné rozlišení.');
   const count=Math.ceil(duration/step)+1;
   if(count>50001)throw new Error('Nejvýše 50 000 časových kroků. Zvětšete krok simulace.');
   const top=topology(project),comps=project.components||[],mem=new Map(),outputs=new Map();
@@ -109,9 +116,26 @@ export function simulateDigital(project,options={}) {
   const stateful=new Set(['rs','sr','fbd_rs','dff','jkff','tff','counter','register','ton','tof','tp']);
   const clocks=comps.filter(c=>c.type==='clock');
   const params=new Map(comps.map(c=>[c.id,{...(byType.get(c.type)?.defaults||{}),...c.params}]));
+  const signature=JSON.stringify({
+    components:comps.map(c=>({id:c.id,type:c.type,x:c.x,y:c.y,rotation:c.rotation||0,...(c.type==='clock'?{frequency:Number(params.get(c.id).frequency)}:{})})).sort((a,b)=>a.id.localeCompare(b.id)),
+    wires:(project.wires||[]).map(w=>[key(w.a.x,w.a.y),key(w.b.x,w.b.y)].sort()).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b)))
+  });
   const clockEvents=clocks.reduce((sum,c)=>sum+Math.ceil(duration*Number(params.get(c.id).frequency)*2),0);
   if(clockEvents>150000)throw new Error('Příliš mnoho hodinových hran. Snižte frekvenci nebo délku simulace (limit 150 000 hran).');
+  if(clocks.some(c=>endTime*Number(params.get(c.id).frequency)*2>Number.MAX_SAFE_INTEGER/4))throw new Error('Čas a frekvence hodin přesahují číselné rozlišení simulace.');
   for(const c of comps){const p=params.get(c.id);if(c.type==='clock'&&!(Number(p.frequency)>0&&Number.isFinite(Number(p.frequency))))throw new Error(`Hodiny ${c.id}: frekvence musí být kladná.`);if(['ton','tof','tp'].includes(c.type)&&!(Number(p.preset)>=0&&Number.isFinite(Number(p.preset))))throw new Error(`Časovač ${c.id}: předvolba musí být nezáporná.`);mem.set(c.id,{q:['counter','register'].includes(c.type)?Number(p.initial||0)&15:logic(p.initial??0),prev:0,last:0,since:null,until:null});}
+  const remembered=comps.filter(c=>stateful.has(c.type));
+  if(remembered.length*count>1000000)throw new Error('Příliš mnoho paměťových checkpointů. Zvětšete časový krok nebo zkraťte simulaci.');
+  if(options.initialState){
+    const s=options.initialState;
+    if(s.version!==1||s.signature!==signature||!s.mem)throw new Error('Stav patří jinému zapojení nebo frekvenci hodin. Po změně struktury spusťte simulaci od začátku.');
+    if(!Number.isFinite(s.time)||Math.abs(s.time-startTime)>Math.max(1e-12,Math.abs(startTime)*1e-12))throw new Error('Počáteční čas neodpovídá času uloženého stavu.');
+    for(const c of remembered){
+      const m=s.mem[c.id],bit=v=>v===0||v===1||v==='X'||v==='Z',numberOrNull=v=>v===null||Number.isFinite(v);
+      if(!m||!bit(m.prev)||!bit(m.last)||!numberOrNull(m.since)||!numberOrNull(m.until)||!(['counter','register'].includes(c.type)?m.q==='X'||Number.isInteger(m.q)&&m.q>=0&&m.q<=15:bit(m.q)))throw new Error(`Neplatný paměťový stav bloku ${c.id}.`);
+      mem.set(c.id,{q:m.q,prev:m.prev,last:m.last,since:m.since,until:m.until});
+    }
+  }
   const driveState=(c)=>{const m=mem.get(c.id);if(c.type==='counter'||c.type==='register'){for(let i=0;i<4;i++)write(c,`q${i}`,typeof m.q==='number'?(m.q>>i)&1:'X');}else if(['ton','tof','tp'].includes(c.type))write(c,'out',m.q);else {write(c,'q',m.q);write(c,'nq',inv(m.q));}};
   const refresh=()=>{const drivers=new Map(top.nodes.map(n=>[n,[]]));for(const c of comps){const cp=top.pins.get(c.id);if(c.type==='gnd'){drivers.get(cp.gnd).push(0);continue;}for(const p of byType.get(c.type).pins){const k=`${c.id}:${p.id}`;if(outputs.has(k))drivers.get(cp[p.id]).push(outputs.get(k));}}for(const [n,ds]of drivers)nodeValue[n]=resolve(ds);};
   const settle=()=>{for(let it=0;it<100;it++){refresh();let changed=false;for(const c of comps){
@@ -124,7 +148,7 @@ export function simulateDigital(project,options={}) {
       for(const [p,v]of Object.entries(digitalOutputs(c.type,input))){if(outputs.get(`${c.id}:${p}`)!==v)changed=true;write(c,p,v);}
     }
   }if(!changed){refresh();return;}}throw new Error('Číslicová síť se neustálila. Zkontrolujte kombinační zpětné vazby.');};
-  let events=0,t=0;
+  let events=0,t=startTime;
   const evaluate=(now)=>{
     if(++events>200000)throw new Error('Příliš mnoho číslicových událostí. Snižte frekvenci nebo délku simulace.');
     for(const c of comps){if(c.type==='input')write(c,'out',logic(params.get(c.id).value));if(c.type==='clock')write(c,'out',Math.floor(now*Number(params.get(c.id).frequency)*2+1e-9)%2);if(stateful.has(c.type))driveState(c);}
@@ -161,9 +185,10 @@ export function simulateDigital(project,options={}) {
   };
   const traces=(project.probes||[]).map(p=>({id:p.id,label:p.label||p.id,unit:'logic',values:[]})),time=[];
   const nodeTraces=Object.fromEntries(top.nodes.map(n=>[n,[]]));
-  evaluate(0);
+  const states=[];
+  evaluate(startTime);
   for(let i=0;i<count;i++){
-    const sample=Math.min(i*step,duration);
+    const sample=startTime+Math.min(i*step,duration);
     while(t<sample-1e-13){
       let next=sample;
       for(const c of clocks){const half=1/(2*Number(params.get(c.id).frequency)),edge=(Math.floor(t/half+1e-8)+1)*half;if(edge<next)next=edge;}
@@ -171,11 +196,12 @@ export function simulateDigital(project,options={}) {
       t=next;evaluate(t);
     }
     time.push(sample);
+    states.push({version:1,time:sample,signature,mem:Object.fromEntries(remembered.map(c=>[c.id,{...mem.get(c.id)}]))});
     for(const n of top.nodes)nodeTraces[n].push(typeof nodeValue[n]==='number'?nodeValue[n]:NaN);
     traces.forEach((tr,j)=>{const p=project.probes[j],v=nodeValue[top.nodeMap[key(p.x,p.y)]];tr.values.push(typeof v==='number'?v:NaN);});
   }
   const voltages=Object.fromEntries(Object.entries(nodeValue).map(([n,v])=>[n,typeof v==='number'?v:NaN]));
-  return {time,traces,nodeTraces,nodeMap:top.nodeMap,voltages,currents:{},logicStates:{...nodeValue},method:'Ideal digital event simulation; four-state logic; zero-delay gates',warnings:['Ideální číslicové bloky bez fyzikálních napěťových úrovní a zpoždění. X/Z se v grafu zobrazují jako mezera.']};
+  return {time,traces,nodeTraces,states,finalState:states.at(-1),nodeMap:top.nodeMap,voltages,currents:{},logicStates:{...nodeValue},method:'Ideal digital event simulation; four-state logic; zero-delay gates',warnings:['Ideální číslicové bloky bez fyzikálních napěťových úrovní a zpoždění. X/Z se v grafu zobrazují jako mezera.']};
 }
 export function digitalDC(project){return simulateDigital(project,{duration:0,step:1});}
 
@@ -206,3 +232,5 @@ export const fbdExamples=Object.entries(timerInfo).map(([type,[title,description
 }));
 
 fbdExamples.unshift({id:'fbd-manual-ton',mode:'fbd',title:'Ruční vstup a TON',description:'Dvojklikem přepněte vstup. TON zapne Q po 10 ms; při nule se ihned vynuluje.',project:project('fbd','Ruční vstup a TON',[c('IN1','input',160,220,{value:0}),c('TON1','ton',400,220,{preset:.01})],[w('w1',200,220,360,220)],[probe('in','Vstup',200,220,'#4b9fda'),probe('q','TON Q',440,220,'#d77a20')])});
+
+for(const ex of [...digitalExamples,...fbdExamples]){if(!['digital-nand','fbd-manual-ton'].includes(ex.id))continue;const part=ex.project.components.find(c=>c.type==='nand'||c.type==='ton');const x=part.x+40,y=part.y;ex.project.components.push(c('OUT1','output',part.x+220,y));ex.project.wires.push(w('out-wire',x,y,part.x+180,y));}

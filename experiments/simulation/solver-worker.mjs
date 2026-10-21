@@ -8,7 +8,7 @@ self.onmessage=async({data})=>{
   if(mode==='bundle'){
    const s=options.settings||project.settings||{};
    const spice=s.engine==='spice'&&!isDigital(project);
-   const point=spice?await runSpice(project,{mode:'op'}):dc(project);
+   const point=options.analysis==='scope'?null:(spice?await runSpice(project,{mode:'op'}):dc(project));
    const analysis=options.analysis==='scope'?(spice?await runSpice(project,{mode:'tran',duration:s.duration,step:s.step}):transient(project,{duration:s.duration,step:s.step})):options.analysis==='bode'?(spice?await runSpice(project,{mode:'ac',start:s.acStart,stop:s.acStop,points:Math.min(1000,Math.max(10,s.acPoints||180))}):ac(project,{start:s.acStart,stop:s.acStop,points:Math.min(1000,Math.max(10,s.acPoints||180))})):null;
    result={dc:point,analysis};
   }else if(mode==='dc')result=dc(project);

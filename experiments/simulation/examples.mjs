@@ -141,7 +141,31 @@ const tunnel=standardSource(builder('Tunelová dioda — pracovní bod'),true,.2
  .c('R1','resistor',360,220,10).c('TD1','tunnel',560,320,undefined,90)
  .w([280,220],[320,220]).w([400,220],[560,220],[560,280]).w([560,360],[560,440],[180,440]).p('out',560,220,'Napětí diody');
 
+const capCharge=standardSource(builder('Nabíjení kondenzátoru z DC zdroje',{duration:.01}),true,5)
+ .c('R1','resistor',360,220,1000).c('C1','capacitor',560,320,1e-6,90,{initialVoltage:0})
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280]).w([560,360],[560,440],[180,440]);
+const capDischarge=standardSource(builder('Vybíjení kondenzátoru přes rezistor',{duration:.01}),true,0)
+ .c('R1','resistor',360,220,1000).c('C1','capacitor',560,320,1e-6,90,{initialVoltage:5})
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280]).w([560,360],[560,440],[180,440]);
+const chargeCurrent=standardSource(builder('Proudový zdroj — lineární nabíjení',{duration:.01}),true,-.001)
+ .c('C1','capacitor',500,320,1e-6,90,{initialVoltage:0})
+ .w([280,220],[500,220],[500,280]).w([500,360],[500,440],[180,440]);
+chargeCurrent.project.components.find(c=>c.id==='V1').type='idc';
+const led=standardSource(builder('LED a ochranný rezistor'),true,5)
+ .c('R1','resistor',360,220,330).c('LED1','led',560,320,undefined,90)
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280]).w([560,360],[560,440],[180,440]);
+const phases=builder('Dva zdroje — fázový posun 90°',{duration:.005});
+phases.c('V1','vac',180,300,1,90,{frequency:1000,phase:0,offset:0,waveform:'sine'}).c('R1','resistor',380,300,1000,90)
+ .c('G1','gnd',180,440).w([180,260],[180,220],[380,220],[380,260]).w([180,340],[180,440],[380,440],[380,340])
+ .c('V2','vac',680,300,1,90,{frequency:1000,phase:90,offset:0,waveform:'sine'}).c('R2','resistor',880,300,1000,90)
+ .c('G2','gnd',680,440).w([680,260],[680,220],[880,220],[880,260]).w([680,340],[680,440],[880,440],[880,340]);
+phases.project.measurements=[{id:'phase0',componentId:'V1',kind:'voltage',scope:0,color:'#e9b44c'},{id:'phase90',componentId:'V2',kind:'voltage',scope:0,color:'#49b9ee'}];
 export const examples = [
+ entry('capacitor-charge','DC 5 V, R = 1 kΩ, C = 1 µF. Po jedné časové konstantě 1 ms je napětí 63,2 % konečné hodnoty.',capCharge),
+ entry('capacitor-discharge','Kondenzátor má na začátku 5 V a vybíjí se přes 1 kΩ. Sledujte znaménko proudu a energii v elektrickém poli.',capDischarge),
+ entry('current-source','Proud 1 mA nabíjí 1 µF: napětí roste o 1 V za 1 ms.',chargeCurrent),
+ entry('led','Ochranný rezistor omezuje proud LED. Měřte napětí LED i proud rezistorem.',led),
+ entry('phase-sources','Dva nezávislé zdroje 1 kHz s rozdílem fáze 90°. Změňte fázi, frekvenci nebo periodu.',phases),
  entry('rc-lowpass','R = 1 kΩ, C = 100 nF. Mezní frekvence přibližně 1,59 kHz; porovnej zesílení a fázi.',low),
  entry('ohm','Zdroj 5 V a rezistor 1 kΩ: proud 5 mA. Změň odpor a sleduj Ohmův zákon.',ohm),
  entry('divider','Dělič 1 kΩ / 2 kΩ napájený 10 V: výstup přibližně 6,67 V.',divider),

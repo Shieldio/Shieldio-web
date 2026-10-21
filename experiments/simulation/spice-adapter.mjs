@@ -84,27 +84,38 @@ export function toSpice(project,options={}){
  const input=compiled.parts.find(p=>p.type==='vac'&&(!options.inputId||p.id===options.inputId));
  if(mode==='ac'&&(!input||!input.params.value))throw Error('AC analýza potřebuje generátor s nenulovou amplitudou.');
  const lines=['SHiELDiO Sim - modelove zapojeni','.options reltol=1e-5 abstol=1e-10 vntol=1e-7'],currentVectors={};
- const names=new Map(compiled.parts.map((p,i)=>[p.id,`${({resistor:'R',capacitor:'C',inductor:'L',vdc:'V',vac:'V',diode:'D',schottky:'D',zener:'D',tunnel:'B',switch:'R',opamp:'E'})[p.type]}${i+1}`]));
+ const names=new Map(compiled.parts.map((p,i)=>[p.id,`${({resistor:'R',capacitor:'C',inductor:'L',vdc:'V',vac:'V',diode:'D',led:'D',idc:'I',iac:'I',schottky:'D',zener:'D',tunnel:'B',switch:'R',opamp:'E'})[p.type]}${i+1}`]));
  for(const [index,p]of compiled.parts.entries()){
   const n=p.nodes,q=p.params,name=names.get(p.id);
-  if(['resistor','capacitor','switch','diode','schottky','zener','tunnel'].includes(p.type)){
+  if(['resistor','capacitor','switch','diode','led','schottky','zener','tunnel'].includes(p.type)){
    const sense=`sense${index}`,ammeter=`Vsense${index}`;
-   if(p.type==='tunnel'){const v=`v(${n.a},${sense})`;lines.push(`${name} ${n.a} ${sense} I=${si(q.value)}*(exp(min(40,${v}/${si(.02585*q.n)}))-1)+${si(q.peakCurrent)}*(${v}/${si(q.peakVoltage)})*exp(min(40,1-${v}/${si(q.peakVoltage)}))+${si(q.valleyCurrent/q.valleyVoltage)}*${v}`);}else if(['diode','schottky','zener'].includes(p.type))lines.push(`${name} ${n.a} ${sense} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27${p.type==='zener'?` BV=${si(q.breakdown)} IBV=0.001 RS=${si(q.rz)}`:''})`);
-   else lines.push(`${name} ${n.a} ${sense} ${si(p.type==='switch'&&!q.closed?1e12:q.value)}`);
+   if(p.type==='tunnel'){const v=`v(${n.a},${sense})`;lines.push(`${name} ${n.a} ${sense} I=${si(q.value)}*(exp(min(40,${v}/${si(.02585*q.n)}))-1)+${si(q.peakCurrent)}*(${v}/${si(q.peakVoltage)})*exp(min(40,1-${v}/${si(q.peakVoltage)}))+${si(q.valleyCurrent/q.valleyVoltage)}*${v}`);}else if(['diode','led','schottky','zener'].includes(p.type))lines.push(`${name} ${n.a} ${sense} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27${p.type==='zener'?` BV=${si(q.breakdown)} IBV=0.001 RS=${si(q.rz)}`:''})`);
+   else lines.push(`${name} ${n.a} ${sense} ${si(p.type==='switch'&&!q.closed?1e12:q.value)}${p.type==='capacitor'?` IC=${si(q.initialVoltage||0)}`:''}`);
    lines.push(`${ammeter} ${sense} ${n.b} DC 0`);
    currentVectors[p.id]=`${ammeter.toLowerCase()}#branch`;
-  }else if(p.type==='inductor'){lines.push(`${name} ${n.a} ${n.b} ${si(q.value)}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
+  }else if(p.type==='inductor'){lines.push(`${name} ${n.a} ${n.b} ${si(q.value)} IC=${si(q.initialCurrent||0)}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
+  else if(p.type==='idc'){
+   // An independent current source has no #branch vector in ngspice. A series
+   // zero-volt sense source exposes the a-to-b current without changing it.
+   const sense=`sense${index}`,ammeter=`Vsense${index}`;
+   lines.push(`${name} ${n.a} ${sense} DC ${si(q.value)} AC 0`,`${ammeter} ${sense} ${n.b} DC 0`);
+   currentVectors[p.id]=`${ammeter.toLowerCase()}#branch`;
+  }
   else if(p.type==='vdc'){lines.push(`${name} ${n.a} ${n.b} DC ${si(q.value)} AC 0`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
-  else if(p.type==='vac'){
+  else if(p.type==='vac'||p.type==='iac'){
    if(!(q.frequency>0))throw Error('Frekvence generátoru musí být kladná.');
    const T=1/q.frequency;let wave;
-   if(q.waveform==='square'){const edge=Math.min(step/10,T/1e4);wave=`PULSE(${si(q.offset-q.value)} ${si(q.offset+q.value)} 0 ${si(edge)} ${si(edge)} ${si(T/2-edge)} ${si(T)})`;}
+   if(q.waveform==='square'){if(q.phase)throw Error('SPICE: fázovaný obdélník používejte v automatickém modelu.');const edge=Math.min(step/10,T/1e4);wave=`PULSE(${si(q.offset-q.value)} ${si(q.offset+q.value)} 0 ${si(edge)} ${si(edge)} ${si(T*(q.duty??.5)-edge)} ${si(T)})`;}
    else if(q.waveform==='triangle'){
     const cycles=Math.ceil(duration/T)+1;if(cycles*4>30000&&mode==='tran')throw Error('Trojúhelníkový zdroj vyžaduje příliš mnoho bodů. Zkraťte záznam.');
     const pairs=['0',si(q.offset)];if(mode==='tran')for(let k=0;k<cycles;k++)for(const [fraction,m]of [[.25,1],[.75,-1],[1,0]])pairs.push(si((k+fraction)*T),si(q.offset+m*q.value));
     else pairs.push(si(T/4),si(q.offset+q.value));wave=`PWL(${pairs.join(' ')})`;
-   }else wave=`SIN(${si(q.offset)} ${si(q.value)} ${si(q.frequency)})`;
-   lines.push(`${name} ${n.a} ${n.b} DC ${si(q.offset)} AC ${si(p.id===input?.id?q.value:0)} ${wave}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;
+   }else wave=`SIN(${si(q.offset)} ${si(q.value)} ${si(q.frequency)} 0 0 ${si(q.phase||0)})`;
+   if(p.type==='iac'){
+    const sense=`sense${index}`,ammeter=`Vsense${index}`;
+    lines.push(`${name} ${n.a} ${sense} DC ${si(q.offset)} AC 0 ${wave}`,`${ammeter} ${sense} ${n.b} DC 0`);
+    currentVectors[p.id]=`${ammeter.toLowerCase()}#branch`;
+   }else{lines.push(`${name} ${n.a} ${n.b} DC ${si(q.offset)} AC ${si(p.id===input?.id?q.value:0)} ${wave}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
   }else if(p.type==='opamp'){
    const drive=`u${index}_drive`,state=`u${index}_state`,C=1e-6,R=q.gain/(2*Math.PI*q.gbw*C),limit=q.slew*C;
    lines.push(`Bdrv${index} ${drive} 0 V=min(max(${si(q.gain)}*(v(${n.plus})-v(${n.minus})),${q.powered?`v(${n.vee})`:`-${si(q.rail)}`}),${q.powered?`v(${n.vcc})`:si(q.rail)})`,
@@ -159,6 +170,6 @@ export async function runSpice(project,options={}){
   }
   if(plan.mode==='op')return {voltages,currents,nodeMap:plan.compiled.nodeMap,engine:'ngspice'};
   const time=get('time');if(!time?.length)throw Error('SPICE nevrátil časovou osu.');
-  return {time,traces,nodeMap:plan.compiled.nodeMap,nodeTraces,step:plan.step,method:'ngspice adaptive transient',engine:'ngspice',final:{voltages,currents},warnings:['Časová simulace ngspice začíná nulovým stavem kondenzátorů a cívek.']};
+  return {time,traces,nodeMap:plan.compiled.nodeMap,nodeTraces,step:plan.step,method:'ngspice adaptive transient',engine:'ngspice',final:{voltages,currents},warnings:['Časová simulace ngspice používá nastavené počáteční napětí kondenzátorů a proudy cívek (výchozí nula).']};
  }finally{if(!options.engine)engine.dispose();}
 }

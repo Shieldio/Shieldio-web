@@ -19,7 +19,7 @@ test('ngspice WASM: skutečný výpočet děliče a RC filtru',{skip:!available,
  assert.ok(Math.abs(20*Math.log10(Math.hypot(v.real,v.img))+3.01029995664)<1e-5);
  assert.ok(Math.abs(Math.atan2(v.img,v.real)*180/Math.PI+45)<1e-5);
  const adapterEngine={run:async netlist=>{sim.setNetList(netlist);const result=await sim.runSim();const errors=sim.getError().filter(s=>/error|fatal|unknown device|singular matrix/i.test(s));assert.deepEqual(errors,[]);return result;}};
- for(const id of ['rc-lowpass','rectifier','opamp-noninverting','zener','schottky','tunnel']){
+ for(const id of ['rc-lowpass','rectifier','opamp-noninverting','zener','schottky','tunnel','led','capacitor-charge','capacitor-discharge','phase-sources']){
   const p=examples.find(e=>e.id===id).project;
   const dcPoint=await runSpice(p,{mode:'op',engine:adapterEngine});assert.ok(Object.values(dcPoint.voltages).every(Number.isFinite),id+' DC');
   const result=await runSpice(p,{mode:'tran',duration:.001,step:.000005,engine:adapterEngine});
@@ -27,6 +27,7 @@ test('ngspice WASM: skutečný výpočet děliče a RC filtru',{skip:!available,
   for(const c of p.components.filter(c=>c.type!=='gnd'))assert.ok(result.traces.some(t=>t.id==='I:'+c.id),'Proudový kanál '+c.id+' musí být dostupný v '+id);assert.ok(result.traces.length>=p.probes.length,id);
   for(const trace of result.traces)assert.ok(trace.values.every(Number.isFinite),id+': '+trace.label);
  }
+ for(const type of ['idc','iac']){const p={components:[{id:'I1',type,x:100,y:200,rotation:90,params:{value:.001,frequency:100,offset:0,phase:0,duty:.5,waveform:'sine'}},{id:'R1',type:'resistor',x:240,y:200,rotation:90,params:{value:1000}},{id:'G',type:'gnd',x:100,y:240,params:{}}],wires:[{a:{x:100,y:160},b:{x:240,y:160}},{a:{x:100,y:240},b:{x:240,y:240}}],probes:[]};const r=await runSpice(p,{mode:'tran',duration:.001,step:.000005,engine:adapterEngine}),i=r.traces.find(t=>t.id==='I:I1').values.at(-1),expected=type==='idc'?.001:.001*Math.sin(2*Math.PI*100*.001);assert.ok(Math.abs(i-expected)<1e-8,type+' branch current polarity');}
  const rc=examples.find(e=>e.id==='rc-lowpass').project,fc=1/(2*Math.PI*1000*100e-9);
  const result=await runSpice(rc,{mode:'ac',start:fc,stop:fc*2,points:20,engine:adapterEngine});
  assert.ok(Math.abs(result.traces[1].magnitude[0]+3.01029995664)<1e-5);

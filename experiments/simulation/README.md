@@ -1,71 +1,48 @@
 # SHiELDiO Sim
 
-Česká webová elektrotechnická laboratoř pro výuku na SPŠ. Samostatný Cloudflare Worker na `simulation.shieldio.cz`; projektové soubory jsou přenosné a nejsou potřeba účty.
+Česká webová elektrotechnická laboratoř pro SPŠ na `simulation.shieldio.cz`. Samostatný Cloudflare Worker v repozitáři Shieldio-web. Bez účtů, projekt se ukládá jako soubor nebo samostatný sdílený odkaz.
 
-## Použití
+## Práce v laboratoři
 
-1. Otevřete vzorový obvod nebo založte nový.
-2. Součástku vyberte v knihovně a vložte kliknutím. Hodnoty lze zadávat s předponami, například `4.7k`, `100n`, `1e6`. Klávesa R otáčí vybranou součástku.
-3. W zapne vodiče; klikněte na vývody nebo body mřížky. Esc ukončí spojování. Křížení bez koncového bodu není spoj. Každé analogové schéma potřebuje zem.
-4. P přidává napěťové sondy vůči zemi. Spustit vypočte záznam a přehraje jeho časovou osu. Pozastavit zastaví přehrávání; přerušit lze i rozpracovaný výpočet.
-5. Karta Pracovní bod ukazuje DC hodnoty. Přenos a fáze provede malou signálovou AC analýzu vůči zvolenému generátoru.
-6. Uložit soubor zachová upravitelný projekt. Sdílet vytvoří odkaz obsahující jeho kopii. Export nabízí PNG, SVG a CSV naměřených hodnot.
+1. Při otevření vyberte **Elektrické obvody**, **Číslicovou techniku** nebo **FBD bloky**. Každé prostředí má vlastní knihovnu, ukázky a rozpracovaný projekt. Analogové a logické prvky se nemíchají.
+2. Horní nabídka obsahuje soubor, logicky seskupené ukázky a základní operace. Součástku vložte z knihovny; kliknutím ji vyberete, tažením přesunete. Klávesa R otáčí analogové součástky; bloky mají stálou orientaci.
+3. W zapne spojování vývodů, Esc spojování ukončí. Pravé tlačítko nabízí operace. Vybraný vodič se zvýrazní a zobrazí konce pro přepojení; tažení čáry posouvá úsek. Ohnuté propojení se počítá jako jeden vodič. Křížení bez vývodu nebo koncového bodu zůstává oddělené.
+4. Číslicový vstup přepne **dvojklik** nebo tlačítka OFF/ON ve vlastnostech. Výstupy ukazují přímo 0/1; X znamená neurčitý stav a Z odpojený signál. Výstupu připojeného hradla nelze ručně vnutit jiný stav.
+5. U analogové součástky vyberte **napětí mezi jejími vývody** nebo **proud součástkou** a cílový osciloskop. Napětí kondenzátoru je V(a) − V(b), ne uzlové napětí vůči zemi. U OZ jde o napětí OUT vůči zemi a proud výstupního vývodu.
+6. Spustit vypočte a přehraje konečný časový záznam. Pozastavit, šipky a časový kurzor umožňují inspekci vzorků. Na konci se záznam zastaví. **Od začátku** vytvoří nový děj. Rychlost mění přehrávání; délka záznamu určuje simulovaný čas.
+7. Až čtyři osciloskopy mají vlastní časové i svislé měřítko. Kolečko přibližuje čas, tažení posouvá okno. Veličiny s odlišnými jednotkami mají vlastní přístroj. Přenos/fáze je samostatná AC analýza.
+8. Parametry přijímají SI předpony, například `4.7k`, `100n`, `2m`. Generátor má frekvenci, periodu, fázi, amplitudu, offset, průběh a střídu. Při živé změně zdroje zůstává stav kondenzátorů a cívek v aktuálním čase; logické vstupy zachovávají stav pamětí a časovačů. Změna struktury nebo hodinové frekvence vyžaduje nový záznam.
+9. Šířku postranních panelů a výšku osciloskopů mění tažení oddělovačů. Panely lze skrýt. Světlý/tmavý motiv se pamatuje. Soubor nabízí export schématu s měřením do PNG/SVG a dat do CSV.
 
 ## Modely a přesnost
 
-- Živý výpočet používá modifikovanou uzlovou analýzu; časová integrace je zpětný Euler s pevným krokem. Časový krok je nezávislý na frekvenci kreslení obrazovky.
-- R, L, C jsou soustředěné ideální prvky. Dioda používá exponenciální model. OZ má konečné zesílení, dominantní pól, napájecí meze a omezení slew rate. Jde o obecný model, nikoli konkrétní katalogový obvod.
-- Časová simulace začíná nulovým napětím kondenzátorů a nulovým proudem cívek. DC karta naopak počítá ustálený pracovní bod.
-- Pro časové průběhy zvolte alespoň 100 kroků na periodu a ověřujte výsledek dalším zmenšením kroku. Pevný krok tlumí rychlé přechodové děje a nezachycuje nekonečně rychlé ideální hrany.
-- AC analýza přijímá frekvence do 10 GHz, ale v tomto pásmu znázorňuje matematickou odezvu modelu. Neobsahuje parazitní kapacity a indukčnosti plošného spoje, elektromagnetické vazby ani šíření po vedení. Nejde o ověřený RF návrhový nástroj.
-- Zpoždění hradel a fyzikální metastabilita nejsou součástí ideální číslicové vrstvy. Číslicové a analogové schéma se nyní vyhodnocují odděleně. FBD je výukový režim, ne importér projektů Mosaic ani nástroj pro programování skutečného PLC.
-- Chyby topologie a numerická nekonvergence zastaví výpočet; aplikace nemá nahrazovat chybný výsledek ilustrativním průběhem.
+- Analog: modifikovaná uzlová analýza, pevný krok zpětného Eulerova schématu. Automatická volba kroku z délky záznamu, frekvencí a časových konstant. Výpočet běží ve Web Workeru a lze jej přerušit.
+- Ideální soustředěné RLC, napěťové i proudové zdroje, spínač, exponenciální dioda/LED/Schottky, Zenerova a tunelová aproximace. Kondenzátor může mít počáteční napětí, cívka počáteční proud.
+- OZ má konečné zesílení, dominantní pól, omezenou rychlost přeběhu a volitelné skutečné napájecí vývody V+/V−. Model nezahrnuje klidový proud ani výkon napájecích větví. Starší třívývodové modely používají parametr rail.
+- Digitální/FBD vrstva: ideální čtyřstavová logika, kombinační funkce, klopné obvody, čítač, registr, TON/TOF/TP. Události jsou vyhodnocené i mezi zobrazovanými vzorky. Neobsahuje fyzikální zpoždění, napěťové úrovně ani metastabilitu; není importérem Mosaic nebo nástrojem pro skutečné PLC.
+- AC do 10 GHz představuje matematickou odezvu ideálního modelu. Nezahrnuje parazity, vedení ani elektromagnetické vazby. Není validovaným RF návrhovým nástrojem. Časový záznam má limity počtu vzorků a velikosti matice.
+- Pohyb ve vodičích zobrazuje konvenční proud nebo opačný pohyb elektronů tam, kde lze proud určit z navazující dvouvývodové větve. Neznámé větve neanimuje. Rychlost bodů není fyzikální driftová rychlost elektronů.
+- ngspice je zachováno jako izolované referenční rozhraní a regresní kontrola. Uživatelské prostředí nevyžaduje volbu řešiče ani časového kroku.
 
-## Zdrojové moduly
+## Moduly a ověření
 
 | Soubor | Úloha |
 | --- | --- |
-| `app.mjs`, `index.html`, `style.css` | Editor, vlastnosti, přístroje, import a export |
-| `engine.mjs` | Analogová MNA, DC, přechodová a AC analýza |
-| `solver-worker.mjs` | Výpočet mimo hlavní vlákno; zrušení terminací Workeru |
-| `digital.mjs` | Ideální číslicová logika, paměťové prvky a časovače FBD |
-| `examples.mjs` | Původní zapojení se sondami a nastavením |
-| `spice-adapter.mjs`, `spice-worker.mjs` | Izolované rozhraní k ngspice / EEcircuit-engine |
-| `prepare-vendor.mjs` | Stažení pevné verze závislosti s ověřením SHA-256 |
-
-## Nasazení a kontrola
-
-Spustit z kořene repozitáře:
+| app.mjs, index.html, style.css | Editor, panely, přístroje a export |
+| workbench-model.mjs, symbols.mjs | Propojení, diferenciální měření, import, automatické nastavení a SVG značky |
+| engine.mjs, solver-worker.mjs | Analogové výpočty a Worker |
+| digital.mjs | Událostní logika, paměťové checkpointy a FBD |
+| examples.mjs | Analogové ukázky od základů po filtry a zesilovače |
+| spice-adapter.mjs, spice-worker.mjs | Referenční ngspice / EEcircuit-engine |
 
 ```sh
-node --test experiments/simulation/tests/*.test.mjs tests/simulation-worker.test.mjs
 node experiments/simulation/prepare-vendor.mjs
+node --test experiments/simulation/tests/*.test.mjs tests/simulation-worker.test.mjs
 npx wrangler deploy --config wrangler.simulation.jsonc
 ```
 
-Workflow `.github/workflows/deploy-simulation.yml` používá již zavedený repository secret `CLOUDFLARE_API_TOKEN` a stávající Cloudflare účet. Doména je deklarována jako Worker custom domain. Není nutné měnit konfigurace ostatních webů v repozitáři.
+GitHub Actions před nasazením ověřuje analogové rovnice, digitální paměť, model editoru, referenční ngspice WASM a Worker. EEcircuit-engine 1.8.0 se stáhne s pevným SHA-256; vendor se necommituje. Licence jsou v THIRD_PARTY.md.
 
-Knihovna EEcircuit-engine 1.8.0 se při sestavení stáhne pod pevně daným kontrolním součtem. Uživatelům ji pak poskytuje přímo vlastní doména. Přehled původu a licencí obsahuje `THIRD_PARTY.md`.
+Značky jsou vlastní SVG podle běžných elektrotechnických konvencí. Jednotlivé placené listy IEC 60617 nebyly ověřeny; úplná normová shoda se netvrdí. Filtry Wien / dvojité T / přemostěné T se ověřují analyticky. Přemostěné T CRC se shuntem R/2 a přemostěním 2R má při f0 přenos 1/3.
 
-## Ověřování před další školní verzí
-
-- Referenční regresní obvody: Ohmův zákon, dělič, RC/RL přechod, přenos a fáze RC, RLC rezonance, dioda a zpětná vazba/saturace/slew rate OZ.
-- Pravdivostní tabulky, platné hrany klopných obvodů, čítače a časovače. Neurčité stavy a konflikty výstupů musí zůstat viditelné.
-- Ruční ověření zapojování, touchpadu/dotyku, přepínání zdrojů a PNG exportu v Safari/Chrome/Edge na školních počítačích.
-- Ověření shody vybraných průběhů s ngspice pro stejný model a stejné počáteční podmínky.
-- Rozšíření přístrojů: diferenciální a matematické kanály, nezávislé osy kanálů, FFT a komfortnější kurzory.
-- Teprve po ověření rozšiřovat tranzistory, konkrétní modely IO, toleranční analýzu a smíšené analogové/číslicové zapojení.
-
-## Revize pracovního prostředí — 20. 10. 2026
-
-Úvodní volba odděluje analog, číslicovou techniku a FBD. Katalog, ukázky a měření se filtrují podle režimu; import smí obsahovat jen součástky daného režimu. Každý režim má vlastní místní rozpracovaný projekt. Přechod přes horní menu uloží původní práci. Sdílený projekt zachovává `mode`.
-
-- Horní nabídka obsahuje ukázky; žádný seznam ukázek nezabírá knihovnu součástek.
-- Světlé/tmavé prostředí, jednotky v parametrech, pravé tlačítko otáčí, Esc/Hotovo ukončí vodič. Vodič se na cílovém vývodu ukončí sám. Vkládání je jednorázové, další kopii lze duplikovat.
-- Dvojklik přepíná vstup/spínač. Pohyb bodů ukazuje konvenční směr proudu pouze na vodičích, kde lze proud určit z navazující dvouvývodové větve; animace neurčuje proud neznámé odbočky.
-- Osciloskop přehrává posouvající se okno konečného vypočteného záznamu, při konci se vrací na začátek. Rychlost je rychlost přehrávání. Pauza a kroky umožňují číst jednotlivé vzorky. Slider zdroje přepočítá záznam od nulových počátečních podmínek, neudržuje stav kondenzátorů mezi dvěma změnami.
-- Schottky: Shockleyův model s odlišným Is/n. Zener: interaktivně exponenciální propustná větev a lomený lineární závěrný průraz; ngspice používá D s BV/IBV/RS, takže průrazové křivky nejsou identické. Tunelová: analytická výuková aproximace špičkové větve + vodivost + Shockleyova větev, záporný diferenciální odpor. Není modelem konkrétního výrobku; nepokrývá všechny parazity nebo tunelové kapacity.
-- OZ nově vkládaný má `powered:true` a napájecí vývody `vcc:(0,-60)` / `vee:(0,60)`. Výstup je omezen skutečně připojenými napětími, zachovává omezení pásma a přeběhu. Model nezahrnuje klidový proud ani přenos proudu do napájecích vývodů. Starší soubory bez `powered` zachovávají původní třívývodový model s parametrem `rail`.
-- Ukázky dvojitého T a přemostěného T se testují proti analytickému přenosu. Přemostěné T je CRC se shuntem R/2 a přemostěním 2R; při f0 má přenos 1/3, nikoli úplnou zádrž.
-
-Referenční zdroje: [IEC 60617 — oficiální databáze](https://webstore.iec.ch/en/publication/2723), [HMC — twin-T a bridged-T](https://pages.hmc.edu/ruye/e84/lectures/ch6/node4.html), [ADI MT-225](https://www.analog.com/media/en/training-seminars/tutorials/MT-225.pdf). Jednotlivé licencované listy IEC nebyly přístupné; aplikace netvrdí úplnou normovou shodu. Všechny kresby jsou vlastní SVG.
+Referenční zdroje: [IEC 60617](https://webstore.iec.ch/en/publication/2723), [HMC filtry T](https://pages.hmc.edu/ruye/e84/lectures/ch6/node4.html), [ADI MT-225](https://www.analog.com/media/en/training-seminars/tutorials/MT-225.pdf).
