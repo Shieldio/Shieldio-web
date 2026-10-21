@@ -1,7 +1,7 @@
 // Real Chromium regression check, no browser automation dependency required.
 import assert from 'node:assert/strict';
 import {createServer} from 'node:http';
-import {readFile,mkdtemp,rm,writeFile,mkdir} from 'node:fs/promises';
+import {readFile,readdir,mkdtemp,rm,writeFile,mkdir} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join,extname,resolve,sep} from 'node:path';
 import {spawn} from 'node:child_process';
@@ -29,8 +29,9 @@ try{
  await click('[data-component="C1"] .part-drawing');assert.ok(await evaluate("!!document.querySelector('#measureKind')"));
  await evaluate("document.querySelector('#measureKind').value='current';document.querySelector('#measureTarget').value='new';");await click('#addMeasurement');assert.equal(await evaluate("document.querySelectorAll('.scope').length"),3);
  const layout=await evaluate("(()=>{const c=document.querySelector('#drawing').getBoundingClientRect(),s=document.querySelector('#scopes').getBoundingClientRect();return {canvas:{w:c.width,h:c.height},scope:{w:s.width,h:s.height},overflow:document.documentElement.scrollWidth>innerWidth}})()");assert.ok(layout.canvas.w>700&&layout.canvas.h>400,JSON.stringify(layout));assert.equal(layout.overflow,false);console.log('Browser layout:',JSON.stringify(layout));await shot('browser-analog-dark');
- await click('#theme');await shot('browser-analog-light');
+ const downloadPath=join(profile,'downloads');await mkdir(downloadPath);await send('Page.setDownloadBehavior',{behavior:'allow',downloadPath});await click('header > details.menu summary');await click('#exportPng');const filename=await until(async()=>(await readdir(downloadPath)).find(f=>f.endsWith('.png')),'PNG download');const png=await readFile(join(downloadPath,filename));assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');assert.ok(png.readUInt32BE(16)>=1000&&png.readUInt32BE(20)>500);console.log('Browser PNG export PASS:',png.readUInt32BE(16)+'x'+png.readUInt32BE(20));
+ await send('Emulation.setDeviceMetricsOverride',{width:1280,height:800,deviceScaleFactor:1,mobile:false});await delay(150);assert.equal(await evaluate('document.documentElement.scrollWidth>innerWidth'),false,'laptop layout overflow');await click('#theme');await shot('browser-analog-light');await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});await delay(100);
  await click('#modeSwitch');await click('[data-mode-choice="digital"]');await delay(100);assert.equal(await evaluate("!!document.querySelector('[data-part=\"resistor\"]')"),false);const before=await evaluate("document.querySelector('[data-component=\"A\"]').textContent");await click('[data-component="A"] .part-drawing',2);await delay(100);const after=await evaluate("document.querySelector('[data-component=\"A\"]').textContent");assert.notEqual(after,before,'doubleclick changes one input');assert.ok(await evaluate("[...document.querySelectorAll('.logic-value')].some(e=>/[01]/.test(e.textContent))"));await shot('browser-digital');
  await click('#modeSwitch');await click('[data-mode-choice="fbd"]');await delay(100);assert.equal(await evaluate("!!document.querySelector('[data-part=\"resistor\"]')"),false);assert.ok(await evaluate("!!document.querySelector('[data-part=\"ton\"]')"));
- assert.deepEqual(errors,[]);console.log('Browser QA PASS: actual Worker, CSP, analog recording, differential measurement, third scope, canvas size, dark/light, digital doubleclick and FBD separation.');
+ assert.deepEqual(errors,[]);console.log('Browser QA PASS: actual Worker, CSP, analog recording, differential measurement, third scope, canvas size/laptop resize, PNG export, dark/light, digital doubleclick and FBD separation.');
 }finally{socket?.close();chrome.kill('SIGTERM');await new Promise(r=>server.close(r));await delay(100);await rm(profile,{recursive:true,force:true}).catch(()=>{});}
