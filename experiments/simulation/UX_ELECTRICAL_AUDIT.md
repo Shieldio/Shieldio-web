@@ -33,3 +33,7 @@ Automatické testy ověřují analytické Ohm/RC/RL/AC/RLC výsledky, filtry Wie
 - OZ nemodeluje proud napájecích větví. Zenerova a tunelová dioda jsou obecné výukové aproximace. Úplná shoda každého SVG s licencovanými listy IEC 60617 nebyla ověřena.
 - Výstup logického prvku ukazuje vypočtený stav; ruční změna výstupu proti připojenému hradlu není platná logická operace.
 - Změna topologie, počátečních podmínek nebo frekvence digitálních hodin spouští nový záznam; běžné přepnutí vstupu zachovává čas a paměť.
+
+## Doplnění: souvislý běh a VA demo
+
+Předchozí konečný záznam je nahrazen souvislou akvizicí. Testy `continuous.test.mjs` kontrolují absolutní čas, zachování RC/číslicového stavu, změnu zdroje a omezený buffer. Testy `xy-scope.test.mjs` ověřují všechny čtyři VA příklady proti KVL, I = U(RS)/RS a diodové rovnici. UI má společné časové grafy s nezávislými V/A osami a přepínání vstupu jediným kliknutím. Chrome QA zahrnuje hotové VA příklady, postup času přes více period, X–Y zoom a dva kanály v jednom grafu. Starší řádky výše popisují historickou revizi.

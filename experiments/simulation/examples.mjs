@@ -160,7 +160,34 @@ phases.c('V1','vac',180,300,1,90,{frequency:1000,phase:0,offset:0,waveform:'sine
  .c('V2','vac',680,300,1,90,{frequency:1000,phase:90,offset:0,waveform:'sine'}).c('R2','resistor',880,300,1000,90)
  .c('G2','gnd',680,440).w([680,260],[680,220],[880,220],[880,260]).w([680,340],[680,440],[880,440],[880,340]);
 phases.project.measurements=[{id:'phase0',componentId:'V1',kind:'voltage',scope:0,color:'#e9b44c'},{id:'phase90',componentId:'V2',kind:'voltage',scope:0,color:'#49b9ee'}];
+// A slow bipolar triangle sweeps both forward and reverse diode branches.
+// RS is a current-sense resistor: I_D = U_RS / RS. U_D is differential A–K.
+function diodeIV(id,type,title,amplitude,resistance,params={}){
+ const b=standardSource(builder(title,{duration:.04,step:.00001}),false,amplitude)
+  .c('R1','resistor',360,220,resistance)
+  .c('D1',type,580,320,undefined,90,params)
+  .c('RS','resistor',580,460,100,90)
+  .w([280,220],[320,220]).w([400,220],[580,220],[580,280])
+  .w([580,360],[580,420]).w([580,500],[580,560],[180,560],[180,440]);
+ Object.assign(b.project.components.find(c=>c.id==='V1').params,{frequency:25,waveform:'triangle',phase:0});
+ b.project.probes=[];
+ b.project.measurements=[
+  {id:'ud',componentId:'D1',kind:'voltage',scope:0,color:'#49b9ee'},
+  {id:'id',componentId:'D1',kind:'current',scope:1,color:'#da89e9'},
+  {id:'urs',componentId:'RS',kind:'voltage',scope:0,color:'#69d4a1'}
+ ];
+ b.project.scopeSettings=[{mode:'xy',xId:'ud',yId:'id',persistence:true},{mode:'time'}];
+ b.project.demo={kind:'diode-iv'};
+ return entry(id,'Hotové měření: X = U diody mezi A a K, Y = proud diodou. Trojúhelník 25 Hz, předřadný odpor a snímací RS = 100 Ω. Spusťte pro postupné vykreslení VA charakteristiky.',b);
+}
+const diodeIVExamples=[
+ diodeIV('diode-iv-silicon','diode','VA charakteristika — křemíková dioda',2,100,{value:1e-14,n:1.05}),
+ diodeIV('diode-iv-schottky','schottky','VA charakteristika — Schottkyho dioda',2,100),
+ diodeIV('diode-iv-zener','zener','VA charakteristika — Zenerova dioda 5,1 V',10,1000),
+ diodeIV('diode-iv-led','led','VA charakteristika — LED',4,220)
+];
 export const examples = [
+ ...diodeIVExamples,
  entry('capacitor-charge','DC 5 V, R = 1 kΩ, C = 1 µF. Po jedné časové konstantě 1 ms je napětí 63,2 % konečné hodnoty.',capCharge),
  entry('capacitor-discharge','Kondenzátor má na začátku 5 V a vybíjí se přes 1 kΩ. Sledujte znaménko proudu a energii v elektrickém poli.',capDischarge),
  entry('current-source','Proud 1 mA nabíjí 1 µF: napětí roste o 1 V za 1 ms.',chargeCurrent),
