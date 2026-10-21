@@ -23,7 +23,7 @@ Revize 21. 10. 2026 navazuje na připomínky k veřejné verzi `0d17693`. Cíl: 
 
 ## Rozsah ověřování
 
-Automatické testy ověřují analytické Ohm/RC/RL/AC/RLC výsledky, filtry Wien/T, diody a OZ, logickou paměť, model editoru a Worker. Samostatná integrační kontrola ovládání používá DOM prostředí, nikoli skutečné vykreslení prohlížeče. GitHub Actions před nasazením spouští také skutečné ngspice WASM referenční obvody. Finální vizuální a dotykové ověření na školních Safari/Chrome/Edge je samostatná kontrola; DOM test nenahrazuje kontrolu pixelů nebo ovládání touchpadem.
+Automatické testy ověřují analytické Ohm/RC/RL/AC/RLC výsledky, filtry Wien/T, diody a OZ, logickou paměť, model editoru a Worker. Integrační kontrola zahrnuje DOM prostředí i skutečný Chromium přes Chrome DevTools Protocol: Web Worker, CSP, analogový záznam, výběr měření, třetí osciloskop, dvojklik vstupu a oddělení FBD. GitHub Actions před nasazením spouští také skutečné ngspice WASM referenční obvody. Automaticky ukládá snímky tmavého/světlého analogu a číslicového editoru. Po kontrole snímků se popisky grafů přizpůsobují skutečné šířce přístroje, značky DC zdroje zůstávají čitelné po otočení a prázdné logické osciloskopy se skrývají. Ověření touchpadu/dotyku a ostatních školních Safari/Chrome/Edge zůstává samostatnou kontrolou.
 
 ## Hranice modelu
 

@@ -41,7 +41,7 @@ node --test experiments/simulation/tests/*.test.mjs tests/simulation-worker.test
 npx wrangler deploy --config wrangler.simulation.jsonc
 ```
 
-GitHub Actions před nasazením ověřuje analogové rovnice, digitální paměť, model editoru, referenční ngspice WASM a Worker. EEcircuit-engine 1.8.0 se stáhne s pevným SHA-256; vendor se necommituje. Licence jsou v THIRD_PARTY.md.
+GitHub Actions před nasazením ověřuje analogové rovnice, digitální paměť, model editoru, referenční ngspice WASM a Worker. Následuje integrační test ve skutečném Chromiu (bez dodatečné knihovny), který ukládá snímky prostředí do GitHub Actions artefaktů. EEcircuit-engine 1.8.0 se stáhne s pevným SHA-256; vendor se necommituje. Licence jsou v THIRD_PARTY.md.
 
 Značky jsou vlastní SVG podle běžných elektrotechnických konvencí. Jednotlivé placené listy IEC 60617 nebyly ověřeny; úplná normová shoda se netvrdí. Filtry Wien / dvojité T / přemostěné T se ověřují analyticky. Přemostěné T CRC se shuntem R/2 a přemostěním 2R má při f0 přenos 1/3.
 
