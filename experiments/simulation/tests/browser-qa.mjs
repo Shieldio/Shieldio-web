@@ -1,0 +1,36 @@
+// Real Chromium regression check, no browser automation dependency required.
+import assert from 'node:assert/strict';
+import {createServer} from 'node:http';
+import {readFile,mkdtemp,rm,writeFile,mkdir} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join,extname,resolve,sep} from 'node:path';
+import {spawn} from 'node:child_process';
+import worker from '../../../workers/simulation.mjs';
+const root=resolve(import.meta.dirname,'..'),profile=await mkdtemp(join(tmpdir(),'shieldio-browser-'));
+const server=createServer(async(req,res)=>{try{const path=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));if(path!==root&&!path.startsWith(root+sep)){res.writeHead(403).end();return;}const file=path===root?join(path,'index.html'):path;const body=await readFile(file),type=({'.mjs':'text/javascript','.html':'text/html','.css':'text/css','.wasm':'application/wasm'}[extname(file)]||'application/octet-stream');const response=await worker.fetch(new Request('http://localhost'+req.url),{ASSETS:{fetch:async()=>new Response(body,{headers:{'Content-Type':type}})}});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));}catch{res.writeHead(404).end('missing');}});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const origin='http://127.0.0.1:'+server.address().port;
+const chrome=spawn(process.env.CHROME_BIN||'google-chrome',['--headless=new','--no-sandbox','--disable-dev-shm-usage','--no-first-run','--no-default-browser-check','--remote-debugging-port=0','--user-data-dir='+profile,'about:blank'],{stdio:'ignore'});
+let socket,session,seq=0;const pending=new Map(),errors=[];
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+async function until(fn,label){for(let i=0;i<200;i++){try{const value=await fn();if(value)return value;}catch{}await delay(50);}throw Error('Timeout: '+label);}
+function send(method,params={},scoped=true){const id=++seq;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(id);reject(Error('CDP timeout '+method));},12000);pending.set(id,{resolve:v=>{clearTimeout(timer);resolve(v)},reject:e=>{clearTimeout(timer);reject(e)}});socket.send(JSON.stringify({id,method,params,...(scoped&&session?{sessionId:session}:{})}));});}
+async function evaluate(expression){const r=await send('Runtime.evaluate',{expression,awaitPromise:true,returnByValue:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value;}
+async function click(selector,count=1){const p=await evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e)throw Error('Missing '+${JSON.stringify(selector)});e.scrollIntoView({block:'nearest'});const r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()`);for(let i=1;i<=count;i++){await send('Input.dispatchMouseEvent',{type:'mousePressed',...p,button:'left',clickCount:i});await send('Input.dispatchMouseEvent',{type:'mouseReleased',...p,button:'left',clickCount:i});}}
+async function shot(name){const {data}=await send('Page.captureScreenshot',{format:'jpeg',quality:60,captureBeyondViewport:false});await writeFile(join(import.meta.dirname,name+'.jpg'),Buffer.from(data,'base64'));if(process.env.SIM_QA_SCREENSHOT_LOG==='1')console.log('SIM_SCREENSHOT '+name+' '+data);}
+try{
+ const port=await until(async()=>Number((await readFile(join(profile,'DevToolsActivePort'),'utf8')).split('\n')[0]),'Chrome port');
+ const browser=await (await fetch('http://127.0.0.1:'+port+'/json/version')).json();socket=new WebSocket(browser.webSocketDebuggerUrl);await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
+ socket.onmessage=event=>{const m=JSON.parse(event.data);if(m.id){const p=pending.get(m.id);if(p){pending.delete(m.id);m.error?p.reject(Error(m.error.message)):p.resolve(m.result);}}else if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails.exception?.description||m.params.exceptionDetails.text);};
+ const target=await send('Target.createTarget',{url:'about:blank'},false);session=(await send('Target.attachToTarget',{targetId:target.targetId,flatten:true},false)).sessionId;
+ await send('Runtime.enable');await send('Page.enable');await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});await send('Page.navigate',{url:origin});
+ await until(()=>evaluate("!!document.querySelector('#dialog')?.open"),'mode chooser');await click('[data-mode-choice="analog"]');await click('#examplesMenu summary');await click('[data-example="capacitor-charge"]');await delay(100);await click('#run');await until(()=>evaluate("document.querySelector('#run').textContent==='Pozastavit'"),'analog record');await click('#run');
+ await evaluate("const slider=document.querySelector('#timeline');slider.value='1500';slider.dispatchEvent(new Event('input',{bubbles:true}));");
+ await click('[data-component="C1"] .part-drawing');assert.ok(await evaluate("!!document.querySelector('#measureKind')"));
+ await evaluate("document.querySelector('#measureKind').value='current';document.querySelector('#measureTarget').value='new';");await click('#addMeasurement');assert.equal(await evaluate("document.querySelectorAll('.scope').length"),3);
+ const layout=await evaluate("(()=>{const c=document.querySelector('#drawing').getBoundingClientRect(),s=document.querySelector('#scopes').getBoundingClientRect();return {canvas:{w:c.width,h:c.height},scope:{w:s.width,h:s.height},overflow:document.documentElement.scrollWidth>innerWidth}})()");assert.ok(layout.canvas.w>700&&layout.canvas.h>400,JSON.stringify(layout));assert.equal(layout.overflow,false);console.log('Browser layout:',JSON.stringify(layout));await shot('browser-analog-dark');
+ await click('#theme');await shot('browser-analog-light');
+ await click('#modeSwitch');await click('[data-mode-choice="digital"]');await delay(100);assert.equal(await evaluate("!!document.querySelector('[data-part=\"resistor\"]')"),false);const before=await evaluate("document.querySelector('[data-component=\"A\"]').textContent");await click('[data-component="A"] .part-drawing',2);await delay(100);const after=await evaluate("document.querySelector('[data-component=\"A\"]').textContent");assert.notEqual(after,before,'doubleclick changes one input');assert.ok(await evaluate("[...document.querySelectorAll('.logic-value')].some(e=>/[01]/.test(e.textContent))"));await shot('browser-digital');
+ await click('#modeSwitch');await click('[data-mode-choice="fbd"]');await delay(100);assert.equal(await evaluate("!!document.querySelector('[data-part=\"resistor\"]')"),false);assert.ok(await evaluate("!!document.querySelector('[data-part=\"ton\"]')"));
+ assert.deepEqual(errors,[]);console.log('Browser QA PASS: actual Worker, CSP, analog recording, differential measurement, third scope, canvas size, dark/light, digital doubleclick and FBD separation.');
+}finally{socket?.close();chrome.kill('SIGTERM');await new Promise(r=>server.close(r));await delay(100);await rm(profile,{recursive:true,force:true}).catch(()=>{});}

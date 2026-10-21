@@ -27,6 +27,17 @@ jobs:
         run: node experiments/simulation/prepare-vendor.mjs
       - name: Ověřit analogové výpočty, číslicovou logiku, ngspice a Worker
         run: node --test experiments/simulation/tests/*.test.mjs tests/simulation-worker.test.mjs
+      - name: Ověřit skutečný prohlížeč a pracovní plochu
+        env:
+          SIM_QA_SCREENSHOT_LOG: '1'
+        run: node experiments/simulation/tests/browser-qa.mjs
+      - name: Uchovat náhledy testované pracovní plochy
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-browser-qa
+          path: experiments/simulation/tests/browser-*.jpg
+          retention-days: 7
       - name: Nasadit Worker a vlastní doménu
         uses: cloudflare/wrangler-action@v3
         with:
