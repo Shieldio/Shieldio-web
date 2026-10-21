@@ -53,7 +53,7 @@ Aktuální běh navazuje výpočetní úseky v absolutním čase. Výchozí rych
 
 V horní nabídce jsou čtyři hotové VA příklady: Si, Schottky, Zener 5,1 V a LED. Přímé odkazy `/?example=diode-iv-silicon`, `/?example=diode-iv-schottky`, `/?example=diode-iv-zener`, `/?example=diode-iv-led` přeskočí úvodní volbu prostředí. Stiskněte Spustit.
 
-Trojúhelníkový generátor 25 Hz napájí sériovou kombinaci R1, D1 a snímacího RS = 100 Ω. R1 omezuje proud. První osciloskop má připravené X = U(D1), Y = I(D1), druhý sleduje proud v čase. U(D1) je rozdíl A–K, proud souhlasí s U(RS)/100 Ω. U Zenerky má závěrná větev záporné U i I. Použité modely nemají tepelný průraz, parazitní kapacity nebo výrobcem ověřené parametry konkrétního typu.
+Trojúhelníkový generátor 25 Hz napájí sériovou kombinaci R1, D1 a snímacího RS = 100 Ω. R1 omezuje proud. První osciloskop má připravené X = U(D1), Y = I(D1), druhý sleduje snímací napětí U(RS) v čase. Po přepnutí prvního do Y–t se současně ukáže U(D1) a I(D1) s vlastními osami. U(D1) je rozdíl A–K, proud souhlasí s U(RS)/100 Ω. U Zenerky má závěrná větev záporné U i I. Použité modely nemají tepelný průraz, parazitní kapacity nebo výrobcem ověřené parametry konkrétního typu.
 
 Tlačítko Y–t / X–Y v každém analogovém osciloskopu mění režim. X a Y lze zvolit z libovolných měřených kanálů. Paměť drží stopu; vypnutá paměť zobrazuje krátkou pohyblivou stopu. Kolečko a +/− přibližují, tažení posouvá osy, Celý obnoví rozsah. Kliknutím na stopu se odečte současný pár U/I. Volba os se ukládá do souboru i sdíleného odkazu. PNG/SVG obsahuje i X–Y graf.
 

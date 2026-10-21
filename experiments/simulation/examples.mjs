@@ -170,11 +170,12 @@ function diodeIV(id,type,title,amplitude,resistance,params={}){
   .w([280,220],[320,220]).w([400,220],[580,220],[580,280])
   .w([580,360],[580,420]).w([580,500],[580,560],[180,560],[180,440]);
  Object.assign(b.project.components.find(c=>c.id==='V1').params,{frequency:25,waveform:'triangle',phase:0});
+ b.project.components.find(c=>c.id==='GND').y=560;
  b.project.probes=[];
  b.project.measurements=[
   {id:'ud',componentId:'D1',kind:'voltage',scope:0,color:'#49b9ee'},
-  {id:'id',componentId:'D1',kind:'current',scope:1,color:'#da89e9'},
-  {id:'urs',componentId:'RS',kind:'voltage',scope:0,color:'#69d4a1'}
+  {id:'id',componentId:'D1',kind:'current',scope:0,color:'#da89e9'},
+  {id:'urs',componentId:'RS',kind:'voltage',scope:1,color:'#69d4a1'}
  ];
  b.project.scopeSettings=[{mode:'xy',xId:'ud',yId:'id',persistence:true},{mode:'time'}];
  b.project.demo={kind:'diode-iv'};
