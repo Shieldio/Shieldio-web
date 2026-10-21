@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {connections,cleanPath,moveEndpoint,replaceConnection,automaticSettings,measurementPins,sampleMeasurement,measurementSeries,validateProject,allowed,scopeSampleIndices} from '../workbench-model.mjs';
+import {connections,cleanPath,moveEndpoint,replaceConnection,automaticSettings,measurementPins,sampleMeasurement,measurementSeries,validateProject,allowed,scopeSampleIndices,removeScopeFromProject} from '../workbench-model.mjs';
 import {examples} from '../examples.mjs';
 import {transient,sourceValue} from '../engine.mjs';
 const copy=p=>JSON.parse(JSON.stringify(p)),wire=(id,x,y,a,b)=>({id,a:{x,y},b:{x:a,y:b}});
@@ -20,3 +20,8 @@ test('Nonzero capacitor initial voltage discharges exponentially',()=>{const p=c
 test('Live source change preserves capacitor voltage and absolute time',()=>{const p=copy(examples.find(e=>e.id==='capacitor-charge').project);const first=transient(p,{duration:.001,step:1e-6}),state=first.final.state;p.components.find(c=>c.type==='vdc').params.value=2;const tail=transient(p,{duration:.001,step:1e-6,startTime:.001,initialState:{parts:state}}),m={componentId:'C1',kind:'voltage'};assert.equal(tail.time[0],.001);assert.ok(Math.abs(tail.time.at(-1)-.002)<1e-12);assert.ok(Math.abs(sampleMeasurement(p,m,first,first.time.length-1)-sampleMeasurement(p,m,tail,0))<1e-5);assert.ok(sampleMeasurement(p,m,tail,tail.time.length-1)<sampleMeasurement(p,m,tail,0));});
 
 test('Scope decimation retains spikes, short logic pulses, gaps and zoomed samples',()=>{const time=Array.from({length:10000},(_,i)=>i*1e-6),values=time.map(()=>0);values[5001]=99;assert.ok(scopeSampleIndices(time,values,0,.01,.01,500,false).includes(5001));assert.ok(scopeSampleIndices(time,values,.005001,.005002,.005002,500,false).includes(5001));values[5001]=1;const edges=scopeSampleIndices(time,values,0,.01,.01,500,true);assert.ok(edges.includes(5001)&&edges.includes(5002));assert.ok(scopeSampleIndices([0,1,2,3,4],[0,1,NaN,1,0],0,4,4,2,false).includes(2));});
+
+test('Closing a scope removes its channels and renumbers survivors',()=>{const p={scopes:3,measurements:[{id:'a',scope:0},{id:'b',scope:1},{id:'c',scope:2}],scopeSettings:[{mode:'time'},{mode:'time'},{mode:'xy',xId:'c',yId:'c'}]};assert.ok(removeScopeFromProject(p,1));assert.equal(p.scopes,2);assert.deepEqual(p.measurements,[{id:'a',scope:0},{id:'c',scope:1}]);assert.equal(p.scopeSettings[1].xId,'c');});
+test('Closing a scope preserves channels referenced by another XY scope',()=>{const p={scopes:2,measurements:[{id:'u',scope:0},{id:'i',scope:1}],scopeSettings:[{mode:'time'},{mode:'xy',xId:'u',yId:'i'}]};removeScopeFromProject(p,0);assert.deepEqual(p.measurements,[{id:'u',scope:0},{id:'i',scope:0}]);assert.equal(p.scopeSettings[0].xId,'u');});
+test('Last scope can be closed and stays closed across file round-trip',()=>{const p=validateProject(copy(examples.find(e=>e.id==='ohm').project));while(p.scopes)removeScopeFromProject(p,0);assert.equal(p.scopes,0);assert.equal(p.measurements.length,0);assert.equal(validateProject(JSON.parse(JSON.stringify(p))).scopes,0);});
+test('Invalid close does not mutate the project',()=>{const p={scopes:1,measurements:[],scopeSettings:[]},before=copy(p);assert.equal(removeScopeFromProject(p,-1),false);assert.equal(removeScopeFromProject(p,1),false);assert.deepEqual(p,before);});

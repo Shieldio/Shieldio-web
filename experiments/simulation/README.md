@@ -60,3 +60,9 @@ Tlačítko Y–t / X–Y v každém analogovém osciloskopu mění režim. X a Y
 Logické vstupy a spínače přepíná jediný klik, tažení je přesouvá. Dvojklik neprovede druhé přepnutí. Stav ON/OFF je na vstupu, vypočtené 0/1/X na vývodech a stav vodičů je barevný. Číslicová paměť a časovače navazují mezi výpočetními úseky.
 
 Zdroje: DC je kresleno dlouhou kladnou a krátkou zápornou elektrodou, generátor kruhem s právě zvoleným průběhem, proudový zdroj kruhem se směrovou šipkou. Jde o vlastní kresby běžných konvencí; úplná shoda s licencovanou databází IEC se netvrdí. Referenční popisy: [SparkFun — čtení schémat](https://learn.sparkfun.com/tutorials/how-to-read-a-schematic/all.pdf), [Tektronix — současné kanály v XY](https://www.tek.com/en/support/faqs/does-tds1000-2000-series-have-xy-display-format-addition-yt), [Pico — charakteristiky v XY](https://www.picotech.com/library/knowledge-bases/oscilloscopes/xy-display-mode).
+
+## Zjednodušené nabídky a přístroje
+
+Součástky a ukázky jsou rozdělené do rozbalovacích skupin. Ukázky ve výběru mají pouze názvy. Návod k VA měření je sbalený pod „Zapojení a měření VA“.
+
+Každý osciloskop má × pro zavření, + Kanál pro přímý výběr součástky/veličiny a nabídku ⋯ s měřítky. Kanál lze odebrat × přímo u jeho názvu pod grafem. Zavření přístroje přečísluje ostatní; kanály potřebné jiným X–Y přístrojem zůstanou zachované. Lze zavřít i poslední osciloskop a nový přidat tlačítkem + Osciloskop. Zpět obnoví zavřený přístroj i kanály. Tato úprava neobnovuje počáteční stav běžícího obvodu.
