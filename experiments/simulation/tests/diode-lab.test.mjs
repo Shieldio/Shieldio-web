@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {examples} from '../examples.mjs';
-import {transient} from '../engine.mjs';
+import {transient,ac} from '../engine.mjs';
 import {diodeLabRows,diodeLabCSV,diodeLabWarnings} from '../diode-lab.mjs';
 import {adaptiveSpeed,validateSpeed} from '../speed-control.mjs';
 import {stableChannelScale,triggeredStart} from '../scope-renderer.mjs';
@@ -9,3 +9,5 @@ for(const id of ['diode-iv-silicon','diode-iv-schottky','diode-iv-led','diode-iv
 test('VF speed supports nanosecond-scale observation without changing physical frequency',()=>{assert.equal(adaptiveSpeed(1e9),1e-9);assert.equal(adaptiveSpeed(1e10),1e-10);assert.equal(validateSpeed('1e-12'),1e-12);assert.throws(()=>validateSpeed(0));});
 test('Fixed scope sensitivity preserves observable amplitude changes',()=>{const cfg={},scale=stableChannelScale(cfg,'out',[0,1]);assert.equal(stableChannelScale(cfg,'out',[0,.1]).sensitivity,scale.sensitivity);});
 test('Trigger selects an acquired sweep without resetting source time',()=>{const t=Array.from({length:1000},(_,i)=>i/1000),v=t.map(x=>Math.sin(2*Math.PI*25*x));const start=triggeredStart(t,v,.9,.08,0,'rising');assert.ok(start>.7&&start<.85);});
+
+test('Wien gain changes with frequency and agrees with analytical RC transfer',()=>{const p=structuredClone(examples.find(e=>e.id==='wien').project);p.probes=[{id:'out',x:820,y:280}];const f0=1/(2*Math.PI*1000*1e-7),r=ac(p,{start:f0,stop:10*f0,points:3}),trace=r.traces[0];assert.ok(Math.abs(Math.hypot(trace.real[0],trace.imag[0])-1/3)<1e-8);assert.ok(Math.abs(Math.hypot(trace.real.at(-1),trace.imag.at(-1))-1/Math.hypot(3,10-.1))<1e-8);});

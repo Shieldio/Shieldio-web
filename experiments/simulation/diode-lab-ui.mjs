@@ -1,7 +1,7 @@
 import {diodeLabProfile,diodeLabSample,diodeLabRows,diodeLabWarnings,diodeLabCSV} from './diode-lab.mjs';
 
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const format=(value,digits=6)=>Number.isFinite(value)?new Intl.NumberFormat('cs-CZ',{maximumSignificantDigits:digits}).format(Math.abs(value)<1e-15?0:value):'—';
+const format=(value,digits=6)=>Number.isFinite(value)&&value!==0&&Math.abs(value)<1e-4?value.toExponential(3):Number.isFinite(value)?new Intl.NumberFormat('cs-CZ',{maximumSignificantDigits:digits}).format(Math.abs(value)<1e-15?0:value):'—';
 const numeric=value=>Number(String(value).trim().replace(',','.'));
 const tableLimit=2000;
 const fields=['t','US','UD','URS','ID','VA','VK','power'];
