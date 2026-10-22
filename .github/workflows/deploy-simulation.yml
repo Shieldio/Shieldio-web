@@ -13,7 +13,7 @@ permissions:
   contents: read
 concurrency:
   group: cloudflare-simulation
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -33,6 +33,10 @@ jobs:
         run: node experiments/simulation/tests/browser-qa.mjs
       - name: Připravit Firefox a WebKit
         run: |
+          # Keep the signed Ubuntu repository, avoid the intermittently slow Azure mirror.
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
           npm install --prefix /tmp/shieldio-browser-qa playwright@1.64.1
           /tmp/shieldio-browser-qa/node_modules/.bin/playwright install --with-deps firefox webkit
       - name: Ověřit Firefox a WebKit
