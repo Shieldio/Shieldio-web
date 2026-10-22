@@ -138,9 +138,15 @@ export function toSpice(project,options={}){
    // Integrate the unrestricted open-loop command; limiting it to supply rails
    // before the dominant pole wrongly reduces a 0.5 V/us part to ~1 kV/s.
    // Soft state clamps prevent wind-up; the output clamp keeps rail limits exact.
+   // During a Newton trial both the slew limiter and the output clip can have
+   // zero slope. A finite DC return keeps the capacitor state constrained in
+   // that case (the capacitor is open in .op); without it ngspice reports a
+   // singular u*_state node before its operating-point recovery can converge.
+   // 1 Gohm changes a default pole's conductance by < 3.2e-5 relative and
+   // draws at most 15 nA at +/-15 V, negligible beside the slew current.
    const command=`(${si(q.gain)}*(v(${n.plus})-v(${n.minus})+${si(q.inputOffset)}))`;
    lines.push(`Bdrv${index} ${drive} 0 V=${command}`,`Bpole${index} ${state} 0 I=min(max((v(${state})-v(${drive}))/${si(R)},-${si(limit)}),${si(limit)})+max(v(${state})-${hi},0)/1e-3+min(v(${state})-${lo},0)/1e-3`,
-    `Cpole${index} ${state} 0 ${si(C)}`,`Bclip${index} ${internal} 0 V=min(max(v(${state}),${lo}),${hi})`);
+    `Cpole${index} ${state} 0 ${si(C)}`,`Rstate${index} ${state} 0 1e9`,`Bclip${index} ${internal} 0 V=min(max(v(${state}),${lo}),${hi})`);
    if(q.outputResistance>0)lines.push(`${name} u${index}_ideal 0 ${internal} 0 1`,`Rout${index} u${index}_ideal ${n.out} ${si(q.outputResistance)}`);
    else lines.push(`${name} ${n.out} 0 ${internal} 0 1`);
    currentVectors[p.id]=`${name.toLowerCase()}#branch`;
