@@ -35,7 +35,7 @@ try{
  await click('#modeSwitch');await click('[data-mode-choice="fbd"]');await delay(100);assert.equal(await evaluate("!!document.querySelector('[data-part=\"resistor\"]')"),false);assert.ok(await evaluate("!!document.querySelector('[data-part=\"ton\"]')"));
  // Deep-linked diode demos must be ready without a mode-selection dialog.
  for(const id of ['diode-iv-silicon','diode-iv-schottky','diode-iv-zener','diode-iv-led']){
-  await send('Page.navigate',{url:origin+'/?example='+id});await until(()=>evaluate("!!document.querySelector('#scopeChart1 .xy-trace')?.getAttribute('d').length>100&&document.querySelector('#run').textContent==='Spustit'"),'XY demo '+id);assert.equal(await evaluate("document.querySelector('#dialog').open"),false);
+  await send('Page.navigate',{url:origin+'/?example='+id});await until(()=>evaluate("document.querySelector('#scopeChart1 .xy-trace')?.getAttribute('d').length>100&&document.querySelector('#run').textContent==='Spustit'"),'XY demo '+id);assert.equal(await evaluate("document.querySelector('#dialog').open"),false);
   await click('#run');await until(()=>evaluate("document.querySelector('#run').textContent==='Pozastavit'"),'live XY');await delay(700);await click('#run');
   assert.ok(await evaluate("document.querySelector('#scopeChart1 .xy-trace')?.getAttribute('d').length>100"),id+' curve');
   const time=await evaluate("document.querySelector('#time').textContent");console.log('Live XY demo:',id,time);assert.ok(await evaluate("document.querySelector('#time').textContent.includes('ms')?parseFloat(document.querySelector('#time').textContent.split('=')[1])>80:parseFloat(document.querySelector('#time').textContent.split('=')[1])>.08"),'time continues after multiple sweep periods');

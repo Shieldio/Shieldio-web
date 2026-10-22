@@ -31,6 +31,14 @@ jobs:
         env:
           SIM_QA_SCREENSHOT_LOG: '1'
         run: node experiments/simulation/tests/browser-qa.mjs
+      - name: Připravit Firefox a WebKit
+        run: |
+          npm install --prefix /tmp/shieldio-browser-qa playwright@1.64.1
+          /tmp/shieldio-browser-qa/node_modules/.bin/playwright install --with-deps firefox webkit
+      - name: Ověřit Firefox a WebKit
+        env:
+          PLAYWRIGHT_MODULE: /tmp/shieldio-browser-qa/node_modules/playwright/index.mjs
+        run: node experiments/simulation/tests/browser-secondary.mjs
       - name: Uchovat náhledy testované pracovní plochy
         if: always()
         uses: actions/upload-artifact@v4
