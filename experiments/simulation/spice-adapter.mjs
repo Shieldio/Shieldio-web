@@ -76,11 +76,12 @@ export function transfer(result, outputName, inputName) {
   });
 }
 
+const sampleCount=(duration,step)=>{const ratio=duration/step;return Math.max(1,Math.ceil(ratio-32*Number.EPSILON*Math.max(1,Math.abs(ratio))))};
 const si=x=>{if(!Number.isFinite(Number(x)))throw Error('Neplatný parametr SPICE.');return Number(x).toExponential(12)};
 export function toSpice(project,options={}){
  const compiled=compile(project),mode=options.mode||'tran',duration=Number(options.duration??project.settings?.duration??.01),step=Number(options.step??project.settings?.step??5e-6);
  if(!['tran','ac','op'].includes(mode))throw Error('Nepodporovaná SPICE analýza.');
- if(mode==='tran'&&(!(duration>0)||!(step>0)||step>duration||duration/step>30000))throw Error('Časová SPICE analýza potřebuje kladnou délku a krok, nejvýše 30 000 výstupních bodů.');
+ if(mode==='tran'&&(!(duration>0)||!(step>0)||step>duration||sampleCount(duration,step)>30000))throw Error('Časová SPICE analýza potřebuje kladnou délku a krok, nejvýše 30 000 výstupních bodů.');
  const input=compiled.parts.find(p=>p.type==='vac'&&(!options.inputId||p.id===options.inputId));
  if(mode==='ac'&&(!input||!input.params.value))throw Error('AC analýza potřebuje generátor s nenulovou amplitudou.');
  const lines=['SHiELDiO Sim - modelove zapojeni','.options reltol=1e-5 abstol=1e-10 vntol=1e-7'],currentVectors={};
@@ -89,8 +90,18 @@ export function toSpice(project,options={}){
   const n=p.nodes,q=p.params,name=names.get(p.id);
   if(['resistor','capacitor','switch','diode','led','schottky','zener','tunnel'].includes(p.type)){
    const sense=`sense${index}`,ammeter=`Vsense${index}`;
-   if(p.type==='tunnel'){const v=`v(${n.a},${sense})`;lines.push(`${name} ${n.a} ${sense} I=${si(q.value)}*(exp(min(40,${v}/${si(.02585*q.n)}))-1)+${si(q.peakCurrent)}*(${v}/${si(q.peakVoltage)})*exp(min(40,1-${v}/${si(q.peakVoltage)}))+${si(q.valleyCurrent/q.valleyVoltage)}*${v}`);}else if(['diode','led','schottky','zener'].includes(p.type))lines.push(`${name} ${n.a} ${sense} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27${p.type==='zener'?` BV=${si(q.breakdown)} IBV=0.001 RS=${si(q.rz)}`:''})`);
-   else lines.push(`${name} ${n.a} ${sense} ${si(p.type==='switch'&&!q.closed?1e12:q.value)}${p.type==='capacitor'?` IC=${si(q.initialVoltage||0)}`:''}`);
+   const diode=['diode','led','schottky','zener','tunnel'].includes(p.type);
+   const junction=diode&&q.rs>0?`junction${index}`:n.a;
+   // External rs carries total terminal current, including reverse breakdown.
+   // Keep rz as the Zener junction's reverse slope, not a forward series resistor.
+   if(diode&&q.rs>0)lines.push(`Rseries${index} ${n.a} ${junction} ${si(q.rs)}`);
+   if(p.type==='tunnel'){
+    const v=`v(${junction},${sense})`;
+    lines.push(`${name} ${junction} ${sense} I=${si(q.value)}*(exp(min(80,${v}/${si(.02585*q.n)}))-1)+${si(q.peakCurrent)}*(${v}/${si(q.peakVoltage)})*exp(min(40,1-${v}/${si(q.peakVoltage)}))+${si(q.valleyCurrent/q.valleyVoltage)}*${v}`);
+   }else if(diode){
+    lines.push(`${name} ${junction} ${sense} DM${index}`,`.model DM${index} D(IS=${si(q.value)} N=${si(q.n)} TNOM=27)`);
+    if(p.type==='zener')lines.push(`Bbreak${index} ${junction} ${sense} I=min((v(${junction},${sense})+${si(q.breakdown)})/${si(q.rz)},0)`);
+   }else lines.push(`${name} ${n.a} ${sense} ${si(p.type==='switch'&&!q.closed?1e12:q.value)}${p.type==='capacitor'?` IC=${si(q.initialVoltage||0)}`:''}`);
    lines.push(`${ammeter} ${sense} ${n.b} DC 0`);
    currentVectors[p.id]=`${ammeter.toLowerCase()}#branch`;
   }else if(p.type==='inductor'){lines.push(`${name} ${n.a} ${n.b} ${si(q.value)} IC=${si(q.initialCurrent||0)}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
@@ -141,7 +152,7 @@ export async function runSpice(project,options={}){
   const raw=await engine.run(plan.netlist);
   if(plan.mode==='tran'){
    const times=getVector(raw,'time')?.values;if(!times?.length)throw Error('SPICE nevrátil časovou osu.');
-   const duration=Number(options.duration??project.settings?.duration??.01),count=Math.ceil(duration/plan.step),uniform=Array.from({length:count+1},(_,i)=>Math.min(i*plan.step,duration));
+   const duration=Number(options.duration??project.settings?.duration??.01),count=sampleCount(duration,plan.step),uniform=Array.from({length:count+1},(_,i)=>Math.min(i*plan.step,duration));
    for(const vector of raw.data){
     if(vector.name==='time'){vector.values=uniform;continue;}
     const source=vector.values;let cursor=0;
@@ -157,7 +168,7 @@ export async function runSpice(project,options={}){
   if(plan.mode==='ac'){
    const vector=raw.data.find(v=>v.type==='frequency'||v.name==='frequency');if(!vector)throw Error('SPICE nevrátil frekvenční osu.');
    const frequency=vector.values.map(v=>typeof v==='number'?v:v.real);
-   return {frequency,traces:traces.map(t=>({...t,magnitude:t.values.map(v=>20*Math.log10(Math.max(1e-15,Math.hypot(v.real,v.img)/Math.abs(plan.input.params.value)))),phase:t.values.map(v=>Math.atan2(v.img/plan.input.params.value,v.real/plan.input.params.value)*180/Math.PI)})),nodeMap:plan.compiled.nodeMap,engine:'ngspice',warnings:['AC je malá signálová analýza modelu. Ideální modely nejsou ověřeným RF návrhem.']};
+   return {frequency,traces:traces.map(t=>({...t,magnitude:t.values.map(v=>20*Math.log10(Math.max(1e-15,Math.hypot(v.real,v.img)/Math.abs(plan.input.params.value)))),phase:t.values.map(v=>Math.atan2(v.img/plan.input.params.value,v.real/plan.input.params.value)*180/Math.PI)})),nodeMap:plan.compiled.nodeMap,referenceNode:plan.compiled.reference,engine:'ngspice',warnings:['AC je malá signálová analýza modelu. Ideální modely nejsou ověřeným RF návrhem.']};
   }
   const currents={},voltages={};for(const [id,name]of Object.entries(plan.currentVectors)){const values=get(name)||(name.endsWith('#branch')?get(`i(${name.replace('#branch','')})`):undefined);if(values){currents[id]=values.at(-1);if(plan.mode==='tran')traces.push({id:`I:${id}`,label:`I(${id})`,unit:'A',values});}}
   for(const [id,values]of Object.entries(nodeTraces))voltages[id]=values.at(-1);
@@ -168,8 +179,8 @@ export async function runSpice(project,options={}){
    else if(part.type==='capacitor')currents[part.id]=0;
    else if(part.type==='diode')currents[part.id]=part.params.value*(Math.exp(Math.min(40,voltage/(.02585*part.params.n)))-1);
   }
-  if(plan.mode==='op')return {voltages,currents,nodeMap:plan.compiled.nodeMap,engine:'ngspice'};
+  if(plan.mode==='op')return {voltages,currents,nodeMap:plan.compiled.nodeMap,reference:plan.compiled.reference,engine:'ngspice'};
   const time=get('time');if(!time?.length)throw Error('SPICE nevrátil časovou osu.');
-  return {time,traces,nodeMap:plan.compiled.nodeMap,nodeTraces,step:plan.step,method:'ngspice adaptive transient',engine:'ngspice',final:{voltages,currents},warnings:['Časová simulace ngspice používá nastavené počáteční napětí kondenzátorů a proudy cívek (výchozí nula).']};
+  return {time,traces,nodeMap:plan.compiled.nodeMap,nodeTraces,reference:plan.compiled.reference,step:plan.step,method:'ngspice adaptive transient',engine:'ngspice',final:{voltages,currents},warnings:['Časová simulace ngspice používá nastavené počáteční napětí kondenzátorů a proudy cívek (výchozí nula).']};
  }finally{if(!options.engine)engine.dispose();}
 }

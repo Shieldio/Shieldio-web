@@ -12,11 +12,11 @@ export const catalog = [
  {type:'vac',label:'Generátor signálu',category:'Zdroje',pins:two,defaults:{value:1,frequency:1000,offset:0,phase:0,duty:.5,waveform:'sine'}},
  {type:'idc',label:'Proudový zdroj DC',category:'Zdroje',pins:two,defaults:{value:.001}},
  {type:'iac',label:'Proudový generátor',category:'Zdroje',pins:two,defaults:{value:.001,frequency:1000,offset:0,phase:0,duty:.5,waveform:'sine'}},
- {type:'led',label:'LED dioda',category:'Polovodiče',pins:two,defaults:{value:1e-20,n:2}},
- {type:'diode',label:'Dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.8}},
- {type:'schottky',label:'Schottkyho dioda',category:'Polovodiče',pins:two,defaults:{value:1e-8,n:1.05}},
- {type:'zener',label:'Zenerova dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.5,breakdown:5.1,rz:10}},
- {type:'tunnel',label:'Tunelová dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.8,peakCurrent:.005,peakVoltage:.07,valleyCurrent:.001,valleyVoltage:.35}},
+ {type:'led',label:'LED dioda',category:'Polovodiče',pins:two,defaults:{value:1e-20,n:2,rs:0}},
+ {type:'diode',label:'Dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.8,rs:0}},
+ {type:'schottky',label:'Schottkyho dioda',category:'Polovodiče',pins:two,defaults:{value:1e-8,n:1.05,rs:0}},
+ {type:'zener',label:'Zenerova dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.5,rs:0,breakdown:5.1,rz:10}},
+ {type:'tunnel',label:'Tunelová dioda',category:'Polovodiče',pins:two,defaults:{value:1e-12,n:1.8,rs:0,peakCurrent:.005,peakVoltage:.07,valleyCurrent:.001,valleyVoltage:.35}},
  {type:'opamp',label:'Operační zesilovač',category:'Polovodiče',pins:[{id:'plus',x:-40,y:-20},{id:'minus',x:-40,y:20},{id:'out',x:40,y:0},{id:'vcc',x:0,y:-60},{id:'vee',x:0,y:60}],defaults:{powered:true,gain:1e5,rail:15,slew:0.5e6,gbw:1e6}},
  {type:'switch',label:'Spínač',category:'Ostatní',pins:two,defaults:{closed:true,value:0.01}},
  {type:'gnd',label:'Zem / reference',category:'Ostatní',pins:[{id:'gnd',x:0,y:0}],defaults:{}},
@@ -31,7 +31,33 @@ const isDiode=type=>['diode','led','schottky','zener','tunnel'].includes(type);
 // Low-Is LED models need exponents above 40 at ordinary mA currents. Beyond
 // exp(80), continue linearly to keep the Newton derivative consistent with I(V).
 const exp80=Math.exp(80);
-export function diodeModel(type,q,v){const vt=.02585*q.n,zForward=v/vt,ev=zForward>80?exp80*(1+zForward-80):Math.exp(Math.max(-60,zForward)),dev=zForward>80?exp80:zForward < -60?0:ev;let i=q.value*(ev-1)+1e-12*v,g=q.value*dev/vt+1e-12;if(type==='zener'&&v < -q.breakdown){i+=(v+q.breakdown)/q.rz;g+=1/q.rz;}if(type==='tunnel'){const z=clamp(v/q.peakVoltage,-40,40),e=Math.exp(1-z),r=q.valleyCurrent/ q.valleyVoltage;i+=q.peakCurrent*z*e+r*v;g+=q.peakCurrent/q.peakVoltage*e*(1-z)+r;}return {i,g};}
+function junctionModel(type,q,v){const vt=.02585*q.n,zForward=v/vt,ev=zForward>80?exp80*(1+zForward-80):Math.exp(Math.max(-60,zForward)),dev=zForward>80?exp80:zForward < -60?0:ev;let i=q.value*(ev-1)+1e-12*v,g=q.value*dev/vt+1e-12;if(type==='zener'&&v < -q.breakdown){i+=(v+q.breakdown)/q.rz;g+=1/q.rz;}if(type==='tunnel'){const z=clamp(v/q.peakVoltage,-40,40),e=Math.exp(1-z),r=q.valleyCurrent/ q.valleyVoltage;i+=q.peakCurrent*z*e+r*v;g+=q.peakCurrent/q.peakVoltage*e*(1-z)+r;}return {i,g};}
+/** Terminal I(V) with optional series resistance. The junction voltage u is
+ * solved from u + rs*Ij(u) = V. Differential conductance follows the implicit
+ * derivative gj/(1 + rs*gj), including reverse Zener breakdown.
+ */
+export function diodeModel(type,q,v){
+ const rs=Number(q.rs??0);
+ if(!Number.isFinite(rs)||rs<0)throw Error('Sériový odpor diody musí být konečný a nezáporný.');
+ if(rs===0)return junctionModel(type,q,v);
+ if(v===0){const r=junctionModel(type,q,0);return {i:r.i,g:r.g/(1+rs*r.g)};}
+ let lo=Math.min(0,v),hi=Math.max(0,v);
+ // A forward logarithmic seed avoids enormous exponential Newton iterates.
+ let u=v>0?Math.min(v,.02585*q.n*Math.log1p(v/(rs*q.value))):v;
+ const tolerance=2e-13*Math.max(1,Math.abs(v));
+ for(let k=0;k<100;k++){
+  const r=junctionModel(type,q,u),f=u+rs*r.i-v,d=1+rs*r.g;
+  if(Math.abs(f)<=tolerance){
+   if(Math.abs(d)<1e-14)throw Error('Pracovní bod diody se sériovým odporem je nestabilní.');
+   return {i:r.i,g:r.g/d};
+  }
+  if(f>0)hi=u;else lo=u;
+  const next=u-f/d;
+  // Safeguard Newton against overshoot and the tunnel model's NDR region.
+  u=Number.isFinite(next)&&next>lo&&next<hi?next:(lo+hi)/2;
+ }
+ throw Error('Model diody se sériovým odporem nekonvergoval. Zkontrolujte jeho parametry.');
+}
 export function pinsFor(c){const type=kinds[c.type];if(!type)throw Error(`Neznámá součástka: ${c.type}`);const a=(c.rotation||0)*Math.PI/180;return type.pins.filter(p=>c.type!=='opamp'||c.params?.powered||!['vcc','vee'].includes(p.id)).map(p=>({id:p.id,x:Math.round((c.x+p.x*Math.cos(a)-p.y*Math.sin(a))*1e6)/1e6,y:Math.round((c.y+p.x*Math.sin(a)+p.y*Math.cos(a))*1e6)/1e6}));}
 const on=(p,a,b)=>Math.abs((p.x-a.x)*(b.y-a.y)-(p.y-a.y)*(b.x-a.x))<1e-6 && p.x>=Math.min(a.x,b.x)-1e-6&&p.x<=Math.max(a.x,b.x)+1e-6&&p.y>=Math.min(a.y,b.y)-1e-6&&p.y<=Math.max(a.y,b.y)+1e-6;
 export function compile(project){
@@ -49,7 +75,7 @@ export function compile(project){
   if(['resistor','capacitor','inductor'].includes(c.type))positive(params.value,`${c.id}: hodnota`);
   if(c.type==='capacitor')params.initialVoltage=finite(params.initialVoltage,`${c.id}: počáteční napětí`);
   if(c.type==='inductor')params.initialCurrent=finite(params.initialCurrent,`${c.id}: počáteční proud`);
-  if(isDiode(c.type)){positive(params.value,`${c.id}: Is`);positive(params.n,`${c.id}: emisní koeficient`)}
+  if(isDiode(c.type)){positive(params.value,`${c.id}: Is`);positive(params.n,`${c.id}: emisní koeficient`);params.rs=finite(params.rs,`${c.id}: sériový odpor`);if(params.rs<0)throw Error(`${c.id}: sériový odpor musí být nezáporný.`);}
   if(c.type==='zener'){positive(params.breakdown,c.id+': průrazné napětí');positive(params.rz,c.id+': dynamický odpor');}if(c.type==='tunnel')for(const k of ['peakCurrent','peakVoltage','valleyCurrent','valleyVoltage'])positive(params[k],c.id+': '+k);
   if(c.type==='switch')positive(params.value,`${c.id}: odpor sepnutí`);
   if(['vdc','vac','idc','iac'].includes(c.type))finite(params.value,`${c.id}: ${c.type==='idc'||c.type==='iac'?'proud':'napětí'}`);
@@ -60,8 +86,14 @@ export function compile(project){
  for(const w of project.wires){if(!w.a||!w.b)throw Error('Vodič nemá oba konce.');add(w.a);add(w.b)}
  for(const p of project.probes||[])add(p);
  for(const w of project.wires){const a=key(w.a.x,w.a.y);for(const [k,p]of points)if(on(p,w.a,w.b))union(a,k)}
- const grounds=parts.filter(c=>c.type==='gnd');if(!grounds.length)throw Error('Obvodu chybí zem (GND). Vložte referenční bod.');
- const g=key(grounds[0].pins[0].x,grounds[0].pins[0].y);for(const c of grounds)union(g,key(c.pins[0].x,c.pins[0].y));
+ const grounds=parts.filter(c=>c.type==='gnd');
+ // An electrical reference fixes the otherwise arbitrary common-mode voltage.
+ // Explicit GND symbols retain their original shared-net behavior. With no GND,
+ // reference only one terminal; do not silently ground disconnected islands.
+ const referencePart=grounds[0]||parts.find(c=>c.type==='vdc'||c.type==='vac')||parts.find(c=>c.type==='idc'||c.type==='iac')||parts.find(c=>c.pins.some(p=>p.id==='b'))||parts[0];
+ const referencePin=grounds.length?referencePart.pins[0]:referencePart.pins.find(p=>p.id==='b')||referencePart.pins[0];
+ const g=key(referencePin.x,referencePin.y);for(const c of grounds)union(g,key(c.pins[0].x,c.pins[0].y));
+ const reference={kind:grounds.length?'explicit':'automatic',automatic:!grounds.length,componentId:referencePart.id,pinId:referencePin.id,x:referencePin.x,y:referencePin.y,node:'0'};
  const roots=new Map([[find(g),'0']]), nodes=[],nodeMap={};let next=1;
  for(const [k,p]of points){const r=find(k);if(!roots.has(r))roots.set(r,`n${next++}`);const id=roots.get(r);nodeMap[k]=id;if(!nodes.some(n=>n.id===id))nodes.push({id,...p});}
  const nodeAt=(x,y)=>{const exact=nodeMap[key(x,y)];if(exact!==undefined)return exact;for(const w of project.wires)if(on({x,y},w.a,w.b))return nodeMap[key(w.a.x,w.a.y)];return undefined};
@@ -70,7 +102,7 @@ export function compile(project){
  const nodeIds=nodes.filter(n=>n.id!=='0').map(n=>n.id), index=Object.fromEntries(nodeIds.map((n,i)=>[n,i]));
  branches.forEach((c,i)=>c.branch=nodeIds.length+i);
  if(nodeIds.length+branches.length>200)throw Error('Beta podporuje nejvýše 200 nezávislých napětí a větvových proudů.');
- return {project,parts:active,nodes,nodeIds,nodeMap,nodeAt,index,size:nodeIds.length+branches.length};
+ return {project,parts:active,nodes,nodeIds,nodeMap,nodeAt,index,size:nodeIds.length+branches.length,reference};
 }
 function matrix(n){return Array.from({length:n},()=>new Float64Array(n));}
 function solve(A,b){
@@ -111,7 +143,7 @@ function stampReal(c,x,mode,t,dt,previous){
  }
  return {A,b};
 }
-function diagnose(c){const connected=new Set(['0']);for(let pass=0;pass<c.parts.length+1;pass++)for(const p of c.parts){let ns=Object.values(p.nodes);if(ns.some(n=>connected.has(n)))for(let n of ns)connected.add(n);}const floating=c.parts.filter(p=>Object.values(p.nodes).some(n=>!connected.has(n)));if(floating.length)throw Error('Obvod nelze vyřešit: '+floating.map(p=>p.id).join(', ')+' nemá spojení se zemí. Připojte vývody nebo GND.');for(const p of c.parts){if(['vdc','vac'].includes(p.type)&&p.nodes.a===p.nodes.b&&(p.params.value||p.params.offset))throw Error(`Zdroj ${p.id} je zkratovaný: oba vývody jsou na stejném vodiči.`);if(p.type==='opamp'&&p.params.powered){for(const pin of ['vcc','vee']){const node=p.nodes[pin],shared=c.parts.some(q=>q!==p&&Object.values(q.nodes).includes(node));if(!shared&&node!=='0')throw Error(`${p.id}: napájecí vývod ${pin==='vcc'?'V+':'V−'} není zapojený.`);}}}}
+function diagnose(c){const connected=new Set(['0']);for(let pass=0;pass<c.parts.length+1;pass++)for(const p of c.parts){let ns=Object.values(p.nodes);if(ns.some(n=>connected.has(n)))for(let n of ns)connected.add(n);}const floating=c.parts.filter(p=>Object.values(p.nodes).some(n=>!connected.has(n)));if(floating.length)throw Error('Obvod nelze vyřešit: '+floating.map(p=>p.id).join(', ')+` nemá spojení s referenčním uzlem (${c.reference.componentId}.${c.reference.pinId}). Propojte izolovanou část se zbytkem obvodu.`);for(const p of c.parts){if(['vdc','vac'].includes(p.type)&&p.nodes.a===p.nodes.b&&(p.params.value||p.params.offset))throw Error(`Zdroj ${p.id} je zkratovaný: oba vývody jsou na stejném vodiči.`);if(p.type==='opamp'&&p.params.powered){for(const pin of ['vcc','vee']){const node=p.nodes[pin],shared=c.parts.some(q=>q!==p&&Object.values(q.nodes).includes(node));if(!shared&&node!=='0')throw Error(`${p.id}: napájecí vývod ${pin==='vcc'?'V+':'V−'} není zapojený.`);}}}}
 function operating(c,mode='dc',t=0,dt=1e-6,previous={},guess){
  if(!guess)diagnose(c);let x=guess?Float64Array.from(guess):new Float64Array(c.size);const nonlinear=c.parts.some(p=>isDiode(p.type)||p.type==='opamp');
  for(let it=0;it<(nonlinear?240:1);it++){
@@ -135,7 +167,7 @@ function values(c,x,mode='dc',dt=1e-6,previous={},t=0){
   currents[p.id]=i;state[p.id]={v:type==='opamp'?getV(c,x,n.out):v,i};
  }return {voltages,currents,state};
 }
-export function dc(project){if(isDigital(project))return digitalDC(project);const c=compile(project),x=operating(c);return {...values(c,x),nodeMap:c.nodeMap,nodes:c.nodes,engine:'MNA / ideální modely'};}
+export function dc(project){if(isDigital(project))return digitalDC(project);const c=compile(project),x=operating(c);return {...values(c,x),nodeMap:c.nodeMap,nodes:c.nodes,reference:c.reference,engine:'MNA / ideální modely'};}
 function probeList(c){
  const ps=c.project.probes||[];
  return ps.length?ps.map(p=>{const node=c.nodeAt(p.x,p.y);if(node===undefined)throw Error(`Sonda ${p.label||p.id} není připojená k vodiči.`);return {id:p.id,label:p.label||p.id,node,color:p.color}}):c.nodes.filter(n=>n.id!=='0').map(n=>({id:n.id,label:`U(${n.id})`,node:n.id}));
@@ -159,7 +191,7 @@ export function transient(project,options={}){
  const record=(t,r)=>{lastResult=r;time.push(t);for(const id in nodeTraces)nodeTraces[id].push(r.voltages[id]);for(let i=0;i<ps.length;i++)traces[i].values.push(r.voltages[ps[i].node]);for(let i=0;i<c.parts.length;i++)traces[ps.length+i].values.push(r.currents[c.parts[i].id]);};
  record(startTime,initial);
  for(let k=1;k<=count;k++){const t=startTime+Math.min(k*step,duration),dt=t-time[time.length-1];if(!(dt>0))continue;x=operating(c,'transient',t,dt,previous,x);const r=values(c,x,'transient',dt,previous,t);record(t,r);previous=r.state;}
- return {time,traces,nodeTraces,nodeMap:c.nodeMap,step,method:'Backward Euler',initialConditions:'zero',warnings:maxFreq*step>1/100?['Pro přesnější tvar průběhu zmenšete časový krok alespoň na 1/100 periody.']:[],final:lastResult};
+ return {time,traces,nodeTraces,nodeMap:c.nodeMap,reference:c.reference,step,method:'Backward Euler',initialConditions:'zero',warnings:maxFreq*step>1/100?['Pro přesnější tvar průběhu zmenšete časový krok alespoň na 1/100 periody.']:[],final:lastResult};
 }
 function complexSystem(c,frequency,dcResult,input){
  // Complex MNA expanded into a real 2N system, [Re(x), Im(x)].
@@ -188,5 +220,5 @@ export function ac(project,options={}){
   const f=start*Math.pow(stop/start,k/(points-1)),x=complexSystem(c,f,bias,input);frequency.push(f);
   for(let j=0;j<ps.length;j++){const id=ps[j].node,i=c.index[id],re=id==='0'?0:x[i]/input.params.value,im=id==='0'?0:x[i+c.size]/input.params.value;traces[j].real.push(re);traces[j].imag.push(im);traces[j].magnitude.push(20*Math.log10(Math.max(1e-15,Math.hypot(re,im))));traces[j].phase.push(Math.atan2(im,re)*180/Math.PI);}
  }
- return {frequency,traces,nodeMap:c.nodeMap,inputId:input.id,reference:'Vout / Vac',warnings:['AC je malý signál kolem DC pracovního bodu. Saturace a slew rate se vyhodnocují pouze v časové simulaci. Při GHz ideální model nezahrnuje parazitní jevy a šíření po vedení.']};
+ return {frequency,traces,nodeMap:c.nodeMap,referenceNode:c.reference,inputId:input.id,reference:'Vout / Vac',warnings:['AC je malý signál kolem DC pracovního bodu. Saturace a slew rate se vyhodnocují pouze v časové simulaci. Při GHz ideální model nezahrnuje parazitní jevy a šíření po vedení.']};
 }

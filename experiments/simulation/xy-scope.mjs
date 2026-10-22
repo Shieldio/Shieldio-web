@@ -15,8 +15,8 @@ export function xyRange(values,scale=1,shift=0){
 }
 export function xySamples(series,until=Infinity,persistence=true){
  const out=[];let from=0;
- if(!persistence){let end=series.time.findIndex(t=>t>until+1e-12);if(end<0)end=series.time.length;from=Math.max(0,end-60);}
- for(let i=from;i<series.time.length&&series.time[i]<=until+1e-12;i++){
+ if(!persistence){let end=series.time.findIndex(t=>t>until+32*Number.EPSILON*Math.max(Math.abs(until),1e-300));if(end<0)end=series.time.length;from=Math.max(0,end-60);}
+ for(let i=from;i<series.time.length&&series.time[i]<=until+32*Number.EPSILON*Math.max(Math.abs(until),1e-300);i++){
   const x=series.xValues[i],y=series.yValues[i];
   out.push(Number.isFinite(x)&&Number.isFinite(y)?{x,y,t:series.time[i],index:i}:null);
  }

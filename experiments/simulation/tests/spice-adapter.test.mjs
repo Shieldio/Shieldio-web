@@ -20,7 +20,7 @@ test('SPICE přenos počítá komplexní podíl vstupu a výstupu',()=>{
  assert.ok(Math.abs(r.gainDb+3.01029995664)<1e-8);assert.equal(r.phase,-45);
 });
 
-test('New diode models and external opamp supplies have SPICE representations',async()=>{const {examples}=await import('../examples.mjs');for(const id of ['zener','schottky','tunnel','opamp-noninverting']){const plan=toSpice(examples.find(e=>e.id===id).project,{mode:'op'});assert.ok(!plan.netlist.includes('undefined'),id);if(id==='zener')assert.match(plan.netlist,/BV=5.1/);if(id==='tunnel')assert.match(plan.netlist,/I=.*exp/);if(id==='opamp-noninverting')assert.match(plan.netlist,/Bdrv.*v\(n\d+\).*v\(n\d+\)/);}});
+test('New diode models and external opamp supplies have SPICE representations',async()=>{const {examples}=await import('../examples.mjs');for(const id of ['zener','schottky','tunnel','opamp-noninverting']){const plan=toSpice(examples.find(e=>e.id===id).project,{mode:'op'});assert.ok(!plan.netlist.includes('undefined'),id);if(id==='zener')assert.match(plan.netlist,/Bbreak.*I=min/);if(id==='tunnel')assert.match(plan.netlist,/I=.*exp/);if(id==='opamp-noninverting')assert.match(plan.netlist,/Bdrv.*v\(n\d+\).*v\(n\d+\)/);}});
 
 
 function currentSourceProject(type='idc',params={}){
@@ -65,4 +65,32 @@ test('Numeric initial conditions normalize to finite numbers and current-source 
  const p=currentSourceProject();p.components[1]={...p.components[1],type:'capacitor',params:{value:1e-6,initialVoltage:'-1.25'}};
  assert.equal(toSpice(p,{mode:'tran'}).compiled.parts.find(c=>c.id==='R1').params.initialVoltage,-1.25);
  p.components[0].params.value=Infinity;assert.throws(()=>toSpice(p,{mode:'op'}),/I1: proud/);
+});
+
+
+import {DIODES} from '../diode-devices.mjs';
+test('Named diode models carry physical rs as a separate series element in SPICE',()=>{
+ for(const device of DIODES){
+  const p=currentSourceProject();p.components[1]={...p.components[1],type:device.type,params:{...device.params}};
+  const plan=toSpice(p,{mode:'op'}),part=plan.compiled.parts.find(c=>c.id==='R1');
+  assert.ok(plan.netlist.includes(`Rseries1 ${part.nodes.a} junction1 ${device.params.rs.toExponential(12)}`),device.id);
+  assert.ok(plan.netlist.includes('D2 junction1 sense1 DM1'),device.id);
+  assert.equal(plan.currentVectors.R1,'vsense1#branch');assert.ok(!plan.netlist.includes('undefined'));
+ }
+});
+test('Zener reverse slope remains rz and is not folded into forward rs',()=>{
+ const d=DIODES.find(d=>d.type==='zener'),p=currentSourceProject();p.components[1]={...p.components[1],type:d.type,params:{...d.params}};
+ const plan=toSpice(p,{mode:'op'});
+ assert.ok(plan.netlist.includes(`Bbreak1 junction1 sense1 I=min((v(junction1,sense1)+${d.params.breakdown.toExponential(12)})/${d.params.rz.toExponential(12)},0)`));
+ assert.ok(plan.netlist.includes('Rseries1 n1 junction1 2.000000000000e+0'));
+ assert.doesNotMatch(plan.netlist,/RS=2.000000000000e\+1/);assert.doesNotMatch(plan.netlist,/BV=/);
+});
+test('Zero series resistance keeps the junction directly connected',()=>{
+ const p=currentSourceProject();p.components[1]={...p.components[1],type:'diode',params:{value:1e-12,n:1.8,rs:0}};
+ const plan=toSpice(p,{mode:'op'});assert.doesNotMatch(plan.netlist,/Rseries/);assert.match(plan.netlist,/D2 n[0-9]+ sense1 DM1/);
+});
+test('SPICE resampling avoids duplicate floating-point endpoint samples',async()=>{
+ const p=currentSourceProject(),plan=toSpice(p,{mode:'tran',duration:.001,step:1e-6}),part=plan.compiled.parts.find(c=>c.id==='I1');
+ const engine={run:async()=>({dataType:'real',data:[{name:'time',values:[0,.001]},{name:`v(${part.nodes.a})`,values:[-1,-1]},{name:'vsense0#branch',values:[.001,.001]},{name:'vsense1#branch',values:[-.001,-.001]}]})};
+ const r=await runSpice(p,{mode:'tran',duration:.001,step:1e-6,engine});assert.equal(r.time.length,1001);assert.ok(r.time.every((t,i)=>!i||t>r.time[i-1]));assert.equal(r.time.at(-1),.001);
 });

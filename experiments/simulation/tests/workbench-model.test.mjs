@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {connections,cleanPath,moveEndpoint,replaceConnection,automaticSettings,measurementPins,sampleMeasurement,measurementSeries,validateProject,allowed,scopeSampleIndices,removeScopeFromProject} from '../workbench-model.mjs';
+import {connections,cleanPath,moveEndpoint,replaceConnection,automaticSettings,measurementPins,sampleMeasurement,measurementSeries,validateProject,allowed,scopeSampleIndices,removeScopeFromProject,wireAttachment,splitWiresAt} from '../workbench-model.mjs';
 import {examples} from '../examples.mjs';
 import {transient,sourceValue} from '../engine.mjs';
 const copy=p=>JSON.parse(JSON.stringify(p)),wire=(id,x,y,a,b)=>({id,a:{x,y},b:{x:a,y:b}});
@@ -25,3 +25,7 @@ test('Closing a scope removes its channels and renumbers survivors',()=>{const p
 test('Closing a scope preserves channels referenced by another XY scope',()=>{const p={scopes:2,measurements:[{id:'u',scope:0},{id:'i',scope:1}],scopeSettings:[{mode:'time'},{mode:'xy',xId:'u',yId:'i'}]};removeScopeFromProject(p,0);assert.deepEqual(p.measurements,[{id:'u',scope:0},{id:'i',scope:0}]);assert.equal(p.scopeSettings[0].xId,'u');});
 test('Last scope can be closed and stays closed across file round-trip',()=>{const p=validateProject(copy(examples.find(e=>e.id==='ohm').project));while(p.scopes)removeScopeFromProject(p,0);assert.equal(p.scopes,0);assert.equal(p.measurements.length,0);assert.equal(validateProject(JSON.parse(JSON.stringify(p))).scopes,0);});
 test('Invalid close does not mutate the project',()=>{const p={scopes:1,measurements:[],scopeSettings:[]},before=copy(p);assert.equal(removeScopeFromProject(p,-1),false);assert.equal(removeScopeFromProject(p,1),false);assert.deepEqual(p,before);});
+
+test('Branch endpoint snaps onto horizontal or vertical conductor and makes a real junction',()=>{const p=route(),q=wireAttachment(p.wires,{x:43,y:5},12);assert.deepEqual(q,{x:40,y:0,wireId:'w1'});assert.equal(wireAttachment(p.wires,{x:40,y:20},12),null);let id=0;assert.ok(splitWiresAt(p,q,()=>`junction${id++}`));p.wires.push({id:'branch',a:{x:40,y:0},b:{x:40,y:-40}});assert.equal(connections(p).length,3);assert.equal(p.wires.filter(w=>[w.a,w.b].some(p=>p.x===40&&p.y===0)).length,3);const n=p.wires.length;splitWiresAt(p,q,()=>`again${id++}`);assert.equal(p.wires.length,n);});
+test('Unconnected crossing is not split implicitly',()=>{const p=route();p.wires.push({id:'cross',a:{x:40,y:-40},b:{x:40,y:40}});assert.equal(connections(p).length,2);});
+test('Diode demo metadata survives save and load',()=>{const p=validateProject(copy(examples.find(e=>e.id==='diode-iv-zener').project));assert.equal(p.demo.device,'bzx55c5v1');assert.equal(p.scopeSettings[1].mode,'xy');});

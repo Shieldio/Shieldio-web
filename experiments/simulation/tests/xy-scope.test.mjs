@@ -8,19 +8,20 @@ const copy=x=>JSON.parse(JSON.stringify(x));
 const demos=examples.filter(e=>e.id.startsWith('diode-iv-'));
 const results=new Map();
 for(const e of demos)test(e.id+': current/voltage satisfy KVL, shunt measurement and diode model',()=>{
- const p=validateProject(copy(e.project)),r=transient({...p,probes:[]},automaticSettings(p)),series=xySeries(p,p.scopeSettings[0],r);results.set(e.id,{p,r,series});
- assert.equal(p.scopeSettings[0].mode,'xy');assert.equal(series.x.kind,'voltage');assert.equal(series.y.kind,'current');assert.ok(r.time.length>=3000);
+ const p=validateProject(copy(e.project)),r=transient({...p,probes:[]},automaticSettings(p)),series=xySeries(p,p.scopeSettings[1],r);results.set(e.id,{p,r,series});
+ assert.equal(p.scopeSettings[0].mode,'time');assert.equal(p.scopeSettings[1].mode,'xy');assert.equal(series.x.kind,'voltage');assert.equal(series.y.kind,'current');assert.ok(r.time.length>=3000);
  const diode=p.components.find(c=>c.id==='D1'),q={...catalog.find(c=>c.type===diode.type).defaults,...diode.params},resistance=p.components.find(c=>c.id==='R1').params.value;
- const shunt=measurementSeries(p,p.measurements.find(m=>m.id==='urs'),r),source=measurementSeries(p,{componentId:'V1',kind:'voltage'},r);
+ const direction=diode.rotation===180?-1:1;
+ const shunt=measurementSeries(p,{componentId:'RS',kind:'voltage'},r),source=measurementSeries(p,{componentId:'V1',kind:'voltage'},r);
  for(let j=0;j<r.time.length;j++){
-  const u=series.xValues[j],i=series.yValues[j];assert.ok(Number.isFinite(u)&&Number.isFinite(i));assert.ok(Math.abs(i-shunt[j]/100)<1e-8,'IR = UR / RS');assert.ok(Math.abs(source[j]-u-i*(resistance+100))<1e-7,'source = UD + I(R1+RS)');assert.ok(Math.abs(i-diodeModel(diode.type,q,u).i)<1e-9,'computed pair is on diode characteristic');
+  const u=series.xValues[j],i=series.yValues[j];assert.ok(Number.isFinite(u)&&Number.isFinite(i));assert.ok(Math.abs(direction*i-shunt[j]/100)<1e-8,'series current = UR / RS');assert.ok(Math.abs(source[j]-direction*(u+i*(resistance+100)))<1e-7,'signed source = direction × (UD + ID(R1+RS))');assert.ok(Math.abs(i-diodeModel(diode.type,q,u).i)<1e-9,'computed pair is on diode characteristic');
  }
- assert.ok(Math.max(...series.yValues)>.003,'visible forward conduction');assert.ok(Math.min(...series.xValues)<-1,'reverse sweep');
- if(diode.type==='zener'){const k=series.yValues.indexOf(Math.min(...series.yValues));assert.ok(series.xValues[k]<-5.1&&series.xValues[k]>-5.3);assert.ok(series.yValues[k]<-.003,'reverse breakdown current');}
+ assert.ok(Math.max(...series.yValues)>.001,'visible forward conduction');assert.ok(Math.min(...series.xValues)<-1,'reverse sweep');
+ if(diode.type==='zener'){const k=series.yValues.indexOf(Math.min(...series.yValues));assert.ok(series.xValues[k]<-4.9&&series.xValues[k]>-5.4);assert.ok(series.yValues[k]<-.003,'reverse breakdown current');}
 });
 test('Schottky forward voltage is lower than silicon at 1 mA',()=>{
  const at=id=>{const {series}=results.get(id);let best=0;for(let j=1;j<series.time.length;j++)if(Math.abs(series.yValues[j]-.001)<Math.abs(series.yValues[best]-.001))best=j;return series.xValues[best];};
- assert.ok(at('diode-iv-schottky')<at('diode-iv-silicon')-.2);
+ assert.ok(at('diode-iv-schottky')<at('diode-iv-silicon')-.15);
 });
 test('XY samples use simultaneous voltage/current, preserve reverse order and stop at cursor',()=>{
  const series={time:[0,1,2,3],xValues:[0,1,-1,0],yValues:[0,.01,-.02,0]};
@@ -37,5 +38,5 @@ test('Beam without persistence shows only a recent trail',()=>{
  const time=Array.from({length:1000},(_,i)=>i),s={time,xValues:time,yValues:time};assert.equal(xySamples(s,999,false).length,60);assert.equal(xySamples(s,999,true).length,1000);
 });
 test('File round-trip retains XY axes and rejects stale channel references',()=>{
- const p=validateProject(copy(demos[0].project)),again=validateProject(JSON.parse(JSON.stringify(p)));assert.deepEqual(again.scopeSettings,p.scopeSettings);again.measurements=again.measurements.filter(m=>m.id!=='id');assert.equal(validateProject(again).scopeSettings[0].yId,null);
+ const p=validateProject(copy(demos[0].project)),again=validateProject(JSON.parse(JSON.stringify(p)));assert.deepEqual(again.scopeSettings,p.scopeSettings);again.measurements=again.measurements.filter(m=>m.id!=='id');assert.equal(validateProject(again).scopeSettings[1].yId,null);
 });

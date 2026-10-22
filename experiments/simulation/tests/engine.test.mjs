@@ -16,7 +16,16 @@ test('RC transient exponential charge from zero',()=>{const p=rc();p.components[
 test('RL transient exponential current',()=>{const p=rc('inductor');p.components[0].type='vdc';p.components[0].params.value=5;p.components[1].params.value=10;const r=transient(p,{duration:.005,step:1e-6}),t=r.traces.find(t=>t.id==='I:C1');near(t.values[1000],0.5*(1-Math.exp(-1)),0.0002);});
 test('RLC resonance uses complex MNA',()=>{const p=rc();p.components.splice(1,1,c('L1','inductor',200,160,0.001));p.components[2].params.value=1e-6;/* Ideal LC lossless resonance singular, add parallel 1k damping. */p.components.push(c('R2','resistor',320,200,1000,90));p.wires.push(w(240,160,320,160),w(240,240,320,240));const r=ac(p,{start:100,stop:1e5,points:100});assert.ok(r.traces.every(t=>t.magnitude.every(Number.isFinite)));assert.ok(Math.max(...r.traces[1].magnitude)>15);});
 test('Diode forward voltage obeys exponential model',()=>{const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;p.components[2].type='diode';p.components[2].params={value:1e-12,n:1.8};const r=dc(p),v=r.voltages[r.nodeMap['240,160']];assert.ok(v>0.8&&v<1.2);near(r.currents.R1,r.currents.C1,1e-9);});
-test('Ground mandatory and floating nodes rejected',()=>{const p=rc();p.components=p.components.filter(c=>c.type!=='gnd');assert.throws(()=>dc(p),/zem/i);const q=rc();q.components.push(c('float','resistor',1000,1000,1000));assert.throws(()=>dc(q),/nelze vyřešit/);});
+test('Automatic reference replaces missing GND while floating islands remain errors',()=>{
+ const p=rc();p.components[0].type='vdc';p.components[0].params.value=5;p.components[2].type='resistor';p.components[2].params.value=1000;
+ const explicit=dc(p);p.components=p.components.filter(c=>c.type!=='gnd');
+ const auto=dc(p),compiled=compile(p);assert.equal(compiled.reference.kind,'automatic');assert.equal(compiled.reference.componentId,'V1');assert.equal(compiled.reference.pinId,'b');assert.equal(compiled.nodeAt(100,240),'0');
+ near(auto.currents.R1,explicit.currents.R1);near(auto.voltages[auto.nodeMap['240,160']],explicit.voltages[explicit.nodeMap['240,160']]);
+ // Choosing another explicit zero shifts node voltages, never differential U or I.
+ p.components.push(c('newGround','gnd',100,160,0));const shifted=dc(p);assert.equal(shifted.reference.kind,'explicit');
+ near(shifted.voltages[shifted.nodeMap['100,160']]-shifted.voltages[shifted.nodeMap['240,160']],2.5);near(shifted.currents.R1,auto.currents.R1);near(shifted.voltages[shifted.nodeMap['100,240']],-5);
+ const q=rc();q.components=q.components.filter(c=>c.type!=='gnd');q.components.push(c('float','resistor',1000,1000,1000));assert.throws(()=>dc(q),/float.*nemá spojení/);
+});
 test('Wire endpoint joins a T branch',()=>{const p=rc();p.wires.push(w(100,160,100,100));p.probes.push({id:'tap',x:100,y:120});const d=compile(p);assert.equal(d.nodeAt(100,120),d.nodeAt(100,160));});
 test('Crossing without a pin or endpoint is isolated',()=>{const p=rc();p.wires.push(w(600,200,800,200),w(700,100,700,300));const d=compile(p);assert.notEqual(d.nodeAt(600,200),d.nodeAt(700,100));});
 test('Oversized or undersampled transient is rejected',()=>{assert.throws(()=>transient(rc(),{duration:1,step:1e-7}),/mnoho kroků/);assert.throws(()=>transient(rc(),{duration:.1,step:.001}),/krok je příliš velký/);});
@@ -50,4 +59,39 @@ test('Low-Is LED converges above the former exp(40) current ceiling',()=>{
  near(r.currents.R1,r.currents.C1,1e-9);
  const q=catalog.find(c=>c.type==='led').defaults,at=diodeModel('led',q,v),h=1e-7,numerical=(diodeModel('led',q,v+h).i-diodeModel('led',q,v-h).i)/(2*h);
  near(at.g,numerical,1e-7);
+});
+
+
+import {DIODES} from '../diode-devices.mjs';
+test('Automatic reference prefers voltage sources over earlier current sources',()=>{
+ const p=rc();p.components=p.components.filter(c=>c.type!=='gnd');p.components.unshift(c('I0','idc',1000,1000,.001));
+ assert.equal(compile(p).reference.componentId,'V1');
+ const current=rc();current.components=current.components.filter(c=>c.type!=='gnd');current.components[0].type='idc';current.components[0].params={value:.001};current.components[2].type='resistor';current.components[2].params.value=1000;
+ const out=dc(current);assert.equal(out.reference.componentId,'V1');assert.equal(out.reference.pinId,'b');near(out.currents.R1,-.001);near(out.voltages[out.nodeMap['240,160']],-1);
+});
+test('Legacy zero-rs diode is unchanged and rs lowers current at equal terminal voltage',()=>{
+ const q={value:2.5e-9,n:1.75},v=.65,a=diodeModel('diode',q,v),b=diodeModel('diode',{...q,rs:0},v),series=diodeModel('diode',{...q,rs:10},v);
+ assert.deepEqual(a,b);assert.ok(series.i<a.i);assert.ok(series.g<.1);
+ const junction=diodeModel('diode',q,v-series.i*10);near(junction.i,series.i,1e-10);near(series.g,junction.g/(1+10*junction.g),1e-10);
+});
+test('Series resistance gives the implicit Shockley characteristic and derivative',()=>{
+ for(const device of DIODES){
+  for(const v of device.type==='zener'?[-8,-5.2,-2,.8]:[-1,.1,.5,1,2]){
+   const r=diodeModel(device.type,device.params,v),u=v-r.i*device.params.rs,junction=diodeModel(device.type,{...device.params,rs:0},u),h=1e-6;
+   near(r.i,junction.i,Math.max(1e-10,Math.abs(r.i)*1e-8));
+   const numerical=(diodeModel(device.type,device.params,v+h).i-diodeModel(device.type,device.params,v-h).i)/(2*h);
+   near(r.g,numerical,Math.max(1e-7,Math.abs(r.g)*1e-5));
+   assert.ok(Number.isFinite(r.i)&&Number.isFinite(r.g));
+  }
+ }
+});
+test('Named models match documented teaching anchors and identify datasheet limits',()=>{
+ const led=DIODES.find(d=>d.id==='ls-p47k'),zener=DIODES.find(d=>d.id==='bzx55c5v1');
+ near(diodeModel(led.type,led.params,1.8).i,.002,1e-9);assert.equal(led.limits.maxForwardCurrent,.02);assert.equal(led.limits.maxReverseVoltage,12);
+ near(diodeModel(zener.type,zener.params,-5.1).i,-.005,1e-9);near(diodeModel(zener.type,zener.params,-5.1).g,1/22,1e-9);
+ assert.equal(zener.limits.maxPower,.5);assert.equal(zener.limits.maxDynamicResistance,35);
+ assert.equal(DIODES.length,4);for(const d of DIODES){assert.ok(d.sourceURL.startsWith('https://'));assert.ok(d.assumptions.some(s=>s.includes('25 °C')));assert.ok(d.params.rs>0);}
+});
+test('Invalid series resistance names the faulty component',()=>{
+ for(const rs of [-1,Infinity,NaN]){const p=rc();p.components[2].type='diode';p.components[2].params={rs};assert.throws(()=>dc(p),/C1.*sériový odpor/);}
 });

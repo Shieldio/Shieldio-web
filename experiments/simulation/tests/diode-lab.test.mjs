@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {examples} from '../examples.mjs';
+import {transient} from '../engine.mjs';
+import {diodeLabRows,diodeLabCSV,diodeLabWarnings} from '../diode-lab.mjs';
+import {adaptiveSpeed,validateSpeed} from '../speed-control.mjs';
+import {stableChannelScale,triggeredStart} from '../scope-renderer.mjs';
+for(const id of ['diode-iv-silicon','diode-iv-schottky','diode-iv-led','diode-iv-zener'])test(id+' physical table agrees with solver and signed KVL',()=>{const p=examples.find(e=>e.id===id).project,r=transient(p,{duration:.08,step:.00002}),rows=diodeLabRows(p,r);assert.equal(rows.length,r.time.length);for(const row of rows){assert.ok(row.valid);assert.ok(Math.abs(row.kvlResidual)<1e-7);assert.ok(Math.abs(row.shuntCurrent-row.ID)<1e-8);assert.equal(row.UD,row.VA-row.VK);}assert.ok(diodeLabCSV(p,r).startsWith('t_ms;US_V;UD_V;URS_V;ID_mA;VA_V;VK_V'));assert.deepEqual(diodeLabWarnings(p,rows),[]);if(id.includes('zener'))assert.ok(rows.some(x=>x.UD< -5&&x.ID<-.004));});
+test('VF speed supports nanosecond-scale observation without changing physical frequency',()=>{assert.equal(adaptiveSpeed(1e9),1e-9);assert.equal(adaptiveSpeed(1e10),1e-10);assert.equal(validateSpeed('1e-12'),1e-12);assert.throws(()=>validateSpeed(0));});
+test('Fixed scope sensitivity preserves observable amplitude changes',()=>{const cfg={},scale=stableChannelScale(cfg,'out',[0,1]);assert.equal(stableChannelScale(cfg,'out',[0,.1]).sensitivity,scale.sensitivity);});
+test('Trigger selects an acquired sweep without resetting source time',()=>{const t=Array.from({length:1000},(_,i)=>i/1000),v=t.map(x=>Math.sin(2*Math.PI*25*x));const start=triggeredStart(t,v,.9,.08,0,'rising');assert.ok(start>.7&&start<.85);});

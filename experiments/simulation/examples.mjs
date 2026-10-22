@@ -1,3 +1,4 @@
+import {DIODES} from './diode-devices.mjs';
 // Original educational schematics. Values are SI; coordinates follow a 20 px grid.
 const palette = { input: '#d28a12', output: '#1376d1', extra: '#9654b4' };
 function builder(title, settings = {}) {
@@ -160,33 +161,46 @@ phases.c('V1','vac',180,300,1,90,{frequency:1000,phase:0,offset:0,waveform:'sine
  .c('V2','vac',680,300,1,90,{frequency:1000,phase:90,offset:0,waveform:'sine'}).c('R2','resistor',880,300,1000,90)
  .c('G2','gnd',680,440).w([680,260],[680,220],[880,220],[880,260]).w([680,340],[680,440],[880,440],[880,340]);
 phases.project.measurements=[{id:'phase0',componentId:'V1',kind:'voltage',scope:0,color:'#e9b44c'},{id:'phase90',componentId:'V2',kind:'voltage',scope:0,color:'#49b9ee'}];
-// A slow bipolar triangle sweeps both forward and reverse diode branches.
-// RS is a current-sense resistor: I_D = U_RS / RS. U_D is differential A–K.
-function diodeIV(id,type,title,amplitude,resistance,params={}){
- const b=standardSource(builder(title,{duration:.04,step:.00001}),false,amplitude)
-  .c('R1','resistor',360,220,resistance)
-  .c('D1',type,580,320,undefined,90,params)
-  .c('RS','resistor',580,460,100,90)
-  .w([280,220],[320,220]).w([400,220],[580,220],[580,280])
-  .w([580,360],[580,420]).w([580,500],[580,560],[180,560],[180,440]);
- Object.assign(b.project.components.find(c=>c.id==='V1').params,{frequency:25,waveform:'triangle',phase:0});
- b.project.components.find(c=>c.id==='GND').y=560;
+// One uncrossed series loop. U(D1) and I(D1) follow the device's A → K sign.
+// For reversed Zener D1, positive source voltage gives negative U_D and I_D.
+function diodeIV(id,device,amplitude,resistance,reversed=false){
+ const profile=DIODES.find(d=>d.id===device);
+ if(!profile)throw new Error(`Chybí model diody: ${device}`);
+ const b=builder(`VA charakteristika — ${profile.name}`,{duration:.08,step:.00002});
+ b.c('V1','vac',180,380,amplitude,90,{frequency:25,offset:0,waveform:'triangle',phase:0,duty:.5})
+  .c('R1','resistor',360,240,resistance)
+  .c('D1',profile.type,620,240,undefined,reversed?180:0,{...profile.params,device:profile.id,label:profile.name})
+  .c('RS','resistor',800,380,100,90)
+  .c('GND','gnd',180,540)
+  .w([180,340],[180,240],[320,240])
+  .w([400,240],[580,240])
+  .w([660,240],[800,240],[800,340])
+  .w([800,420],[800,540],[180,540],[180,420]);
+ b.project.mode='analog';
+ b.project.scopes=2;
  b.project.probes=[];
  b.project.measurements=[
   {id:'ud',componentId:'D1',kind:'voltage',scope:0,color:'#49b9ee'},
-  {id:'id',componentId:'D1',kind:'current',scope:0,color:'#da89e9'},
-  {id:'urs',componentId:'RS',kind:'voltage',scope:1,color:'#69d4a1'}
+  {id:'id',componentId:'D1',kind:'current',scope:0,color:'#e9a34e'}
  ];
- b.project.scopeSettings=[{mode:'xy',xId:'ud',yId:'id',persistence:true},{mode:'time'}];
- b.project.demo={kind:'diode-iv'};
- return entry(id,'Hotové měření: X = U diody mezi A a K, Y = proud diodou. Trojúhelník 25 Hz, předřadný odpor a snímací RS = 100 Ω. Spusťte pro postupné vykreslení VA charakteristiky.',b);
+ b.project.scopeSettings=[{mode:'time'},{mode:'xy',xId:'ud',yId:'id',persistence:true}];
+ b.project.demo={kind:'diode-iv',device:profile.id,method:'scope',sourceComponent:'V1',diodeComponent:'D1',seriesResistor:'R1',shuntComponent:'RS'};
+ const orientation=reversed?'Zenerova dioda je zapojena katodou ke zdroji; při kladném buzení jsou U_D a I_D záporné.':'U_D i I_D jsou definovány od anody ke katodě.';
+ return entry(id,`${profile.name}: trojúhelník ±${amplitude} V / 25 Hz, R1 = ${resistance} Ω, RS = 100 Ω. První osciloskop ukazuje U_D a I_D v čase, druhý VA charakteristiku X = U_D, Y = I_D. ${orientation}`,b);
 }
 const diodeIVExamples=[
- diodeIV('diode-iv-silicon','diode','VA charakteristika — křemíková dioda',2,100,{value:1e-14,n:1.05}),
- diodeIV('diode-iv-schottky','schottky','VA charakteristika — Schottkyho dioda',2,100),
- diodeIV('diode-iv-zener','zener','VA charakteristika — Zenerova dioda 5,1 V',10,1000),
- diodeIV('diode-iv-led','led','VA charakteristika — LED',4,220)
+ diodeIV('diode-iv-silicon','1n4148',2,100),
+ diodeIV('diode-iv-schottky','bat54',2,100),
+ diodeIV('diode-iv-zener','bzx55c5v1',8,390,true),
+ diodeIV('diode-iv-led','ls-p47k',3,220)
 ];
+// Stable historical URLs remain canonical; named links may resolve through this map.
+export const exampleAliases={
+ 'diode-iv-1n4148':'diode-iv-silicon',
+ 'diode-iv-bat54':'diode-iv-schottky',
+ 'diode-iv-bzx55c5v1':'diode-iv-zener',
+ 'diode-iv-ls-p47k':'diode-iv-led'
+};
 export const examples = [
  ...diodeIVExamples,
  entry('capacitor-charge','DC 5 V, R = 1 kΩ, C = 1 µF. Po jedné časové konstantě 1 ms je napětí 63,2 % konečné hodnoty.',capCharge),
