@@ -66,3 +66,50 @@ Zdroje: DC je kresleno dlouhou kladnou a krátkou zápornou elektrodou, generát
 Součástky a ukázky jsou rozdělené do rozbalovacích skupin. Ukázky ve výběru mají pouze názvy. Návod k VA měření je sbalený pod „Zapojení a měření VA“.
 
 Každý osciloskop má × pro zavření, + Kanál pro přímý výběr součástky/veličiny a nabídku ⋯ s měřítky. Kanál lze odebrat × přímo u jeho názvu pod grafem. Zavření přístroje přečísluje ostatní; kanály potřebné jiným X–Y přístrojem zůstanou zachované. Lze zavřít i poslední osciloskop a nový přidat tlačítkem + Osciloskop. Zpět obnoví zavřený přístroj i kanály. Tato úprava neobnovuje počáteční stav běžícího obvodu.
+
+## Diode measurement lab (October 2026)
+
+Open `?example=1n4148`, `?example=bat54`, `?example=ls-p47k` or
+`?example=bzx55c5v1`. All four examples share one series circuit, with a
+triangle source, R1, the diode, RS and ground. The Zener is intentionally
+reversed: its cathode faces the source. Scope 1 contains UD and ID; scope 2
+plots the synchronous pair UD/ID. The 25 Hz source has a 40 ms period;
+10 ms/div and eight horizontal divisions show two periods.
+
+The method selector switches to ideal voltmeter/ammeter readouts with a
+stepped DC source. Capture a point or select calculated samples from the
+record, then export the table as CSV. Saved rows retain their device identity.
+Every displayed point comes from the same solver time, node voltages and
+branch current. CSV columns include t_ms, US_V, UD_V, URS_V, ID_mA, VA_V and
+VK_V. ID is always positive A to K, including the reversed Zener. Its shunt
+voltage is therefore positive while its reverse diode current is negative.
+
+The forward model is a Shockley junction plus an implicit external series
+resistance: I = Is[exp((UD − I rs)/(n VT)) − 1], with VT=25.85 mV, and a small
+numerical leakage conductance. The Zener junction adds a reverse breakdown
+branch with finite dynamic resistance; the selected parameters give about
+−5.10 V at −5 mA. These are labelled educational approximations at 25 °C,
+not measured data, a vendor SPICE model or an exact catalogue curve. Device
+parameters and manufacturer references are in diode-devices.mjs. Warnings
+compare current, reverse voltage and power with the catalogue limits and
+conditions; no destructive behavior or artificial current clamp is applied.
+
+Known physical limits: no junction capacitance, reverse recovery,
+self-heating, package parasitics, transmission lines or instrument loading.
+The GHz time controls support inspecting ideal lumped-circuit mathematics;
+they do not validate a real diode or board at RF. The native transient method
+is backward Euler. The SPICE exporter retains the same series resistance.
+
+Scope sensitivity is initialized once and remains fixed when source
+parameters change. Use Auto explicitly to fit a new range. Each channel can
+set sensitivity and zero; optional rising/falling triggering only changes
+the displayed interval. Acquisition time stays monotonic. Pause freezes the
+screen and Reset is the explicit time reset. The buffer holds at most 12,000
+samples; CSV exports the retained record or explicitly saved table rows.
+
+Keyboard: R resistor, C capacitor, L inductor, D diode, V DC voltage source,
+A AC source, I current source, G ground, O op-amp, S switch; Q select,
+W wire, Shift+R rotate, Esc cancel, Delete remove, Space run/pause.
+Drag a wire from a terminal to another terminal or an existing conductor.
+Shift changes the bend direction. A branch endpoint splits the conductor
+and makes an electrical junction; crossings alone remain unconnected.

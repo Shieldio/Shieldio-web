@@ -31,3 +31,6 @@ export function triggeredStart(time,values,until,span,level=0,edge='rising'){
  }
  return crossing===null?null:crossing-span*.25;
 }
+/** Adjacent physical 1–2–5 setting; never accumulate wheel rounding errors. */
+export function stepSensitivity(value,direction){if(!(value>0)||!Number.isFinite(value))value=1;const exponent=Math.floor(Math.log10(value));const choices=[];for(let e=exponent-1;e<=exponent+1;e++)for(const n of [1,2,5])choices.push(n*10**e);const eps=value*1e-10;return direction>0?choices.find(v=>v>value+eps)??value*2:[...choices].reverse().find(v=>v<value-eps)??value/2;}
+export function zoomTimeWindow({start,span,anchor=.5,first=0,latest,step=0,direction=1}){const target=start+span*anchor,minSpan=Math.max(step*8,Number.MIN_VALUE),available=Math.max(minSpan,latest-first);const next=Math.max(minSpan,Math.min(available,stepSensitivity(span/8,direction)*8));return {span:next,start:Math.max(first,Math.min(Math.max(first,latest-next),target-next*anchor))};}
