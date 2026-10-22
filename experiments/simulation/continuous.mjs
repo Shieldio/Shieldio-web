@@ -81,10 +81,10 @@ export function currentStateAt(project,record,index=record?.time?.length-1){
  const parts={},solution=new Array(compiled.size).fill(0);
  for(const node of compiled.nodeIds)solution[compiled.index[node]]=voltage(node);
  for(const c of compiled.parts){
-  const v=c.type==='opamp'?voltage(c.nodes.out):voltage(c.nodes.a)-voltage(c.nodes.b);
+  let v=c.type==='opamp'?voltage(c.nodes.out):['npn','pnp'].includes(c.type)?voltage(c.nodes.c)-voltage(c.nodes.e):voltage(c.nodes.a)-voltage(c.nodes.b);
   let i=currents.get(c.id)??(last?record.final?.currents?.[c.id]??record.currents?.[c.id]:undefined);
   if(!Number.isFinite(i))throw Error(`Chybí proud součástky ${c.id} pro navázání simulace.`);
-  parts[c.id]={v,i};if(c.branch!==undefined)solution[c.branch]=i;
+  if(c.type==='opamp')v-=(Number(c.params.outputResistance)||0)*i;parts[c.id]={v,i};if(c.branch!==undefined)solution[c.branch]=i;
  }
  return {version:1,time,parts,solution};
 }

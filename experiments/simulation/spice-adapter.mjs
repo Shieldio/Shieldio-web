@@ -85,7 +85,7 @@ export function toSpice(project,options={}){
  const input=compiled.parts.find(p=>p.type==='vac'&&(!options.inputId||p.id===options.inputId));
  if(mode==='ac'&&(!input||!input.params.value))throw Error('AC analýza potřebuje generátor s nenulovou amplitudou.');
  const lines=['SHiELDiO Sim - modelove zapojeni','.options reltol=1e-5 abstol=1e-10 vntol=1e-7'],currentVectors={};
- const names=new Map(compiled.parts.map((p,i)=>[p.id,`${({resistor:'R',capacitor:'C',inductor:'L',vdc:'V',vac:'V',diode:'D',led:'D',idc:'I',iac:'I',schottky:'D',zener:'D',tunnel:'B',switch:'R',opamp:'E'})[p.type]}${i+1}`]));
+ const names=new Map(compiled.parts.map((p,i)=>[p.id,`${({resistor:'R',capacitor:'C',inductor:'L',vdc:'V',vac:'V',diode:'D',led:'D',idc:'I',iac:'I',schottky:'D',zener:'D',tunnel:'B',switch:'R',opamp:'E',npn:'Q',pnp:'Q'})[p.type]}${i+1}`]));
  for(const [index,p]of compiled.parts.entries()){
   const n=p.nodes,q=p.params,name=names.get(p.id);
   if(['resistor','capacitor','switch','diode','led','schottky','zener','tunnel'].includes(p.type)){
@@ -127,11 +127,22 @@ export function toSpice(project,options={}){
     lines.push(`${name} ${n.a} ${sense} DC ${si(q.offset)} AC 0 ${wave}`,`${ammeter} ${sense} ${n.b} DC 0`);
     currentVectors[p.id]=`${ammeter.toLowerCase()}#branch`;
    }else{lines.push(`${name} ${n.a} ${n.b} DC ${si(q.offset)} AC ${si(p.id===input?.id?q.value:0)} ${wave}`);currentVectors[p.id]=`${name.toLowerCase()}#branch`;}
+  }else if(p.type==='npn'||p.type==='pnp'){
+   const cnode=`q${index}_collector`,bnode=`q${index}_base`,enode=`q${index}_emitter`;
+   lines.push(`${name} ${cnode} ${bnode} ${enode} QM${index}`,`.model QM${index} ${p.type.toUpperCase()}(IS=${si(q.is)} BF=${si(q.beta)} BR=${si(q.betaReverse)} NF=${si(q.n)} NR=${si(q.n)} TNOM=27)`,
+    `VsenseC${index} ${n.c} ${cnode} DC 0`,`VsenseB${index} ${n.b} ${bnode} DC 0`,`VsenseE${index} ${n.e} ${enode} DC 0`);
+   currentVectors[p.id]=`vsensec${index}#branch`;currentVectors[p.id+':b']=`vsenseb${index}#branch`;currentVectors[p.id+':e']=`vsensee${index}#branch`;
   }else if(p.type==='opamp'){
-   const drive=`u${index}_drive`,state=`u${index}_state`,C=1e-6,R=q.gain/(2*Math.PI*q.gbw*C),limit=q.slew*C;
-   lines.push(`Bdrv${index} ${drive} 0 V=min(max(${si(q.gain)}*(v(${n.plus})-v(${n.minus})),${q.powered?`v(${n.vee})`:`-${si(q.rail)}`}),${q.powered?`v(${n.vcc})`:si(q.rail)})`,
-    `Bpole${index} ${state} 0 I=min(max((v(${state})-v(${drive}))/${si(R)},-${si(limit)}),${si(limit)})`,
-    `Cpole${index} ${state} 0 ${si(C)}`,`${name} ${n.out} 0 ${state} 0 1`);
+   const drive=`u${index}_drive`,state=`u${index}_state`,internal=`u${index}_output`,C=1e-6,R=q.gain/(2*Math.PI*q.gbw*C),limit=q.slew*C;
+   const railLo=q.powered?`v(${n.vee})`:si(-q.rail),railHi=q.powered?`v(${n.vcc})`:si(q.rail),middle=`((${railLo}+${railHi})/2)`,lo=`min(${middle},${railLo}+${si(q.headroom)})`,hi=`max(${middle},${railHi}-${si(q.headroom)})`;
+   // Integrate the unrestricted open-loop command; limiting it to supply rails
+   // before the dominant pole wrongly reduces a 0.5 V/us part to ~1 kV/s.
+   // Soft state clamps prevent wind-up; the output clamp keeps rail limits exact.
+   const command=`(${si(q.gain)}*(v(${n.plus})-v(${n.minus})+${si(q.inputOffset)}))`;
+   lines.push(`Bdrv${index} ${drive} 0 V=${command}`,`Bpole${index} ${state} 0 I=min(max((v(${state})-v(${drive}))/${si(R)},-${si(limit)}),${si(limit)})+max(v(${state})-${hi},0)/1e-3+min(v(${state})-${lo},0)/1e-3`,
+    `Cpole${index} ${state} 0 ${si(C)}`,`Bclip${index} ${internal} 0 V=min(max(v(${state}),${lo}),${hi})`);
+   if(q.outputResistance>0)lines.push(`${name} u${index}_ideal 0 ${internal} 0 1`,`Rout${index} u${index}_ideal ${n.out} ${si(q.outputResistance)}`);
+   else lines.push(`${name} ${n.out} 0 ${internal} 0 1`);
    currentVectors[p.id]=`${name.toLowerCase()}#branch`;
   }else throw Error(`Součástka ${p.type} nemá SPICE model.`);
  }

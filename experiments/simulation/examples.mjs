@@ -201,7 +201,108 @@ export const exampleAliases={
  'diode-iv-bzx55c5v1':'diode-iv-zener',
  'diode-iv-ls-p47k':'diode-iv-led'
 };
+// Measurement benches use differential component voltages and signed currents.
+// The formulae below describe ideal lumped elements; they are not LCR-meter calibrations.
+function benchMeasurements(b,items){
+ b.project.mode='analog';b.project.scopes=1;b.project.probes=[];
+ b.project.measurements=items.map(([componentId,kind,color],i)=>({id:'bench'+i,componentId,kind,scope:0,color:color||[palette.output,palette.input,palette.extra][i%3]}));
+ return b;
+}
+const measureResistance=standardSource(builder('Měření odporu — voltampérová metoda',{duration:.002,step:2e-6}),true,5)
+ .c('RS','resistor',360,220,100).c('RX','resistor',560,320,470,90)
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280])
+ .w([560,360],[560,440],[180,440]);
+benchMeasurements(measureResistance,[['RX','voltage'],['RX','current']]);
+const measureInductance=standardSource(builder('Měření indukčnosti — napětí, proud a fáze',{duration:.005,step:2e-6}),false,1)
+ .c('R1','resistor',360,220,100).c('LX','inductor',560,320,.01,90)
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280])
+ .w([560,360],[560,440],[180,440]);
+benchMeasurements(measureInductance,[['LX','voltage'],['LX','current']]);
+const smallCap=standardSource(builder('Měření malé kapacity — 100 pF',{duration:.0005,step:1e-7}),false,1)
+ .c('R1','resistor',360,220,1e5).c('CX','capacitor',560,320,100e-12,90)
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280])
+ .w([560,360],[560,440],[180,440]);
+smallCap.project.components.find(c=>c.id==='V1').params.frequency=10000;
+benchMeasurements(smallCap,[['CX','voltage'],['CX','current']]);
+const largeCap=standardSource(builder('Měření velké kapacity — 1 000 µF',{duration:.5,step:1e-4}),true,5)
+ .c('R1','resistor',360,220,100).c('CX','capacitor',560,320,.001,90,{initialVoltage:0})
+ .w([280,220],[320,220]).w([400,220],[560,220],[560,280])
+ .w([560,360],[560,440],[180,440]);
+benchMeasurements(largeCap,[['CX','voltage'],['CX','current']]);
+function loadedSource(resistance,title){
+ const b=standardSource(builder(title,{duration:.002,step:2e-6}),true,12)
+  .c('RI','resistor',360,220,100).c('RL','resistor',560,320,resistance,90)
+  .w([280,220],[320,220]).w([400,220],[560,220],[560,280])
+  .w([560,360],[560,440],[180,440]);
+ return benchMeasurements(b,[['RL','voltage'],['RL','current']]);
+}
+const lightLoad=loadedSource(10000,'Zdroj s vnitřním odporem — malá zátěž');
+const heavyLoad=loadedSource(100,'Zdroj s vnitřním odporem — velká zátěž');
+
+// Planar bias circuits; output is read on a resistor with its lower terminal at 0 V.
+function transistorBench(title){
+ return builder(title,{duration:.004,step:2e-6})
+  .c('VCC','vdc',900,200,12,90).c('GND','gnd',180,600)
+  .c('Q1','npn',600,320,undefined,0,{is:1e-14,beta:100,betaReverse:2,n:1})
+  .w([900,160],[900,100],[640,100])
+  .w([900,240],[900,600],[180,600]);
+}
+const commonEmitter=transistorBench('Tranzistor — společný emitor (SE)')
+ .c('VIN','vac',180,340,.02,90,{frequency:1000,offset:1,waveform:'sine'})
+ .c('RB','resistor',380,320,10000).c('RC','resistor',640,180,2200,90)
+ .c('RL','resistor',780,400,1e6,90)
+ .w([180,300],[180,320],[340,320]).w([420,320],[560,320])
+ .w([180,380],[180,600]).w([640,100],[640,140])
+ .w([640,220],[640,280],[780,280],[780,360])
+ .w([640,360],[640,600]).w([780,440],[780,600]);
+benchMeasurements(commonEmitter,[['VIN','voltage'],['RL','voltage']]);
+const commonCollector=transistorBench('Tranzistor — společný kolektor (SC)')
+ .c('VIN','vac',180,340,.1,90,{frequency:1000,offset:2.5,waveform:'sine'})
+ .c('RB','resistor',380,320,1000).c('RE','resistor',640,480,1000,90)
+ .w([180,300],[180,320],[340,320]).w([420,320],[560,320])
+ .w([180,380],[180,600]).w([640,100],[640,280])
+ .w([640,360],[640,440]).w([640,520],[640,600]);
+benchMeasurements(commonCollector,[['VIN','voltage'],['RE','voltage']]);
+const commonBase=transistorBench('Tranzistor — společná báze (SB)')
+ .c('VB','vdc',380,160,1.4).c('GB','gnd',460,160)
+ .c('VIN','vac',180,500,.005,90,{frequency:1000,offset:.7,waveform:'sine'})
+ .c('RE','resistor',380,420,100).c('RC','resistor',640,180,2200,90)
+ .c('RL','resistor',780,400,1e6,90)
+ .w([340,160],[300,160],[300,320],[560,320]).w([420,160],[460,160])
+ .w([180,460],[180,420],[340,420]).w([420,420],[640,420],[640,360])
+ .w([180,540],[180,600]).w([640,100],[640,140])
+ .w([640,220],[640,280],[780,280],[780,360])
+ .w([780,440],[780,600]);
+benchMeasurements(commonBase,[['VIN','voltage'],['RL','voltage']]);
+
+// Educational 741-like profile: finite gain, one dominant pole, slew, headroom and Rout.
+// No promise of exact vendor behaviour, input common-mode range or thermal protection.
+const slewBench=builder('Reálnější OZ — měření rychlosti přeběhu',{duration:.0004,step:1e-7})
+ .c('VIN','vac',180,300,5,90,{frequency:5000,offset:0,waveform:'square'})
+ .c('GND','gnd',180,520)
+ .c('U1','opamp',600,300,undefined,0,{powered:true,gain:2e5,gbw:1e6,slew:.5e6,rail:15,headroom:1.5,outputResistance:75,inputOffset:0})
+ .c('RL','resistor',820,420,10000,90).c('GL','gnd',820,520)
+ .w([180,260],[180,280],[560,280]).w([180,340],[180,520])
+ .w([640,300],[700,300],[820,300],[820,380])
+ .w([700,300],[700,340],[520,340],[520,320],[560,320])
+ .w([820,460],[820,520]);
+power(slewBench);
+benchMeasurements(slewBench,[['VIN','voltage'],['RL','voltage']]);
+const laboratoryExamples=[
+ entry('measure-resistance','Voltampérová metoda: R = U_RX / I_RX. Neznámý odpor 470 Ω, ochranný odpor 100 Ω, zdroj 5 V. Ideální měření nezatěžuje obvod.',measureResistance),
+ entry('measure-inductance','Sinus 1 kHz, L = 10 mH. Po odeznění přechodu určete L = U_L / (2πf I_L) z amplitud nebo RMS. Napětí ideální cívky předbíhá proud o 90°; R1 proud omezuje.',measureInductance),
+ entry('measure-capacitance-small','Sinus 10 kHz, C = 100 pF. Po ustálení určete C = I_C / (2πf U_C). Proud ideálního kondenzátoru předbíhá napětí o 90°. Parazitní kapacity vodičů zde nejsou modelovány.',smallCap),
+ entry('measure-capacitance-large','Zdroj 5 V, R = 100 Ω, C = 1 000 µF. Napětí 3,16 V nastane přibližně po 100 ms: C = t_63% / R. Reset zopakuje nabíjení; pro vybíjení nastavte zdroj na 0 V při zachování stavu.',largeCap),
+ entry('load-light','Zdroj 12 V s vnitřním odporem 100 Ω a zátěží 10 kΩ: U_L ≈ 11,88 V, I_L ≈ 1,19 mA. Porovnejte s velkou zátěží.',lightLoad),
+ entry('load-heavy','Stejný zdroj 12 V / 100 Ω, zátěž 100 Ω: U_L = 6 V, I_L = 60 mA. Úbytek vzniká na vnitřním odporu; výkon v zátěži je 0,36 W.',heavyLoad),
+ entry('bjt-common-emitter','NPN v zapojení SE, napájení 12 V, odporové předpětí báze a RC = 2,2 kΩ. Změna napětí kolektoru má opačnou fázi vůči vstupu. Model Ebers–Moll, β = 100, bez parazitních kapacit a Earlyho jevu.',commonEmitter),
+ entry('bjt-common-collector','Emitorový sledovač SC: napětí emitoru sleduje bázi s nižší DC úrovní přibližně o U_BE. Zesílení napětí je mírně pod 1, fáze se neotáčí. Model bez vysokofrekvenčních parazitních jevů.',commonCollector),
+ entry('bjt-common-base','Zapojení SB: báze je na 1,4 V, signál vstupuje přes 100 Ω do emitoru. Kolektorový výstup je ve stejné fázi jako vstup. Porovnejte se SE a SC; jde o výukový model.',commonBase),
+ entry('opamp-slew','Výukový neideální OZ s napájením ±15 V: SR = 0,5 V/µs, GBW = 1 MHz, A0 = 200 000, výstupní odpor 75 Ω a odstup od napájení 1,5 V. Na hraně výstupu změřte SR = ΔU/Δt. Model není přesná kopie konkrétního typu.',slewBench)
+];
+
 export const examples = [
+ ...laboratoryExamples.map(e=>({...e,project:{...e.project,demo:{kind:'measurement-bench'}}})),
  ...diodeIVExamples,
  entry('capacitor-charge','DC 5 V, R = 1 kΩ, C = 1 µF. Po jedné časové konstantě 1 ms je napětí 63,2 % konečné hodnoty.',capCharge),
  entry('capacitor-discharge','Kondenzátor má na začátku 5 V a vybíjí se přes 1 kΩ. Sledujte znaménko proudu a energii v elektrickém poli.',capDischarge),

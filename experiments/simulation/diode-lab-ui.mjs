@@ -1,3 +1,4 @@
+import {formatInstrument,createReadoutClock} from './instrument-readout.mjs';
 import {diodeLabProfile,diodeLabSample,diodeLabRows,diodeLabWarnings,diodeLabCSV} from './diode-lab.mjs';
 
 const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -9,11 +10,14 @@ const validPoint=p=>p&&['t','US','UD','URS','ID'].every(k=>Number.isFinite(p[k])
 
 /** Diode demonstration controls. Source/method changes are owned by the app; all currents are A internally.
  * onExportCSV receives {csv,filename,points}. Optional onTableChange is for project autosave.
+ * isRunning throttles live presentation only; paused/DC and explicit render always show the exact point.
  */
-export function createDiodeLabUI({getProject,getRecord,getIndex,onSourceChange,onMethodChange,onExportCSV,onTableChange=()=>{}}){
+export function createDiodeLabUI({getProject,getRecord,getIndex,onSourceChange,onMethodChange,onExportCSV,onTableChange=()=>{},isRunning=()=>false}){
   const host=document.getElementById('diodeLab'),dialog=document.getElementById('diodeTable');
   if(!host||!dialog)throw new Error('Chybí panel nebo tabulka měření diody.');
   let step=.1,busy=false,signature='',message='',lastDevice='';
+  const readoutClock=createReadoutClock(200);
+  const meterHTML=(value,unit)=>{const reading=formatInstrument(value,unit);return `${escape(reading.text)} <small>${escape(reading.unit)}</small>`;};
   const $=selector=>host.querySelector(selector),d$=selector=>dialog.querySelector(selector);
   const isLab=()=>getProject()?.demo?.kind==='diode-iv';
   const profile=()=>diodeLabProfile(getProject());
@@ -29,7 +33,7 @@ export function createDiodeLabUI({getProject,getRecord,getIndex,onSourceChange,o
     const other=Array.isArray(project.demo.table)?project.demo.table.filter(p=>p.device&&p.device!==device()&&validPoint(p)):[];
     project.demo.table=[...other,...next].slice(-tableLimit);
     onTableChange(project.demo.table);
-    refreshTable();update();
+    refreshTable();update({force:true});
   }
   function setMessage(value,error=false){message=value;for(const el of [$('#diodeLabMessage'),d$('#diodeTableMessage')])if(el){el.textContent=value;el.hidden=!value;el.classList.toggle('error',error);}}
   function pending(value){busy=value;host.setAttribute('aria-busy',String(value));updateDisabled();}
@@ -114,13 +118,15 @@ export function createDiodeLabUI({getProject,getRecord,getIndex,onSourceChange,o
         <p id="diodeLabMessage" class="diode-message" role="status" hidden></p>
         <details class="diode-profile"><summary>Model a mezní hodnoty</summary><p>Výuková aproximace při 25 °C. Nejde o naměřená data ani model výrobce.</p>${limitItems.length?`<p class="diode-limit-list">${limitItems.join('<br>')}</p>`:''}${limits.conditions?`<p>${escape(limits.conditions)}</p>`:''}<p>Bez samohřevu a poškození. Překročení limitů vyvolá upozornění; simulace proud neomezí podle katalogového maxima.</p>${p?.assumptions?.length?`<p>${escape(p.assumptions.at(-1))}</p>`:''}${p?.sourceURL?`<a href="${escape(p.sourceURL)}" target="_blank" rel="noopener noreferrer">Katalogový list ${escape(p.manufacturer||'výrobce')}</a>`:''}</details>`;
     }
-    update();refreshTable();
+    update({force:true});refreshTable();
   }
-  function update(){
+  function update({force=false}={}){
     if(!isLab()||host.hidden)return;
+    if(!readoutClock.shouldUpdate({now:performance.now(),running:isRunning(),force}))return;
     const p=current();
-    if($('#diodeVoltage'))$('#diodeVoltage').innerHTML=`${format(p?.UD)} <small>V</small>`;
-    if($('#diodeCurrent'))$('#diodeCurrent').innerHTML=`${format(p?.ID*1000)} <small>mA</small>`;
+    if($('#diodeVoltage'))$('#diodeVoltage').innerHTML=meterHTML(p?.UD,'V');
+    if($('#diodeCurrent'))$('#diodeCurrent').innerHTML=meterHTML(p?.ID,'A');
+    for(const id of ['diodeVoltage','diodeCurrent'])if($('#'+id))$('#'+id).title=Number.isFinite(p?.t)?`Odečet v t = ${format(p.t*1000)} ms; živé číslice 5× za sekundu`:'Bez platného vzorku';
     if($('#diodeSavedCount'))$('#diodeSavedCount').textContent=String(rows().length);
     const voltage=$('#diodeSourceValue');if(voltage&&document.activeElement!==voltage)voltage.value=String(source()?.type==='vdc'?source().params.value:0);
     const warnings=$('#diodeLiveWarnings');
