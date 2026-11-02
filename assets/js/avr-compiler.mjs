@@ -363,6 +363,7 @@ export async function buildFirmware(options = {}) {
     const assemblyPath = `/build/custom${index}.s`, objectPath = `/build/custom${index}.o`;
     const asm = await runTool("cc1plus", createCc1plus,
       compileArgs(sensors, file.path, assemblyPath, custom.includeDirs), async fs => {
+        ensureDir(fs, "/build");
         await loadHeaders(fs, manifest, timings);
         custom.files.forEach(input => writeFile(fs, input.path, input.content));
       }, assemblyPath, timings, stderr, memoryPeaks);

@@ -6,7 +6,7 @@
 .hero.programming-hero h1 { font-size: clamp(24px, 2.2vw, 32px); max-width: none; letter-spacing: -.03em; }
 .hero.programming-hero p.lead { max-width: 1000px; font-size: 14px; margin-top: 6px; line-height: 1.5; }
 .programming-studio { padding: 12px 0 32px; }
-.programming-workspace { min-width: 0; height: calc(100dvh - 172px); min-height: 540px; max-height: 1500px; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 0 14px 14px; }
+.programming-workspace { min-width: 0; height: calc(100dvh - 172px); min-height: 540px; max-height: 1500px; overflow: auto; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 0 14px 14px; }
 .programming-toolbar { display: flex; flex: 0 0 auto; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; }
 .programming-tabs { display: inline-flex; gap: 3px; padding: 3px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 9px; }
 .programming-tabs button { border: 0; min-height: 36px; padding: 7px 16px; border-radius: 6px; color: var(--ink-soft); background: transparent; cursor: pointer; font: inherit; font-size: 13px; }
@@ -64,7 +64,7 @@
 .programming-studio #editorStatus { flex: 0 0 auto; text-align: left; min-height: 0; margin: 0; font-size: 12px; }
 .programming-studio #editorStatus:empty { display: none; }
 .programming-studio .blockly-editor-grid { margin-top: 0; height: auto; flex: 1 1 0; min-height: 220px; min-width: 0; }
-.programming-studio .blockly-editor-grid.code-visible { grid-template-columns: minmax(0, var(--blockly-left)) 12px minmax(260px, 1fr); }
+.programming-studio .blockly-editor-grid.code-visible { grid-template-columns: minmax(0, min(var(--blockly-left), calc(100% - 272px))) 12px minmax(260px, 1fr); }
 .programming-studio :is(#blocklyDiv, .blockly-code-panel) { height: 100%; min-height: 0; border-radius: 8px; }
 .programming-studio #blocklyDiv .blocklyTreeSelected { background: color-mix(in srgb, var(--accent) 13%, var(--surface)) !important; }
 .programming-studio #blocklyDiv .blocklyTreeRow { margin: 3px 5px; padding: 8px 10px !important; border-radius: 7px; }
