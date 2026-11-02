@@ -3694,5 +3694,29 @@
   "red.project6_p": {
     "cs": "Navazující experiment s otočným senzorem. Vyžaduje držák a vodiče; fotografie ukazuje senzor, ne hotový radar.",
     "en": "A follow-up experiment with a rotating sensor. It needs a mount and wires; the photo shows the sensor, not a finished radar."
+  },
+  "programming.connection": {
+    "cs": "Připojení",
+    "en": "Connection"
+  },
+  "programming.directUsb": {
+    "cs": "Přímé USB",
+    "en": "Direct USB"
+  },
+  "programming.mlinkTransport": {
+    "cs": "mLink / Safari (experimentální)",
+    "en": "mLink / Safari (experimental)"
+  },
+  "programming.mlinkHelp": {
+    "cs": "Pro tento způsob musí v počítači běžet mLink 2. Zavři připojení k desce v mBlocku. Klikni na Připojit desku, vyber port a pak Nahrát do desky. <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Stáhnout mLink od výrobce</a>. Kompatibilita se Safari se teprve ověřuje.",
+    "en": "This connection needs mLink 2 running on your computer. Disconnect the board in mBlock. Click Connect board, select a port, then Upload to board. <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Download mLink from the manufacturer</a>. Safari compatibility is still being tested."
+  },
+  "programming.mlinkPort": {
+    "cs": "Sériový port z mLinku",
+    "en": "Serial port from mLink"
+  },
+  "programming.refreshPorts": {
+    "cs": "Obnovit porty",
+    "en": "Refresh ports"
   }
 }

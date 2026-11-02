@@ -11,7 +11,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102-safari">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -58,6 +58,11 @@
         <button type="button" role="tab" id="codeTab" aria-selected="false" aria-controls="arduinoCodePanel" tabindex="-1">Arduino C++</button>
       </div>
       <div class="programming-device">
+        <label for="transportSelect" data-i18n="programming.connection">Připojení</label>
+        <select id="transportSelect" aria-describedby="mlinkHelp">
+          <option value="direct" id="directTransportOption" data-i18n="programming.directUsb">Přímé USB</option>
+          <option value="mlink" data-i18n="programming.mlinkTransport">mLink / Safari (experimentální)</option>
+        </select>
         <label for="bootloaderSelect" data-i18n="programming.board">Deska</label>
         <select id="bootloaderSelect">
           <option value="115200">Nano / RED · Optiboot (115200)</option>
@@ -70,6 +75,12 @@
         <button type="button" id="uploadBtn" class="btn btn-primary" data-i18n="programming.upload">Nahrát do desky</button>
         <button type="button" id="cancelBuildBtn" class="btn btn-ghost" hidden data-i18n="programming.cancel">Zrušit</button>
       </div>
+    </div>
+    <p id="mlinkHelp" class="programming-mlink-help" hidden data-i18n="programming.mlinkHelp">Pro tento způsob musí v počítači běžet mLink 2. Zavři připojení k desce v mBlocku. Klikni na Připojit desku, vyber port a pak Nahrát do desky. <a href="https://mblock.cc/pages/downloads" target="_blank" rel="noopener noreferrer">Stáhnout mLink od výrobce</a>. Kompatibilita se Safari se teprve ověřuje.</p>
+    <div id="mlinkPorts" class="programming-mlink-ports" hidden>
+      <label for="mlinkPortSelect" data-i18n="programming.mlinkPort">Sériový port z mLinku</label>
+      <select id="mlinkPortSelect"><option value="">Vyber port desky…</option></select>
+      <button type="button" id="refreshMlinkBtn" class="blockly-toggle-code" data-i18n="programming.refreshPorts">Obnovit porty</button>
     </div>
     <div class="programming-status">
       <div class="programming-status-line">
@@ -155,7 +166,7 @@
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
 <script src="../assets/js/shieldio-blocks.js"></script>
 <script src="../assets/js/blockly-editor.js"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-safari"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>

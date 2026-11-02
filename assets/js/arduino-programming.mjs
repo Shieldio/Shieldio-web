@@ -1,4 +1,5 @@
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
+import { connectMlink } from "./arduino-mlink.mjs";
 
 const messages = {
   ready: ["Poskládej program a klikni na Zkompilovat nebo Nahrát do desky.", "Build a program, then choose Compile or Upload to board."],
@@ -29,12 +30,27 @@ const messages = {
   WRONG_CHIP: ["Vybraná deska nemá ATmega328P. Tento editor nahrává do klasického Arduino Nano / Shieldio RED.", "The selected board is not an ATmega328P. This editor uploads to classic Arduino Nano / Shieldio RED."],
   VERIFY_FAILED: ["Ověření zápisu selhalo. Program není potvrzený jako správně nahraný. Zkontroluj kabel a zkus nahrávání znovu.", "Flash verification failed. The upload is not confirmed. Check the cable and try uploading again."],
   STK_RESPONSE: ["Neočekávaná odpověď bootloaderu. Zkontroluj typ desky a bootloader.", "Unexpected bootloader response. Check your board and bootloader setting."],
+  mlinkReady: ["Safari: spusť mLink v počítači a klikni na Připojit desku. Toto napojení je zatím experimentální.", "Safari: start mLink on your computer, then click Connect board. This integration is experimental."],
+  mlinkFinding: ["Hledám místní službu mLink…", "Looking for the local mLink service…"],
+  mlinkChoose: ["mLink odpovídá. Vyber sériový port své desky níže.", "mLink is responding. Select your board's serial port below."],
+  mlinkEmpty: ["mLink běží, ale nehlásí žádné porty. Připoj desku datovým USB kabelem a klikni na Obnovit porty.", "mLink is running but reports no ports. Connect a board with a USB data cable and click Refresh ports."],
+  portPlaceholder: ["Vyber port desky…", "Select the board port…"],
+  MLINK_UNAVAILABLE: ["mLink se nepodařilo připojit. Spusť mLink, obnov porty a případně povol webu přístup k místní síti. Pokud Safari místní spojení blokuje, použij přímé USB v Chrome/Edge.", "Could not connect to mLink. Start mLink, refresh ports and allow this site local network access if requested. If Safari blocks the local connection, use direct USB in Chrome/Edge."],
+  MLINK_DISCONNECTED: ["Spojení s mLinkem se přerušilo. Spusť ho a vyber desku znovu.", "The mLink connection was lost. Restart it and select the board again."],
+  MLINK_TIMEOUT: ["mLink neodpověděl včas. Zavři připojení k desce v mBlocku a zkus to znovu.", "mLink did not respond in time. Disconnect the board in mBlock and try again."],
+  MLINK_PROTOCOL: ["Tato verze mLinku vrátila neznámou odpověď. Zkus aktuální mLink 2 nebo přímé USB v Chrome/Edge.", "This mLink version returned an unknown response. Try current mLink 2 or direct USB in Chrome/Edge."],
+  MLINK_CLIENT: ["Nepodařilo se načíst rozhraní mLinku. Obnov stránku a zkus to znovu.", "Could not load the mLink interface. Reload and try again."],
 };
 const t = key => (messages[key] || messages.failure)[document.documentElement.lang === "en" ? 1 : 0];
 const $ = id => document.getElementById(id);
 const supported = "serial" in navigator && window.isSecureContext;
 let selectedPort = null, busy = false, cached = null, worker = null, controller = null, disconnected = false;
-let statusKey = supported ? "ready" : "unsupported", statusError = false, statusPercent = null;
+let bridge = null;
+let statusKey = supported ? "ready" : "mlinkReady", statusError = false, statusPercent = null;
+const transport = () => $("transportSelect").value;
+$("transportSelect").value = supported ? "direct" : "mlink";
+$("directTransportOption").disabled = !supported;
+$("mlinkHelp").hidden = supported;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
 const source = () => mode() === "code" ? sourceInput.value : window.SHIELDIO_EDITOR?.getCode() || "";
@@ -47,7 +63,7 @@ function paint() {
 function status(key, error = false, percent = null) { statusKey = key; statusError = error; statusPercent = percent; paint(); }
 function setBusy(value) {
   busy = value;
-  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
+  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "transportSelect", "mlinkPortSelect", "refreshMlinkBtn", "blocksTab", "codeTab"]) $(id).disabled = value || (!supported && transport() === "direct" && (id === "uploadBtn" || id === "connectBoardBtn"));
   $("cancelBuildBtn").hidden = !value;
   blocksPanel.inert = value;
   codePanel.inert = value;
@@ -86,15 +102,51 @@ sourceInput.addEventListener("input", invalidate);
 window.addEventListener("shieldio:code-change", invalidate);
 
 async function selectPort() {
-  selectedPort = await navigator.serial.requestPort(); // Must run on the click, before compilation.
+  if (transport() === "mlink") {
+    status("mlinkFinding");
+    if (!bridge?.socket.connected) {
+      bridge?.close();
+      bridge = await connectMlink({ signal: controller?.signal });
+    }
+    const ports = await bridge.listPorts();
+    const select = $("mlinkPortSelect");
+    select.replaceChildren(new Option(t("portPlaceholder"), ""));
+    for (const port of ports) select.add(new Option(port.path + (port.manufacturer ? " (" + port.manufacturer + ")" : ""), port.path));
+    $("mlinkPorts").hidden = false;
+    status(ports.length ? "mlinkChoose" : "mlinkEmpty");
+    return false; // Explicit port selection is required before opening hardware.
+  }
+  selectedPort = await navigator.serial.requestPort();
   disconnected = false;
   status("connected");
+  return true;
 }
 $("connectBoardBtn").addEventListener("click", async () => {
-  if (selectedPort) { selectedPort = null; status("ready"); return; }
+  if (busy) return;
+  if (selectedPort) { selectedPort = null; bridge?.close(); bridge = null; $("mlinkPorts").hidden = true; status(transport() === "mlink" ? "mlinkReady" : "ready"); return; }
+  setBusy(true); controller = new AbortController();
   try { await selectPort(); }
   catch (error) { if (error.name === "NotFoundError") status("noPort"); else showError(error); }
+  finally { setBusy(false); controller = null; }
 });
+$("transportSelect").addEventListener("change", () => {
+  bridge?.close(); bridge = null; selectedPort = null;
+  $("mlinkPorts").hidden = true;
+  $("mlinkHelp").hidden = transport() !== "mlink";
+  setBusy(false); status(transport() === "mlink" ? "mlinkReady" : "ready");
+});
+$("mlinkPortSelect").addEventListener("change", event => {
+  selectedPort = event.target.value && bridge?.socket.connected ? bridge.createPort(event.target.value) : null;
+  disconnected = false;
+  status(selectedPort ? "connected" : "mlinkChoose");
+});
+$("refreshMlinkBtn").addEventListener("click", async () => {
+  if (busy) return;
+  selectedPort = null; setBusy(true); controller = new AbortController();
+  try { await selectPort(); } catch (error) { showError(error); }
+  finally { setBusy(false); controller = null; }
+});
+window.addEventListener("pagehide", () => bridge?.close());
 if (supported) navigator.serial.addEventListener("disconnect", event => {
   if ((event.port || event.target) !== selectedPort) return;
   selectedPort = null; disconnected = true;
@@ -151,7 +203,7 @@ async function run(upload) {
   $("compilerDetails").hidden = true;
   try {
     if (upload && !selectedPort) {
-      try { await selectPort(); }
+      try { if (!await selectPort()) return; }
       catch (error) { if (error.name === "NotFoundError") { status("noPort"); return; } throw error; }
     }
     const result = await compile(controller.signal);

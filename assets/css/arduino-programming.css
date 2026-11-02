@@ -31,3 +31,7 @@
 .programming-studio [hidden] { display: none !important; }
 @media (max-width: 900px) { .programming-device { margin-left: 0; } .programming-help { grid-template-columns: 1fr; gap: 8px; } }
 @media (max-width: 560px) { .programming-toolbar { padding: 12px; } .programming-run { width: 100%; } .programming-run .btn-primary { flex: 1; } .programming-source { padding: 14px; font-size: 13px; min-height: 400px; } }
+
+.programming-mlink-help { margin: 0 0 16px; font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 900px; }
+.programming-mlink-ports { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; font-size: 14px; }
+.programming-mlink-ports select { max-width: 100%; min-width: 200px; padding: 10px; font: inherit; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
