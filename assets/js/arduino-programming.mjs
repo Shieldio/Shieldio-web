@@ -1,6 +1,16 @@
+import { importLibrary, validateLibraries } from "./arduino-libraries.mjs";
+import { indentSelection } from "./arduino-source-editor.mjs";
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
+  focus: ["Zvětšit editor", "Expand editor"], unfocus: ["Zpět na web", "Back to website"],
+  removeLibrary: ["Odebrat", "Remove"], libraryAdded: ["Knihovna je připravená. Použij její #include v programu.", "Library ready. Use its #include in your program."],
+  LIBRARY_LIMIT: ["Knihovny jsou příliš velké: nejvýše 8 knihoven, 160 souborů, 12 C++ zdrojů a 2 MB kódu včetně ShieldioDisplay.", "Library limits: 8 libraries, 160 files, 12 C++ sources and 2 MB of code including ShieldioDisplay."],
+  LIBRARY_FORMAT: ["Vyber kořenovou složku jedné knihovny s hlavičkami a C++ zdroji.", "Choose the root folder of one library containing headers and C++ sources."],
+  LIBRARY_ARCH: ["Tato knihovna není určená pro AVR / Arduino Nano.", "This library does not support AVR / Arduino Nano."],
+  LIBRARY_LANGUAGE: ["Tato knihovna obsahuje C, assembler nebo předkompilované objekty. Zatím podporujeme C++ a hlavičky.", "This library contains C, assembly or precompiled objects. Only C++ and headers are supported yet."],
+  LIBRARY_PATH: ["Knihovna obsahuje nepodporovanou cestu k souboru.", "The library contains an unsupported file path."],
+  LIBRARY_CONFLICT: ["Knihovna koliduje s připravenou nebo jinou vlastní knihovnou.", "The library conflicts with an included or another custom library."],
   ready: ["Poskládej program a klikni na Zkompilovat nebo Nahrát do desky.", "Build a program, then choose Compile or Upload to board."],
   connected: ["USB deska je vybraná. Můžeš nahrát program.", "USB board selected. You can upload your program."],
   connect: ["Připojit desku", "Connect board"], disconnect: ["Odpojit", "Disconnect"],
@@ -37,6 +47,7 @@ const t = key => (messages[key] || messages.failure)[document.documentElement.la
 const $ = id => document.getElementById(id);
 const supported = "serial" in navigator && window.isSecureContext;
 let selectedPort = null, busy = false, cached = null, worker = null, controller = null, disconnected = false;
+let libraries = [], expanded = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
@@ -49,13 +60,15 @@ function paint() {
   $("boardConnection").textContent = t(selectedPort ? "usbSelected" : supported ? "usbIdle" : "usbUnavailable");
   $("boardConnection").dataset.connected = String(Boolean(selectedPort));
   $("usbCompatibility").hidden = supported;
+  $("focusEditorBtn").textContent = t(expanded ? "unfocus" : "focus");
 }
 function status(key, error = false, percent = null) { statusKey = key; statusError = error; statusPercent = percent; paint(); }
 function setBusy(value) {
   busy = value;
-  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
+  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn", "addLibraryBtn", "boardSelect", "blockProfileSelect", "moduleSelect", "advancedBlocksToggle", "loadBlocksBtn", "saveBlocksBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
   $("downloadHexBtn").disabled = value || !cached || cached.source !== source();
   $("cancelBuildBtn").hidden = !value;
+  $("customLibraryList").inert = value;
   blocksPanel.inert = value;
   codePanel.inert = value;
   $("uploadProgress").hidden = !value;
@@ -79,7 +92,7 @@ function switchMode(next) {
   blocksPanel.hidden = isCode;
   codePanel.hidden = !isCode;
   if (!isCode) window.SHIELDIO_EDITOR?.resize();
-  invalidate();
+  invalidate();updateSourcePosition();
 }
 $("blocksTab").addEventListener("click", () => switchMode("blocks"));
 $("codeTab").addEventListener("click", () => switchMode("code"));
@@ -89,7 +102,23 @@ for (const id of ["blocksTab", "codeTab"]) $(id).addEventListener("keydown", eve
   const next = event.key === "Home" || event.key === "ArrowLeft" ? "blocks" : "code";
   switchMode(next); $(next === "blocks" ? "blocksTab" : "codeTab").focus();
 });
-sourceInput.addEventListener("input", invalidate);
+try { sourceInput.value = localStorage.getItem("shieldio-source-v1") || ""; } catch {}
+function updateSourcePosition() {
+  const lines = sourceInput.value.split("\n");
+  $("sourceLineNumbers").textContent = lines.map((_,i) => i+1).join("\n");
+  const cursor = sourceInput.value.slice(0,sourceInput.selectionStart || 0).split("\n");
+  $("sourcePosition").textContent = `${cursor.length}:${cursor.at(-1).length+1} · ${lines.length} ${document.documentElement.lang === "en" ? (lines.length === 1 ? "line" : "lines") : (lines.length === 1 ? "řádek" : lines.length < 5 ? "řádky" : "řádků")}`;
+}
+sourceInput.addEventListener("input", () => {invalidate();updateSourcePosition();try {localStorage.setItem("shieldio-source-v1",sourceInput.value);} catch {}});
+sourceInput.addEventListener("scroll", () => {$("sourceLineNumbers").scrollTop = sourceInput.scrollTop;});
+for (const event of ["click","keyup","select"]) sourceInput.addEventListener(event, updateSourcePosition);
+sourceInput.addEventListener("keydown", event => {
+  if (event.key !== "Tab" || busy) return;
+  event.preventDefault();
+  const edit = indentSelection(sourceInput.value,sourceInput.selectionStart,sourceInput.selectionEnd,event.shiftKey);
+  sourceInput.value = edit.text;sourceInput.setSelectionRange(edit.start,edit.end);
+  sourceInput.dispatchEvent(new Event("input"));
+});
 window.addEventListener("shieldio:code-change", invalidate);
 
 async function selectPort() {
@@ -116,14 +145,14 @@ if (supported) navigator.serial.addEventListener("disconnect", event => {
 
 function compileInWorker(text, signal) {
   return new Promise((resolve, reject) => {
-    worker = new Worker(new URL("./arduino-compiler-worker.mjs", import.meta.url), { type: "module" });
+    worker = new Worker(new URL("./arduino-compiler-worker.mjs?v=20261102-studio2", import.meta.url), { type: "module" });
     const cleanup = () => { clearTimeout(timer); signal.removeEventListener("abort", cancel); worker?.terminate(); worker = null; };
     const cancel = () => { cleanup(); reject(new Error("CANCELLED")); };
     const timer = setTimeout(() => { cleanup(); reject(new Error("compileTimeout")); }, 120000);
     signal.addEventListener("abort", cancel, { once: true });
-    worker.onmessage = ({ data }) => { cleanup(); data.error ? reject(new Error(data.error)) : resolve(data.result); };
+    worker.onmessage = ({ data }) => { cleanup(); if(data.error) {const error = new Error(data.error);error.details=data.details;reject(error);} else resolve(data.result); };
     worker.onerror = event => { event.preventDefault(); cleanup(); reject(new Error("loadFailure")); };
-    worker.postMessage({ source: text });
+    worker.postMessage({ source: text, libraries });
   });
 }
 async function compile(signal) {
@@ -136,7 +165,7 @@ async function compile(signal) {
   $("uploadProgress").removeAttribute("value");
   const result = await compileInWorker(text, signal);
   if (!result.fitsTarget || result.flashBytes > NANO_FLASH_BYTES) throw new Error("FLASH_OVERFLOW");
-  const oledBytes = /Adafruit_SSD1306\.h/.test(text) ? 1024 : 0;
+  const oledBytes = result.oledBufferBytes ?? (/Adafruit_SSD1306\.h/.test(text) ? 1024 : 0);
   if (result.ramBytes + oledBytes >= 2048) throw new Error("RAM_OVERFLOW");
   parseHex(result.hex);
   if (text !== source()) throw new Error("codeChanged");
@@ -190,19 +219,54 @@ function download(text, filename) {
   const link = document.createElement("a"); link.href = url; link.download = filename; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-$("downloadHexBtn").addEventListener("click", () => { if (cached?.source === source()) download(cached.result.hex, "shieldio_red.hex"); });
-$("downloadSourceBtn").addEventListener("click", () => download(source(), "shieldio_red.ino"));
+$("downloadHexBtn").addEventListener("click", () => { if (cached?.source === source()) download(cached.result.hex, "shieldio_program.hex"); });
+$("downloadSourceBtn").addEventListener("click", () => download(source(), "shieldio_program.ino"));
 $("importSourceBtn").addEventListener("click", () => $("importSourceInput").click());
 $("importSourceInput").addEventListener("change", async event => {
   const file = event.target.files[0]; if (!file) return;
   try {
     if (file.size > 200000) throw new Error("Source file exceeds 200 kB.");
-    sourceInput.value = await file.text(); switchMode("code"); invalidate(); status("fileLoaded");
+    sourceInput.value = await file.text(); switchMode("code"); sourceInput.dispatchEvent(new Event("input")); status("fileLoaded");
   } catch (error) { showError(error); }
   finally { event.target.value = ""; }
 });
-new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
-setBusy(false); paint();
+function paintLibraries() {
+  const list = $("customLibraryList");list.replaceChildren();
+  libraries.forEach((lib,index) => {
+    const row = document.createElement("li"), name = document.createElement("span"), remove = document.createElement("button");
+    name.textContent = lib.name + (lib.version ? " " + lib.version : "");
+    remove.type="button";remove.className="blockly-toggle-code";remove.textContent=t("removeLibrary");
+    remove.setAttribute("aria-label",t("removeLibrary")+" "+lib.name);
+    remove.addEventListener("click",() => {if(busy)return;libraries.splice(index,1);librariesChanged();});
+    row.append(name,remove);list.append(row);
+  });
+}
+function librariesChanged() {
+  cached=null;$("downloadHexBtn").disabled=true;$("memoryUsage").textContent="";status("changed");paintLibraries();
+}
+$("addLibraryBtn").addEventListener("click", () => $("libraryFolderInput").click());
+$("libraryFolderInput").addEventListener("change", async event => {
+  if (busy) return;
+  const files = event.target.files;if(!files?.length)return;
+  setBusy(true);
+  try {
+    const library = await importLibrary(files);
+    const next = [...libraries.filter(lib => lib.name !== library.name),library];validateLibraries(next);
+    libraries=next;librariesChanged();$("libraryStatus").textContent=t("libraryAdded");
+  } catch(error) {$("libraryStatus").textContent=t(error.message)+(error.details ? " "+error.details : "");}
+  finally {event.target.value="";setBusy(false);}
+});
+$("focusEditorBtn").addEventListener("click", () => {
+  expanded=!expanded;document.body.classList.toggle("programming-focus",expanded);
+  $("focusEditorBtn").setAttribute("aria-pressed",String(expanded));paint();window.SHIELDIO_EDITOR?.resize();
+});
+window.addEventListener("keydown", event => {
+  if(event.key==="Escape" && expanded) $("focusEditorBtn").click();
+  if((event.ctrlKey || event.metaKey) && event.key==="Enter") {event.preventDefault();run(event.shiftKey);}
+});
+new MutationObserver(() => {paint();paintLibraries();updateSourcePosition();}).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+setBusy(false); paint();updateSourcePosition();
+
 
 
 

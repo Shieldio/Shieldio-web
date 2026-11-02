@@ -1,80 +1,111 @@
-/* The studio is scoped to this page; shared site styles stay unchanged. */
-.hero.programming-hero { padding: 92px 0 8px; }
+/* Shieldio programming studio. Layout follows the viewport, never a physical screen diagonal. */
+.hero.programming-hero { padding: 82px 0 4px; }
 .hero.programming-hero::before, .hero.programming-hero::after { display: none; }
-.hero.programming-hero h1 { font-size: clamp(26px, 3vw, 38px); max-width: none; letter-spacing: -.035em; }
-.hero.programming-hero p.lead { max-width: 900px; font-size: 15px; margin-top: 8px; line-height: 1.6; }
-.programming-studio { padding: 16px 0 56px; }
-.programming-workspace { min-width: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 0 16px 16px; }
-.programming-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
-.programming-tabs { display: inline-flex; gap: 3px; padding: 3px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; }
-.programming-tabs button { border: 0; min-height: 40px; padding: 8px 18px; border-radius: 7px; color: var(--ink-soft); background: transparent; cursor: pointer; font: inherit; font-size: 14px; }
+.hero.programming-hero .wrap, .programming-studio > .wrap { max-width: 1920px; padding: 0 clamp(16px, 2vw, 36px); }
+.hero.programming-hero .fade-up { opacity: 1; transform: none; }
+.hero.programming-hero h1 { font-size: clamp(24px, 2.2vw, 32px); max-width: none; letter-spacing: -.03em; }
+.hero.programming-hero p.lead { max-width: 1000px; font-size: 14px; margin-top: 6px; line-height: 1.5; }
+.programming-studio { padding: 12px 0 32px; }
+.programming-workspace { min-width: 0; height: calc(100dvh - 172px); min-height: 540px; max-height: 1500px; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 0 14px 14px; }
+.programming-toolbar { display: flex; flex: 0 0 auto; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; }
+.programming-tabs { display: inline-flex; gap: 3px; padding: 3px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 9px; }
+.programming-tabs button { border: 0; min-height: 36px; padding: 7px 16px; border-radius: 6px; color: var(--ink-soft); background: transparent; cursor: pointer; font: inherit; font-size: 13px; }
 .programming-tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 12%, transparent); }
-.programming-run { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.programming-toolbar .btn { min-height: 42px; padding: 10px 16px; font-size: 13px; white-space: nowrap; }
+.programming-run { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.programming-toolbar .btn { min-height: 38px; padding: 8px 13px; font-size: 13px; white-space: nowrap; }
 .programming-studio .btn-ghost { color: var(--ink); border-color: var(--line); }
 .programming-studio button:disabled { cursor: default; opacity: .45; }
-.programming-studio :is(button, select, textarea, summary):focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-.programming-boardbar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; padding: 11px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12px; }
-.programming-board-name { font-weight: 600; }
-.programming-board-name span { color: var(--ink-soft); font-weight: 400; }
-.programming-connection { color: var(--ink-soft); }
+.programming-studio :is(button, select, textarea, summary, input):focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.programming-boardbar { display: flex; flex: 0 0 auto; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding: 6px 0; border-block: 1px solid var(--line); font-size: 12px; }
+.programming-board-name { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.programming-board-name::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--tier-red); }
+.programming-board-name > span, .programming-target, .programming-connection { color: var(--ink-soft); }
 .programming-connection[data-connected="true"] { color: var(--accent-deep); }
 .programming-settings { margin-left: auto; }
 .programming-settings summary { cursor: pointer; color: var(--ink-soft); min-height: 28px; padding: 5px 0; }
 .programming-settings[open] { flex: 1 0 100%; margin-left: 0; }
 .programming-settings[open] summary { color: var(--ink); }
-.programming-device { display: grid; grid-template-columns: minmax(0, 420px); gap: 14px; padding: 12px 0 4px; }
+.programming-device { display: grid; grid-template-columns: minmax(0, 420px); gap: 12px; padding: 8px 0; }
 .programming-field { display: grid; gap: 7px; }
 .programming-field label { color: var(--ink-soft); font-size: 12px; }
-.programming-device select { min-width: 0; max-width: 100%; min-height: 42px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); padding: 9px; font: inherit; font-size: 13px; }
-.programming-compatibility { margin: 14px 0 0; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--paper-2); border-radius: 0 8px 8px 0; font-size: 13px; }
+.programming-studio select { min-width: 0; max-width: 100%; min-height: 34px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); padding: 6px 9px; font: inherit; font-size: 12px; }
+.programming-compatibility { flex: 0 0 auto; margin: 10px 0 0; padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--paper-2); border-radius: 0 7px 7px 0; font-size: 13px; }
 .programming-compatibility strong { font-weight: 600; }
-.programming-compatibility p { margin: 5px 0 0; max-width: 1000px; line-height: 1.6; color: var(--ink-soft); }
-.programming-filebar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 12px 0; }
-.programming-file-label { color: var(--ink-soft); font-size: 12px; margin-right: 8px; }
-.programming-studio .blockly-toggle-code { font: inherit; font-size: 12px; min-height: 36px; padding: 7px 11px; border-radius: 7px; }
-.programming-status { border-top: 1px solid var(--line); padding: 11px 0; }
-.programming-status-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; }
+.programming-compatibility p { margin: 4px 0 0; max-width: 1000px; line-height: 1.6; color: var(--ink-soft); }
+.programming-filebar { display: flex; flex: 0 0 auto; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; padding: 6px 0; font-size: 12px; }
+.programming-filebar summary { cursor: pointer; padding: 7px 0; }
+.programming-filebar > details[open] { flex: 1 0 100%; }
+.programming-file-actions { display: flex; flex-wrap: wrap; gap: 7px; padding: 5px 0 10px; }
+.programming-local-note { margin-left: auto; color: var(--ink-soft); }
+.programming-library-body { max-height: min(40vh, 300px); overflow: auto; padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-2); }
+.programming-library-body p { max-width: 95ch; font-size: 12px; line-height: 1.6; margin: 0 0 8px; }
+.programming-library-note { color: var(--ink-soft); }
+.programming-library-list { padding: 0; margin: 8px 0; list-style: none; }
+.programming-library-list li { display: flex; align-items: center; gap: 16px; margin: 5px 0; }
+.programming-library-list button { margin-left: auto; }
+.programming-studio .blockly-toggle-code { font: inherit; font-size: 12px; min-height: 34px; padding: 6px 10px; border-radius: 6px; }
+.programming-status { flex: 0 0 auto; border-top: 1px solid var(--line); padding: 8px 0; }
+.programming-status-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 5px 16px; }
 .programming-status p { margin: 0; font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
 .programming-status [data-error="true"] { color: var(--ink); font-weight: 600; border-left: 3px solid var(--ink-soft); padding-left: 10px; }
-.programming-status progress { display: block; width: 100%; height: 6px; accent-color: var(--accent); margin-top: 10px; }
+.programming-status progress { display: block; width: 100%; height: 6px; accent-color: var(--accent); margin-top: 8px; }
 .programming-memory { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px !important; }
-.programming-diagnostics { margin-top: 10px; font-size: 12px; }
+.programming-diagnostics { margin-top: 8px; font-size: 12px; }
 .programming-diagnostics summary { cursor: pointer; }
-.programming-diagnostics pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 220px; overflow: auto; margin: 10px 0 0; padding: 12px; border-radius: 8px; background: var(--paper-2); color: var(--ink); font: 12px/1.6 ui-monospace, monospace; }
-.programming-block-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-.programming-block-actions #editorStatus { text-align: left; min-height: 0; margin: 0; font-size: 12px; }
-.programming-studio .blockly-editor-grid { margin-top: 10px; }
-.programming-studio :is(#blocklyDiv, .blockly-code-panel, .programming-source), .programming-studio .blockly-editor-grid { height: clamp(420px, 60vh, 760px); }
-.programming-studio #blocklyDiv { border-radius: 10px; }
+.programming-diagnostics pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 150px; overflow: auto; margin: 8px 0 0; padding: 10px; border-radius: 7px; background: var(--paper-2); color: var(--ink); font: 12px/1.6 ui-monospace, monospace; }
+.programming-studio :is(#blocksPanel, #arduinoCodePanel) { display: flex; flex: 1 1 0; flex-direction: column; min-height: 260px; min-width: 0; }
+.programming-block-actions { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 6px 14px; flex-wrap: wrap; padding: 6px 0; }
+.programming-block-filter, .programming-module-field { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+.programming-block-filter { gap: 8px 12px; }
+.programming-block-filter label { font-size: 12px; color: var(--ink-soft); }
+.programming-advanced { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; min-height: 34px; }
+.programming-advanced input { accent-color: var(--accent); width: 16px; height: 16px; }
+.programming-module-help { flex: 0 0 auto; font-size: 12px; color: var(--ink-soft); line-height: 1.5; margin: 0 0 8px; }
+.programming-studio #editorStatus { flex: 0 0 auto; text-align: left; min-height: 0; margin: 0; font-size: 12px; }
+.programming-studio #editorStatus:empty { display: none; }
+.programming-studio .blockly-editor-grid { margin-top: 0; height: auto; flex: 1 1 0; min-height: 220px; min-width: 0; }
+.programming-studio .blockly-editor-grid.code-visible { grid-template-columns: minmax(0, var(--blockly-left)) 12px minmax(260px, 1fr); }
+.programming-studio :is(#blocklyDiv, .blockly-code-panel) { height: 100%; min-height: 0; border-radius: 8px; }
+.programming-studio #blocklyDiv .blocklyTreeSelected { background: color-mix(in srgb, var(--accent) 13%, var(--surface)) !important; }
+.programming-studio #blocklyDiv .blocklyTreeRow { margin: 3px 5px; padding: 8px 10px !important; border-radius: 7px; }
 .programming-studio .blockly-splitter:hover::before, .programming-studio .blockly-splitter:focus-visible::before { background: var(--accent); }
 .programming-studio .blockly-toggle-code.active { color: var(--accent-deep); border-color: var(--accent-deep); }
-.programming-source { display: block; width: 100%; min-height: 420px; resize: vertical; border: 1px solid var(--line); border-radius: 10px; padding: 20px; background: var(--paper); color: var(--ink); font: 14px/1.65 'JetBrains Mono', ui-monospace, monospace; tab-size: 2; }
-.programming-guide { margin-top: 22px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
-.programming-guide > summary { font-size: 14px; cursor: pointer; width: fit-content; padding: 8px 0; }
-.programming-help { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; padding: 18px 0 0; }
+.programming-source-wrap { display: flex; flex: 1 1 0; min-width: 0; min-height: 220px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.programming-line-numbers { flex: 0 0 46px; overflow: hidden; white-space: pre; padding: 14px 9px; margin: 0; color: var(--ink-soft); text-align: right; border-right: 1px solid var(--line); background: var(--paper-2); user-select: none; }
+.programming-source { flex: 1 1 0; display: block; width: 0; min-width: 0; min-height: 0; height: 100%; resize: none; padding: 14px; margin: 0; border: 0; border-radius: 0; background: var(--paper); color: var(--ink); tab-size: 2; }
+.programming-line-numbers, .programming-source { font: 13px/1.7 'JetBrains Mono', ui-monospace, monospace; }
+.programming-studio .programming-source:focus-visible { outline-offset: -3px; }
+.programming-source-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; font-size: 11px; color: var(--ink-soft); padding-top: 7px; }
+.programming-guide { margin-top: 20px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.programming-guide > summary { font-size: 13px; cursor: pointer; width: fit-content; padding: 8px 0; }
+.programming-help { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; padding: 16px 0 0; }
 .programming-help h2, .programming-pins h2 { font-size: 15px; margin: 0 0 8px; }
 .programming-help p, .programming-pins p { color: var(--ink-soft); font-size: 13px; line-height: 1.7; margin: 0; }
 .programming-pins { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.programming-focus { overflow: hidden; }
+.programming-focus .programming-workspace { position: fixed; inset: 10px; z-index: 2000; height: calc(100dvh - 20px); min-height: 0; max-height: none; overflow: auto; }
 .programming-studio [hidden] { display: none !important; }
-@media (max-width: 900px) {
-  .programming-help { grid-template-columns: 1fr; gap: 20px; }
-  .programming-studio .blockly-editor-grid, .programming-studio .blockly-editor-grid.code-visible { height: auto; }
+@media (min-width: 1600px) {
+  .programming-line-numbers, .programming-source { font-size: 14px; }
+  .programming-workspace { padding-inline: 18px; }
 }
-@media (max-width: 620px) {
-  .hero.programming-hero { padding-top: 82px; }
-  .programming-workspace { padding: 0 10px 10px; border-radius: 12px; }
-  .programming-toolbar { gap: 10px; }
-  .programming-run { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
-  .programming-run #uploadBtn { grid-column: 1 / -1; }
-  .programming-run #cancelBuildBtn { grid-column: 1 / -1; }
-  .programming-toolbar .btn { justify-content: center; padding: 10px; }
-  .programming-boardbar { gap: 2px 12px; }
-  .programming-settings { flex-basis: 100%; margin-left: 0; }
-  .programming-device { grid-template-columns: 1fr; }
-  .programming-file-label { display: none; }
-  .programming-source { padding: 12px; font-size: 13px; }
+@media (max-width: 1050px) {
+  .programming-target { display: none; }
+  .programming-studio .blockly-editor-grid.code-visible { grid-template-columns: 1fr; grid-template-rows: minmax(220px, 1fr) minmax(160px, .6fr); gap: 10px; }
+  .programming-studio .blockly-editor-grid.code-visible .blockly-splitter { display: none; }
+  .programming-studio .blockly-editor-grid.code-visible .blockly-code-panel { display: flex; }
+}
+@media (max-width: 700px) {
+  .hero.programming-hero { padding-top: 76px; }
+  .hero.programming-hero p.lead { display: none; }
+  .programming-workspace { height: auto; min-height: 650px; padding: 0 10px 10px; }
+  .programming-run { width: 100%; display: flex; }
+  .programming-run #uploadBtn { flex: 1; }
+  .programming-toolbar .btn { padding-inline: 9px; font-size: 12px; }
+  .programming-block-filter { width: 100%; }
+  .programming-studio :is(#blocksPanel, #arduinoCodePanel) { flex: 1 0 460px; }
+  .programming-help { grid-template-columns: 1fr; gap: 18px; }
   .programming-studio .blockly-workspace-actions { gap: 5px; }
-  .programming-studio :is(#blocklyDiv, .blockly-code-panel, .programming-source) { height: 420px; }
+  .programming-local-note { display: none; }
+  .programming-focus .programming-workspace { inset: 0; height: 100dvh; border-radius: 0; }
 }
-

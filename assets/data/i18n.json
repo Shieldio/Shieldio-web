@@ -3648,8 +3648,8 @@
     "en": "Compile in your browser"
   },
   "programming.helpBuild": {
-    "cs": "Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou Servo, Wire, SPI, Adafruit GFX a SSD1306. Další knihovny se zatím nedoinstalovávají.",
-    "en": "The compiler and libraries download on first use. Your source stays on your computer. Servo, Wire, SPI, Adafruit GFX and SSD1306 are included. Installing additional libraries is not supported yet."
+    "cs": "Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vlastní C++ knihovny pro AVR přidáš v nabídce Knihovny.",
+    "en": "The compiler and libraries download on first use. Your code stays on your computer. ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX and SSD1306 are included. Add your own AVR C++ libraries from the Libraries menu."
   },
   "programming.helpCodeTitle": {
     "cs": "Bloky a vlastní kód",
@@ -3718,5 +3718,105 @@
   "programming.guide": {
     "cs": "Jak připojit desku a pracovat s editorem",
     "en": "Connecting your board and using the editor"
+  },
+  "programming.focus": {
+    "cs": "Zvětšit editor",
+    "en": "Expand editor"
+  },
+  "programming.filesMenu": {
+    "cs": "Soubor",
+    "en": "File"
+  },
+  "programming.saveBlocks": {
+    "cs": "Uložit bloky",
+    "en": "Save blocks"
+  },
+  "programming.loadBlocks": {
+    "cs": "Načíst bloky",
+    "en": "Open blocks"
+  },
+  "programming.libraries": {
+    "cs": "Knihovny",
+    "en": "Libraries"
+  },
+  "programming.includedLibraries": {
+    "cs": "<strong>Připravené:</strong> ShieldioDisplay 0.1.1, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.",
+    "en": "<strong>Included:</strong> ShieldioDisplay 0.1.1, Servo, Wire, SPI, Adafruit GFX and SSD1306. Selected automatically from your program."
+  },
+  "programming.libraryHelp": {
+    "cs": "Vlastní knihovnu rozbal a přidej její složku. Podporujeme hlavičky a C++ zdroje pro AVR; závislosti přidej také. C, assembler a předkompilované knihovny zatím nejsou podporované.",
+    "en": "Extract your library and add its folder. AVR headers and C++ sources are supported; add dependencies too. C, assembly and precompiled libraries are not supported yet."
+  },
+  "programming.addLibrary": {
+    "cs": "Přidat složku knihovny",
+    "en": "Add library folder"
+  },
+  "programming.customLibraries": {
+    "cs": "Vlastní knihovny",
+    "en": "Custom libraries"
+  },
+  "programming.librarySession": {
+    "cs": "Kód i knihovny zůstávají v prohlížeči. Vlastní knihovny jsou pro tuto záložku; po obnovení stránky je přidej znovu.",
+    "en": "Code and libraries stay in your browser. Custom libraries are available in this tab; add them again after reloading."
+  },
+  "programming.localBuild": {
+    "cs": "Kompilace v počítači · přímé USB",
+    "en": "Local compilation · direct USB"
+  },
+  "programming.blockProfile": {
+    "cs": "Bloky pro",
+    "en": "Blocks for"
+  },
+  "programming.redProfile": {
+    "cs": "Moduly Shieldio RED",
+    "en": "Shieldio RED modules"
+  },
+  "programming.universalProfile": {
+    "cs": "Univerzální Arduino",
+    "en": "Universal Arduino"
+  },
+  "programming.module": {
+    "cs": "Modul",
+    "en": "Module"
+  },
+  "programming.moduleAll": {
+    "cs": "Všechny moduly",
+    "en": "All modules"
+  },
+  "programming.moduleLed": {
+    "cs": "LED",
+    "en": "LED"
+  },
+  "programming.moduleButtons": {
+    "cs": "Tlačítka",
+    "en": "Buttons"
+  },
+  "programming.moduleDistance": {
+    "cs": "Ultrazvuk HC-SR04",
+    "en": "HC-SR04 ultrasonic"
+  },
+  "programming.moduleServo": {
+    "cs": "Servo",
+    "en": "Servo"
+  },
+  "programming.moduleBuzzer": {
+    "cs": "Bzučák",
+    "en": "Buzzer"
+  },
+  "programming.moduleOled": {
+    "cs": "OLED displej",
+    "en": "OLED display"
+  },
+  "programming.advancedBlocks": {
+    "cs": "Pokročilé bloky",
+    "en": "Advanced blocks"
+  },
+  "programming.fitBlocks": {
+    "cs": "Celý program",
+    "en": "Fit program"
+  },
+  "programming.shortcuts": {
+    "cs": "Tab: odsazení · Ctrl/⌘ + Enter: kompilace · + Shift: nahrání",
+    "en": "Tab: indent · Ctrl/⌘ + Enter: compile · + Shift: upload"
   }
 }

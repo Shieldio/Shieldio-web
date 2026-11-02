@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import vm from 'node:vm';
+import {validateLibraries,resolveLibraries} from '../assets/js/arduino-libraries.mjs';
+const script=(await fs.readFile(new URL('../assets/js/arduino-compiler-worker.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-compiler-worker.mjs"');
+const display=JSON.parse(await fs.readFile(new URL('../assets/arduino/ShieldioDisplay.json',import.meta.url),'utf8'));
+let options,reply,fetches=0;
+const self={postMessage(data){reply=data;}};
+vm.runInNewContext(script,{self,URL,validateLibraries,resolveLibraries,SENSOR:{OLED:'OLED'},async fetch(url){fetches++;assert.equal(String(url),'https://shieldio.cz/assets/arduino/ShieldioDisplay.json');return {ok:true,json:async()=>display};},async buildFirmware(opts){options=opts;return {hex:'test'};}});
+await self.onmessage({data:{source:'#include <ShieldioDisplay.h>\nvoid setup(){} void loop(){}',libraries:[]}});
+assert.equal(fetches,1);assert.equal(options.libraries[0].name,'ShieldioDisplay');assert.equal(options.sensors.length,0);assert.ok(options.source.startsWith('#include <Arduino.h>\n#line 1 "shieldio.ino"\n'));assert.equal(reply.result.hex,'test');
+await self.onmessage({data:{source:'#include <Wrapper.h>',libraries:[{name:'Wrapper',files:[{path:'Wrapper.h',content:'#include <Adafruit_SSD1306.h>'}]}]}});
+assert.equal(options.sensors[0],'OLED','Transitive OLED use reserves its dynamic framebuffer');
+await self.onmessage({data:{source:'void setup(){} void loop(){}',libraries:[{name:'Unused',files:[{path:'Unused.h',content:'#include <Adafruit_SSD1306.h>'}]}]}});
+assert.equal(options.sensors.length,0,'Unused imported libraries do not reserve an OLED framebuffer');
+await self.onmessage({data:{source:'',libraries:[{name:'Bad',files:[{path:'../bad.h',content:''}]}]}});assert.equal(reply.error,'LIBRARY_PATH');assert.equal(reply.details,'../bad.h');
+console.log('Worker: local Shieldio library, source line mapping, transitive OLED memory and error propagation passed.');

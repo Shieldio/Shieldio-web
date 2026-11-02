@@ -1,15 +1,25 @@
 name: Test Arduino programming
 on:
   push:
-    branches: [main, codex/programming-usb-20261102]
+    branches: [main, codex/programming-studio-20261102]
     paths:
       - 'assets/js/arduino-*.mjs'
+      - 'assets/js/avr-compiler.mjs'
+      - 'assets/js/shieldio-blocks.js'
+      - 'assets/js/blockly-editor.js'
+      - 'assets/arduino/**'
+      - 'assets/css/arduino-programming.css'
       - 'tests/arduino-*.mjs'
       - 'instructions/blokovy-editor.html'
       - '.github/workflows/test-arduino.yml'
   pull_request:
     paths:
       - 'assets/js/arduino-*.mjs'
+      - 'assets/js/avr-compiler.mjs'
+      - 'assets/js/shieldio-blocks.js'
+      - 'assets/js/blockly-editor.js'
+      - 'assets/arduino/**'
+      - 'assets/css/arduino-programming.css'
       - 'tests/arduino-*.mjs'
       - 'instructions/blokovy-editor.html'
 permissions:
@@ -17,13 +27,32 @@ permissions:
 jobs:
   programming:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 12
+    env:
+      BLOCKLY_TEST_DIR: ${{ runner.temp }}/shieldio-test-deps/node_modules/blockly
+      XMLDOM_TEST_PACKAGE: ${{ runner.temp }}/shieldio-test-deps/node_modules/@xmldom/xmldom/lib/index.js
+      BLOCKLY_FIXTURES: ${{ runner.temp }}/shieldio-block-fixtures.json
+      AVR_TOOLCHAIN_DIR: ${{ runner.temp }}/shieldio-avr/package
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - run: node --check assets/js/arduino-programming.mjs
+      - run: node --check assets/js/arduino-compiler-worker.mjs
+      - run: node --check assets/js/shieldio-blocks.js
+      - run: node --check assets/js/blockly-editor.js
       - run: node --test tests/arduino-flasher.test.mjs
       - run: node tests/arduino-programming-ui.test.mjs
-
+      - run: node tests/arduino-libraries.test.mjs
+      - run: node tests/arduino-compiler-worker.test.mjs
+      - name: Install headless Blockly test dependencies
+        run: npm install --prefix "$RUNNER_TEMP/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11
+      - run: node tests/arduino-blocks.test.mjs
+      - name: Download pinned AVR toolchain for real compilation tests
+        run: curl --fail --location --retry 2 https://registry.npmjs.org/@horang-corp/avr-gcc-wasm/-/avr-gcc-wasm-0.2.0.tgz --output "$RUNNER_TEMP/shieldio-avr.tgz"
+      - name: Extract test compiler
+        run: |
+          mkdir -p "$RUNNER_TEMP/shieldio-avr"
+          tar -xzf "$RUNNER_TEMP/shieldio-avr.tgz" -C "$RUNNER_TEMP/shieldio-avr"
+      - run: node --test tests/arduino-compiler.test.mjs

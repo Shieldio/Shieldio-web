@@ -11,7 +11,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102-usb-only">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102-studio2">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -62,11 +62,15 @@
         <button type="button" id="connectBoardBtn" class="btn btn-ghost">Připojit desku</button>
         <button type="button" id="compileBtn" class="btn btn-ghost" data-i18n="programming.compile">Zkompilovat</button>
         <button type="button" id="uploadBtn" class="btn btn-primary" data-i18n="programming.upload" aria-describedby="usbCompatibility">Nahrát do desky</button>
+        <button type="button" id="focusEditorBtn" class="btn btn-ghost" aria-pressed="false" data-i18n="programming.focus">Zvětšit editor</button>
         <button type="button" id="cancelBuildBtn" class="btn btn-ghost" hidden data-i18n="programming.cancel">Zrušit</button>
       </div>
     </div>
     <div class="programming-boardbar">
-      <span class="programming-board-name">Shieldio RED <span>· ATmega328P</span></span>
+      <label class="programming-board-name" for="boardSelect"><span data-i18n="programming.board">Deska</span>
+        <select id="boardSelect"><option value="red">Shieldio RED</option></select>
+      </label>
+      <span class="programming-target">Nano · ATmega328P · 16 MHz</span>
       <span id="boardConnection" class="programming-connection">USB · deska není vybraná</span>
       <details id="connectionSettings" class="programming-settings">
         <summary data-i18n="programming.settings">Nastavení desky</summary>
@@ -86,11 +90,31 @@
       <p data-i18n="programming.browserHelp">Tento prohlížeč nepodporuje přímé USB nahrávání. Pro nahrání bez pomocné aplikace otevři editor v Chrome nebo Edge na počítači. Rozpracovaný program si přenes uložením bloků nebo souboru .ino.</p>
     </div>
     <div class="programming-filebar">
-      <span class="programming-file-label" data-i18n="programming.files">Program</span>
-      <button type="button" id="importSourceBtn" class="blockly-toggle-code" data-i18n="programming.import">Otevřít .ino</button>
-      <input type="file" id="importSourceInput" accept=".ino,.cpp,.txt,text/plain" hidden>
-      <button type="button" id="downloadSourceBtn" class="blockly-toggle-code" data-i18n="programming.saveSource">Uložit .ino</button>
-      <button type="button" id="downloadHexBtn" class="blockly-toggle-code" disabled data-i18n="programming.saveHex">Stáhnout .hex</button>
+      <details class="programming-files" id="projectFiles">
+        <summary data-i18n="programming.filesMenu">Soubor</summary>
+        <div class="programming-file-actions">
+          <button type="button" id="saveBlocksBtn" class="blockly-toggle-code" data-i18n="programming.saveBlocks">Uložit bloky</button>
+          <button type="button" id="loadBlocksBtn" class="blockly-toggle-code" data-i18n="programming.loadBlocks">Načíst bloky</button>
+          <input type="file" id="loadBlocksInput" accept=".json,.shieldio.json,application/json" hidden>
+          <button type="button" id="importSourceBtn" class="blockly-toggle-code" data-i18n="programming.import">Otevřít .ino</button>
+          <input type="file" id="importSourceInput" accept=".ino,.cpp,.txt,text/plain" hidden>
+          <button type="button" id="downloadSourceBtn" class="blockly-toggle-code" data-i18n="programming.saveSource">Uložit .ino</button>
+          <button type="button" id="downloadHexBtn" class="blockly-toggle-code" disabled data-i18n="programming.saveHex">Stáhnout .hex</button>
+        </div>
+      </details>
+      <details id="libraryManager" class="programming-libraries">
+        <summary data-i18n="programming.libraries">Knihovny</summary>
+        <div class="programming-library-body">
+          <p data-i18n="programming.includedLibraries"><strong>Připravené:</strong> ShieldioDisplay 0.1.1, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.</p>
+          <p data-i18n="programming.libraryHelp">Vlastní knihovnu rozbal a přidej její složku. Podporujeme hlavičky a C++ zdroje pro AVR; závislosti přidej také. C, assembler a předkompilované knihovny zatím nejsou podporované.</p>
+          <button type="button" id="addLibraryBtn" class="blockly-toggle-code" data-i18n="programming.addLibrary">Přidat složku knihovny</button>
+          <input type="file" id="libraryFolderInput" webkitdirectory multiple hidden>
+          <ul id="customLibraryList" class="programming-library-list" aria-label="Vlastní knihovny" data-i18n-aria-label="programming.customLibraries"></ul>
+          <p class="programming-library-note" data-i18n="programming.librarySession">Kód i knihovny zůstávají v prohlížeči. Vlastní knihovny jsou pro tuto záložku; po obnovení stránky je přidej znovu.</p>
+          <p id="libraryStatus" role="status" aria-live="polite"></p>
+        </div>
+      </details>
+      <span class="programming-local-note" data-i18n="programming.localBuild">Kompilace v počítači · přímé USB</span>
     </div>
     <div class="programming-status">
       <div class="programming-status-line">
@@ -105,14 +129,33 @@
     </div>
     <div id="blocksPanel" role="tabpanel" aria-labelledby="blocksTab">
     <div class="programming-block-actions">
-      <p id="editorStatus" class="form-status"></p>
+      <div class="programming-block-filter">
+        <label for="blockProfileSelect" data-i18n="programming.blockProfile">Bloky pro</label>
+        <select id="blockProfileSelect">
+          <option value="red" data-i18n="programming.redProfile">Moduly Shieldio RED</option>
+          <option value="universal" data-i18n="programming.universalProfile">Univerzální Arduino</option>
+        </select>
+        <div id="moduleField" class="programming-module-field">
+          <label for="moduleSelect" data-i18n="programming.module">Modul</label>
+          <select id="moduleSelect">
+            <option value="all" data-i18n="programming.moduleAll">Všechny moduly</option>
+            <option value="led" data-i18n="programming.moduleLed">LED</option>
+            <option value="buttons" data-i18n="programming.moduleButtons">Tlačítka</option>
+            <option value="distance" data-i18n="programming.moduleDistance">Ultrazvuk HC-SR04</option>
+            <option value="servo" data-i18n="programming.moduleServo">Servo</option>
+            <option value="buzzer" data-i18n="programming.moduleBuzzer">Bzučák</option>
+            <option value="oled" data-i18n="programming.moduleOled">OLED displej</option>
+          </select>
+        </div>
+        <label class="programming-advanced"><input type="checkbox" id="advancedBlocksToggle"><span data-i18n="programming.advancedBlocks">Pokročilé bloky</span></label>
+      </div>
       <div class="blockly-workspace-actions">
-        <button type="button" id="saveBlocksBtn" class="blockly-toggle-code">Uložit bloky</button>
-        <button type="button" id="loadBlocksBtn" class="blockly-toggle-code">Načíst bloky</button>
-        <input type="file" id="loadBlocksInput" accept=".json,.shieldio.json,application/json" hidden>
+        <button type="button" id="fitBlocksBtn" class="blockly-toggle-code" data-i18n="programming.fitBlocks">Celý program</button>
         <button type="button" id="toggleCodeBtn" class="blockly-toggle-code" aria-expanded="false">Zobrazit kód</button>
       </div>
     </div>
+    <p id="moduleHelp" class="programming-module-help"></p>
+    <p id="editorStatus" class="form-status"></p>
     <div class="blockly-editor-grid" id="blocklyGrid">
       <div id="blocklyDiv"></div>
       <div class="blockly-splitter" id="blocklySplitter" role="separator" aria-orientation="vertical" aria-label="Změnit poměr bloků a kódu" aria-valuemin="30" aria-valuemax="75" aria-valuenow="58" tabindex="0"></div>
@@ -126,14 +169,18 @@
     </div>
     </div>
     <div id="arduinoCodePanel" role="tabpanel" aria-labelledby="codeTab" hidden>
-      <textarea id="arduinoSource" class="programming-source" aria-label="Arduino C++ kód" data-i18n-aria-label="programming.sourceLabel" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+      <div class="programming-source-wrap">
+      <pre id="sourceLineNumbers" class="programming-line-numbers" aria-hidden="true">1</pre>
+      <textarea id="arduinoSource" class="programming-source" wrap="off" maxlength="200000" aria-label="Arduino C++ kód" data-i18n-aria-label="programming.sourceLabel" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+      </div>
+      <div class="programming-source-footer"><span id="sourcePosition"></span><span data-i18n="programming.shortcuts">Tab: odsazení · Ctrl/⌘ + Enter: kompilace · + Shift: nahrání</span></div>
     </div>
     </div>
     <details class="programming-guide">
       <summary data-i18n="programming.guide">Jak připojit desku a pracovat s editorem</summary>
     <div class="programming-help">
       <div><h2 data-i18n="programming.helpUsbTitle">Připojení přes USB</h2><p data-i18n="programming.helpUsb">Použij datový USB kabel a Chrome nebo Edge na počítači. Vyber sériový port desky. Pokud se deska nehlásí, zavři sériový monitor v jiném programu a zkus druhý bootloader.</p></div>
-      <div><h2 data-i18n="programming.helpBuildTitle">Kompilace v prohlížeči</h2><p data-i18n="programming.helpBuild">Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou Servo, Wire, SPI, Adafruit GFX a SSD1306. Další knihovny se zatím nedoinstalovávají.</p></div>
+      <div><h2 data-i18n="programming.helpBuildTitle">Kompilace v prohlížeči</h2><p data-i18n="programming.helpBuild">Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vlastní C++ knihovny pro AVR přidáš v nabídce Knihovny.</p></div>
       <div><h2 data-i18n="programming.helpCodeTitle">Bloky a vlastní kód</h2><p data-i18n="programming.helpCode">Při prvním otevření Arduino C++ se převezme kód z bloků. Potom zůstávají obě verze oddělené. Vlastní kód se překládá jako C++: funkce deklaruj před prvním použitím. Bloky i kód si ukládej do souboru.</p></div>
     </div>
     <div class="programming-pins">
@@ -167,9 +214,9 @@
 <script src="https://unpkg.com/blockly@13.2.1/blockly_compressed.js"></script>
 <script src="https://unpkg.com/blockly@13.2.1/blocks_compressed.js"></script>
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
-<script src="../assets/js/shieldio-blocks.js"></script>
-<script src="../assets/js/blockly-editor.js"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-usb-only"></script>
+<script src="../assets/js/shieldio-blocks.js?v=20261102-studio2"></script>
+<script src="../assets/js/blockly-editor.js?v=20261102-studio2"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-studio2"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>
@@ -178,6 +225,7 @@
 <script src="../assets/js/lang.js"></script>
 </body>
 </html>
+
 
 
 

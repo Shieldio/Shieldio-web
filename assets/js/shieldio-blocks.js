@@ -214,20 +214,10 @@
   };
 
   arduino.forBlock["shieldio_oled_print"] = function (block) {
-    const text = arduino.valueToCode(block, "TEXT", arduino.ORDER_NONE) || '""';
-    return (
-      "shieldioDisplay.clearDisplay();\n" +
-      "shieldioDisplay.setCursor(0, 0);\n" +
-      "shieldioDisplay.setTextSize(1);\n" +
-      "shieldioDisplay.setTextColor(SSD1306_WHITE);\n" +
-      `shieldioDisplay.print(${text});\n` +
-      "shieldioDisplay.display();\n"
-    );
+    const text = arduino.valueToCode(block, "TEXT", arduino.ORDER_NONE) || '\"\"';
+    return `shieldioDisplay.clear();\nshieldioDisplay.text(0, 0, String(${text}).c_str());\nshieldioDisplay.render();\n`;
   };
-
-  arduino.forBlock["shieldio_oled_clear"] = function () {
-    return "shieldioDisplay.clearDisplay();\nshieldioDisplay.display();\n";
-  };
+  arduino.forBlock["shieldio_oled_clear"] = () => "shieldioDisplay.clear();\nshieldioDisplay.render();\n";
 
   // -- standard blocks used from Blockly's core block library --
 
@@ -279,16 +269,17 @@
   };
 
   arduino.forBlock["math_arithmetic"] = function (block) {
-    const OPERATORS = { ADD: "+", MINUS: "-", MULTIPLY: "*", DIVIDE: "/" };
-    const op = OPERATORS[block.getFieldValue("OP")] || "+";
-    const a = arduino.valueToCode(block, "A", arduino.ORDER_ADDITIVE) || "0";
-    const b = arduino.valueToCode(block, "B", arduino.ORDER_ADDITIVE) || "0";
-    return [`${a} ${op} ${b}`, arduino.ORDER_ADDITIVE];
+    const op = block.getFieldValue("OP");
+    if (op === "POWER") return [`pow(${arduino.valueToCode(block,"A",arduino.ORDER_NONE) || "0"}, ${arduino.valueToCode(block,"B",arduino.ORDER_NONE) || "0"})`, arduino.ORDER_ATOMIC];
+    const order = ["MULTIPLY","DIVIDE"].includes(op) ? arduino.ORDER_MULTIPLICATIVE : arduino.ORDER_ADDITIVE;
+    const a = arduino.valueToCode(block,"A",order) || "0", b = arduino.valueToCode(block,"B",order) || "0";
+    if (op === "DIVIDE") return [`(double)(${a}) / (${b})`, order];
+    return [`${a} ${{ADD:"+",MINUS:"-",MULTIPLY:"*",DIVIDE:"/"}[op] || "+"} ${b}`, order];
   };
 
   arduino.forBlock["text"] = function (block) {
     const raw = block.getFieldValue("TEXT") || "";
-    const escaped = raw.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+    const escaped = raw.replace(/[\\"\x00-\x1f\x7f]/g, c => c === "\\" || c === '\"' ? "\\"+c : "\\"+c.charCodeAt(0).toString(8).padStart(3,"0"));
     return [`"${escaped}"`, arduino.ORDER_ATOMIC];
   };
 
@@ -307,70 +298,63 @@
     return `while (${cond}) {\n${branch}}\n`;
   };
 
+  const L = (cs, en) => document.documentElement.lang === "en" ? en : cs;
+  Blockly.defineBlocksWithJsonArray([
+    {type:"arduino_pin_mode",message0:L("nastav pin %1 jako %2","set pin %1 to %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"field_dropdown",name:"MODE",options:[[L("výstup","output"),"OUTPUT"],[L("vstup","input"),"INPUT"],[L("vstup s pull-up","input pull-up"),"INPUT_PULLUP"]]}],previousStatement:null,nextStatement:null,colour:SENSE_BLUE},
+    {type:"arduino_digital_write",message0:L("digitální pin %1 nastav %2","digital pin %1 write %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"field_dropdown",name:"STATE",options:[["HIGH / 1","HIGH"],["LOW / 0","LOW"]]}],previousStatement:null,nextStatement:null,colour:SENSE_BLUE},
+    {type:"arduino_digital_read",message0:L("pin %1 je HIGH","pin %1 is HIGH"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Boolean",colour:SENSE_BLUE},
+    {type:"arduino_analog_read",message0:L("analogová hodnota pinu %1","analog value of pin %1"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Number",colour:SENSE_BLUE},
+    {type:"arduino_pwm",message0:L("PWM na pinu %1 hodnota %2","PWM on pin %1 value %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"input_value",name:"VALUE",check:"Number"}],inputsInline:true,previousStatement:null,nextStatement:null,colour:SENSE_BLUE,tooltip:L("Na Nano použij pin 3, 5, 6, 9, 10 nebo 11; hodnota 0–255.","On Nano use pin 3, 5, 6, 9, 10 or 11; value 0–255.")},
+    {type:"arduino_pin",message0:L("označení pinu %1","pin label %1"),args0:[{type:"field_dropdown",name:"PIN",options:[...Array.from({length:8},(_,i)=>["A"+i,"A"+i]),["LED_BUILTIN","LED_BUILTIN"]]}],output:"Number",colour:SENSE_BLUE},
+    {type:"arduino_serial_begin",message0:L("spusť sériovou linku %1 baud","start serial at %1 baud"),args0:[{type:"input_value",name:"BAUD",check:"Number"}],previousStatement:null,nextStatement:null,colour:GOLD},
+    {type:"arduino_serial_print",message0:L("vypiš na sériovou linku %1","print to serial %1"),args0:[{type:"input_value",name:"TEXT"}],previousStatement:null,nextStatement:null,colour:GOLD},
+    {type:"arduino_millis",message0:L("čas od startu (ms)","time since startup (ms)"),output:"Number",colour:ORANGE},
+  ]);
+  const value = (block,name,fallback) => arduino.valueToCode(block,name,arduino.ORDER_NONE) || fallback;
+  arduino.forBlock.arduino_pin_mode = b => `pinMode(${value(b,"PIN","13")}, ${b.getFieldValue("MODE")});\n`;
+  arduino.forBlock.arduino_digital_write = b => `digitalWrite(${value(b,"PIN","13")}, ${b.getFieldValue("STATE")});\n`;
+  arduino.forBlock.arduino_digital_read = b => [`(digitalRead(${value(b,"PIN","2")}) == HIGH)`, arduino.ORDER_ATOMIC];
+  arduino.forBlock.arduino_analog_read = b => [`analogRead(${value(b,"PIN","A0")})`, arduino.ORDER_ATOMIC];
+  arduino.forBlock.arduino_pwm = b => `analogWrite(${value(b,"PIN","5")}, constrain(${value(b,"VALUE","128")}, 0, 255));\n`;
+  arduino.forBlock.arduino_pin = b => [b.getFieldValue("PIN"), arduino.ORDER_ATOMIC];
+  arduino.forBlock.arduino_serial_begin = b => `Serial.begin(${value(b,"BAUD","9600")});\n`;
+  arduino.forBlock.arduino_serial_print = b => `Serial.println(${value(b,"TEXT",'""')});\n`;
+  arduino.forBlock.arduino_millis = () => ["millis()", arduino.ORDER_ATOMIC];
+  arduino.variableName = b => "v_" + b.workspace.getVariableMap().getAllVariables().findIndex(v => v.getId() === b.getFieldValue("VAR"));
+  arduino.forBlock.variables_get = b => [arduino.variableName(b), arduino.ORDER_ATOMIC];
+  arduino.forBlock.variables_set = b => `${arduino.variableName(b)} = ${value(b,"VALUE","0")};\n`;
+  arduino.forBlock.math_change = b => `${arduino.variableName(b)} += ${value(b,"DELTA","1")};\n`;
   window.SHIELDIO_ARDUINO_GENERATOR = arduino;
 
-  // ---------- toolbox ----------
-
-  window.SHIELDIO_TOOLBOX = {
-    kind: "categoryToolbox",
-    contents: [
-      {
-        kind: "category",
-        name: "Začátek",
-        colour: GOLD,
-        contents: [
-          { kind: "block", type: "shieldio_setup" },
-          { kind: "block", type: "shieldio_loop" },
-        ],
-      },
-      {
-        kind: "category",
-        name: "Shieldio RED",
-        colour: RED,
-        contents: [
-          { kind: "block", type: "shieldio_led" },
-          { kind: "block", type: "shieldio_servo" },
-          { kind: "block", type: "shieldio_buzzer" },
-          { kind: "block", type: "shieldio_button" },
-          { kind: "block", type: "shieldio_distance" },
-          { kind: "block", type: "shieldio_wait" },
-          { kind: "block", type: "shieldio_oled_print" },
-          { kind: "block", type: "shieldio_oled_clear" },
-        ],
-      },
-      {
-        kind: "category",
-        name: "Logika",
-        colour: SENSE_BLUE,
-        contents: [
-          { kind: "block", type: "shieldio_if" },
-          { kind: "block", type: "shieldio_if_else" },
-          { kind: "block", type: "shieldio_if_elseif_else" },
-          { kind: "block", type: "logic_compare" },
-          { kind: "block", type: "logic_operation" },
-          { kind: "block", type: "logic_negate" },
-          { kind: "block", type: "logic_boolean" },
-        ],
-      },
-      {
-        kind: "category",
-        name: "Cykly",
-        colour: ORANGE,
-        contents: [
-          { kind: "block", type: "controls_repeat_ext" },
-          { kind: "block", type: "controls_whileUntil" },
-        ],
-      },
-      {
-        kind: "category",
-        name: "Matematika",
-        colour: OPERATOR_GREEN,
-        contents: [
-          { kind: "block", type: "math_number" },
-          { kind: "block", type: "math_arithmetic" },
-          { kind: "block", type: "text" },
-        ],
-      },
-    ],
+  const number = n => ({type:"math_number",fields:{NUM:n}});
+  const text = value => ({type:"text",fields:{TEXT:value}});
+  const pinA0 = {type:"arduino_pin",fields:{PIN:"A0"}};
+  const defaults = {
+    shieldio_wait:{MS:number(500)}, shieldio_servo:{ANGLE:number(90)},
+    shieldio_buzzer:{FREQ:number(440),DURATION:number(200)}, shieldio_oled_print:{TEXT:text("Ahoj!")},
+    controls_repeat_ext:{TIMES:number(10)}, math_arithmetic:{A:number(1),B:number(1)},
+    logic_compare:{A:number(0),B:number(10)}, math_change:{DELTA:number(1)}, variables_set:{VALUE:number(0)},
+    arduino_pin_mode:{PIN:number(13)}, arduino_digital_write:{PIN:number(13)},
+    arduino_digital_read:{PIN:number(2)}, arduino_analog_read:{PIN:pinA0},
+    arduino_pwm:{PIN:number(5),VALUE:number(128)}, arduino_serial_begin:{BAUD:number(9600)},
+    arduino_serial_print:{TEXT:text("Ahoj!")},
   };
+  window.SHIELDIO_INPUT_DEFAULTS = defaults;
+  const block = type => ({kind:"block",type,...(defaults[type] ? {inputs:Object.fromEntries(Object.entries(defaults[type]).map(([name,shadow])=>[name,{shadow}]))} : {})});
+  const category = (name,colour,types) => ({kind:"category",name,colour,contents:types.map(block)});
+  window.SHIELDIO_CREATE_TOOLBOX = ({profile="red",module="all",advanced=false} = {}) => {
+    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_print","shieldio_oled_clear"]};
+    const contents = [category(L("Začátek","Start"),GOLD,["shieldio_setup","shieldio_loop"])];
+    if(profile === "red") contents.push(category(L("Moduly RED","RED modules"),RED,module === "all" ? Object.values(modules).flat() : modules[module] || []));
+    if(profile === "universal" || advanced) contents.push(category(L("Piny Arduino","Arduino pins"),SENSE_BLUE,["arduino_pin_mode","arduino_digital_write","arduino_digital_read","arduino_analog_read","arduino_pwm","arduino_pin"]));
+    contents.push(category(L("Čas a cykly","Time and loops"),ORANGE,["shieldio_wait","controls_repeat_ext",...(advanced?["controls_whileUntil","arduino_millis"]:[])]));
+    contents.push(category(L("Podmínky","Conditions"),SENSE_BLUE,["shieldio_if","shieldio_if_else","logic_compare",...(advanced?["shieldio_if_elseif_else","logic_operation","logic_negate","logic_boolean"]:[])]));
+    contents.push(category(L("Hodnoty","Values"),OPERATOR_GREEN,["math_number","text",...(advanced?["math_arithmetic"]:[])]));
+    if(advanced) {
+      contents.push({kind:"category",name:L("Proměnné (čísla)","Variables (numbers)"),colour:OPERATOR_GREEN,custom:"VARIABLE"});
+      contents.push(category(L("Sériová linka","Serial"),GOLD,["arduino_serial_begin","arduino_serial_print"]));
+    }
+    return {kind:"categoryToolbox",contents};
+  };
+  window.SHIELDIO_TOOLBOX = window.SHIELDIO_CREATE_TOOLBOX();
 })();

@@ -4,6 +4,8 @@ import createAvrAs from "https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@
 import createAvrLd from "https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/tools/avr-ld.mjs";
 import createObjcopy from "https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/tools/avr-objcopy.mjs";
 
+import { resolveLibraries } from "./arduino-libraries.mjs";
+
 export const SENSOR = Object.freeze({
   OLED: "OLED",
   TOF: "TOF",
@@ -202,9 +204,10 @@ function selectedObjectPaths(manifest, sensors, source) {
   ];
 }
 
-async function loadLinkInputs(fs, manifest, objectPaths, firmwareObject, timings) {
+async function loadLinkInputs(fs, manifest, objectPaths, firmwareObject, timings, customObjects = []) {
   const start = performance.now();
   writeFile(fs, "/build/HorangFirmware.o", firmwareObject);
+  customObjects.forEach(object => writeFile(fs, object.path, object.bytes));
   writeFile(fs, "/ldscripts/avr5.xn", await fetchBytes("/ldscripts/avr5.xn"));
 
   await Promise.all(objectPaths.map(async (virtualPath) => {
@@ -218,7 +221,7 @@ async function loadLinkInputs(fs, manifest, objectPaths, firmwareObject, timings
   timings.linkInputsFsMs = performance.now() - start;
 }
 
-function compileArgs(sensors) {
+function compileArgs(sensors, input = "/build/HorangFirmware.cpp", output = "/build/HorangFirmware.s", includeDirs = []) {
   return [
     "-quiet",
     "-imultilib", MULTILIB,
@@ -232,6 +235,7 @@ function compileArgs(sensors) {
     `-DUSE_TOF=${sensors.has(SENSOR.TOF) ? 1 : 0}`,
     "-isystem", "/sysroot/gcc/include",
     "-isystem", "/sysroot/avr/include",
+    ...includeDirs.flatMap(dir => ["-I", dir]),
     "-I", "/arduino/core",
     "-I", "/arduino/variant",
     "-I", "/arduino/libraries/Wire/src",
@@ -248,13 +252,13 @@ function compileArgs(sensors) {
     "-I", "/libraries/VL53L0X",
     "-I", "/libraries/Adafruit_BusIO",
     "-I", "/libraries/Adafruit_Unified_Sensor",
-    "/build/HorangFirmware.cpp",
+    input,
     "-mn-flash=1",
     "-mno-skip-bug",
     "-quiet",
-    "-dumpbase", "HorangFirmware.cpp",
+    "-dumpbase", input.split("/").at(-1),
     "-mmcu=avr5",
-    "-auxbase-strip", "/build/HorangFirmware.s",
+    "-auxbase-strip", output,
     "-Os",
     "-std=gnu++11",
     "-fpermissive",
@@ -264,7 +268,7 @@ function compileArgs(sensors) {
     "-fno-enforce-eh-specs",
     "-ffunction-sections",
     "-fdata-sections",
-    "-o", "/build/HorangFirmware.s",
+    "-o", output,
   ];
 }
 
@@ -310,6 +314,7 @@ function countIntelHexDataBytes(hex) {
  *
  * @param {string[] | {
  *   source?: string,            // firmware source; if omitted, the bundled src/HorangFirmware.cpp is fetched
+ *   libraries?: Array,         // validated local header/C++ library files
  *   sensors?: string[],         // SENSOR.OLED / SENSOR.TOF toggles passed as -DUSE_* flags
  *   assetsBase?: string | URL,  // where tools/ and assets/ are served from
  * }} options Either a sensor array (legacy) or an options object.
@@ -326,12 +331,14 @@ export async function buildFirmware(options = {}) {
   const manifest = await getManifest();
   const source = opts.source != null ? opts.source : await fetchText("src/HorangFirmware.cpp");
 
+  const custom = resolveLibraries(source, opts.libraries || []);
   const assembly = await runTool(
     "cc1plus",
     createCc1plus,
-    compileArgs(sensors),
+    compileArgs(sensors, undefined, undefined, custom.includeDirs),
     async (fs) => {
       await loadHeaders(fs, manifest, timings);
+      custom.files.forEach(file => writeFile(fs, file.path, file.content));
       writeFile(fs, "/build/HorangFirmware.cpp", source);
     },
     "/build/HorangFirmware.s",
@@ -351,13 +358,26 @@ export async function buildFirmware(options = {}) {
     memoryPeaks,
   );
 
-  const objectPaths = selectedObjectPaths(manifest, sensors, source);
+  const customObjects = [];
+  for (const [index, file] of custom.sources.entries()) {
+    const assemblyPath = `/build/custom${index}.s`, objectPath = `/build/custom${index}.o`;
+    const asm = await runTool("cc1plus", createCc1plus,
+      compileArgs(sensors, file.path, assemblyPath, custom.includeDirs), async fs => {
+        await loadHeaders(fs, manifest, timings);
+        custom.files.forEach(input => writeFile(fs, input.path, input.content));
+      }, assemblyPath, timings, stderr, memoryPeaks);
+    const bytes = await runTool("avr-as", createAvrAs,
+      ["-mmcu=atmega328p", "-o", objectPath, assemblyPath],
+      fs => writeFile(fs, assemblyPath, asm), objectPath, timings, stderr, memoryPeaks);
+    customObjects.push({path:objectPath, bytes});
+  }
+  const objectPaths = selectedObjectPaths(manifest, sensors, custom.dependencySource);
   const elf = await runTool(
     "avr-ld",
     createAvrLd,
-    linkerArgs(objectPaths),
+    linkerArgs([...objectPaths, ...customObjects.map(object => object.path)]),
     async (fs) => {
-      await loadLinkInputs(fs, manifest, objectPaths, firmwareObject, timings);
+      await loadLinkInputs(fs, manifest, objectPaths, firmwareObject, timings, customObjects);
     },
     "/build/HorangFirmware.elf",
     timings,
@@ -392,8 +412,9 @@ export async function buildFirmware(options = {}) {
     hexBytes: hexBytes.byteLength,
     flashBytes,
     ramBytes: elfRamBytes(elf),
+    oledBufferBytes: sensors.has(SENSOR.OLED) ? 1024 : 0,
     fitsTarget: flashBytes <= NANO_APP_FLASH_BYTES,
-    objectCount: objectPaths.length + 1,
+    objectCount: objectPaths.length + 1 + customObjects.length,
     memory: {
       linearPeakBytesByTool: memoryPeaks,
       linearPeakBytesTotalSequential: Object.values(memoryPeaks).reduce((total, bytes) => total + bytes, 0),
@@ -415,3 +436,4 @@ function elfRamBytes(bytes) {
   }
   return total;
 }
+
