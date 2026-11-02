@@ -123,5 +123,20 @@
     "title": "Produkty",
     "desc": "Vyber si desku Shieldio, Baseline nebo PROline, a podívej se na konkrétní produkt.",
     "url": "/products/"
+  },
+  {
+    "title": "RED: součástky a zapojení",
+    "desc": "Hodnoty, pozice R1–R7, polarita, fotografie a mapa pinů; rychlý přehled osazení V3.",
+    "url": "/instructions/baseline/red/prehled/"
+  },
+  {
+    "title": "Digitální metr",
+    "desc": "HC-SR04, rychlost zvuku, vzdálenost na OLED, program Arduino.",
+    "url": "/instructions/baseline/red/digitalni-metr/"
+  },
+  {
+    "title": "Ultrazvukový radar",
+    "desc": "Sonar se servem: úhel, vzdálenost a mapa v měřítku na OLED.",
+    "url": "/instructions/baseline/red/radar/"
   }
 ]

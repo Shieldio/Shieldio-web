@@ -19,14 +19,14 @@ window.SHIELDIO_GUIDE = {
   glossary: {
     ultrazvuk: {
       term: "Ultrazvuk",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky. Z toho spočítá vzdálenost.",
       fact: "Stejným principem se orientují netopýři nebo lodní sonary.",
       datasheet: null,
     },
     hcsr04: {
       term: "HC-SR04",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: "Ultrazvukový senzor vzdálenosti. Má vysílač a přijímač zvukových vln a změří vzdálenost k nejbližší překážce s přesností na centimetry.",
       fact: "Běžný dosah je zhruba 2 cm až 4 m.",
       datasheet: "https://www.sparkfun.com/datasheets/Components/HC-SR04.pdf",
@@ -47,14 +47,14 @@ window.SHIELDIO_GUIDE = {
     },
     senzor: {
       term: "Senzor",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: "Součástka, která měří něco z okolí (například vzdálenost) a převádí to na elektrický signál, se kterým dál pracuje program.",
       fact: null,
       datasheet: null,
     },
     oled: {
       term: "OLED displej",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/17-oled-displej.jpg",
       text: "Malý obrazovkový displej na desce, na který program může vypisovat text nebo čísla, třeba naměřený čas.",
       fact: "Každý pixel OLED displeje svítí sám o sobě, takže displej nepotřebuje podsvícení.",
       datasheet: null,
@@ -101,7 +101,7 @@ window.SHIELDIO_GUIDE = {
       name: "OLED displej",
       photo: "../../../../assets/images/red-build-clean/17-oled-displej.jpg",
       what: "Malý obrazovkový displej na desce, program na něj může vypisovat naměřený čas.",
-      how: "Připojuje se přes I2C sběrnici, nemá polaritu ani orientaci, konektor jde zasunout jen jedním způsobem.",
+      how: "Připojuje se přes I2C: SDA na A4 a SCL na A5. GND a VCC musí odpovídat popiskům na desce i modulu. Před zasunutím odpoj napájení.",
       fact: "Standardní 0,96\" displej SSD1306, stejný typ používá i blokový editor.",
       datasheet: null,
     },
@@ -128,7 +128,7 @@ window.SHIELDIO_GUIDE = {
       title: "Připoj desku",
       type: "wiring",
       kit: "assembled",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/15-usb-a-usb-c-kabel.jpg",
       instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"oled\">OLED displej</span> jsou už na desce zapojené, nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
       troubleshoot: {
         title: "Nejčastější chyby",
@@ -145,7 +145,7 @@ window.SHIELDIO_GUIDE = {
       type: "wiring",
       kit: "unassembled",
       photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
-      instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem.",
+      instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b> na desce Shieldio RED. Před zasunutím bez napájení porovnej popisky napájení a signálů na modulu i desce.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
@@ -160,8 +160,8 @@ window.SHIELDIO_GUIDE = {
       title: "Zapoj <span class=\"term\" data-term=\"oled\">displej</span>",
       type: "wiring",
       kit: "unassembled",
-      photo: null,
-      instructions: "OLED <span class=\"term\" data-term=\"oled\">displej</span> zapoj do konektoru označeného <b>OLED</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem. Program na něj bude vypisovat naměřený čas.",
+      photo: "../../../../assets/images/red-build-clean/17-oled-displej.jpg",
+      instructions: "OLED <span class=\"term\" data-term=\"oled\">displej</span> zapoj do konektoru označeného <b>OLED</b> na desce Shieldio RED. Před zasunutím bez napájení porovnej popisky napájení a signálů na modulu i desce. Program na něj bude vypisovat naměřený čas.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
@@ -229,3 +229,4 @@ window.SHIELDIO_GUIDE = {
     },
   },
 };
+

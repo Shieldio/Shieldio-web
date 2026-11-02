@@ -29,7 +29,7 @@ window.SHIELDIO_GUIDE = {
   glossary: {
     servo: {
       term: { cs: "Servo", en: "Servo" },
-      photo: null,
+      photo: "../../../../assets/images/RED_barrier_open.jpeg",
       text: {
         cs: "Motor, který se dokáže natočit do přesného úhlu (obvykle 0–180°) a v něm zůstat. Řídí se elektrickým pulzem (PWM signálem). Délka pulzu určuje úhel natočení.",
         en: "A motor that can turn to a precise angle (usually 0–180°) and hold it. It's controlled by an electrical pulse (a PWM signal), the pulse length sets the angle.",
@@ -52,7 +52,7 @@ window.SHIELDIO_GUIDE = {
     },
     ultrazvuk: {
       term: { cs: "Ultrazvuk", en: "Ultrasound" },
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: {
         cs: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky. Z toho spočítá vzdálenost.",
         en: "Sound above the range of human hearing. The HC-SR04 sensor sends it out and measures how long it takes to bounce back off an obstacle, then calculates the distance from that.",
@@ -62,7 +62,7 @@ window.SHIELDIO_GUIDE = {
     },
     hcsr04: {
       term: { cs: "HC-SR04", en: "HC-SR04" },
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: {
         cs: "Ultrazvukový senzor vzdálenosti. Má vysílač a přijímač zvukových vln a změří vzdálenost k nejbližší překážce s přesností na centimetry.",
         en: "An ultrasonic distance sensor. It has a transmitter and receiver for sound waves, and measures the distance to the nearest obstacle accurate to centimeters.",
@@ -72,7 +72,7 @@ window.SHIELDIO_GUIDE = {
     },
     oled: {
       term: { cs: "OLED displej", en: "OLED display" },
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/17-oled-displej.jpg",
       text: {
         cs: "Malý obrazovkový displej na desce, program na něj může vypisovat text, čísla nebo jednoduchou grafiku.",
         en: "A small screen on the board, the program can print text, numbers, or simple graphics to it.",
@@ -105,7 +105,7 @@ window.SHIELDIO_GUIDE = {
     },
     senzor: {
       term: { cs: "Senzor", en: "Sensor" },
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: {
         cs: "Součástka, která měří něco z okolí (například vzdálenost) a převádí to na elektrický signál, se kterým dál pracuje program.",
         en: "A part that measures something about its surroundings (like distance) and converts it into an electrical signal the program can work with.",
@@ -159,7 +159,7 @@ window.SHIELDIO_GUIDE = {
     {
       id: "servo",
       name: { cs: "Servo SG90", en: "SG90 Servo" },
-      photo: null,
+      photo: "../../../../assets/images/RED_barrier_open.jpeg",
       what: { cs: "Motor, který otáčí ramenem závory.", en: "The motor that turns the barrier's arm." },
       how: {
         cs: "Řídí se PWM signálem. Délka pulzu určuje, do jakého úhlu se natočí.",
@@ -189,8 +189,8 @@ window.SHIELDIO_GUIDE = {
         en: "The small screen on the board, the program can print text or values to it.",
       },
       how: {
-        cs: "Připojuje se přes I2C sběrnici, nemá polaritu ani orientaci, konektor jde zasunout jen jedním způsobem.",
-        en: "Connects over the I2C bus, has no polarity or orientation, the connector only fits one way.",
+        cs: "Připojuje se přes I2C: SDA na A4 a SCL na A5. GND a VCC musí odpovídat popiskům na desce i modulu. Před zasunutím odpoj napájení.",
+        en: "Connects over I2C: SDA to A4 and SCL to A5. Match GND and VCC labels on both the board and module. Disconnect power before inserting it.",
       },
       fact: { cs: "Standardní 0,96\" displej SSD1306, stejný typ používá i blokový editor.", en: "A standard 0.96\" SSD1306 display, the same type our block editor uses too." },
       datasheet: null,
@@ -228,8 +228,8 @@ window.SHIELDIO_GUIDE = {
       type: "wiring",
       photo: "../../../../assets/images/RED_hand_hold_with_parts.jpeg",
       instructions: {
-        cs: "Servo zapoj do konektoru označeného <b>SERVO</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem. Nedá se to splést.",
-        en: "Plug the servo into the connector labeled <b>SERVO</b> on the Shieldio RED board. The connector only fits one way, you can't get it wrong.",
+        cs: "Servo zapoj do konektoru označeného <b>SERVO</b> na desce Shieldio RED. Před zasunutím bez napájení ověř GND, napájení a signál podle potisku desky.",
+        en: "Plug the servo into the connector labeled <b>SERVO</b> on the Shieldio RED board. Disconnect power and match the power and signal labels on the module and board.",
       },
       troubleshoot: {
         title: { cs: "Nejčastější chyby", en: "Common mistakes" },
@@ -249,8 +249,8 @@ window.SHIELDIO_GUIDE = {
       type: "wiring",
       photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       instructions: {
-        cs: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b>. Stejně jako u serva, konektor jde zasunout jen správně.",
-        en: "Plug the <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> sensor into the connector labeled <b>ULTRAZVUK</b> (Czech for \"ultrasonic\", printed on the board). Just like the servo, the connector only fits the right way.",
+        cs: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b>. Bez napájení porovnej popisky VCC, TRIG, ECHO a GND na senzoru i desce.",
+        en: "Plug the <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> sensor into the connector labeled <b>ULTRAZVUK</b> (Czech for \"ultrasonic\", printed on the board). Disconnect power and match VCC, TRIG, ECHO and GND on the sensor and board.",
       },
       troubleshoot: {
         title: { cs: "Nejčastější chyby", en: "Common mistakes" },
@@ -268,10 +268,10 @@ window.SHIELDIO_GUIDE = {
         en: "Connect the <span class=\"term\" data-term=\"oled\">display</span>",
       },
       type: "wiring",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/17-oled-displej.jpg",
       instructions: {
-        cs: "OLED <span class=\"term\" data-term=\"oled\">displej</span> zapoj do konektoru označeného <b>OLED</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem, nedá se to splést. Co přesně se na něm zobrazí, záleží na programu, který si napíšeš.",
-        en: "Plug the OLED <span class=\"term\" data-term=\"oled\">display</span> into the connector labeled <b>OLED</b> on the Shieldio RED board. The connector only fits one way, you can't get it wrong. What exactly shows up on it depends on the program you write.",
+        cs: "OLED <span class=\"term\" data-term=\"oled\">displej</span> zapoj do konektoru označeného <b>OLED</b> na desce Shieldio RED. Před zasunutím bez napájení porovnej označení GND, VCC a signálů na modulu i desce. Co přesně se na něm zobrazí, záleží na programu, který si napíšeš.",
+        en: "Plug the OLED <span class=\"term\" data-term=\"oled\">display</span> into the connector labeled <b>OLED</b> on the Shieldio RED board. Disconnect power and match the power and signal labels on the module and board. What exactly shows up on it depends on the program you write.",
       },
       troubleshoot: {
         title: { cs: "Nejčastější chyby", en: "Common mistakes" },
@@ -380,3 +380,4 @@ window.SHIELDIO_GUIDE = {
     },
   },
 };
+

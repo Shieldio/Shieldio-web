@@ -20,14 +20,14 @@ window.SHIELDIO_GUIDE = {
   glossary: {
     polarita: {
       term: "Polarita",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/44-led-cervena-smer.jpg",
       text: "Vlastnost některých součástek (diody, LED, elektrolytické kondenzátory), kdy záleží na směru zapojení. Obráceně zapojená polarizovaná součástka buď nefunguje, nebo v horším případě může poškodit obvod.",
-      fact: "Rezistory, keramické kondenzátory, tlačítka ani bzučák polaritu nemají, dají se pájet libovolně otočené.",
+      fact: "Rezistory a keramické kondenzátory nemají polaritu. U bzučáku respektuj značku +; u tlačítek ověř dvojice propojených vývodů.",
       datasheet: null,
     },
     spoj: {
       term: "Pájený spoj",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/32-spravny-spoj-detail.jpg",
       text: "Místo, kde roztavený cín spojí nožičku součástky s měděnou ploškou na desce. Dobrý spoj je lesklý, mírně kuželovitý a pevně drží, nožička se v něm nesmí viklat.",
       fact: "Matný, kulovitý nebo popraskaný spoj se česky nazývá studený spoj a je nejčastější příčinou nefunkčních desek.",
       datasheet: null,
@@ -208,8 +208,8 @@ window.SHIELDIO_GUIDE = {
       warning: "LED MÁ polaritu. Delší nožička (anoda) patří do kulatého otvoru, kratší (katoda) do hranatého. V závěrném směru LED nesvítí a při vyšším napětí se může poškodit, proto ji otoč správně ještě před zapnutím.",
       actionLabel: "Vloženo" },
     { id: "led-cervena-pripajeni", title: "Připájej červenou LED", type: "wiring",
-      photo: "../../../../assets/images/red-build-clean/43-pripajeni-diody.jpg",
-      instructions: "Obě nožičky červené LED připájej stejným postupem jako ostatní součástky, hrot přilož k oběma najednou jen na nutnou dobu.",
+      photo: "../../../../assets/images/red-build-clean/44-led-cervena-smer.jpg",
+      instructions: "Obě nožičky červené LED připájej stejným postupem jako ostatní součástky, každý vývod pájej zvlášť a zahřívej jen po nutnou dobu.",
       theory: "<p>LED (light-emitting diode) je speciální dioda, uvnitř má stejný polovodičový přechod jako běžná dioda 1N5817, jen z jiného materiálu. Při průchodu proudu ve správném směru přechod vyzařuje světlo, barva závisí na materiálu polovodiče, ne na barvě samotného pouzdra. Proto se se dvěma barvami LED pracuje úplně stejně, jen svítí jinou barvou.</p>",
       actionLabel: "Připájeno" },
     { id: "led-zelena-osazeni", title: "Osaď a připájej zelenou LED (D2)", type: "wiring",
@@ -287,3 +287,4 @@ window.SHIELDIO_GUIDE = {
     ],
   },
 };
+

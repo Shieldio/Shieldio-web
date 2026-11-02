@@ -19,21 +19,21 @@ window.SHIELDIO_GUIDE = {
   glossary: {
     ultrazvuk: {
       term: "Ultrazvuk",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: "Zvuk s frekvencí nad hranicí lidského sluchu. Senzor HC-SR04 ho vyšle a měří, za jak dlouho se odrazí zpět od překážky. Z toho spočítá vzdálenost.",
       fact: "Stejným principem se orientují netopýři nebo lodní sonary.",
       datasheet: null,
     },
     hcsr04: {
       term: "HC-SR04",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: "Ultrazvukový senzor vzdálenosti. Má vysílač a přijímač zvukových vln a změří vzdálenost k nejbližší překážce s přesností na centimetry.",
       fact: "Běžný dosah je zhruba 2 cm až 4 m.",
       datasheet: "https://www.sparkfun.com/datasheets/Components/HC-SR04.pdf",
     },
     bzucak: {
       term: "Bzučák",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/11-buzzer.jpg",
       text: "Součástka, která podle povelu z programu vydá tón. U theremina se jeho výška (frekvence) mění podle naměřené vzdálenosti ruky.",
       fact: null,
       datasheet: null,
@@ -54,7 +54,7 @@ window.SHIELDIO_GUIDE = {
     },
     senzor: {
       term: "Senzor",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
       text: "Součástka, která měří něco z okolí (například vzdálenost) a převádí to na elektrický signál, se kterým dál pracuje program.",
       fact: null,
       datasheet: null,
@@ -119,7 +119,7 @@ window.SHIELDIO_GUIDE = {
       title: "Připoj desku",
       type: "wiring",
       kit: "assembled",
-      photo: null,
+      photo: "../../../../assets/images/red-build-clean/15-usb-a-usb-c-kabel.jpg",
       instructions: "Ultrazvukový <span class=\"term\" data-term=\"senzor\">senzor</span> i <span class=\"term\" data-term=\"bzucak\">bzučák</span> jsou už na desce zapojené, nic navíc zapojovat nemusíš. Stačí desku připojit přes USB-C kabel k počítači.",
       troubleshoot: {
         title: "Nejčastější chyby",
@@ -136,7 +136,7 @@ window.SHIELDIO_GUIDE = {
       type: "wiring",
       kit: "unassembled",
       photo: "../../../../assets/images/red-build-clean/16-ultrazvuk.jpg",
-      instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b> na desce Shieldio RED. Konektor jde zasunout jen jedním způsobem. Bzučák je napájený přímo na desce, nic dalšího zapojovat nemusíš.",
+      instructions: "Senzor <span class=\"term\" data-term=\"hcsr04\">HC-SR04</span> zapoj do konektoru označeného <b>ULTRAZVUK</b> na desce Shieldio RED. Před zasunutím bez napájení porovnej popisky napájení a signálů na modulu i desce. Bzučák je napájený přímo na desce, nic dalšího zapojovat nemusíš.",
       troubleshoot: {
         title: "Nejčastější chyby",
         items: [
@@ -204,3 +204,4 @@ window.SHIELDIO_GUIDE = {
     },
   },
 };
+

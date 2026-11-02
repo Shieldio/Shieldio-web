@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ultrazvukový radar s RED | Shieldio</title>
+<meta name="description" content="Ultrazvukový skener RED: HC-SR04 na servu, OLED mapa v měřítku, zapojení, Arduino program a kontrola směru.">
+<link rel="canonical" href="https://shieldio.cz/instructions/baseline/red/radar/">
+
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shieldio.cz/instructions/baseline/red/radar/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Ultrazvukový radar s RED | Shieldio">
+<meta property="og:description" content="Ultrazvukový skener RED: HC-SR04 na servu, OLED mapa v měřítku, zapojení, Arduino program a kontrola směru.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ultrazvukový radar s RED | Shieldio">
+<meta name="twitter:description" content="Ultrazvukový skener RED: HC-SR04 na servu, OLED mapa v měřítku, zapojení, Arduino program a kontrola směru.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+<link rel="stylesheet" href="/assets/css/guide-reference.css?v=20261102">
+</head>
+
+<body data-i18n-title="guide.radar.title">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../../../index.html"><img class="logo-full logo-full-light" src="../../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../../assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../../../index.html" data-i18n="nav.home">Domů</a>
+        <a href="../../../../products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="../../../../instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="../../../../edu/index.html" data-i18n="nav.edu">Edu</a>
+        <a href="../../../../company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="../../../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Začít programovat</a>
+      </nav>
+      <a class="cta-small" href="../../../../index.html#kontakt" data-i18n="nav.cta_contact">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="red-reference wrap"><a data-i18n="ref.back" href="../index.html" class="guide-back-link">← Všechny projekty RED</a><header><span data-i18n="project.eyebrow" class="eyebrow">POSTAV S RED</span><h1 data-i18n="radar.heading" >Ultrazvukový radar</h1><p data-i18n="radar.lead" class="lead">Rozšiř digitální metr o pohyb. Servo projíždí úhly a displej ukazuje naměřené body ve společném měřítku.</p></header><nav class="reference-jumps"><a data-i18n="project.jump.wiring" href="#zapojeni">Zapojení</a><a data-i18n="project.jump.code" href="#program">Program</a><a data-i18n="project.jump.test" href="#overeni">Ověření</a><a data-i18n="project.jump.ref" href="../prehled/index.html">Přehled součástek</a></nav><aside class="reference-note"><p data-i18n="radar.scope" ><b>Navazující experiment, 45–60 minut bez výroby držáku.</b> Nejdřív zprovozni digitální metr. K jeho součástkám přidej servo SG90, držák HC-SR04 na páku serva, pružné propojovací vodiče a vhodné napájení. Hotový radarový držák není v tomto návodu dodaný. Senzor musí být vyjmutý z pevné patice a otáčet se se servem.</p><p data-i18n="radar.sonar" >Technicky jde o ultrazvukový skener (sonar), ne rádiový radar. HC-SR04 vrací odraz v určitém směru; široký zvukový svazek neumí přesně rozlišit několik objektů vedle sebe. Zobrazení je orientační řez okolím, ne přesná mapa místnosti.</p></aside><div class="reference-gallery"><figure><img src="/assets/images/RED_barrier_open.jpeg" alt="RED se servem" loading="lazy" width="800" height="600"><figcaption data-i18n="radar.photo.servo" >Referenční fotografie serva v projektu závory. Pro skener na něj místo ramena upevni senzor.</figcaption></figure><figure><img src="/assets/images/red-build-clean/16-ultrazvuk.jpg" alt="HC-SR04" loading="lazy" width="800" height="600"><figcaption data-i18n="radar.photo.sensor" >HC-SR04 potřebuje otočné uchycení a vodiče s rezervou pro pohyb.</figcaption></figure></div><section class="reference-section" id="zapojeni"><h2 data-i18n="radar.wiring" >1. Zapojení a mechanika</h2><div class="reference-table" role="region" tabindex="0" aria-label="Shieldio RED"><table><caption>Shieldio RED</caption><thead><tr><th scope="col"><span data-i18n="ref.th.module" >Modul</span></th><th scope="col"><span data-i18n="ref.th.connection" >Signály</span></th></tr></thead><tbody><tr><th scope="row">HC-SR04</th><td>VCC → 5 V · GND → GND · TRIG → D7 · ECHO → D8</td></tr><tr><th scope="row">OLED SSD1306</th><td>SDA → A4 · SCL → A5 · VCC/GND</td></tr><tr><th scope="row">Servo SG90</th><td>SIGNAL → D9 · +5 V · GND</td></tr></tbody></table></div><p data-i18n="project.power" >Na sestavené RED jsou signály propojené cestami na PCB. Použij označené patice; vodiče navíc potřebuje až otočný senzor radaru. Moduly připojuj s odpojeným napájením a ověř pořadí vývodů, zvlášť GND/VCC u OLED.</p><p data-i18n="radar.mount" >Servo pevně upevni. Nejprve jej níže uvedeným kalibračním programem nastav na 90°. Potom odpoj napájení a nasaď páku s držákem tak, aby senzor mířil dopředu. Vodiče veď volně a vyzkoušej, že při rozsahu 30–150° nic nenaráží ani netahá za konektor. Hřídel serva neotáčej silou.</p><details class="reference-code"><summary data-i18n="radar.center" >Kalibrační program: servo drží 90°</summary><pre><code>#include &lt;Servo.h&gt;
+Servo servo;
+void setup() { servo.attach(9); servo.write(90); }
+void loop() {}</code></pre></details><p data-i18n="radar.power" >Servo napájej stabilním zdrojem podle parametrů konkrétního serva. Pokud použiješ externích 5 V, připoj napájecí vodič serva přímo k tomuto zdroji a spoj jeho GND s GND desky; k RED pak vede signál D9 a společná zem. Nespojuj zároveň externí +5 V s USB napájením RED. Při restartech desky nebo cukání nejdřív prověř napájení a volný chod mechaniky.</p></section><section class="reference-section" id="program"><h2 data-i18n="radar.program" >2. Nahraj skenovací program</h2><p data-i18n="project.librariesTrue" >V Arduino IDE vyber Arduino Nano (ATmega328P), správný port a případně variantu Old Bootloader podle svého modulu. Ve Správci knihoven nainstaluj <b>Adafruit SSD1306</b> a <b>Adafruit GFX Library</b> včetně nabídnutých závislostí a knihovnu <b>Servo</b> od Arduino. Program používá OLED 128 × 64 s adresou 0x3C. Seriový monitor nastav na 115200 baud.</p><p data-i18n="radar.behaviour" >Program projíždí 30–150° po 5°. Po každém pohybu čeká 120 ms a pak měří. Na OLED je nejnovější bod pro každý úhel; neplatný nebo vzdálenější odraz předchozí bod vymaže. Obraz se obnovuje postupně, proto se pohybující předmět může objevit na více místech během jednoho průchodu.</p><div class="reference-actions"><a class="btn btn-primary" download href="/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"><span data-i18n="project.download" >Stáhnout Arduino program (.ino)</span></a></div><details class="reference-code"><summary data-i18n="project.showcode" >Zobrazit celý program</summary><pre><code>// Shieldio RED: ultrasonic scanner, NOT a radio radar.
+// Requires HC-SR04 mounted on the servo, flexible wires and adequate servo power.
+#include &lt;Wire.h&gt;
+#include &lt;Servo.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+#include &lt;math.h&gt;
+
+const uint8_t TRIG_PIN = 7, ECHO_PIN = 8, SERVO_PIN = 9;
+const uint8_t OLED_ADDRESS = 0x3C;
+const int MIN_ANGLE = 30, MAX_ANGLE = 150, STEP_ANGLE = 5;
+const uint8_t POINT_COUNT = (MAX_ANGLE - MIN_ANGLE) / STEP_ANGLE + 1;
+const uint16_t RANGE_CM = 100;
+const float RADIUS_PX = 45.0f;
+// Set to -1 if the servo&#x27;s physical left/right direction is mirrored.
+const int8_t X_DIRECTION = 1;
+uint16_t distances[POINT_COUNT]; // 0 = no valid point; only the latest sample per angle.
+int angle = MIN_ANGLE, direction = STEP_ANGLE;
+Servo scanner;
+Adafruit_SSD1306 display(128, 64, &amp;Wire, -1);
+bool oledReady = false;
+
+float measureCm() {
+  digitalWrite(TRIG_PIN, LOW); delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH); delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  unsigned long duration = pulseIn(ECHO_PIN, HIGH, 30000UL);
+  if (!duration) return -1.0f;
+  float cm = duration * 0.0343f / 2.0f;
+  return (cm &gt;= 2.0f &amp;&amp; cm &lt;= 400.0f) ? cm : -1.0f;
+}
+
+void drawScan(float cm) {
+  if (!oledReady) return;
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.print(angle); display.print(F(&quot; deg &quot;));
+  if (cm &lt; 0) display.print(F(&quot;--&quot;)); else display.print(cm, 0);
+  display.print(F(&quot;cm&quot;));
+  // Origin at (64,63); arcs are clipped at the bottom of the display.
+  display.drawCircle(64, 63, 45, SSD1306_WHITE);
+  display.drawCircle(64, 63, 22, SSD1306_WHITE);
+  display.drawLine(19, 63, 109, 63, SSD1306_WHITE);
+  for (uint8_t i = 0; i &lt; POINT_COUNT; i++) {
+    if (!distances[i]) continue;
+    float a = (MIN_ANGLE + i * STEP_ANGLE) * DEG_TO_RAD;
+    float r = distances[i] * RADIUS_PX / RANGE_CM;
+    int x = 64 + X_DIRECTION * lroundf(r * cos(a));
+    int y = 63 - lroundf(r * sin(a));
+    display.fillCircle(x, y, 1, SSD1306_WHITE);
+  }
+  float a = angle * DEG_TO_RAD;
+  display.drawLine(64, 63, 64 + X_DIRECTION * lroundf(RADIUS_PX * cos(a)),
+                   63 - lroundf(RADIUS_PX * sin(a)), SSD1306_WHITE);
+  display.display();
+}
+
+void setup() {
+  pinMode(TRIG_PIN, OUTPUT); pinMode(ECHO_PIN, INPUT);
+  digitalWrite(TRIG_PIN, LOW);
+  Serial.begin(115200);
+  Wire.begin();
+  Wire.beginTransmission(OLED_ADDRESS);
+  oledReady = Wire.endTransmission() == 0;
+  if (oledReady) oledReady = display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS);
+  if (!oledReady) Serial.println(F(&quot;OLED unavailable; serial output remains active.&quot;));
+  scanner.attach(SERVO_PIN);
+  scanner.write(90); // Fit the sensor facing forward at this position, with power off.
+  delay(1500);
+  scanner.write(MIN_ANGLE);
+  delay(600); // Let the first large movement settle.
+  Serial.println(F(&quot;angle_deg,distance_cm&quot;));
+}
+
+void loop() {
+  scanner.write(angle);
+  delay(120); // Settle the mechanism; also separates ultrasonic bursts.
+  float cm = measureCm();
+  uint8_t index = (angle - MIN_ANGLE) / STEP_ANGLE;
+  distances[index] = (cm &gt;= 2 &amp;&amp; cm &lt;= RANGE_CM) ? (uint16_t)(cm + 0.5f) : 0;
+  Serial.print(angle); Serial.print(&#x27;,&#x27;); Serial.println(cm, 1);
+  drawScan(cm);
+  if (angle &gt;= MAX_ANGLE) direction = -STEP_ANGLE;
+  if (angle &lt;= MIN_ANGLE) direction = STEP_ANGLE;
+  angle += direction;
+}
+</code></pre></details></section><section class="reference-section" id="radar.scale"><h2 data-i18n="radar.scale" >3. Co znamená bod na displeji</h2><p data-i18n="radar.math" >Senzor je na displeji v bodě (64, 63). Vnější oblouk znamená <b>100 cm</b>, vnitřní přibližně 50 cm. V obou osách platí stejné měřítko <b>45 pixelů / 100 cm</b>. Pro úhel α a vzdálenost d program počítá <b>x = 64 + d × 0,45 × cos α</b> a <b>y = 63 − d × 0,45 × sin α</b>. Při 90° je bod přímo nad senzorem.</p><p data-i18n="radar.range" >Parametr RANGE_CM mění rozsah mapy. Vzdálenější platné měření se vypíše číselně, ale v mapě se nekreslí. Bez odrazu se zobrazí -- a v seriových datech -1. Pokud mechanika otáčí senzor zrcadlově, změň X_DIRECTION z 1 na -1 a znovu ověř levou a pravou stranu.</p></section><section class="reference-section" id="overeni"><h2 data-i18n="radar.test" >4. Ověř měřítko a směr</h2><div data-i18n="radar.checklist" ><ol><li>Polož pevný předmět dopředu, přibližně 50 cm od osy senzoru. U 90° má bod ležet poblíž vnitřního oblouku.</li><li>Přesuň předmět doleva a doprava. Pokud je obraz převrácený, uprav X_DIRECTION.</li><li>Odstraň překážku. Původní bod má zmizet po dalším změření stejného úhlu.</li><li>Porovnej objekt v 50 a 100 cm. Vzdálenost bodu od středu mapy se má přibližně zdvojnásobit.</li><li>Při cukání nebo nárazu do dorazu odpoj napájení a uprav uchycení, rozsah úhlů nebo napájení.</li></ol></div></section><section class="reference-section" id="radar.help"><h2 data-i18n="radar.help" >Co zkusit dál</h2><p data-i18n="radar.extension" >Zkus jiný rozsah RANGE_CM, delší čekání po pohybu nebo export řádků úhel,vzdálenost ze Seriového monitoru. Porovnej hladkou stěnu, židli a látku. Než budeš mapu zpřesňovat, rozliš chybu měření vzdálenosti, vůli serva a šířku zvukového svazku.</p></section><aside class="reference-note"><h2 data-i18n="ref.review.title" >Pomoz návod vylepšit</h2><p data-i18n="ref.review.text" >Něco nefunguje nebo chybí? Do hlášení přidej odkaz na návod, revizi desky, použitý program a očekávaný i skutečný výsledek. Fotka zapojení pomůže.</p><a href="https://github.com/Shieldio/Shieldio-web/issues/new"><span data-i18n="ref.review.issue" >Nahlásit problém na GitHubu</span></a> · <a href="https://github.com/Shieldio/Shieldio-web/tree/main/instructions"><span data-i18n="ref.review.source" >Zdrojové návody</span></a></aside></main>
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="../../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="../../../../index.html#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="../../../../instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="../../../../edu/index.html" data-i18n="nav.edu">Edu</a>
+      <a href="../../../../company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="../../../../company/pro-ucitele.html" data-i18n="footer.teachers">Pro učitele</a>
+      <a href="../../../../faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="../../../../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="../../../../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="../../../../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+    </nav>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+</footer>
+
+<script src="../../../../assets/js/animations.js"></script>
+<script src="../../../../assets/js/navbar.js"></script>
+<script src="../../../../assets/js/theme.js"></script>
+<script src="../../../../assets/js/search.js"></script>
+<script src="../../../../assets/js/lang.js"></script>
+<script src="../../../../assets/js/site-chrome.js"></script>
+</body>
+</html>
+

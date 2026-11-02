@@ -3154,5 +3154,421 @@
   "terms.spory": {
     "cs": "",
     "en": ""
+  },
+  "ref.eyebrow": {
+    "cs": "RED · rychlá reference",
+    "en": "RED · quick reference"
+  },
+  "ref.title": {
+    "cs": "Co je co. A kam to patří.",
+    "en": "What it is. Where it goes."
+  },
+  "ref.lead": {
+    "cs": "Umíš pájet? Tady najdeš součástku, její hodnotu, pozici na PCB a orientaci na jednom místě. Pro první stavbu je vedle toho k dispozici podrobný fotonávod.",
+    "en": "Already know how to solder? Find each part, its value, PCB position and orientation in one place. The step-by-step photo guide is available for your first build."
+  },
+  "ref.jump.bom": {
+    "cs": "Osazení PCB",
+    "en": "PCB parts"
+  },
+  "ref.jump.pins": {
+    "cs": "Piny a moduly",
+    "en": "Pins and modules"
+  },
+  "ref.jump.check": {
+    "cs": "Před zapnutím",
+    "en": "Before power-on"
+  },
+  "ref.jump.guide": {
+    "cs": "Podrobný fotonávod",
+    "en": "Step-by-step photos"
+  },
+  "ref.revision": {
+    "cs": "<b>Nejdřív zkontroluj revizi PCB.</b> Osazovací tabulka níže vychází z fotonávodu prototypu <b>RED V3</b>. U R6 a R7 tento návod uvádí 4,7 kΩ i přes potisk 10K. Na V4 ani jiné revize tuto výjimku automaticky nepřenášej; řiď se podklady ke své sadě. Označení D1/D2 na PCB nejsou čísla digitálních pinů Arduina.",
+    "en": "<b>Check your PCB revision first.</b> The table below follows the <b>RED V3</b> prototype photo guide. For this revision, R6 and R7 use 4.7 kΩ despite the 10K silkscreen. Do not apply this exception to V4 or other revisions without checking your kit documentation. PCB labels D1/D2 are not Arduino digital pin numbers."
+  },
+  "ref.photo.parts": {
+    "cs": "Součástky před osazením",
+    "en": "Parts before assembly"
+  },
+  "ref.photo.layout": {
+    "cs": "Orientační přehled modulů; konkrétní revizi ověř na své PCB.",
+    "en": "Module overview; check the revision on your own PCB."
+  },
+  "ref.bom.0": {
+    "cs": "2× 220 Ω",
+    "en": "2× 220 Ω"
+  },
+  "ref.bom.note.0": {
+    "cs": "Omezení proudu LED; bez polarity.",
+    "en": "LED current limiting; no polarity."
+  },
+  "ref.bom.1": {
+    "cs": "2× 10 kΩ",
+    "en": "2× 10 kΩ"
+  },
+  "ref.bom.note.1": {
+    "cs": "Pull-up tlačítek; bez polarity.",
+    "en": "Button pull-ups; no polarity."
+  },
+  "ref.bom.2": {
+    "cs": "1× 330 Ω",
+    "en": "1× 330 Ω"
+  },
+  "ref.bom.note.2": {
+    "cs": "Rezistor u BZ1; bez polarity.",
+    "en": "Resistor next to BZ1; no polarity."
+  },
+  "ref.bom.3": {
+    "cs": "2× 4,7 kΩ · pouze popsaná V3",
+    "en": "2× 4.7 kΩ · documented V3 only"
+  },
+  "ref.bom.note.3": {
+    "cs": "Identifikační dělič. Výjimka oproti potisku 10K, viz upozornění výše.",
+    "en": "Identification divider. Exception to the 10K silkscreen; see the revision note."
+  },
+  "ref.bom.4": {
+    "cs": "1× 1N5817",
+    "en": "1× 1N5817"
+  },
+  "ref.bom.note.4": {
+    "cs": "Schottkyho dioda. Proužek na těle → katoda K na PCB.",
+    "en": "Schottky diode. Body stripe → cathode K on PCB."
+  },
+  "ref.bom.5": {
+    "cs": "1× červená / 1× zelená LED",
+    "en": "1× red / 1× green LED"
+  },
+  "ref.bom.note.5": {
+    "cs": "Delší vývod = anoda; kratší vývod a ploška pouzdra = katoda. Ověř značky na PCB.",
+    "en": "Long lead = anode; short lead and flat body edge = cathode. Check PCB markings."
+  },
+  "ref.bom.6": {
+    "cs": "3× 100 nF (104)",
+    "en": "3× 100 nF (104)"
+  },
+  "ref.bom.note.6": {
+    "cs": "Keramické kondenzátory; bez polarity.",
+    "en": "Ceramic capacitors; no polarity."
+  },
+  "ref.bom.7": {
+    "cs": "1× 100 µF",
+    "en": "1× 100 µF"
+  },
+  "ref.bom.note.7": {
+    "cs": "Elektrolytický kondenzátor. Pruh na těle označuje mínus; plus ověř na PCB.",
+    "en": "Electrolytic capacitor. Body stripe marks negative; check positive on PCB."
+  },
+  "ref.bom.8": {
+    "cs": "1× bzučák",
+    "en": "1× buzzer"
+  },
+  "ref.bom.note.8": {
+    "cs": "Respektuj značku + na součástce i desce.",
+    "en": "Match the + marks on the part and PCB."
+  },
+  "ref.bom.9": {
+    "cs": "2× tlačítko",
+    "en": "2× push button"
+  },
+  "ref.bom.note.9": {
+    "cs": "Vývody jsou uvnitř propojené po dvojicích. Osazení porovnej s fotografií.",
+    "en": "Leads are connected internally in pairs. Compare placement with the photo."
+  },
+  "ref.bom.10": {
+    "cs": "1× třípinový konektor",
+    "en": "1× three-pin header"
+  },
+  "ref.bom.note.10": {
+    "cs": "Patice serva; rozlišuj GND, napájení a signál.",
+    "en": "Servo connector; distinguish GND, power and signal."
+  },
+  "ref.bom.11": {
+    "cs": "2× Power & Data",
+    "en": "2× Power & Data"
+  },
+  "ref.bom.note.11": {
+    "cs": "JST konektory. Orientaci pouzdra ověř podle fotky a potisku.",
+    "en": "JST connectors. Check body orientation against the photo and silkscreen."
+  },
+  "ref.bom.12": {
+    "cs": "Patice a konektory",
+    "en": "Sockets and headers"
+  },
+  "ref.bom.note.12": {
+    "cs": "J7 je ležatý. Typ a orientaci zbývajících patic porovnej s fotonávodem.",
+    "en": "J7 is right-angled. Compare the remaining sockets with the photo guide."
+  },
+  "ref.bom.13": {
+    "cs": "2 řady patic",
+    "en": "2 socket strips"
+  },
+  "ref.bom.note.13": {
+    "cs": "Patice ze spodní strany PCB. Nano zasuň až po kontrole spojů, orientaci USB porovnej s fotkou.",
+    "en": "Sockets on the PCB underside. Insert Nano after inspecting joints; check USB orientation against the photo."
+  },
+  "ref.th.position": {
+    "cs": "Pozice",
+    "en": "Position"
+  },
+  "ref.th.value": {
+    "cs": "Počet a součástka",
+    "en": "Quantity and part"
+  },
+  "ref.th.orientation": {
+    "cs": "Funkce a orientace",
+    "en": "Function and orientation"
+  },
+  "ref.th.photo": {
+    "cs": "Fotografie",
+    "en": "Photo"
+  },
+  "ref.bom.heading": {
+    "cs": "Osazení desky v jedné tabulce",
+    "en": "PCB assembly at a glance"
+  },
+  "ref.pins.note": {
+    "cs": "Tato mapa odpovídá současnému blokovému editoru RED. U sestavené desky jsou spoje vedené na PCB; tabulka neznamená, že máš vše znovu drátovat. Před zapojením náhradního modulu porovnej jeho popisky s deskou.",
+    "en": "This map matches the current RED block editor. An assembled board already has these connections on its PCB; you do not need to wire them again. Compare the labels before connecting a replacement module."
+  },
+  "ref.th.module": {
+    "cs": "Modul",
+    "en": "Module"
+  },
+  "ref.th.connection": {
+    "cs": "Signály",
+    "en": "Signals"
+  },
+  "ref.pins.power": {
+    "cs": "<b>OLED i HC-SR04 mají určené napájecí vývody.</b> Pořadí GND/VCC se může mezi moduly lišit. Zapojování prováděj bez napájení. Servo nekrm z datového pinu; při samostatném napájení serva spoj GND se zemí RED a nepropojuj nekontrolovaně dva zdroje 5 V.",
+    "en": "<b>OLED and HC-SR04 have specific power pins.</b> GND/VCC order may differ between modules. Disconnect power before wiring. Never power a servo from a signal pin. With a separate servo supply, connect its GND to RED GND and do not tie two 5 V supplies together indiscriminately."
+  },
+  "ref.pins.heading": {
+    "cs": "Moduly a piny pro programování",
+    "en": "Modules and programming pins"
+  },
+  "ref.check.list": {
+    "cs": "<ol><li>Zkontroluj hodnoty R1–R7 a revizi PCB.</li><li>Ověř polaritu D3, obou LED, C3 a BZ1.</li><li>Prohlédni spoje: žádné cínové můstky ani volné vývody. Multimetrem ověř, že mezi 5 V a GND není trvalý zkrat.</li><li>Zasuň Nano a moduly ve správné orientaci, potom připoj USB.</li><li>Nejdřív otestuj displej a senzor digitálním metrem; až potom přidej pohyb serva.</li></ol>",
+    "en": "<ol><li>Check R1–R7 values and PCB revision.</li><li>Verify polarity of D3, both LEDs, C3 and BZ1.</li><li>Inspect joints: no solder bridges or loose leads. Use a multimeter to rule out a sustained short between 5 V and GND.</li><li>Insert Nano and modules in the correct orientation, then connect USB.</li><li>Test the display and sensor using the distance meter before adding servo motion.</li></ol>"
+  },
+  "ref.check.heading": {
+    "cs": "Kontrola před prvním zapnutím",
+    "en": "Before first power-on"
+  },
+  "ref.review.title": {
+    "cs": "Pomoz návod vylepšit",
+    "en": "Help improve this guide"
+  },
+  "ref.review.text": {
+    "cs": "Něco nefunguje nebo chybí? Do hlášení přidej odkaz na návod, revizi desky, použitý program a očekávaný i skutečný výsledek. Fotka zapojení pomůže.",
+    "en": "Something missing or not working? Include the guide URL, board revision, program, expected result and actual result. A wiring photo helps."
+  },
+  "ref.review.issue": {
+    "cs": "Nahlásit problém na GitHubu",
+    "en": "Report an issue on GitHub"
+  },
+  "ref.review.source": {
+    "cs": "Zdrojové návody",
+    "en": "Guide source"
+  },
+  "guide.prehled.title": {
+    "cs": "Přehled součástek a zapojení RED | Shieldio",
+    "en": "RED parts and wiring reference | Shieldio"
+  },
+  "ref.back": {
+    "cs": "← Všechny projekty RED",
+    "en": "← All RED projects"
+  },
+  "project.eyebrow": {
+    "cs": "POSTAV S RED",
+    "en": "BUILD WITH RED"
+  },
+  "meter.heading": {
+    "cs": "Digitální metr",
+    "en": "Digital distance meter"
+  },
+  "meter.lead": {
+    "cs": "Změř vzdálenost pomocí zvuku a zobraz ji na OLED. Začni jedním senzorem, jedním vzorcem a několika kontrolními měřeními.",
+    "en": "Measure distance with sound and show it on the OLED. Start with one sensor, one formula and a few reference measurements."
+  },
+  "project.jump.wiring": {
+    "cs": "Zapojení",
+    "en": "Wiring"
+  },
+  "project.jump.code": {
+    "cs": "Program",
+    "en": "Program"
+  },
+  "project.jump.test": {
+    "cs": "Ověření",
+    "en": "Testing"
+  },
+  "project.jump.ref": {
+    "cs": "Přehled součástek",
+    "en": "Parts reference"
+  },
+  "meter.scope": {
+    "cs": "<b>Potřebuješ:</b> sestavenou RED s Nano, HC-SR04, OLED SSD1306 128 × 64 a datový USB kabel. Servo není potřeba. Počítej orientačně s 20–30 minutami; ukázkový program je určený k ověření na tvé desce.",
+    "en": "<b>You need:</b> an assembled RED with Nano, HC-SR04, SSD1306 128 × 64 OLED and a data USB cable. No servo required. Allow roughly 20–30 minutes; verify the example sketch on your own board."
+  },
+  "meter.photo.sensor": {
+    "cs": "HC-SR04: vysílač a přijímač ultrazvuku.",
+    "en": "HC-SR04: ultrasonic transmitter and receiver."
+  },
+  "meter.photo.display": {
+    "cs": "OLED pro zobrazení vzdálenosti. Fotografie součástky, ne ukázka běžícího programu.",
+    "en": "OLED for the distance readout. Component photo, not the running program."
+  },
+  "project.power": {
+    "cs": "Na sestavené RED jsou signály propojené cestami na PCB. Použij označené patice; vodiče navíc potřebuje až otočný senzor radaru. Moduly připojuj s odpojeným napájením a ověř pořadí vývodů, zvlášť GND/VCC u OLED.",
+    "en": "On an assembled RED, the PCB already connects these signals. Use the labelled sockets; extra wires are needed for the rotating radar sensor. Disconnect power before wiring and check pin order, especially OLED GND/VCC."
+  },
+  "meter.wiring": {
+    "cs": "1. Zkontroluj zapojení",
+    "en": "1. Check the wiring"
+  },
+  "meter.formula": {
+    "cs": "Senzor změří čas od vyslání zvuku po návrat odrazu. Zvuk urazil vzdálenost dvakrát, proto dělíme dvěma: <b>d = t × c / 2</b>. Pro čas v mikrosekundách a rychlost zvuku přibližně 343 m/s při pokojové teplotě dostaneš <b>d [cm] = t [µs] × 0,0343 / 2</b>.",
+    "en": "The sensor measures the time from emission to returning echo. Sound travels the distance twice, so divide by two: <b>d = t × c / 2</b>. With time in microseconds and sound speed approximately 343 m/s near room temperature: <b>d [cm] = t [µs] × 0.0343 / 2</b>."
+  },
+  "meter.example": {
+    "cs": "Příklad: odraz za 1 000 µs znamená přibližně 17,15 cm. Desetinné místo na displeji není zárukou milimetrové přesnosti. Výsledek ovlivňuje teplota, sklon, velikost a materiál překážky.",
+    "en": "Example: an echo after 1,000 µs corresponds to about 17.15 cm. A decimal digit does not guarantee millimetre accuracy. Temperature, angle, size and material of the target affect the result."
+  },
+  "meter.physics": {
+    "cs": "2. Spočítej cestu tam i zpět",
+    "en": "2. Account for the round trip"
+  },
+  "project.librariesFalse": {
+    "cs": "V Arduino IDE vyber Arduino Nano (ATmega328P), správný port a případně variantu Old Bootloader podle svého modulu. Ve Správci knihoven nainstaluj <b>Adafruit SSD1306</b> a <b>Adafruit GFX Library</b> včetně nabídnutých závislostí. Program používá OLED 128 × 64 s adresou 0x3C. Seriový monitor nastav na 115200 baud.",
+    "en": "In Arduino IDE select Arduino Nano (ATmega328P), the correct port and, if needed, the Old Bootloader variant for your module. Install <b>Adafruit SSD1306</b> and <b>Adafruit GFX Library</b> with their dependencies. The program uses a 128 × 64 OLED at address 0x3C. Set Serial Monitor to 115200 baud."
+  },
+  "meter.behaviour": {
+    "cs": "Program provede tři měření s odstupem nejméně 65 ms a zobrazí jejich prostřední hodnotu (medián). Pokud některý odraz nepřijde do 30 ms nebo je mimo rozsah 2–400 cm, zobrazí <b>-- cm</b>. Chybějící odraz se nesmí tvářit jako vzdálenost nula.",
+    "en": "The sketch takes three readings at least 65 ms apart and displays their median. If any echo is missing after 30 ms or outside 2–400 cm, it shows <b>-- cm</b>. A missing echo must not be treated as zero distance."
+  },
+  "project.download": {
+    "cs": "Stáhnout Arduino program (.ino)",
+    "en": "Download Arduino sketch (.ino)"
+  },
+  "project.showcode": {
+    "cs": "Zobrazit celý program",
+    "en": "Show full sketch"
+  },
+  "meter.program": {
+    "cs": "3. Nahraj program",
+    "en": "3. Upload the sketch"
+  },
+  "meter.checklist": {
+    "cs": "<ol><li>Postav rovnou pevnou překážku kolmo k senzoru. Vzdálenost měř od čela senzoru, ne od zadní hrany desky.</li><li>Vyzkoušej 10, 30 a 50 cm. Pro každou vzdálenost si zapiš několik údajů z displeje a rozdíl proti pravítku.</li><li>Otoč senzor do volného prostoru. Bez platného odrazu očekávej -- cm, nikoli 0 cm.</li><li>Zkus šikmou plochu nebo látku. Vysvětli, proč může odraz zeslábnout nebo zmizet.</li></ol>",
+    "en": "<ol><li>Place a flat rigid target perpendicular to the sensor. Measure from the front of the sensor, not the back edge of the board.</li><li>Try 10, 30 and 50 cm. Record several displayed readings and their differences from the ruler.</li><li>Point into open space. Without a valid echo, expect -- cm rather than 0 cm.</li><li>Try an angled surface or cloth. Explain why the echo may weaken or disappear.</li></ol>"
+  },
+  "meter.test": {
+    "cs": "4. Porovnej výsledek s pravítkem",
+    "en": "4. Compare against a ruler"
+  },
+  "meter.help.text": {
+    "cs": "<b>Prázdný OLED:</b> zkontroluj GND/VCC, SDA=A4, SCL=A5 a adresu displeje (některé moduly mají 0x3D). Naměřená hodnota se vypisuje i do Seriového monitoru.<br><b>Stále -- cm:</b> ověř D7/TRIG a D8/ECHO, společnou zem a zkus větší tvrdý předmět 20–50 cm před senzorem.<br><b>Skákající hodnoty:</b> zpevni uchycení, natoč plochu kolmo a vypni další ultrazvukové senzory v okolí.",
+    "en": "<b>Blank OLED:</b> check GND/VCC, SDA=A4, SCL=A5 and display address (some modules use 0x3D). Readings are also sent to Serial Monitor.<br><b>Always -- cm:</b> check D7/TRIG, D8/ECHO and common ground; try a larger rigid target 20–50 cm away.<br><b>Unstable readings:</b> secure the sensor, align the target and turn off other nearby ultrasonic sensors."
+  },
+  "meter.help": {
+    "cs": "Když se nedaří",
+    "en": "Troubleshooting"
+  },
+  "meter.next": {
+    "cs": "Pokračovat na ultrazvukový radar →",
+    "en": "Continue to the ultrasonic radar →"
+  },
+  "guide.digitalni-metr.title": {
+    "cs": "Digitální metr s RED | Shieldio",
+    "en": "RED digital distance meter | Shieldio"
+  },
+  "radar.heading": {
+    "cs": "Ultrazvukový radar",
+    "en": "Ultrasonic radar"
+  },
+  "radar.lead": {
+    "cs": "Rozšiř digitální metr o pohyb. Servo projíždí úhly a displej ukazuje naměřené body ve společném měřítku.",
+    "en": "Add motion to the distance meter. A servo sweeps through angles while the display plots measured points at a consistent scale."
+  },
+  "radar.scope": {
+    "cs": "<b>Navazující experiment, 45–60 minut bez výroby držáku.</b> Nejdřív zprovozni digitální metr. K jeho součástkám přidej servo SG90, držák HC-SR04 na páku serva, pružné propojovací vodiče a vhodné napájení. Hotový radarový držák není v tomto návodu dodaný. Senzor musí být vyjmutý z pevné patice a otáčet se se servem.",
+    "en": "<b>Follow-up experiment, 45–60 minutes excluding bracket fabrication.</b> Get the distance meter working first. Add an SG90 servo, an HC-SR04 bracket for its horn, flexible jumper wires and suitable power. This guide does not provide a finished radar bracket. The sensor must be removed from its fixed socket and rotate with the servo."
+  },
+  "radar.sonar": {
+    "cs": "Technicky jde o ultrazvukový skener (sonar), ne rádiový radar. HC-SR04 vrací odraz v určitém směru; široký zvukový svazek neumí přesně rozlišit několik objektů vedle sebe. Zobrazení je orientační řez okolím, ne přesná mapa místnosti.",
+    "en": "Technically this is an ultrasonic scanner (sonar), not radio radar. HC-SR04 returns an echo in a direction; its broad sound beam cannot precisely separate nearby objects. The display is an approximate scan of the surroundings, not an exact room map."
+  },
+  "radar.photo.servo": {
+    "cs": "Referenční fotografie serva v projektu závory. Pro skener na něj místo ramena upevni senzor.",
+    "en": "Reference photo of the servo in the barrier project. For scanning, mount the sensor instead of the barrier arm."
+  },
+  "radar.photo.sensor": {
+    "cs": "HC-SR04 potřebuje otočné uchycení a vodiče s rezervou pro pohyb.",
+    "en": "HC-SR04 needs a rotating mount and slack wires for movement."
+  },
+  "radar.mount": {
+    "cs": "Servo pevně upevni. Nejprve jej níže uvedeným kalibračním programem nastav na 90°. Potom odpoj napájení a nasaď páku s držákem tak, aby senzor mířil dopředu. Vodiče veď volně a vyzkoušej, že při rozsahu 30–150° nic nenaráží ani netahá za konektor. Hřídel serva neotáčej silou.",
+    "en": "Secure the servo. First centre it at 90° with the calibration sketch below. Disconnect power, then attach the horn and bracket so the sensor faces forward. Leave slack in the wires and check that the 30–150° sweep has no collisions or cable strain. Do not force the servo shaft."
+  },
+  "radar.center": {
+    "cs": "Kalibrační program: servo drží 90°",
+    "en": "Calibration sketch: hold the servo at 90°"
+  },
+  "radar.power": {
+    "cs": "Servo napájej stabilním zdrojem podle parametrů konkrétního serva. Pokud použiješ externích 5 V, připoj napájecí vodič serva přímo k tomuto zdroji a spoj jeho GND s GND desky; k RED pak vede signál D9 a společná zem. Nespojuj zároveň externí +5 V s USB napájením RED. Při restartech desky nebo cukání nejdřív prověř napájení a volný chod mechaniky.",
+    "en": "Power the servo from a stable supply rated for your particular servo. With an external 5 V supply, connect servo power directly to that supply and join its GND to the board GND; RED provides signal D9 and common ground. Do not also connect external +5 V to the USB-powered RED rail. If the board resets or the servo jerks, check power and mechanical clearance first."
+  },
+  "radar.wiring": {
+    "cs": "1. Zapojení a mechanika",
+    "en": "1. Wiring and mechanics"
+  },
+  "project.librariesTrue": {
+    "cs": "V Arduino IDE vyber Arduino Nano (ATmega328P), správný port a případně variantu Old Bootloader podle svého modulu. Ve Správci knihoven nainstaluj <b>Adafruit SSD1306</b> a <b>Adafruit GFX Library</b> včetně nabídnutých závislostí a knihovnu <b>Servo</b> od Arduino. Program používá OLED 128 × 64 s adresou 0x3C. Seriový monitor nastav na 115200 baud.",
+    "en": "In Arduino IDE select Arduino Nano (ATmega328P), the correct port and, if needed, the Old Bootloader variant for your module. Install <b>Adafruit SSD1306</b> and <b>Adafruit GFX Library</b> with their dependencies and the <b>Servo</b> library by Arduino. The program uses a 128 × 64 OLED at address 0x3C. Set Serial Monitor to 115200 baud."
+  },
+  "radar.behaviour": {
+    "cs": "Program projíždí 30–150° po 5°. Po každém pohybu čeká 120 ms a pak měří. Na OLED je nejnovější bod pro každý úhel; neplatný nebo vzdálenější odraz předchozí bod vymaže. Obraz se obnovuje postupně, proto se pohybující předmět může objevit na více místech během jednoho průchodu.",
+    "en": "The sketch scans 30–150° in 5° steps. After each movement it waits 120 ms before measuring. The OLED retains the latest point for each angle; invalid or out-of-range echoes erase the previous point. Updates are sequential, so a moving object may appear at several positions during one sweep."
+  },
+  "radar.program": {
+    "cs": "2. Nahraj skenovací program",
+    "en": "2. Upload the scanner sketch"
+  },
+  "radar.math": {
+    "cs": "Senzor je na displeji v bodě (64, 63). Vnější oblouk znamená <b>100 cm</b>, vnitřní přibližně 50 cm. V obou osách platí stejné měřítko <b>45 pixelů / 100 cm</b>. Pro úhel α a vzdálenost d program počítá <b>x = 64 + d × 0,45 × cos α</b> a <b>y = 63 − d × 0,45 × sin α</b>. Při 90° je bod přímo nad senzorem.",
+    "en": "The sensor is at display coordinate (64, 63). The outer arc represents <b>100 cm</b>, the inner arc approximately 50 cm. Both axes use the same scale: <b>45 pixels / 100 cm</b>. For angle α and distance d the sketch calculates <b>x = 64 + d × 0.45 × cos α</b> and <b>y = 63 − d × 0.45 × sin α</b>. At 90° the point is directly above the sensor."
+  },
+  "radar.range": {
+    "cs": "Parametr RANGE_CM mění rozsah mapy. Vzdálenější platné měření se vypíše číselně, ale v mapě se nekreslí. Bez odrazu se zobrazí -- a v seriových datech -1. Pokud mechanika otáčí senzor zrcadlově, změň X_DIRECTION z 1 na -1 a znovu ověř levou a pravou stranu.",
+    "en": "RANGE_CM changes the map range. A valid reading beyond it is shown numerically but not plotted. Missing echoes display -- and appear as -1 in serial data. If your mount rotates in the opposite direction, change X_DIRECTION from 1 to -1 and verify left and right again."
+  },
+  "radar.scale": {
+    "cs": "3. Co znamená bod na displeji",
+    "en": "3. What each plotted point means"
+  },
+  "radar.checklist": {
+    "cs": "<ol><li>Polož pevný předmět dopředu, přibližně 50 cm od osy senzoru. U 90° má bod ležet poblíž vnitřního oblouku.</li><li>Přesuň předmět doleva a doprava. Pokud je obraz převrácený, uprav X_DIRECTION.</li><li>Odstraň překážku. Původní bod má zmizet po dalším změření stejného úhlu.</li><li>Porovnej objekt v 50 a 100 cm. Vzdálenost bodu od středu mapy se má přibližně zdvojnásobit.</li><li>Při cukání nebo nárazu do dorazu odpoj napájení a uprav uchycení, rozsah úhlů nebo napájení.</li></ol>",
+    "en": "<ol><li>Place a rigid object ahead, about 50 cm from the sensor axis. Near 90°, its point should be close to the inner arc.</li><li>Move it left and right. If the plot is mirrored, adjust X_DIRECTION.</li><li>Remove the object. The old point should disappear after that angle is measured again.</li><li>Compare a target at 50 and 100 cm. Its distance from the map origin should roughly double.</li><li>If the servo jerks or hits a stop, disconnect power and adjust the mount, sweep limits or supply.</li></ol>"
+  },
+  "radar.test": {
+    "cs": "4. Ověř měřítko a směr",
+    "en": "4. Verify scale and direction"
+  },
+  "radar.extension": {
+    "cs": "Zkus jiný rozsah RANGE_CM, delší čekání po pohybu nebo export řádků úhel,vzdálenost ze Seriového monitoru. Porovnej hladkou stěnu, židli a látku. Než budeš mapu zpřesňovat, rozliš chybu měření vzdálenosti, vůli serva a šířku zvukového svazku.",
+    "en": "Try changing RANGE_CM, allowing more settling time or exporting angle,distance rows from Serial Monitor. Compare a flat wall, a chair and fabric. Before refining the map, distinguish distance measurement error, servo backlash and acoustic beam width."
+  },
+  "radar.help": {
+    "cs": "Co zkusit dál",
+    "en": "Try next"
+  },
+  "guide.radar.title": {
+    "cs": "Ultrazvukový radar s RED | Shieldio",
+    "en": "RED ultrasonic radar | Shieldio"
+  },
+  "ref.assembly.fast": {
+    "cs": "<b>Už umíš pájet?</b> Otevři <a href=\"../prehled/index.html\">přehled součástek, hodnot a zapojení</a> a sestav desku podle tabulky. Přehled rozlišuje revizi V3 a ukazuje polaritu i fotografie.",
+    "en": "<b>Already know how to solder?</b> Open the <a href=\"../prehled/index.html\">parts, values and wiring reference</a> and build from the table. The reference identifies the V3 revision and shows polarity and photos."
   }
 }

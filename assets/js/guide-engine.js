@@ -115,6 +115,7 @@
   // persistent link back to the guide picker — lives outside the re-rendered
   // #guide-progress/#guide-steps area, so it survives every renderCurrent() call
   let backLinkEl = null;
+  let referenceLinkEl = null;
   function renderBackLink() {
     if (!DATA.meta.parentHref) return;
     const wrap = root.querySelector(".wrap");
@@ -124,6 +125,16 @@
       backLinkEl.className = "guide-back-link";
       backLinkEl.href = DATA.meta.parentHref;
       wrap.insertBefore(backLinkEl, wrap.firstChild);
+    }
+    if (tier === "red") {
+      if (!referenceLinkEl) {
+        referenceLinkEl = document.createElement("a");
+        referenceLinkEl.className = "guide-back-link";
+        referenceLinkEl.href = "/instructions/baseline/red/prehled/index.html";
+        referenceLinkEl.style.marginLeft = "16px";
+        backLinkEl.after(referenceLinkEl);
+      }
+      referenceLinkEl.textContent = state.uiLang === "en" ? "Parts, values & pin map →" : "Součástky, hodnoty a zapojení →";
     }
     backLinkEl.textContent = "← " + (DATA.meta.parentLabel ? t(DATA.meta.parentLabel) : ui("back_to_guides"));
   }
@@ -194,6 +205,7 @@
       type: "wiring",
       photo: (group.find(s => s.photo) || {}).photo || null,
       instructions: group.map(s => t(s.instructions)).join("<br><br>"),
+      warning: group.filter(s => s.warning).map(s => t(s.warning)).join("<br><br>"),
       troubleshoot: items.length ? { title: ui("common_mistakes"), items } : null,
     };
   }
@@ -690,7 +702,7 @@
     const g = DATA.glossary[termKey];
     if (!g) return;
     openModal(`
-      <div class="term-modal-photo">${photoOrPlaceholder(g.photo, t(g.term))}</div>
+      ${g.photo ? `<div class="term-modal-photo">${photoOrPlaceholder(g.photo, t(g.term))}</div>` : ""}
       <h3>${t(g.term)}</h3>
       <p>${t(g.text)}</p>
       ${g.fact ? `<p class="term-modal-fact">${t(g.fact)}</p>` : ""}
@@ -793,3 +805,4 @@
 
   renderCurrent();
 })();
+
