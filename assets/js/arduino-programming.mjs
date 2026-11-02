@@ -30,6 +30,11 @@ const messages = {
   WRONG_CHIP: ["Vybraná deska nemá ATmega328P. Tento editor nahrává do klasického Arduino Nano / Shieldio RED.", "The selected board is not an ATmega328P. This editor uploads to classic Arduino Nano / Shieldio RED."],
   VERIFY_FAILED: ["Ověření zápisu selhalo. Program není potvrzený jako správně nahraný. Zkontroluj kabel a zkus nahrávání znovu.", "Flash verification failed. The upload is not confirmed. Check the cable and try uploading again."],
   STK_RESPONSE: ["Neočekávaná odpověď bootloaderu. Zkontroluj typ desky a bootloader.", "Unexpected bootloader response. Check your board and bootloader setting."],
+  usbIdle: ["USB · deska není vybraná", "USB · no board selected"],
+  usbSelected: ["USB · deska vybraná", "USB · board selected"],
+  usbUnavailable: ["USB · prohlížeč nepodporuje nahrávání", "USB · upload unavailable in this browser"],
+  bridgeIdle: ["mLink · experimentální", "mLink · experimental"],
+  bridgeSelected: ["mLink · port vybraný", "mLink · port selected"],
   mlinkReady: ["Safari: spusť mLink v počítači a klikni na Připojit desku. Toto napojení je zatím experimentální.", "Safari: start mLink on your computer, then click Connect board. This integration is experimental."],
   mlinkFinding: ["Hledám místní službu mLink…", "Looking for the local mLink service…"],
   mlinkChoose: ["mLink odpovídá. Vyber sériový port své desky níže.", "mLink is responding. Select your board's serial port below."],
@@ -46,11 +51,10 @@ const $ = id => document.getElementById(id);
 const supported = "serial" in navigator && window.isSecureContext;
 let selectedPort = null, busy = false, cached = null, worker = null, controller = null, disconnected = false;
 let bridge = null;
-let statusKey = supported ? "ready" : "mlinkReady", statusError = false, statusPercent = null;
+let statusKey = "ready", statusError = false, statusPercent = null;
 const transport = () => $("transportSelect").value;
-$("transportSelect").value = supported ? "direct" : "mlink";
-$("directTransportOption").disabled = !supported;
-$("mlinkHelp").hidden = supported;
+$("transportSelect").value = "direct";
+$("mlinkHelp").hidden = true;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
 const source = () => mode() === "code" ? sourceInput.value : window.SHIELDIO_EDITOR?.getCode() || "";
@@ -59,11 +63,16 @@ function paint() {
   $("uploadStatus").textContent = t(statusKey) + (statusPercent === null ? "" : ` · ${statusPercent} %`);
   $("uploadStatus").dataset.error = String(statusError);
   $("connectBoardBtn").textContent = t(selectedPort ? "disconnect" : "connect");
+  const direct = transport() === "direct";
+  $("boardConnection").textContent = t(direct ? selectedPort ? "usbSelected" : supported ? "usbIdle" : "usbUnavailable" : selectedPort ? "bridgeSelected" : "bridgeIdle");
+  $("boardConnection").dataset.connected = String(Boolean(selectedPort));
+  $("usbCompatibility").hidden = supported || !direct;
 }
 function status(key, error = false, percent = null) { statusKey = key; statusError = error; statusPercent = percent; paint(); }
 function setBusy(value) {
   busy = value;
-  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "transportSelect", "mlinkPortSelect", "refreshMlinkBtn", "blocksTab", "codeTab"]) $(id).disabled = value || (!supported && transport() === "direct" && (id === "uploadBtn" || id === "connectBoardBtn"));
+  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "transportSelect", "mlinkPortSelect", "refreshMlinkBtn", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn"]) $(id).disabled = value || (!supported && transport() === "direct" && (id === "uploadBtn" || id === "connectBoardBtn"));
+  $("downloadHexBtn").disabled = value || !cached || cached.source !== source();
   $("cancelBuildBtn").hidden = !value;
   blocksPanel.inert = value;
   codePanel.inert = value;
@@ -113,9 +122,11 @@ async function selectPort() {
     select.replaceChildren(new Option(t("portPlaceholder"), ""));
     for (const port of ports) select.add(new Option(port.path + (port.manufacturer ? " (" + port.manufacturer + ")" : ""), port.path));
     $("mlinkPorts").hidden = false;
+    $("mlinkPortSelect").focus();
     status(ports.length ? "mlinkChoose" : "mlinkEmpty");
     return false; // Explicit port selection is required before opening hardware.
   }
+  if (!supported) throw new Error("unsupported");
   selectedPort = await navigator.serial.requestPort();
   disconnected = false;
   status("connected");
@@ -197,7 +208,7 @@ function showError(error) {
   $("compilerDetails").open = Boolean(details);
 }
 async function run(upload) {
-  if (busy) return;
+  if (busy || (upload && !supported && transport() === "direct")) return;
   setBusy(true);
   controller = new AbortController();
   disconnected = false;
@@ -231,7 +242,7 @@ function download(text, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 $("downloadHexBtn").addEventListener("click", () => { if (cached?.source === source()) download(cached.result.hex, "shieldio_red.hex"); });
-$("downloadSourceBtn").addEventListener("click", () => download(sourceInput.value, "shieldio_red.ino"));
+$("downloadSourceBtn").addEventListener("click", () => download(source(), "shieldio_red.ino"));
 $("importSourceBtn").addEventListener("click", () => $("importSourceInput").click());
 $("importSourceInput").addEventListener("change", async event => {
   const file = event.target.files[0]; if (!file) return;
@@ -243,4 +254,5 @@ $("importSourceInput").addEventListener("change", async event => {
 });
 new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 setBusy(false); paint();
+
 

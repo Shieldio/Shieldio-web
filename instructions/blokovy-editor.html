@@ -11,7 +11,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102-safari">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102-studio">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -45,42 +45,65 @@
   <div class="wrap">
     <div class="fade-up">
       <h1 data-i18n="programming.heading">Naprogramuj svou desku.</h1>
-      <p class="lead" data-i18n="programming.intro">Poskládej bloky nebo napiš Arduino C++. Připoj Shieldio RED přes USB a nahraj program přímo tady. Bez mBlocku a Arduino IDE.</p>
+      <p class="lead" data-i18n="programming.intro">Poskládej bloky nebo napiš Arduino C++. Zkompiluj v prohlížeči a nahraj do RED přes USB.</p>
     </div>
   </div>
 </div>
 
 <section class="programming-studio" id="programmingStudio">
   <div class="wrap blockly-editor-wrap">
+    <div class="programming-workspace">
     <div class="programming-toolbar">
       <div class="programming-tabs" role="tablist" aria-label="Způsob programování" data-i18n-aria-label="programming.modes">
         <button type="button" role="tab" id="blocksTab" aria-selected="true" aria-controls="blocksPanel" data-i18n="programming.blocks">Bloky</button>
         <button type="button" role="tab" id="codeTab" aria-selected="false" aria-controls="arduinoCodePanel" tabindex="-1">Arduino C++</button>
       </div>
-      <div class="programming-device">
-        <label for="transportSelect" data-i18n="programming.connection">Připojení</label>
-        <select id="transportSelect" aria-describedby="mlinkHelp">
-          <option value="direct" id="directTransportOption" data-i18n="programming.directUsb">Přímé USB</option>
-          <option value="mlink" data-i18n="programming.mlinkTransport">mLink / Safari (experimentální)</option>
-        </select>
-        <label for="bootloaderSelect" data-i18n="programming.board">Deska</label>
-        <select id="bootloaderSelect">
-          <option value="115200">Nano / RED · Optiboot (115200)</option>
-          <option value="57600" data-i18n="programming.oldBootloader">Nano · starý bootloader (57600)</option>
-        </select>
-        <button type="button" id="connectBoardBtn" class="btn btn-ghost">Připojit desku</button>
-      </div>
       <div class="programming-run">
+        <button type="button" id="connectBoardBtn" class="btn btn-ghost">Připojit desku</button>
         <button type="button" id="compileBtn" class="btn btn-ghost" data-i18n="programming.compile">Zkompilovat</button>
-        <button type="button" id="uploadBtn" class="btn btn-primary" data-i18n="programming.upload">Nahrát do desky</button>
+        <button type="button" id="uploadBtn" class="btn btn-primary" data-i18n="programming.upload" aria-describedby="usbCompatibility">Nahrát do desky</button>
         <button type="button" id="cancelBuildBtn" class="btn btn-ghost" hidden data-i18n="programming.cancel">Zrušit</button>
       </div>
     </div>
-    <p id="mlinkHelp" class="programming-mlink-help" hidden data-i18n="programming.mlinkHelp">Nejdřív spusť samostatnou aplikaci mLink 2: <a href="mlink2://">Spustit mLink</a> · <a href="https://mblock.cc/pages/downloads" target="_blank" rel="noopener noreferrer">Stáhnout mLink od výrobce</a>. Pak zavři připojení k desce v mBlocku, klikni na Připojit desku a vyber port. Kompatibilita se Safari se teprve ověřuje.</p>
+    <div class="programming-boardbar">
+      <span class="programming-board-name">Shieldio RED <span>· ATmega328P</span></span>
+      <span id="boardConnection" class="programming-connection">USB · deska není vybraná</span>
+      <details id="connectionSettings" class="programming-settings">
+        <summary data-i18n="programming.settings">Nastavení připojení</summary>
+        <div class="programming-device">
+          <div class="programming-field">
+            <label for="transportSelect" data-i18n="programming.connection">Připojení</label>
+            <select id="transportSelect">
+              <option value="direct" id="directTransportOption" data-i18n="programming.directUsb">Přímé USB · bez pomocné aplikace</option>
+              <option value="mlink" data-i18n="programming.mlinkTransport">mLink 2 · experimentální alternativa</option>
+            </select>
+          </div>
+          <div class="programming-field">
+            <label for="bootloaderSelect" data-i18n="programming.bootloader">Bootloader desky</label>
+            <select id="bootloaderSelect">
+              <option value="115200">Nano / RED · Optiboot (115200)</option>
+              <option value="57600" data-i18n="programming.oldBootloader">Nano · starý bootloader (57600)</option>
+            </select>
+          </div>
+          <p id="mlinkHelp" class="programming-mlink-help" hidden data-i18n="programming.mlinkHelp">Volitelné napojení vyžaduje samostatnou aplikaci mLink 2. <a href="mlink2://">Spustit mLink</a> · <a href="https://mblock.cc/pages/downloads" target="_blank" rel="noopener noreferrer">Stáhnout od výrobce</a>. Zavři připojení v mBlocku a vyber port. Funkčnost v Safari se teprve ověřuje.</p>
+        </div>
+      </details>
+    </div>
+    <div id="usbCompatibility" class="programming-compatibility" hidden>
+      <strong data-i18n="programming.browserTitle">Tady můžeš programovat a kompilovat.</strong>
+      <p data-i18n="programming.browserHelp">Tento prohlížeč nepodporuje přímé USB nahrávání. Pro nahrání bez pomocné aplikace otevři editor v Chrome nebo Edge na počítači. Rozpracovaný program si přenes uložením bloků nebo souboru .ino.</p>
+    </div>
     <div id="mlinkPorts" class="programming-mlink-ports" hidden>
       <label for="mlinkPortSelect" data-i18n="programming.mlinkPort">Sériový port z mLinku</label>
       <select id="mlinkPortSelect"><option value="">Vyber port desky…</option></select>
       <button type="button" id="refreshMlinkBtn" class="blockly-toggle-code" data-i18n="programming.refreshPorts">Obnovit porty</button>
+    </div>
+    <div class="programming-filebar">
+      <span class="programming-file-label" data-i18n="programming.files">Program</span>
+      <button type="button" id="importSourceBtn" class="blockly-toggle-code" data-i18n="programming.import">Otevřít .ino</button>
+      <input type="file" id="importSourceInput" accept=".ino,.cpp,.txt,text/plain" hidden>
+      <button type="button" id="downloadSourceBtn" class="blockly-toggle-code" data-i18n="programming.saveSource">Uložit .ino</button>
+      <button type="button" id="downloadHexBtn" class="blockly-toggle-code" disabled data-i18n="programming.saveHex">Stáhnout .hex</button>
     </div>
     <div class="programming-status">
       <div class="programming-status-line">
@@ -94,8 +117,8 @@
       </details>
     </div>
     <div id="blocksPanel" role="tabpanel" aria-labelledby="blocksTab">
-    <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:4px;">
-      <p id="editorStatus" class="form-status" style="text-align:left; min-height:0; margin:0;"></p>
+    <div class="programming-block-actions">
+      <p id="editorStatus" class="form-status"></p>
       <div class="blockly-workspace-actions">
         <button type="button" id="saveBlocksBtn" class="blockly-toggle-code">Uložit bloky</button>
         <button type="button" id="loadBlocksBtn" class="blockly-toggle-code">Načíst bloky</button>
@@ -116,28 +139,21 @@
     </div>
     </div>
     <div id="arduinoCodePanel" role="tabpanel" aria-labelledby="codeTab" hidden>
-      <div class="programming-code-actions">
-        <button type="button" id="importSourceBtn" class="blockly-toggle-code" data-i18n="programming.import">Otevřít .ino</button>
-        <input type="file" id="importSourceInput" accept=".ino,.cpp,.txt,text/plain" hidden>
-        <button type="button" id="downloadSourceBtn" class="blockly-toggle-code" data-i18n="programming.saveSource">Uložit .ino</button>
-        <button type="button" id="downloadHexBtn" class="blockly-toggle-code" disabled data-i18n="programming.saveHex">Stáhnout .hex</button>
-      </div>
       <textarea id="arduinoSource" class="programming-source" aria-label="Arduino C++ kód" data-i18n-aria-label="programming.sourceLabel" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
     </div>
+    </div>
+    <details class="programming-guide">
+      <summary data-i18n="programming.guide">Jak připojit desku a pracovat s editorem</summary>
     <div class="programming-help">
       <div><h2 data-i18n="programming.helpUsbTitle">Připojení přes USB</h2><p data-i18n="programming.helpUsb">Použij datový USB kabel a Chrome nebo Edge na počítači. Vyber sériový port desky. Pokud se deska nehlásí, zavři sériový monitor v jiném programu a zkus druhý bootloader.</p></div>
       <div><h2 data-i18n="programming.helpBuildTitle">Kompilace v prohlížeči</h2><p data-i18n="programming.helpBuild">Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou Servo, Wire, SPI, Adafruit GFX a SSD1306. Další knihovny se zatím nedoinstalovávají.</p></div>
       <div><h2 data-i18n="programming.helpCodeTitle">Bloky a vlastní kód</h2><p data-i18n="programming.helpCode">Při prvním otevření Arduino C++ se převezme kód z bloků. Potom zůstávají obě verze oddělené. Vlastní kód se překládá jako C++: funkce deklaruj před prvním použitím. Bloky i kód si ukládej do souboru.</p></div>
     </div>
-  </div>
-</section>
-
-<section style="padding-top:0;">
-  <div class="wrap" style="max-width:700px;">
-    <div class="section-head" style="margin-bottom:0;">
-      <h2 style="font-size:20px;" data-i18n="programming.hardwareTitle">Piny odpovídají desce RED</h2>
+    <div class="programming-pins">
+      <h2 data-i18n="programming.hardwareTitle">Piny odpovídají desce RED</h2>
       <p data-i18n="programming.hardware">Bloky používají LED D5/D6, ultrazvuk D7/D8, servo D9, bzučák D10, tlačítka D11/D12 a OLED na A4/A5. Tlačítka mají externí pull-up rezistory, stisk je LOW. Nahrávání je určené pro klasické Nano s ATmega328P; varianty Nano Every, ESP32 nebo Nano 33 používají jiný procesor.</p>
     </div>
+    </details>
   </div>
 </section>
 
@@ -166,7 +182,7 @@
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
 <script src="../assets/js/shieldio-blocks.js"></script>
 <script src="../assets/js/blockly-editor.js"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-mlink-diagnostics"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-studio"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>
@@ -175,4 +191,5 @@
 <script src="../assets/js/lang.js"></script>
 </body>
 </html>
+
 

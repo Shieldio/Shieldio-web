@@ -5,7 +5,7 @@ Vstupní stránka: `/instructions/blokovy-editor.html`. Zachovává odkazy a pre
 ## Architektura
 
 - Blockly generuje C++ pro RED. Událost `shieldio:code-change` zneplatní předchozí kompilaci.
-- Záložka Arduino C++ obsahuje oddělený ruční zdroj, import `.ino` a export `.ino`/`.hex`.
+- Záložka Arduino C++ obsahuje oddělený ruční zdroj. Společná lišta importuje `.ino` do této záložky a exportuje `.ino` aktuálního režimu nebo `.hex` aktuální úspěšné kompilace v obou režimech. Nastavení připojení a návod jsou rozbalovací, editor má vlastní kompaktní ovládání.
 - Module Worker překládá skutečným AVR GCC přes WebAssembly. Zdroj neopouští prohlížeč; neexistuje vzdálené compile API, tajný token ani serverový proces. Ruční `.ino` se překládá jako C++, s přidaným `Arduino.h`, bez automatického generování prototypů funkcí.
 - `arduino-flasher.mjs` implementuje STK500v1 přes Web Serial: reset DTR/RTS, synchronizace, kontrola signatury ATmega328P, zápis stránek po 128 B, přečtení a porovnání každé stránky, opuštění bootloaderu a uvolnění USB portu.
 - Výběr portu nastává přímo z kliknutí před případnou kompilací. Samotný port se otevírá až pro nahrání a vždy se zavře.
@@ -33,12 +33,13 @@ Pro hardwarovou přejímku otevři stránku v desktop Chrome/Edge přes HTTPS ne
 
 ## Experimentální připojení mLink / Safari
 
-Druhý transport v `arduino-mlink.mjs` používá stejný STK500 nahrávač jako přímé USB. V prohlížeči bez Web Serial je výchozí volbou mLink, v podporovaných prohlížečích zůstává přímé USB.
+Druhý transport v `arduino-mlink.mjs` používá stejný STK500 nahrávač jako přímé USB. Výchozí volbou je vždy přímé USB bez pomocné aplikace. Pokud chybí Web Serial (např. Safari), editor ponechá kompilaci a export dostupné, vysvětlí omezení a zakáže připojení/nahrání. mLink se volí výhradně ručně v rozbalovacím nastavení; nic se automaticky nepřipojuje.
 
 Uživatel spustí mLink 2, klikne na Připojit desku, vybere port a potom klikne na Nahrát do desky. Vyhledání portů neotevírá sériové spojení. Web se nepokouší mLink sám spustit či instalovat. K místní službě se připojuje až po kliknutí, na pevné adrese http://127.0.0.1:55278.
 
 Protokol byl ověřen čtením oficiálního klienta mBlock web 5.6.1: https://ide.mblock.cc/js/index.15dfc4b8.js — Socket.IO, c2s_send / s2c_send, s2c_receive a serialport příkazy getDevices, open, write, set, close. Socket.IO client 2.5.0 (MIT) se načítá z připnuté adresy https://cdn.jsdelivr.net/npm/socket.io-client@2.5.0/dist/socket.io.slim.js až při připojování. Kód programu ani USB data se této CDN neposílají.
 
-Testy `node tests/arduino-mlink.test.mjs` používají stavový model mLinku a Nano pro oba bootloadery, binární přenos, DTR/RTS, kontrolu flash, odmítnutí jiného čipu, poškozený zápis, nedostupnou službu a cleanup při timeoutu. `node tests/arduino-programming-ui.test.mjs` ověřuje chování s modelem DOM a výchozí volbu bez Web Serial. Workflow `test-arduino.yml` je spouští bez síťových přenosů či připojeného hardwaru.
+Testy `node tests/arduino-mlink.test.mjs` používají stavový model mLinku a Nano pro oba bootloadery, binární přenos, DTR/RTS, kontrolu flash, odmítnutí jiného čipu, poškozený zápis, nedostupnou službu a cleanup při timeoutu. `node tests/arduino-programming-ui.test.mjs` ověřuje chování s modelem DOM a bezpečný výchozí režim bez Web Serial, explicitní zapnutí mLinku, kompilaci bez USB a export aktuálního režimu. Workflow `test-arduino.yml` je spouští bez síťových přenosů či připojeného hardwaru.
 
 Napojení je v UI výslovně experimentální. Místní služba při vývoji neodpovídala. Testy nepotvrzují fungování konkrétní verze Safari ani instalace mLinku. Safari může blokovat HTTPS → místní HTTP/WebSocket, mLink může omezovat origin nebo může být potřeba povolení místní sítě. Ochrany prohlížeče, certifikáty ani firewall se nemění. Pro úplné ověření je nutný Safari + běžící mLink 2 + fyzický RED. mLink je software Makeblock; toto napojení neznamená spolupráci či schválení výrobce.
+

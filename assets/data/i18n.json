@@ -3580,8 +3580,8 @@
     "en": "Program your board."
   },
   "programming.intro": {
-    "cs": "Poskládej bloky nebo napiš Arduino C++. Připoj Shieldio RED přes USB a nahraj program přímo tady. Bez mBlocku a Arduino IDE.",
-    "en": "Build with blocks or write Arduino C++. Connect Shieldio RED over USB and upload right here. No mBlock or Arduino IDE needed."
+    "cs": "Poskládej bloky nebo napiš Arduino C++. Zkompiluj v prohlížeči a nahraj do RED přes USB.",
+    "en": "Build with blocks or write Arduino C++. Compile in your browser and upload to RED over USB."
   },
   "programming.modes": {
     "cs": "Způsob programování",
@@ -3700,16 +3700,16 @@
     "en": "Connection"
   },
   "programming.directUsb": {
-    "cs": "Přímé USB",
-    "en": "Direct USB"
+    "cs": "Přímé USB · bez pomocné aplikace",
+    "en": "Direct USB · no helper app"
   },
   "programming.mlinkTransport": {
-    "cs": "mLink / Safari (experimentální)",
-    "en": "mLink / Safari (experimental)"
+    "cs": "mLink 2 · experimentální alternativa",
+    "en": "mLink 2 · experimental alternative"
   },
   "programming.mlinkHelp": {
-    "cs": "Nejdřív spusť samostatnou aplikaci mLink 2: <a href=\"mlink2://\">Spustit mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Stáhnout mLink od výrobce</a>. Pak zavři připojení k desce v mBlocku, klikni na Připojit desku a vyber port. Kompatibilita se Safari se teprve ověřuje.",
-    "en": "First start the separate mLink 2 app: <a href=\"mlink2://\">Launch mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Download mLink from the manufacturer</a>. Disconnect the board in mBlock, then click Connect board and select its port. Safari compatibility is still being tested."
+    "cs": "Volitelné napojení vyžaduje samostatnou aplikaci mLink 2. <a href=\"mlink2://\">Spustit mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Stáhnout od výrobce</a>. Zavři připojení v mBlocku a vyber port. Funkčnost v Safari se teprve ověřuje.",
+    "en": "This optional connection requires the separate mLink 2 app. <a href=\"mlink2://\">Launch mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Download from the manufacturer</a>. Disconnect the board in mBlock, then select its port. Safari compatibility is still being verified."
   },
   "programming.mlinkPort": {
     "cs": "Sériový port z mLinku",
@@ -3718,5 +3718,29 @@
   "programming.refreshPorts": {
     "cs": "Obnovit porty",
     "en": "Refresh ports"
+  },
+  "programming.settings": {
+    "cs": "Nastavení připojení",
+    "en": "Connection settings"
+  },
+  "programming.bootloader": {
+    "cs": "Bootloader desky",
+    "en": "Board bootloader"
+  },
+  "programming.browserTitle": {
+    "cs": "Tady můžeš programovat a kompilovat.",
+    "en": "You can program and compile here."
+  },
+  "programming.browserHelp": {
+    "cs": "Tento prohlížeč nepodporuje přímé USB nahrávání. Pro nahrání bez pomocné aplikace otevři editor v Chrome nebo Edge na počítači. Rozpracovaný program si přenes uložením bloků nebo souboru .ino.",
+    "en": "This browser does not support direct USB upload. To upload without a helper app, open the editor in desktop Chrome or Edge. Transfer your work by saving your blocks or an .ino file."
+  },
+  "programming.files": {
+    "cs": "Program",
+    "en": "Program"
+  },
+  "programming.guide": {
+    "cs": "Jak připojit desku a pracovat s editorem",
+    "en": "Connecting your board and using the editor"
   }
 }
