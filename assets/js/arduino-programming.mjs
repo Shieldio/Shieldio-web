@@ -1,5 +1,5 @@
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
-import { connectMlink } from "./arduino-mlink.mjs";
+import { connectMlink } from "./arduino-mlink.mjs?v=20261102-diagnostics";
 
 const messages = {
   ready: ["Poskládej program a klikni na Zkompilovat nebo Nahrát do desky.", "Build a program, then choose Compile or Upload to board."],
@@ -35,7 +35,7 @@ const messages = {
   mlinkChoose: ["mLink odpovídá. Vyber sériový port své desky níže.", "mLink is responding. Select your board's serial port below."],
   mlinkEmpty: ["mLink běží, ale nehlásí žádné porty. Připoj desku datovým USB kabelem a klikni na Obnovit porty.", "mLink is running but reports no ports. Connect a board with a USB data cable and click Refresh ports."],
   portPlaceholder: ["Vyber port desky…", "Select the board port…"],
-  MLINK_UNAVAILABLE: ["mLink se nepodařilo připojit. Spusť mLink, obnov porty a případně povol webu přístup k místní síti. Pokud Safari místní spojení blokuje, použij přímé USB v Chrome/Edge.", "Could not connect to mLink. Start mLink, refresh ports and allow this site local network access if requested. If Safari blocks the local connection, use direct USB in Chrome/Edge."],
+  MLINK_UNAVAILABLE: ["Web se nemůže spojit s mLinkem 2. Klikni na Spustit mLink. Pokud jej nemáš, stáhni ho od výrobce. Pak zkus připojení znovu.", "The site cannot reach mLink 2. Click Launch mLink. If it is not installed, download it from the manufacturer, then try connecting again."],
   MLINK_DISCONNECTED: ["Spojení s mLinkem se přerušilo. Spusť ho a vyber desku znovu.", "The mLink connection was lost. Restart it and select the board again."],
   MLINK_TIMEOUT: ["mLink neodpověděl včas. Zavři připojení k desce v mBlocku a zkus to znovu.", "mLink did not respond in time. Disconnect the board in mBlock and try again."],
   MLINK_PROTOCOL: ["Tato verze mLinku vrátila neznámou odpověď. Zkus aktuální mLink 2 nebo přímé USB v Chrome/Edge.", "This mLink version returned an unknown response. Try current mLink 2 or direct USB in Chrome/Edge."],
@@ -191,9 +191,10 @@ async function compile(signal) {
 function showError(error) {
   const key = disconnected ? "SERIAL_DISCONNECTED" : error.message === "CANCELLED" ? "cancelled" : messages[error.message] ? error.message : /\[cc1plus\].*error:/.test(error.message) ? "compileError" : "failure";
   status(key, key !== "cancelled");
-  $("compilerLog").textContent = messages[error.message] ? t(error.message) : (error.message || String(error));
-  $("compilerDetails").hidden = false;
-  $("compilerDetails").open = true;
+  const details = error.details || (messages[error.message] ? "" : (error.message || String(error)));
+  $("compilerLog").textContent = details;
+  $("compilerDetails").hidden = !details;
+  $("compilerDetails").open = Boolean(details);
 }
 async function run(upload) {
   if (busy) return;
@@ -242,3 +243,4 @@ $("importSourceInput").addEventListener("change", async event => {
 });
 new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 setBusy(false); paint();
+

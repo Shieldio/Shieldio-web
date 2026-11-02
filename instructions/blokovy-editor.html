@@ -76,7 +76,7 @@
         <button type="button" id="cancelBuildBtn" class="btn btn-ghost" hidden data-i18n="programming.cancel">Zrušit</button>
       </div>
     </div>
-    <p id="mlinkHelp" class="programming-mlink-help" hidden data-i18n="programming.mlinkHelp">Pro tento způsob musí v počítači běžet mLink 2. Zavři připojení k desce v mBlocku. Klikni na Připojit desku, vyber port a pak Nahrát do desky. <a href="https://mblock.cc/pages/downloads" target="_blank" rel="noopener noreferrer">Stáhnout mLink od výrobce</a>. Kompatibilita se Safari se teprve ověřuje.</p>
+    <p id="mlinkHelp" class="programming-mlink-help" hidden data-i18n="programming.mlinkHelp">Nejdřív spusť samostatnou aplikaci mLink 2: <a href="mlink2://">Spustit mLink</a> · <a href="https://mblock.cc/pages/downloads" target="_blank" rel="noopener noreferrer">Stáhnout mLink od výrobce</a>. Pak zavři připojení k desce v mBlocku, klikni na Připojit desku a vyber port. Kompatibilita se Safari se teprve ověřuje.</p>
     <div id="mlinkPorts" class="programming-mlink-ports" hidden>
       <label for="mlinkPortSelect" data-i18n="programming.mlinkPort">Sériový port z mLinku</label>
       <select id="mlinkPortSelect"><option value="">Vyber port desky…</option></select>
@@ -166,7 +166,7 @@
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
 <script src="../assets/js/shieldio-blocks.js"></script>
 <script src="../assets/js/blockly-editor.js"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-safari"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-mlink-diagnostics"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>
@@ -175,3 +175,4 @@
 <script src="../assets/js/lang.js"></script>
 </body>
 </html>
+

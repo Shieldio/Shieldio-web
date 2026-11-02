@@ -2,11 +2,12 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
+import { Blob } from 'node:buffer';
 const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',import.meta.url),'utf8');
 const source=(await fs.readFile(new URL('../assets/js/arduino-programming.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-programming.mjs"');
 const dictionary=JSON.parse(await fs.readFile(new URL('../assets/data/i18n.json',import.meta.url),'utf8'));
 for(const key of [...html.matchAll(/data-i18n(?:-title|-aria-label)?="([^"]+)"/g)].map(m=>m[1])) assert.ok(dictionary[key],key);
-function model({serial=false,unavailable=false}={}){
+function model({serial=false,unavailable=false,technical=''}={}){
   const elements=new Map();
   class Element{
     constructor(id){this.id=id;this.value='';this.hidden=false;this.disabled=false;this.dataset={};this.attributes={};this.listeners={};this.options=[];}
@@ -30,7 +31,7 @@ function model({serial=false,unavailable=false}={}){
     MutationObserver:class{observe(){}},Option:class{constructor(text,value){this.text=text;this.value=value;}},
     AbortController,URL,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,
     parseHex(){},flashNano(){throw Error('Discovery must not flash hardware');},
-    async connectMlink(){if(unavailable)throw Error('MLINK_UNAVAILABLE');bridge.socket.connected=true;return bridge;}
+    async connectMlink(){if(unavailable){const error=Error('MLINK_UNAVAILABLE');if(technical)error.details=technical;throw error;}bridge.socket.connected=true;return bridge;}
   });
   vm.runInContext(source,context,{filename:'arduino-programming.mjs'});
   return {get,counts:()=>({lists,portRequests,created})};
@@ -49,5 +50,14 @@ function model({serial=false,unavailable=false}={}){
 {
   const m=model({unavailable:true});await m.get('connectBoardBtn').listeners.click();
   assert.equal(m.get('uploadStatus').dataset.error,'true');assert.match(m.get('uploadStatus').textContent,/mLink/);assert.equal(m.get('connectBoardBtn').disabled,false);
+  assert.equal(m.get('compilerDetails').hidden,true,'Do not repeat the generic status as technical details');
 }
 console.log('UI: Safari fallback, explicit port choice, native USB preservation, failed helper recovery and i18n passed.');
+{
+  const m=model({unavailable:true,technical:'Endpoint: http://127.0.0.1:55278/socket.io/\nError: xhr poll error'});
+  await m.get('connectBoardBtn').listeners.click();
+  assert.equal(m.get('compilerDetails').hidden,false);
+  assert.match(m.get('compilerLog').textContent,/xhr poll error/);
+  assert.notEqual(m.get('compilerLog').textContent,m.get('uploadStatus').textContent);
+}
+

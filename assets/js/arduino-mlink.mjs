@@ -127,9 +127,22 @@ export async function connectMlink({ ioFactory, timeout = 5000, signal } = {}) {
     await new Promise((resolve, reject) => {
       const cleanup = () => { clearTimeout(timer); socket.off("connect", connected); socket.off("connect_error", failed); signal?.removeEventListener("abort", cancelled); };
       const connected = () => { cleanup(); resolve(); };
-      const failed = () => { cleanup(); reject(new Error("MLINK_UNAVAILABLE")); };
+      const failed = reason => {
+        cleanup();
+        const error = new Error("MLINK_UNAVAILABLE");
+        const description = reason?.description;
+        const status = typeof description === "number" ? description : description?.status;
+        error.details = [
+          "Endpoint: " + MLINK_URL + "/socket.io/",
+          "Stage: Socket.IO connection",
+          "Error: " + String(reason?.message || "connection failed").slice(0, 240),
+          reason?.type ? "Type: " + String(reason.type).slice(0, 80) : "",
+          Number.isFinite(status) ? "HTTP status: " + status : "",
+        ].filter(Boolean).join("\n");
+        reject(error);
+      };
       const cancelled = () => { cleanup(); reject(new Error("CANCELLED")); };
-      const timer = setTimeout(failed, timeout);
+      const timer = setTimeout(() => failed(new Error("connection timeout")), timeout);
       socket.on("connect", connected); socket.on("connect_error", failed);
       signal?.addEventListener("abort", cancelled, { once: true });
       socket.open();
@@ -138,3 +151,4 @@ export async function connectMlink({ ioFactory, timeout = 5000, signal } = {}) {
     return client;
   } catch (error) { client.close(); throw error; }
 }
+

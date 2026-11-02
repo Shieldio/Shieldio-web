@@ -53,7 +53,9 @@ export async function runMlinkTests(){
     assert.ok(!progress.includes('done'));assert.equal(socket.calls.at(-1).cmd,'close');client.close();passed++;
   }
   {
-    const {socket,ioFactory}=factory({unavailable:true});await assert.rejects(connectMlink({ioFactory}),/MLINK_UNAVAILABLE/);assert.equal(socket.connected,false);passed++;
+    const {socket,ioFactory}=factory({unavailable:true});await assert.rejects(connectMlink({ioFactory}),error=>{
+      assert.equal(error.message,'MLINK_UNAVAILABLE');assert.match(error.details,/127\.0\.0\.1:55278/);assert.match(error.details,/refused/);return true;
+    });assert.equal(socket.connected,false);passed++;
   }
   {
     const {ioFactory}=factory({silentCommand:'getDevices'});const client=await connectMlink({ioFactory,timeout:20});await assert.rejects(client.listPorts(),/MLINK_TIMEOUT/);assert.equal(client.pending.size,0);client.close();passed++;
@@ -67,3 +69,4 @@ export async function runMlinkTests(){
   return {passed};
 }
 if(typeof process!=='undefined'&&process.argv?.[1]&&import.meta.url.endsWith(process.argv[1]))console.log(await runMlinkTests());
+

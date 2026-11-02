@@ -3708,8 +3708,8 @@
     "en": "mLink / Safari (experimental)"
   },
   "programming.mlinkHelp": {
-    "cs": "Pro tento způsob musí v počítači běžet mLink 2. Zavři připojení k desce v mBlocku. Klikni na Připojit desku, vyber port a pak Nahrát do desky. <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Stáhnout mLink od výrobce</a>. Kompatibilita se Safari se teprve ověřuje.",
-    "en": "This connection needs mLink 2 running on your computer. Disconnect the board in mBlock. Click Connect board, select a port, then Upload to board. <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Download mLink from the manufacturer</a>. Safari compatibility is still being tested."
+    "cs": "Nejdřív spusť samostatnou aplikaci mLink 2: <a href=\"mlink2://\">Spustit mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Stáhnout mLink od výrobce</a>. Pak zavři připojení k desce v mBlocku, klikni na Připojit desku a vyber port. Kompatibilita se Safari se teprve ověřuje.",
+    "en": "First start the separate mLink 2 app: <a href=\"mlink2://\">Launch mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Download mLink from the manufacturer</a>. Disconnect the board in mBlock, then click Connect board and select its port. Safari compatibility is still being tested."
   },
   "programming.mlinkPort": {
     "cs": "Sériový port z mLinku",
