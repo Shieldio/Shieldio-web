@@ -23,15 +23,13 @@
 .programming-settings summary { cursor: pointer; color: var(--ink-soft); min-height: 28px; padding: 5px 0; }
 .programming-settings[open] { flex: 1 0 100%; margin-left: 0; }
 .programming-settings[open] summary { color: var(--ink); }
-.programming-device { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding: 12px 0 4px; max-width: 850px; }
+.programming-device { display: grid; grid-template-columns: minmax(0, 420px); gap: 14px; padding: 12px 0 4px; }
 .programming-field { display: grid; gap: 7px; }
 .programming-field label { color: var(--ink-soft); font-size: 12px; }
-.programming-device select, .programming-mlink-ports select { min-width: 0; max-width: 100%; min-height: 42px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); padding: 9px; font: inherit; font-size: 13px; }
-.programming-mlink-help { grid-column: 1 / -1; margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.programming-device select { min-width: 0; max-width: 100%; min-height: 42px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); padding: 9px; font: inherit; font-size: 13px; }
 .programming-compatibility { margin: 14px 0 0; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--paper-2); border-radius: 0 8px 8px 0; font-size: 13px; }
 .programming-compatibility strong { font-weight: 600; }
 .programming-compatibility p { margin: 5px 0 0; max-width: 1000px; line-height: 1.6; color: var(--ink-soft); }
-.programming-mlink-ports { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 14px; font-size: 13px; }
 .programming-filebar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 12px 0; }
 .programming-file-label { color: var(--ink-soft); font-size: 12px; margin-right: 8px; }
 .programming-studio .blockly-toggle-code { font: inherit; font-size: 12px; min-height: 36px; padding: 7px 11px; border-radius: 7px; }
@@ -79,3 +77,4 @@
   .programming-studio .blockly-workspace-actions { gap: 5px; }
   .programming-studio :is(#blocklyDiv, .blockly-code-panel, .programming-source) { height: 420px; }
 }
+

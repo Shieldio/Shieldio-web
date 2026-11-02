@@ -3695,33 +3695,9 @@
     "cs": "Navazující experiment s otočným senzorem. Vyžaduje držák a vodiče; fotografie ukazuje senzor, ne hotový radar.",
     "en": "A follow-up experiment with a rotating sensor. It needs a mount and wires; the photo shows the sensor, not a finished radar."
   },
-  "programming.connection": {
-    "cs": "Připojení",
-    "en": "Connection"
-  },
-  "programming.directUsb": {
-    "cs": "Přímé USB · bez pomocné aplikace",
-    "en": "Direct USB · no helper app"
-  },
-  "programming.mlinkTransport": {
-    "cs": "mLink 2 · experimentální alternativa",
-    "en": "mLink 2 · experimental alternative"
-  },
-  "programming.mlinkHelp": {
-    "cs": "Volitelné napojení vyžaduje samostatnou aplikaci mLink 2. <a href=\"mlink2://\">Spustit mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Stáhnout od výrobce</a>. Zavři připojení v mBlocku a vyber port. Funkčnost v Safari se teprve ověřuje.",
-    "en": "This optional connection requires the separate mLink 2 app. <a href=\"mlink2://\">Launch mLink</a> · <a href=\"https://mblock.cc/pages/downloads\" target=\"_blank\" rel=\"noopener noreferrer\">Download from the manufacturer</a>. Disconnect the board in mBlock, then select its port. Safari compatibility is still being verified."
-  },
-  "programming.mlinkPort": {
-    "cs": "Sériový port z mLinku",
-    "en": "Serial port from mLink"
-  },
-  "programming.refreshPorts": {
-    "cs": "Obnovit porty",
-    "en": "Refresh ports"
-  },
   "programming.settings": {
-    "cs": "Nastavení připojení",
-    "en": "Connection settings"
+    "cs": "Nastavení desky",
+    "en": "Board settings"
   },
   "programming.bootloader": {
     "cs": "Bootloader desky",

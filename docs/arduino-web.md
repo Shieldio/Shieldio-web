@@ -31,15 +31,10 @@ GCC a binutils jsou GPLv3+, knihovní objekty mají licence svých upstream proj
 
 Pro hardwarovou přejímku otevři stránku v desktop Chrome/Edge přes HTTPS nebo localhost, připoj RED, vyber port a nahraj blikání LED D5. Ověř oba bootloadery na příslušných deskách, servo, OLED a chování při vytažení USB. Cloudový test ani mock protokolu nenahrazuje tento fyzický test.
 
-## Experimentální připojení mLink / Safari
+## Podpora prohlížečů
 
-Druhý transport v `arduino-mlink.mjs` používá stejný STK500 nahrávač jako přímé USB. Výchozí volbou je vždy přímé USB bez pomocné aplikace. Pokud chybí Web Serial (např. Safari), editor ponechá kompilaci a export dostupné, vysvětlí omezení a zakáže připojení/nahrání. mLink se volí výhradně ručně v rozbalovacím nastavení; nic se automaticky nepřipojuje.
+Editor používá výhradně přímé USB přes Web Serial, bez místního pomocného programu. Dostupnost ověřuje podle `navigator.serial` a zabezpečeného kontextu. Pro USB nahrávání používej desktop Chrome nebo Edge.
 
-Uživatel spustí mLink 2, klikne na Připojit desku, vybere port a potom klikne na Nahrát do desky. Vyhledání portů neotevírá sériové spojení. Web se nepokouší mLink sám spustit či instalovat. K místní službě se připojuje až po kliknutí, na pevné adrese http://127.0.0.1:55278.
+V Safari není Web Serial dostupné. Bloky, Arduino C++, kompilace a export fungují nezávisle na USB transportu; ovládání připojení a nahrávání je zakázané a UI vysvětluje, jak program přenést do podporovaného prohlížeče. Přepínač transportu, lokální síťové spojení i klientské knihovny pro pomocníka byly odstraněny. Žádné compile API ani místní služba nejsou potřeba.
 
-Protokol byl ověřen čtením oficiálního klienta mBlock web 5.6.1: https://ide.mblock.cc/js/index.15dfc4b8.js — Socket.IO, c2s_send / s2c_send, s2c_receive a serialport příkazy getDevices, open, write, set, close. Socket.IO client 2.5.0 (MIT) se načítá z připnuté adresy https://cdn.jsdelivr.net/npm/socket.io-client@2.5.0/dist/socket.io.slim.js až při připojování. Kód programu ani USB data se této CDN neposílají.
-
-Testy `node tests/arduino-mlink.test.mjs` používají stavový model mLinku a Nano pro oba bootloadery, binární přenos, DTR/RTS, kontrolu flash, odmítnutí jiného čipu, poškozený zápis, nedostupnou službu a cleanup při timeoutu. `node tests/arduino-programming-ui.test.mjs` ověřuje chování s modelem DOM a bezpečný výchozí režim bez Web Serial, explicitní zapnutí mLinku, kompilaci bez USB a export aktuálního režimu. Workflow `test-arduino.yml` je spouští bez síťových přenosů či připojeného hardwaru.
-
-Napojení je v UI výslovně experimentální. Místní služba při vývoji neodpovídala. Testy nepotvrzují fungování konkrétní verze Safari ani instalace mLinku. Safari může blokovat HTTPS → místní HTTP/WebSocket, mLink může omezovat origin nebo může být potřeba povolení místní sítě. Ochrany prohlížeče, certifikáty ani firewall se nemění. Pro úplné ověření je nutný Safari + běžící mLink 2 + fyzický RED. mLink je software Makeblock; toto napojení neznamená spolupráci či schválení výrobce.
-
+Test `node tests/arduino-programming-ui.test.mjs` ověřuje dostupnost kompilace/exportu bez Web Serial, výběr a odpojení přímého USB, zrušení výběru portu, zotavení po chybě, ochranu proti exportu neaktuálního HEX a přenos zdrojového kódu. Workflow `test-arduino.yml` spouští UI i protokolové testy bez sítě a připojeného hardwaru.

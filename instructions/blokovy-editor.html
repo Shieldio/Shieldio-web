@@ -11,7 +11,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102-studio">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102-usb-only">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -69,15 +69,8 @@
       <span class="programming-board-name">Shieldio RED <span>· ATmega328P</span></span>
       <span id="boardConnection" class="programming-connection">USB · deska není vybraná</span>
       <details id="connectionSettings" class="programming-settings">
-        <summary data-i18n="programming.settings">Nastavení připojení</summary>
+        <summary data-i18n="programming.settings">Nastavení desky</summary>
         <div class="programming-device">
-          <div class="programming-field">
-            <label for="transportSelect" data-i18n="programming.connection">Připojení</label>
-            <select id="transportSelect">
-              <option value="direct" id="directTransportOption" data-i18n="programming.directUsb">Přímé USB · bez pomocné aplikace</option>
-              <option value="mlink" data-i18n="programming.mlinkTransport">mLink 2 · experimentální alternativa</option>
-            </select>
-          </div>
           <div class="programming-field">
             <label for="bootloaderSelect" data-i18n="programming.bootloader">Bootloader desky</label>
             <select id="bootloaderSelect">
@@ -85,18 +78,12 @@
               <option value="57600" data-i18n="programming.oldBootloader">Nano · starý bootloader (57600)</option>
             </select>
           </div>
-          <p id="mlinkHelp" class="programming-mlink-help" hidden data-i18n="programming.mlinkHelp">Volitelné napojení vyžaduje samostatnou aplikaci mLink 2. <a href="mlink2://">Spustit mLink</a> · <a href="https://mblock.cc/pages/downloads" target="_blank" rel="noopener noreferrer">Stáhnout od výrobce</a>. Zavři připojení v mBlocku a vyber port. Funkčnost v Safari se teprve ověřuje.</p>
         </div>
       </details>
     </div>
     <div id="usbCompatibility" class="programming-compatibility" hidden>
       <strong data-i18n="programming.browserTitle">Tady můžeš programovat a kompilovat.</strong>
       <p data-i18n="programming.browserHelp">Tento prohlížeč nepodporuje přímé USB nahrávání. Pro nahrání bez pomocné aplikace otevři editor v Chrome nebo Edge na počítači. Rozpracovaný program si přenes uložením bloků nebo souboru .ino.</p>
-    </div>
-    <div id="mlinkPorts" class="programming-mlink-ports" hidden>
-      <label for="mlinkPortSelect" data-i18n="programming.mlinkPort">Sériový port z mLinku</label>
-      <select id="mlinkPortSelect"><option value="">Vyber port desky…</option></select>
-      <button type="button" id="refreshMlinkBtn" class="blockly-toggle-code" data-i18n="programming.refreshPorts">Obnovit porty</button>
     </div>
     <div class="programming-filebar">
       <span class="programming-file-label" data-i18n="programming.files">Program</span>
@@ -182,7 +169,7 @@
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
 <script src="../assets/js/shieldio-blocks.js"></script>
 <script src="../assets/js/blockly-editor.js"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-studio"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102-usb-only"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>
@@ -191,5 +178,6 @@
 <script src="../assets/js/lang.js"></script>
 </body>
 </html>
+
 
 

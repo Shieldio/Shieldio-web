@@ -1,7 +1,7 @@
 name: Test Arduino programming
 on:
   push:
-    branches: [main, codex/safari-mlink-20261102]
+    branches: [main, codex/programming-usb-20261102]
     paths:
       - 'assets/js/arduino-*.mjs'
       - 'tests/arduino-*.mjs'
@@ -24,7 +24,6 @@ jobs:
         with:
           node-version: '22'
       - run: node --check assets/js/arduino-programming.mjs
-      - run: node --check assets/js/arduino-mlink.mjs
       - run: node --test tests/arduino-flasher.test.mjs
-      - run: node tests/arduino-mlink.test.mjs
       - run: node tests/arduino-programming-ui.test.mjs
+
