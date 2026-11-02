@@ -2144,3 +2144,6 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
   body.print-worksheet .answer-lines{ background:repeating-linear-gradient(to bottom, transparent 0 27px, #bbb 28px); }
   .no-print{ display:none !important; }
 }
+
+/* Assembly reference images are illustrative; source photos remain accessible in the part dialog. */
+.guide-photo-note{display:block;font-size:12px;line-height:1.45;color:var(--ink-soft);padding:5px 9px 9px}.term-modal-photo + .guide-photo-note{padding:0;margin:8px 0 16px}.guide-photo-note a{color:var(--accent-deep);text-underline-offset:3px}

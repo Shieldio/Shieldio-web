@@ -359,6 +359,7 @@
     const cards = parts.map(p => `
       <div class="guide-part-card">
         <div class="guide-part-photo">${photoOrPlaceholder(p.photo, t(p.name))}</div>
+        ${p.originalPhoto ? `<small class="guide-photo-note">${document.documentElement.lang === "en" ? "Illustrative photo · verify value with a multimeter" : "Ilustrační foto · hodnotu ověř multimetrem"}</small>` : ""}
         <div class="guide-part-name">${t(p.name)}
           <button type="button" class="guide-info-btn" data-part="${p.id}" aria-label="${t(p.name)}">?</button>
         </div>
@@ -714,6 +715,7 @@
     if (!part) return;
     openModal(`
       <div class="term-modal-photo">${photoOrPlaceholder(part.photo, t(part.name))}</div>
+      ${part.originalPhoto ? `<p class="guide-photo-note">${document.documentElement.lang === "en" ? "Illustrative component photo. Verify the resistor value with a multimeter or labeled bag; bands in an edited image are not a reliable reference." : "Ilustrační fotografie součástky. Hodnotu ověř multimetrem nebo podle sáčku; proužky na upraveném snímku nejsou spolehlivou referencí."} <a href="${part.originalPhoto}" target="_blank" rel="noopener">${document.documentElement.lang === "en" ? "View original photo ↗" : "Původní fotografie ↗"}</a></p>` : ""}
       <h3>${t(part.name)}</h3>
       <p><b>${ui("part_what")}</b> ${t(part.what)}</p>
       <p><b>${ui("part_how")}</b> ${t(part.how)}</p>

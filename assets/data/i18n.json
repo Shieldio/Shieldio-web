@@ -404,16 +404,16 @@
     "en": "Parking sensor"
   },
   "home.projects.item2_p": {
-    "cs": "Žáci během 20 až 30 minut vyřeší problém s parkováním pomocí ultrazvukového senzoru a pochopí měření vzdálenosti a podmínky.",
-    "en": "Within 20 to 30 minutes, students solve a parking problem using an ultrasonic sensor, and understand distance measurement and conditions."
+    "cs": "Ultrazvukový senzor měří vzdálenost od překážky a program podle ní mění odezvu. Fotografie ukazuje použitý senzor.",
+    "en": "The ultrasonic sensor measures distance to an obstacle, and the program changes its response. The photo shows the sensor used."
   },
   "home.projects.item3_h3": {
     "cs": "Bezdotykový nástroj",
     "en": "Touchless instrument"
   },
   "home.projects.item3_p": {
-    "cs": "Žáci během 20 až 30 minut vytvoří bezdotykový hudební nástroj, který podle vzdálenosti ruky mění výšku tónu, a pochopí mapování hodnot mezi vstupem a výstupem.",
-    "en": "Within 20 to 30 minutes, students build a touchless musical instrument that changes pitch based on hand distance, and understand mapping values between input and output."
+    "cs": "Vzdálenost ruky mění výšku tónu bzučáku. Fotografie ukazuje použitý bzučák, ne hotový projekt.",
+    "en": "Hand distance changes the pitch of a buzzer. The photo shows the buzzer used, not a finished project."
   },
   "home.projects.cta": {
     "cs": "Zobrazit všechny projekty RED",
@@ -908,40 +908,40 @@
     "en": "What you can build"
   },
   "red.projects_h2": {
-    "cs": "Jedna deska, čtyři různé projekty.",
-    "en": "One board, four different projects."
+    "cs": "Jedna deska, šest různých projektů.",
+    "en": "One board, six different projects."
   },
   "red.project1_h3": {
     "cs": "Interaktivní závora",
     "en": "Interactive barrier"
   },
   "red.project1_p": {
-    "cs": "Se sestavenou deskou žáci během jedné 45minutové hodiny naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.",
-    "en": "With an assembled board, students use one 45-minute lesson to program a servo based on object distance and connect an input to an output."
+    "cs": "Senzor změří vzdálenost modelu auta a servo zvedne závoru. Fotografie ukazuje skutečný prototyp.",
+    "en": "The sensor measures the model car’s distance, then a servo lifts the barrier. The photo shows an actual prototype."
   },
   "red.project2_h3": {
     "cs": "Parkovací asistent",
     "en": "Parking assistant"
   },
   "red.project2_p": {
-    "cs": "Žáci během 20 až 30 minut vyřeší problém s parkováním pomocí ultrazvukového senzoru a pochopí měření vzdálenosti a podmínky.",
-    "en": "Within 20 to 30 minutes, students solve a parking problem using an ultrasonic sensor, and understand distance measurement and conditions."
+    "cs": "Ultrazvukový senzor měří vzdálenost od překážky; program podle ní řídí odezvu. Na fotografii je samotný senzor, ne hotový asistent.",
+    "en": "An ultrasonic sensor measures distance to an obstacle and the program responds. The photo shows the sensor, not a finished assistant."
   },
   "red.project3_h3": {
     "cs": "Theremin",
     "en": "Theremin"
   },
   "red.project3_p": {
-    "cs": "Žáci během 20 až 30 minut vytvoří bezdotykový hudební nástroj, který podle vzdálenosti ruky mění výšku tónu, a pochopí mapování hodnot mezi vstupem a výstupem.",
-    "en": "Within 20 to 30 minutes, students build a touchless musical instrument that changes pitch based on hand distance, and understand mapping values between input and output."
+    "cs": "Vzdálenost ruky se promění ve výšku tónu. Fotografie ukazuje použitý bzučák, ne hotový nástroj.",
+    "en": "Hand distance becomes pitch. The photo shows the buzzer used, not a finished instrument."
   },
   "red.project4_h3": {
     "cs": "Časovač",
     "en": "Timer"
   },
   "red.project4_p": {
-    "cs": "Žáci během 20 až 30 minut naprogramují časovač, který měří dobu podle pohybu před senzorem, a pochopí práci s časem a podmínkami.",
-    "en": "Within 20 to 30 minutes, students program a timer that measures duration based on motion in front of the sensor, and understand working with time and conditions."
+    "cs": "Pohyb před senzorem, čas a podmínky v jednom malém programu. Fotografie ukazuje detail desky.",
+    "en": "Motion, timing and conditions in one small program. The photo shows a board detail."
   },
   "red.projects_cta": {
     "cs": "Zobrazit návody k projektům",
@@ -3670,5 +3670,29 @@
   "programming.nav": {
     "cs": "Programování",
     "en": "Programming"
+  },
+  "ref.photo.illustrative": {
+    "cs": "Fotografie rezistorů v přehledu součástek jsou upravené ilustrační záběry. Hodnotu a barevné proužky ověř multimetrem nebo podle označeného sáčku; v detailu každého rezistoru najdeš odkaz na původní fotografii.",
+    "en": "The resistor images in the component overview are edited illustrative photos. Verify the value with a multimeter or labeled bag; each resistor detail links to the original photo."
+  },
+  "ref.photo.illustrative.table": {
+    "cs": "Fotografie rezistorů v přehledu součástek jsou upravené ilustrační záběry. Hodnotu a barevné proužky ověř multimetrem nebo podle označeného sáčku; kliknutím na snímek v tabulce otevřeš původní fotografii.",
+    "en": "The resistor images are edited illustrative photos. Verify values with a multimeter or labeled bag; click a table image to see the original photo."
+  },
+  "red.project5_h3": {
+    "cs": "Digitální metr",
+    "en": "Digital distance meter"
+  },
+  "red.project5_p": {
+    "cs": "Doba letu zvuku se přepočítá na vzdálenost v centimetrech a zobrazí na OLED. Fotografie ukazuje použitý displej.",
+    "en": "Sound travel time is converted to centimeters and shown on the OLED. The photo shows the display used."
+  },
+  "red.project6_h3": {
+    "cs": "Ultrazvukový radar",
+    "en": "Ultrasonic radar"
+  },
+  "red.project6_p": {
+    "cs": "Navazující experiment s otočným senzorem. Vyžaduje držák a vodiče; fotografie ukazuje senzor, ne hotový radar.",
+    "en": "A follow-up experiment with a rotating sensor. It needs a mount and wires; the photo shows the sensor, not a finished radar."
   }
 }
