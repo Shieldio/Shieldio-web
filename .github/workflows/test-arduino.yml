@@ -29,10 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
-      BLOCKLY_TEST_DIR: ${{ runner.temp }}/shieldio-test-deps/node_modules/blockly
-      XMLDOM_TEST_PACKAGE: ${{ runner.temp }}/shieldio-test-deps/node_modules/@xmldom/xmldom/lib/index.js
-      BLOCKLY_FIXTURES: ${{ runner.temp }}/shieldio-block-fixtures.json
-      AVR_TOOLCHAIN_DIR: ${{ runner.temp }}/shieldio-avr/package
+      BLOCKLY_TEST_DIR: /tmp/shieldio-test-deps/node_modules/blockly
+      XMLDOM_TEST_PACKAGE: /tmp/shieldio-test-deps/node_modules/@xmldom/xmldom/lib/index.js
+      BLOCKLY_FIXTURES: /tmp/shieldio-block-fixtures.json
+      AVR_TOOLCHAIN_DIR: /tmp/shieldio-avr/package
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -47,12 +47,12 @@ jobs:
       - run: node tests/arduino-libraries.test.mjs
       - run: node tests/arduino-compiler-worker.test.mjs
       - name: Install headless Blockly test dependencies
-        run: npm install --prefix "$RUNNER_TEMP/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11
+        run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11
       - run: node tests/arduino-blocks.test.mjs
       - name: Download pinned AVR toolchain for real compilation tests
-        run: curl --fail --location --retry 2 https://registry.npmjs.org/@horang-corp/avr-gcc-wasm/-/avr-gcc-wasm-0.2.0.tgz --output "$RUNNER_TEMP/shieldio-avr.tgz"
+        run: curl --fail --location --retry 2 https://registry.npmjs.org/@horang-corp/avr-gcc-wasm/-/avr-gcc-wasm-0.2.0.tgz --output "/tmp/shieldio-avr.tgz"
       - name: Extract test compiler
         run: |
-          mkdir -p "$RUNNER_TEMP/shieldio-avr"
-          tar -xzf "$RUNNER_TEMP/shieldio-avr.tgz" -C "$RUNNER_TEMP/shieldio-avr"
+          mkdir -p "/tmp/shieldio-avr"
+          tar -xzf "/tmp/shieldio-avr.tgz" -C "/tmp/shieldio-avr"
       - run: node --test tests/arduino-compiler.test.mjs
