@@ -3570,5 +3570,105 @@
   "ref.assembly.fast": {
     "cs": "<b>Už umíš pájet?</b> Otevři <a href=\"../prehled/index.html\">přehled součástek, hodnot a zapojení</a> a sestav desku podle tabulky. Přehled rozlišuje revizi V3 a ukazuje polaritu i fotografie.",
     "en": "<b>Already know how to solder?</b> Open the <a href=\"../prehled/index.html\">parts, values and wiring reference</a> and build from the table. The reference identifies the V3 revision and shows polarity and photos."
+  },
+  "programming.title": {
+    "cs": "Programování RED | Shieldio",
+    "en": "Program RED | Shieldio"
+  },
+  "programming.heading": {
+    "cs": "Naprogramuj svou desku.",
+    "en": "Program your board."
+  },
+  "programming.intro": {
+    "cs": "Poskládej bloky nebo napiš Arduino C++. Připoj Shieldio RED přes USB a nahraj program přímo tady. Bez mBlocku a Arduino IDE.",
+    "en": "Build with blocks or write Arduino C++. Connect Shieldio RED over USB and upload right here. No mBlock or Arduino IDE needed."
+  },
+  "programming.modes": {
+    "cs": "Způsob programování",
+    "en": "Programming mode"
+  },
+  "programming.blocks": {
+    "cs": "Bloky",
+    "en": "Blocks"
+  },
+  "programming.board": {
+    "cs": "Deska",
+    "en": "Board"
+  },
+  "programming.oldBootloader": {
+    "cs": "Nano · starý bootloader (57600)",
+    "en": "Nano · old bootloader (57600)"
+  },
+  "programming.compile": {
+    "cs": "Zkompilovat",
+    "en": "Compile"
+  },
+  "programming.upload": {
+    "cs": "Nahrát do desky",
+    "en": "Upload to board"
+  },
+  "programming.cancel": {
+    "cs": "Zrušit",
+    "en": "Cancel"
+  },
+  "programming.progress": {
+    "cs": "Průběh nahrávání",
+    "en": "Upload progress"
+  },
+  "programming.details": {
+    "cs": "Podrobnosti kompilace a nahrávání",
+    "en": "Compiler and upload details"
+  },
+  "programming.import": {
+    "cs": "Otevřít .ino",
+    "en": "Open .ino"
+  },
+  "programming.saveSource": {
+    "cs": "Uložit .ino",
+    "en": "Save .ino"
+  },
+  "programming.saveHex": {
+    "cs": "Stáhnout .hex",
+    "en": "Download .hex"
+  },
+  "programming.sourceLabel": {
+    "cs": "Arduino C++ kód",
+    "en": "Arduino C++ source"
+  },
+  "programming.helpUsbTitle": {
+    "cs": "Připojení přes USB",
+    "en": "USB connection"
+  },
+  "programming.helpUsb": {
+    "cs": "Použij datový USB kabel a Chrome nebo Edge na počítači. Vyber sériový port desky. Pokud se deska nehlásí, zavři sériový monitor v jiném programu a zkus druhý bootloader.",
+    "en": "Use a USB data cable and desktop Chrome or Edge. Select the board’s serial port. If the board does not respond, close any other Serial Monitor and try the other bootloader."
+  },
+  "programming.helpBuildTitle": {
+    "cs": "Kompilace v prohlížeči",
+    "en": "Compile in your browser"
+  },
+  "programming.helpBuild": {
+    "cs": "Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou Servo, Wire, SPI, Adafruit GFX a SSD1306. Další knihovny se zatím nedoinstalovávají.",
+    "en": "The compiler and libraries download on first use. Your source stays on your computer. Servo, Wire, SPI, Adafruit GFX and SSD1306 are included. Installing additional libraries is not supported yet."
+  },
+  "programming.helpCodeTitle": {
+    "cs": "Bloky a vlastní kód",
+    "en": "Blocks and your own code"
+  },
+  "programming.helpCode": {
+    "cs": "Při prvním otevření Arduino C++ se převezme kód z bloků. Potom zůstávají obě verze oddělené. Vlastní kód se překládá jako C++: funkce deklaruj před prvním použitím. Bloky i kód si ukládej do souboru.",
+    "en": "The first time you open Arduino C++, it copies the code from your blocks. After that, the two versions stay separate. Custom code compiles as C++: declare functions before their first use. Save your blocks and code to files."
+  },
+  "programming.hardwareTitle": {
+    "cs": "Piny odpovídají desce RED",
+    "en": "Pins match the RED board"
+  },
+  "programming.hardware": {
+    "cs": "Bloky používají LED D5/D6, ultrazvuk D7/D8, servo D9, bzučák D10, tlačítka D11/D12 a OLED na A4/A5. Tlačítka mají externí pull-up rezistory, stisk je LOW. Nahrávání je určené pro klasické Nano s ATmega328P; varianty Nano Every, ESP32 nebo Nano 33 používají jiný procesor.",
+    "en": "Blocks use LEDs D5/D6, ultrasound D7/D8, servo D9, buzzer D10, buttons D11/D12 and OLED on A4/A5. The buttons have external pull-up resistors; pressed is LOW. Upload supports classic Nano with ATmega328P. Nano Every, ESP32 and Nano 33 use different processors."
+  },
+  "programming.nav": {
+    "cs": "Programování",
+    "en": "Programming"
   }
 }

@@ -118,6 +118,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const codeEl = document.getElementById("generatedCode");
   const statusEl = document.getElementById("editorStatus");
+  let generationError = null;
+  window.SHIELDIO_EDITOR = {
+    getCode: () => codeEl.textContent,
+    getError: () => generationError,
+    resize: () => Blockly.svgResize(workspace),
+  };
 
   function detectFeatures() {
     const blocks = workspace.getAllBlocks(false);
@@ -220,8 +226,12 @@ ${indent(loopBody)}}
         if (Array.isArray(loopBody)) loopBody = loopBody[0];
       }
       codeEl.textContent = assembleSketch(setupBody, loopBody, detectFeatures());
+      generationError = null;
+      window.dispatchEvent(new Event("shieldio:code-change"));
       if (statusEl) { statusEl.textContent = ""; statusEl.classList.remove("error"); }
     } catch (err) {
+      generationError = err;
+      window.dispatchEvent(new Event("shieldio:code-change"));
       if (statusEl) {
         statusEl.textContent = "Chyba při generování kódu, zkus bloky poskládat jinak. (" + err.message + ")";
         statusEl.classList.add("error");

@@ -5,12 +5,13 @@
 <script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prototyp: blokový editor pro RED | Shieldio</title>
-<meta name="description" content="Experimentální blokový editor přímo pro desku Shieldio RED, poskládej program z bloků a vygeneruj hotový Arduino C++ kód.">
+<title>Programování RED | Shieldio</title>
+<meta name="description" content="Programuj Shieldio RED v blocích nebo Arduino C++, zkompiluj program a nahraj ho přes USB přímo z prohlížeče.">
 <meta name="robots" content="noindex">
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261102">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -19,7 +20,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png">
 </head>
 
-<body>
+<body data-i18n-title="programming.title">
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -30,6 +31,7 @@
         <a href="../products/index.html">Produkty</a>
         <a href="../instructions/index.html">Návody</a>
         <a href="../company/about.html">O nás</a>
+        <a href="blokovy-editor.html" class="nav-code-link" aria-current="page" data-i18n="programming.nav">Programování</a>
       </nav>
       <a class="cta-small" href="../index.html#kontakt">Domluvit ukázku</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
@@ -39,18 +41,48 @@
   </div>
 </div>
 
-<div class="hero" style="padding-bottom:36px;">
+<div class="hero programming-hero">
   <div class="wrap">
     <div class="fade-up">
-      <span class="eyebrow">Prototyp</span>
-      <h1>Blokový editor pro <span class="text-tier-red">RED</span>.</h1>
-      <p class="lead">Poskládej program z bloků, vpravo se ti rovnou generuje skutečný Arduino C++ kód. Piny odpovídají popiskům přímo na desce RED. Tohle je časný test, kód si zatím musíš nahrát přes Arduino IDE ručně, přímé nahrávání z prohlížeče tu není.</p>
+      <h1 data-i18n="programming.heading">Naprogramuj svou desku.</h1>
+      <p class="lead" data-i18n="programming.intro">Poskládej bloky nebo napiš Arduino C++. Připoj Shieldio RED přes USB a nahraj program přímo tady. Bez mBlocku a Arduino IDE.</p>
     </div>
   </div>
 </div>
 
-<section style="padding-top:24px;">
+<section class="programming-studio" id="programmingStudio">
   <div class="wrap blockly-editor-wrap">
+    <div class="programming-toolbar">
+      <div class="programming-tabs" role="tablist" aria-label="Způsob programování" data-i18n-aria-label="programming.modes">
+        <button type="button" role="tab" id="blocksTab" aria-selected="true" aria-controls="blocksPanel" data-i18n="programming.blocks">Bloky</button>
+        <button type="button" role="tab" id="codeTab" aria-selected="false" aria-controls="arduinoCodePanel" tabindex="-1">Arduino C++</button>
+      </div>
+      <div class="programming-device">
+        <label for="bootloaderSelect" data-i18n="programming.board">Deska</label>
+        <select id="bootloaderSelect">
+          <option value="115200">Nano / RED · Optiboot (115200)</option>
+          <option value="57600" data-i18n="programming.oldBootloader">Nano · starý bootloader (57600)</option>
+        </select>
+        <button type="button" id="connectBoardBtn" class="btn btn-ghost">Připojit desku</button>
+      </div>
+      <div class="programming-run">
+        <button type="button" id="compileBtn" class="btn btn-ghost" data-i18n="programming.compile">Zkompilovat</button>
+        <button type="button" id="uploadBtn" class="btn btn-primary" data-i18n="programming.upload">Nahrát do desky</button>
+        <button type="button" id="cancelBuildBtn" class="btn btn-ghost" hidden data-i18n="programming.cancel">Zrušit</button>
+      </div>
+    </div>
+    <div class="programming-status">
+      <div class="programming-status-line">
+        <p id="uploadStatus" role="status" aria-live="polite" aria-atomic="true">Načítám programovací prostředí…</p>
+        <p id="memoryUsage" class="programming-memory"></p>
+      </div>
+      <progress id="uploadProgress" max="100" hidden aria-label="Průběh nahrávání" data-i18n-aria-label="programming.progress"></progress>
+      <details id="compilerDetails" class="programming-diagnostics" hidden>
+        <summary data-i18n="programming.details">Podrobnosti kompilace a nahrávání</summary>
+        <pre id="compilerLog"></pre>
+      </details>
+    </div>
+    <div id="blocksPanel" role="tabpanel" aria-labelledby="blocksTab">
     <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:4px;">
       <p id="editorStatus" class="form-status" style="text-align:left; min-height:0; margin:0;"></p>
       <div class="blockly-workspace-actions">
@@ -71,14 +103,29 @@
         <pre class="guide-code-block" id="generatedCode" style="flex:1; overflow:auto; margin:0;"></pre>
       </div>
     </div>
+    </div>
+    <div id="arduinoCodePanel" role="tabpanel" aria-labelledby="codeTab" hidden>
+      <div class="programming-code-actions">
+        <button type="button" id="importSourceBtn" class="blockly-toggle-code" data-i18n="programming.import">Otevřít .ino</button>
+        <input type="file" id="importSourceInput" accept=".ino,.cpp,.txt,text/plain" hidden>
+        <button type="button" id="downloadSourceBtn" class="blockly-toggle-code" data-i18n="programming.saveSource">Uložit .ino</button>
+        <button type="button" id="downloadHexBtn" class="blockly-toggle-code" disabled data-i18n="programming.saveHex">Stáhnout .hex</button>
+      </div>
+      <textarea id="arduinoSource" class="programming-source" aria-label="Arduino C++ kód" data-i18n-aria-label="programming.sourceLabel" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+    </div>
+    <div class="programming-help">
+      <div><h2 data-i18n="programming.helpUsbTitle">Připojení přes USB</h2><p data-i18n="programming.helpUsb">Použij datový USB kabel a Chrome nebo Edge na počítači. Vyber sériový port desky. Pokud se deska nehlásí, zavři sériový monitor v jiném programu a zkus druhý bootloader.</p></div>
+      <div><h2 data-i18n="programming.helpBuildTitle">Kompilace v prohlížeči</h2><p data-i18n="programming.helpBuild">Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou Servo, Wire, SPI, Adafruit GFX a SSD1306. Další knihovny se zatím nedoinstalovávají.</p></div>
+      <div><h2 data-i18n="programming.helpCodeTitle">Bloky a vlastní kód</h2><p data-i18n="programming.helpCode">Při prvním otevření Arduino C++ se převezme kód z bloků. Potom zůstávají obě verze oddělené. Vlastní kód se překládá jako C++: funkce deklaruj před prvním použitím. Bloky i kód si ukládej do souboru.</p></div>
+    </div>
   </div>
 </section>
 
 <section style="padding-top:0;">
   <div class="wrap" style="max-width:700px;">
     <div class="section-head" style="margin-bottom:0;">
-      <span class="eyebrow-dark">Co tenhle prototyp neumí (zatím)</span>
-      <p>Knihovny pro OLED se do kódu přidají jen tehdy, když použiješ blok displeje. Tlačítka na RED využívají externí pull-up rezistory, proto editor nastaví vstupy jako <b>INPUT</b> a stisk čte jako LOW. Rozpracované bloky si můžeš uložit do souboru a později znovu načíst. Přímé nahrávání do desky z prohlížeče zatím není dostupné; hotový <b>.ino</b> soubor nahraj přes Arduino IDE.</p>
+      <h2 style="font-size:20px;" data-i18n="programming.hardwareTitle">Piny odpovídají desce RED</h2>
+      <p data-i18n="programming.hardware">Bloky používají LED D5/D6, ultrazvuk D7/D8, servo D9, bzučák D10, tlačítka D11/D12 a OLED na A4/A5. Tlačítka mají externí pull-up rezistory, stisk je LOW. Nahrávání je určené pro klasické Nano s ATmega328P; varianty Nano Every, ESP32 nebo Nano 33 používají jiný procesor.</p>
     </div>
   </div>
 </section>
@@ -108,10 +155,12 @@
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
 <script src="../assets/js/shieldio-blocks.js"></script>
 <script src="../assets/js/blockly-editor.js"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261102"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>
 <script src="../assets/js/search.js"></script>
 <script src="../assets/js/site-chrome.js"></script>
+<script src="../assets/js/lang.js"></script>
 </body>
 </html>

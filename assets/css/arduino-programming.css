@@ -1,0 +1,33 @@
+.hero.programming-hero { padding-top: 96px; padding-bottom: 12px; }
+.hero.programming-hero::before, .hero.programming-hero::after { display: none; }
+.hero.programming-hero h1 { font-size: clamp(28px, 3.2vw, 42px); max-width: none; }
+.hero.programming-hero p.lead { max-width: 850px; font-size: 16px; margin-top: 12px; line-height: 1.6; }
+.programming-studio { padding-top: 16px; }
+.programming-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); margin-bottom: 14px; }
+.programming-tabs { display: inline-flex; gap: 4px; padding: 4px; background: var(--paper-2); border-radius: 10px; }
+.programming-tabs button { border: 0; padding: 9px 15px; border-radius: 7px; color: var(--ink-soft); background: transparent; cursor: pointer; font: inherit; font-size: 14px; }
+.programming-tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 4px color-mix(in srgb, var(--ink) 12%, transparent); }
+.programming-device { margin-left: auto; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.programming-device label { color: var(--ink-soft); font-size: 13px; }
+.programming-device select { max-width: 100%; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); padding: 9px; font: inherit; font-size: 13px; }
+.programming-toolbar .btn { padding: 10px 16px; font-size: 14px; white-space: nowrap; }
+.programming-toolbar .btn-ghost { color: var(--ink); border-color: var(--line); }
+.programming-toolbar button:disabled { cursor: default; opacity: .5; }
+.programming-toolbar button:focus-visible, .programming-tabs button:focus-visible, .programming-source:focus-visible, .programming-device select:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.programming-run { display: flex; gap: 8px; flex-wrap: wrap; }
+.programming-status { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 14px 18px; margin-bottom: 18px; }
+.programming-status-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.programming-status p { margin: 0; font-size: 14px; }
+.programming-status [data-error="true"] { color: var(--tier-red-deep); }
+.programming-status progress { width: 100%; height: 7px; accent-color: var(--accent); margin-top: 12px; }
+.programming-memory { font-family: 'JetBrains Mono', monospace; font-size: 11px !important; color: var(--ink-soft); }
+.programming-diagnostics { margin-top: 12px; font-size: 13px; }
+.programming-diagnostics pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 220px; overflow: auto; margin: 10px 0 0; color: var(--ink); font-size: 12px; }
+.programming-source { display: block; width: 100%; min-height: 520px; resize: vertical; border: 1px solid var(--line); border-radius: 12px; padding: 22px; background: var(--surface); color: var(--ink); font: 14px/1.65 'JetBrains Mono', ui-monospace, monospace; tab-size: 2; }
+.programming-code-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+.programming-help { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; padding: 30px 0 0; }
+.programming-help h2 { font-size: 17px; margin-bottom: 8px; }
+.programming-help p { color: var(--ink-soft); font-size: 14px; line-height: 1.65; }
+.programming-studio [hidden] { display: none !important; }
+@media (max-width: 900px) { .programming-device { margin-left: 0; } .programming-help { grid-template-columns: 1fr; gap: 8px; } }
+@media (max-width: 560px) { .programming-toolbar { padding: 12px; } .programming-run { width: 100%; } .programming-run .btn-primary { flex: 1; } .programming-source { padding: 14px; font-size: 13px; min-height: 400px; } }
