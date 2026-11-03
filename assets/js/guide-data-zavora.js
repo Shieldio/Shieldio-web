@@ -288,8 +288,8 @@ window.SHIELDIO_GUIDE = {
       type: "upload",
       screenshot: null,
       instructions: {
-        cs: "Otevři připravený startovní program. Než ho nahraješ, najdi dvě podmínky: při vzdálenosti menší než 15 cm nastavují servo na 90°, jinak na 0°. Zkus vlastní práh a před nahráním vysvětli, co se změní.",
-        en: "Open the prepared starter program. Before uploading it, find the two conditions: below 15 cm they set the servo to 90°, otherwise to 0°. Try your own threshold and explain what will change before uploading.",
+        cs: "Otevři připravený startovní program. Po startu nastaví servo na 0°. Každý průchod používá jeden společný vzorek vzdálenosti: pokud je platný a menší než 15 cm, servo se nastaví na 90°, jinak při platném měření na 0°. Bez echa nedostane nový povel a ponechá poslední polohu. Zkus vlastní práh a před nahráním vysvětli, co se změní. OLED je volitelné rozšíření.",
+        en: "Open the prepared starter program. It sets the servo to 0° at startup. Each loop uses one shared distance sample: a valid reading below 15 cm sets 90°; any other valid reading sets 0°. With no echo it sends no new command and keeps the last position. Try your own threshold and explain the effect before uploading. OLED output is an optional extension.",
       },
       diagnostics: [
         {
@@ -341,14 +341,14 @@ window.SHIELDIO_GUIDE = {
       title: { cs: "Vyzkoušej projekt", en: "Test the project" },
       type: "diagnostic-tree",
       instructions: {
-        cs: "Přilož ruku před ultrazvukový senzor. Otevřela se závora?",
-        en: "Hold your hand in front of the ultrasonic sensor. Did the barrier open?",
+        cs: "Ověř 20 cm → servo 0° a 10 cm → servo 90°. Vyzkoušej obě strany prahu 15 cm. Při nezískaném echu má servo ponechat poslední polohu; chyba měření nesmí sama vydat povel k otevření. Polohu ramene ověř podle své mechaniky.",
+        en: "Check 20 cm → servo 0° and 10 cm → servo 90°. Test both sides of the 15 cm threshold. With no echo, the servo must keep its last position; invalid measurement must not itself command opening. Check the arm position on your own mechanism.",
       },
       tree: {
         question: { cs: "Otevřela se závora?", en: "Did the barrier open?" },
         no: {
           question: { cs: "Hýbe se servo vůbec?", en: "Does the servo move at all?" },
-          noResult: { cs: "Servo asi není napájené. Zkontroluj kabel v kroku 2.", en: "The servo probably isn't powered. Check the cable from step 2." },
+          noResult: { cs: "Nejdřív v editoru ověř úspěšné nahrání, potom bez napájení zkontroluj GND, 5 V a signál serva podle revize. V kroku 2 ověř připojení a se samostatným programem serva vyzkoušej dva úhly. Pokud se nehýbe ani samostatně, obrať se s fotkou a revizí na podporu.", en: "First confirm a successful upload, then disconnect power and check servo GND, 5 V and signal against your revision. Revisit step 2 and test two angles with a servo-only program. If it still does not move, contact support with a photo and board revision." },
           yes: {
             question: {
               cs: "Zobraz měřenou vzdálenost na OLED. Mění se, když přiblížíš ruku?",

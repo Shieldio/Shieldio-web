@@ -5,13 +5,18 @@
     return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
   }
 
+  function labelToggles(theme) {
+    const en = document.documentElement.lang === "en";
+    document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      btn.setAttribute("aria-label", en ? (theme === "dark" ? "Switch to light mode" : "Switch to dark mode") : (theme === "dark" ? "Přepnout na světlý režim" : "Přepnout na tmavý režim"));
+    });
+  }
+  document.addEventListener("shieldio-lang-change", () => labelToggles(currentTheme()));
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
     try { localStorage.setItem("shieldio-theme", theme); } catch (e) {}
-    document.querySelectorAll(".theme-toggle").forEach((btn) => {
-      btn.setAttribute("aria-label", theme === "dark" ? "Přepnout na světlý režim" : "Přepnout na tmavý režim");
-    });
+    labelToggles(theme);
     let meta = document.querySelector('meta[name="theme-color"]');
     if (!meta) {
       meta = document.createElement("meta");

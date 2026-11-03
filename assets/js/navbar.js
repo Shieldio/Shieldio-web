@@ -5,22 +5,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.querySelector(".nav-toggle");
   if (!topbar || !toggle) return;
 
-  toggle.addEventListener("click", () => {
-    const isOpen = topbar.classList.toggle("nav-open");
-    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-  });
+  function syncLabel() {
+    const open = topbar.classList.contains("nav-open");
+    const en = document.documentElement.lang === "en";
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", en ? (open ? "Close menu" : "Open menu") : (open ? "Zavřít menu" : "Otevřít menu"));
+  }
+  toggle.addEventListener("click", () => { topbar.classList.toggle("nav-open"); syncLabel(); });
+  document.addEventListener("shieldio-lang-change", syncLabel);
+  syncLabel();
 
   topbar.querySelectorAll("nav a").forEach(link => {
     link.addEventListener("click", () => {
       topbar.classList.remove("nav-open");
-      toggle.setAttribute("aria-expanded", "false");
+      syncLabel();
     });
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
+    if (e.key === "Escape" && topbar.classList.contains("nav-open")) {
       topbar.classList.remove("nav-open");
-      toggle.setAttribute("aria-expanded", "false");
+      syncLabel();
+      toggle.focus();
     }
   });
 });

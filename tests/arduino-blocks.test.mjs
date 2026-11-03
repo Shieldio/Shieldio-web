@@ -46,6 +46,23 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
     fixtures.blinkProject={workspace:Blockly.serialization.workspaces.save(workspace),profile:'red',module:'led',advanced:false};
     assert.deepEqual(storageReads.filter(key=>key.startsWith('shieldio-workspace-v1')),['shieldio-workspace-v1:preset:blikani'],'Starter restores its own saved edits');
   }
+  if(search.includes('preset=zavora')) {
+    fixtures.barrierStarter=api.SHIELDIO_EDITOR.getCode();
+    assert.match(fixtures.barrierStarter,/shieldioDistanceCm = shieldioReadDistance/);
+    assert.match(fixtures.barrierStarter,/duration == 0 \? NAN/);
+    assert.match(fixtures.barrierStarter,/!isnan\(shieldioDistanceCm\)/);
+    assert.match(fixtures.barrierStarter,/else \{/);
+    assert.equal((fixtures.barrierStarter.match(/pulseIn\(/g)||[]).length,1);
+  }
+  if(search.includes('preset=parkovani')) {
+    fixtures.parkingStarter=api.SHIELDIO_EDITOR.getCode();
+    assert.match(fixtures.parkingStarter,/#include <ShieldioDisplay.h>/);
+    assert.match(fixtures.parkingStarter,/#define LED_RED 5/);
+    assert.match(fixtures.parkingStarter,/#define LED_GREEN 6/);
+    assert.match(fixtures.parkingStarter,/shieldioDistanceCm < 15/);
+    assert.match(fixtures.parkingStarter,/shieldioDistanceCm < 30/);
+    assert.match(fixtures.parkingStarter,/No echo/);
+  }
   get('blockProfileSelect').value='red';get('moduleSelect').value='all';await get('moduleSelect').emit('change');
   let {setup,loop}=roots();
   const led=make('shieldio_led'),wait=make('shieldio_wait');loop.getInput('LOOP').connection.connect(led.previousConnection);led.nextConnection.connect(wait.previousConnection);
@@ -69,6 +86,12 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const variable=workspace.getVariableMap().createVariable('napeti');const set=make('variables_set');set.setFieldValue(variable.getId(),'VAR');serial.nextConnection.connect(set.previousConnection);assert.match(regenerate(),/float v_0 = 0/);assert.match(regenerate(),/v_0 = 0/);
   ({setup,loop}=roots());const oled=make('shieldio_oled_print');loop.getInput('LOOP').connection.connect(oled.previousConnection);fixtures.OLED=regenerate();assert.match(fixtures.OLED,/#include <ShieldioDisplay.h>/);assert.match(fixtures.OLED,/shieldioDisplay.text/);
   ({setup,loop}=roots());const servo=make('shieldio_servo');loop.getInput('LOOP').connection.connect(servo.previousConnection);fixtures.servo=regenerate();assert.match(fixtures.servo,/attach\(SERVO_PIN\)/);
+  ({setup,loop}=roots());
+  const sensorLoop=make('controls_whileUntil'),distanceCheck=make('logic_compare'),distance=make('shieldio_distance'),limit=make('math_number'),pause=make('shieldio_wait');
+  sensorLoop.setFieldValue('WHILE','MODE');distanceCheck.setFieldValue('LT','OP');limit.setFieldValue(15,'NUM');pause.getInputTargetBlock('MS').setFieldValue(60,'NUM');
+  distanceCheck.getInput('A').connection.connect(distance.outputConnection);distanceCheck.getInput('B').connection.connect(limit.outputConnection);
+  sensorLoop.getInput('BOOL').connection.connect(distanceCheck.outputConnection);sensorLoop.getInput('DO').connection.connect(pause.previousConnection);loop.getInput('LOOP').connection.connect(sensorLoop.previousConnection);
+  fixtures.distanceLoop=regenerate();assert.match(fixtures.distanceLoop,/while \(\(shieldioDistanceCm = shieldioReadDistance\(\), shieldioDistanceCm < 15\)\)/);
   const multiply=make('math_arithmetic'),sum=make('math_arithmetic');multiply.setFieldValue('MULTIPLY','OP');sum.getInputTargetBlock('B').setFieldValue(2,'NUM');multiply.getInput('A').connection.connect(sum.outputConnection);multiply.getInputTargetBlock('B').setFieldValue(3,'NUM');
   assert.match(api.SHIELDIO_ARDUINO_GENERATOR.blockToCode(multiply)[0],/\(1 \+ 2\) \* 3/);
   sum.setFieldValue('POWER','OP');assert.match(api.SHIELDIO_ARDUINO_GENERATOR.blockToCode(sum)[0],/^pow\(1, 2\)/);
@@ -83,5 +106,8 @@ if(typeof process !== "undefined" && process.argv[1] && import.meta.url===pathTo
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=blikani',expectedModule:'led',expectedDelay:750,initialStore:{'shieldio-workspace-v1:preset:blikani':edited,'shieldio-workspace-v1':'unrelated manual project'}});
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=constructor'});
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?module=buzzer',expectedModule:'buzzer'});
+  const barrier=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=zavora'});
+  const parking=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=parkovani'});
+  fixtures.barrierStarter=barrier.barrierStarter;fixtures.parkingStarter=parking.parkingStarter;
   if(process.env.BLOCKLY_FIXTURES)await fs.writeFile(process.env.BLOCKLY_FIXTURES,JSON.stringify(fixtures));
 }

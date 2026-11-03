@@ -59,12 +59,12 @@
     solder_steps: { cs: "<b>Postup:</b> součástku zasuň do správných otvorů podle popisků přímo na desce, hrot pájky přilož zároveň k nožičce i plošce, po 1 až 2 vteřinách přidej cín, pájku odtáhni a spoj nech bez pohybu ztuhnout. Spoj má být lesklý, ne kulička nebo matný cín. Přebytečné nožičky nakonec odstřihni.", en: "<b>Steps:</b> insert the part into the right holes according to the labels on the board, touch the iron's tip to both the leg and the pad at once, add solder after 1–2 seconds, pull the iron away and let the joint set without moving. A good joint is shiny, not a blob or dull solder. Trim the excess legs afterward." },
     solder_safety: { cs: "<b>Bezpečnost:</b> hrot pájky má 300 až 400&nbsp;°C, nedotýkej se ho, pracuj na žáruvzdorné podložce a dým z tavidla nevdechuj.", en: "<b>Safety:</b> the iron's tip reaches 300–400&nbsp;°C, don't touch it, work on a heatproof mat, and don't breathe the flux smoke directly." },
     solder_open_guide: { cs: "Otevřít podrobný fotonávod na sestavení a pájení", en: "Open the detailed photo guide to assembly and soldering" },
-    build_time: { cs: "Doba stavby", en: "Build time" },
+    build_time: { cs: "Délka aktivity", en: "Activity duration" },
     steps_label: { cs: "Kroky", en: "Steps" },
     what_you_learn: { cs: "Co se naučíš:", en: "What you'll learn:" },
     teacher_summary: { cs: "Příprava pro učitele", en: "Teacher preparation" },
     teacher_summary_p: { cs: "Před hodinou otevřete návod na jednom školním počítači, v Chrome nebo Edge ověřte přístup k USB portu a spusťte projekt na jedné desce. Připravte jednu náhradní desku nebo datový kabel. Žáci mohou návod procházet samostatně ve dvojicích; diagnostický strom je na konci projektu.", en: "Before class, open this guide on one school computer, verify USB access in Chrome or Edge, and run the project on one board. Keep one spare board or data cable ready. Students can follow the guide independently in pairs; the diagnostic tree is at the end." },
-    start_building: { cs: "Začít stavět", en: "Start building" },
+    start_building: { cs: "Začít projekt", en: "Start project" },
     mark_missing: { cs: "Označ, co ti chybí:", en: "Mark what you're missing:" },
     have_it_ready: { cs: "Mám připraveno", en: "I have it ready" },
     something_missing: { cs: "Něco mi chybí", en: "Something's missing" },
@@ -116,6 +116,7 @@
   // #guide-progress/#guide-steps area, so it survives every renderCurrent() call
   let backLinkEl = null;
   let referenceLinkEl = null;
+  let languageNoticeEl = null;
   function renderBackLink() {
     if (!DATA.meta.parentHref) return;
     const wrap = root.querySelector(".wrap");
@@ -136,7 +137,16 @@
       }
       referenceLinkEl.textContent = state.uiLang === "en" ? "Parts, values & pin map →" : "Součástky, hodnoty a zapojení →";
     }
-    backLinkEl.textContent = "← " + (DATA.meta.parentLabel ? t(DATA.meta.parentLabel) : ui("back_to_guides"));
+    backLinkEl.textContent = "← " + (DATA.meta.parentLabel && !(state.uiLang === "en" && typeof DATA.meta.parentLabel === "string") ? t(DATA.meta.parentLabel) : ui("back_to_guides"));
+    if (!languageNoticeEl) {
+      languageNoticeEl = document.createElement("p");
+      languageNoticeEl.className = "guide-language-note";
+      languageNoticeEl.setAttribute("role", "note");
+      (referenceLinkEl || backLinkEl).after(languageNoticeEl);
+    }
+    languageNoticeEl.hidden = !(state.uiLang === "en" && typeof DATA.meta.title === "string");
+    languageNoticeEl.lang = "en";
+    languageNoticeEl.textContent = "This guide is currently available in Czech. The shared controls are translated; the project instructions still use Czech.";
   }
 
   const STORAGE_KEY = `shieldio-guide-${DATA.id}`;
@@ -359,7 +369,7 @@
     const cards = parts.map(p => `
       <div class="guide-part-card">
         <div class="guide-part-photo">${photoOrPlaceholder(p.photo, t(p.name))}</div>
-        ${p.originalPhoto ? `<small class="guide-photo-note">${document.documentElement.lang === "en" ? "Illustrative photo · verify value with a multimeter" : "Ilustrační foto · hodnotu ověř multimetrem"}</small>` : ""}
+        ${p.verifyValue ? `<small class="guide-photo-note">${document.documentElement.lang === "en" ? "Verify value with a multimeter" : "Hodnotu ověř multimetrem"}</small>` : ""}
         <div class="guide-part-name">${t(p.name)}
           <button type="button" class="guide-info-btn" data-part="${p.id}" aria-label="${t(p.name)}">?</button>
         </div>
@@ -714,7 +724,7 @@
     if (!part) return;
     openModal(`
       <div class="term-modal-photo">${photoOrPlaceholder(part.photo, t(part.name))}</div>
-      ${part.originalPhoto ? `<p class="guide-photo-note">${document.documentElement.lang === "en" ? "Illustrative component photo. Verify the resistor value with a multimeter or labeled bag; bands in an edited image are not a reliable reference." : "Ilustrační fotografie součástky. Hodnotu ověř multimetrem nebo podle sáčku; proužky na upraveném snímku nejsou spolehlivou referencí."} <a href="${part.originalPhoto}" target="_blank" rel="noopener">${document.documentElement.lang === "en" ? "View original photo ↗" : "Původní fotografie ↗"}</a></p>` : ""}
+      ${part.verifyValue ? `<p class="guide-photo-note">${state.uiLang === "en" ? "Original photo. Verify the value with a multimeter and the labelled bag for your PCB revision; a photo alone does not verify resistance." : "Původní fotografie. Hodnotu ověř multimetrem a podle označeného sáčku pro svou revizi PCB; samotná fotografie odpor nepotvrzuje."}</p>` : ""}
       <h3>${t(part.name)}</h3>
       <p><b>${ui("part_what")}</b> ${t(part.what)}</p>
       <p><b>${ui("part_how")}</b> ${t(part.how)}</p>

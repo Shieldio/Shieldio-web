@@ -86,6 +86,7 @@ jobs:
         run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11 jsdom@27.4.0
       - run: node tests/arduino-blocks.test.mjs
       - run: node tests/site-journeys.test.mjs
+      - run: node tests/arduino-distance.test.mjs
       - name: Download pinned AVR toolchain for real compilation tests
         run: curl --fail --location --retry 2 https://registry.npmjs.org/@horang-corp/avr-gcc-wasm/-/avr-gcc-wasm-0.2.0.tgz --output "/tmp/shieldio-avr.tgz"
       - name: Extract test compiler

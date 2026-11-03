@@ -6,7 +6,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (!document.querySelector(".photo-frame") && !document.querySelector("[data-photo]")) return;
 
-  let overlay, imgEl, captionEl;
+  let overlay, imgEl, captionEl, previousFocus;
+  function labelControls() {
+    const en = document.documentElement.lang === "en";
+    document.querySelectorAll(".photo-frame.zoomable").forEach(frame => frame.setAttribute("aria-label", en ? "Enlarge photo" : "Zvětšit fotku"));
+    if (overlay) overlay.querySelector(".lightbox-close").setAttribute("aria-label", en ? "Close photo" : "Zavřít fotku");
+  }
+  document.addEventListener("shieldio-lang-change", labelControls);
 
   function ensureOverlay() {
     if (overlay) return;
@@ -30,15 +36,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openLightbox(src, alt) {
+    previousFocus = document.activeElement;
     ensureOverlay();
+    labelControls();
     imgEl.src = src;
     imgEl.alt = alt || "";
     captionEl.textContent = alt || "";
     overlay.classList.add("active");
+    overlay.querySelector(".lightbox-close").focus();
   }
 
   function closeLightbox() {
     if (overlay) overlay.classList.remove("active");
+    previousFocus?.focus();
   }
 
   document.querySelectorAll(".photo-frame").forEach((frame) => {
@@ -49,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     frame.setAttribute("aria-label", "Zvětšit fotku");
   });
 
+  labelControls();
   document.addEventListener("click", (e) => {
     const photoBtn = e.target.closest("[data-photo]");
     if (photoBtn) {

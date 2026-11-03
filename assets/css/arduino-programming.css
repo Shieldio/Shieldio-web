@@ -89,6 +89,17 @@
   .programming-line-numbers, .programming-source { font-size: 14px; }
   .programming-workspace { padding-inline: 18px; }
 }
+/* Give the blocks more room on a laptop; keep connection and upload controls visible. */
+@media (min-width: 701px) and (max-height: 850px) {
+  .hero.programming-hero { padding-top: 12px; }
+  .hero.programming-hero p.lead { margin-top: 3px; }
+  .programming-studio { padding-top: 8px; }
+  .programming-workspace { height: calc(100dvh - 158px); min-height: 500px; }
+  .programming-toolbar { padding-block: 6px; }
+  .programming-filebar { padding-block: 2px; }
+  .programming-status { padding-block: 5px; }
+  .programming-block-actions { padding-block: 3px; }
+}
 @media (max-width: 1050px) {
   .programming-target { display: none; }
   .programming-studio .blockly-editor-grid.code-visible { grid-template-columns: 1fr; grid-template-rows: minmax(220px, 1fr) minmax(160px, .6fr); gap: 10px; }
