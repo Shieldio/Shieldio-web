@@ -52,8 +52,8 @@
     "en": "ELECTRONICS AND ROBOTICS, MADE SIMPLE FOR EVERYONE"
   },
   "home.title": {
-    "cs": "Shieldio · Stavebnice kompatibilní s Arduino® pro školu, kroužek i domov",
-    "en": "Shieldio · Arduino®-compatible kit for school, clubs, and home"
+    "cs": "Shieldio RED – elektronická deska",
+    "en": "Shieldio RED – electronics board"
   },
   "home.topbar_cta": {
     "cs": "Domluvit ukázku",
@@ -3816,8 +3816,8 @@
     "en": "Fit program"
   },
   "programming.shortcuts": {
-    "cs": "Tab: odsazení · Ctrl/⌘ + Enter: kontrola · + Shift: spuštění na desce",
-    "en": "Tab: indent · Ctrl/⌘ + Enter: check · + Shift: run on board"
+    "cs": "Tab: odsazení · Ctrl/⌘ + Shift + F: zarovnání · Ctrl/⌘ + /: komentář · Ctrl/⌘ + Enter: kontrola",
+    "en": "Tab: indent · Ctrl/⌘ + Shift + F: indent code · Ctrl/⌘ + /: comment · Ctrl/⌘ + Enter: check"
   },
   "start.title": {
     "cs": "Rozblikej LED na RED | Shieldio",
@@ -5034,5 +5034,249 @@
   "legal2026.privacy.lead": {
     "cs": "Jak fungují formuláře, editor a externí služby. Aktualizováno 3. listopadu 2026.",
     "en": "How forms, the editor and external services work. Updated 3 November 2026."
+  },
+  "home.simple.title": {
+    "cs": "Shieldio RED – elektronická deska",
+    "en": "Shieldio RED – electronics board"
+  },
+  "home.simple.nav.red": {
+    "cs": "RED",
+    "en": "RED"
+  },
+  "home.simple.nav.projects": {
+    "cs": "Projekty",
+    "en": "Projects"
+  },
+  "home.simple.nav.editor": {
+    "cs": "Editor",
+    "en": "Editor"
+  },
+  "home.simple.nav.teachers": {
+    "cs": "Pro učitele",
+    "en": "For teachers"
+  },
+  "home.simple.contact": {
+    "cs": "Kontakt",
+    "en": "Contact"
+  },
+  "home.simple.hero.h1": {
+    "cs": "Shieldio RED",
+    "en": "Shieldio RED"
+  },
+  "home.simple.hero.description": {
+    "cs": "Elektronická deska se senzorem vzdálenosti, servem a displejem.",
+    "en": "An electronics board with a distance sensor, servo and display."
+  },
+  "home.simple.hero.project": {
+    "cs": "Prohlédnout projekty",
+    "en": "View projects"
+  },
+  "home.simple.hero.interest": {
+    "cs": "Mám zájem o RED",
+    "en": "Interested in RED"
+  },
+  "home.simple.hero.status": {
+    "cs": "RED V4 testujeme. Zatím se neprodává.",
+    "en": "RED V4 is being tested. It is not on sale yet."
+  },
+  "home.simple.hero.photo": {
+    "cs": "Deska Shieldio RED se senzorem vzdálenosti, servem a displejem",
+    "en": "Shieldio RED board with a distance sensor, servo and display"
+  },
+  "home.simple.hero.tag": {
+    "cs": "RED · prototyp V4",
+    "en": "RED · V4 prototype"
+  },
+  "home.simple.projects.h2": {
+    "cs": "Projekty",
+    "en": "Projects"
+  },
+  "home.simple.projects.barrier.h3": {
+    "cs": "Automatická závora",
+    "en": "Automatic barrier"
+  },
+  "home.simple.projects.barrier.p": {
+    "cs": "Servo zvedne závoru při přiblížení objektu k senzoru.",
+    "en": "The servo raises the barrier when an object approaches the sensor."
+  },
+  "home.simple.projects.barrier.alt": {
+    "cs": "Prototyp závory na desce RED, rameno zvednuté nad modelem auta",
+    "en": "Barrier prototype on the RED board, with its arm raised above a model car"
+  },
+  "home.simple.projects.parking.h3": {
+    "cs": "Parkovací asistent",
+    "en": "Parking assistant"
+  },
+  "home.simple.projects.parking.p": {
+    "cs": "Displej ukazuje vzdálenost od překážky. Podle vzdálenosti se rozsvítí zelená nebo červená LED.",
+    "en": "The display shows the distance to an obstacle. A green or red LED lights up depending on the distance."
+  },
+  "home.simple.projects.parking.alt": {
+    "cs": "Ultrazvukový senzor HC-SR04 používaný v projektu",
+    "en": "HC-SR04 ultrasonic sensor used in the project"
+  },
+  "home.simple.projects.parking.caption": {
+    "cs": "Detail senzoru",
+    "en": "Sensor detail"
+  },
+  "home.simple.projects.theremin.h3": {
+    "cs": "Bezdotykový nástroj",
+    "en": "Touchless instrument"
+  },
+  "home.simple.projects.theremin.p": {
+    "cs": "Vzdálenost ruky od senzoru mění výšku tónu bzučáku.",
+    "en": "The distance between a hand and the sensor changes the buzzer pitch."
+  },
+  "home.simple.projects.theremin.alt": {
+    "cs": "Bzučák používaný v projektu bezdotykového nástroje",
+    "en": "Buzzer used in the touchless instrument project"
+  },
+  "home.simple.projects.theremin.caption": {
+    "cs": "Detail bzučáku",
+    "en": "Buzzer detail"
+  },
+  "home.simple.projects.guide": {
+    "cs": "Návod k projektu",
+    "en": "Project guide"
+  },
+  "home.simple.projects.all": {
+    "cs": "Všechny projekty RED",
+    "en": "All RED projects"
+  },
+  "home.simple.start.h2": {
+    "cs": "Jak začít",
+    "en": "Getting started"
+  },
+  "home.simple.start.step1.h3": {
+    "cs": "Připojení desky",
+    "en": "Connect the board"
+  },
+  "home.simple.start.step1.p": {
+    "cs": "Sestavená RED se připojí k počítači datovým USB kabelem.",
+    "en": "Connect an assembled RED to a computer using a USB data cable."
+  },
+  "home.simple.start.step2.h3": {
+    "cs": "Příprava programu",
+    "en": "Prepare the program"
+  },
+  "home.simple.start.step2.p": {
+    "cs": "V <a href=\"/instructions/blokovy-editor.html\">editoru Shieldio</a> lze pracovat s bloky nebo C++. K projektům jsou připravené programy.",
+    "en": "The <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a> supports blocks and C++. The project guides include prepared programs."
+  },
+  "home.simple.start.step3.h3": {
+    "cs": "Nahrání a kontrola",
+    "en": "Upload and check"
+  },
+  "home.simple.start.step3.p": {
+    "cs": "Po výběru USB portu se program nahraje do desky. Výsledek lze porovnat s návodem a program upravit.",
+    "en": "Select the USB port and upload the program to the board. Compare the result with the guide, then edit the program."
+  },
+  "home.simple.start.requirements": {
+    "cs": "<b>Potřebujete:</b> sestavenou RED, počítač s Chrome nebo Edge, datový USB kabel a internet.",
+    "en": "<b>You need:</b> an assembled RED, a computer with Chrome or Edge, a USB data cable and internet access."
+  },
+  "home.simple.start.assembly": {
+    "cs": "Pájení nesestavené desky má <a href=\"/instructions/baseline/red/sestaveni/index.html\">samostatný návod</a>.",
+    "en": "There is a <a href=\"/instructions/baseline/red/sestaveni/index.html\">separate guide</a> for soldering an unassembled board."
+  },
+  "home.simple.start.guide": {
+    "cs": "Postup programování a připojení",
+    "en": "Programming and connection guide"
+  },
+  "home.simple.board.h2": {
+    "cs": "Deska RED",
+    "en": "The RED board"
+  },
+  "home.simple.board.p": {
+    "cs": "Vedle senzoru, serva a displeje jsou na desce dvě LED, dvě tlačítka a bzučák.",
+    "en": "Alongside the sensor, servo and display, the board has two LEDs, two buttons and a buzzer."
+  },
+  "home.simple.board.status": {
+    "cs": "Testujeme prototyp V4 a připravujeme V5. Formulář zjišťuje nezávazný zájem o RED; nejde o objednávku ani rezervaci.",
+    "en": "We are testing the V4 prototype and preparing V5. The form collects non-binding interest in RED; it is not an order or a reservation."
+  },
+  "home.simple.board.detail": {
+    "cs": "Podrobnosti o RED",
+    "en": "RED details"
+  },
+  "home.simple.board.variants": {
+    "cs": "Plánované varianty sestavení",
+    "en": "Planned assembly options"
+  },
+  "home.simple.board.alt": {
+    "cs": "Detail řídicího modulu a OLED displeje na desce RED",
+    "en": "Close-up of the controller module and OLED display on the RED board"
+  },
+  "home.simple.teachers.h2": {
+    "cs": "Pro učitele",
+    "en": "For teachers"
+  },
+  "home.simple.teachers.p": {
+    "cs": "K projektu závory je návrh hodiny na 45 nebo 90 minut, pracovní list a hodnoticí rubrika.",
+    "en": "The barrier project includes a draft 45- or 90-minute lesson plan, a worksheet and an assessment rubric."
+  },
+  "home.simple.teachers.usb": {
+    "cs": "Před hodinou je potřeba na školním účtu ověřit přístup k USB portu.",
+    "en": "Before the lesson, check that the school account allows access to the USB port."
+  },
+  "home.simple.teachers.materials": {
+    "cs": "Metodický list a pracovní list",
+    "en": "Lesson plan and worksheet"
+  },
+  "home.simple.teachers.details": {
+    "cs": "Příprava hodiny a požadavky",
+    "en": "Lesson preparation and requirements"
+  },
+  "home.simple.teachers.demo": {
+    "cs": "Domluvit ukázku",
+    "en": "Arrange a demonstration"
+  },
+  "home.simple.learn.title": {
+    "cs": "Jak fungují součástky",
+    "en": "How the components work"
+  },
+  "home.simple.learn.p": {
+    "cs": "Ohmův zákon, LED, tlačítka a další témata v učebně elektroniky.",
+    "en": "Ohm’s law, LEDs, buttons and other topics in the electronics classroom."
+  },
+  "home.simple.learn.link": {
+    "cs": "Otevřít učebnu",
+    "en": "Open the classroom"
+  },
+  "home.simple.contact.p": {
+    "cs": "Dotazy k RED a ukázkám pro školy.",
+    "en": "Questions about RED and demonstrations for schools."
+  },
+  "nav.projects": {
+    "cs": "Projekty",
+    "en": "Projects"
+  },
+  "nav.teachers": {
+    "cs": "Pro učitele",
+    "en": "For teachers"
+  },
+  "nav.menu": {
+    "cs": "Otevřít menu",
+    "en": "Open menu"
+  },
+  "home.simple.projects.barrier.link_label": {
+    "cs": "Návod: Automatická závora",
+    "en": "Guide: Automatic barrier"
+  },
+  "home.simple.projects.parking.link_label": {
+    "cs": "Návod: Parkovací asistent",
+    "en": "Guide: Parking assistant"
+  },
+  "home.simple.projects.theremin.link_label": {
+    "cs": "Návod: Bezdotykový nástroj",
+    "en": "Guide: Touchless instrument"
+  },
+  "programming.formatCode": {
+    "cs": "Zarovnat kód",
+    "en": "Indent code"
+  },
+  "programming.commentCode": {
+    "cs": "Komentář",
+    "en": "Toggle comment"
   }
 }

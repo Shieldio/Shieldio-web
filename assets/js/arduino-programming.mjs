@@ -1,5 +1,6 @@
 import { importLibrary, validateLibraries } from "./arduino-libraries.mjs";
-import { indentSelection } from "./arduino-source-editor.mjs";
+import { codeKeyEdit, formatIndentation, toggleLineComment } from "./arduino-source-editor.mjs?v=20261103-assist2";
+import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from "./arduino-diagnostics.mjs?v=20261103-assist2";
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
@@ -19,7 +20,7 @@ const messages = {
   connect: ["Připojit desku", "Connect board"], disconnect: ["Odpojit", "Disconnect"],
   compiling: ["Připravuji program pro desku…", "Preparing your program for the board…"],
   compiled: ["Kontrola dokončena. Na desce se ještě nic nezměnilo.", "Check complete. Nothing has changed on the board yet."],
-  changed: ["Program jsi změnil. Spusť ho na desce znovu.", "You changed the program. Run it on the board again."],
+  changed: ["Program se změnil. Spusť kontrolu nebo ho nahraj do desky.", "The program changed. Check it or upload it to the board."],
   reset: ["Připojuji se k desce…", "Connecting to the board…"],
   write: ["Posílám program do desky", "Sending your program to the board"], verify: ["Kontroluji, že deska dostala celý program", "Checking the board received the complete program"],
   done: ["Nahráno. Teď sleduj, co deska dělá.", "Uploaded. Now watch what the board does."],
@@ -27,7 +28,14 @@ const messages = {
   noPort: ["Deska nebyla vybraná. Zkus Spustit na desce znovu a vyber její USB port.", "No board selected. Choose Run on board again and select its USB port."],
   unsupported: ["Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači.", "To run on RED, open the editor in desktop Chrome or Edge."],
   failure: ["Nepodařilo se to. Otevři podrobnosti a zkus doporučený postup.", "That did not work. Open the details and try the suggested steps."],
-  compileError: ["Program nejde připravit. V podrobnostech najdeš chybu a její řádek.", "The program could not be prepared. Find the error and its line in the details."],
+  compileError: ["Chyba v programu. Podívej se na označené místo a návrh opravy.", "Error in the program. Check the marked location and suggested fix."],
+  errorsTitle: ["Chyby při přípravě programu", "Program preparation errors"],
+  blockErrorContext: ["Tento kód vznikl z bloků. Uprav bloky a spusť kontrolu znovu.", "This code was generated from blocks. Edit the blocks, then check again."],
+  goToLine: ["Přejít na řádek", "Go to line"],
+  addClosingParen: ["Doplnit )", "Insert )"],
+  fixApplied: ["Závorka je doplněná. Spusť kontrolu znovu.", "Parenthesis inserted. Check the program again."],
+  formatted: ["Odsazení upraveno.", "Indentation updated."],
+  moreErrors: ["Další chyby jsou v technických podrobnostech. Nejdřív oprav první chybu.", "More errors are in the technical details. Fix the first error first."],
   fileLoaded: ["Program byl načten do záložky Arduino C++.", "Program loaded into the Arduino C++ tab."],
   codeUnavailable: ["Blokový editor se nenačetl. Obnov stránku nebo použij záložku Arduino C++.", "The block editor did not load. Reload or use the Arduino C++ tab."],
   errorGenerated: ["V blocích je chyba. Oprav ji podle zprávy pod výběrem součástky.", "There is a block error. Follow the message below the component selector."],
@@ -52,6 +60,7 @@ const supported = "serial" in navigator && window.isSecureContext;
 let selectedPort = null, busy = false, cached = null, worker = null, controller = null, disconnected = false;
 let libraries = [], expanded = false, toolsOpen = false, importedProject = false, uploadRequested = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
+let lastCompile = null, failedBuild = null, errorLine = null, renderedLineCount = 0;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
 const entryParams = new URLSearchParams(window.location?.search || "");
@@ -128,22 +137,29 @@ function paint() {
   $("uploadBtn").setAttribute("aria-describedby",supported ? "uploadStatus" : "usbCompatibility uploadStatus");
   $("focusEditorBtn").textContent = t(expanded ? "unfocus" : "focus");
   paintProject();
+  renderCompilerErrors();
 }
 function status(key, error = false, percent = null) { statusKey = key; statusError = error; statusPercent = percent; paint(); }
 function setBusy(value) {
   busy = value;
-  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn", "addLibraryBtn", "boardSelect", "blockProfileSelect", "moduleSelect", "advancedBlocksToggle", "loadBlocksBtn", "saveBlocksBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
+  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn", "addLibraryBtn", "boardSelect", "blockProfileSelect", "moduleSelect", "advancedBlocksToggle", "loadBlocksBtn", "saveBlocksBtn", "formatSourceBtn", "toggleCommentBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
   $("downloadHexBtn").disabled = value || !cached || cached.source !== source();
   $("toggleToolsBtn").disabled = value;
   $("cancelBuildBtn").hidden = !value;
   $("customLibraryList").inert = value;
   blocksPanel.inert = value;
   codePanel.inert = value;
+  $("compilerErrors").inert = value;
   $("uploadProgress").hidden = !value;
   $("programmingStudio").dataset.busy = String(value);
   paintProject();
 }
 function invalidate() {
+  if (failedBuild && failedBuild.source !== source()) {
+    clearCompilerErrors();
+    $("compilerDetails").hidden = true;
+    if (!busy) status("changed");
+  }
   if (cached && cached.source !== source()) {
     cached = null;
     $("downloadHexBtn").disabled = true;
@@ -175,21 +191,139 @@ for (const id of ["blocksTab", "codeTab"]) $(id).addEventListener("keydown", eve
 try { sourceInput.value = localStorage.getItem(sourceStorageKey) || ""; } catch {}
 function updateSourcePosition() {
   const lines = sourceInput.value.split("\n");
-  $("sourceLineNumbers").textContent = lines.map((_,i) => i+1).join("\n");
+  if (renderedLineCount !== lines.length) {
+    $("sourceLineNumbers").replaceChildren(...lines.map((_, i) => {
+      const number = document.createElement("span"); number.textContent = i + 1;
+      number.className = i + 1 === errorLine ? "is-error" : "";
+      return number;
+    }));
+    renderedLineCount = lines.length;
+  }
   const cursor = sourceInput.value.slice(0,sourceInput.selectionStart || 0).split("\n");
   $("sourcePosition").textContent = `${cursor.length}:${cursor.at(-1).length+1} · ${lines.length} ${document.documentElement.lang === "en" ? (lines.length === 1 ? "line" : "lines") : (lines.length === 1 ? "řádek" : lines.length < 5 ? "řádky" : "řádků")}`;
+  paintErrorLine();
 }
 sourceInput.addEventListener("input", () => {invalidate();updateSourcePosition();try {localStorage.setItem(sourceStorageKey,sourceInput.value);} catch {}});
-sourceInput.addEventListener("scroll", () => {$("sourceLineNumbers").scrollTop = sourceInput.scrollTop;});
+sourceInput.addEventListener("scroll", () => {$("sourceLineNumbers").scrollTop = sourceInput.scrollTop;paintErrorLine();});
 for (const event of ["click","keyup","select"]) sourceInput.addEventListener(event, updateSourcePosition);
 sourceInput.addEventListener("keydown", event => {
-  if (event.key !== "Tab" || busy) return;
-  event.preventDefault();
-  const edit = indentSelection(sourceInput.value,sourceInput.selectionStart,sourceInput.selectionEnd,event.shiftKey);
-  sourceInput.value = edit.text;sourceInput.setSelectionRange(edit.start,edit.end);
-  sourceInput.dispatchEvent(new Event("input"));
+  if (busy || event.isComposing) return;
+  if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === "f") {
+    event.preventDefault();formatSource();return;
+  }
+  if ((event.ctrlKey || event.metaKey) && event.key === "/") {
+    event.preventDefault();commentSource();return;
+  }
+  const edit = codeKeyEdit(sourceInput.value,sourceInput.selectionStart,sourceInput.selectionEnd,event);
+  if (edit) {event.preventDefault();applySourceEdit(edit);}
 });
 window.addEventListener("shieldio:code-change", () => {invalidate();paintProject();});
+
+function applySourceEdit(edit) {
+  if (!edit || busy) return;
+  const previous = sourceInput.value, scrollTop = sourceInput.scrollTop, scrollLeft = sourceInput.scrollLeft;
+  if (edit.text !== previous) {
+    let start = 0, end = previous.length, nextEnd = edit.text.length;
+    while (start < end && start < nextEnd && previous[start] === edit.text[start]) start++;
+    while (end > start && nextEnd > start && previous[end - 1] === edit.text[nextEnd - 1]) {end--;nextEnd--;}
+    sourceInput.focus();sourceInput.setSelectionRange(start,end);
+    // Native insertion keeps the edit in the textarea's undo history. The
+    // fallback is for browsers which do not implement insertText on textareas.
+    const inserted = document.execCommand?.("insertText",false,edit.text.slice(start,nextEnd));
+    if (!inserted || sourceInput.value !== edit.text) sourceInput.value=edit.text;
+    sourceInput.dispatchEvent(new Event("input"));
+  }
+  sourceInput.setSelectionRange(edit.start,edit.end);
+  sourceInput.scrollTop=scrollTop;sourceInput.scrollLeft=scrollLeft;
+  updateSourcePosition();
+}
+function formatSource() {
+  if (busy) return;
+  applySourceEdit(formatIndentation(sourceInput.value,sourceInput.selectionStart,sourceInput.selectionEnd));
+  status("formatted");
+}
+function commentSource() {
+  if (!busy) applySourceEdit(toggleLineComment(sourceInput.value,sourceInput.selectionStart,sourceInput.selectionEnd));
+}
+$("formatSourceBtn").addEventListener("click",formatSource);
+$("toggleCommentBtn").addEventListener("click",commentSource);
+
+function paintErrorLine() {
+  const marker=$("sourceErrorLine");
+  marker.hidden=!errorLine || mode()!=="code";
+  if (marker.hidden) return;
+  const style=window.getComputedStyle?.(sourceInput);
+  const height=parseFloat(style?.lineHeight)||22.1;
+  const top=(parseFloat(style?.paddingTop)||14)+(errorLine-1)*height-(sourceInput.scrollTop||0);
+  marker.style.top=`${top}px`;marker.style.height=`${height}px`;
+  marker.hidden=top<0 || top>=(sourceInput.clientHeight||10000);
+}
+function clearCompilerErrors() {
+  failedBuild=null;errorLine=null;renderedLineCount=0;
+  $("compilerErrors").hidden=true;$("compilerErrorList").replaceChildren();
+  sourceInput.removeAttribute("aria-invalid");sourceInput.removeAttribute("aria-describedby");
+  updateSourcePosition();
+}
+function goToDiagnostic(diagnostic) {
+  if (busy || !failedBuild || failedBuild.mode!=="code" || sourceInput.value!==failedBuild.source || !diagnostic.inSketch) return;
+  switchMode("code");
+  const lines=sourceInput.value.split("\n");
+  const offset=lines.slice(0,diagnostic.line-1).reduce((n,line)=>n+line.length+1,0)+Math.min(diagnostic.column-1,lines[diagnostic.line-1].length);
+  sourceInput.focus();sourceInput.setSelectionRange(offset,Math.min(offset+1,sourceInput.value.length));
+  const height=parseFloat(window.getComputedStyle?.(sourceInput)?.lineHeight)||22.1;
+  sourceInput.scrollTop=Math.max(0,(diagnostic.line-4)*height);
+  sourceInput.scrollLeft=Math.max(0,(diagnostic.column-30)*height*.6);
+  $("sourceLineNumbers").scrollTop=sourceInput.scrollTop;
+  errorLine=diagnostic.line;renderedLineCount=0;updateSourcePosition();
+}
+function renderCompilerErrors() {
+  const panel=$("compilerErrors");
+  panel.hidden=!failedBuild;
+  if (!failedBuild) return;
+  const lang=document.documentElement.lang==="en"?"en":"cs";
+  $("compilerErrorHeading").textContent=t("errorsTitle");
+  $("compilerErrorContext").hidden=failedBuild.mode!=="blocks" || !failedBuild.diagnostics.length;
+  $("compilerErrorContext").textContent=t("blockErrorContext");
+  const list=$("compilerErrorList");list.replaceChildren();
+  if (!failedBuild.diagnostics.length) {
+    const hint=document.createElement("p");hint.textContent=t(failedBuild.key);list.append(hint);
+  }
+  for (const diagnostic of failedBuild.diagnostics.slice(0,5)) {
+    const item=document.createElement("div");item.className="programming-error-item";
+    const heading=document.createElement("strong"),hint=document.createElement("p");
+    const copy=describeDiagnostic(diagnostic,lang);heading.textContent=copy.title;hint.textContent=copy.hint;
+    item.append(heading);
+    const location=document.createElement("p");location.className="programming-error-location";
+    location.textContent=`${diagnostic.file}:${diagnostic.line}:${diagnostic.column}`;item.append(location);
+    if (diagnostic.inSketch) {
+      const snippet=document.createElement("pre");snippet.className="programming-error-snippet";
+      snippet.textContent=failedBuild.source.split("\n")[diagnostic.line-1];item.append(snippet);
+    }
+    item.append(hint);
+    if (failedBuild.mode==="code" && diagnostic.inSketch) {
+      const actions=document.createElement("div");actions.className="programming-error-actions";
+      const jump=document.createElement("button");jump.type="button";jump.textContent=t("goToLine")+" "+diagnostic.line;
+      jump.addEventListener("click",()=>goToDiagnostic(diagnostic));actions.append(jump);
+      if (diagnostic.fix) {
+        const fix=document.createElement("button");fix.type="button";fix.textContent=t("addClosingParen");
+        fix.addEventListener("click",()=>{
+          if (!failedBuild || busy) return;
+          const edit=applyDiagnosticFix(sourceInput.value,failedBuild.source,diagnostic.fix);
+          if (!edit) return;
+          applySourceEdit(edit);status("fixApplied");
+        });actions.append(fix);
+      }
+      item.append(actions);
+    }
+    list.append(item);
+  }
+  $("compilerErrorMore").hidden=failedBuild.diagnostics.length<=5;
+  $("compilerErrorMore").textContent=t("moreErrors");
+  const editable=failedBuild.mode==="code" && failedBuild.source===sourceInput.value;
+  errorLine=editable ? failedBuild.diagnostics.find(d=>d.inSketch)?.line || null : null;
+  if (errorLine) {sourceInput.setAttribute("aria-invalid","true");sourceInput.setAttribute("aria-describedby","compilerErrorHeading");}
+  renderedLineCount=0;updateSourcePosition();
+}
 
 async function selectPort() {
   if (!supported) throw new Error("unsupported");
@@ -227,6 +361,7 @@ function compileInWorker(text, signal) {
 }
 async function compile(signal) {
   const text = source();
+  lastCompile={source:text,mode:mode()};
   if (mode() === "blocks" && !window.SHIELDIO_EDITOR) throw new Error("codeUnavailable");
   if (mode() === "blocks" && window.SHIELDIO_EDITOR.getError()) throw new Error("errorGenerated");
   if (!text.trim()) throw new Error("HEX_EMPTY");
@@ -248,16 +383,21 @@ async function compile(signal) {
   return result;
 }
 function showError(error) {
-  const key = disconnected ? "SERIAL_DISCONNECTED" : error.message === "CANCELLED" ? "cancelled" : messages[error.message] ? error.message : /\[cc1plus\].*error:/.test(error.message) ? "compileError" : "failure";
+  $("memoryUsage").textContent="";
+  const log=[error.message,error.details].filter(Boolean).join("\n");
+  const diagnostics=parseCompilerDiagnostics(log,lastCompile?.source||source());
+  const key = disconnected ? "SERIAL_DISCONNECTED" : error.message === "CANCELLED" ? "cancelled" : messages[error.message] ? error.message : diagnostics.length ? "compileError" : "failure";
+  failedBuild=key==="cancelled"?null:{source:lastCompile?.source||source(),mode:lastCompile?.mode||mode(),diagnostics,key};
   status(key, key !== "cancelled");
   const details = error.details || (messages[error.message] ? "" : (error.message || String(error)));
   $("compilerLog").textContent = details;
   $("compilerDetails").hidden = !details;
-  $("compilerDetails").open = Boolean(details);
+  $("compilerDetails").open = Boolean(details) && !diagnostics.length;
 }
 async function run(upload) {
   if (busy || (upload && !supported)) return;
   uploadRequested = upload;
+  clearCompilerErrors();lastCompile=null;
   setBusy(true);
   controller = new AbortController();
   disconnected = false;

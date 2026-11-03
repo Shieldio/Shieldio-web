@@ -4,20 +4,21 @@ import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import { Blob } from 'node:buffer';
 import { importLibrary, validateLibraries } from '../assets/js/arduino-libraries.mjs';
-import { indentSelection } from '../assets/js/arduino-source-editor.mjs';
+import * as sourceEditor from '../assets/js/arduino-source-editor.mjs';
+import * as diagnostics from '../assets/js/arduino-diagnostics.mjs';
 const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',import.meta.url),'utf8');
 const source=(await fs.readFile(new URL('../assets/js/arduino-programming.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-programming.mjs"');
 const dictionary=JSON.parse(await fs.readFile(new URL('../assets/data/i18n.json',import.meta.url),'utf8'));
 for(const key of [...html.matchAll(/data-i18n(?:-title|-aria-label)?="([^"]+)"/g)].map(m=>m[1])) assert.ok(dictionary[key],key);
-function model({serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false,flashSuccess=false}={}){
+function model({serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false,flashSuccess=false,compileError=null}={}){
   const elements=new Map();
   class Element{
-    constructor(id){this.id=id;this.value='';this.hidden=false;this.disabled=false;this.dataset={};this.attributes={};this.listeners={};this.options=[];this.children=[];this.selectionStart=0;this.selectionEnd=0;this.classList={toggle(){}};}
+    constructor(id){this.id=id;this.value='';this.hidden=false;this.disabled=false;this.dataset={};this.attributes={};this.listeners={};this.options=[];this.children=[];this.style={};this.selectionStart=0;this.selectionEnd=0;this.classList={toggle(){}};}
     addEventListener(name,fn){this.listeners[name]=fn;}
     getAttribute(name){return this.attributes[name]??null;}
     setAttribute(name,value){this.attributes[name]=value;}
     removeAttribute(name){delete this.attributes[name];}
-    replaceChildren(...options){this.options=options;this.value='';}
+    replaceChildren(...options){this.options=options;this.children=options;this.value='';}
     add(option){this.options.push(option);}
     append(...nodes){this.children.push(...nodes);}
     dispatchEvent(event){return this.listeners[event.type]?.(event);}
@@ -38,11 +39,11 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
     MutationObserver:class{observe(){}},
     localStorage:{getItem:key=>storage.get(key) || null,setItem:(key,value)=>storage.set(key,value)},
     async fetch(url){fetches++;assert.match(String(url),/^https:\/\/shieldio.cz\/assets\/code\/(?:digitalni_metr|ultrazvukovy_radar)\//);return {ok:!exampleFailure,text:async()=>exampleText};},
-    importLibrary,validateLibraries,indentSelection,Event:class{constructor(type){this.type=type;}},
+    importLibrary,validateLibraries,...sourceEditor,...diagnostics,Event:class{constructor(type){this.type=type;}},
     AbortController,URLSearchParams,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,
     URL:class extends URL {static createObjectURL(blob){downloads.push(blob);return 'blob:test';}static revokeObjectURL(){}},
     Worker:class {
-      postMessage(data){buildMessages.push(data);compilations++;Promise.resolve().then(()=>this.onmessage({data:{result:{fitsTarget:true,flashBytes:2,ramBytes:0,hex:':test',stderr:[]}}}));}
+      postMessage(data){buildMessages.push(data);compilations++;Promise.resolve().then(()=>this.onmessage({data:compileError?{error:compileError}:{result:{fitsTarget:true,flashBytes:2,ramBytes:0,hex:':test',stderr:[]}}}));}
       terminate(){}
     },
     parseHex(){},async flashNano(port,hex,options){if(!flashSuccess)throw Error('Discovery must not flash hardware');uploads++;options.onProgress('write',100);options.onProgress('verify',100);options.onProgress('done',100);}
@@ -162,3 +163,32 @@ console.log('UI: direct USB default, unsupported-browser compilation/export, por
   assert.match(m.get('projectNext').textContent,/15 nebo 30/);
   m.windowEvents['shieldio:project-import']();assert.equal(m.get('projectTitle').textContent,'Co tvůj program udělá?');
 }
+
+// Compiler failures stay visible, select the correct line, and never edit code
+// or touch hardware until the visitor explicitly chooses an action.
+{
+  const sketch='void setup() {}\nvoid loop() {\n  digitalWrite(LED_GREEN, LOW;\n}';
+  const column=sketch.split('\n')[2].indexOf(';')+1;
+  const message=`[cc1plus] shieldio.ino:3:${column}: error: expected ')' before ';' token`;
+  const m=model({savedSource:sketch,compileError:message+'\n'+message});
+  m.get('codeTab').listeners.click();
+  await m.get('compileBtn').listeners.click();
+  assert.equal(m.get('compilerErrors').hidden,false);
+  assert.equal(m.get('compilerErrorList').children.length,1,'Do not duplicate an identical compiler diagnostic');
+  assert.equal(m.get('arduinoSource').value,sketch,'Reporting a diagnostic never silently fixes the program');
+  assert.equal(m.get('arduinoSource').attributes['aria-invalid'],'true');
+  const actions=m.get('compilerErrorList').children[0].children.find(el=>el.className==='programming-error-actions');
+  actions.children[0].click();
+  assert.equal(m.get('arduinoSource').selectionStart,sketch.indexOf(';'));
+  actions.children[1].click();
+  assert.ok(m.get('arduinoSource').value.includes('digitalWrite(LED_GREEN, LOW);'));
+  assert.equal(m.get('compilerErrors').hidden,true,'The previous diagnostic is retired when the source changes');
+  assert.equal(m.counts().uploads,0);assert.equal(m.counts().portRequests,0);
+  assert.equal(m.counts().compilations,1,'A suggested patch does not compile or upload automatically');
+  assert.match(m.get('uploadStatus').textContent,/Závorka je doplněná/);
+  m.get('arduinoSource').value='void loop(){\ndelay(1);\n}';
+  m.get('formatSourceBtn').click();
+  assert.equal(m.get('arduinoSource').value,'void loop(){\n  delay(1);\n}');
+  assert.equal(m.storage.get('shieldio-source-v1'),m.get('arduinoSource').value);
+}
+console.log('Compiler error UI: visible deduplicated errors, exact line navigation, explicit guarded patch, stale marker cleanup and formatter autosave passed.');

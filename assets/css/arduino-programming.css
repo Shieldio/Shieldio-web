@@ -1,4 +1,6 @@
 /* Shieldio programming studio. Layout follows the viewport, never a physical screen diagonal. */
+:root { --code-error: #b42318; }
+:root[data-theme="dark"] { --code-error: #ff8a80; }
 .hero.programming-hero { padding: 20px 0 4px; }
 .hero.programming-hero::before, .hero.programming-hero::after { display: none; }
 .hero.programming-hero .wrap, .programming-studio > .wrap { max-width: 1920px; padding: 0 clamp(16px, 2vw, 36px); }
@@ -47,7 +49,17 @@
 .programming-status { flex: 0 0 auto; border-top: 1px solid var(--line); padding: 8px 0; }
 .programming-status-line { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 5px 16px; }
 .programming-status p { margin: 0; font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
-.programming-status [data-error="true"] { color: var(--ink); font-weight: 600; border-left: 3px solid var(--ink-soft); padding-left: 10px; }
+.programming-status [data-error="true"] { color: var(--code-error); font-weight: 600; border-left: 4px solid var(--code-error); padding-left: 10px; font-size:14px; }
+.programming-errors { margin-top:12px; padding:16px 18px; border:1px solid var(--code-error); border-left:5px solid var(--code-error); border-radius:8px; background:color-mix(in srgb,var(--code-error) 8%,var(--surface)); max-height:320px; overflow:auto; }
+.programming-errors h2 { font-size:17px; color:var(--code-error); margin:0 0 10px; }
+.programming-errors strong { display:block; font-size:15px; color:var(--ink); }
+.programming-errors p { font-size:13px; color:var(--ink); margin:7px 0; }
+.programming-error-item + .programming-error-item { border-top:1px solid color-mix(in srgb,var(--code-error) 25%,var(--line)); margin-top:14px; padding-top:14px; }
+.programming-errors .programming-error-location { color:var(--code-error); font:12px/1.5 ui-monospace,monospace; overflow-wrap:anywhere; }
+.programming-error-snippet { margin:8px 0; padding:9px 11px; overflow:auto; background:var(--paper); border-radius:5px; color:var(--ink); font:13px/1.6 ui-monospace,monospace; }
+.programming-error-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+.programming-error-actions button { min-height:36px; padding:7px 12px; font:inherit; font-size:13px; border:1px solid var(--code-error); border-radius:6px; color:var(--code-error); background:var(--surface); cursor:pointer; }
+.programming-error-actions button:hover { background:color-mix(in srgb,var(--code-error) 12%,var(--surface)); }
 .programming-status progress { display: block; width: 100%; height: 6px; accent-color: var(--accent); margin-top: 8px; }
 .programming-memory { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px !important; }
 .programming-diagnostics { margin-top: 8px; font-size: 12px; }
@@ -70,10 +82,14 @@
 .programming-studio #blocklyDiv .blocklyTreeRow { margin: 3px 5px; padding: 8px 10px !important; border-radius: 7px; }
 .programming-studio .blockly-splitter:hover::before, .programming-studio .blockly-splitter:focus-visible::before { background: var(--accent); }
 .programming-studio .blockly-toggle-code.active { color: var(--accent-deep); border-color: var(--accent-deep); }
-.programming-source-wrap { display: flex; flex: 1 1 0; min-width: 0; min-height: 220px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.programming-source-wrap { position:relative; display: flex; flex: 1 1 0; min-width: 0; min-height: 220px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
 .programming-line-numbers { flex: 0 0 46px; overflow: hidden; white-space: pre; padding: 14px 9px; margin: 0; color: var(--ink-soft); text-align: right; border-right: 1px solid var(--line); background: var(--paper-2); user-select: none; }
 .programming-source { flex: 1 1 0; display: block; width: 0; min-width: 0; min-height: 0; height: 100%; resize: none; padding: 14px; margin: 0; border: 0; border-radius: 0; background: var(--paper); color: var(--ink); tab-size: 2; }
 .programming-line-numbers, .programming-source { font: 13px/1.7 'JetBrains Mono', ui-monospace, monospace; }
+.programming-line-numbers span { display:block; }
+.programming-line-numbers .is-error { color:var(--code-error); font-weight:700; background:color-mix(in srgb,var(--code-error) 14%,transparent); }
+.programming-error-line { position:absolute; left:46px; right:0; pointer-events:none; z-index:1; border-left:3px solid var(--code-error); background:color-mix(in srgb,var(--code-error) 12%,transparent); }
+.programming-code-tools { display:flex; align-items:center; gap:8px; padding:0 0 9px; }
 .programming-studio .programming-source:focus-visible { outline-offset: -3px; }
 .programming-source-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; font-size: 11px; color: var(--ink-soft); padding-top: 7px; }
 .programming-guide { margin-top: 20px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }

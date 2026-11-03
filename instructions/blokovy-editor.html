@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261103-learner1">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261103-assist2">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -23,17 +23,17 @@
 
 <div class="topbar">
   <div class="topbar-inner">
-    <a class="logo" href="../index.html"><img class="logo-full logo-full-light" src="../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <a class="logo" href="/index.html"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
     <div class="nav-links">
       <nav>
-        <a href="../index.html">Domů</a>
-        <a href="../products/index.html">Produkty</a>
-        <a href="../instructions/index.html">Návody</a>
-        <a href="../company/about.html">O nás</a>
-        <a href="blokovy-editor.html" class="nav-code-link" aria-current="page" data-i18n="programming.nav">Programování</a>
+        <a href="/products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="/instructions/baseline/red/index.html" data-i18n="nav.projects">Projekty</a>
+        <a href="/company/pro-ucitele.html" data-i18n="nav.teachers">Pro učitele</a>
+        <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="/instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
       </nav>
-      <a class="cta-small" href="../index.html#kontakt">Domluvit ukázku</a>
-      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+      <a class="cta-small" href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <button class="nav-toggle" type="button" aria-label="Otevřít menu" data-i18n-aria-label="nav.menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -123,6 +123,12 @@
       </div>
       <p id="projectNext" class="programming-next" hidden></p>
       <progress id="uploadProgress" max="100" hidden aria-label="Průběh nahrávání" data-i18n-aria-label="programming.progress"></progress>
+      <div id="compilerErrors" class="programming-errors" role="alert" aria-atomic="true" hidden>
+        <h2 id="compilerErrorHeading"></h2>
+        <p id="compilerErrorContext" hidden></p>
+        <div id="compilerErrorList"></div>
+        <p id="compilerErrorMore" hidden></p>
+      </div>
       <details id="compilerDetails" class="programming-diagnostics" hidden>
         <summary data-i18n="programming.details">Technické podrobnosti</summary>
         <p id="memoryUsage" class="programming-memory"></p>
@@ -171,11 +177,16 @@
     </div>
     </div>
     <div id="arduinoCodePanel" role="tabpanel" aria-labelledby="codeTab" hidden>
+      <div class="programming-code-tools">
+        <button type="button" id="formatSourceBtn" class="blockly-toggle-code" data-i18n="programming.formatCode" title="Ctrl/⌘ + Shift + F">Zarovnat kód</button>
+        <button type="button" id="toggleCommentBtn" class="blockly-toggle-code" data-i18n="programming.commentCode" title="Ctrl/⌘ + /">Komentář</button>
+      </div>
       <div class="programming-source-wrap">
       <pre id="sourceLineNumbers" class="programming-line-numbers" aria-hidden="true">1</pre>
       <textarea id="arduinoSource" class="programming-source" wrap="off" maxlength="200000" aria-label="Arduino C++ kód" data-i18n-aria-label="programming.sourceLabel" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea>
+      <div id="sourceErrorLine" class="programming-error-line" aria-hidden="true" hidden></div>
       </div>
-      <div class="programming-source-footer"><span id="sourcePosition"></span><span data-i18n="programming.shortcuts">Tab: odsazení · Ctrl/⌘ + Enter: kontrola · + Shift: spuštění na desce</span></div>
+      <div class="programming-source-footer"><span id="sourcePosition"></span><span data-i18n="programming.shortcuts">Tab: odsazení · Ctrl/⌘ + Shift + F: zarovnání · Ctrl/⌘ + /: komentář · Ctrl/⌘ + Enter: kontrola</span></div>
     </div>
     </div>
     <details class="programming-guide">
@@ -219,7 +230,7 @@
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
 <script src="../assets/js/shieldio-blocks.js?v=20261102-studio2"></script>
 <script src="../assets/js/blockly-editor.js?v=20261103-learner1"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261103-learner1"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261103-assist2"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>

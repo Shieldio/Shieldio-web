@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shieldio · Stavebnice kompatibilní s Arduino® pro školu, kroužek i domov</title>
-<meta name="description" content="Shieldio je studentský výukový projekt s deskou kompatibilní s Arduino® pro školy, kroužky a domácí kutily. RED je vývojový prototyp.">
+<title>Shieldio RED – elektronická deska</title>
+<meta name="description" content="Shieldio RED: deska se senzorem vzdálenosti, servem a displejem. Projekty, editor a návody. Prototyp V4 testujeme; RED se zatím neprodává.">
 <link rel="canonical" href="https://shieldio.cz/">
 <link rel="stylesheet" href="assets/css/style.css?v=20260906">
+<link rel="stylesheet" href="assets/css/home.css?v=20261103">
 
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
@@ -19,14 +20,14 @@
 <meta property="og:url" content="https://shieldio.cz/">
 <meta property="og:site_name" content="Shieldio">
 <meta property="og:locale" content="cs_CZ">
-<meta property="og:title" content="Shieldio · Stavebnice kompatibilní s Arduino® pro školu, kroužek i domov">
-<meta property="og:description" content="Shieldio je studentský výukový projekt s deskou kompatibilní s Arduino® pro školy, kroužky a domácí kutily. RED je vývojový prototyp.">
+<meta property="og:title" content="Shieldio RED – elektronická deska">
+<meta property="og:description" content="Shieldio RED: deska se senzorem vzdálenosti, servem a displejem. Projekty, editor a návody. Prototyp V4 testujeme; RED se zatím neprodává.">
 <meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Shieldio · Stavebnice kompatibilní s Arduino® pro školu, kroužek i domov">
-<meta name="twitter:description" content="Shieldio je studentský výukový projekt s deskou kompatibilní s Arduino® pro školy, kroužky a domácí kutily. RED je vývojový prototyp.">
+<meta name="twitter:title" content="Shieldio RED – elektronická deska">
+<meta name="twitter:description" content="Shieldio RED: deska se senzorem vzdálenosti, servem a displejem. Projekty, editor a návody. Prototyp V4 testujeme; RED se zatím neprodává.">
 <meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
 
 <script type="application/ld+json">
@@ -36,7 +37,7 @@
   "name": "Shieldio",
   "url": "https://shieldio.cz/",
   "logo": "https://shieldio.cz/assets/icons/icon-512.png",
-  "description": "Shieldio je studentský výukový projekt s deskou kompatibilní s Arduino® pro školy, kroužky a domácí kutily. RED je vývojový prototyp."
+  "description": "Shieldio RED: deska se senzorem vzdálenosti, servem a displejem. Projekty, editor a návody. Prototyp V4 testujeme; RED se zatím neprodává."
 }
 </script>
 <script type="application/ld+json">
@@ -46,26 +47,25 @@
   "name": "Shieldio",
   "url": "https://shieldio.cz/",
   "inLanguage": ["cs", "en"],
-  "description": "Výuková elektronika pro školy: deska RED v první malé sérii, interaktivní návody krok za krokem a srozumitelné vysvětlení, jak elektronika uvnitř funguje."
+  "description": "Shieldio RED: deska se senzorem vzdálenosti, servem a displejem. Projekty, editor a návody. Prototyp V4 testujeme; RED se zatím neprodává."
 }
 </script>
 </head>
-<body data-i18n-title="home.title">
+<body class="home-page" data-i18n-title="home.title">
 
 <div class="topbar">
   <div class="topbar-inner">
-    <a class="logo" href="index.html"><img class="logo-full logo-full-light" src="assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <a class="logo" href="/index.html"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
     <div class="nav-links">
       <nav>
-        <a href="index.html" data-i18n="nav.home">Domů</a>
-        <a href="products/index.html" data-i18n="nav.products">Produkty</a>
-        <a href="instructions/index.html" data-i18n="nav.guides">Návody</a>
-        <a href="edu/index.html" data-i18n="nav.edu">Edu</a>
-        <a href="company/about.html" data-i18n="nav.about">O nás</a>
-        <a href="instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
+        <a href="/products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="/instructions/baseline/red/index.html" data-i18n="nav.projects">Projekty</a>
+        <a href="/company/pro-ucitele.html" data-i18n="nav.teachers">Pro učitele</a>
+        <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="/instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
       </nav>
-      <a class="cta-small" href="#kontakt" data-i18n="home.topbar_cta">Domluvit ukázku</a>
-      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+      <a class="cta-small" href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <button class="nav-toggle" type="button" aria-label="Otevřít menu" data-i18n-aria-label="nav.menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -73,347 +73,144 @@
 </div>
 
 <!-- HERO -->
+<main id="hlavni-obsah">
 <div class="hero">
   <div class="wrap hero-grid">
-   <div class="fade-up">
-  <span class="eyebrow" data-i18n="home.hero.eyebrow">Výuková elektronika pro školy i domov</span>
-      <h1 class="hero-h1-long" data-i18n="home.hero.h1"><em>Stavebnice</em> pro školu, kroužek i domácí dílnu.</h1>
-      <p class="lead" data-i18n="home.hero.lead">Senzor změří vzdálenost, program rozhodne a servo zvedne závoru.</p>
+    <div class="fade-up">
+      <h1 data-i18n="home.simple.hero.h1">Shieldio RED</h1>
+      <p class="lead" data-i18n="home.simple.hero.description">Elektronická deska se senzorem vzdálenosti, servem a displejem.</p>
       <div class="hero-mobile-product" aria-hidden="true">
-        <img src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" alt="">
+        <img src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" alt="" fetchpriority="high">
       </div>
-      <div class="hero-paths">
-        <a class="hero-path is-primary" href="products/RED.html#zajem">
-          <span class="hero-path-intent" data-i18n="home.hero.path1_intent">Chci Shieldio</span>
-          <span class="hero-path-action" data-i18n="home.hero.path1_action">Mám zájem o RED</span>
-        </a>
-        <a class="hero-path" href="#kontakt">
-          <span class="hero-path-intent" data-i18n="home.hero.path2_intent">Chci ho nejdřív vidět</span>
-          <span class="hero-path-action" data-i18n="home.hero.path2_action">Domluvit ukázku</span>
-        </a>
-        <a class="hero-path" href="instructions/programovani/">
-          <span class="hero-path-intent" data-i18n="home.hero.path3_intent">Chci si ho vyzkoušet</span>
-          <span class="hero-path-action" data-i18n="home.hero.path3_action">Rozblikat první LED</span>
-        </a>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="instructions/baseline/red/index.html" data-i18n="home.simple.hero.project">Prohlédnout projekty</a>
+        <a class="btn btn-ghost" href="products/RED.html#zajem" data-i18n="home.simple.hero.interest">Mám zájem o RED</a>
       </div>
-      <p style="margin-top:18px;">
-        <a href="products/index.html" class="learn-theory-link" data-i18n="home.hero.cta_secondary">Prohlédnout všechny produkty →</a>
-      </p>
-      <div class="hero-stats">
-        <div class="stat"><b>3</b><span data-i18n="home.hero.stat1_label">plánované úrovně systému</span></div>
-        <div class="stat"><b>100×100&nbsp;mm</b><span data-i18n="home.hero.stat2_label">jednotný formát desky</span></div>
-        <div class="stat"><b data-i18n="home.hero.stat3_value">USB</b><span data-i18n="home.hero.stat3_label">nahrávání do sestavené desky</span></div>
-      </div>
-      <p class="hero-stats-note" data-i18n="home.hero.stats_note">RED je první vyvíjená deska. Green a Yellow zatím připravujeme.</p>
+      <p class="home-status" data-i18n="home.simple.hero.status">RED V4 testujeme. Zatím se neprodává.</p>
     </div>
     <div class="board-figure fade-up">
       <div class="board-photo-frame">
-        <span class="board-tag" data-i18n="home.board_tag">RED · prototyp V4</span>
-        <img src="assets/images/RED_hand_hold_with_parts.jpeg" width="900" height="1200" data-i18n-alt="home.photo.board_alt" alt="Sestavená deska Shieldio RED v ruce, s modulem kompatibilním s Arduino® Nano, OLED displejem, ultrazvukovým senzorem a servem">
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- AUDIENCES -->
-<section class="audience-section" aria-labelledby="audience-title">
-  <div class="wrap">
-    <div class="section-head audience-head">
-      <span class="eyebrow-dark" data-i18n="home.audience.eyebrow">Vyberte si svůj začátek</span>
-      <h2 id="audience-title" data-i18n="home.audience.h2">Jedna deska, tři způsoby, jak začít.</h2>
-      <p data-i18n="home.audience.p">Materiály pro RED připravujeme pro školu, kroužek i domácí dílnu. Liší se cesta k prvnímu projektu, hardware i návody zůstávají stejné.</p>
-    </div>
-    <div class="audience-grid">
-      <a class="audience-card audience-school fade-up" href="company/pro-ucitele.html">
-        <span class="audience-label" data-i18n="home.audience.school_label">Škola</span>
-        <h3 data-i18n="home.audience.school_h3">Připravený start do výuky</h3>
-        <p data-i18n="home.audience.school_p">Návrh hodiny a pracovní list k prvnímu projektu. Možnosti školní ukázky probereme podle potřeb třídy.</p>
-        <span class="audience-link" data-i18n="home.audience.school_link">Informace pro učitele →</span>
-      </a>
-      <a class="audience-card fade-up delay-1" href="instructions/baseline/red/index.html">
-        <span class="audience-label" data-i18n="home.audience.club_label">Kroužek</span>
-        <h3 data-i18n="home.audience.club_h3">Hotový projekt, prostor pro vlastní nápad</h3>
-        <p data-i18n="home.audience.club_p">Začněte závorou, parkovacím asistentem nebo bezdotykovým nástrojem a pokračujte vlastní úpravou programu.</p>
-        <span class="audience-link" data-i18n="home.audience.club_link">Prohlédnout projekty →</span>
-      </a>
-      <a class="audience-card fade-up delay-2" href="products/RED.html#varianty">
-        <span class="audience-label" data-i18n="home.audience.home_label">Domácí dílna</span>
-        <h3 data-i18n="home.audience.home_h3">Sestavit, nebo rovnou programovat</h3>
-        <p data-i18n="home.audience.home_p">Plánovaná DIY varianta počítá s vlastním pájením, READY se sestavenou deskou. Podívejte se, co je potřeba před prvním programem.</p>
-        <span class="audience-link" data-i18n="home.audience.home_link">Porovnat varianty →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- PROBLEM -->
-<div class="problem" style="background:transparent;">
-  <div class="wrap" style="padding-top:64px; padding-bottom:64px;">
-    <div class="section-head" style="margin-bottom:36px;">
-      <span class="eyebrow-dark" data-i18n="home.problem.eyebrow">Před první hodinou</span>
-      <h2 data-i18n="home.problem.h2">Co připravit, než začne první program.</h2>
-    </div>
-    <div class="problem-grid">
-<div class="problem-card fade-up delay-1">
-        <span class="mono-tag" data-i18n="home.problem.card1_tag">01 · počítač</span>
-        <h3 data-i18n="home.problem.card1_h3">Ověřit USB ještě před hodinou</h3>
-        <p data-i18n="home.problem.card1_p">Na školním účtu vyzkoušejte Chrome nebo Edge, datový kabel a výběr portu desky. Zjistíte tak včas, jestli připojení neblokuje správa počítače.</p>
-      </div>
-      <div class="problem-card delay-2">
-        <span class="mono-tag" data-i18n="home.problem.card2_tag">02 · deska</span>
-        <h3 data-i18n="home.problem.card2_h3">Oddělit pájení od programování</h3>
-        <p data-i18n="home.problem.card2_p">Se sestavenou RED lze začít programem. Nesestavená sada má vlastní fotonávod a kontrolu spojů před prvním zapnutím.</p>
-      </div>
-      <div class="problem-card delay-3">
-        <span class="mono-tag" data-i18n="home.problem.card3_tag">03 · podklady</span>
-        <h3 data-i18n="home.problem.card3_h3">Vybrat jeden konkrétní projekt</h3>
-        <p data-i18n="home.problem.card3_p">U závory najdete zapojení, startovní bloky, test výsledku i návrh metodického listu. Ostatní projekty používají stejnou desku.</p>
+        <span class="board-tag" data-i18n="home.simple.hero.tag">RED · prototyp V4</span>
+        <img src="assets/images/RED_hand_hold_with_parts.jpeg" width="900" height="1200" data-i18n-alt="home.simple.hero.photo" alt="Deska Shieldio RED se senzorem vzdálenosti, servem a displejem" fetchpriority="high">
       </div>
     </div>
   </div>
 </div>
 
-<!-- SOLUTION / TIERS -->
-<section id="reseni" style="padding:72px 0;">
+<section id="projekty" class="home-section">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark" data-i18n="home.solution.eyebrow">Řešení</span>
-      <h2 data-i18n="home.solution.h2">Jedna deska, jasné barevné odlišení, rostoucí náročnost.</h2>
-      <p data-i18n="home.solution.p">Každá úroveň má jednu hlavní součástku a jeden zdokumentovaný projekt jako výchozí bod. RED V4 nyní testujeme a připravujeme V5; Green a Yellow jsou ve fázi konceptu.</p>
+    <div class="section-head"><h2 data-i18n="home.simple.projects.h2">Projekty</h2></div>
+    <div class="benefits home-projects">
+      <article class="benefit">
+        <figure class="home-project-photo">
+          <div class="project-visual"><img src="assets/images/RED_barrier_open_white.jpg" width="1254" height="1254" loading="lazy" alt="Prototyp závory na desce RED, rameno zvednuté nad modelem auta" data-i18n-alt="home.simple.projects.barrier.alt"></div>
+          
+        </figure>
+        <h3 data-i18n="home.simple.projects.barrier.h3">Automatická závora</h3>
+        <p data-i18n="home.simple.projects.barrier.p">Servo zvedne závoru při přiblížení objektu k senzoru.</p>
+        <a class="learn-theory-link" href="instructions/baseline/red/zavora/index.html" aria-label="Návod: Automatická závora" data-i18n-aria-label="home.simple.projects.barrier.link_label" data-i18n="home.simple.projects.guide">Návod k projektu</a>
+      </article>
+      <article class="benefit">
+        <figure class="home-project-photo">
+          <div class="project-visual"><img src="assets/images/red-build-clean/16-ultrazvuk.jpg" width="1600" height="1200" loading="lazy" alt="Ultrazvukový senzor HC-SR04 používaný v projektu" data-i18n-alt="home.simple.projects.parking.alt"></div>
+          <figcaption data-i18n="home.simple.projects.parking.caption">Detail senzoru</figcaption>
+        </figure>
+        <h3 data-i18n="home.simple.projects.parking.h3">Parkovací asistent</h3>
+        <p data-i18n="home.simple.projects.parking.p">Displej ukazuje vzdálenost od překážky. Podle vzdálenosti se rozsvítí zelená nebo červená LED.</p>
+        <a class="learn-theory-link" href="instructions/baseline/red/parkovaci-asistent/index.html" aria-label="Návod: Parkovací asistent" data-i18n-aria-label="home.simple.projects.parking.link_label" data-i18n="home.simple.projects.guide">Návod k projektu</a>
+      </article>
+      <article class="benefit">
+        <figure class="home-project-photo">
+          <div class="project-visual"><img src="assets/images/red-build-clean/11-buzzer.jpg" width="1600" height="1200" loading="lazy" alt="Bzučák používaný v projektu bezdotykového nástroje" data-i18n-alt="home.simple.projects.theremin.alt"></div>
+          <figcaption data-i18n="home.simple.projects.theremin.caption">Detail bzučáku</figcaption>
+        </figure>
+        <h3 data-i18n="home.simple.projects.theremin.h3">Bezdotykový nástroj</h3>
+        <p data-i18n="home.simple.projects.theremin.p">Vzdálenost ruky od senzoru mění výšku tónu bzučáku.</p>
+        <a class="learn-theory-link" href="instructions/baseline/red/theremin/index.html" aria-label="Návod: Bezdotykový nástroj" data-i18n-aria-label="home.simple.projects.theremin.link_label" data-i18n="home.simple.projects.guide">Návod k projektu</a>
+      </article>
     </div>
-    <div class="tiers">
-      <div class="tier-card tier-card-featured tier-red fade-up">
-        <div class="bar"></div>
-        <span class="tier-label" data-i18n="home.tier_red.label">Úroveň 3 · Pokročilá</span>
-        <h3 class="text-tier-red">Red</h3>
-        <p class="tier-sub" data-i18n="home.tier_red.sub">Robotika v pohybu</p>
-        <img class="tier-card-product" src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" loading="lazy" alt="Deska Shieldio RED v ruce" data-i18n-alt="home.photo.additional1">
-        <ul class="tier-list">
-          <li data-i18n="home.tier_red.li1">Ultrazvukový senzor vzdálenosti</li>
-          <li data-i18n="home.tier_red.li2">Servo pro mechanický pohyb</li>
-          <li data-i18n="home.tier_red.li3">OLED displej pro zpětnou vazbu</li>
-          <li data-i18n="home.tier_red.li4">reálný prototyp závory</li>
-        </ul>
-        <div style="display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin-top:22px;">
-          <a class="tier-link" style="margin-top:0;" href="products/RED.html#zajem" data-i18n="home.tier_red.preorder_link">Mám zájem o RED</a>
-          <a class="tier-link" style="margin-top:0; color:var(--ink-soft);" href="products/RED.html" data-i18n="home.tier_link">Zobrazit desku</a>
-        </div>
-        <div class="dev-badge" data-i18n="red.badge_first_batch">Vývojová série · průzkum zájmu</div>
-      </div>
-      <div class="tiers-minor">
-        <div class="tier-card-mini tier-green fade-up delay-1">
-          <div class="bar"></div>
-          <span class="tier-label" data-i18n="home.tier_green.label">Úroveň 1 · Základ</span>
-          <h3 class="text-tier-green">Green</h3>
-          <p class="tier-sub" data-i18n="home.tier_green.sub">První kontakt s hardwarem</p>
-          <a class="tier-link" href="products/GREEN.html" data-i18n="home.tier_link">Zobrazit desku</a>
-          <div class="dev-badge badge-muted" data-i18n="home.tier_green.badge">Koncept, zatím nelze objednat</div>
-        </div>
-        <div class="tier-card-mini tier-yellow fade-up delay-2">
-          <div class="bar"></div>
-          <span class="tier-label" data-i18n="home.tier_yellow.label">Úroveň 2 · Rozšíření</span>
-          <h3 class="text-tier-yellow">Yellow</h3>
-          <p class="tier-sub" data-i18n="home.tier_yellow.sub">Vlastní meteostanice</p>
-          <a class="tier-link" href="products/YELLOW.html" data-i18n="home.tier_link">Zobrazit desku</a>
-          <div class="dev-badge badge-muted" data-i18n="home.tier_yellow.badge">Koncept, zatím nelze objednat</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="box-list-grid">
-      <div class="box-list-card">
-        <h3 data-i18n="home.box.in_box_h3">Co je v balení</h3>
-        <ul class="box-list">
-          <li data-i18n="home.box.in_box_li1">Deska Shieldio RED se všemi součástkami (modul kompatibilní s Arduino® Nano, ultrazvukový senzor, servo, OLED displej)</li>
-          <li data-i18n="home.box.in_box_li2">1,5m USB-A na USB-C kabel</li>
-          <li data-i18n="home.box.in_box_li3">Webový editor s kompilací a nahráváním přes USB</li>
-          <li data-i18n="home.box.in_box_li4">Krok-za-krokem návod k prvnímu projektu</li>
-          <li data-i18n="home.box.in_box_li5">Upravitelný návrh metodiky a pracovní list pro učitele</li>
-        </ul>
-      </div>
-      <div class="box-list-card">
-        <h3 data-i18n="home.box.need_h3">Co budete potřebovat</h3>
-        <ul class="box-list">
-          <li data-i18n="home.box.need_li1">Počítač s aktuálním Chrome nebo Edge</li>
-          <li data-i18n="home.box.need_li2">USB-A na USB-C kabel, je součástí balení</li>
-          <li data-i18n="home.box.need_li3"><a href="/instructions/blokovy-editor.html">Editor Shieldio</a> pro bloky i Arduino C++</li>
-          <li data-i18n="home.box.need_li4">Internet pro první načtení kompilátoru a knihoven</li>
-        </ul>
-      </div>
-    </div>
+    <p class="home-section-link"><a class="learn-theory-link" href="instructions/baseline/red/index.html" data-i18n="home.simple.projects.all">Všechny projekty RED</a></p>
   </div>
 </section>
 
-<!-- CONCRETE PROJECTS -->
-<section style="padding-top:0; padding-bottom:72px;">
+<section id="jak-to-funguje" class="home-section home-divider">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark" data-i18n="home.projects.eyebrow">Co si žáci postaví</span>
-      <h2 data-i18n="home.projects.h2">Konkrétní projekty, ne jen součástky.</h2>
-      <p data-i18n="home.projects.p">Tři příklady z aktuálních projektových návodů pro desku RED.</p>
-    </div>
-    <div class="benefits">
-      <div class="benefit fade-up">
-        <div class="project-visual"><img src="assets/images/RED_barrier_open_white.jpg" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true"></div>
-        <div class="benefit-icon">01</div>
-        <h3 data-i18n="home.projects.item1_h3">Automatická závora</h3>
-        <p data-i18n="home.projects.item1_p">Návrh 45minutové hodiny se sestavenou deskou: žáci naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.</p>
-        <a class="learn-theory-link" href="instructions/baseline/red/zavora/index.html" data-i18n="home.projects.item1_link">Návod: Automatická závora →</a>
-      </div>
-      <div class="benefit fade-up delay-1">
-        <div class="project-visual"><img src="assets/images/red-build-clean/16-ultrazvuk.jpg" width="1600" height="1200" loading="lazy" alt="" aria-hidden="true"></div>
-        <div class="benefit-icon">02</div>
-        <h3 data-i18n="home.projects.item2_h3">Parkovací asistent</h3>
-        <p data-i18n="home.projects.item2_p">Ultrazvukový senzor měří vzdálenost od překážky a program podle ní mění odezvu. Fotografie ukazuje použitý senzor.</p>
-        <a class="learn-theory-link" href="instructions/baseline/red/parkovaci-asistent/index.html" data-i18n="home.projects.item2_link">Návod: Parkovací asistent →</a>
-      </div>
-      <div class="benefit fade-up delay-2">
-        <div class="project-visual"><img src="assets/images/red-build-clean/11-buzzer.jpg" width="1600" height="1200" loading="lazy" alt="" aria-hidden="true"></div>
-        <div class="benefit-icon">01</div>
-        <h3 data-i18n="home.projects.item3_h3">Theremin – bezdotykový nástroj</h3>
-        <p data-i18n="home.projects.item3_p">Vzdálenost ruky mění výšku tónu bzučáku. Fotografie ukazuje použitý bzučák, ne hotový projekt.</p>
-        <a class="learn-theory-link" href="instructions/baseline/red/theremin/index.html" data-i18n="home.projects.item3_link">Návod: Theremin – bezdotykový nástroj →</a>
-      </div>
-    </div>
-    <div class="hero-ctas" style="margin-top:36px;">
-      <a class="btn btn-primary" href="instructions/baseline/red/index.html" data-i18n="home.projects.cta">Zobrazit všechny projekty RED</a>
-    </div>
-  </div>
-</section>
-
-<!-- RED BOARD DEEP DIVE -->
-<section id="deska" style="padding:72px 0;">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark" data-i18n="home.deepdive.eyebrow">Nahlédnutí do vývoje</span>
-      <h2 data-i18n="home.deepdive.h2"><span class="text-tier-red">RED</span>: od prototypu k první malé sérii.</h2>
-      <p data-i18n="home.deepdive.p">Nejnáročnější baseline spojuje ultrazvukové měření vzdálenosti, servo a displej na jedné 100×100&nbsp;mm desce, s popisy součástek přímo na plošném spoji.</p>
-    </div>
-    <div class="deepdive-grid">
-      <div class="deepdive-photos">
-        <div class="photo-frame"><img src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" loading="lazy" data-i18n-alt="home.photo.board_alt" alt="Sestavená deska Shieldio RED v ruce, s modulem kompatibilním s Arduino® Nano, OLED displejem, ultrazvukovým senzorem a servem"></div>
-        <div class="photo-frame"><img src="assets/images/RED_detail_nano_oled_white.jpg" width="1254" height="1254" loading="lazy" data-i18n-alt="home.photo.nano_alt" alt="Detail modulu kompatibilního s Arduino® Nano a OLED displeje osazených na desce Shieldio RED"></div>
-        <div class="photo-frame"><img src="assets/images/RED_barrier_open_white.jpg" width="1254" height="1254" loading="lazy" alt="Prototyp závory v otevřené poloze s modelem auta" data-i18n-alt="home.photo.additional2"></div>
-        <div class="photo-frame"><img src="assets/images/RED_backside_straight.png" width="1448" height="1086" loading="lazy" alt="Zadní strana krytu desky Shieldio RED s vyraženým nápisem Shieldio baseline RED" data-i18n-alt="home.photo.additional3"></div>
-      </div>
-      <div>
-        <div class="spec-rows">
-          <div class="spec-row">
-            <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div>
-            <p data-i18n="home.deepdive.spec1"><b>Modul kompatibilní s Arduino® Nano</b> řídí desku. <a href="/instructions/blokovy-editor.html">Editor Shieldio</a> umí program sestavit, zkompilovat a nahrát přes USB.</p>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="6" cy="18" r="1.4" fill="currentColor" stroke="none"/><path d="M6 14a4 4 0 014 4M6 10a8 8 0 018 8M6 6a12 12 0 0112 12"/></svg></div>
-            <p data-i18n="home.deepdive.spec2"><b>Ultrazvukový snímač</b> vzdálenosti pro měření okolí.</p>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M8 20h8"/></svg></div>
-            <p data-i18n="home.deepdive.spec3"><b>OLED displej</b>, dvě barevné LED, <b>servo SG90</b> a bzučák jako výstupy.</p>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg></div>
-            <p data-i18n="home.deepdive.spec4"><b>Dvě tlačítka</b> přímo na desce pro interakci se studenty.</p>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4M16 3v4M6 7h12v4a6 6 0 01-12 0V7z"/><path d="M12 17v4"/></svg></div>
-            <p data-i18n="home.deepdive.spec5"><b>Konektory JST-XH</b> a Power&amp;Data link pro robustní propojení mezi deskami.</p>
-          </div>
-          <div class="spec-row">
-            <div class="spec-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div>
-            <p data-i18n="home.deepdive.spec6"><b>100×100 mm</b> formát, stejný napříč celou řadou.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- HOW IT WORKS -->
-<section id="jak-to-funguje" style="padding:72px 0;">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark" data-i18n="home.howitworks.eyebrow">Průběh hodiny</span>
-      <h2 data-i18n="home.howitworks.h2">Od rozbalení k prvnímu programu za jednu vyučovací hodinu.</h2>
-    </div>
-    <div class="steps" id="howItWorksSteps">
+    <div class="section-head"><h2 data-i18n="home.simple.start.h2">Jak začít</h2></div>
+    <div class="steps home-steps" id="howItWorksSteps">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-track"><div class="step-track-fill"></div></div>
-        <h3 data-i18n="home.step1.h3">Připojit přes USB-C</h3>
-        <p data-i18n="home.step1.p">Deska se připojí k počítači jedním kabelem, rovnou připravená k použití.</p>
+        <h3 data-i18n="home.simple.start.step1.h3">Připojení desky</h3>
+        <p data-i18n="home.simple.start.step1.p">Sestavená RED se připojí k počítači datovým USB kabelem.</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <div class="step-track"><div class="step-track-fill"></div></div>
-        <h3 data-i18n="home.step2.h3">Otevřít editor Shieldio</h3>
-        <p data-i18n="home.step2.p"><a href="/instructions/blokovy-editor.html">Programování</a> běží přímo tady na webu. Vyberete RED a modul, se kterým chcete pracovat.</p>
+        <h3 data-i18n="home.simple.start.step2.h3">Příprava programu</h3>
+        <p data-i18n="home.simple.start.step2.p">V <a href="/instructions/blokovy-editor.html">editoru Shieldio</a> lze pracovat s bloky nebo C++. K projektům jsou připravené programy.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <div class="step-track"><div class="step-track-fill"></div></div>
-        <h3 data-i18n="home.step3.h3">Poskládat bloky nebo napsat C++</h3>
-        <p data-i18n="home.step3.p">Začněte LED, servem nebo připravenou závorou. Pokročilé bloky a vlastní Arduino C++ jsou ve stejném editoru.</p>
+        <h3 data-i18n="home.simple.start.step3.h3">Nahrání a kontrola</h3>
+        <p data-i18n="home.simple.start.step3.p">Po výběru USB portu se program nahraje do desky. Výsledek lze porovnat s návodem a program upravit.</p>
       </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-track"><div class="step-track-fill"></div></div>
-        <h3 data-i18n="home.step4.h3">Spustit a sledovat výsledek</h3>
-        <p data-i18n="home.step4.p">Vyberte USB port a nahrajte program do desky. Pak změňte třeba dobu blikání nebo vzdálenost, při které se otevře závora.</p>
+    </div>
+    <div class="home-requirements">
+      <p data-i18n="home.simple.start.requirements"><b>Potřebujete:</b> sestavenou RED, počítač s Chrome nebo Edge, datový USB kabel a internet.</p>
+      <p data-i18n="home.simple.start.assembly">Pájení nesestavené desky má <a href="/instructions/baseline/red/sestaveni/index.html">samostatný návod</a>.</p>
+      <p><a class="learn-theory-link" href="instructions/programovani/" data-i18n="home.simple.start.guide">Postup programování a připojení</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="reseni" class="home-section home-divider">
+  <div class="wrap home-board">
+    <figure class="home-board-photo">
+      <img src="assets/images/RED_detail_nano_oled_white.jpg" width="1254" height="1254" loading="lazy" alt="Detail řídicího modulu a OLED displeje na desce RED" data-i18n-alt="home.simple.board.alt">
+    </figure>
+    <div id="deska">
+      <h2 data-i18n="home.simple.board.h2">Deska RED</h2>
+      <p data-i18n="home.simple.board.p">Vedle senzoru, serva a displeje jsou na desce dvě LED, dvě tlačítka a bzučák.</p>
+      <p data-i18n="home.simple.board.status">Testujeme prototyp V4 a připravujeme V5. Formulář zjišťuje nezávazný zájem o RED; nejde o objednávku ani rezervaci.</p>
+      <div class="home-text-links">
+        <a class="learn-theory-link" href="products/RED.html" data-i18n="home.simple.board.detail">Podrobnosti o RED</a>
+        <a class="learn-theory-link" href="products/RED.html#varianty" data-i18n="home.simple.board.variants">Plánované varianty sestavení</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOR SCHOOLS -->
-<div class="problem" id="pro-skoly" style="background:transparent;">
-  <div class="wrap" style="padding-top:64px; padding-bottom:64px;">
-    <div class="section-head">
-      <span class="eyebrow-dark" data-i18n="home.schools.eyebrow">Pro školy</span>
-      <h2 data-i18n="home.schools.h2">K první hodině se závorou máte podklady pro přípravu.</h2>
-      <p data-i18n="home.schools.p">Shieldio není soubor volných komponent. Klíčové součástky jsou připevněné k desce a materiály k prvnímu projektu jsou připravené.</p>
-    </div>
-    <div class="benefits">
-      <div class="benefit">
-        <div class="benefit-icon">01</div>
-        <h3 data-i18n="home.benefit3.h3">Materiály pro přípravu hodiny</h3>
-        <p data-i18n="home.benefit3.p">U závory je návrh hodiny na 45 nebo 90 minut, pracovní list a hodnoticí rubrika. Učitel je upraví podle své třídy.</p>
-      </div>
-      <div class="benefit">
-        <div class="benefit-icon">02</div>
-        <h3 data-i18n="home.benefit4.h3">Kompilace a nahrání z webu</h3>
-        <p data-i18n="home.benefit4.p">Editor překládá program v prohlížeči a v Chrome nebo Edge ho nahraje přes USB. mBlock ani Arduino IDE pro tento postup nepotřebujete.</p>
-      </div>
-      <div class="benefit">
-        <div class="benefit-icon">03</div>
-        <h3 data-i18n="home.benefit6.h3">Od modulů k vlastnímu C++</h3>
-        <p data-i18n="home.benefit6.p">Vedle bloků pro RED je univerzální práce s piny a ruční Arduino C++. Vlastní C++ knihovnu pro AVR přidáte ze složky.</p>
+<section id="pro-skoly" class="home-section home-divider">
+  <div class="wrap home-teachers">
+    <div>
+      <h2 data-i18n="home.simple.teachers.h2">Pro učitele</h2>
+      <p data-i18n="home.simple.teachers.p">K projektu závory je návrh hodiny na 45 nebo 90 minut, pracovní list a hodnoticí rubrika.</p>
+      <p data-i18n="home.simple.teachers.usb">Před hodinou je potřeba na školním účtu ověřit přístup k USB portu.</p>
+      <div class="home-text-links">
+        <a class="learn-theory-link" href="company/metodika-zavora.html" data-i18n="home.simple.teachers.materials">Metodický list a pracovní list</a>
+        <a class="learn-theory-link" href="company/pro-ucitele.html" data-i18n="home.simple.teachers.details">Příprava hodiny a požadavky</a>
+        <a class="learn-theory-link" href="#kontakt" data-i18n="home.simple.teachers.demo">Domluvit ukázku</a>
       </div>
     </div>
-    <p style="margin-top:36px;">
-      <a href="company/pro-ucitele.html" class="learn-theory-link" data-i18n="home.schools.details_link">Doporučený věk, počet žáků na desku, co je v balení a další praktické detaily →</a>
-    </p>
+    <aside class="home-learn">
+      <h3 data-i18n="home.simple.learn.title">Jak fungují součástky</h3>
+      <p data-i18n="home.simple.learn.p">Ohmův zákon, LED, tlačítka a další témata v učebně elektroniky.</p>
+      <a class="learn-theory-link" href="instructions/jak-to-funguje/index.html" data-i18n="home.simple.learn.link">Otevřít učebnu</a>
+    </aside>
   </div>
-</div>
+</section>
 
-<!-- CTA -->
-<section class="cta-section" id="kontakt" style="padding:96px 0;">
+<section class="cta-section" id="kontakt" style="padding:80px 0;">
   <div class="wrap cta-grid">
     <div>
-      <span class="eyebrow-dark" style="color:var(--accent-soft);" data-i18n="home.cta.eyebrow">Máte zájem?</span>
-      <h2 data-i18n="home.cta.h2">Ozvěte se, poradíme, co bude pro vás nejlepší start.</h2>
-      <p data-i18n="home.cta.p">Ať už hledáte stavebnici pro sebe, kroužek, nebo výuku na škole, napište pár slov o tom, co plánujete. Ozveme se s doporučením nebo termínem ukázky.</p>
-      <ul class="contact-list">
-        <li><b>E-MAIL</b><span>info@shieldio.cz</span></li>
-        <li><b data-i18n="home.contact_list.for_label">URČENO PRO</b><span data-i18n="home.contact_list.for_value">jednotlivce, kroužky, ZŠ a SŠ</span></li>
-        <li><b data-i18n="home.contact_list.format_label">FORMÁT</b><span data-i18n="home.contact_list.format_value">osobní doporučení, ukázková hodina nebo konzultace</span></li>
-      </ul>
+      <h2 data-i18n="home.simple.contact">Kontakt</h2>
+      <p data-i18n="home.simple.contact.p">Dotazy k RED a ukázkám pro školy.</p>
+      <p><a class="home-contact-email" href="mailto:info@shieldio.cz">info@shieldio.cz</a></p>
     </div>
     <div class="form-card">
       <h3 data-i18n="home.form.h3">Nezávazná zpráva</h3>
-      <p class="form-sub" data-i18n="home.form.sub">Ozveme se do dvou pracovních dnů.</p>
-      <form class="web3form" action="https://api.web3forms.com/submit" method="POST">
+<form class="web3form" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="a13ed669-5fc4-4329-bf27-a4e40dd0b1e7">
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="field">
@@ -439,57 +236,7 @@
     </div>
   </div>
 </section>
-
-<!-- LEARN MORE / PHYSICS DEEP DIVE -->
-<section class="teaser-section" style="padding:64px 0 72px; background:var(--paper-2); border-top:1px solid var(--line);">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow-dark" data-i18n="home.learnmore.eyebrow">Učebna elektroniky</span>
-      <h2 data-i18n="home.learnmore.h2">Chcete pochopit, co je uvnitř Shieldia?</h2>
-      <p data-i18n="home.learnmore.p">Srozumitelné vysvětlení, proč elektronika na desce funguje přesně tak, jak funguje, se 7 tématy od Ohmova zákona po výrobu plošných spojů.</p>
-    </div>
-    <div class="teaser-carousel auto-carousel fade-up" id="learnCarousel">
-      <a class="teaser-tile" href="instructions/jak-to-funguje/ohmuv-zakon/index.html">
-        <h3 data-i18n="home.learnmore.card1_h3">Ohmův zákon a kalkulačka</h3>
-        <p data-i18n="home.learnmore.card1_p">Proč zrovna 220 Ω u LED, interaktivní kalkulačka to spočítá za tebe.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-      <a class="teaser-tile" href="instructions/jak-to-funguje/tlacitka-a-debounce/index.html">
-        <h3 data-i18n="home.learnmore.card_debounce_h3">Tlačítka a debounce</h3>
-        <p data-i18n="home.learnmore.card_debounce_p">Proč tlačítko potřebuje pull-up rezistor a co je to zákmit.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-      <a class="teaser-tile" href="instructions/jak-to-funguje/dioda-a-led/index.html">
-        <h3 data-i18n="home.learnmore.card_dioda_h3">Dioda a LED</h3>
-        <p data-i18n="home.learnmore.card_dioda_p">PN přechod, propustný a závěrný směr, a proč LED svítí právě tou barvou.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-      <a class="teaser-tile" href="instructions/jak-to-funguje/pwm/index.html">
-        <h3 data-i18n="home.learnmore.card_pwm_h3">PWM</h3>
-        <p data-i18n="home.learnmore.card_pwm_p">Jak ze dvou úrovní napětí vznikne plynulé stmívání i přesný úhel serva.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-      <a class="teaser-tile" href="instructions/jak-to-funguje/ultrazvuk/index.html">
-        <h3 data-i18n="home.learnmore.card_ultrazvuk_h3">Ultrazvuk</h3>
-        <p data-i18n="home.learnmore.card_ultrazvuk_p">Jak senzor HC-SR04 měří vzdálenost pomocí času letu zvuku.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-      <a class="teaser-tile" href="instructions/jak-to-funguje/kondenzatory/index.html">
-        <h3 data-i18n="home.learnmore.card2_h3">Jak funguje kondenzátor</h3>
-        <p data-i18n="home.learnmore.card2_p">Proč elektrolytický kondenzátor musí mít správnou polaritu a jak tlumí šum.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-      <a class="teaser-tile" href="instructions/jak-to-funguje/pcb/index.html">
-        <h3 data-i18n="home.learnmore.card_pcb_h3">Co je PCB</h3>
-        <p data-i18n="home.learnmore.card_pcb_p">Z čeho je deska plošných spojů, jak se vyrábí a proč jsou cestičky z mědi.</p>
-        <span class="pick-hint" data-i18n="home.learnmore.hint">Číst</span>
-      </a>
-    </div>
-    <div class="hero-ctas" style="margin-top:24px;">
-      <a class="btn btn-primary" href="instructions/jak-to-funguje/index.html" data-i18n="home.learnmore.card4_h3">Všechna témata</a>
-    </div>
-  </div>
-</section>
+</main>
 
 <footer>
   <div class="wrap footer-inner">
@@ -506,7 +253,6 @@
       <a href="#kontakt" data-i18n="footer.contact">Kontakt</a>
       <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
     </nav>
-    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div>© 2026 Shieldio</div>
   </div>
   <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
@@ -517,9 +263,7 @@
 <script src="assets/js/search.js?v=20261103-search"></script>
 <script src="assets/js/lang.js"></script>
 <script src="assets/js/site-chrome.js?v=20261103-unified"></script>
-<script src="assets/js/lightbox.js"></script>
 <script src="assets/js/contact-form.js"></script>
-<script src="assets/js/home-carousel.js"></script>
 <script src="assets/js/steps-animate.js"></script>
-<script src="assets/js/stat-counter.js"></script></body>
+</body>
 </html>

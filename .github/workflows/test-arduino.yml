@@ -91,6 +91,7 @@ jobs:
       - run: node --check assets/js/blockly-editor.js
       - run: node --test tests/arduino-flasher.test.mjs
       - run: node tests/arduino-programming-ui.test.mjs
+      - run: node tests/arduino-editor-assist.test.mjs
       - run: node tests/arduino-libraries.test.mjs
       - run: node tests/arduino-compiler-worker.test.mjs
       - name: Install headless Blockly test dependencies
