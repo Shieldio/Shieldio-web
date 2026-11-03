@@ -500,8 +500,8 @@
     "en": "For schools"
   },
   "home.schools.h2": {
-    "cs": "Navrženo tak, aby s ním mohl učit i učitel bez hlubších znalostí elektroniky.",
-    "en": "Designed so that a teacher without deep electronics knowledge can teach with it."
+    "cs": "K první hodině se závorou máte podklady pro přípravu.",
+    "en": "Prepare the first barrier lesson with the supplied teaching materials."
   },
   "home.schools.p": {
     "cs": "Shieldio není soubor volných komponent. Klíčové součástky jsou připevněné k desce a materiály k prvnímu projektu jsou připravené.",
@@ -4570,5 +4570,17 @@
   "redPicker.title": {
     "cs": "Návody: Baseline Red | Shieldio",
     "en": "RED project guides | Shieldio"
+  },
+  "home.photo.additional1": {
+    "cs": "Deska Shieldio RED v ruce",
+    "en": "Shieldio RED board held in a hand"
+  },
+  "home.photo.additional2": {
+    "cs": "Prototyp závory v otevřené poloze s modelem auta",
+    "en": "Barrier prototype in the open position with a model car"
+  },
+  "home.photo.additional3": {
+    "cs": "Zadní strana krytu desky Shieldio RED s vyraženým nápisem Shieldio baseline RED",
+    "en": "Back of the Shieldio RED enclosure with embossed Shieldio baseline RED lettering"
   }
 }

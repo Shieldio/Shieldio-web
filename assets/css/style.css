@@ -2147,3 +2147,8 @@ body.has-cookie-banner .back-to-top{ bottom:132px; }
 
 /* Assembly reference images are illustrative; source photos remain accessible in the part dialog. */
 .guide-photo-note{display:block;font-size:12px;line-height:1.45;color:var(--ink-soft);padding:5px 9px 9px}.term-modal-photo + .guide-photo-note{padding:0;margin:8px 0 16px}.guide-photo-note a{color:var(--accent-deep);text-underline-offset:3px}
+
+/* Keep preparation reachable without pushing the project choices down. */
+.guide-preparation-links { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; margin:20px 0 24px; }
+.guide-preparation-links .btn { min-height:40px; padding:9px 16px; font-size:14px; }
+.guide-language-note { padding:12px 16px; border-left:3px solid var(--accent); background:var(--paper-2); font-size:14px; line-height:1.6; }
