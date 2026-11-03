@@ -64,8 +64,8 @@
     "en": "Educational electronics for schools and home"
   },
   "home.hero.h1": {
-    "cs": "<em>Stavebnice kompatibilní s Arduino®</em> pro školu, kroužek i domácí dílnu.",
-    "en": "An <em>Arduino®-compatible kit</em> for school, clubs, and the home workshop."
+    "cs": "<em>Stavebnice</em> pro školu, kroužek i domácí dílnu.",
+    "en": "<em>An electronics kit</em> for school, clubs, and the home workshop."
   },
   "home.hero.lead": {
     "cs": "Senzor změří vzdálenost, program rozhodne a servo zvedne závoru.",
