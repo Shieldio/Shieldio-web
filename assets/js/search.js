@@ -4,6 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let indexData = null, loading = null;
   let overlay, input, resultsEl;
 
+  const languageText = (cs,en) => document.documentElement?.lang === "en" ? en : cs;
+  function labelSearch() {
+    document.querySelectorAll(".search-toggle").forEach(btn => btn.setAttribute("aria-label", languageText("Hledat na webu", "Search the site")));
+    if (overlay) {
+      overlay.querySelector(".modal-close").setAttribute("aria-label", languageText("Zavřít", "Close search"));
+      input.setAttribute("placeholder", languageText("Hledat na webu…", "Search the site…"));
+      input.setAttribute("aria-label", languageText("Hledat na webu", "Search the site"));
+    }
+  }
+  document.addEventListener("shieldio-lang-change", labelSearch);
   function escapeHtml(s) {
     return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
@@ -56,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(overlay);
     input = overlay.querySelector(".search-input");
     resultsEl = overlay.querySelector(".search-results");
+    labelSearch();
 
     overlay.addEventListener("click", (e) => { if (e.target === overlay) closeSearch(); });
     overlay.querySelector(".modal-close").addEventListener("click", closeSearch);
@@ -98,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "search-toggle";
-    btn.setAttribute("aria-label", "Hledat na webu");
+    btn.setAttribute("aria-label", languageText("Hledat na webu", "Search the site"));
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
     btn.addEventListener("click", () => {
       btn.classList.remove("pulse");

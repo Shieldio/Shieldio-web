@@ -68,8 +68,8 @@
     "en": "An <em>Arduino®-compatible kit</em> for school, clubs, and the home workshop."
   },
   "home.hero.lead": {
-    "cs": "Programování a elektronika bez složitého zapojování. Pro školy, kroužky i domácí tvoření.",
-    "en": "Programming and electronics without complicated wiring. For schools, clubs, and making at home."
+    "cs": "Senzor změří vzdálenost, program rozhodne a servo zvedne závoru.",
+    "en": "The sensor measures distance, the program decides and the servo lifts the barrier."
   },
   "home.hero.path1_intent": {
     "cs": "Chci Shieldio",
@@ -112,8 +112,8 @@
     "en": "one board format across the range"
   },
   "home.hero.stat3_label": {
-    "cs": "od rozbalení ke spuštění",
-    "en": "from unboxing to running"
+    "cs": "nahrávání do sestavené desky",
+    "en": "upload to an assembled board"
   },
   "home.hero.stat4_label": {
     "cs": "za RED, jedinou dostupnou desku",
@@ -396,20 +396,20 @@
     "en": "Automatic barrier"
   },
   "home.projects.item1_p": {
-    "cs": "Se sestavenou deskou žáci během jedné 45minutové hodiny naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.",
-    "en": "With an assembled board, students use one 45-minute lesson to program a servo based on object distance and connect an input to an output."
+    "cs": "Návrh 45minutové hodiny se sestavenou deskou: žáci naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.",
+    "en": "A proposed 45-minute lesson with an assembled board: students program the servo to respond to object distance and connect input to output."
   },
   "home.projects.item2_h3": {
-    "cs": "Parkovací senzor",
-    "en": "Parking sensor"
+    "cs": "Parkovací asistent",
+    "en": "Parking assistant"
   },
   "home.projects.item2_p": {
     "cs": "Ultrazvukový senzor měří vzdálenost od překážky a program podle ní mění odezvu. Fotografie ukazuje použitý senzor.",
     "en": "The ultrasonic sensor measures distance to an obstacle, and the program changes its response. The photo shows the sensor used."
   },
   "home.projects.item3_h3": {
-    "cs": "Bezdotykový nástroj",
-    "en": "Touchless instrument"
+    "cs": "Theremin – bezdotykový nástroj",
+    "en": "Theremin – touchless instrument"
   },
   "home.projects.item3_p": {
     "cs": "Vzdálenost ruky mění výšku tónu bzučáku. Fotografie ukazuje použitý bzučák, ne hotový projekt.",
@@ -716,12 +716,12 @@
     "en": "Baseline · Concept"
   },
   "products_index.status_red": {
-    "cs": "Baseline · První série",
-    "en": "Baseline · First batch"
+    "cs": "Baseline · Vývojový prototyp",
+    "en": "Baseline · Development prototype"
   },
   "products_index.status_pro": {
-    "cs": "PROline · Připravujeme",
-    "en": "PROline · Coming soon"
+    "cs": "PROline · Koncept",
+    "en": "PROline · Concept"
   },
   "products_index.dev_eyebrow": {
     "cs": "Stav vývoje",
@@ -884,8 +884,8 @@
     "en": "View the guide"
   },
   "red.deepdive.spec2": {
-    "cs": "<b>Ultrazvukový snímač</b> vzdálenosti, základ pro všechny čtyři projekty na této desce.",
-    "en": "<b>Ultrasonic sensor</b> for distance, the basis for all four projects on this board."
+    "cs": "<b>Ultrazvukový snímač</b> měří vzdálenost od překážky jako vstup pro program.",
+    "en": "The <b>ultrasonic sensor</b> measures distance to an obstacle as an input for the program."
   },
   "red.deepdive.spec3": {
     "cs": "<b>OLED displej</b> a dvě barevné LED pro okamžitou zpětnou vazbu z programu.",
@@ -908,12 +908,12 @@
     "en": "What you can build"
   },
   "red.projects_h2": {
-    "cs": "Jedna deska, šest různých projektů.",
-    "en": "One board, six different projects."
+    "cs": "Jedna deska, různé projekty.",
+    "en": "One board, different projects."
   },
   "red.project1_h3": {
-    "cs": "Interaktivní závora",
-    "en": "Interactive barrier"
+    "cs": "Automatická závora",
+    "en": "Automatic barrier"
   },
   "red.project1_p": {
     "cs": "Senzor změří vzdálenost modelu auta a servo zvedne závoru. Fotografie ukazuje skutečný prototyp.",
@@ -928,8 +928,8 @@
     "en": "An ultrasonic sensor measures distance to an obstacle and the program responds. The photo shows the sensor, not a finished assistant."
   },
   "red.project3_h3": {
-    "cs": "Theremin",
-    "en": "Theremin"
+    "cs": "Theremin – bezdotykový nástroj",
+    "en": "Theremin – touchless instrument"
   },
   "red.project3_p": {
     "cs": "Vzdálenost ruky se promění ve výšku tónu. Fotografie ukazuje použitý bzučák, ne hotový nástroj.",
@@ -1104,8 +1104,8 @@
     "en": ""
   },
   "red.cta_p": {
-    "cs": "RED je z první série, kterou teď vyrábíme v malém počtu kusů. Napište nám a domluvíme ukázku nebo termín dodání.",
-    "en": "RED comes from the first batch, which we're now producing in small numbers. Get in touch and we'll arrange a demo or a delivery date."
+    "cs": "RED V4 testujeme a připravujeme V5. RED se zatím neprodává. Napište nám, pokud chcete dostat informace o dalším vývoji a dostupnosti; jde o nezávazný zájem bez objednávky nebo rezervace.",
+    "en": "We are testing RED V4 and preparing V5. RED is not on sale yet. Contact us for updates on development and availability; this is a non-binding expression of interest, with no order or reservation."
   },
   "pro.title": {
     "cs": "Deska PRO | Shieldio",
@@ -1608,8 +1608,8 @@
     "en": "Guide: Parking Assistant | Shieldio"
   },
   "sestaveni_red.title": {
-    "cs": "Jak pájet elektroniku: sestavení desky RED krok za krokem | Shieldio",
-    "en": "How to Solder Electronics: Assembling the RED Board Step by Step | Shieldio"
+    "cs": "Jak pájet elektroniku: sestavení desky RED V3 krok za krokem | Shieldio",
+    "en": "How to solder electronics: RED V3 board assembly step by step | Shieldio"
   },
   "theremin.title": {
     "cs": "Návod: Theremin | Shieldio",
@@ -3156,12 +3156,12 @@
     "en": ""
   },
   "ref.eyebrow": {
-    "cs": "RED · rychlá reference",
-    "en": "RED · quick reference"
+    "cs": "RED V3 · rychlá reference",
+    "en": "RED V3 · quick reference"
   },
   "ref.title": {
-    "cs": "Co je co. A kam to patří.",
-    "en": "What it is. Where it goes."
+    "cs": "RED V3: součástky a osazení.",
+    "en": "RED V3: parts and assembly."
   },
   "ref.lead": {
     "cs": "Umíš pájet? Tady najdeš součástku, její hodnotu, pozici na PCB a orientaci na jednom místě. Pro první stavbu je vedle toho k dispozici podrobný fotonávod.",
@@ -3184,8 +3184,8 @@
     "en": "Step-by-step photos"
   },
   "ref.revision": {
-    "cs": "<b>Nejdřív zkontroluj revizi PCB.</b> Osazovací tabulka níže vychází z fotonávodu prototypu <b>RED V3</b>. U R6 a R7 tento návod uvádí 4,7 kΩ i přes potisk 10K. Na V4 ani jiné revize tuto výjimku automaticky nepřenášej; řiď se podklady ke své sadě. Označení D1/D2 na PCB nejsou čísla digitálních pinů Arduina.",
-    "en": "<b>Check your PCB revision first.</b> The table below follows the <b>RED V3</b> prototype photo guide. For this revision, R6 and R7 use 4.7 kΩ despite the 10K silkscreen. Do not apply this exception to V4 or other revisions without checking your kit documentation. PCB labels D1/D2 are not Arduino digital pin numbers."
+    "cs": "<b>Tato osazovací tabulka (BOM) a fotonávod platí pouze pro prototyp RED V3.</b> Veřejný BOM pro RED V4 zde zatím není k dispozici. U R6 a R7 tento návod pro V3 uvádí 4,7 kΩ i přes potisk 10K. Na V4 ani jiné revize tuto výjimku nepřenášej; vyžádej si podklady ke své revizi před pájením. Označení D1/D2 na PCB nejsou čísla digitálních pinů Arduina.",
+    "en": "<b>This bill of materials (BOM) and photo guide apply only to the RED V3 prototype.</b> A public BOM for RED V4 is not yet available here. This V3 guide specifies 4.7 kΩ for R6 and R7 despite the 10K silkscreen. Do not transfer this exception to V4 or other revisions; request the documentation for your revision before soldering. PCB labels D1/D2 are not Arduino digital pin numbers."
   },
   "ref.photo.parts": {
     "cs": "Součástky před osazením",
@@ -3372,8 +3372,8 @@
     "en": "Guide source"
   },
   "guide.prehled.title": {
-    "cs": "Přehled součástek a zapojení RED | Shieldio",
-    "en": "RED parts and wiring reference | Shieldio"
+    "cs": "Přehled součástek a zapojení RED V3 | Shieldio",
+    "en": "RED V3 parts and wiring reference | Shieldio"
   },
   "ref.back": {
     "cs": "← Všechny projekty RED",
@@ -3568,8 +3568,8 @@
     "en": "RED ultrasonic radar | Shieldio"
   },
   "ref.assembly.fast": {
-    "cs": "<b>Už umíš pájet?</b> Otevři <a href=\"../prehled/index.html\">přehled součástek, hodnot a zapojení</a> a sestav desku podle tabulky. Přehled rozlišuje revizi V3 a ukazuje polaritu i fotografie.",
-    "en": "<b>Already know how to solder?</b> Open the <a href=\"../prehled/index.html\">parts, values and wiring reference</a> and build from the table. The reference identifies the V3 revision and shows polarity and photos."
+    "cs": "<b>Sestavení prototypu RED V3.</b> Veřejný osazovací seznam (BOM) pro RED V4 zde zatím není k dispozici. Tento fotonávod nepoužívej pro V4 ani jinou revizi bez jejích vlastních podkladů. Už umíš pájet? Otevři <a href=\"../prehled/index.html\">přehled součástek, hodnot a zapojení RED V3</a>.",
+    "en": "<b>Assembling the RED V3 prototype.</b> A public bill of materials (BOM) for RED V4 is not yet available here. Do not use this photo guide for V4 or another revision without its own documentation. Already know how to solder? Open the <a href=\"../prehled/index.html\">RED V3 parts, values and wiring reference</a>."
   },
   "programming.title": {
     "cs": "Programování RED | Shieldio",
@@ -3672,12 +3672,12 @@
     "en": "Programming"
   },
   "ref.photo.illustrative": {
-    "cs": "Fotografie rezistorů v přehledu součástek jsou upravené ilustrační záběry. Hodnotu a barevné proužky ověř multimetrem nebo podle označeného sáčku; v detailu každého rezistoru najdeš odkaz na původní fotografii.",
-    "en": "The resistor images in the component overview are edited illustrative photos. Verify the value with a multimeter or labeled bag; each resistor detail links to the original photo."
+    "cs": "Pro hodnoty rezistorů použij <a href=\"../prehled/index.html#osazeni\">tabulku RED V3 s původními fotografiemi</a>. Fotografie ani barevné proužky na nich nepotvrzují hodnotu. Případné upravené ilustrace v podrobných krocích nepoužívej k identifikaci; hodnotu ověř multimetrem a porovnej s označeným sáčkem a BOM své revize.",
+    "en": "For resistor values, use the <a href=\"../prehled/index.html#osazeni\">RED V3 table with original photos</a>. Photos and the colour bands shown do not confirm resistance. Do not use any edited illustrations in the detailed steps for identification; measure with a multimeter and compare with the labelled bag and the BOM for your revision."
   },
   "ref.photo.illustrative.table": {
-    "cs": "Fotografie rezistorů v přehledu součástek jsou upravené ilustrační záběry. Hodnotu a barevné proužky ověř multimetrem nebo podle označeného sáčku; kliknutím na snímek v tabulce otevřeš původní fotografii.",
-    "en": "The resistor images are edited illustrative photos. Verify values with a multimeter or labeled bag; click a table image to see the original photo."
+    "cs": "Fotografie rezistorů v tabulce jsou původní záběry ze stavby, nikoli ověřená pomůcka pro čtení barevných proužků. Hodnotu ověř multimetrem a porovnej s označeným sáčkem i osazovací tabulkou pro svou revizi PCB. Samotná fotografie hodnotu nepotvrzuje.",
+    "en": "The resistor photos in the table are original build photos, not a verified colour-band reference. Measure the resistance with a multimeter and compare it with the labelled bag and the BOM for your PCB revision. The photo alone does not confirm the value."
   },
   "red.project5_h3": {
     "cs": "Digitální metr",
@@ -4012,8 +4012,8 @@
     "en": "Safety and soldering."
   },
   "teachers.nextProjects": {
-    "cs": "Žák, který tohle zvládne rychle, může pokračovat na některý z dalších projektů na stejné desce: <a href=\"../instructions/baseline/red/parkovaci-asistent/index.html\">Parkovací asistent</a>, <a href=\"../instructions/baseline/red/casovac/index.html\">Časovač</a> nebo <a href=\"../instructions/baseline/red/theremin/index.html\">Theremin</a>, každý znovu používá stejný ultrazvukový senzor, ale v jiném kontextu.",
-    "en": "Students who finish early can try another project on the same board: <a href=\"../instructions/baseline/red/parkovaci-asistent/index.html\">Parking assistant</a>, <a href=\"../instructions/baseline/red/casovac/index.html\">Timer</a> or <a href=\"../instructions/baseline/red/theremin/index.html\">Theremin</a>. Each uses the same ultrasonic sensor in a different way."
+    "cs": "Žák, který tohle zvládne rychle, může pokračovat na některý z dalších projektů na stejné desce: <a href=\"../instructions/baseline/red/parkovaci-asistent/index.html\">Parkovací asistent</a>, <a href=\"../instructions/baseline/red/casovac/index.html\">Časovač</a> nebo <a href=\"../instructions/baseline/red/theremin/index.html\">Theremin – bezdotykový nástroj</a>.",
+    "en": "Students who finish early can continue with another project on the same board: <a href=\"../instructions/baseline/red/parkovaci-asistent/index.html\">Parking assistant</a>, <a href=\"../instructions/baseline/red/casovac/index.html\">Timer</a> or <a href=\"../instructions/baseline/red/theremin/index.html\">Theremin – touchless instrument</a>."
   },
   "teachers.extensionDisplay": {
     "cs": "Zobrazovat na displeji aktuální naměřenou vzdálenost.",
@@ -4144,8 +4144,8 @@
     "en": "<b>Debug</b> a wiring problem using a simple diagnostic procedure: is a signal present, is the servo powered, and so on."
   },
   "teachers.objectiveDisplay": {
-    "cs": "Použít <b>OLED displej</b> jako výstup pro zpětnou vazbu z programu.",
-    "en": "Use the <b>OLED display</b> to show feedback from the program."
+    "cs": "<b>Volitelné rozšíření:</b> použít OLED displej pro zobrazení vzdálenosti. Základní program závory pracuje se senzorem a servem, bez OLED.",
+    "en": "<b>Optional extension:</b> use the OLED display to show distance. The basic barrier program uses the sensor and servo, without OLED."
   },
   "teachers.objectiveServo": {
     "cs": "Vysvětlit, jak délka řídicího pulzu určuje polohu serva.",
@@ -4326,5 +4326,249 @@
   "red.variants.version": {
     "cs": "Varianta",
     "en": "Version"
+  },
+  "home.hero.stat3_value": {
+    "cs": "USB",
+    "en": "USB"
+  },
+  "home.projects.item1_link": {
+    "cs": "Návod: Automatická závora →",
+    "en": "Guide: Automatic barrier →"
+  },
+  "home.projects.item2_link": {
+    "cs": "Návod: Parkovací asistent →",
+    "en": "Guide: Parking assistant →"
+  },
+  "home.projects.item3_link": {
+    "cs": "Návod: Theremin – bezdotykový nástroj →",
+    "en": "Guide: Theremin – touchless instrument →"
+  },
+  "red.project1_link": {
+    "cs": "Návod: Automatická závora →",
+    "en": "Guide: Automatic barrier →"
+  },
+  "red.project2_link": {
+    "cs": "Návod: Parkovací asistent →",
+    "en": "Guide: Parking assistant →"
+  },
+  "red.project3_link": {
+    "cs": "Návod: Theremin – bezdotykový nástroj →",
+    "en": "Guide: Theremin – touchless instrument →"
+  },
+  "red.project4_link": {
+    "cs": "Návod: Časovač →",
+    "en": "Guide: Timer →"
+  },
+  "red.project5_link": {
+    "cs": "Návod: Digitální metr →",
+    "en": "Guide: Digital ruler →"
+  },
+  "red.project6_link": {
+    "cs": "Návod: Ultrazvukový radar →",
+    "en": "Guide: Ultrasonic radar →"
+  },
+  "shared.concept_label": {
+    "cs": "Koncept desky",
+    "en": "Board concept"
+  },
+  "shared.prototype_label": {
+    "cs": "Prototyp ve vývoji",
+    "en": "Prototype in development"
+  },
+  "edu.classroom_cta": {
+    "cs": "Chcete to vyzkoušet ve své třídě?",
+    "en": "Would you like to try it in your classroom?"
+  },
+  "home.photo.board_alt": {
+    "cs": "Sestavená deska Shieldio RED v ruce, s modulem kompatibilním s Arduino® Nano, OLED displejem, ultrazvukovým senzorem a servem",
+    "en": "Assembled Shieldio RED board held in a hand, with an Arduino® Nano-compatible module, OLED display, ultrasonic sensor and servo"
+  },
+  "home.photo.nano_alt": {
+    "cs": "Detail modulu kompatibilního s Arduino® Nano a OLED displeje osazených na desce Shieldio RED",
+    "en": "Close-up of an Arduino® Nano-compatible module and OLED display mounted on the Shieldio RED board"
+  },
+  "guides.editorScreenshotAlt": {
+    "cs": "Editor Shieldio s programem pro blikání LED",
+    "en": "Shieldio editor with an LED blinking program"
+  },
+  "redPicker.text1": {
+    "cs": "Domů",
+    "en": "Home"
+  },
+  "redPicker.text2": {
+    "cs": "Produkty",
+    "en": "Products"
+  },
+  "redPicker.text3": {
+    "cs": "Návody",
+    "en": "Guides"
+  },
+  "redPicker.text4": {
+    "cs": "O nás",
+    "en": "About us"
+  },
+  "redPicker.text5": {
+    "cs": "Programování",
+    "en": "Programming"
+  },
+  "redPicker.text6": {
+    "cs": "Domluvit ukázku",
+    "en": "Arrange a demo"
+  },
+  "redPicker.text7": {
+    "cs": "Vyber si <em>projekt</em>.",
+    "en": "Choose a <em>project</em>."
+  },
+  "redPicker.text8": {
+    "cs": "Úroveň <span class=\"text-tier-red\">Red</span> zvládá víc než jeden projekt, vyber si, který tě zajímá, a najdeš krok za krokem návod.",
+    "en": "Choose a project for <span class=\"text-tier-red\">RED</span> and follow its step-by-step guide."
+  },
+  "redPicker.text9": {
+    "cs": "Chceš rovnou zapojovat?",
+    "en": "Ready to connect the parts?"
+  },
+  "redPicker.text10": {
+    "cs": "Otevři přehled součástek: hodnoty, pozice na PCB, fotografie, polarita a piny. Bez procházení celého fotonávodu.",
+    "en": "Open the parts reference for values, PCB positions, photos, polarity and pins."
+  },
+  "redPicker.text11": {
+    "cs": "Součástky a zapojení →",
+    "en": "Parts and connections →"
+  },
+  "redPicker.text12": {
+    "cs": "Sestavení krok za krokem",
+    "en": "Assembly step by step"
+  },
+  "redPicker.text13": {
+    "cs": "Automatická závora",
+    "en": "Automatic barrier"
+  },
+  "redPicker.text14": {
+    "cs": "Senzor měří vzdálenost a podmínka v programu otevírá servo. Projekt má startovní bloky a návrh hodiny na 45 nebo 90 minut.",
+    "en": "The sensor measures distance and the program moves a servo. Includes starter blocks and proposed 45- or 90-minute lessons."
+  },
+  "redPicker.text15": {
+    "cs": "Zobrazit návod",
+    "en": "Open guide"
+  },
+  "redPicker.text16": {
+    "cs": "Parkovací asistent",
+    "en": "Parking assistant"
+  },
+  "redPicker.text17": {
+    "cs": "Vzdálenost uvidíš na OLED a LED se přepínají při 15 a 30 cm. Bzučák je volitelné rozšíření. Fotografie ukazuje použitý senzor.",
+    "en": "The OLED shows distance; LEDs switch at 15 and 30 cm. A buzzer is an optional extension. The photo shows the sensor."
+  },
+  "redPicker.text18": {
+    "cs": "Časovač",
+    "en": "Timer"
+  },
+  "redPicker.text19": {
+    "cs": "Časovač pracuje s pohybem před senzorem, časem a podmínkami v programu. Fotografie ukazuje detail desky.",
+    "en": "The timer uses movement in front of the sensor, time and conditions. The photo shows a board detail."
+  },
+  "redPicker.text20": {
+    "cs": "Theremin – bezdotykový nástroj",
+    "en": "Theremin – touchless instrument"
+  },
+  "redPicker.text21": {
+    "cs": "Senzor čte vzdálenost ruky a bzučák podle ní mění výšku tónu. Fotografie ukazuje použitý bzučák, ne hotový nástroj.",
+    "en": "Hand distance controls the buzzer pitch. The photo shows the buzzer, not the completed instrument."
+  },
+  "redPicker.text22": {
+    "cs": "Sestavení a pájení desky RED V3",
+    "en": "Assembling and soldering RED V3"
+  },
+  "redPicker.text23": {
+    "cs": "Fotonávod pro prototyp RED V3. Před pájením ověř revizi desky; tento kusovník nepoužívej pro V4 nebo V5.",
+    "en": "Photo guide for the RED V3 prototype. Check the board revision before soldering; do not use this bill of materials for V4 or V5."
+  },
+  "redPicker.text24": {
+    "cs": "Editor Shieldio",
+    "en": "Shieldio editor"
+  },
+  "redPicker.text25": {
+    "cs": "Bloky nebo Arduino C++, kompilace v prohlížeči a nahrání programu přes USB. V nabídce modulů vybereš LED, servo, senzor nebo displej.",
+    "en": "Use blocks or Arduino C++, compile in the browser and upload over USB. Choose LEDs, servo, sensor or display in the module menu."
+  },
+  "redPicker.text26": {
+    "cs": "Otevřít editor",
+    "en": "Open editor"
+  },
+  "redPicker.text27": {
+    "cs": "Měření a prostor",
+    "en": "Distance and space"
+  },
+  "redPicker.text28": {
+    "cs": "Digitální metr",
+    "en": "Digital distance meter"
+  },
+  "redPicker.text29": {
+    "cs": "Ultrazvuk změří dobu letu zvuku a OLED ukáže vzdálenost v cm. Fotografie ukazuje použitý senzor, ne běžící program.",
+    "en": "Ultrasound measures sound travel time and the OLED shows distance in cm. The photo shows the sensor, not the running program."
+  },
+  "redPicker.text30": {
+    "cs": "Otevřít projekt →",
+    "en": "Open project →"
+  },
+  "redPicker.text31": {
+    "cs": "Ultrazvukový radar",
+    "en": "Ultrasonic radar"
+  },
+  "redPicker.text32": {
+    "cs": "Navazující experiment: servo otáčí senzorem a OLED vykreslí body v měřítku. Vyžaduje držák a vodiče; fotografie ukazuje jen senzor.",
+    "en": "Extension experiment: a servo turns the sensor and the OLED plots scaled points. Requires a bracket and wires; the photo shows only the sensor."
+  },
+  "redPicker.text33": {
+    "cs": "Radar je rozšíření s vlastní mechanikou; fotografie ukazuje samotný ultrazvukový senzor, nikoli hotový radar.",
+    "en": "The radar needs additional mechanical parts. The photo shows the ultrasonic sensor, not a completed radar."
+  },
+  "redPicker.text34": {
+    "cs": "Chystáme i další projekty pro úroveň <span class=\"text-tier-red\">Red</span>, včetně propojení víc desek do jednoho celku (např. celé parkoviště).",
+    "en": "More <span class=\"text-tier-red\">RED</span> projects are planned, including connecting several boards into one system."
+  },
+  "redPicker.text35": {
+    "cs": "Návody jsou na GitHubu",
+    "en": "Guides on GitHub"
+  },
+  "redPicker.text36": {
+    "cs": "Chybí krok nebo máš nápad na další projekt? Přidej odkaz na návod, revizi desky a popis toho, co jsi vyzkoušel.",
+    "en": "Missing a step or have a project idea? Include the guide link, board revision and what you tried."
+  },
+  "redPicker.text37": {
+    "cs": "Prohlédnout zdrojové návody",
+    "en": "View guide sources"
+  },
+  "redPicker.text38": {
+    "cs": "Nahlásit problém",
+    "en": "Report a problem"
+  },
+  "redPicker.text39": {
+    "cs": "Řešení",
+    "en": "What you can build"
+  },
+  "redPicker.text40": {
+    "cs": "Pro učitele",
+    "en": "For teachers"
+  },
+  "redPicker.text41": {
+    "cs": "Aktuality",
+    "en": "News"
+  },
+  "redPicker.text42": {
+    "cs": "Ochrana údajů",
+    "en": "Privacy"
+  },
+  "redPicker.text43": {
+    "cs": "Kontakt",
+    "en": "Contact"
+  },
+  "redPicker.text44": {
+    "cs": "ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO",
+    "en": "ELECTRONICS AND ROBOTICS FOR EVERYONE"
+  },
+  "redPicker.title": {
+    "cs": "Návody: Baseline Red | Shieldio",
+    "en": "RED project guides | Shieldio"
   }
 }

@@ -95,7 +95,16 @@
       this.appendDummyInput().appendField("vzdálenost (cm)");
       this.setOutput(true, "Number");
       this.setColour(RED);
-      this.setTooltip("Aktuální vzdálenost naměřená ultrazvukovým senzorem.");
+      this.setTooltip("Vzdálenost v cm ze společného vzorku. Bez echa je neplatná (NAN); ověř platnost měření.");
+    },
+  };
+
+  Blockly.Blocks["shieldio_distance_valid"] = {
+    init: function () {
+      this.appendDummyInput().appendField(document.documentElement.lang === "en" ? "distance measurement is valid" : "měření vzdálenosti je platné");
+      this.setOutput(true, "Boolean");
+      this.setColour(RED);
+      this.setTooltip(document.documentElement.lang === "en" ? "False when no echo is received. Distance is sampled once per loop." : "Nepravda, když senzor nevrátí echo. Vzdálenost se měří jednou pro celý průchod.");
     },
   };
 
@@ -205,8 +214,10 @@
   };
 
   arduino.forBlock["shieldio_distance"] = function (block) {
-    return ["shieldioDistance()", arduino.ORDER_ATOMIC];
+    return ["shieldioDistanceCm", arduino.ORDER_ATOMIC];
   };
+
+  arduino.forBlock["shieldio_distance_valid"] = () => ["!isnan(shieldioDistanceCm)", arduino.ORDER_UNARY_PREFIX];
 
   arduino.forBlock["shieldio_wait"] = function (block) {
     const ms = arduino.valueToCode(block, "MS", arduino.ORDER_NONE) || "0";
@@ -283,17 +294,20 @@
     return [`"${escaped}"`, arduino.ORDER_ATOMIC];
   };
 
+  const loopUsesDistance = block => block.getDescendants(false).some(child => ["shieldio_distance", "shieldio_distance_valid"].includes(child.type));
   arduino.forBlock["controls_repeat_ext"] = function (block) {
     const times = arduino.valueToCode(block, "TIMES", arduino.ORDER_NONE) || "0";
     const branch = arduino.statementToCode(block, "DO");
     const i = "i_" + block.id.replace(/[^a-zA-Z0-9]/g, "");
-    return `for (int ${i} = 0; ${i} < ${times}; ${i}++) {\n${branch}}\n`;
+    const sample = loopUsesDistance(block) ? "  shieldioDistanceCm = shieldioReadDistance();\n" : "";
+    return `for (int ${i} = 0; ${i} < ${times}; ${i}++) {\n${sample}${branch}}\n`;
   };
 
   arduino.forBlock["controls_whileUntil"] = function (block) {
     const until = block.getFieldValue("MODE") === "UNTIL";
     let cond = arduino.valueToCode(block, "BOOL", arduino.ORDER_NONE) || "false";
     if (until) cond = `!(${cond})`;
+    if (loopUsesDistance(block)) cond = `(shieldioDistanceCm = shieldioReadDistance(), ${cond})`;
     const branch = arduino.statementToCode(block, "DO");
     return `while (${cond}) {\n${branch}}\n`;
   };
@@ -343,7 +357,7 @@
   const block = type => ({kind:"block",type,...(defaults[type] ? {inputs:Object.fromEntries(Object.entries(defaults[type]).map(([name,shadow])=>[name,{shadow}]))} : {})});
   const category = (name,colour,types) => ({kind:"category",name,colour,contents:types.map(block)});
   window.SHIELDIO_CREATE_TOOLBOX = ({profile="red",module="all",advanced=false} = {}) => {
-    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_print","shieldio_oled_clear"]};
+    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_print","shieldio_oled_clear"]};
     const contents = [category(L("Začátek","Start"),GOLD,["shieldio_setup","shieldio_loop"])];
     if(profile === "red") contents.push(category(L("Moduly RED","RED modules"),RED,module === "all" ? Object.values(modules).flat() : modules[module] || []));
     if(profile === "universal" || advanced) contents.push(category(L("Piny Arduino","Arduino pins"),SENSE_BLUE,["arduino_pin_mode","arduino_digital_write","arduino_digital_read","arduino_analog_read","arduino_pwm","arduino_pin"]));

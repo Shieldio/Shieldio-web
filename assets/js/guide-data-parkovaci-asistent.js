@@ -13,7 +13,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Ultrazvuk", "Podmínky", "LED indikaci", "OLED displej"],
     parentHref: "../index.html",
     parentLabel: "Zpět na výběr projektů RED",
-    editorHref: "/instructions/blokovy-editor.html?module=all",
+    editorHref: "/instructions/blokovy-editor.html?preset=parkovani&module=all",
     programmingGuideHref: "/instructions/programovani/",
   },
 
@@ -184,7 +184,7 @@ window.SHIELDIO_GUIDE = {
       title: "Nahraj program",
       type: "upload",
       screenshot: null,
-      instructions: "V editoru Shieldio sestav program ve třech krocích: opakovaně změř vzdálenost, zobraz ji na OLED a podle dvou prahů rozsviť zelenou nebo červenou LED. Nejdřív si napiš očekávané chování pro vzdálenosti 50 cm, 20 cm a 10 cm; po nahrání je postupně otestuj.",
+      instructions: {"cs": "Otevři připravený program Parkovací asistent. Vzdálenost se měří jednou pro celý průchod a zobrazuje na OLED. Pod 15 cm svítí červená LED, od 15 do méně než 30 cm zelená, od 30 cm obě zhasnou. Bez echa program vypíše Bez echa/No echo a obě LED zhasnou. Základ nepoužívá bzučák. Najdi v blocích hodnoty 15 a 30 a před změnou předpověz výsledek.", "en": "Open the prepared Parking assistant program. Distance is sampled once per loop and shown on the OLED. Below 15 cm the red LED lights; from 15 to below 30 cm the green LED lights; at 30 cm and above both are off. With no echo the display reads Bez echa/No echo and both LEDs are off. The basic program does not use the buzzer. Find 15 and 30 in the blocks and predict the effect before changing them."},
       diagnostics: [
         {
           title: "Chyba: Není nalezen port",
@@ -208,12 +208,12 @@ window.SHIELDIO_GUIDE = {
       id: "test",
       title: "Vyzkoušej projekt",
       type: "diagnostic-tree",
-      instructions: "Přibliž ruku k senzoru na desce. Rozsvítí se LED a displej ukáže vzdálenost, když jsi blízko?",
+      instructions: {"cs": "Vyzkoušej předmět přibližně v 50 cm (obě LED zhasnuté), 20 cm (zelená) a 10 cm (červená). OLED ukazuje vzdálenost v cm. Při nezískaném echu mají obě LED zhasnout a OLED oznámit chybu měření. Výsledek porovnej s bloky, pak změň jeden práh a opakuj test.", "en": "Test an object at about 50 cm (both LEDs off), 20 cm (green) and 10 cm (red). The OLED shows centimetres. If no echo is received, both LEDs must be off and the OLED must report the invalid reading. Compare with the blocks, then change one threshold and repeat."},
       tree: {
         question: "Rozsvítí se LED, když se přiblížíš k senzoru?",
         no: {
           question: "Mění se aspoň číslo vzdálenosti na displeji?",
-          noResult: "Senzor asi neměří. Zkontroluj v editoru Shieldio, že nahrání skončilo bez chyby (krok 3).",
+          noResult: "Nejdřív ověř úspěšné nahrání. Pokud OLED hlásí Bez echa/No echo, ověř orientaci senzoru bez napájení a zkus rovnou překážku před senzorem. Pokud je OLED prázdný, prověř jeho připojení a napájení podle své revize.",
           yesResult: "Vzdálenost se měří správně, ale LED se nerozsvěcí. Zkontroluj v programu prahovou hodnotu (kolik cm) pro rozsvícení LED.",
         },
       },
@@ -222,7 +222,7 @@ window.SHIELDIO_GUIDE = {
 
   next: {
     tryDifferent: [
-      { text: "Přidej druhou barvu LED, která upozorní, když je auto moc blízko." },
+      { text: "Přidej bzučák jako volitelné rozšíření: při červené LED zahraj krátký tón. Při chybě měření tón nevydávej." },
       { text: "Uprav prahové hodnoty vzdálenosti tak, aby seděly na tvoje parkovací místo." },
     ],
     moreProjects: [

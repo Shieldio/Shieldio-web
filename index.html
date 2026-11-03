@@ -78,7 +78,7 @@
    <div class="fade-up">
   <span class="eyebrow" data-i18n="home.hero.eyebrow">Výuková elektronika pro školy i domov</span>
       <h1 class="hero-h1-long" data-i18n="home.hero.h1"><em>Stavebnice kompatibilní s Arduino®</em> pro školu, kroužek i domácí dílnu.</h1>
-      <p class="lead" data-i18n="home.hero.lead">Programování a elektronika bez složitého zapojování. Pro školy, kroužky i domácí tvoření.</p>
+      <p class="lead" data-i18n="home.hero.lead">Senzor změří vzdálenost, program rozhodne a servo zvedne závoru.</p>
       <div class="hero-mobile-product" aria-hidden="true">
         <img src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" alt="">
       </div>
@@ -102,14 +102,14 @@
       <div class="hero-stats">
         <div class="stat"><b>3</b><span data-i18n="home.hero.stat1_label">plánované úrovně systému</span></div>
         <div class="stat"><b>100×100&nbsp;mm</b><span data-i18n="home.hero.stat2_label">jednotný formát desky</span></div>
-        <div class="stat"><b>5&nbsp;min</b><span data-i18n="home.hero.stat3_label">od rozbalení ke spuštění</span></div>
+        <div class="stat"><b data-i18n="home.hero.stat3_value">USB</b><span data-i18n="home.hero.stat3_label">nahrávání do sestavené desky</span></div>
       </div>
       <p class="hero-stats-note" data-i18n="home.hero.stats_note">RED je první vyvíjená deska. Green a Yellow zatím připravujeme.</p>
     </div>
     <div class="board-figure fade-up">
       <div class="board-photo-frame">
         <span class="board-tag" data-i18n="home.board_tag">RED · prototyp V4</span>
-        <img src="assets/images/RED_hand_hold_with_parts.jpeg" width="900" height="1200" alt="Sestavená deska Shieldio RED v ruce, s modulem kompatibilním s Arduino® Nano, OLED displejem, ultrazvukovým senzorem a servem">
+        <img src="assets/images/RED_hand_hold_with_parts.jpeg" width="900" height="1200" data-i18n-alt="home.photo.board_alt" alt="Sestavená deska Shieldio RED v ruce, s modulem kompatibilním s Arduino® Nano, OLED displejem, ultrazvukovým senzorem a servem">
       </div>
 
     </div>
@@ -258,19 +258,22 @@
         <div class="project-visual"><img src="assets/images/RED_barrier_open_white.jpg" width="1254" height="1254" loading="lazy" alt="" aria-hidden="true"></div>
         <div class="benefit-icon">01</div>
         <h3 data-i18n="home.projects.item1_h3">Automatická závora</h3>
-        <p data-i18n="home.projects.item1_p">Se sestavenou deskou žáci během jedné 45minutové hodiny naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.</p>
+        <p data-i18n="home.projects.item1_p">Návrh 45minutové hodiny se sestavenou deskou: žáci naprogramují servo podle vzdálenosti objektu a propojí vstup s výstupem.</p>
+        <a class="learn-theory-link" href="instructions/baseline/red/zavora/index.html" data-i18n="home.projects.item1_link">Návod: Automatická závora →</a>
       </div>
       <div class="benefit fade-up delay-1">
         <div class="project-visual"><img src="assets/images/red-build-clean/16-ultrazvuk.jpg" width="1600" height="1200" loading="lazy" alt="" aria-hidden="true"></div>
         <div class="benefit-icon">02</div>
-        <h3 data-i18n="home.projects.item2_h3">Parkovací senzor</h3>
+        <h3 data-i18n="home.projects.item2_h3">Parkovací asistent</h3>
         <p data-i18n="home.projects.item2_p">Ultrazvukový senzor měří vzdálenost od překážky a program podle ní mění odezvu. Fotografie ukazuje použitý senzor.</p>
+        <a class="learn-theory-link" href="instructions/baseline/red/parkovaci-asistent/index.html" data-i18n="home.projects.item2_link">Návod: Parkovací asistent →</a>
       </div>
       <div class="benefit fade-up delay-2">
         <div class="project-visual"><img src="assets/images/red-build-clean/11-buzzer.jpg" width="1600" height="1200" loading="lazy" alt="" aria-hidden="true"></div>
         <div class="benefit-icon">03</div>
-        <h3 data-i18n="home.projects.item3_h3">Bezdotykový nástroj</h3>
+        <h3 data-i18n="home.projects.item3_h3">Theremin – bezdotykový nástroj</h3>
         <p data-i18n="home.projects.item3_p">Vzdálenost ruky mění výšku tónu bzučáku. Fotografie ukazuje použitý bzučák, ne hotový projekt.</p>
+        <a class="learn-theory-link" href="instructions/baseline/red/theremin/index.html" data-i18n="home.projects.item3_link">Návod: Theremin – bezdotykový nástroj →</a>
       </div>
     </div>
     <div class="hero-ctas" style="margin-top:36px;">
@@ -289,8 +292,8 @@
     </div>
     <div class="deepdive-grid">
       <div class="deepdive-photos">
-        <div class="photo-frame"><img src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" loading="lazy" alt="Sestavená deska Shieldio RED v ruce, s modulem kompatibilním s Arduino® Nano, OLED displejem, ultrazvukovým senzorem a servem"></div>
-        <div class="photo-frame"><img src="assets/images/RED_detail_nano_oled_white.jpg" width="1254" height="1254" loading="lazy" alt="Detail modulu kompatibilního s Arduino® Nano a OLED displeje osazených na desce Shieldio RED"></div>
+        <div class="photo-frame"><img src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" loading="lazy" data-i18n-alt="home.photo.board_alt" alt="Sestavená deska Shieldio RED v ruce, s modulem kompatibilním s Arduino® Nano, OLED displejem, ultrazvukovým senzorem a servem"></div>
+        <div class="photo-frame"><img src="assets/images/RED_detail_nano_oled_white.jpg" width="1254" height="1254" loading="lazy" data-i18n-alt="home.photo.nano_alt" alt="Detail modulu kompatibilního s Arduino® Nano a OLED displeje osazených na desce Shieldio RED"></div>
         <div class="photo-frame"><img src="assets/images/RED_barrier_open_white.jpg" width="1254" height="1254" loading="lazy" alt="Prototyp závory v otevřené poloze s modelem auta"></div>
         <div class="photo-frame"><img src="assets/images/RED_backside_straight.png" width="1448" height="1086" loading="lazy" alt="Zadní strana krytu desky Shieldio RED s vyraženým nápisem Shieldio baseline RED"></div>
       </div>

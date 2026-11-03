@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToTop = document.createElement("button");
   backToTop.type = "button";
   backToTop.className = "back-to-top";
-  backToTop.setAttribute("aria-label", "Zpět nahoru");
+  function labelBackToTop() { backToTop.setAttribute("aria-label", document.documentElement.lang === "en" ? "Back to top" : "Zpět nahoru"); }
+  labelBackToTop();
+  document.addEventListener("shieldio-lang-change", labelBackToTop);
   backToTop.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
   backToTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });

@@ -57,6 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- project presets ----------
   // a guide can link here with ?preset=<id> to drop the visitor straight into a
   // working starter program for that specific project, instead of a blank canvas
+  const presetNumber = value => ({type:"math_number",fields:{NUM:value}});
+  const presetCompare = (operator,limit) => ({type:"logic_compare",fields:{OP:operator},inputs:{A:{block:{type:"shieldio_distance"}},B:{shadow:presetNumber(limit)}}});
+  function presetBlock(ws, state) {
+    const block = Blockly.serialization.blocks.append(state, ws);
+    return block;
+  }
   const PRESETS = {
     blikani(ws, loop) {
       let previous = null;
@@ -69,46 +75,31 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     zavora(ws, loop) {
-      function ifServo(op, threshold, angle) {
-        const ifB = ws.newBlock("shieldio_if");
-        ifB.initSvg();
-        ifB.render();
-
-        const cmp = ws.newBlock("logic_compare");
-        cmp.initSvg();
-        cmp.render();
-        cmp.setFieldValue(op, "OP");
-
-        const dist = ws.newBlock("shieldio_distance");
-        dist.initSvg();
-        dist.render();
-        cmp.getInput("A").connection.connect(dist.outputConnection);
-
-        const threshNum = ws.newBlock("math_number");
-        threshNum.initSvg();
-        threshNum.render();
-        threshNum.setFieldValue(threshold, "NUM");
-        cmp.getInput("B").connection.connect(threshNum.outputConnection);
-
-        ifB.getInput("IF0").connection.connect(cmp.outputConnection);
-
-        const servo = ws.newBlock("shieldio_servo");
-        servo.initSvg();
-        servo.render();
-        const angleNum = ws.newBlock("math_number");
-        angleNum.initSvg();
-        angleNum.render();
-        angleNum.setFieldValue(angle, "NUM");
-        servo.getInput("ANGLE").connection.connect(angleNum.outputConnection);
-
-        ifB.getInput("DO0").connection.connect(servo.previousConnection);
-        return ifB;
-      }
-
-      const openIf = ifServo("LT", 15, 90);
-      const closeIf = ifServo("GTE", 15, 0);
-      loop.getInput("LOOP").connection.connect(openIf.previousConnection);
-      openIf.nextConnection.connect(closeIf.previousConnection);
+      const init = presetBlock(ws, {type:"shieldio_servo", inputs:{ANGLE:{shadow:presetNumber(0)}}});
+      setupBlock.getInput("SETUP").connection.connect(init.previousConnection);
+      const decision = presetBlock(ws, {type:"shieldio_if", inputs:{
+        IF0:{block:{type:"shieldio_distance_valid"}},
+        DO0:{block:{type:"shieldio_if_else", inputs:{
+          IF0:{block:presetCompare("LT",15)},
+          DO0:{block:{type:"shieldio_servo",inputs:{ANGLE:{shadow:presetNumber(90)}}}},
+          ELSE:{block:{type:"shieldio_servo",inputs:{ANGLE:{shadow:presetNumber(0)}}}}
+        }}}
+      }, next:{block:{type:"shieldio_wait",inputs:{MS:{shadow:presetNumber(60)}}}}});
+      loop.getInput("LOOP").connection.connect(decision.previousConnection);
+    },
+    parkovani(ws, loop) {
+      const led = (color,state,next) => ({type:"shieldio_led",fields:{COLOR:color,STATE:state},...(next?{next:{block:next}}:{})});
+      const both = (red,green) => led("LED_RED",red,led("LED_GREEN",green));
+      const decision = presetBlock(ws, {type:"shieldio_if_else",inputs:{
+        IF0:{block:{type:"shieldio_distance_valid"}},
+        DO0:{block:{type:"shieldio_oled_print",inputs:{TEXT:{block:{type:"shieldio_distance"}}},next:{block:{type:"shieldio_if_elseif_else",inputs:{
+          IF0:{block:presetCompare("LT",15)}, DO0:{block:both("HIGH","LOW")},
+          IF1:{block:presetCompare("LT",30)}, DO1:{block:both("LOW","HIGH")},
+          ELSE:{block:both("LOW","LOW")}
+        }}}}},
+        ELSE:{block:{type:"shieldio_oled_print",inputs:{TEXT:{shadow:{type:"text",fields:{TEXT:"Bez echa/No echo"}}}},next:{block:both("LOW","LOW")}}}
+      },next:{block:{type:"shieldio_wait",inputs:{MS:{shadow:presetNumber(100)}}}}});
+      loop.getInput("LOOP").connection.connect(decision.previousConnection);
     },
   };
 
@@ -129,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     all:["LED D5/D6 · tlačítka D11/D12 · senzor D7/D8 · servo D9 · bzučák D10 · OLED A4/A5", "LED D5/D6 · buttons D11/D12 · sensor D7/D8 · servo D9 · buzzer D10 · OLED A4/A5"],
     led:["Červená LED D5, zelená LED D6. Čas napiš přímo do políčka v bloku počkej.","Red LED D5, green LED D6. Type time directly into the wait block."],
     buttons:["Tlačítka D11 a D12 mají externí pull-up. Stisk je LOW.","Buttons D11 and D12 use external pull-ups. Pressed means LOW."],
-    distance:["HC-SR04: TRIG D7, ECHO D8. Vzdálenost je v centimetrech.","HC-SR04: TRIG D7, ECHO D8. Distance is in centimetres."],
+    distance:["HC-SR04: TRIG D7, ECHO D8. Jeden vzorek pro celý průchod; bez echa je neplatný. Použij blok platnosti měření.","HC-SR04: TRIG D7, ECHO D8. One sample per loop; no echo is invalid. Use the measurement-valid block."],
     servo:["Servo D9. Úhel 0–180° zadáš přímo do bloku.","Servo D9. Type an angle from 0–180° directly into the block."],
     buzzer:["Bzučák D10. Frekvence v Hz, délka tónu v milisekundách.","Buzzer D10. Frequency in Hz, duration in milliseconds."],
     oled:["SSD1306 128×64 na A4/A5. ShieldioDisplay je připravená; text zatím bez diakritiky.","SSD1306 128×64 on A4/A5. ShieldioDisplay is included; text supports ASCII only."],
@@ -193,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
       buttons,
       servo: types.has("shieldio_servo"),
       buzzer: types.has("shieldio_buzzer"),
-      distance: types.has("shieldio_distance"),
+      distance: types.has("shieldio_distance") || types.has("shieldio_distance_valid"),
       display: types.has("shieldio_oled_print") || types.has("shieldio_oled_clear"),
     };
   }
@@ -219,15 +210,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (features.distance) {
       defines.push("#define TRIG 7", "#define ECHO 8");
       setup.push("pinMode(TRIG, OUTPUT);", "pinMode(ECHO, INPUT);");
-      helpers.push(`float shieldioDistance() {
+      includes.push("#include <math.h>");
+      globals.push("float shieldioDistanceCm = NAN;");
+      helpers.push(`float shieldioReadDistance() {
+  // One shared sample; no echo is invalid, never zero centimetres.
+  // HC-SR04 needs a pause between trigger pulses, including in fast loops.
+  static bool sampled = false;
+  static unsigned long lastSampleAt = 0;
+  static float lastDistance = NAN;
+  unsigned long now = millis();
+  if (sampled && (unsigned long)(now - lastSampleAt) < 60UL) return lastDistance;
+  sampled = true;
+  lastSampleAt = now;
   digitalWrite(TRIG, LOW);
   delayMicroseconds(2);
   digitalWrite(TRIG, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG, LOW);
-  long trvani = pulseIn(ECHO, HIGH, 30000UL);
-  return trvani * 0.0343 / 2;
+  unsigned long duration = pulseIn(ECHO, HIGH, 30000UL);
+  lastDistance = duration == 0 ? NAN : duration * 0.0343f / 2.0f;
+  return lastDistance;
 }`);
+      setup.push("shieldioDistanceCm = shieldioReadDistance();");
     }
     if (features.buzzer) {
       defines.push("#define BUZZER 10");
@@ -254,7 +258,7 @@ ${preamble ? preamble + "\n\n" : ""}void setup() {
 ${autoSetup}${indent(setupBody)}}
 
 void loop() {
-${indent(loopBody)}}
+${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${indent(loopBody)}}
 `;
   }
 

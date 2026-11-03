@@ -6,17 +6,17 @@ const script=await fs.readFile(new URL('../assets/js/search.js',import.meta.url)
 const index=JSON.parse(await fs.readFile(new URL('../assets/data/search-index.json',import.meta.url),'utf8'));
 function element(){
  const classes=new Set(),listeners={};
- return {listeners,innerHTML:'',value:'',className:'',classList:{add:c=>classes.add(c),remove:c=>classes.delete(c),contains:c=>classes.has(c)},addEventListener(n,fn){(listeners[n]||=[]).push(fn);},emit(n,e={}){for(const fn of listeners[n]||[])fn(e);},focus(){}};
+ return {attributes:{},setAttribute(name,value){this.attributes[name]=value;},listeners,innerHTML:'',value:'',className:'',classList:{add:c=>classes.add(c),remove:c=>classes.delete(c),contains:c=>classes.has(c)},addEventListener(n,fn){(listeners[n]||=[]).push(fn);},emit(n,e={}){for(const fn of listeners[n]||[])fn(e);},focus(){}};
 }
-function fixture({failFirst=false}={}){
+function fixture({failFirst=false,lang="cs"}={}){
  const input=element(),results=element(),close=element(),overlay=element(),document=element(),requests=[];
  overlay.querySelector=selector=>({'.search-input':input,'.search-results':results,'.modal-close':close})[selector];
- document.querySelectorAll=()=>[];document.createElement=()=>overlay;document.body={appendChild(){}};
+ document.documentElement={lang};document.querySelectorAll=()=>[];document.createElement=()=>overlay;document.body={appendChild(){}};
  vm.runInNewContext(script,{document,window:{location:{}},setTimeout:fn=>fn(),fetch:async(url,options)=>{requests.push({url,options});return {ok:!(failFirst&&requests.length===1),json:async()=>index};}});
  document.emit('DOMContentLoaded');
  const open=()=>document.emit('keydown',{key:'k',ctrlKey:true,preventDefault(){}});
  const search=query=>{input.value=query;input.emit('input');return [...results.innerHTML.matchAll(/class="search-result" href="([^"]+)"/g)].map(m=>m[1]);};
- return {open,search,requests,results};
+ return {open,search,requests,results,input,close};
 }
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 const f=fixture();f.open();f.open();await flush();assert.equal(f.requests.length,1,'Repeated opening shares the pending index request');
@@ -32,3 +32,5 @@ f.search('   ');assert.match(f.results.innerHTML,/Začni psát/);
 const retry=fixture({failFirst:true});retry.open();await flush();assert.match(retry.results.innerHTML,/nepodařilo načíst/);
 retry.open();await flush();assert.equal(retry.search('zavora')[0],barrier,'Failed index loading can be retried');
 console.log('Site search: accent variants, component queries, project ranking, multiword queries, cache revalidation and retry passed.');
+
+const english=fixture({lang:"en"});english.open();assert.equal(english.input.attributes["aria-label"],"Search the site");assert.equal(english.close.attributes["aria-label"],"Close search");
