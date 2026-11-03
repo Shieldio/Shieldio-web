@@ -20,6 +20,11 @@ on:
       - '_redirects'
       - 'llms.txt'
       - 'tests/site-*'
+      - 'tests/legal-guardrails.py'
+      - 'README.md'
+      - 'docs/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE.md'
       - 'assets/js/avr-compiler.mjs'
       - 'assets/js/shieldio-blocks.js'
       - 'assets/js/blockly-editor.js'
@@ -47,6 +52,11 @@ on:
       - '_redirects'
       - 'llms.txt'
       - 'tests/site-*'
+      - 'tests/legal-guardrails.py'
+      - 'README.md'
+      - 'docs/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE.md'
       - 'assets/js/avr-compiler.mjs'
       - 'assets/js/shieldio-blocks.js'
       - 'assets/js/blockly-editor.js'
@@ -72,6 +82,7 @@ jobs:
         with:
           node-version: '22'
       - run: python3 tests/site-content.test.py
+      - run: python3 tests/legal-guardrails.py
       - run: node tests/site-search.test.mjs
       - run: node --check assets/js/guide-engine.js
       - run: node --check assets/js/arduino-programming.mjs

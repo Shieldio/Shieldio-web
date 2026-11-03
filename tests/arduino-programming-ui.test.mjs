@@ -9,7 +9,7 @@ const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',impor
 const source=(await fs.readFile(new URL('../assets/js/arduino-programming.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-programming.mjs"');
 const dictionary=JSON.parse(await fs.readFile(new URL('../assets/data/i18n.json',import.meta.url),'utf8'));
 for(const key of [...html.matchAll(/data-i18n(?:-title|-aria-label)?="([^"]+)"/g)].map(m=>m[1])) assert.ok(dictionary[key],key);
-function model({serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false}={}){
+function model({serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false,flashSuccess=false}={}){
   const elements=new Map();
   class Element{
     constructor(id){this.id=id;this.value='';this.hidden=false;this.disabled=false;this.dataset={};this.attributes={};this.listeners={};this.options=[];this.children=[];this.selectionStart=0;this.selectionEnd=0;this.classList={toggle(){}};}
@@ -28,7 +28,7 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
   for(const match of html.matchAll(/id="([^"]+)"/g))elements.set(match[1],new Element(match[1]));
   const get=id=>{assert.ok(elements.has(id),'Missing HTML element '+id);return elements.get(id);};
   get('blocksTab').attributes['aria-selected']='true';get('codeTab').attributes['aria-selected']='false';
-  let portRequests=0,compilations=0,fetches=0;
+  let portRequests=0,compilations=0,fetches=0,uploads=0;
   const downloads=[],buildMessages=[],windowEvents={},storage=new Map([["shieldio-source-v1",savedSource]]);
   let blockSource="void setup(){} void loop(){}";
   const navigator=serial?{serial:{async requestPort(){portRequests++;if(portError)throw portError;return {direct:true};},addEventListener(){}}}:{};
@@ -45,10 +45,10 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
       postMessage(data){buildMessages.push(data);compilations++;Promise.resolve().then(()=>this.onmessage({data:{result:{fitsTarget:true,flashBytes:2,ramBytes:0,hex:':test',stderr:[]}}}));}
       terminate(){}
     },
-    parseHex(){},flashNano(){throw Error('Discovery must not flash hardware');}
+    parseHex(){},async flashNano(port,hex,options){if(!flashSuccess)throw Error('Discovery must not flash hardware');uploads++;options.onProgress('write',100);options.onProgress('verify',100);options.onProgress('done',100);}
   });
   vm.runInContext(source,context,{filename:'arduino-programming.mjs'});
-  return {get,downloads,buildMessages,windowEvents,storage,setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations,fetches})};
+  return {get,downloads,buildMessages,windowEvents,storage,setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations,fetches,uploads})};
 }
 {
   const m=model();
@@ -78,7 +78,7 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
   const error=Error('User cancelled');error.name='NotFoundError';
   const m=model({serial:true,portError:error});await m.get('connectBoardBtn').listeners.click();
   assert.equal(m.get('uploadStatus').dataset.error,'false');
-  assert.equal(m.get('uploadStatus').textContent,'Nebyla vybrána žádná deska.');
+  assert.equal(m.get('uploadStatus').textContent,'Deska nebyla vybraná. Zkus Spustit na desce znovu a vyber její USB port.');
   assert.equal(m.get('connectBoardBtn').disabled,false);
   assert.equal(m.get('boardConnection').dataset.connected,'false');
 }
@@ -132,3 +132,32 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
 console.log('UI: direct USB default, unsupported-browser compilation/export, port cancellation and error recovery, stale HEX protection, source transfer and i18n passed.');
 
 
+
+// Checking prepares a file; only a verified upload may invite observation on the board.
+{
+  const m=model({serial:true,search:'?preset=blikani',flashSuccess:true});
+  assert.equal(m.get('projectTitle').textContent,'Rozblikej zelenou LED.');
+  await m.get('compileBtn').listeners.click();
+  assert.equal(m.counts().portRequests,0);
+  assert.equal(m.counts().uploads,0);
+  assert.match(m.get('uploadStatus').textContent,/Na desce se ještě nic nezměnilo/);
+  assert.match(m.get('projectNext').textContent,/Spustit na desce/);
+  assert.ok(!m.get('projectNext').textContent.includes('LED bliká'));
+  await m.get('uploadBtn').listeners.click();
+  assert.equal(m.counts().compilations,1,'One upload action reuses a current successful check');
+  assert.equal(m.counts().portRequests,1);assert.equal(m.counts().uploads,1);
+  assert.match(m.get('uploadStatus').textContent,/Nahráno/);
+  assert.match(m.get('projectNext').textContent,/500 na 1000/);
+  m.setBlockSource('changed');m.get('arduinoSource').listeners.input();
+  assert.equal(m.get('projectNext').hidden,true,'An old upload result is no longer guidance for changed code');
+  m.get('codeTab').listeners.click();assert.equal(m.get('programmingStudio').dataset.tools,'open');
+  m.get('toggleToolsBtn').listeners.click();assert.equal(m.get('programmingStudio').dataset.tools,'closed');
+  assert.equal(m.get('blocksTab').getAttribute('aria-selected'),'true');
+}
+{
+  const m=model({serial:true,flashSuccess:true,search:'?preset=parkovani'});
+  await m.get('uploadBtn').listeners.click();
+  assert.deepEqual(m.counts(),{portRequests:1,compilations:1,fetches:0,uploads:1},'One learner action selects, prepares and uploads');
+  assert.match(m.get('projectNext').textContent,/15 nebo 30/);
+  m.windowEvents['shieldio:project-import']();assert.equal(m.get('projectTitle').textContent,'Co tvůj program udělá?');
+}

@@ -120,3 +120,18 @@
   .programming-local-note { display: none; }
   .programming-focus .programming-workspace { inset: 0; height: 100dvh; border-radius: 0; }
 }
+
+/* First visit: one task, one primary action. Technical tools are opt-in. */
+.programming-studio[data-tools="closed"] .programming-expert { display:none !important; }
+.programming-studio[data-tools="closed"] .blockly-editor-grid { grid-template-columns:minmax(0,1fr) !important; }
+.programming-studio[data-tools="closed"] :is(.blockly-code-panel,.blockly-splitter) { display:none !important; }
+.programming-next { margin:6px 0 0; color:var(--ink); font-size:14px; line-height:1.5; border-left:3px solid var(--accent); padding-left:10px; }
+.programming-next[hidden] { display:none; }
+.programming-hero #projectExpected { max-width:80ch; }
+.programming-studio[data-tools="closed"] .programming-block-actions { padding-block:8px; }
+.programming-studio[data-tools="closed"] .programming-status { border-top:1px solid var(--line); padding-block:10px; }
+@media (max-width:700px) {
+  .hero.programming-hero #projectExpected { display:block; font-size:13px; }
+  .programming-run #toggleToolsBtn { margin-left:auto; }
+  .programming-next { font-size:13px; }
+}

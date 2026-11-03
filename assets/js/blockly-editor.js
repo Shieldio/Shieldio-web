@@ -105,7 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const entryParams = new URLSearchParams(location.search);
   const requestedPreset = entryParams.get("preset");
-  const presetId = Object.hasOwn(PRESETS, requestedPreset) ? requestedPreset : null;
+  // A first visit starts with something observable. Existing manual work keeps its own storage.
+  let hasManualWork = false;
+  if (!requestedPreset && !entryParams.has("example")) {
+    try { hasManualWork = Boolean(JSON.parse(localStorage.getItem("shieldio-workspace-v1") || "null")?.workspace); } catch {}
+  }
+  const presetId = Object.hasOwn(PRESETS, requestedPreset) ? requestedPreset
+    : !requestedPreset && !entryParams.has("example") && !hasManualWork ? "blikani" : null;
   const workspaceStorageKey = "shieldio-workspace-v1" + (presetId ? ":preset:" + presetId : "");
   if (presetId) {
     PRESETS[presetId](workspace, loopBlock);
@@ -171,6 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.SHIELDIO_EDITOR = {
     getCode: () => codeEl.textContent,
     getError: () => generationError,
+    getPresetId: () => presetId,
     resize: () => Blockly.svgResize(workspace),
   };
 
@@ -368,6 +375,7 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
       if(parsed.profile) {profileSelect.value=parsed.profile === "universal" ? "universal" : "red";moduleSelect.value=parsed.module || "all";advancedToggle.checked=Boolean(parsed.advanced);updateToolbox();}
       workspace.cleanUp();
       regenerate();autosave();
+      window.dispatchEvent(new Event("shieldio:project-import"));
       if (statusEl) { statusEl.textContent = "Blokový projekt byl načten."; statusEl.classList.remove("error"); }
     } catch (error) {
       workspace.clear();

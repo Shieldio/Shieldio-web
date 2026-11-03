@@ -4,7 +4,7 @@ import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
   exampleLoading: ["Načítám ukázkový program…", "Loading the example program…"],
-  exampleLoaded: ["Ukázka je otevřená v Arduino C++. Vyber desku a nahraj ji, nebo nejdřív uprav program.", "Example opened in Arduino C++. Select the board and upload it, or edit it first."],
+  exampleLoaded: ["Ukázka je připravená. Připoj desku a zvol Spustit na desce.", "Example ready. Connect your board and choose Run on board."],
   exampleLoadError: ["Ukázkový program se nepodařilo načíst. Obnov stránku nebo otevři jeho soubor .ino.", "Could not load the example. Reload or open its .ino file."],
   focus: ["Zvětšit editor", "Expand editor"], unfocus: ["Zpět na web", "Back to website"],
   removeLibrary: ["Odebrat", "Remove"], libraryAdded: ["Knihovna je připravená. Použij její #include v programu.", "Library ready. Use its #include in your program."],
@@ -14,25 +14,25 @@ const messages = {
   LIBRARY_LANGUAGE: ["Tato knihovna obsahuje C, assembler nebo předkompilované objekty. Zatím podporujeme C++ a hlavičky.", "This library contains C, assembly or precompiled objects. Only C++ and headers are supported yet."],
   LIBRARY_PATH: ["Knihovna obsahuje nepodporovanou cestu k souboru.", "The library contains an unsupported file path."],
   LIBRARY_CONFLICT: ["Knihovna koliduje s připravenou nebo jinou vlastní knihovnou.", "The library conflicts with an included or another custom library."],
-  ready: ["Poskládej program a klikni na Zkompilovat nebo Nahrát do desky.", "Build a program, then choose Compile or Upload to board."],
-  connected: ["USB deska je vybraná. Můžeš nahrát program.", "USB board selected. You can upload your program."],
+  ready: ["Připoj RED datovým USB kabelem. Potom zvol Spustit na desce.", "Connect RED with a USB data cable. Then choose Run on board."],
+  connected: ["Deska je vybraná. Klikni na Spustit na desce.", "Board selected. Choose Run on board."],
   connect: ["Připojit desku", "Connect board"], disconnect: ["Odpojit", "Disconnect"],
-  compiling: ["Kompiluji program… Při prvním použití se stahuje kompilátor a knihovny.", "Compiling… The compiler and libraries download on first use."],
-  compiled: ["Kompilace proběhla. Program je připravený k nahrání.", "Compilation complete. Your program is ready to upload."],
-  changed: ["Program se změnil. Před nahráním ho znovu zkompiluji.", "Program changed. It will be compiled again before upload."],
-  reset: ["Spouštím bootloader desky…", "Starting the board bootloader…"],
-  write: ["Nahrávám program", "Uploading program"], verify: ["Ověřuji zápis v desce", "Verifying flash contents"],
-  done: ["Program je nahraný a ověřený. Deska ho nyní spouští.", "Program uploaded and verified. The board is now starting it."],
-  cancelled: ["Operace byla zrušena. Pokud se zápis přerušil, nahraj program znovu.", "Operation cancelled. If flashing was interrupted, upload again."],
-  noPort: ["Nebyla vybrána žádná deska.", "No board selected."],
-  unsupported: ["Pro nahrávání přes USB otevři tuto stránku v Chrome nebo Edge na počítači. Kompilaci můžeš použít i zde.", "For USB upload, open this page in desktop Chrome or Edge. Compilation is still available here."],
-  failure: ["Operace se nepodařila. Podrobnosti jsou níže.", "Operation failed. See the details below."],
-  compileError: ["Oprav chybu v programu. Kompilátor ukazuje řádek v podrobnostech níže.", "Fix the program error. The compiler shows the line in the details below."],
+  compiling: ["Připravuji program pro desku…", "Preparing your program for the board…"],
+  compiled: ["Kontrola dokončena. Na desce se ještě nic nezměnilo.", "Check complete. Nothing has changed on the board yet."],
+  changed: ["Program jsi změnil. Spusť ho na desce znovu.", "You changed the program. Run it on the board again."],
+  reset: ["Připojuji se k desce…", "Connecting to the board…"],
+  write: ["Posílám program do desky", "Sending your program to the board"], verify: ["Kontroluji, že deska dostala celý program", "Checking the board received the complete program"],
+  done: ["Nahráno. Teď sleduj, co deska dělá.", "Uploaded. Now watch what the board does."],
+  cancelled: ["Zastaveno. Pokud už probíhalo nahrávání, spusť program na desce znovu.", "Stopped. If upload had started, run the program on the board again."],
+  noPort: ["Deska nebyla vybraná. Zkus Spustit na desce znovu a vyber její USB port.", "No board selected. Choose Run on board again and select its USB port."],
+  unsupported: ["Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači.", "To run on RED, open the editor in desktop Chrome or Edge."],
+  failure: ["Nepodařilo se to. Otevři podrobnosti a zkus doporučený postup.", "That did not work. Open the details and try the suggested steps."],
+  compileError: ["Program nejde připravit. V podrobnostech najdeš chybu a její řádek.", "The program could not be prepared. Find the error and its line in the details."],
   fileLoaded: ["Program byl načten do záložky Arduino C++.", "Program loaded into the Arduino C++ tab."],
   codeUnavailable: ["Blokový editor se nenačetl. Obnov stránku nebo použij záložku Arduino C++.", "The block editor did not load. Reload or use the Arduino C++ tab."],
-  errorGenerated: ["Oprav chybu v blocích, než budeš kompilovat.", "Fix the block error before compiling."],
-  codeChanged: ["Program se během kompilace změnil. Zkompiluj ho znovu.", "The program changed during compilation. Compile again."],
-  compileTimeout: ["Kompilace trvala příliš dlouho. Zkontroluj připojení k internetu a zkus to znovu.", "Compilation timed out. Check your internet connection and try again."],
+  errorGenerated: ["V blocích je chyba. Oprav ji podle zprávy pod výběrem součástky.", "There is a block error. Follow the message below the component selector."],
+  codeChanged: ["Program se mezitím změnil. Spusť ho znovu.", "The program changed in the meantime. Run it again."],
+  compileTimeout: ["Příprava trvá příliš dlouho. Zkontroluj internet a zkus to znovu.", "Preparation took too long. Check your internet connection and try again."],
   loadFailure: ["Kompilátor se nepodařilo načíst. Zkontroluj internet a povolení cdn.jsdelivr.net ve školní síti.", "Could not load the compiler. Check your connection and school access to cdn.jsdelivr.net."],
   FLASH_OVERFLOW: ["Program je větší než 30 720 bajtů pro Arduino Nano. Zkrať ho.", "The program exceeds Arduino Nano's 30,720-byte application limit. Reduce its size."],
   RAM_OVERFLOW: ["Programu a OLED displeji nestačí RAM desky. Zmenši pole, texty nebo počet proměnných.", "The program and OLED buffer exceed the board's RAM. Reduce arrays, strings or variables."],
@@ -50,15 +50,73 @@ const t = key => (messages[key] || messages.failure)[document.documentElement.la
 const $ = id => document.getElementById(id);
 const supported = "serial" in navigator && window.isSecureContext;
 let selectedPort = null, busy = false, cached = null, worker = null, controller = null, disconnected = false;
-let libraries = [], expanded = false;
+let libraries = [], expanded = false, toolsOpen = false, importedProject = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
-const requestedExample = new URLSearchParams(window.location?.search || "").get("example");
+const entryParams = new URLSearchParams(window.location?.search || "");
+const requestedExample = entryParams.get("example");
 const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExample : null;
 const sourceStorageKey = "shieldio-source-v1" + (exampleId ? ":example:" + exampleId : "");
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
 const source = () => mode() === "code" ? sourceInput.value : window.SHIELDIO_EDITOR?.getCode() || "";
+
+const projectCopy = {
+  blikani: {
+    title: ["Rozblikej zelenou LED.", "Make the green LED blink."],
+    expected: ["Najdi zelenou LED na RED. Ve výchozím programu půl sekundy svítí a půl sekundy nesvítí.", "Find the green LED on RED. The starter program keeps it on for half a second, then off for half a second."],
+    change: ["LED bliká? Změň oba časy 500 na 1000, odhadni rozdíl a spusť program znovu.", "Is the LED blinking? Change both 500 values to 1000, predict the difference and run it again."]
+  },
+  zavora: {
+    title: ["Rozpohybuj závoru.", "Make the barrier move."],
+    expected: ["Přibliž předmět před senzor. Pod 15 cm servo změní polohu; u svého modelu ověř, která poloha závoru otevírá.", "Move an object towards the sensor. Below 15 cm the servo changes position; check which position opens your model's barrier."],
+    change: ["Závora reaguje? Změň hranici 15 cm na 25 cm a vyzkoušej, kdy se teď pohne.", "Does the barrier respond? Change the 15 cm threshold to 25 cm and test when it moves."]
+  },
+  parkovani: {
+    title: ["Změř, jak daleko je překážka.", "Measure how far away an obstacle is."],
+    expected: ["Přibližuj předmět k senzoru. Na displeji sleduj centimetry a na desce změnu červené a zelené LED.", "Move an object towards the sensor. Watch the centimetres on the display and the red and green LEDs on the board."],
+    change: ["LED reagují? Změň jednu hranici 15 nebo 30 cm, odhadni výsledek a spusť program znovu.", "Do the LEDs respond? Change one 15 or 30 cm threshold, predict the result and run it again."]
+  },
+  digitalni_metr: {
+    title: ["Změř vzdálenost na displeji.", "Read distance on the display."],
+    expected: ["Polož před senzor rovnou překážku a porovnej údaj na displeji s pravítkem.", "Place a flat obstacle in front of the sensor and compare the display reading with a ruler."],
+    change: ["Zkus jinou vzdálenost a povrch překážky. Kdy je měření spolehlivé?", "Try a different distance and obstacle surface. When is the reading reliable?"]
+  },
+  ultrazvukovy_radar: {
+    title: ["Prozkoumej prostor radarem.", "Explore the space with a radar."],
+    expected: ["Použij držák a zapojení z návodu. Sleduj, jak se pohyb senzoru projeví na displeji.", "Use the bracket and wiring from the guide. Watch how sensor movement appears on the display."],
+    change: ["Přesuň překážku a porovnej obraz na displeji. Odpovídá jejímu novému místu?", "Move the obstacle and compare the display. Does it match the new position?"]
+  },
+  own: {
+    title: ["Co tvůj program udělá?", "What will your program do?"],
+    expected: ["Vyber si jeden výstup, který budeš na desce sledovat. Potom svůj program spusť.", "Choose one output to watch on the board. Then run your program."],
+    change: ["Porovnej výsledek se svým odhadem. Změň jednu věc a spusť program znovu.", "Compare the result with your prediction. Change one thing and run the program again."]
+  }
+};
+const localized = pair => pair[document.documentElement.lang === "en" ? 1 : 0];
+function project() {
+  if (importedProject) return projectCopy.own;
+  const preset = window.SHIELDIO_EDITOR?.getPresetId?.();
+  const id = exampleId || (mode() === "code" ? "own" : preset === undefined ? entryParams.get("preset") || "own" : preset || "own");
+  return Object.hasOwn(projectCopy,id) ? projectCopy[id] : projectCopy.own;
+}
+function paintProject() {
+  const copy = project();
+  $("projectTitle").textContent = localized(copy.title);
+  $("projectExpected").textContent = localized(copy.expected);
+  const next = $("projectNext");
+  next.hidden = !["compiled", "done"].includes(statusKey);
+  next.textContent = statusKey === "done" ? localized(copy.change) : localized(["Další krok: klikni na Spustit na desce. Kontrola sama program do desky neposílá.", "Next: choose Run on board. Checking alone does not send the program to the board."]);
+}
+function setTools(open) {
+  if (!open && mode() === "code") switchMode("blocks");
+  toolsOpen = open;
+  $("programmingStudio").dataset.tools = open ? "open" : "closed";
+  $("toggleToolsBtn").setAttribute("aria-expanded",String(open));
+  window.SHIELDIO_EDITOR?.resize();
+}
+$("toggleToolsBtn").addEventListener("click", () => setTools(!toolsOpen));
+window.addEventListener("shieldio:project-import", () => {importedProject=true;paintProject();});
 
 function paint() {
   $("uploadStatus").textContent = t(statusKey) + (statusPercent === null ? "" : ` · ${statusPercent} %`);
@@ -68,12 +126,14 @@ function paint() {
   $("boardConnection").dataset.connected = String(Boolean(selectedPort));
   $("usbCompatibility").hidden = supported;
   $("focusEditorBtn").textContent = t(expanded ? "unfocus" : "focus");
+  paintProject();
 }
 function status(key, error = false, percent = null) { statusKey = key; statusError = error; statusPercent = percent; paint(); }
 function setBusy(value) {
   busy = value;
   for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn", "addLibraryBtn", "boardSelect", "blockProfileSelect", "moduleSelect", "advancedBlocksToggle", "loadBlocksBtn", "saveBlocksBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
   $("downloadHexBtn").disabled = value || !cached || cached.source !== source();
+  $("toggleToolsBtn").disabled = value;
   $("cancelBuildBtn").hidden = !value;
   $("customLibraryList").inert = value;
   blocksPanel.inert = value;
@@ -91,6 +151,7 @@ function invalidate() {
 }
 function switchMode(next) {
   const isCode = next === "code";
+  if (isCode) setTools(true);
   if (isCode && !sourceInput.value.trim()) sourceInput.value = window.SHIELDIO_EDITOR?.getCode() || "void setup() {\n}\n\nvoid loop() {\n}\n";
   $("codeTab").setAttribute("aria-selected", String(isCode));
   $("blocksTab").setAttribute("aria-selected", String(!isCode));
@@ -99,7 +160,7 @@ function switchMode(next) {
   blocksPanel.hidden = isCode;
   codePanel.hidden = !isCode;
   if (!isCode) window.SHIELDIO_EDITOR?.resize();
-  invalidate();updateSourcePosition();
+  invalidate();updateSourcePosition();paintProject();
 }
 $("blocksTab").addEventListener("click", () => switchMode("blocks"));
 $("codeTab").addEventListener("click", () => switchMode("code"));
@@ -126,7 +187,7 @@ sourceInput.addEventListener("keydown", event => {
   sourceInput.value = edit.text;sourceInput.setSelectionRange(edit.start,edit.end);
   sourceInput.dispatchEvent(new Event("input"));
 });
-window.addEventListener("shieldio:code-change", invalidate);
+window.addEventListener("shieldio:code-change", () => {invalidate();paintProject();});
 
 async function selectPort() {
   if (!supported) throw new Error("unsupported");
@@ -180,7 +241,7 @@ async function compile(signal) {
   $("downloadHexBtn").disabled = false;
   $("memoryUsage").textContent = `Flash ${result.flashBytes.toLocaleString()} / 30 720 B · RAM ${result.ramBytes} / 2048 B${oledBytes ? " (+1024 B OLED)" : ""}`;
   $("compilerLog").textContent = result.stderr.join("\n");
-  $("compilerDetails").hidden = !result.stderr.length;
+  $("compilerDetails").hidden = false;
   status("compiled");
   return result;
 }
@@ -233,7 +294,7 @@ $("importSourceInput").addEventListener("change", async event => {
   const file = event.target.files[0]; if (!file) return;
   try {
     if (file.size > 200000) throw new Error("Source file exceeds 200 kB.");
-    sourceInput.value = await file.text(); switchMode("code"); sourceInput.dispatchEvent(new Event("input")); status("fileLoaded");
+    importedProject=true;sourceInput.value = await file.text(); switchMode("code"); sourceInput.dispatchEvent(new Event("input")); status("fileLoaded");
   } catch (error) { showError(error); }
   finally { event.target.value = ""; }
 });
