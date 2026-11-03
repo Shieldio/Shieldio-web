@@ -63,3 +63,9 @@ Hlavičky a zdroje zůstávají v prohlížeči a předávají se Workeru. Z př
 `tests/arduino-blocks.test.mjs` používá skutečný Blockly 13.2.1 v headless workspace: zadání do placeholderu, nahrazení výrazem a návrat, migrace starého projektu, filtry bez smazání programu, univerzální piny, proměnné, knihovny a opravená priorita matematických výrazů. Vytváří skutečné sketche pro LED, univerzální Arduino, servo a OLED.
 
 `tests/arduino-libraries.test.mjs` kontroluje import, tranzitivní závislosti, limity, cesty, architektury, konflikty a odsazování. Rozšířený compiler test v CI překládá také sketche z Blockly, ShieldioDisplay a vlastní knihovnu s vnořeným C++ zdrojem závislým na Servo; ověřuje rovněž header-only knihovnu. Hardware ani vykreslení v reálném Chrome tyto testy nenahrazují.
+
+## Diagnostika a úpravy C++
+
+`assets/js/arduino-diagnostics.mjs` čte chyby GCC, slučuje totožné zprávy a nabízí vysvětlení běžných chyb. Přechod do zdroje je dostupný pouze pro řádky ručně psaného sketche. Jednoznačně chybějící `)` lze doplnit samostatným tlačítkem; návrh platí jen pro nezměněnou verzi zdroje. Knihovní chyby se neoznačují jako řádky sketche.
+
+`assets/js/arduino-source-editor.mjs` zajišťuje Tab/Shift+Tab, odsazení nového řádku, párování závorek a uvozovek, přepínání řádkových komentářů a úpravu odsazení. Formátování mění odsazení, nikoli syntaxi C++; zachovává obsah víceřádkových řetězců a maker. Regrese pokrývá `tests/arduino-editor-assist.test.mjs` společně s testem UI.

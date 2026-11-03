@@ -1,6 +1,6 @@
 # Jak přispívat
 
-Nejdřív přečti [AGENTS.md](../AGENTS.md), [BRAND.md](../BRAND.md) a případné pokyny uvnitř upravované aplikace. Změny drž u konkrétního problému; před commitem zkontroluj diff i stav pracovní kopie. Commit zprávy piš česky a vysvětli důvod změny.
+Nejdřív přečti [AGENTS.md](../../AGENTS.md), [Značka a vzhled](brand.md) a případné pokyny uvnitř upravované aplikace. Změny drž u konkrétního problému; před commitem zkontroluj diff i stav pracovní kopie. Commit zprávy piš česky a vysvětli důvod změny.
 
 ## Lokální kontrola
 
@@ -17,6 +17,8 @@ Základní kontroly používané také v CI (JavaScript vyžaduje Node.js 22):
 ```bash
 python3 tests/site-content.test.py
 node tests/site-search.test.mjs
+node tests/arduino-editor-assist.test.mjs
+node tests/arduino-programming-ui.test.mjs
 node --test tests/arduino-flasher.test.mjs
 ```
 
@@ -27,7 +29,7 @@ npm install --prefix /tmp/shieldio-test-deps --ignore-scripts --no-audit --no-fu
 JSDOM_TEST_PACKAGE=/tmp/shieldio-test-deps/node_modules/jsdom node tests/site-journeys.test.mjs
 ```
 
-Úplnou přípravu Blockly a skutečného AVR překladače uvádí [test-arduino.yml](../.github/workflows/test-arduino.yml); simulační aplikace má vlastní testy. V částečné pracovní kopii nejprve zajisti soubory potřebné pro příslušný test. Tyto příkazy samy nic nenasazují.
+Úplnou přípravu Blockly a skutečného AVR překladače uvádí [test-arduino.yml](../../.github/workflows/test-arduino.yml); simulační aplikace má vlastní testy. V částečné pracovní kopii nejprve zajisti soubory potřebné pro příslušný test. Tyto příkazy samy nic nenasazují.
 
 ## Překlady hlavního webu
 
@@ -47,4 +49,4 @@ python3 tests/site-content.test.py
 
 V návodech tykej, použij konkrétní kroky a vysvětli nový pojem při prvním použití. U kroku napiš, co má žák udělat, jaký výsledek očekávat a co zkontrolovat při potížích. Rozlišuj součástku, fotografii prototypu a hotový projekt; chybějící fotku nenahrazuj vymyšleným výsledkem. Stav produktu a revizi PCB uváděj podle ověřených podkladů. Ověř také názvy tlačítek, pořadí kroků a bezpečnost zapojení.
 
-K hlášení chyby přidej URL návodu, revizi desky, použitý program a očekávaný i skutečný výsledek. Pro změny nasazení nejdřív čti [DEPLOYMENT.md](DEPLOYMENT.md).
+K hlášení chyby přidej URL návodu, revizi desky, použitý program a očekávaný i skutečný výsledek. Pro změny nasazení nejdřív čti [Nasazení](../deployment/README.md).

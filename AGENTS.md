@@ -10,13 +10,13 @@ Web je česky, s runtime přepínáním do angličtiny. Píše se česky, i comm
   Odkazy, překlady a projektové cesty kontrolují `tests/site-content.test.py` a `tests/site-journeys.test.mjs` v CI.
 - Struktura: `index.html`, `faq.html`, `404.html` v kořeni; složky `products/`,
   `instructions/`, `company/`, `aktuality/`, `edu/`, `assets/`.
-- `assets/css/style.css` je jediný stylesheet pro celý web (~1700 řádků).
-- `assets/js/*.js` — 25 samostatných IIFE skriptů, žádný bundler, žádné importy.
+- `assets/css/style.css` obsahuje sdílené styly. Homepage má `assets/css/home.css`; editor má `assets/css/arduino-programming.css`.
+- `assets/js/*.js` jsou samostatné skripty; editor navíc používá moduly `arduino-*.mjs`, `avr-compiler.mjs` a module Worker. Žádný bundler.
   Každá stránka si je linkuje ručně na konci `<body>`.
 
 ## i18n — nejdůležitější kontrakt v repu
 
-`assets/js/lang.js` + `assets/data/i18n.json` (688 klíčů, plochá mapa `klíč → {cs, en}`).
+`assets/js/lang.js` + `assets/data/i18n.json` (plochá mapa `klíč → {cs, en}`).
 
 Pět atributů, každý má vlastní handler v `applyLang()`:
 
@@ -57,11 +57,7 @@ Pět atributů, každý má vlastní handler v `applyLang()`:
 
 ## CSS konvence
 
-- **Nikdy neměň globální default kvůli jedné stránce.** `section { padding: 140px 0 }`
-  je globální; homepage si to přepisuje `style="padding:72px 0;"` inline na konkrétních
-  sekcích. Vypadá to nečistě, ale je to záměr — jinak by se rozsypaly ostatní stránky.
-- Stejně tak `.problem` má `background: var(--paper-2)`, ale na homepage je přebitý
-  `style="background:transparent;"`, protože tam vytvářel nechtěné pruhování.
+- **Nikdy neměň globální default kvůli jedné stránce.** Úpravy homepage patří do `assets/css/home.css` pod `.home-page`; editor má vlastní stylesheet. Globální změna by ovlivnila ostatní stránky.
 - **Pozor na pořadí v kaskádě.** Modifikátory jako `.tier-card-featured` musí být
   v souboru **za** základní `.tier-card`, jinak je základ přebije (stalo se).
 - Barvy vždy přes tokeny (`--accent`, `--ink`, `--line`, `--paper`, `--surface`,
@@ -173,6 +169,6 @@ které tvrdily víc, než je pravda. Než napíšeš jakékoli tvrzení, ověř 
 2. Formuláře (kontakt i předobjednávka) jedou přes **web3forms** s hardcoded
    `access_key` v HTML. Funguje to, ale není tam žádný backend ani databáze.
 
-Vzhled, logo a barvy řeší **`BRAND.md`** — přečti si ho, než sáhneš na cokoli
+Vzhled, logo a barvy řeší **`docs/development/brand.md`** — přečti si ho, než sáhneš na cokoli
 vizuálního. Rastrové ikony se **negenerují ručně**, renderují se z `favicon.svg`
-přes `rsvg-convert` (postup je v `BRAND.md`).
+přes `rsvg-convert` (postup je v `docs/development/brand.md`).

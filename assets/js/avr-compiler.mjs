@@ -1,4 +1,4 @@
-// Adapted from @horang-corp/avr-gcc-wasm 0.2.0. Source and notices: /docs/arduino-web.md
+// Adapted from @horang-corp/avr-gcc-wasm 0.2.0. Source and notices: /docs/editor/README.md
 import createCc1plus from "https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/tools/cc1plus.mjs";
 import createAvrAs from "https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/tools/avr-as.mjs";
 import createAvrLd from "https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/tools/avr-ld.mjs";

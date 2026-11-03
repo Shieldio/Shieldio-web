@@ -23,4 +23,4 @@ Před zapnutím objednávek připravit údaje skutečného prodávajícího, cen
 
 Zdroje: [GDPR](https://eur-lex.europa.eu/legal-content/CS/TXT/?uri=CELEX:32016R0679), [ÚOOÚ – cookies a obdobné technologie](https://uoou.gov.cz/verejnost/qa-otazky-a-odpovedi/cookies), [ČOI – informace prodejce](https://coi.gov.cz/pro-podnikatele/informace-pro-prodejce-zbozi-a-sluzeb/informacni-povinnosti-prodejce-2/), [Web3Forms – privacy](https://web3forms.com/privacy).
 
-[Zpět na README](../README.md)
+[Zpět na README](../../README.md)
