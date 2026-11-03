@@ -95,7 +95,7 @@
     more_projects: { cs: "Další projekt", en: "More projects" },
     level_up: { cs: "Posuň se dál", en: "Level up" },
     show_off_h3: { cs: "Chceš se pochlubit, co jsi postavil?", en: "Want to show off what you built?" },
-    show_off_p: { cs: "Komunitní galerii teprve připravujeme, zatím nám klidně napiš, rádi se podíváme.", en: "We're still building the community gallery, feel free to write to us in the meantime, we'd love to see it." },
+    show_off_p: { cs: "Při sdílení projektu přidej fotografii zapojení, revizi desky a program. Ostatní tak mohou tvůj postup zopakovat.", en: "When sharing a project, include a wiring photo, board revision and program so others can repeat your setup." },
     restart: { cs: "Spustit znovu", en: "Start over" },
     find_out_more: { cs: "Zjistit více", en: "Find out more" },
     datasheet: { cs: "Datasheet", en: "Datasheet" },

@@ -62,9 +62,9 @@ window.SHIELDIO_GUIDE = {
       datasheet: null,
     },
     mblock: {
-      term: "mBlock",
+      term: "Editor Shieldio",
       photo: null,
-      text: "Blokové programovací prostředí (podobné Scratchi), ve kterém se program sestavuje přetahováním barevných bloků místo psaní kódu. Funguje přímo v prohlížeči.",
+      text: "Webový editor pro bloky a Arduino C++. Kompilace a přímé USB nahrávání nyní podporují RED s Nano / ATmega328P; tato deska je zatím koncept.",
       fact: null,
       datasheet: null,
     },
@@ -109,7 +109,7 @@ window.SHIELDIO_GUIDE = {
         items: [
           "Deska se v počítači vůbec neobjeví. Zkus jiný USB port.",
           "Kabel je jen nabíjecí a nepřenáší data. Zkus jiný USB-C kabel.",
-          "Deska je připojená, ale nic se neděje. Zkontroluj v mBlocku, že je vybraná správná deska.",
+          "Tato deska je zatím koncept. Současný kompilátor a USB nahrávání podporují RED s Nano / ATmega328P.",
         ],
       },
     },
@@ -124,13 +124,13 @@ window.SHIELDIO_GUIDE = {
           items: [
             "Zkontroluj, že je deska připojená přes USB-C kabel.",
             "Zkus jiný USB port nebo kabel.",
-            "Obnov stránku mBlock a zkus to znovu.",
+            "Ověř podporu desky v editoru; současný cíl je RED / Nano ATmega328P.",
           ],
         },
         {
           title: "Chyba: Není připojeno Arduino",
           items: [
-            "V mBlocku zkontroluj, že je vybraná správná deska.",
+            "Před programováním ověř cílovou desku a skutečné zapojení pinů.",
             "Odpoj a znovu připoj USB-C kabel.",
             "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.",
           ],
@@ -146,7 +146,7 @@ window.SHIELDIO_GUIDE = {
         question: "Reaguje hra na stisk tlačítka?",
         no: {
           question: "Rozsvítí se LED vůbec?",
-          noResult: "LED se nerozsvěcí. Zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
+          noResult: "LED se nerozsvěcí. Ověř cílovou desku a zapojení. Tento koncept zatím nemá ověřený program pro nahrání.",
           yesResult: "LED svítí, ale tlačítko nic nedělá. Zkontroluj v programu blok, který čte stisk tlačítka.",
         },
       },
