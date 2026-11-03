@@ -86,7 +86,7 @@
         <a href="../../../instructions/index.html" data-i18n="nav.guides">Návody</a>
         <a href="../../../edu/index.html" data-i18n="nav.edu">Edu</a>
         <a href="../../../company/about.html" data-i18n="nav.about">O nás</a>
-        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Začít programovat</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
       </nav>
       <a class="cta-small" href="../../../index.html#kontakt" data-i18n="nav.cta_contact">Domluvit ukázku</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
@@ -171,13 +171,9 @@
       <p data-i18n="learn_pwm.adv_p3">U <b>serva</b> nejde o stejnou 0–100% regulaci jako u LED. Servo uvnitř neměří průměrné napětí, ale <b>délku řídicího pulzu</b>. Běžné hobby servo očekává pulz zopakovaný zhruba každých 20 ms; délka přibližně 1 až 2 ms určuje požadovanou polohu. Elektronika serva ji porovná se skutečnou polohou a motorkem se dotáčí, dokud se neshodují.</p>
     </div>
 
-    <div class="learn-aside level-advanced" data-i18n="learn_pwm.aside">
-      <b>Proto se blokům pro servo nastavuje "úhel", ne "výkon":</b> program na pozadí přepočítá požadovaný úhel na správnou délku pulzu, opakující se každých 20 ms, přesně podle toho, jak to servo uvnitř očekává.
-    </div>
+    <div class="learn-aside level-advanced" data-i18n="learn_pwm.aside"><b>Proto se blokům pro servo nastavuje "úhel", ne "výkon":</b> program na pozadí přepočítá požadovaný úhel na správnou délku pulzu, opakující se každých 20 ms, přesně podle toho, jak to servo uvnitř očekává.</div>
 
-    <div class="learn-board-tie level-advanced" data-i18n="learn_pwm.board_tie">
-      <b>Na desce Shieldio RED:</b> piny D5 a D6 řídí jas červené a zelené LED pomocí PWM. Pin D9 posílá řídicí pulzy servu SG90, které v návodu na závoru otáčí ramenem podle naměřené vzdálenosti.
-    </div>
+    <div class="learn-board-tie level-advanced" data-i18n="learn_pwm.board_tie"><b>Na desce Shieldio RED:</b> piny D5 a D6 řídí jas červené a zelené LED pomocí PWM. Pin D9 posílá řídicí pulzy servu SG90, které v návodu na závoru otáčí ramenem podle naměřené vzdálenosti.</div>
 
     <div class="level-equations learn-body">
       <p data-i18n="learn_pwm.eq_units">Značení jednotek: <b>U</b> napětí [V], <b>t</b> čas [ms], <b>φ</b> úhel serva [°].</p>
@@ -229,6 +225,7 @@
       <a href="../../../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
       <a href="../../../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
       <a href="../../../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
     </nav>
     <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div>© 2026 Shieldio</div>
@@ -241,7 +238,7 @@
 <script src="../../../assets/js/theme.js"></script>
 <script src="../../../assets/js/search.js"></script>
 <script src="../../../assets/js/lang.js"></script>
-<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
 <script src="../../../assets/js/level-toggle.js"></script>
 <script src="../../../assets/js/pwm-sim.js"></script>
 <script src="../../../assets/js/concept-labs.js"></script>

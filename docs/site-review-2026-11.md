@@ -1,0 +1,34 @@
+# Sjednocení webu k editoru Shieldio — 3. 11. 2026
+
+Hlavní navigace a patičky vedou na vlastní programování. Úvodní vizuál homepage zůstává zachovaný; mění se navazující texty a postup práce.
+
+## Cesty návštěvníka
+
+| Cíl | Adresa |
+| --- | --- |
+| První program, port a nahrání | `/instructions/programovani/` |
+| Bloky a Arduino C++ | `/instructions/blokovy-editor.html` |
+| První blikání | `/instructions/blokovy-editor.html?preset=blikani&module=led` |
+| Přímé otevření digitálního metru | `/instructions/blokovy-editor.html?example=digitalni_metr` |
+| Přímé otevření radaru | `/instructions/blokovy-editor.html?example=ultrazvukovy_radar` |
+
+Původní vstupy mBlock a obecné baseline rozcestníky mají 301 přesměrování a HTML fallback. Konkrétní RED návody zachovávají dosavadní adresy. Ukázky mají vlastní localStorage klíče; nezasahují do rozepsaného hlavního programu a obnovují vlastní uložené úpravy.
+
+## Obsah
+
+- Doporučení mBlocku v hlavní cestě nahrazuje editor Shieldio. Právní zmínka ochranné známky zůstává.
+- Návody sdílejí označení bloků, pomoc s prvním nahráním a akce otevření editoru v obou programovacích režimech.
+- Neověřené výroky o odolnosti, libovolná procenta vývoje, prázdný QR prvek a opakované přísliby nahrazují konkrétní činnosti a stav vývoje.
+- Hotové projekty RED jsou oddělené od konceptů dalších desek. Univerzální bloky nemění cíl kompilace: Nano / ATmega328P.
+- Vyhledávání a sitemap vynechávají přesměrování a noindex koncepty. FAQ JSON-LD odpovídá viditelným odpovědím.
+
+## Ověření
+
+- Kontrola 48 HTML stránek: lokální odkazy, kotvy, překladové klíče a fallbacky, JSON-LD, přesměrování, sitemap a vyhledávání.
+- Čtyři interaktivní RED návody v češtině a angličtině, bloky i C++, včetně diagnostiky a návazných akcí.
+- Regresní testy editoru, knihoven, workeru a uploaderu; obnovení upravené ukázky a izolace vlastního programu.
+- Skutečný AVR GCC překlad periferií, obou projektů a generovaného kódu včetně prvního blikání.
+- V Chrome ověřeno otevření blikání z průvodce, přímé načtení metru do C++, přepnutí jazyka a skutečná kompilace blikání (2246 B flash, 193 B statická RAM).
+- Fyzické USB nahrání nebylo v tomto prostředí ověřeno. HTTP preview nemá Web Serial; produkce používá HTTPS.
+
+Náhled průvodce: [programovani-20261103.jpg](qa/programovani-20261103.jpg).

@@ -58,6 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // a guide can link here with ?preset=<id> to drop the visitor straight into a
   // working starter program for that specific project, instead of a blank canvas
   const PRESETS = {
+    blikani(ws, loop) {
+      let previous = null;
+      for (const [type,state] of [["shieldio_led","HIGH"],["shieldio_wait"],["shieldio_led","LOW"],["shieldio_wait"]]) {
+        const block = ws.newBlock(type);block.initSvg();
+        if (type === "shieldio_led") {block.setFieldValue("LED_GREEN","COLOR");block.setFieldValue(state,"STATE");}
+        block.render();
+        (previous ? previous.nextConnection : loop.getInput("LOOP").connection).connect(block.previousConnection);
+        previous=block;
+      }
+    },
     zavora(ws, loop) {
       function ifServo(op, threshold, angle) {
         const ifB = ws.newBlock("shieldio_if");
@@ -102,19 +112,13 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  function showPresetBanner(text) {
-    const banner = document.createElement("p");
-    banner.className = "form-status success";
-    banner.style.marginBottom = "16px";
-    banner.textContent = text;
-    document.getElementById("blocklyDiv")?.closest("section")?.querySelector(".wrap")?.prepend(banner);
-  }
-
-  const presetId = new URLSearchParams(location.search).get("preset");
-  if (presetId && PRESETS[presetId]) {
+  const entryParams = new URLSearchParams(location.search);
+  const requestedPreset = entryParams.get("preset");
+  const presetId = Object.hasOwn(PRESETS, requestedPreset) ? requestedPreset : null;
+  const workspaceStorageKey = "shieldio-workspace-v1" + (presetId ? ":preset:" + presetId : "");
+  if (presetId) {
     PRESETS[presetId](workspace, loopBlock);
     workspace.cleanUp();
-    showPresetBanner("Nahrán startovní program pro tenhle projekt, uprav si ho, jak chceš.");
   }
 
   const profileSelect = document.getElementById("blockProfileSelect");
@@ -140,16 +144,16 @@ document.addEventListener("DOMContentLoaded", () => {
     Blockly.svgResize(workspace);
   }
   for (const control of [profileSelect,moduleSelect,advancedToggle]) control.addEventListener("change", updateToolbox);
-  window.addEventListener("shieldio-lang-change", updateToolbox);
+  document.addEventListener("shieldio-lang-change", updateToolbox);
   document.getElementById("fitBlocksBtn").addEventListener("click", () => workspace.zoomToFit());
   new ResizeObserver(() => Blockly.svgResize(workspace)).observe(container);
   updateToolbox();
 
-  // Restore only complete projects; guide presets deliberately take precedence.
-  if (!presetId || !PRESETS[presetId]) {
+  // Each guide has its own saved project; opening it again keeps the visitor's edits.
+  {
     const initial = Blockly.serialization.workspaces.save(workspace);
     try {
-      const saved = JSON.parse(localStorage.getItem("shieldio-workspace-v1") || "null");
+      const saved = JSON.parse(localStorage.getItem(workspaceStorageKey) || "null");
       if (saved?.workspace) {
         workspace.clear();Blockly.serialization.workspaces.load(saved.workspace, workspace);
         if (!workspace.getBlocksByType("shieldio_setup",false).length || !workspace.getBlocksByType("shieldio_loop",false).length) throw Error("Incomplete project");
@@ -158,10 +162,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch {workspace.clear();Blockly.serialization.workspaces.load(initial,workspace);}
   }
+  // Guide links adjust the toolbox without replacing the visitor's existing blocks.
+  const entryModule = entryParams.get("module"), entryProfile = entryParams.get("profile");
+  if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) {profileSelect.value="red";moduleSelect.value=entryModule;}
+  if (entryProfile === "universal") profileSelect.value="universal";
+  if (presetId === "blikani") {profileSelect.value="red";moduleSelect.value="led";}
+  updateToolbox();
   const projectState = () => ({format:"shieldio-blocks-v1",workspace:Blockly.serialization.workspaces.save(workspace),profile:profileSelect.value,module:moduleSelect.value,advanced:advancedToggle.checked});
   let saveTimer;
   function autosave() {
-    clearTimeout(saveTimer);saveTimer=setTimeout(() => {try {const text=JSON.stringify(projectState());if(text.length < 400000)localStorage.setItem("shieldio-workspace-v1",text);} catch {}},200);
+    clearTimeout(saveTimer);saveTimer=setTimeout(() => {try {const text=JSON.stringify(projectState());if(text.length < 400000)localStorage.setItem(workspaceStorageKey,text);} catch {}},200);
   }
   for (const control of [profileSelect,moduleSelect,advancedToggle]) control.addEventListener("change", autosave);
   const codeEl = document.getElementById("generatedCode");

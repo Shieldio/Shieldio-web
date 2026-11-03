@@ -3,6 +3,9 @@ import { indentSelection } from "./arduino-source-editor.mjs";
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
+  exampleLoading: ["Načítám ukázkový program…", "Loading the example program…"],
+  exampleLoaded: ["Ukázka je otevřená v Arduino C++. Vyber desku a nahraj ji, nebo nejdřív uprav program.", "Example opened in Arduino C++. Select the board and upload it, or edit it first."],
+  exampleLoadError: ["Ukázkový program se nepodařilo načíst. Obnov stránku nebo otevři jeho soubor .ino.", "Could not load the example. Reload or open its .ino file."],
   focus: ["Zvětšit editor", "Expand editor"], unfocus: ["Zpět na web", "Back to website"],
   removeLibrary: ["Odebrat", "Remove"], libraryAdded: ["Knihovna je připravená. Použij její #include v programu.", "Library ready. Use its #include in your program."],
   LIBRARY_LIMIT: ["Knihovny jsou příliš velké: nejvýše 8 knihoven, 160 souborů, 12 C++ zdrojů a 2 MB kódu včetně ShieldioDisplay.", "Library limits: 8 libraries, 160 files, 12 C++ sources and 2 MB of code including ShieldioDisplay."],
@@ -50,6 +53,10 @@ let selectedPort = null, busy = false, cached = null, worker = null, controller 
 let libraries = [], expanded = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
+const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
+const requestedExample = new URLSearchParams(window.location?.search || "").get("example");
+const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExample : null;
+const sourceStorageKey = "shieldio-source-v1" + (exampleId ? ":example:" + exampleId : "");
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
 const source = () => mode() === "code" ? sourceInput.value : window.SHIELDIO_EDITOR?.getCode() || "";
 
@@ -102,14 +109,14 @@ for (const id of ["blocksTab", "codeTab"]) $(id).addEventListener("keydown", eve
   const next = event.key === "Home" || event.key === "ArrowLeft" ? "blocks" : "code";
   switchMode(next); $(next === "blocks" ? "blocksTab" : "codeTab").focus();
 });
-try { sourceInput.value = localStorage.getItem("shieldio-source-v1") || ""; } catch {}
+try { sourceInput.value = localStorage.getItem(sourceStorageKey) || ""; } catch {}
 function updateSourcePosition() {
   const lines = sourceInput.value.split("\n");
   $("sourceLineNumbers").textContent = lines.map((_,i) => i+1).join("\n");
   const cursor = sourceInput.value.slice(0,sourceInput.selectionStart || 0).split("\n");
   $("sourcePosition").textContent = `${cursor.length}:${cursor.at(-1).length+1} · ${lines.length} ${document.documentElement.lang === "en" ? (lines.length === 1 ? "line" : "lines") : (lines.length === 1 ? "řádek" : lines.length < 5 ? "řádky" : "řádků")}`;
 }
-sourceInput.addEventListener("input", () => {invalidate();updateSourcePosition();try {localStorage.setItem("shieldio-source-v1",sourceInput.value);} catch {}});
+sourceInput.addEventListener("input", () => {invalidate();updateSourcePosition();try {localStorage.setItem(sourceStorageKey,sourceInput.value);} catch {}});
 sourceInput.addEventListener("scroll", () => {$("sourceLineNumbers").scrollTop = sourceInput.scrollTop;});
 for (const event of ["click","keyup","select"]) sourceInput.addEventListener(event, updateSourcePosition);
 sourceInput.addEventListener("keydown", event => {
@@ -270,3 +277,20 @@ setBusy(false); paint();updateSourcePosition();
 
 
 
+
+// Fixed, same-origin examples only. Their autosave is separate from the visitor's manual program.
+async function loadExample() {
+  setBusy(true);controller=new AbortController();status("exampleLoading");
+  try {
+    const response=await fetch(new URL(exampleFiles[exampleId],import.meta.url),{signal:controller.signal});
+    if(!response.ok)throw new Error("exampleLoadError");
+    const text=await response.text();
+    if(text.length>200000 || !/\bvoid\s+setup\s*\(/.test(text) || !/\bvoid\s+loop\s*\(/.test(text))throw new Error("exampleLoadError");
+    sourceInput.value=text;switchMode("code");sourceInput.dispatchEvent(new Event("input"));status("exampleLoaded");
+  } catch(error) {status(controller.signal.aborted ? "cancelled" : "exampleLoadError",!controller.signal.aborted);}
+  finally {setBusy(false);controller=null;}
+}
+if(exampleId) {
+  if(sourceInput.value.trim()) {switchMode("code");status("fileLoaded");}
+  else loadExample();
+}

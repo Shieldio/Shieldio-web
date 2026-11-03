@@ -23,7 +23,7 @@ window.SHIELDIO_GUIDE = {
     ],
     parentHref: "../index.html",
     parentLabel: { cs: "Zpět na výběr projektů RED", en: "Back to RED projects" },
-    mblockGuideHref: "../../../../instructions/mblock/index.html",
+    programmingGuideHref: "/instructions/programovani/",
   },
 
   glossary: {
@@ -114,7 +114,7 @@ window.SHIELDIO_GUIDE = {
       datasheet: null,
     },
     mblock: {
-      term: { cs: "mBlock", en: "mBlock" },
+      term: { cs: "Editor Shieldio", en: "Shieldio editor" },
       photo: null,
       text: {
         cs: "Blokové programovací prostředí (podobné Scratchi), ve kterém se program sestavuje přetahováním barevných bloků místo psaní kódu. Funguje přímo v prohlížeči.",
@@ -297,13 +297,13 @@ window.SHIELDIO_GUIDE = {
           items: [
             { cs: "Zkontroluj, že je deska připojená přes USB-C kabel.", en: "Check that the board is connected via the USB-C cable." },
             { cs: "Zkus jiný USB port nebo kabel.", en: "Try a different USB port or cable." },
-            { cs: "Obnov stránku mBlock a zkus to znovu.", en: "Refresh the mBlock page and try again." },
+            { cs: "Obnov stránku editoru Shieldio a zkus to znovu.", en: "Refresh the Shieldio editor page and try again." },
           ],
         },
         {
           title: { cs: "Chyba: Není připojeno Arduino", en: "Error: Arduino not connected" },
           items: [
-            { cs: "V mBlocku zkontroluj, že je vybraná správná deska (Arduino Nano).", en: "In mBlock, check that the correct board (Arduino Nano) is selected." },
+            { cs: "V editoru Shieldio zkontroluj, že je vybraná RED a správný USB port.", en: "In the Shieldio editor, check that RED and the correct USB port are selected." },
             { cs: "Odpoj a znovu připoj USB-C kabel.", en: "Unplug and reconnect the USB-C cable." },
             { cs: "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.", en: "Try a different USB cable, some charging-only cables don't carry data." },
           ],
@@ -313,22 +313,22 @@ window.SHIELDIO_GUIDE = {
       arduino: {
         screenshot: null,
         note: {
-          cs: 'Ukázkový Arduino kód pro tento projekt zatím připravujeme. Zkus mezitím blokové programování v <a href="../../../../instructions/blokovy-editor.html?preset=zavora">našem editoru</a>, má už nachystaný startovní program přesně pro tenhle projekt.',
-          en: 'We\'re still preparing sample Arduino code for this project. In the meantime, try block programming in <a href="../../../../instructions/blokovy-editor.html?preset=zavora">our editor</a>, it already has a starter program ready for exactly this project.',
+          cs: 'Startovní program otevři v <a href="../../../../instructions/blokovy-editor.html?preset=zavora">našem editoru</a>, přes Zobrazit kód uvidíš jeho Arduino C++. Pro ruční úpravy jej zkopíruj do záložky Arduino C++.',
+          en: 'Open the starter program in <a href="../../../../instructions/blokovy-editor.html?preset=zavora">our editor</a>, Show code displays its Arduino C++. Copy it into the Arduino C++ tab for manual changes.',
         },
         diagnostics: [
           {
             title: { cs: "Chyba: Nelze nahrát (upload error)", en: "Error: Can't upload (upload error)" },
             items: [
-              { cs: "Zkontroluj, že je v Arduino IDE vybraný port desky (Tools → Port).", en: "Check that the board's port is selected in Arduino IDE (Tools → Port)." },
-              { cs: "Zkontroluj, že je vybraná správná deska (Tools → Board → Arduino Nano).", en: "Check that the correct board is selected (Tools → Board → Arduino Nano)." },
+              { cs: "Klikni na Připojit desku a vyber USB port RED.", en: "Click Connect board and select the RED USB port." },
+              { cs: "V Nastavení desky ověř bootloader Nano: Optiboot 115200 nebo starý 57600.", en: "Check the Nano bootloader in Board settings: Optiboot 115200 or old 57600." },
               { cs: "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.", en: "Try a different USB cable, some charging-only cables don't carry data." },
             ],
           },
           {
             title: { cs: "Chyba: Kompilace selhala", en: "Error: Compilation failed" },
             items: [
-              { cs: "Zkontroluj, že jsou nainstalované potřebné knihovny pro servo a ultrazvukový senzor.", en: "Check that the required libraries for the servo and ultrasonic sensor are installed." },
+              { cs: "Servo je přibalené. Ultrazvuk se měří přímo v programu; další knihovnu nepotřebuje.", en: "Servo is included. Ultrasonic measurement uses the program directly and needs no additional library." },
               { cs: "Projdi hlášku chyby. Obvykle ukazuje přesný řádek s problémem.", en: "Read through the error message. It usually points to the exact line with the problem." },
               { cs: "Zkus kód znovu zkompilovat po uložení souboru.", en: "Try recompiling the code after saving the file." },
             ],
@@ -351,8 +351,8 @@ window.SHIELDIO_GUIDE = {
           noResult: { cs: "Servo asi není napájené. Zkontroluj kabel v kroku 2.", en: "The servo probably isn't powered. Check the cable from step 2." },
           yes: {
             question: {
-              cs: "Mění se hodnota vzdálenosti v mBlocku, když přiblížíš ruku?",
-              en: "Does the distance value in mBlock change when you move your hand closer?",
+              cs: "Zobraz měřenou vzdálenost na OLED. Mění se, když přiblížíš ruku?",
+              en: "Display the measured distance on the OLED. Does it change when your hand moves closer?",
             },
             noResult: { cs: "Ultrazvukový senzor asi není správně zapojený. Zkontroluj kabel v kroku 3.", en: "The ultrasonic sensor probably isn't connected correctly. Check the cable from step 3." },
             yesResult: { cs: "Zkontroluj v programu prahovou hodnotu vzdálenosti. Možná je nastavená příliš nízko.", en: "Check the distance threshold in your program. It might be set too low." },

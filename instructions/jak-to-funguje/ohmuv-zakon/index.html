@@ -95,7 +95,7 @@
         <a href="../../../instructions/index.html" data-i18n="nav.guides">Návody</a>
         <a href="../../../edu/index.html" data-i18n="nav.edu">Edu</a>
         <a href="../../../company/about.html" data-i18n="nav.about">O nás</a>
-        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Začít programovat</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
       </nav>
       <a class="cta-small" href="../../../index.html#kontakt" data-i18n="nav.cta_contact">Domluvit ukázku</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
@@ -169,13 +169,9 @@
       <p data-i18n="learn_ohm.calc_note">Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.</p>
     </div>
 
-    <div class="learn-aside level-advanced" data-i18n="learn_ohm.aside">
-      <b>Co dělá rezistor uvnitř:</b> je to materiál, který klade odpor průchodu proudu, čím vyšší odpor, tím míň proudu jím při stejném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají jim energii jako teplo, proto se rezistor při provozu mírně zahřívá.
-    </div>
+    <div class="learn-aside level-advanced" data-i18n="learn_ohm.aside"><b>Co dělá rezistor uvnitř:</b> je to materiál, který klade odpor průchodu proudu, čím vyšší odpor, tím míň proudu jím při stejném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají jim energii jako teplo, proto se rezistor při provozu mírně zahřívá.</div>
 
-    <div class="learn-board-tie level-advanced" data-i18n="learn_ohm.board_tie">
-      <b>Na desce Shieldio RED:</b> tenhle přesný výpočet stojí za R1 a R2 (220 Ω, proudové omezovače pro červenou a zelenou LED). R3 a R4 (10 kΩ) fungují jinak, jako pull-up rezistory pro tlačítka, víc v kapitole o <a href="../tlacitka-a-debounce/index.html">debounce</a>. R5 (330 Ω) omezuje proud bzučákem stejným principem jako u LED, jen s jinými vstupními hodnotami.
-    </div>
+    <div class="learn-board-tie level-advanced" data-i18n="learn_ohm.board_tie"><b>Na desce Shieldio RED:</b> tenhle přesný výpočet stojí za R1 a R2 (220 Ω, proudové omezovače pro červenou a zelenou LED). R3 a R4 (10 kΩ) fungují jinak, jako pull-up rezistory pro tlačítka, víc v kapitole o <a href="../tlacitka-a-debounce/index.html">debounce</a>. R5 (330 Ω) omezuje proud bzučákem stejným principem jako u LED, jen s jinými vstupními hodnotami.</div>
 
     <div class="level-advanced learn-body">
       <p data-i18n="learn_ohm.series_parallel"><b>Sériové a paralelní řazení:</b> když rezistory řadíš za sebe (sériově), jejich odpory se prostě sečtou. Když je řadíš vedle sebe (paralelně), výsledný odpor je vždycky menší než ten nejmenší z nich, protože proud má víc cest, kudy protéct.</p>
@@ -269,6 +265,7 @@
       <a href="../../../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
       <a href="../../../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
       <a href="../../../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
     </nav>
     <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div>© 2026 Shieldio</div>
@@ -281,7 +278,7 @@
 <script src="../../../assets/js/theme.js"></script>
 <script src="../../../assets/js/search.js"></script>
 <script src="../../../assets/js/lang.js"></script>
-<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
 <script src="../../../assets/js/level-toggle.js"></script>
 <script src="../../../assets/js/resistor-calculator.js"></script>
 <script src="../../../assets/js/concept-labs.js"></script>

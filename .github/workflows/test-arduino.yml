@@ -1,9 +1,24 @@
 name: Test Arduino programming
 on:
   push:
-    branches: [main, codex/programming-studio-20261102]
+    branches: [main, codex/site-unify-20261103]
     paths:
       - 'assets/js/arduino-*.mjs'
+      - 'index.html'
+      - 'faq.html'
+      - 'products/**'
+      - 'company/**'
+      - 'instructions/**'
+      - 'edu/**'
+      - 'aktuality/**'
+      - 'assets/data/i18n.json'
+      - 'assets/data/search-index.json'
+      - 'assets/js/guide-*.js'
+      - 'assets/js/site-chrome.js'
+      - 'sitemap.xml'
+      - '_redirects'
+      - 'llms.txt'
+      - 'tests/site-*'
       - 'assets/js/avr-compiler.mjs'
       - 'assets/js/shieldio-blocks.js'
       - 'assets/js/blockly-editor.js'
@@ -15,6 +30,21 @@ on:
   pull_request:
     paths:
       - 'assets/js/arduino-*.mjs'
+      - 'index.html'
+      - 'faq.html'
+      - 'products/**'
+      - 'company/**'
+      - 'instructions/**'
+      - 'edu/**'
+      - 'aktuality/**'
+      - 'assets/data/i18n.json'
+      - 'assets/data/search-index.json'
+      - 'assets/js/guide-*.js'
+      - 'assets/js/site-chrome.js'
+      - 'sitemap.xml'
+      - '_redirects'
+      - 'llms.txt'
+      - 'tests/site-*'
       - 'assets/js/avr-compiler.mjs'
       - 'assets/js/shieldio-blocks.js'
       - 'assets/js/blockly-editor.js'
@@ -30,6 +60,7 @@ jobs:
     timeout-minutes: 12
     env:
       BLOCKLY_TEST_DIR: /tmp/shieldio-test-deps/node_modules/blockly
+      JSDOM_TEST_PACKAGE: /tmp/shieldio-test-deps/node_modules/jsdom
       XMLDOM_TEST_PACKAGE: /tmp/shieldio-test-deps/node_modules/@xmldom/xmldom/lib/index.js
       BLOCKLY_FIXTURES: /tmp/shieldio-block-fixtures.json
       AVR_TOOLCHAIN_DIR: /tmp/shieldio-avr/package
@@ -38,6 +69,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: python3 tests/site-content.test.py
+      - run: node --check assets/js/guide-engine.js
       - run: node --check assets/js/arduino-programming.mjs
       - run: node --check assets/js/arduino-compiler-worker.mjs
       - run: node --check assets/js/shieldio-blocks.js
@@ -47,8 +80,9 @@ jobs:
       - run: node tests/arduino-libraries.test.mjs
       - run: node tests/arduino-compiler-worker.test.mjs
       - name: Install headless Blockly test dependencies
-        run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11
+        run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11 jsdom@27.4.0
       - run: node tests/arduino-blocks.test.mjs
+      - run: node tests/site-journeys.test.mjs
       - name: Download pinned AVR toolchain for real compilation tests
         run: curl --fail --location --retry 2 https://registry.npmjs.org/@horang-corp/avr-gcc-wasm/-/avr-gcc-wasm-0.2.0.tgz --output "/tmp/shieldio-avr.tgz"
       - name: Extract test compiler

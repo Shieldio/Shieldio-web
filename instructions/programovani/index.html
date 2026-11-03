@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs"><head><meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>První program a nahrání do RED | Shieldio</title>
+<meta name="description" content="První program pro Shieldio RED: otevři editor, připoj desku v Chrome nebo Edge, zkompiluj program a nahraj ho přes USB.">
+<link rel="canonical" href="https://shieldio.cz/instructions/programovani/">
+<link rel="stylesheet" href="../../assets/css/style.css"><link rel="icon" href="../../assets/icons/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"První nahrání programu do Shieldio RED","description":"Bloky nebo Arduino C++, kompilace v prohlížeči a přímé USB nahrávání do Nano / ATmega328P.","step":[{"@type":"HowToStep","name":"Otevři editor Shieldio","text":"Použij Chrome nebo Edge na počítači a otevři blikání LED v editoru."},{"@type":"HowToStep","name":"Připoj desku","text":"Připoj RED datovým USB kabelem a tlačítkem Připojit desku vyber sériový port."},{"@type":"HowToStep","name":"Zkompiluj a nahraj","text":"Tlačítko Zkompilovat ověří program; Nahrát do desky jej přeloží, zapíše a zkontroluje."},{"@type":"HowToStep","name":"Vyzkoušej změnu","text":"Změň číslo v bloku počkej, nahraj znovu a porovnej blikání LED."}]}</script></head><body data-i18n-title="start.title">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../../index.html"><img class="logo-full logo-full-light" src="../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="../../index.html" data-i18n="nav.home">Domů</a>
+        <a href="../../products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="../../instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="../../edu/index.html" data-i18n="nav.edu">Edu</a>
+        <a href="../../company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
+      </nav>
+      <a class="cta-small" href="../../index.html#kontakt" data-i18n="nav.cta_contact">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="hero" style="padding-bottom:40px;"><div class="wrap" style="max-width:900px;">
+<a class="guide-back-link" href="/instructions/" data-i18n="start.back">← Návody</a>
+<h1 data-i18n="start.heading">První program do RED.</h1>
+<p class="lead" data-i18n="start.lead">Bloky, kompilace i nahrávání jsou v editoru Shieldio. Potřebuješ sestavenou RED s Nano / ATmega328P, datový USB kabel a Chrome nebo Edge na počítači.</p>
+<div class="hero-ctas"><a class="btn btn-primary" href="/instructions/blokovy-editor.html?preset=blikani&amp;module=led" data-i18n="start.open">Otevřít blikání LED</a><a class="btn btn-ghost" href="/instructions/baseline/red/" data-i18n="start.projects">Vybrat jiný projekt</a></div>
+</div></div>
+<section style="padding:0 0 64px;"><div class="wrap" style="max-width:900px;">
+<div class="learn-aside" data-i18n="start.firstDownload">Při první kompilaci se stáhne kompilátor a knihovny. Počítej s připojením k internetu; ve školní síti musí být dostupné cdn.jsdelivr.net a unpkg.com. Tvůj program se překládá v počítači, neposílá se ke kompilaci na server.</div>
+<div style="margin:28px 0;"><h2 data-i18n="start.step1">1. Podívej se na program</h2><p data-i18n="start.step1Text">V ukázce je zelená LED na D6: zapnout, počkat 500 ms, vypnout, počkat 500 ms. Blok „Opakuj pořád“ tuto posloupnost opakuje. Čas lze napsat přímo do políčka. Výběr modulu mění jen nabídku bloků, ne hotový program.</p></div>
+<div style="margin:28px 0;"><h2 data-i18n="start.step2">2. Připoj RED</h2><p data-i18n="start.step2Text">Připoj desku datovým USB kabelem a klikni na <b>Připojit desku</b>. Vyber port odpovídající desce. Pokud si nejsi jistý, porovnej seznam před připojením a po něm. Stejný port nesmí mít otevřený jiný program.</p></div>
+<div style="margin:28px 0;"><h2 data-i18n="start.step3">3. Zkompiluj a nahraj</h2><p data-i18n="start.step3Text"><b>Zkompilovat</b> zkontroluje program a vytvoří HEX, ale do desky nic nezapíše. <b>Nahrát do desky</b> provede kompilaci, zápis i kontrolu zapsaných dat. Po úspěchu začne LED blikat. Během nahrávání neodpojuj kabel.</p></div>
+<div style="margin:28px 0;"><h2 data-i18n="start.step4">4. Změň jednu hodnotu</h2><p data-i18n="start.step4Text">Přepiš obě čekání třeba na 1000 ms, znovu nahraj a porovnej výsledek. Přes <b>Zobrazit kód</b> uvidíš Arduino C++, které blokům odpovídá. V nabídce <b>Soubor</b> uložíš bloky, .ino nebo zkompilovaný .hex.</p></div>
+<details class="guide-accordion"><summary data-i18n="start.trouble">Port nebo nahrávání nefunguje</summary><ul class="tier-list"><li data-i18n="start.cable">Ověř datový kabel, jiný USB port a oprávnění školního účtu. Nabíjecí kabel bez dat nepomůže.</li><li data-i18n="start.bootloader">V <b>Nastavení desky</b> je Optiboot 115200 a starý Nano bootloader 57600. Pokud deska neodpovídá, zkus druhou volbu. Výběr bootloaderu není změna firmwaru bootloaderu.</li><li data-i18n="start.details">Rozbal podrobnosti kompilace a nahrávání. Při chybě v C++ zkontroluj uvedený řádek; při problému s USB nejdřív kabel a port.</li></ul></details>
+<details class="guide-accordion"><summary data-i18n="start.advanced">Vlastní C++, knihovny a jiný hardware</summary><p data-i18n="start.advancedText">Ruční program vlož do <b>Arduino C++</b> nebo otevři soubor .ino. Funkce deklaruj před použitím. ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX a SSD1306 jsou připravené. Vlastní C++ knihovnu pro AVR přidej přes <b>Knihovny → Přidat složku knihovny</b>; nejdřív rozbal ZIP. Import zatím nepodporuje C a assembler.</p><p data-i18n="start.target">Univerzální bloky nevyužívají přednastavené piny RED. Kompilátor a nahrávač ale zatím cílí na klasické Nano s ATmega328P, nikoli Nano Every, Nano 33 nebo ESP32.</p></details>
+<p style="margin-top:24px;" data-i18n="start.next">Pokračuj <a href="/instructions/baseline/red/zavora/">automatickou závorou</a>, nebo si otevři <a href="/instructions/jak-to-funguje/">vysvětlení součástek</a>.</p>
+</div></section>
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="../../index.html#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="../../instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="../../edu/index.html" data-i18n="nav.edu">Edu</a>
+      <a href="../../company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="../../company/pro-ucitele.html" data-i18n="footer.teachers">Pro učitele</a>
+      <a href="../../faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="../../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="../../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="../../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
+    </nav>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+</footer>
+
+<script src="../../assets/js/animations.js"></script>
+<script src="../../assets/js/navbar.js"></script>
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/search.js"></script>
+<script src="../../assets/js/lang.js"></script>
+<script src="../../assets/js/site-chrome.js?v=20261103-unified"></script>
+
+</body>
+</html>

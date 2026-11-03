@@ -1,7 +1,4 @@
-// Shieldio — shared page chrome: scroll progress bar, back-to-top, last-updated note.
-// Bump LAST_UPDATED by hand after a deploy that changes visible content — no build step to automate it.
-
-const LAST_UPDATED = "7. 9. 2026";
+// Shieldio — shared page chrome: scroll progress bar and back-to-top.
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -45,12 +42,4 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", updateBackToTop, { passive: true });
   updateBackToTop();
 
-  // ---------- last updated note in footer ----------
-  const footerInner = document.querySelector("footer .footer-inner");
-  if (footerInner) {
-    const note = document.createElement("div");
-    note.className = "last-updated";
-    note.textContent = "Poslední aktualizace: " + LAST_UPDATED;
-    footerInner.appendChild(note);
-  }
 });

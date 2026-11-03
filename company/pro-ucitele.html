@@ -55,7 +55,7 @@
         <a href="../instructions/index.html" data-i18n="nav.guides">Návody</a>
         <a href="../edu/index.html" data-i18n="nav.edu">Edu</a>
         <a href="../company/about.html" data-i18n="nav.about">O nás</a>
-        <a href="../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Začít programovat</a>
+        <a href="../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
       </nav>
       <a class="cta-small" href="../index.html#kontakt" data-i18n="nav.cta_contact">Domluvit ukázku</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
@@ -69,8 +69,8 @@
   <div class="wrap">
     <div class="fade-up">
       <span class="eyebrow">Pro učitele</span>
-      <h1>Praktické informace, ne jen slib.</h1>
-      <p class="lead" style="max-width:680px;">Odpovědi na to, co se opravdu ptáte, než cokoliv objednáte: pro koho to je, co potřebujete připravit, co je v balení a jak vypadá první hodina. Níž je i konkrétní návrh učebního plánu k projektu, který si můžete projít.</p>
+      <h1>Příprava hodiny s RED.</h1>
+      <p class="lead" style="max-width:680px;">Co ověřit na školním počítači, jak připravit desku a jak může vypadat hodina se závorou. Metodický list je návrh k úpravě podle konkrétní třídy.</p>
     </div>
   </div>
 </div>
@@ -100,23 +100,23 @@
       </div>
       <div class="fact-card">
         <span class="fact-label">Požadavky na počítače</span>
-        <p>Běžný notebook nebo PC s aktuálním <b>Chrome nebo Edge</b>. Firefox lze použít ke čtení návodů, ale přímé USB připojení ve webovém mBlocku na něm negarantujeme.</p>
+        <p data-i18n="teachers.computer">Počítač s aktuálním <b>Chrome nebo Edge</b>, internetem a datovým USB portem. Na žákovském účtu předem ověřte výběr sériového portu a první kompilaci.</p>
       </div>
       <div class="fact-card">
         <span class="fact-label">Software</span>
-        <p><a href="https://mblock.cc" target="_blank" rel="noopener">mBlock</a> ve webové verzi pro Chrome nebo Edge. Na spravovaném školním počítači před hodinou ověřte, že prohlížeč dovolí vybrat sériový USB port.</p>
+        <p data-i18n="teachers.software"><a href="/instructions/blokovy-editor.html">Editor Shieldio</a>: bloky, Arduino C++, kompilace a nahrání přes USB. mBlock ani Arduino IDE nejsou pro tento postup potřeba. <a href="/instructions/programovani/">První nahrání krok za krokem</a>.</p>
       </div>
       <div class="fact-card">
         <span class="fact-label">Způsob programování</span>
-        <p>Přetahování bloků, ne psaní kódu, podobně jako Scratch. Pokročilí žáci si mohou zobrazit i vygenerovaný Arduino C++ kód.</p>
+        <p data-i18n="teachers.programming">Pro začátek vyberte v blocích konkrétní modul RED. Pokročilí mohou zapnout matematiku a proměnné, použít univerzální piny nebo přejít k vlastnímu C++.</p>
       </div>
       <div class="fact-card">
         <span class="fact-label">Co musí připravit učitel</span>
-        <p>Na jednom školním počítači předem otestovat Chrome/Edge, USB port, datový kabel, mBlock a ukázkovou desku. Pro třídu připravit náhradní datový kabel a ideálně jednu záložní desku.</p>
+        <p>Na jednom školním počítači předem otestovat Chrome/Edge, USB port, datový kabel, editor Shieldio a ukázkovou desku. Pro třídu připravit náhradní datový kabel a ideálně jednu záložní desku.</p>
       </div>
       <div class="fact-card">
         <span class="fact-label">Co dostane žák</span>
-        <p>Desku, USB-A na USB-C kabel, přístup k blokovému editoru v prohlížeči a krok-za-krokem návod s fotkami, který se přizpůsobuje jeho tempu.</p>
+        <p>Desku, USB-A na USB-C kabel, přístup k blokovému editoru v prohlížeči a návod s fotkami, který může procházet po jednotlivých krocích.</p>
       </div>
       <div class="fact-card">
         <span class="fact-label">Co je v balení</span>
@@ -165,7 +165,7 @@
     <div class="learn-body">
       <ul style="padding-left:20px; line-height:1.9;">
         <li>Deska <b>Shieldio RED</b>, sestavená nebo si ji žáci sami spájeli podle <a href="../instructions/baseline/red/sestaveni/index.html">návodu na sestavení</a> (dalších 30–45 minut navíc).</li>
-        <li>Počítač nebo notebook s prohlížečem pro každou skupinu, mBlock běží přímo v prohlížeči, není potřeba nic instalovat.</li>
+        <li>Počítač nebo notebook s prohlížečem pro každou skupinu, editor Shieldio běží v prohlížeči. Kompilátor a knihovny se stáhnou při prvním použití.</li>
         <li>USB-A na USB-C kabel (součástí každé sady).</li>
         <li>Volitelně: 3D tištěný model auta nebo cokoliv, čemu bude závora bránit v cestě, pro názornější demonstraci.</li>
       </ul>
@@ -183,7 +183,7 @@
         <tr><td>30–39 min</td><td>Testování a ladění podle diagnostického stromu v návodu.</td></tr>
         <tr><td>39–45 min</td><td>Kontrolní otázky a krátký exit ticket.</td></tr>
       </table>
-      <p>Krok za krokem, s fotkami a řešením nejčastějších chyb u každého kroku, vede žáky samotný <a href="../instructions/baseline/red/zavora/index.html">interaktivní návod na automatickou závoru</a>, funguje jako pracovní list, který se sám přizpůsobuje tempu žáka.</p>
+      <p>Krok za krokem, s fotkami a řešením nejčastějších chyb u každého kroku, vede žáky samotný <a href="../instructions/baseline/red/zavora/index.html">interaktivní návod na automatickou závoru</a>, obsahuje jednotlivé kroky, kontrolní otázky a diagnostiku. Žák si mezi kroky přepíná sám.</p>
     </div>
 
     <div class="section-head" style="max-width:680px; margin-top:56px;">
@@ -264,6 +264,7 @@
       <a href="../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
       <a href="../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
       <a href="../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
     </nav>
     <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div>© 2026 Shieldio</div>
@@ -276,7 +277,7 @@
 <script src="../assets/js/theme.js"></script>
 <script src="../assets/js/search.js"></script>
 <script src="../assets/js/lang.js"></script>
-<script src="../assets/js/site-chrome.js"></script>
+<script src="../assets/js/site-chrome.js?v=20261103-unified"></script>
 
 </body>
 </html>

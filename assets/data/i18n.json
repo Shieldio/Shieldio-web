@@ -184,48 +184,48 @@
     "en": "Compare the options →"
   },
   "home.problem.eyebrow": {
-    "cs": "Realita výuky elektroniky",
-    "en": "The reality of teaching electronics"
+    "cs": "Před první hodinou",
+    "en": "Before the first lesson"
   },
   "home.problem.h2": {
-    "cs": "Kvalitní robotický kroužek nebo hodina dnes často stojí na jednom nadšenci.",
-    "en": "A good robotics club or lesson today often depends on one enthusiastic teacher."
+    "cs": "Co připravit, než začne první program.",
+    "en": "What to prepare before the first program."
   },
   "home.problem.card1_tag": {
-    "cs": "01 · čas",
-    "en": "01 · time"
+    "cs": "01 · počítač",
+    "en": "01 · computer"
   },
   "home.problem.card1_h3": {
-    "cs": "Příprava hodiny trvá déle než hodina sama",
-    "en": "Preparing the lesson takes longer than the lesson itself"
+    "cs": "Ověřit USB ještě před hodinou",
+    "en": "Check USB before class"
   },
   "home.problem.card1_p": {
-    "cs": "Sestavování stavebnic, hledání vadného kabelu a instalace ovladačů zabere čas, který má jít do výuky.",
-    "en": "Assembling kits, hunting down a faulty cable, and installing drivers eats up time that should go into teaching."
+    "cs": "Na školním účtu vyzkoušejte Chrome nebo Edge, datový kabel a výběr portu desky. Zjistíte tak včas, jestli připojení neblokuje správa počítače.",
+    "en": "Test Chrome or Edge, a data cable and board selection on a student account. This reveals school computer restrictions before class."
   },
   "home.problem.card2_tag": {
-    "cs": "02 · bezpečnost",
-    "en": "02 · safety"
+    "cs": "02 · deska",
+    "en": "02 · board"
   },
   "home.problem.card2_h3": {
-    "cs": "Volné součástky se ztrácí a poškozují",
-    "en": "Loose parts get lost and damaged"
+    "cs": "Oddělit pájení od programování",
+    "en": "Plan soldering separately"
   },
   "home.problem.card2_p": {
-    "cs": "Drobné díly a nepájivá pole nevydrží provoz více tříd po sobě, po pár měsících chybí polovina sady.",
-    "en": "Small parts and breadboards don't survive back-to-back classes, within a few months, half the kit is missing."
+    "cs": "Se sestavenou RED lze začít programem. Nesestavená sada má vlastní fotonávod a kontrolu spojů před prvním zapnutím.",
+    "en": "Start with a program on an assembled RED. The unassembled kit has a separate photo guide and joint inspection before first power-up."
   },
   "home.problem.card3_tag": {
-    "cs": "03 · odbornost",
-    "en": "03 · expertise"
+    "cs": "03 · podklady",
+    "en": "03 · materials"
   },
   "home.problem.card3_h3": {
-    "cs": "Ne každý učitel je elektrotechnik",
-    "en": "Not every teacher is an electrical engineer"
+    "cs": "Vybrat jeden konkrétní projekt",
+    "en": "Choose one project"
   },
   "home.problem.card3_p": {
-    "cs": "Kvalitní robotická výuka dnes často závisí na jednom nadšenci. Shieldio dělá z hodiny standard, ne výjimku.",
-    "en": "Good robotics teaching today often depends on one enthusiast. Shieldio turns that lesson into the standard, not the exception."
+    "cs": "U závory najdete zapojení, startovní bloky, test výsledku i návrh metodického listu. Ostatní projekty používají stejnou desku.",
+    "en": "The barrier includes wiring, starter blocks, a result test and a draft lesson plan. Other projects use the same board."
   },
   "home.solution.eyebrow": {
     "cs": "Řešení",
@@ -348,8 +348,8 @@
     "en": "1.5m USB-A to USB-C cable"
   },
   "home.box.in_box_li3": {
-    "cs": "Přístup k blokovému editoru v prohlížeči, zdarma",
-    "en": "Access to the browser-based block editor, free"
+    "cs": "Webový editor s kompilací a nahráváním přes USB",
+    "en": "A browser editor with compilation and USB upload"
   },
   "home.box.in_box_li4": {
     "cs": "Krok-za-krokem návod k prvnímu projektu",
@@ -364,20 +364,20 @@
     "en": "What you'll need"
   },
   "home.box.need_li1": {
-    "cs": "Počítač nebo notebook s prohlížečem",
-    "en": "A computer or laptop with a browser"
+    "cs": "Počítač s aktuálním Chrome nebo Edge",
+    "en": "A computer with current Chrome or Edge"
   },
   "home.box.need_li2": {
     "cs": "USB-A na USB-C kabel, je součástí balení",
     "en": "A USB-A to USB-C cable, included in the box"
   },
   "home.box.need_li3": {
-    "cs": "Software mBlock, zdarma, běží přímo v prohlížeči",
-    "en": "mBlock software, free, runs directly in the browser"
+    "cs": "<a href=\"/instructions/blokovy-editor.html\">Editor Shieldio</a> pro bloky i Arduino C++",
+    "en": "The <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a> for blocks and Arduino C++"
   },
   "home.box.need_li4": {
-    "cs": "Nic dalšího",
-    "en": "Nothing else"
+    "cs": "Internet pro první načtení kompilátoru a knihoven",
+    "en": "Internet for the initial compiler and library download"
   },
   "home.projects.eyebrow": {
     "cs": "Co si žáci postaví",
@@ -432,8 +432,8 @@
     "en": "The most advanced Baseline board combines ultrasonic distance sensing, a servo, and a display on a single 100×100&nbsp;mm PCB, with component labels printed right on the board."
   },
   "home.deepdive.spec1": {
-    "cs": "<b>Modul kompatibilní s Arduino® Nano</b> jako řídicí jednotka, program nahráváte přímo přes USB-C.",
-    "en": "<b>Arduino® Nano-compatible module</b> as the controller, you upload your program straight over USB-C."
+    "cs": "<b>Modul kompatibilní s Arduino® Nano</b> řídí desku. <a href=\"/instructions/blokovy-editor.html\">Editor Shieldio</a> umí program sestavit, zkompilovat a nahrát přes USB.",
+    "en": "An <b>Arduino® Nano-compatible module</b> controls the board. The <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a> builds, compiles and uploads its program over USB."
   },
   "home.deepdive.spec2": {
     "cs": "<b>Ultrazvukový snímač</b> vzdálenosti pro měření okolí.",
@@ -472,28 +472,28 @@
     "en": "The board connects to a computer with a single cable, ready to go right away."
   },
   "home.step2.h3": {
-    "cs": "Spustit blokové programování",
-    "en": "Open block-based programming"
+    "cs": "Otevřít editor Shieldio",
+    "en": "Open the Shieldio editor"
   },
   "home.step2.p": {
-    "cs": "Prostředí mBlock, stejné rozhraní, na jaké jsou žáci zvyklí.",
-    "en": "The mBlock environment, the same interface students already know."
+    "cs": "<a href=\"/instructions/blokovy-editor.html\">Programování</a> běží přímo tady na webu. Vyberete RED a modul, se kterým chcete pracovat.",
+    "en": "<a href=\"/instructions/blokovy-editor.html\">Programming</a> runs on this website. Choose RED and the module you want to use."
   },
   "home.step3.h3": {
-    "cs": "Sestavit program z bloků",
-    "en": "Build the program from blocks"
+    "cs": "Poskládat bloky nebo napsat C++",
+    "en": "Build with blocks or write C++"
   },
   "home.step3.p": {
-    "cs": "Senzory a výstupy jsou pojmenované srozumitelně, bez potřeby znát Arduino kód.",
-    "en": "Sensors and outputs are named in plain language, no need to know Arduino code."
+    "cs": "Začněte LED, servem nebo připravenou závorou. Pokročilé bloky a vlastní Arduino C++ jsou ve stejném editoru.",
+    "en": "Start with an LED, servo or the barrier starter program. Advanced blocks and Arduino C++ share the same editor."
   },
   "home.step4.h3": {
-    "cs": "Rozšířit vlastním nápadem",
-    "en": "Extend it with your own idea"
+    "cs": "Zkompilovat, nahrát a vyzkoušet",
+    "en": "Compile, upload and test"
   },
   "home.step4.p": {
-    "cs": "Hotový ukázkový projekt jako start, otevřený prostor pro vlastní úpravy žáků.",
-    "en": "A finished sample project as a starting point, with open room for students' own changes."
+    "cs": "Vyberte USB port a nahrajte program do desky. Pak změňte třeba dobu blikání nebo vzdálenost, při které se otevře závora.",
+    "en": "Select the USB port and upload to the board. Then change the blink interval or the distance at which the barrier opens."
   },
   "home.schools.eyebrow": {
     "cs": "Pro školy",
@@ -508,52 +508,52 @@
     "en": "Shieldio isn't a bag of loose parts. Key components are attached to the board, and the materials for the first project are ready."
   },
   "home.benefit1.h3": {
-    "cs": "Bez pájení a montáže",
-    "en": "No soldering or assembly"
+    "cs": "Programování nebo sestavení",
+    "en": "Programming or assembly"
   },
   "home.benefit1.p": {
-    "cs": "Desky přichází předosazené a připravené k okamžitému použití.",
-    "en": "Boards arrive pre-assembled and ready to use right away."
+    "cs": "Sestavená RED slouží k práci s programem. Pro nesestavenou variantu je samostatný postup pájení a kontroly.",
+    "en": "Use an assembled RED to work on programs. A separate guide covers soldering and inspection for the unassembled variant."
   },
   "home.benefit2.h3": {
-    "cs": "Odolné pro opakovaný provoz",
-    "en": "Built for repeated use"
+    "cs": "Součástky na plošném spoji",
+    "en": "Components on one PCB"
   },
   "home.benefit2.p": {
-    "cs": "Pevně osazené klíčové součástky, odpojitelné jen ty křehké, vydrží třídu za třídou.",
-    "en": "Key components are fixed in place, only the fragile parts are detachable, built to survive class after class."
+    "cs": "LED, tlačítka a bzučák jsou přímo na desce. Ultrazvukový senzor a OLED se zasouvají do označených patic.",
+    "en": "LEDs, buttons and the buzzer are on the PCB. The ultrasonic sensor and OLED plug into labelled sockets."
   },
   "home.benefit3.h3": {
     "cs": "Materiály pro přípravu hodiny",
     "en": "Materials for lesson preparation"
   },
   "home.benefit3.p": {
-    "cs": "Připravené scénáře i prostor na vlastní projekty žáků, bez nutnosti tvořit vlastní osnovu.",
-    "en": "Ready-made lesson plans plus room for students' own projects, no need to build your own curriculum."
+    "cs": "U závory je návrh hodiny na 45 nebo 90 minut, pracovní list a hodnoticí rubrika. Učitel je upraví podle své třídy.",
+    "en": "The barrier has draft 45- and 90-minute lessons, a worksheet and an assessment rubric for teachers to adapt."
   },
   "home.benefit4.h3": {
-    "cs": "Webový start v Chrome nebo Edge",
-    "en": "Web-based start in Chrome or Edge"
+    "cs": "Kompilace a nahrání z webu",
+    "en": "Compile and upload from the web"
   },
   "home.benefit4.p": {
-    "cs": "Pro první hodinu lze použít webový mBlock. Na školních počítačích doporučujeme předem ověřit přístup k USB portu.",
-    "en": "The web version of mBlock can be used for the first lesson. On managed school computers, verify USB port access beforehand."
+    "cs": "Editor překládá program v prohlížeči a v Chrome nebo Edge ho nahraje přes USB. mBlock ani Arduino IDE pro tento postup nepotřebujete.",
+    "en": "The editor compiles locally in your browser and uploads over USB in Chrome or Edge. This workflow needs neither mBlock nor Arduino IDE."
   },
   "home.benefit5.h3": {
     "cs": "Srozumitelné popisky na desce",
     "en": "Clear labels on the board"
   },
   "home.benefit5.p": {
-    "cs": "Piny a součástky pojmenované přímo na plošném spoji, učitel se orientuje na první pohled.",
-    "en": "Pins and components are labelled right on the board, a teacher can find their way at a glance."
+    "cs": "Při zapojování se můžete opřít o značení desky a přehled součástek. Návody uvádějí i konkrétní signály a polaritu.",
+    "en": "Use the board labels and component reference when wiring. Guides include signal pins and polarity."
   },
   "home.benefit6.h3": {
-    "cs": "Rostoucí obtížnost",
-    "en": "Growing difficulty"
+    "cs": "Od modulů k vlastnímu C++",
+    "en": "From modules to your own C++"
   },
   "home.benefit6.p": {
-    "cs": "Jedna sada provede žáky od prvního kontaktu s elektronikou až po robotiku v pohybu.",
-    "en": "One kit takes students from their first contact with electronics all the way to robotics in motion."
+    "cs": "Vedle bloků pro RED je univerzální práce s piny a ruční Arduino C++. Vlastní C++ knihovnu pro AVR přidáte ze složky.",
+    "en": "Alongside RED blocks are universal pin control and an Arduino C++ editor. Import your own AVR C++ library from a folder."
   },
   "home.schools.details_link": {
     "cs": "Doporučený věk, počet žáků na desku, co je v balení a další praktické detaily →",
@@ -1112,16 +1112,16 @@
     "en": "PRO board | Shieldio"
   },
   "pro.eyebrow": {
-    "cs": "Již brzy",
-    "en": "Coming soon"
+    "cs": "Koncept",
+    "en": "Concept"
   },
   "pro.h1": {
-    "cs": "Deska <span class=\"text-tier-pro\">PRO</span> se připravuje.",
-    "en": "The <span class=\"text-tier-pro\">PRO</span> board is on its way."
+    "cs": "Shieldio <span class=\"text-tier-pro\">PRO</span>",
+    "en": "Shieldio <span class=\"text-tier-pro\">PRO</span>"
   },
   "pro.lead": {
-    "cs": "Pracujeme na podrobné stránce pro pokročilou desku Shieldio PRO. Brzy tu najdete specifikace i ukázky použití.",
-    "en": "We're working on a detailed page for the advanced Shieldio PRO board. Specs and usage examples will be here soon."
+    "cs": "PRO je zatím koncept další řady. Hotová deska ani návody pro ni nejsou k dispozici. Současné programování a projekty jsou určené pro RED.",
+    "en": "PRO is a concept for another range. No completed board or guides are available. Current programming and projects target RED."
   },
   "pro.back_home": {
     "cs": "Zpět na hlavní stránku",
@@ -1208,8 +1208,8 @@
     "en": "What is Shieldio?"
   },
   "faq.a1": {
-    "cs": "Shieldio je studentský výukový projekt s deskami kompatibilními s Arduino®, vedenými návody a blokovým programováním. RED je první reálný vývojový prototyp; Green a Yellow jsou zatím koncepty.",
-    "en": "Shieldio is a student educational project with Arduino®-compatible boards, guided tutorials and block programming. RED is the first real development prototype; Green and Yellow are concepts."
+    "cs": "Shieldio je studentský projekt: deska RED, webový editor a návody pro práci s elektronikou. RED V4 je v testování a V5 v přípravě; Green, Yellow a PRO jsou zatím koncepty.",
+    "en": "Shieldio is a student project combining the RED board, a browser editor and electronics guides. RED V4 is in testing and V5 in preparation; Green, Yellow and PRO are concepts."
   },
   "faq.q2": {
     "cs": "Potřebuju zkušenosti s elektronikou nebo programováním?",
@@ -1224,24 +1224,24 @@
     "en": "How is the board programmed?"
   },
   "faq.a3": {
-    "cs": "Blokově v prostředí <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>. Webovou verzi pro nahrávání přes USB používejte v Chrome nebo Edge a na školním počítači přístup k sériovému portu ověřte před hodinou.",
-    "en": "Use block-based programming in <a href=\"https://mblock.cc\" target=\"_blank\" rel=\"noopener\">mBlock</a>. Use Chrome or Edge for USB uploads in the web version, and verify serial-port access on a school computer before class."
+    "cs": "V <a href=\"/instructions/blokovy-editor.html\">editoru Shieldio</a> poskládáte bloky nebo napíšete Arduino C++. Kompilace probíhá v prohlížeči, nahrávání přes USB funguje v Chrome nebo Edge na počítači. Začněte <a href=\"/instructions/programovani/\">prvním nahráním</a>; mBlock ani Arduino IDE nejsou potřeba.",
+    "en": "Use the <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a> for blocks or Arduino C++. Compilation runs in the browser; USB upload uses desktop Chrome or Edge. Follow the <a href=\"/instructions/programovani/\">first-upload guide</a>; mBlock and Arduino IDE are not required."
   },
   "faq.q4": {
     "cs": "Jaký je rozdíl mezi Green, Yellow a Red?",
     "en": "What's the difference between Green, Yellow, and Red?"
   },
   "faq.a4": {
-    "cs": "Jde o plánované úrovně obtížnosti řady Baseline. Existuje pouze RED v první malé sérii; Green a Yellow jsou koncepty. Podrobnosti najdete na stránce <a href=\"products/index.html\">Produkty</a>.",
-    "en": "These are planned Baseline difficulty levels. Only RED exists in a first small batch; Green and Yellow are concepts. See the <a href=\"products/index.html\">Products</a> page for details."
+    "cs": "Barvy označují plánované desky řady Baseline. Pro programování a návody je nyní určená RED; Green a Yellow jsou koncepty. Stav desek je v <a href=\"/products/index.html\">přehledu produktů</a>.",
+    "en": "Colours identify planned Baseline boards. Current programming and guides target RED; Green and Yellow are concepts. See the <a href=\"/products/index.html\">board overview</a> for their status."
   },
   "faq.q5": {
     "cs": "Co je Baseline a co PROline?",
     "en": "What's Baseline and what's PROline?"
   },
   "faq.a5": {
-    "cs": "Baseline je plánovaná řada tří úrovní. RED je vývojový prototyp, Green a Yellow jsou koncepty. PROline je koncept pokročilejší řady.",
-    "en": "Baseline is a planned three-level range. RED is a development prototype, Green and Yellow are concepts. PROline is a concept for an advanced range."
+    "cs": "Baseline je název plánované řady RED, Green a Yellow. PROline je koncept další řady. Pro současné návody a editor vybírejte RED.",
+    "en": "Baseline names the planned RED, Green and Yellow range. PROline is a concept for another range. Choose RED for the current guides and editor."
   },
   "faq.q6": {
     "cs": "Je deska RED už k dostání?",
@@ -1264,16 +1264,16 @@
     "en": "Who is Shieldio for?"
   },
   "faq.a8": {
-    "cs": "Pro jednotlivce, kroužky i základní a střední školy: pro kohokoliv, kdo chce začít s elektronikou a robotikou bez frustrace.",
-    "en": "For individuals, clubs, and primary and secondary schools: anyone who wants to get into electronics and robotics without the frustration."
+    "cs": "Pro studenty, domácí kutily, kroužky a učitele, kteří chtějí pracovat se senzory, výstupy a skutečným programem na desce.",
+    "en": "For students, home makers, clubs and teachers working with sensors, outputs and programs running on a board."
   },
   "faq.q9": {
     "cs": "Kde najdu návody k projektům?",
     "en": "Where can I find project guides?"
   },
   "faq.a9": {
-    "cs": "V sekci <a href=\"instructions/index.html\">Návody</a>, vyberte si desku a úroveň, u desky RED jsou už k dispozici konkrétní projekty krok za krokem.",
-    "en": "In the <a href=\"instructions/index.html\">Guides</a> section, pick your board and level; the RED board already has specific step-by-step projects available."
+    "cs": "V <a href=\"/instructions/baseline/red/\">projektech RED</a>. Pokud desku teprve stavíte, začněte <a href=\"/instructions/baseline/red/sestaveni/\">sestavením</a>. Se sestavenou deskou můžete přejít k <a href=\"/instructions/programovani/\">prvnímu nahrání</a>.",
+    "en": "See <a href=\"/instructions/baseline/red/\">RED projects</a>. If you are building the board, start with <a href=\"/instructions/baseline/red/sestaveni/\">assembly</a>. With an assembled board, follow the <a href=\"/instructions/programovani/\">first-upload guide</a>."
   },
   "faq.q10": {
     "cs": "Jak vás můžu kontaktovat?",
@@ -1292,56 +1292,56 @@
     "en": "About the Shieldio project"
   },
   "about.h1": {
-    "cs": "Technická výuka,\nkterá nezůstane jen na papíře.",
-    "en": "Technical education\nthat doesn't stay just on paper."
+    "cs": "Deska, program a návod<br>pro jeden konkrétní projekt.",
+    "en": "A board, program and guide<br>for one project."
   },
   "about.lead1": {
-    "cs": "Shieldio vzniklo s cílem odstranit bariéry, které dnes brání školám\nvyužívat elektroniku a robotiku naplno.",
-    "en": "Shieldio was created to remove the barriers that keep schools today\nfrom making full use of electronics and robotics."
+    "cs": "Shieldio vyvíjím jako student elektrotechniky. Spojuje desku RED, vlastní editor v prohlížeči a návody od zapojení po test programu.",
+    "en": "I develop Shieldio as an electronics student. It combines the RED board, a browser editor and guides from wiring to testing a program."
   },
   "about.lead2": {
-    "cs": "Chceme vytvořit systém, díky kterému může každý učitel nabídnout žákům\npraktickou zkušenost s technologiemi.",
-    "en": "We want to build a system that lets any teacher offer students\na hands-on experience with technology."
+    "cs": "Chci, aby se v hodině nebo kroužku dalo pracovat s elektronikou přímo: změřit vzdálenost, změnit podmínku a vidět, co udělá servo.",
+    "en": "I want lessons and clubs to work directly with electronics: measure a distance, change a condition and observe the servo."
   },
   "about.photo_caption": {
     "cs": "vývoj prototypu",
     "en": "prototype development"
   },
   "about.start_eyebrow": {
-    "cs": "Náš začátek",
-    "en": "Where we started"
+    "cs": "Jak projekt vzniká",
+    "en": "How the project is built"
   },
   "about.start_h2": {
-    "cs": "Problém nevznikl u techniky. Vznikl u lidí, kteří ji mají učit.",
-    "en": "The problem didn't start with the technology. It started with the people who have to teach it."
+    "cs": "Hardware i software vyvíjím společně.",
+    "en": "I develop the hardware and software together."
   },
   "about.start_p": {
-    "cs": "Elektronika a robotika jsou pro studenty atraktivní, ale jejich výuka\nčasto naráží na časovou náročnost, složitou přípravu a nedostatek\npřipravených materiálů.",
-    "en": "Electronics and robotics appeal to students, but teaching them\noften runs into how time-consuming it is, complicated preparation, and a lack\nof ready-made materials."
+    "cs": "Zapojení v návodu a piny v programu musí odpovídat stejné desce. Na tom stavím jednotlivé projekty.",
+    "en": "The guide wiring and program pins must match the same board. This is the basis of each project."
   },
   "about.start_b1_h3": {
-    "cs": "Viděli jsme problém",
-    "en": "We saw the problem"
+    "cs": "Deska RED",
+    "en": "The RED board"
   },
   "about.start_b1_p": {
-    "cs": "Mnoho škol má zájem o moderní technologie, ale chybí jim jednoduchý nástroj.",
-    "en": "Many schools are interested in modern technology, but lack a simple tool for it."
+    "cs": "Ultrazvuk, servo, OLED, LED, tlačítka a bzučák jsou součástí jednoho zapojení. RED V4 teď testujeme.",
+    "en": "Ultrasonic sensing, servo, OLED, LEDs, buttons and buzzer share one board. RED V4 is being tested."
   },
   "about.start_b2_h3": {
-    "cs": "Navrhujeme řešení",
-    "en": "We design a solution"
+    "cs": "Editor Shieldio",
+    "en": "The Shieldio editor"
   },
   "about.start_b2_p": {
-    "cs": "Hardware, software a výukové materiály jako jeden celek.",
-    "en": "Hardware, software, and teaching materials as a single package."
+    "cs": "Bloky a Arduino C++, kompilace v prohlížeči a přímé nahrávání přes USB.",
+    "en": "Blocks and Arduino C++, local browser compilation and direct USB upload."
   },
   "about.start_b3_h3": {
-    "cs": "Testujeme v praxi",
-    "en": "We test it in practice"
+    "cs": "Návody a ověření",
+    "en": "Guides and checks"
   },
   "about.start_b3_p": {
-    "cs": "Každý návrh ověřujeme tak, aby fungoval v reálné třídě.",
-    "en": "We verify every design so it actually works in a real classroom."
+    "cs": "Postupy obsahují zapojení, program a zkoušku výsledku. Školní pilot ještě vyžaduje domluvu s konkrétní školou.",
+    "en": "Guides cover wiring, programs and result checks. A school pilot still requires an agreement with a school."
   },
   "about.founder_eyebrow": {
     "cs": "Kdo za tím stojí",
@@ -1372,48 +1372,48 @@
     "en": "Space for a QR code to support the project, coming soon."
   },
   "about.vision_eyebrow": {
-    "cs": "Naše vize",
-    "en": "Our vision"
+    "cs": "Co s RED vyzkoušet",
+    "en": "What to try with RED"
   },
   "about.vision_h2": {
-    "cs": "Aby technické vzdělávání nebylo výsadou několika škol.",
-    "en": "So technical education isn't the privilege of just a few schools."
+    "cs": "Vstup, podmínka a výstup na vlastní desce.",
+    "en": "Input, condition and output on your board."
   },
   "about.vision1_tag": {
-    "cs": "01 · dostupnost",
-    "en": "01 · accessibility"
+    "cs": "Měření",
+    "en": "Measurement"
   },
   "about.vision1_h3": {
-    "cs": "Každá škola může učit technologie",
-    "en": "Any school can teach technology"
+    "cs": "Změřit vzdálenost",
+    "en": "Measure distance"
   },
   "about.vision1_p": {
-    "cs": "Nezáleží na tom, jestli má škola vlastního elektrotechnika.",
-    "en": "It doesn't matter whether a school has its own electrical engineer."
+    "cs": "HC-SR04 změří odraz zvuku. Program z něj vypočítá vzdálenost a ukáže ji na OLED.",
+    "en": "HC-SR04 measures a sound echo. The program calculates distance and displays it on the OLED."
   },
   "about.vision2_tag": {
-    "cs": "02 · praktičnost",
-    "en": "02 · hands-on"
+    "cs": "Řízení",
+    "en": "Control"
   },
   "about.vision2_h3": {
-    "cs": "Studenti tvoří, ne pouze sledují",
-    "en": "Students build, not just watch"
+    "cs": "Rozhodnout, kdy se otevře závora",
+    "en": "Decide when the barrier opens"
   },
   "about.vision2_p": {
-    "cs": "Nejlepší způsob pochopení techniky je vlastní experiment.",
-    "en": "The best way to understand technology is your own experiment."
+    "cs": "Změna prahu v podmínce ovlivní pohyb serva. Výsledek lze porovnat s předpovědí.",
+    "en": "Changing a condition threshold changes servo movement. Compare the result with your prediction."
   },
   "about.vision3_tag": {
-    "cs": "03 · budoucnost",
-    "en": "03 · the future"
+    "cs": "Vlastní úprava",
+    "en": "Your changes"
   },
   "about.vision3_h3": {
-    "cs": "Připravujeme další generaci",
-    "en": "We're preparing the next generation"
+    "cs": "Přejít od bloků ke kódu",
+    "en": "Move from blocks to code"
   },
   "about.vision3_p": {
-    "cs": "Technické myšlení bude stále důležitější součást vzdělání.",
-    "en": "Technical thinking will keep becoming a more important part of education."
+    "cs": "Pod bloky je vidět Arduino C++. Stejný editor umí vlastní program přeložit a nahrát.",
+    "en": "Arduino C++ is visible behind the blocks. The same editor compiles and uploads your own program."
   },
   "about.roadmap_eyebrow": {
     "cs": "Kde teď jsme",
@@ -1424,20 +1424,20 @@
     "en": "Where we are now, and what's next."
   },
   "about.step1_h3": {
-    "cs": "První malá série RED",
-    "en": "First small RED batch"
+    "cs": "RED V4 v testování",
+    "en": "RED V4 in testing"
   },
   "about.step1_p": {
-    "cs": "Deska RED vychází z otestovaných prototypů a je k předobjednání v první malé sérii.",
-    "en": ""
+    "cs": "RED V4 právě testujeme a připravujeme V5. Deska se zatím neprodává; formulář slouží k nezávaznému zjištění zájmu.",
+    "en": "RED V4 is in testing and V5 is being prepared. The board is not on sale; the form collects non-binding interest."
   },
   "about.step2_h3": {
-    "cs": "Návody a materiály",
-    "en": "Guides and materials"
+    "cs": "Webový editor a návody",
+    "en": "Browser editor and guides"
   },
   "about.step2_p": {
-    "cs": "Podrobné fotonávody a metodické podklady průběžně doplňujeme a ověřujeme pro samostatnou práci žáků i vedení učitelem.",
-    "en": "We continuously expand and validate the photo guides and teaching materials for independent student work and teacher-led lessons."
+    "cs": "Editor umí bloky i C++, kompilaci a nahrání do Nano. U projektů doplňuji zapojení, postup i diagnostiku.",
+    "en": "The editor supports blocks, C++, compilation and Nano upload. Project guides cover wiring, steps and diagnostics."
   },
   "about.step3_h3": {
     "cs": "Pilotní ověření ve škole",
@@ -1468,8 +1468,8 @@
     "en": "Expanding availability"
   },
   "about.step6_p": {
-    "cs": "Deska RED vychází z otestovaných prototypů; u vývojové série zjišťujeme zájem o budoucí využití.",
-    "en": "The RED board builds on tested prototypes; we are gathering interest in its future use."
+    "cs": "Další výroba a materiály budou záviset na výsledcích testů a zájmu o současnou RED.",
+    "en": "Further production and materials will depend on test results and interest in the current RED."
   },
   "about.step7_h3": {
     "cs": "Akcelerátory",
@@ -1480,20 +1480,20 @@
     "en": "We may apply to educational and development programmes in future. References to Samsung Solve for Tomorrow, Be Next or Můj první milion do not confirm participation, support or partnership."
   },
   "about.cta_h2": {
-    "cs": "Chcete být součástí vývoje Shieldio?",
-    "en": "Want to be part of building Shieldio?"
+    "cs": "Chcete RED vyzkoušet nebo najít chybu v návodu?",
+    "en": "Want to try RED or report a guide issue?"
   },
   "about.cta_p": {
-    "cs": "Hledáme školy a učitele, kteří chtějí pomoci vytvářet budoucnost technického vzdělávání.",
-    "en": "We're looking for schools and teachers who want to help shape the future of technical education."
+    "cs": "Napište, jaký máte počítač, pro koho projekt připravujete nebo na kterém kroku jste se zastavili.",
+    "en": "Tell me which computer you use, who the project is for or which step you got stuck on."
   },
   "about.cta_btn": {
-    "cs": "Kontaktovat nás",
-    "en": "Contact us"
+    "cs": "Napsat k projektu",
+    "en": "Contact the project"
   },
   "nav.code_editor": {
-    "cs": "Začít programovat",
-    "en": "Start coding"
+    "cs": "Programování",
+    "en": "Programming"
   },
   "home.learnmore.eyebrow": {
     "cs": "Učebna elektroniky",
@@ -2724,8 +2724,8 @@
     "en": "distance (cm) = time (µs) × 0.0343 ⁄ 2"
   },
   "learn_ultrazvuk.adv_p3": {
-    "cs": "Přesně tenhle výpočet dělá blok \"vzdálenost\" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.",
-    "en": "The \"distance\" block in mBlock (or a function in Arduino code) does exactly this calculation automatically, behind the scenes. Ship sonar works on the same principle, just with sound waves in seawater, and so does the echolocation bats use to navigate."
+    "cs": "Stejný přepočet používá blok „vzdálenost (cm)“ v editoru Shieldio. V Arduino C++ je vidět měření času i převod na centimetry. Podobný princip využívá sonar ve vodě.",
+    "en": "The Shieldio editor’s distance block uses the same calculation. Arduino C++ shows the time measurement and conversion to centimetres. Sonar uses a similar principle in water."
   },
   "learn_ultrazvuk.board_tie": {
     "cs": "<b>Na desce Shieldio RED:</b> senzor HC-SR04 se zasouvá do patic J1/J7 (Socket A/B). Jeho naměřená vzdálenost rozhoduje, kdy se v návodu na závoru otevře servo, nebo kdy parkovací asistent spustí varování.",
@@ -3440,8 +3440,8 @@
     "en": "2. Account for the round trip"
   },
   "project.librariesFalse": {
-    "cs": "V Arduino IDE vyber Arduino Nano (ATmega328P), správný port a případně variantu Old Bootloader podle svého modulu. Ve Správci knihoven nainstaluj <b>Adafruit SSD1306</b> a <b>Adafruit GFX Library</b> včetně nabídnutých závislostí. Program používá OLED 128 × 64 s adresou 0x3C. Seriový monitor nastav na 115200 baud.",
-    "en": "In Arduino IDE select Arduino Nano (ATmega328P), the correct port and, if needed, the Old Bootloader variant for your module. Install <b>Adafruit SSD1306</b> and <b>Adafruit GFX Library</b> with their dependencies. The program uses a 128 × 64 OLED at address 0x3C. Set Serial Monitor to 115200 baud."
+    "cs": "Klikni na <b>Otevřít program v editoru</b>. Ukázka se načte do Arduino C++; vyber USB port RED a nahraj ji. Adafruit GFX a SSD1306 jsou přibalené. OLED má rozlišení 128 × 64 a adresu 0x3C. Pokud použiješ vlastní sériový monitor na 115200 baud, před dalším nahráváním ho odpoj.",
+    "en": "Click <b>Open program in the editor</b>. The example opens in Arduino C++; select the RED USB port and upload it. Adafruit GFX and SSD1306 are included. The OLED uses 128 × 64 pixels and address 0x3C. Disconnect any external 115200-baud serial monitor before another upload."
   },
   "meter.behaviour": {
     "cs": "Program provede tři měření s odstupem nejméně 65 ms a zobrazí jejich prostřední hodnotu (medián). Pokud některý odraz nepřijde do 30 ms nebo je mimo rozsah 2–400 cm, zobrazí <b>-- cm</b>. Chybějící odraz se nesmí tvářit jako vzdálenost nula.",
@@ -3524,8 +3524,8 @@
     "en": "1. Wiring and mechanics"
   },
   "project.librariesTrue": {
-    "cs": "V Arduino IDE vyber Arduino Nano (ATmega328P), správný port a případně variantu Old Bootloader podle svého modulu. Ve Správci knihoven nainstaluj <b>Adafruit SSD1306</b> a <b>Adafruit GFX Library</b> včetně nabídnutých závislostí a knihovnu <b>Servo</b> od Arduino. Program používá OLED 128 × 64 s adresou 0x3C. Seriový monitor nastav na 115200 baud.",
-    "en": "In Arduino IDE select Arduino Nano (ATmega328P), the correct port and, if needed, the Old Bootloader variant for your module. Install <b>Adafruit SSD1306</b> and <b>Adafruit GFX Library</b> with their dependencies and the <b>Servo</b> library by Arduino. The program uses a 128 × 64 OLED at address 0x3C. Set Serial Monitor to 115200 baud."
+    "cs": "Klikni na <b>Otevřít program v editoru</b>. Ukázka se načte do Arduino C++; vyber USB port RED a nahraj ji. Adafruit GFX a SSD1306 i Servo jsou přibalené. OLED má rozlišení 128 × 64 a adresu 0x3C. Pokud použiješ vlastní sériový monitor na 115200 baud, před dalším nahráváním ho odpoj.",
+    "en": "Click <b>Open program in the editor</b>. The example opens in Arduino C++; select the RED USB port and upload it. Adafruit GFX and SSD1306 plus Servo are included. The OLED uses 128 × 64 pixels and address 0x3C. Disconnect any external 115200-baud serial monitor before another upload."
   },
   "radar.behaviour": {
     "cs": "Program projíždí 30–150° po 5°. Po každém pohybu čeká 120 ms a pak měří. Na OLED je nejnovější bod pro každý úhel; neplatný nebo vzdálenější odraz předchozí bod vymaže. Obraz se obnovuje postupně, proto se pohybující předmět může objevit na více místech během jednoho průchodu.",
@@ -3818,5 +3818,153 @@
   "programming.shortcuts": {
     "cs": "Tab: odsazení · Ctrl/⌘ + Enter: kompilace · + Shift: nahrání",
     "en": "Tab: indent · Ctrl/⌘ + Enter: compile · + Shift: upload"
+  },
+  "start.title": {
+    "cs": "První program a nahrání do RED | Shieldio",
+    "en": "First program and RED upload | Shieldio"
+  },
+  "start.heading": {
+    "cs": "První program do RED.",
+    "en": "Your first program on RED."
+  },
+  "start.lead": {
+    "cs": "Bloky, kompilace i nahrávání jsou v editoru Shieldio. Potřebuješ sestavenou RED s Nano / ATmega328P, datový USB kabel a Chrome nebo Edge na počítači.",
+    "en": "Blocks, compilation and upload share the Shieldio editor. You need an assembled RED with Nano / ATmega328P, a USB data cable and desktop Chrome or Edge."
+  },
+  "start.open": {
+    "cs": "Otevřít blikání LED",
+    "en": "Open LED blink"
+  },
+  "start.projects": {
+    "cs": "Vybrat jiný projekt",
+    "en": "Choose another project"
+  },
+  "start.firstDownload": {
+    "cs": "Při první kompilaci se stáhne kompilátor a knihovny. Počítej s připojením k internetu; ve školní síti musí být dostupné cdn.jsdelivr.net a unpkg.com. Tvůj program se překládá v počítači, neposílá se ke kompilaci na server.",
+    "en": "The compiler and libraries download on first compilation. You need internet access, including cdn.jsdelivr.net and unpkg.com on school networks. Your program is compiled on your computer, not sent to a compilation server."
+  },
+  "start.step1": {
+    "cs": "1. Podívej se na program",
+    "en": "1. Look at the program"
+  },
+  "start.step1Text": {
+    "cs": "V ukázce je zelená LED na D6: zapnout, počkat 500 ms, vypnout, počkat 500 ms. Blok „Opakuj pořád“ tuto posloupnost opakuje. Čas lze napsat přímo do políčka. Výběr modulu mění jen nabídku bloků, ne hotový program.",
+    "en": "The example switches the green D6 LED on, waits 500 ms, switches it off and waits 500 ms. The loop repeats this sequence. Type time directly into the field. Module selection changes the toolbox, not your program."
+  },
+  "start.step2": {
+    "cs": "2. Připoj RED",
+    "en": "2. Connect RED"
+  },
+  "start.step2Text": {
+    "cs": "Připoj desku datovým USB kabelem a klikni na <b>Připojit desku</b>. Vyber port odpovídající desce. Pokud si nejsi jistý, porovnej seznam před připojením a po něm. Stejný port nesmí mít otevřený jiný program.",
+    "en": "Connect the board using a USB data cable and click <b>Connect board</b>. Choose its serial port. If unsure, compare the list before and after connecting. Another program must not hold the port open."
+  },
+  "start.step3": {
+    "cs": "3. Zkompiluj a nahraj",
+    "en": "3. Compile and upload"
+  },
+  "start.step3Text": {
+    "cs": "<b>Zkompilovat</b> zkontroluje program a vytvoří HEX, ale do desky nic nezapíše. <b>Nahrát do desky</b> provede kompilaci, zápis i kontrolu zapsaných dat. Po úspěchu začne LED blikat. Během nahrávání neodpojuj kabel.",
+    "en": "<b>Compile</b> checks the program and creates HEX without writing to the board. <b>Upload to board</b> compiles, writes and verifies the data. After success, the LED starts blinking. Keep the cable connected during upload."
+  },
+  "start.step4": {
+    "cs": "4. Změň jednu hodnotu",
+    "en": "4. Change one value"
+  },
+  "start.step4Text": {
+    "cs": "Přepiš obě čekání třeba na 1000 ms, znovu nahraj a porovnej výsledek. Přes <b>Zobrazit kód</b> uvidíš Arduino C++, které blokům odpovídá. V nabídce <b>Soubor</b> uložíš bloky, .ino nebo zkompilovaný .hex.",
+    "en": "Change both waits to 1000 ms, upload again and compare. <b>Show code</b> displays the generated Arduino C++. The <b>File</b> menu saves blocks, .ino or the compiled .hex."
+  },
+  "start.trouble": {
+    "cs": "Port nebo nahrávání nefunguje",
+    "en": "Port or upload problems"
+  },
+  "start.cable": {
+    "cs": "Ověř datový kabel, jiný USB port a oprávnění školního účtu. Nabíjecí kabel bez dat nepomůže.",
+    "en": "Check the data cable, another USB port and school account permissions. A charging-only cable cannot transfer a program."
+  },
+  "start.bootloader": {
+    "cs": "V <b>Nastavení desky</b> je Optiboot 115200 a starý Nano bootloader 57600. Pokud deska neodpovídá, zkus druhou volbu. Výběr bootloaderu není změna firmwaru bootloaderu.",
+    "en": "<b>Board settings</b> offers Optiboot 115200 and old Nano bootloader 57600. Try the other option if the board does not respond. This setting does not replace the bootloader itself."
+  },
+  "start.details": {
+    "cs": "Rozbal podrobnosti kompilace a nahrávání. Při chybě v C++ zkontroluj uvedený řádek; při problému s USB nejdřív kabel a port.",
+    "en": "Expand compilation and upload details. For C++ errors, check the reported line; for USB problems, check the cable and port first."
+  },
+  "start.advanced": {
+    "cs": "Vlastní C++, knihovny a jiný hardware",
+    "en": "Custom C++, libraries and other hardware"
+  },
+  "start.advancedText": {
+    "cs": "Ruční program vlož do <b>Arduino C++</b> nebo otevři soubor .ino. Funkce deklaruj před použitím. ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX a SSD1306 jsou připravené. Vlastní C++ knihovnu pro AVR přidej přes <b>Knihovny → Přidat složku knihovny</b>; nejdřív rozbal ZIP. Import zatím nepodporuje C a assembler.",
+    "en": "Paste a program into <b>Arduino C++</b> or open an .ino file. Declare functions before use. ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX and SSD1306 are included. Import an AVR C++ library through <b>Libraries → Add library folder</b>; extract its ZIP first. C and assembly imports are not supported yet."
+  },
+  "start.target": {
+    "cs": "Univerzální bloky nevyužívají přednastavené piny RED. Kompilátor a nahrávač ale zatím cílí na klasické Nano s ATmega328P, nikoli Nano Every, Nano 33 nebo ESP32.",
+    "en": "Universal blocks do not use the RED pin assignments. The compiler and uploader still target classic Nano with ATmega328P, not Nano Every, Nano 33 or ESP32."
+  },
+  "start.next": {
+    "cs": "Pokračuj <a href=\"/instructions/baseline/red/zavora/\">automatickou závorou</a>, nebo si otevři <a href=\"/instructions/jak-to-funguje/\">vysvětlení součástek</a>.",
+    "en": "Continue with the <a href=\"/instructions/baseline/red/zavora/\">automatic barrier</a> or <a href=\"/instructions/jak-to-funguje/\">component explanations</a>."
+  },
+  "guides.currentBoards": {
+    "cs": "Hotové projekty na této stránce jsou pro RED. Green, Yellow a PRO jsou zatím koncepty; jejich stav je v <a href=\"/products/\">přehledu desek</a>.",
+    "en": "The projects on this page target RED. Green, Yellow and PRO remain concepts; see the <a href=\"/products/\">board overview</a>."
+  },
+  "teachers.computer": {
+    "cs": "Počítač s aktuálním <b>Chrome nebo Edge</b>, internetem a datovým USB portem. Na žákovském účtu předem ověřte výběr sériového portu a první kompilaci.",
+    "en": "A computer with current <b>Chrome or Edge</b>, internet and a USB data port. Test serial port selection and first compilation on a student account."
+  },
+  "teachers.software": {
+    "cs": "<a href=\"/instructions/blokovy-editor.html\">Editor Shieldio</a>: bloky, Arduino C++, kompilace a nahrání přes USB. mBlock ani Arduino IDE nejsou pro tento postup potřeba. <a href=\"/instructions/programovani/\">První nahrání krok za krokem</a>.",
+    "en": "The <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a> supports blocks, Arduino C++, compilation and USB upload. This workflow needs neither mBlock nor Arduino IDE. See the <a href=\"/instructions/programovani/\">first-upload guide</a>."
+  },
+  "teachers.programming": {
+    "cs": "Pro začátek vyberte v blocích konkrétní modul RED. Pokročilí mohou zapnout matematiku a proměnné, použít univerzální piny nebo přejít k vlastnímu C++.",
+    "en": "Start by selecting one RED module in the toolbox. Advanced students can enable maths and variables, use universal pins or write C++."
+  },
+  "news.editor.title": {
+    "cs": "Editor Shieldio kompiluje a nahrává do RED | Shieldio",
+    "en": "The Shieldio editor compiles and uploads to RED | Shieldio"
+  },
+  "news.editor.heading": {
+    "cs": "RED naprogramuješ přímo tady.",
+    "en": "Program RED directly on this website."
+  },
+  "news.editor.lead": {
+    "cs": "V editoru Shieldio sestavíš bloky nebo napíšeš Arduino C++. Program se přeloží pro Nano a v Chrome nebo Edge se nahraje přes USB.",
+    "en": "Build with blocks or write Arduino C++ in the Shieldio editor. It compiles for Nano and uploads over USB in Chrome or Edge."
+  },
+  "news.editor.what": {
+    "cs": "Co je v editoru",
+    "en": "What the editor includes"
+  },
+  "news.editor.blocks": {
+    "cs": "V blocích vybereš modul RED: LED, tlačítka, ultrazvuk, servo, bzučák nebo OLED. Čas a další hodnoty píšeš přímo do políček; místo čísla můžeš vložit i výpočet. Pokročilá nabídka přidává matematiku a číselné proměnné.",
+    "en": "Choose a RED module: LED, buttons, ultrasonic sensor, servo, buzzer or OLED. Type time and other values directly into fields, or replace a number with a formula. Advanced mode adds maths and numeric variables."
+  },
+  "news.editor.cpp": {
+    "cs": "Vedle bloků je ruční Arduino C++. Kompilátor běží v prohlížeči; zdrojový kód se neposílá na server ke zpracování. Při prvním použití se stáhnou nástroje a knihovny.",
+    "en": "An Arduino C++ editor sits alongside the blocks. Compilation runs in your browser; source code is not sent to a compilation server. Tools and libraries download on first use."
+  },
+  "news.editor.upload": {
+    "cs": "Kompilace vytvoří HEX. Nahrávač zkontroluje čip, zapíše program a přečte data zpět pro ověření. Úspěšné automatické testy nenahrazují kontrolu konkrétní desky, kabelu a školního počítače.",
+    "en": "Compilation produces HEX. The uploader checks the chip, writes the program and reads data back for verification. Automated tests do not replace checking your board, cable and school computer."
+  },
+  "news.editor.libraries": {
+    "cs": "ShieldioDisplay je přibalená společně se Servo, Wire, SPI, Adafruit GFX a SSD1306. Vlastní hlavičkovou nebo C++ knihovnu pro AVR můžeš načíst ze složky. C, assembler a předkompilované knihovny zatím importovat nejdou.",
+    "en": "ShieldioDisplay is included with Servo, Wire, SPI, Adafruit GFX and SSD1306. Import an AVR header-only or C++ library from a folder. C, assembly and precompiled library imports are not supported yet."
+  },
+  "news.editor.target": {
+    "cs": "Univerzální bloky pracují s vlastními piny, ale kompilace a nahrávání zatím míří na klasické Nano s ATmega328P. Green, Yellow, PRO, ESP32 ani jiné varianty Nano tímto nepřibývají mezi podporované desky.",
+    "en": "Universal blocks use your own pin assignments, but compilation and upload still target classic Nano with ATmega328P. Green, Yellow, PRO, ESP32 and other Nano variants are not added as supported upload targets."
+  },
+  "project.openEditor": {
+    "cs": "Otevřít program v editoru",
+    "en": "Open program in the editor"
+  },
+  "start.back": {
+    "cs": "← Návody",
+    "en": "← Guides"
   }
 }

@@ -1,0 +1,9 @@
+# Legacy entry points; matching HTML fallbacks also work without redirect support.
+/instructions/mblock /instructions/programovani/ 301
+/instructions/mblock/ /instructions/programovani/ 301
+/instructions/mblock/index.html /instructions/programovani/ 301
+/instructions/baseline /instructions/ 301
+/instructions/baseline/ /instructions/ 301
+/instructions/baseline/index.html /instructions/ 301
+/products/baseline /products/ 301
+/products/baseline.html /products/ 301

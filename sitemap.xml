@@ -28,18 +28,15 @@
   <url><loc>https://shieldio.cz/instructions/jak-to-funguje/kondenzatory/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/jak-to-funguje/pcb/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/blokovy-editor.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://shieldio.cz/instructions/mblock/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://shieldio.cz/instructions/baseline/</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/sestaveni/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/zavora/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/parkovaci-asistent/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/casovac/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shieldio.cz/instructions/baseline/red/theremin/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://shieldio.cz/instructions/baseline/yellow/meteostanice/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://shieldio.cz/instructions/baseline/green/reakcni-hra/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-<url><loc>https://shieldio.cz/instructions/baseline/red/prehled/</loc><lastmod>2026-11-02</lastmod></url>
-<url><loc>https://shieldio.cz/instructions/baseline/red/digitalni-metr/</loc><lastmod>2026-11-02</lastmod></url>
-<url><loc>https://shieldio.cz/instructions/baseline/red/radar/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://shieldio.cz/instructions/baseline/red/prehled/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://shieldio.cz/instructions/baseline/red/digitalni-metr/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://shieldio.cz/instructions/baseline/red/radar/</loc><lastmod>2026-11-02</lastmod></url>
+  <url><loc>https://shieldio.cz/instructions/programovani/</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://shieldio.cz/aktuality/editor-shieldio.html</loc><lastmod>2026-11-03</lastmod></url>
 </urlset>
-

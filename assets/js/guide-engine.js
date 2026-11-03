@@ -46,8 +46,8 @@
     kit_label: { cs: "Tvoje sada", en: "Your kit" },
     kit_assembled: { cs: "Sestavená", en: "Assembled" },
     kit_unassembled: { cs: "Nesestavená (pájím)", en: "Unassembled (soldering)" },
-    lang_label: { cs: "Programovací jazyk", en: "Programming language" },
-    lang_blocks: { cs: "Bloky (mBlock)", en: "Blocks (mBlock)" },
+    lang_label: { cs: "Způsob programování", en: "Programming mode" },
+    lang_blocks: { cs: "Bloky Shieldio", en: "Shieldio blocks" },
     lang_arduino: { cs: "Arduino C++", en: "Arduino C++" },
     depth_label: { cs: "Úroveň návodu", en: "Guide detail" },
     depth_detailed: { cs: "Podrobně", en: "Detailed" },
@@ -83,10 +83,10 @@
     tree_retry: { cs: "Zkus to znovu podle kroků výše.", en: "Try again following the steps above." },
     tree_done: { cs: "Hotovo", en: "Done" },
     tree_need_help: { cs: "Potřebuji pomoc", en: "I need help" },
-    first_mblock: { cs: "Poprvé v mBlocku? Přečti si návod, jak ho otevřít a používat", en: "First time in mBlock? Read the guide on how to open and use it" },
-    open_blocks_editor: { cs: "Otevřít v blokovém editoru", en: "Open in the block editor" },
+    first_programming: { cs: "První nahrání do RED: port, kompilace a nahrání krok za krokem", en: "First RED upload: port selection, compilation and upload" },
+    open_blocks_editor: { cs: "Otevřít v editoru Shieldio", en: "Open in the Shieldio editor" },
     open_project: { cs: "Otevřít projekt", en: "Open project" },
-    arduino_code_soon: { cs: "Ukázkový Arduino kód pro tento projekt zatím připravujeme. Než bude hotový, doporučujeme začít s blokovým programováním v mBlocku.", en: "We're still preparing sample Arduino code for this project. Until it's ready, we recommend starting with block programming in mBlock." },
+    arduino_code_soon: { cs: "Otevři editor Shieldio a vyber odpovídající modul. Blokový program můžeš zobrazit jako Arduino C++ nebo doplnit vlastní kód.", en: "Open the Shieldio editor and choose a module. View a block program as Arduino C++ or add your own code." },
     done_result_alt: { cs: "Hotový výsledek", en: "Finished result" },
     done_title: { cs: "Projekt je hotový.", en: "The project is done." },
     done_learned: { cs: "Dnes ses naučil:", en: "Today you learned:" },
@@ -466,7 +466,7 @@
     const useArduino = state.mode.lang === "arduino" && step.arduino;
     const content = useArduino ? step.arduino : step;
     const media = content.screenshot
-      ? `<div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, useArduino ? "Arduino IDE" : "mBlock")}</div>`
+      ? `<div class="guide-wiring-media">${photoOrPlaceholder(content.screenshot, "Editor Shieldio")}</div>`
       : "";
 
     const diag = (content.diagnostics || []).map((d, i) => `
@@ -483,23 +483,22 @@
       </details>
     `).join("");
 
-    const actionArea = useArduino
-      ? (content.code
-          ? `<pre class="guide-code-block"><code>${escapeHtml(content.code)}</code></pre>`
-          : `<p class="guide-instructions">${content.note ? t(content.note) : ui("arduino_code_soon")}</p>`)
-      : (content.blocksEditorHref
-          ? `<a class="btn btn-primary" href="${content.blocksEditorHref}">${ui("open_blocks_editor")}</a>`
-          : `<a class="btn btn-primary" href="https://mblock.cc" target="_blank" rel="noopener">${ui("open_project")}</a>`);
-
-    const mblockHelp = (!useArduino && DATA.meta.mblockGuideHref)
-      ? `<p style="margin-top:12px;"><a class="learn-theory-link" href="${DATA.meta.mblockGuideHref}">${ui("first_mblock")}</a></p>`
+    const editorHref = content.blocksEditorHref || step.blocksEditorHref || DATA.meta.editorHref || "/instructions/blokovy-editor.html";
+    const codeArea = useArduino
+      ? (content.code ? `<pre class="guide-code-block"><code>${escapeHtml(content.code)}</code></pre>` : `<p class="guide-instructions">${content.note ? t(content.note) : ui("arduino_code_soon")}</p>`)
+      : "";
+    const actionArea = codeArea + (tier === "red"
+      ? `<p><a class="btn btn-primary" href="${editorHref}" target="_blank" rel="noopener">${ui("open_blocks_editor")}</a></p>`
+      : `<p>${state.uiLang === "en" ? "This board is a concept. Current editor and upload support RED / Nano only." : "Tato deska je zatím koncept. Současný editor a nahrávání jsou určené pro RED / Nano."}</p>`);
+    const programmingHelp = DATA.meta.programmingGuideHref
+      ? `<p style="margin-top:12px;"><a class="learn-theory-link" href="${DATA.meta.programmingGuideHref}">${ui("first_programming")}</a></p>`
       : "";
 
     return `
       ${media}
       ${content.instructions ? `<p class="guide-instructions">${t(content.instructions)}</p>` : ""}
       ${actionArea}
-      ${mblockHelp}
+      ${programmingHelp}
       <div class="guide-step-actions" style="margin-top:24px;">
         <button type="button" class="btn btn-primary" data-action="ok">${ui("program_uploaded")}</button>
         <button type="button" class="btn btn-ghost" data-action="fail">${ui("shows_error")}</button>

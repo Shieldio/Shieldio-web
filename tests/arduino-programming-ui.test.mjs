@@ -9,7 +9,7 @@ const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',impor
 const source=(await fs.readFile(new URL('../assets/js/arduino-programming.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-programming.mjs"');
 const dictionary=JSON.parse(await fs.readFile(new URL('../assets/data/i18n.json',import.meta.url),'utf8'));
 for(const key of [...html.matchAll(/data-i18n(?:-title|-aria-label)?="([^"]+)"/g)].map(m=>m[1])) assert.ok(dictionary[key],key);
-function model({serial=false,portError=null,savedSource=""}={}){
+function model({serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false}={}){
   const elements=new Map();
   class Element{
     constructor(id){this.id=id;this.value='';this.hidden=false;this.disabled=false;this.dataset={};this.attributes={};this.listeners={};this.options=[];this.children=[];this.selectionStart=0;this.selectionEnd=0;this.classList={toggle(){}};}
@@ -28,17 +28,18 @@ function model({serial=false,portError=null,savedSource=""}={}){
   for(const match of html.matchAll(/id="([^"]+)"/g))elements.set(match[1],new Element(match[1]));
   const get=id=>{assert.ok(elements.has(id),'Missing HTML element '+id);return elements.get(id);};
   get('blocksTab').attributes['aria-selected']='true';get('codeTab').attributes['aria-selected']='false';
-  let portRequests=0,compilations=0;
+  let portRequests=0,compilations=0,fetches=0;
   const downloads=[],buildMessages=[],windowEvents={},storage=new Map([["shieldio-source-v1",savedSource]]);
   let blockSource="void setup(){} void loop(){}";
   const navigator=serial?{serial:{async requestPort(){portRequests++;if(portError)throw portError;return {direct:true};},addEventListener(){}}}:{};
-  const window={isSecureContext:true,SHIELDIO_EDITOR:{getCode:()=>blockSource,getError:()=>null,resize(){}},addEventListener(name,handler){windowEvents[name]=handler;}};
+  const window={location:{search},isSecureContext:true,SHIELDIO_EDITOR:{getCode:()=>blockSource,getError:()=>null,resize(){}},addEventListener(name,handler){windowEvents[name]=handler;}};
   const context=vm.createContext({
     window,navigator,document:{body:{classList:{toggle(){}}},documentElement:{lang:'cs'},getElementById:get,createElement:()=>new Element('generated')},
     MutationObserver:class{observe(){}},
     localStorage:{getItem:key=>storage.get(key) || null,setItem:(key,value)=>storage.set(key,value)},
+    async fetch(url){fetches++;assert.match(String(url),/^https:\/\/shieldio.cz\/assets\/code\/(?:digitalni_metr|ultrazvukovy_radar)\//);return {ok:!exampleFailure,text:async()=>exampleText};},
     importLibrary,validateLibraries,indentSelection,Event:class{constructor(type){this.type=type;}},
-    AbortController,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,
+    AbortController,URLSearchParams,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,
     URL:class extends URL {static createObjectURL(blob){downloads.push(blob);return 'blob:test';}static revokeObjectURL(){}},
     Worker:class {
       postMessage(data){buildMessages.push(data);compilations++;Promise.resolve().then(()=>this.onmessage({data:{result:{fitsTarget:true,flashBytes:2,ramBytes:0,hex:':test',stderr:[]}}}));}
@@ -47,7 +48,7 @@ function model({serial=false,portError=null,savedSource=""}={}){
     parseHex(){},flashNano(){throw Error('Discovery must not flash hardware');}
   });
   vm.runInContext(source,context,{filename:'arduino-programming.mjs'});
-  return {get,downloads,buildMessages,windowEvents,storage,setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations})};
+  return {get,downloads,buildMessages,windowEvents,storage,setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations,fetches})};
 }
 {
   const m=model();
@@ -115,6 +116,18 @@ function model({serial=false,portError=null,savedSource=""}={}){
 {
   const m=model({savedSource:'// restored code'});m.get('codeTab').listeners.click();assert.equal(m.get('arduinoSource').value,'// restored code');
   m.get('arduinoSource').value='// changed code';m.get('arduinoSource').listeners.input();assert.equal(m.storage.get('shieldio-source-v1'),'// changed code');
+}
+{
+  const m=model({savedSource:'// my manual project',search:'?example=digitalni_metr',exampleText:'void setup(){pinMode(5,OUTPUT);} void loop(){}'});
+  await new Promise(r=>setTimeout(r,0));
+  assert.equal(m.get('codeTab').getAttribute('aria-selected'),'true');assert.match(m.get('arduinoSource').value,/pinMode/);
+  assert.equal(m.storage.get('shieldio-source-v1'),'// my manual project','Opening an example preserves the existing manual program');
+  assert.match(m.storage.get('shieldio-source-v1:example:digitalni_metr'),/pinMode/);
+}
+{
+  const m=model({search:'?example=../../private'});assert.equal(m.counts().fetches,0,'Unknown examples never trigger a fetch');
+  const failure=model({search:'?example=digitalni_metr',exampleFailure:true});await new Promise(r=>setTimeout(r,0));
+  assert.equal(failure.get('uploadStatus').dataset.error,'true');assert.equal(failure.get('compileBtn').disabled,false,'A failed example load releases the UI');
 }
 console.log('UI: direct USB default, unsupported-browser compilation/export, port cancellation and error recovery, stale HEX protection, source transfer and i18n passed.');
 

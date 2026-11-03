@@ -15,7 +15,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Tlačítko", "LED", "Bzučák", "Podmínky"],
     parentHref: "../../../index.html",
     parentLabel: "Zpět na výběr návodů",
-    mblockGuideHref: "../../../../instructions/mblock/index.html",
+    programmingGuideHref: "/instructions/programovani/",
   },
 
   glossary: {

@@ -1,5 +1,5 @@
 /* Shieldio programming studio. Layout follows the viewport, never a physical screen diagonal. */
-.hero.programming-hero { padding: 82px 0 4px; }
+.hero.programming-hero { padding: 20px 0 4px; }
 .hero.programming-hero::before, .hero.programming-hero::after { display: none; }
 .hero.programming-hero .wrap, .programming-studio > .wrap { max-width: 1920px; padding: 0 clamp(16px, 2vw, 36px); }
 .hero.programming-hero .fade-up { opacity: 1; transform: none; }
@@ -96,7 +96,7 @@
   .programming-studio .blockly-editor-grid.code-visible .blockly-code-panel { display: flex; }
 }
 @media (max-width: 700px) {
-  .hero.programming-hero { padding-top: 76px; }
+  .hero.programming-hero { padding-top: 16px; }
   .hero.programming-hero p.lead { display: none; }
   .programming-workspace { height: auto; min-height: 650px; padding: 0 10px 10px; }
   .programming-run { width: 100%; display: flex; }

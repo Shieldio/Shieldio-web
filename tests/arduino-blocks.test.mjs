@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
-export async function runBlockTests(blocklyDir,domPackage){
+export async function runBlockTests(blocklyDir,domPackage,{search="",expectedModule=null,initialStore={},expectedDelay=500}={}){
   const require=createRequire(import.meta.url);
   const {DOMImplementation,DOMParser,XMLSerializer}=require(domPackage);
   const xml=new DOMImplementation().createDocument(null,null,null);
@@ -20,9 +20,10 @@ export async function runBlockTests(blocklyDir,domPackage){
   const get=id=>{assert.ok(els.has(id),'Missing element '+id);return els.get(id);};
   get('blockProfileSelect').value='red';get('moduleSelect').value='all';
   let ready,workspace,toolbox;
-  const context=vm.createContext({console,setTimeout,clearTimeout,structuredClone,URLSearchParams,location:{search:''},
+  const storage=new Map(Object.entries(initialStore)),storageReads=[];
+  const context=vm.createContext({console,setTimeout,clearTimeout,structuredClone,URLSearchParams,location:{search},
     Event:class{constructor(type){this.type=type;}},ResizeObserver:class{observe(){}},
-    localStorage:{getItem(){return null;},setItem(){}},window:{addEventListener(){},dispatchEvent(){}},
+    localStorage:{getItem(key){storageReads.push(key);return storage.get(key)??null;},setItem(key,value){storage.set(key,value);}},window:{addEventListener(){},dispatchEvent(){}},
     document:{documentElement:{lang:'cs',dataset:{}},getElementById:get,addEventListener(name,fn){if(name==='DOMContentLoaded')ready=fn;},createElement:()=>new Element('temp'),createElementNS:(ns,name)=>xml.createElementNS(ns,name)},DOMParser,XMLSerializer});
   for(const file of ['blockly_compressed.js','blocks_compressed.js','msg/cs.js'])vm.runInContext(await fs.readFile(blocklyDir+'/'+file,'utf8'),context);
   vm.runInContext(await fs.readFile(new URL('../assets/js/shieldio-blocks.js',import.meta.url),'utf8'),context);
@@ -39,6 +40,13 @@ export async function runBlockTests(blocklyDir,domPackage){
   const roots=()=>{workspace.clear();const setup=make('shieldio_setup'),loop=make('shieldio_loop');return {setup,loop};};
   const regenerate=()=>{workspace.fireChangeListener({isUiEvent:false});assert.equal(api.SHIELDIO_EDITOR.getError(),null);return api.SHIELDIO_EDITOR.getCode();};
   const fixtures={};
+  if(expectedModule)assert.equal(get('moduleSelect').value,expectedModule,'Guide module link selects the requested toolbox');
+  if(search.includes('preset=blikani')){
+    fixtures.blinkStarter=api.SHIELDIO_EDITOR.getCode();assert.match(fixtures.blinkStarter,/#define LED_GREEN 6/);assert.equal((fixtures.blinkStarter.match(new RegExp('delay\\('+expectedDelay+'\\)','g'))||[]).length,2);
+    fixtures.blinkProject={workspace:Blockly.serialization.workspaces.save(workspace),profile:'red',module:'led',advanced:false};
+    assert.deepEqual(storageReads.filter(key=>key.startsWith('shieldio-workspace-v1')),['shieldio-workspace-v1:preset:blikani'],'Starter restores its own saved edits');
+  }
+  get('blockProfileSelect').value='red';get('moduleSelect').value='all';await get('moduleSelect').emit('change');
   let {setup,loop}=roots();
   const led=make('shieldio_led'),wait=make('shieldio_wait');loop.getInput('LOOP').connection.connect(led.previousConnection);led.nextConnection.connect(wait.previousConnection);
   const placeholder=wait.getInputTargetBlock('MS');assert.ok(placeholder.isShadow());placeholder.setFieldValue(1250,'NUM');
@@ -69,5 +77,11 @@ export async function runBlockTests(blocklyDir,domPackage){
 }
 if(typeof process !== "undefined" && process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href){
   const fixtures=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE);
+  const blink=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=blikani&module=led',expectedModule:'led'});
+  fixtures.blinkStarter=blink.blinkStarter;
+  const edited=JSON.stringify(blink.blinkProject).replaceAll('"NUM":500','"NUM":750');
+  await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=blikani',expectedModule:'led',expectedDelay:750,initialStore:{'shieldio-workspace-v1:preset:blikani':edited,'shieldio-workspace-v1':'unrelated manual project'}});
+  await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=constructor'});
+  await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?module=buzzer',expectedModule:'buzzer'});
   if(process.env.BLOCKLY_FIXTURES)await fs.writeFile(process.env.BLOCKLY_FIXTURES,JSON.stringify(fixtures));
 }

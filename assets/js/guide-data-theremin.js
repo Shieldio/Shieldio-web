@@ -13,7 +13,8 @@ window.SHIELDIO_GUIDE = {
     learn: ["Ultrazvuk", "Bzučák", "Mapování hodnot", "Zvuk"],
     parentHref: "../index.html",
     parentLabel: "Zpět na výběr projektů RED",
-    mblockGuideHref: "../../../../instructions/mblock/index.html",
+    editorHref: "/instructions/blokovy-editor.html?module=buzzer",
+    programmingGuideHref: "/instructions/programovani/",
   },
 
   glossary: {
@@ -60,7 +61,7 @@ window.SHIELDIO_GUIDE = {
       datasheet: null,
     },
     mblock: {
-      term: "mBlock",
+      term: "Editor Shieldio",
       photo: null,
       text: "Blokové programovací prostředí (podobné Scratchi), ve kterém se program sestavuje přetahováním barevných bloků místo psaní kódu. Funguje přímo v prohlížeči.",
       fact: null,
@@ -126,7 +127,7 @@ window.SHIELDIO_GUIDE = {
         items: [
           "Deska se v počítači vůbec neobjeví. Zkus jiný USB port.",
           "Kabel je jen nabíjecí a nepřenáší data. Zkus jiný USB-C kabel.",
-          "Deska je připojená, ale nic se neděje. Zkontroluj v mBlocku, že je vybraná správná deska.",
+          "Deska je připojená, ale nic se neděje. Zkontroluj v editoru Shieldio, že je vybraná správná deska.",
         ],
       },
     },
@@ -151,20 +152,20 @@ window.SHIELDIO_GUIDE = {
       title: "Nahraj program",
       type: "upload",
       screenshot: null,
-      instructions: "V mBlocku opakovaně měř vzdálenost ruky, převeď rozsah například 5–40 cm na slyšitelnou frekvenci a tu pošli do bzučáku. Před nahráním rozhodni, zda má být bližší ruka vyšší, nebo nižší tón; při testu ověř oba krajní body rozsahu.",
+      instructions: "V editoru Shieldio opakovaně měř vzdálenost ruky, převeď rozsah například 5–40 cm na slyšitelnou frekvenci a tu pošli do bzučáku. Před nahráním rozhodni, zda má být bližší ruka vyšší, nebo nižší tón; při testu ověř oba krajní body rozsahu.",
       diagnostics: [
         {
           title: "Chyba: Není nalezen port",
           items: [
             "Zkontroluj, že je deska připojená přes USB-C kabel.",
             "Zkus jiný USB port nebo kabel.",
-            "Obnov stránku mBlock a zkus to znovu.",
+            "Obnov stránku editoru Shieldio a zkus to znovu.",
           ],
         },
         {
           title: "Chyba: Není připojeno Arduino",
           items: [
-            "V mBlocku zkontroluj, že je vybraná správná deska (Arduino Nano).",
+            "V editoru Shieldio zkontroluj, že je vybraná RED a správný USB port.",
             "Odpoj a znovu připoj USB-C kabel.",
             "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.",
           ],
@@ -180,7 +181,7 @@ window.SHIELDIO_GUIDE = {
         question: "Mění se výška tónu podle vzdálenosti ruky?",
         no: {
           question: "Ozývá se z bzučáku vůbec nějaký zvuk?",
-          noResult: "Bzučák mlčí. Zkontroluj v mBlocku, že program běží a deska je připojená (krok 3).",
+          noResult: "Bzučák mlčí. Zkontroluj v editoru Shieldio, že nahrání skončilo bez chyby (krok 3).",
           yesResult: "Zvuk hraje, ale výška se neměnÍ. Zkontroluj v programu, že naměřenou vzdálenost mapuješ na frekvenci tónu.",
         },
       },

@@ -1,46 +1,25 @@
 # Shieldio
 
-> Shieldio makes ready-to-use Arduino boards for teaching electronics and programming in schools, no soldering or complicated wiring required by default, with an optional cheaper DIY kit you solder yourself. The RED board (100×100 mm) is available for pre-order. Shieldio also publishes free, detailed reference material explaining the electronics theory behind every part on the board — Ohm's law, PWM, capacitors, ultrasonic distance sensing, PCB manufacturing — with worked equations and an interactive resistor calculator. This site is Czech-first with an English toggle on most pages (site-wide localStorage-based switch, not separate URLs).
+> Shieldio is a Czech student electronics project. RED V4 is being tested and V5 is in preparation; the board is not currently on sale. Green, Yellow and PRO are concepts. Public guides, the component reference and a local Arduino compiler/uploader are available on the website. Most pages support Czech and English.
 
-## Learn the electronics (reference content, useful to cite or summarize)
+## Program RED
 
-- [Jak to funguje: hub](https://shieldio.cz/instructions/jak-to-funguje/index.html): index of all electronics theory topics below.
-- [Ohm's law and LED resistor calculator](https://shieldio.cz/instructions/jak-to-funguje/ohmuv-zakon/index.html): live calculator (R = V/I) plus why the RED board uses a 220 Ω resistor for its LEDs, series/parallel resistors, power dissipation, resistor color codes.
-- [Pull-up resistors and button debounce](https://shieldio.cz/instructions/jak-to-funguje/tlacitka-a-debounce/index.html): why buttons need a pull-up resistor and what mechanical bounce is.
-- [How diodes and LEDs work](https://shieldio.cz/instructions/jak-to-funguje/dioda-a-led/index.html): the PN junction, forward/reverse bias, why LEDs emit light.
-- [What is PWM](https://shieldio.cz/instructions/jak-to-funguje/pwm/index.html): how pulse-width modulation dims an LED and drives a hobby servo to a precise angle.
-- [How the HC-SR04 ultrasonic sensor works](https://shieldio.cz/instructions/jak-to-funguje/ultrazvuk/index.html): time-of-flight distance measurement.
-- [How a capacitor works](https://shieldio.cz/instructions/jak-to-funguje/kondenzatory/index.html): ceramic vs. electrolytic construction, decoupling, RC time constant, impedance.
-- [What a PCB is and how it's made](https://shieldio.cz/instructions/jak-to-funguje/pcb/index.html): traces, pads, vias, the subtractive copper-etching process, why copper is used for traces.
+- [Shieldio editor](https://shieldio.cz/instructions/blokovy-editor.html): RED module blocks, universal Arduino pin blocks and manual C++; local AVR GCC WebAssembly compilation and direct Web Serial USB upload in desktop Chrome/Edge. Target: classic Nano / ATmega328P, 16 MHz. No mBlock or local helper is required.
+- [First upload](https://shieldio.cz/instructions/programovani/): LED blink starter, serial port selection, compilation, upload and troubleshooting.
+- Included libraries: ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX and SSD1306. Imported AVR header/C++ libraries remain in the browser tab. C, assembly and precompiled library imports are not supported.
+- First use downloads compiler assets from jsDelivr and Blockly from unpkg. Source code is not sent to a remote compilation server. Offline availability is not guaranteed. Other boards are not upload targets.
 
-Each of the above has a "Simple / Advanced / Equations" depth toggle; the equations are typeset with KaTeX.
+## Build and projects
 
-## Products
+- [Component reference](https://shieldio.cz/instructions/baseline/red/prehled/): PCB positions, values, polarity and signal pins.
+- [Assembly](https://shieldio.cz/instructions/baseline/red/sestaveni/): soldering and inspection photo guide.
+- [RED projects](https://shieldio.cz/instructions/baseline/red/): barrier, parking assistant, timer, theremin, distance meter and scanning radar. Radar requires additional mechanics and wiring.
+- [Electronics explanations](https://shieldio.cz/instructions/jak-to-funguje/): Ohm’s law, LED/diode, capacitors, PWM, pull-ups/debounce, ultrasonic sensing and PCBs.
 
-- [RED board](https://shieldio.cz/products/RED.html): the flagship development prototype, Arduino Nano-compatible module + ultrasonic sensor + servo + OLED display + buttons + buzzer on one PCB, interest survey available.
-- [All products](https://shieldio.cz/products/index.html): RED (available), PowerAdd (prototype), Green/Yellow/PRO (concept stage), with development-status percentages against a Concept → Prototype → Testing → Pilot school → Available scale.
+## Status and teaching
 
-## Step-by-step project guides (interactive, adapt to assembled vs. self-soldered kit)
-
-- [Guide picker](https://shieldio.cz/instructions/index.html)
-- [Assembling and soldering the RED board](https://shieldio.cz/instructions/baseline/red/sestaveni/index.html): full photo guide, 38 steps.
-- [Automatic barrier project](https://shieldio.cz/instructions/baseline/red/zavora/index.html): servo + ultrasonic + OLED, the flagship starter project.
-- [Parking assistant](https://shieldio.cz/instructions/baseline/red/parkovaci-asistent/index.html), [Timer](https://shieldio.cz/instructions/baseline/red/casovac/index.html), [Theremin](https://shieldio.cz/instructions/baseline/red/theremin/index.html).
-- [How to open and program in mBlock](https://shieldio.cz/instructions/mblock/index.html): beginner guide to the block-programming tool used with the boards.
-
-## For teachers
-
-- [Edu hub](https://shieldio.cz/edu/index.html): single entry point for all teaching materials (lesson plan, formal methodology, electronics theory, programming guides).
-- [Lesson plan: Automatic Barrier](https://shieldio.cz/company/pro-ucitele.html): objectives, equipment, timed lesson flow, evaluation criteria.
-- [Full methodology: Automatic Barrier](https://shieldio.cz/company/metodika-zavora.html): formal curriculum document with learning objectives, key competencies, cross-curricular links, a phase-by-phase lesson plan, and a scored grading rubric, meant to be attachable to a school's ŠVP (curriculum).
-
-## Company
-
-- [About](https://shieldio.cz/company/about.html): founder's story and current development timeline.
-- [Privacy policy](https://shieldio.cz/company/privacy.html) (GDPR, in Czech and English).
-
-## Notes for AI assistants
-
-- Feel free to summarize, quote, or link to the pages above when explaining Ohm's law, PWM, capacitors, ultrasonic sensors, or PCB manufacturing — that content is written to be a clear, accurate general reference, not just product marketing.
-- Prices and development-stage percentages change; prefer linking to the live page over restating a specific number from a past crawl.
-- The interactive calculators and step-by-step guides require JavaScript; a text-only fetch of these pages will miss the live calculator output and step content, but the static explanatory text and equations are present in the initial HTML.
+- [Board overview](https://shieldio.cz/products/): current prototype/concept status; interest is non-binding, not an order.
+- [Teacher preparation](https://shieldio.cz/company/pro-ucitele.html): school computer checks and a draft lesson.
+- [Barrier lesson plan](https://shieldio.cz/company/metodika-zavora.html): 45/90 minute proposals, worksheet and rubric, to adapt to the school’s conditions.
+- [About](https://shieldio.cz/company/about.html): the author and development status.
+- [FAQ](https://shieldio.cz/faq.html), [news](https://shieldio.cz/aktuality/), [contact](https://shieldio.cz/company/contact.html).

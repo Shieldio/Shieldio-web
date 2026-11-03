@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Editor Shieldio kompiluje a nahrává do RED | Shieldio</title>
+<meta name="description" content="Bloky i Arduino C++, skutečný AVR kompilátor v prohlížeči a přímé USB nahrávání do Nano / Shieldio RED.">
+<link rel="canonical" href="https://shieldio.cz/aktuality/editor-shieldio.html">
+
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shieldio.cz/aktuality/editor-shieldio.html">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Nové interaktivní stránky Jak to funguje | Shieldio">
+<meta property="og:description" content="Spustili jsme sedm interaktivních stránek, které vysvětlují elektroniku za deskou Shieldio RED, od Ohmova zákona po plošné spoje, se třemi úrovněmi vysvětlení.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+</head>
+
+<body data-i18n-title="news.editor.title">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="../index.html"><img class="logo-full logo-full-light" src="../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="../index.html">Domů</a>
+        <a href="../products/index.html">Produkty</a>
+        <a href="../instructions/index.html">Návody</a>
+        <a href="../edu/index.html">Edu</a>
+        <a href="../company/about.html">O nás</a>
+        <a href="../instructions/blokovy-editor.html" class="nav-code-link">Programování</a>
+      </nav>
+      <a class="cta-small" href="../index.html#kontakt">Domluvit ukázku</a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="hero" style="padding-bottom:40px;"><div class="wrap" style="max-width:900px;"><a class="guide-back-link" href="/aktuality/">← Aktuality</a><p class="mono-tag"><time datetime="2026-11-03">3. 11. 2026</time></p><h1 data-i18n="news.editor.heading">RED naprogramuješ přímo tady.</h1><p data-i18n="news.editor.lead">V editoru Shieldio sestavíš bloky nebo napíšeš Arduino C++. Program se přeloží pro Nano a v Chrome nebo Edge se nahraje přes USB.</p></div></div>
+<section style="padding:0 0 64px;"><div class="wrap" style="max-width:900px;"><h2 data-i18n="news.editor.what">Co je v editoru</h2><p data-i18n="news.editor.blocks">V blocích vybereš modul RED: LED, tlačítka, ultrazvuk, servo, bzučák nebo OLED. Čas a další hodnoty píšeš přímo do políček; místo čísla můžeš vložit i výpočet. Pokročilá nabídka přidává matematiku a číselné proměnné.</p><p data-i18n="news.editor.cpp">Vedle bloků je ruční Arduino C++. Kompilátor běží v prohlížeči; zdrojový kód se neposílá na server ke zpracování. Při prvním použití se stáhnou nástroje a knihovny.</p><p data-i18n="news.editor.upload">Kompilace vytvoří HEX. Nahrávač zkontroluje čip, zapíše program a přečte data zpět pro ověření. Úspěšné automatické testy nenahrazují kontrolu konkrétní desky, kabelu a školního počítače.</p><p data-i18n="news.editor.libraries">ShieldioDisplay je přibalená společně se Servo, Wire, SPI, Adafruit GFX a SSD1306. Vlastní hlavičkovou nebo C++ knihovnu pro AVR můžeš načíst ze složky. C, assembler a předkompilované knihovny zatím importovat nejdou.</p><p data-i18n="news.editor.target">Univerzální bloky pracují s vlastními piny, ale kompilace a nahrávání zatím míří na klasické Nano s ATmega328P. Green, Yellow, PRO, ESP32 ani jiné varianty Nano tímto nepřibývají mezi podporované desky.</p><div class="hero-ctas"><a class="btn btn-primary" href="/instructions/blokovy-editor.html?preset=blikani&amp;module=led">Otevřít blikání LED</a><a class="btn btn-ghost" href="/instructions/programovani/">První nahrání krok za krokem</a></div></div></section><footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="../index.html#reseni">Řešení</a>
+      <a href="../instructions/index.html">Návody</a>
+      <a href="../edu/index.html">Edu</a>
+      <a href="../company/about.html">O nás</a>
+      <a href="../company/pro-ucitele.html">Pro učitele</a>
+      <a href="../faq.html">FAQ</a>
+      <a href="index.html">Aktuality</a>
+      <a href="../company/privacy.html">Ochrana údajů</a>
+      <a href="../index.html#kontakt">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
+    </nav>
+    <div class="footer-note">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+</footer>
+
+<script src="../assets/js/animations.js"></script>
+<script src="../assets/js/navbar.js"></script>
+<script src="../assets/js/theme.js"></script>
+<script src="../assets/js/search.js"></script>
+<script src="../assets/js/site-chrome.js?v=20261103-unified"></script>
+</body>
+</html>

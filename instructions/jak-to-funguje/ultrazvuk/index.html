@@ -78,7 +78,7 @@
         <a href="../../../instructions/index.html" data-i18n="nav.guides">Návody</a>
         <a href="../../../edu/index.html" data-i18n="nav.edu">Edu</a>
         <a href="../../../company/about.html" data-i18n="nav.about">O nás</a>
-        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Začít programovat</a>
+        <a href="../../../instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
       </nav>
       <a class="cta-small" href="../../../index.html#kontakt" data-i18n="nav.cta_contact">Domluvit ukázku</a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false">
@@ -146,12 +146,10 @@
     <div class="level-advanced learn-body">
       <p data-i18n="learn_ultrazvuk.adv_p2">Senzor změří <b>čas</b> mezi vysláním a přijetím ozvěny. Zvuk se vzduchem šíří přibližně 343 metrů za sekundu při pokojové teplotě. Součin doby a rychlosti je celá dráha tam i zpět, proto se dělí dvěma. Jde o model: přesnost ovlivňuje teplota, proudění vzduchu i to, jak dobře povrch zvuk odráží.</p>
       <p class="learn-formula level-equations" data-i18n="learn_ultrazvuk.formula_plain">vzdálenost (cm) = čas (µs) × 0,0343 ⁄ 2</p>
-      <p data-i18n="learn_ultrazvuk.adv_p3">Přesně tenhle výpočet dělá blok "vzdálenost" v mBlocku (nebo funkce v Arduino kódu) automaticky, na pozadí. Stejným principem, jen se zvukovými vlnami v mořské vodě, funguje sonar na lodích, nebo echolokace, kterou se orientují netopýři.</p>
+      <p data-i18n="learn_ultrazvuk.adv_p3">Stejný přepočet používá blok „vzdálenost (cm)“ v editoru Shieldio. V Arduino C++ je vidět měření času i převod na centimetry. Podobný princip využívá sonar ve vodě.</p>
     </div>
 
-    <div class="learn-board-tie level-advanced" data-i18n="learn_ultrazvuk.board_tie">
-      <b>Na desce Shieldio RED:</b> senzor HC-SR04 se zasouvá do patic J1/J7 (Socket A/B). Jeho naměřená vzdálenost rozhoduje, kdy se v návodu na závoru otevře servo, nebo kdy parkovací asistent spustí varování.
-    </div>
+    <div class="learn-board-tie level-advanced" data-i18n="learn_ultrazvuk.board_tie"><b>Na desce Shieldio RED:</b> senzor HC-SR04 se zasouvá do patic J1/J7 (Socket A/B). Jeho naměřená vzdálenost rozhoduje, kdy se v návodu na závoru otevře servo, nebo kdy parkovací asistent spustí varování.</div>
 
     <div class="level-equations learn-body">
       <p data-i18n="learn_ultrazvuk.eq_units">Značení jednotek: <b>d</b> vzdálenost [cm], <b>t</b> čas letu zvuku tam a zpět [µs], <b>v</b> rychlost zvuku [m/s], <b>T</b> teplota vzduchu [°C].</p>
@@ -202,6 +200,7 @@
       <a href="../../../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
       <a href="../../../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
       <a href="../../../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
     </nav>
     <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
     <div>© 2026 Shieldio</div>
@@ -214,7 +213,7 @@
 <script src="../../../assets/js/theme.js"></script>
 <script src="../../../assets/js/search.js"></script>
 <script src="../../../assets/js/lang.js"></script>
-<script src="../../../assets/js/site-chrome.js"></script>
+<script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
 <script src="../../../assets/js/level-toggle.js"></script>
 <script src="../../../assets/js/concept-labs.js"></script>
 

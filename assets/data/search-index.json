@@ -1,8 +1,18 @@
 [
   {
+    "title": "Editor Shieldio kompiluje a nahrává do RED",
+    "desc": "Bloky i Arduino C++, skutečný AVR kompilátor v prohlížeči a přímé USB nahrávání do Nano / Shieldio RED.",
+    "url": "/aktuality/editor-shieldio.html"
+  },
+  {
     "title": "Aktuality",
     "desc": "Novinky z vývoje a testování desek Shieldio.",
     "url": "/aktuality/index.html"
+  },
+  {
+    "title": "Nové interaktivní stránky Jak to funguje",
+    "desc": "Spustili jsme sedm interaktivních stránek, které vysvětlují elektroniku za deskou Shieldio RED, od Ohmova zákona po plošné spoje, se třemi úrovněmi vysvětlení.",
+    "url": "/aktuality/jak-to-funguje.html"
   },
   {
     "title": "RED ve vývojové sérii",
@@ -20,19 +30,14 @@
     "url": "/company/about.html"
   },
   {
-    "title": "Kontakt",
-    "desc": "Kontaktní stránka Shieldio se právě připravuje.",
-    "url": "/company/contact.html"
-  },
-  {
     "title": "Dotazník pro školy",
     "desc": "Pomozte nám ověřit, jestli je Shieldio pro vaši školu nebo kroužek to pravé, krátký dotazník.",
     "url": "/company/dotaznik.html"
   },
   {
-    "title": "Partneři",
-    "desc": "Přehled partnerů Shieldio se právě připravuje.",
-    "url": "/company/partners.html"
+    "title": "Metodika: Automatická závora na desce Shieldio RED",
+    "desc": "Návrh metodiky k projektu Automatická závora: vazba na RVP ZV 2025, varianty na 45 a 90 minut, pracovní list a upravitelná hodnoticí rubrika.",
+    "url": "/company/metodika-zavora.html"
   },
   {
     "title": "Ochrana osobních údajů",
@@ -40,54 +45,129 @@
     "url": "/company/privacy.html"
   },
   {
+    "title": "Pro učitele: praktické informace a návrh hodiny",
+    "desc": "Praktické informace k desce RED: cílové ročníky, varianty hodiny na 45 a 90 minut, požadavky na školní počítače, bezpečnost a pracovní list.",
+    "url": "/company/pro-ucitele.html"
+  },
+  {
+    "title": "Podmínky používání webu",
+    "desc": "Podmínky používání webu studentského projektu Shieldio.",
+    "url": "/company/terms.html"
+  },
+  {
+    "title": "Edu: materiály pro výuku",
+    "desc": "Podklady pro výuku s RED: příprava počítačů, editor Shieldio s kompilací a USB nahráváním, metodický list a vysvětlení elektroniky.",
+    "url": "/edu/index.html"
+  },
+  {
     "title": "Časté otázky",
     "desc": "Odpovědi na časté otázky o deskách Shieldio, pro koho jsou, jak se programují, a jaký je rozdíl mezi úrovněmi.",
     "url": "/faq.html"
   },
   {
-    "title": "Shieldio, Elektronika a robotika srozumitelně pro každého",
-    "desc": "Shieldio je výukový projekt s Arduino deskou RED, vedenými návody a blokovým programováním. RED je vývojový prototyp; další úrovně jsou koncepty.",
-    "url": "/"
-  },
-  {
-    "title": "Návody: Baseline",
-    "desc": "Návody pro desku Shieldio Baseline se právě připravují.",
-    "url": "/instructions/baseline/"
+    "title": "Shieldio · Stavebnice kompatibilní s Arduino® pro školu, kroužek i domov",
+    "desc": "Shieldio je studentský výukový projekt s deskou kompatibilní s Arduino® pro školy, kroužky a domácí kutily. RED je vývojový prototyp.",
+    "url": "/index.html"
   },
   {
     "title": "Návod: Časovač",
     "desc": "Krok za krokem návod na časovač / čidlo pohybu s deskou Shieldio Red.",
-    "url": "/instructions/baseline/red/casovac/"
+    "url": "/instructions/baseline/red/casovac/index.html"
+  },
+  {
+    "title": "Digitální metr s RED",
+    "desc": "Digitální metr s HC-SR04 a OLED: zapojení RED, výpočet z rychlosti zvuku, Arduino program a ověření měření.",
+    "url": "/instructions/baseline/red/digitalni-metr/index.html"
   },
   {
     "title": "Návody: Baseline Red",
     "desc": "Vyber si projekt pro desku Baseline Red a najdi krok za krokem návod.",
-    "url": "/instructions/baseline/red/"
+    "url": "/instructions/baseline/red/index.html"
   },
   {
     "title": "Návod: Parkovací asistent",
     "desc": "Krok za krokem návod na parkovacího asistenta s deskou Shieldio Red.",
-    "url": "/instructions/baseline/red/parkovaci-asistent/"
+    "url": "/instructions/baseline/red/parkovaci-asistent/index.html"
+  },
+  {
+    "title": "Přehled součástek a zapojení RED",
+    "desc": "Součástky RED V3, hodnoty, pozice na PCB, fotografie, polarita a přehled pinů pro programování.",
+    "url": "/instructions/baseline/red/prehled/index.html"
+  },
+  {
+    "title": "Ultrazvukový radar s RED",
+    "desc": "Ultrazvukový skener RED: HC-SR04 na servu, OLED mapa v měřítku, zapojení, Arduino program a kontrola směru.",
+    "url": "/instructions/baseline/red/radar/index.html"
+  },
+  {
+    "title": "Jak pájet elektroniku: sestavení desky RED krok za krokem",
+    "desc": "Naučte se pájet elektroniku na reálném příkladu, 38 kroků s fotkami, vysvětlením a upozorněním na časté chyby. Sestavení desky Shieldio RED od holé desky po hotové pouzdro.",
+    "url": "/instructions/baseline/red/sestaveni/index.html"
   },
   {
     "title": "Návod: Theremin",
     "desc": "Krok za krokem návod na theremin s deskou Shieldio Red, bzučák mění tón podle vzdálenosti ruky.",
-    "url": "/instructions/baseline/red/theremin/"
+    "url": "/instructions/baseline/red/theremin/index.html"
   },
   {
     "title": "Návod: Prototyp závory",
     "desc": "Krok za krokem návod na interaktivní závoru s deskou Shieldio Red.",
-    "url": "/instructions/baseline/red/zavora/"
+    "url": "/instructions/baseline/red/zavora/index.html"
   },
   {
-    "title": "Návod: Meteostanice",
-    "desc": "Krok za krokem návod na vlastní meteostanici s deskou Shieldio Yellow.",
-    "url": "/instructions/baseline/yellow/meteostanice/"
+    "title": "Programování RED",
+    "desc": "Programuj Shieldio RED v blocích nebo Arduino C++, zkompiluj program a nahraj ho přes USB přímo z prohlížeče.",
+    "url": "/instructions/blokovy-editor.html"
   },
   {
     "title": "Návody",
-    "desc": "Vyber si desku Shieldio, Baseline nebo PROline, a najdi krok za krokem návody pro svou úroveň.",
-    "url": "/instructions/"
+    "desc": "Návody pro Shieldio RED: přehled součástek, sestavení, digitální metr, závora a další projekty krok za krokem.",
+    "url": "/instructions/index.html"
+  },
+  {
+    "title": "Jak funguje dioda a LED, PN přechod vysvětlený",
+    "desc": "Srozumitelné vysvětlení PN přechodu, propustného a závěrného směru diody, a proč LED svítí právě tou barvou, kterou svítí. Na příkladu desky Shieldio RED.",
+    "url": "/instructions/jak-to-funguje/dioda-a-led/index.html"
+  },
+  {
+    "title": "Kalkulačka rezistoru pro LED a jak funguje elektronika",
+    "desc": "Online kalkulačka rezistoru pro LED podle Ohmova zákona, zdarma a bez registrace. Plus srozumitelné vysvětlení debounce u tlačítek, diody, PWM řízení, ultrazvuku, kondenzátorů a plošných spojů.",
+    "url": "/instructions/jak-to-funguje/index.html"
+  },
+  {
+    "title": "Jak funguje kondenzátor, keramický vs. elektrolytický",
+    "desc": "Co dělá kondenzátor na desce, proč elektrolytický kondenzátor musí mít správnou polaritu a jak kondenzátor tlumí šum a zákmity. S pokročilým režimem: RC konstanta a impedance.",
+    "url": "/instructions/jak-to-funguje/kondenzatory/index.html"
+  },
+  {
+    "title": "Ohmův zákon a kalkulačka rezistoru pro LED",
+    "desc": "Kalkulačka rezistoru pro LED podle Ohmova zákona R = U/I, zdarma a bez registrace. Vysvětlení, proč deska Shieldio RED používá 220 Ω, s pokročilým režimem: sériové/paralelní řazení, výkon a barevný kód.",
+    "url": "/instructions/jak-to-funguje/ohmuv-zakon/index.html"
+  },
+  {
+    "title": "Co je PCB (plošný spoj) a jak se vyrábí",
+    "desc": "Co jsou cestičky, plošky a prokovy na desce plošných spojů, jak se PCB vyrábí leptáním mědi, a proč se používá zrovna měď. S pokročilým režimem: rezistivita a odpor cestičky.",
+    "url": "/instructions/jak-to-funguje/pcb/index.html"
+  },
+  {
+    "title": "Co je PWM: jak Arduino řídí LED i servo",
+    "desc": "Srozumitelné vysvětlení pulzně šířkové modulace (PWM): jak stejný princip stmívá LED a natáčí hobby servo na přesný úhel. Na příkladu desky Shieldio RED.",
+    "url": "/instructions/jak-to-funguje/pwm/index.html"
+  },
+  {
+    "title": "Pull-up rezistor a debounce u tlačítka vysvětlené",
+    "desc": "Proč tlačítko potřebuje pull-up rezistor a co je to zákmit (debounce). Srozumitelné vysvětlení s diagramem signálu, na příkladu desky Shieldio RED.",
+    "url": "/instructions/jak-to-funguje/tlacitka-a-debounce/index.html"
+  },
+  {
+    "title": "Jak funguje ultrazvukový senzor HC-SR04",
+    "desc": "Srozumitelné vysvětlení, jak senzor HC-SR04 měří vzdálenost pomocí ultrazvuku a jak se z naměřeného času počítá vzdálenost. Na příkladu desky Shieldio RED.",
+    "url": "/instructions/jak-to-funguje/ultrazvuk/index.html"
+  },
+  {
+    "title": "První program a nahrání do RED",
+    "desc": "První program pro Shieldio RED: otevři editor, připoj desku v Chrome nebo Edge, zkompiluj program a nahraj ho přes USB.",
+    "url": "/instructions/programovani/index.html"
   },
   {
     "title": "Deska Green",
@@ -100,11 +180,6 @@
     "url": "/products/POWERADD.html"
   },
   {
-    "title": "Deska PRO",
-    "desc": "Stránka desky Shieldio PRO se právě připravuje.",
-    "url": "/products/PRO.html"
-  },
-  {
     "title": "Deska RED",
     "desc": "Deska Shieldio RED, robotika v pohybu. Ultrazvukový senzor, servo a OLED displej na jedné 100×100 mm desce.",
     "url": "/products/RED.html"
@@ -115,28 +190,8 @@
     "url": "/products/YELLOW.html"
   },
   {
-    "title": "Deska Baseline",
-    "desc": "Stránka desky Shieldio Baseline se právě připravuje.",
-    "url": "/products/baseline.html"
-  },
-  {
     "title": "Produkty",
-    "desc": "Vyber si desku Shieldio, Baseline nebo PROline, a podívej se na konkrétní produkt.",
-    "url": "/products/"
-  },
-  {
-    "title": "RED: součástky a zapojení",
-    "desc": "Hodnoty, pozice R1–R7, polarita, fotografie a mapa pinů; rychlý přehled osazení V3.",
-    "url": "/instructions/baseline/red/prehled/"
-  },
-  {
-    "title": "Digitální metr",
-    "desc": "HC-SR04, rychlost zvuku, vzdálenost na OLED, program Arduino.",
-    "url": "/instructions/baseline/red/digitalni-metr/"
-  },
-  {
-    "title": "Ultrazvukový radar",
-    "desc": "Sonar se servem: úhel, vzdálenost a mapa v měřítku na OLED.",
-    "url": "/instructions/baseline/red/radar/"
+    "desc": "Přehled desek Shieldio podle stavu vývoje: RED V4 testujeme a připravujeme V5, ostatní jsou ve vývoji nebo konceptu.",
+    "url": "/products/index.html"
   }
 ]
