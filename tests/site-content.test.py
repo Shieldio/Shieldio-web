@@ -60,6 +60,17 @@ for path,html in PAGES.items():
             if not target:errors.append(f'{path} ({language}): missing target {url}')
             elif fragment and target in parsed and fragment not in parsed[target].ids:errors.append(f'{path} ({language}): missing anchor {url}')
 
+# Essential resources must remain one click from the homepage and the guide hub.
+resource_paths=['instructions/baseline/red/sestaveni/index.html','instructions/baseline/red/prehled/index.html','instructions/jak-to-funguje/index.html','edu/index.html']
+for page in ['index.html','instructions/index.html']:
+    for language in ['cs','en']:
+        rendered=re.sub(r'<([a-z0-9]+)\b[^>]*data-i18n="([^"]+)"[^>]*>([\s\S]*?)</\1>',lambda m:m[0][:m[0].index('>')+1]+D.get(m[2],{}).get(language,m[3])+'</'+m[1]+'>',PAGES[page])
+        main=rendered.split('<main',1)[1].split('</main>',1)[0]
+        p=Page();p.feed(main)
+        targets={resolve(page,url)[0] for url in p.links if resolve(page,url)}
+        for target in resource_paths:
+            if target not in targets:errors.append(f'{page} ({language}): essential resource missing from main content: {target}')
+
 for entry in json.loads((ROOT/'assets/data/search-index.json').read_text()):
     result=resolve('index.html',entry['url']);target=result[0] if result else None
     if target not in PAGES:errors.append('Search index target missing: '+entry['url'])

@@ -19,7 +19,7 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const els=new Map([...html.matchAll(/id="([^"]+)"/g)].map(m=>[m[1],new Element(m[1])]));
   const get=id=>{assert.ok(els.has(id),'Missing element '+id);return els.get(id);};
   get('blockProfileSelect').value='red';get('moduleSelect').value='all';
-  let ready,workspace,toolbox;
+  let ready,workspace,toolbox,theme;
   const storage=new Map(Object.entries(initialStore)),storageReads=[];
   const context=vm.createContext({console,setTimeout,clearTimeout,structuredClone,URLSearchParams,location:{search},
     Event:class{constructor(type){this.type=type;}},ResizeObserver:class{observe(){}},
@@ -29,7 +29,7 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   vm.runInContext(await fs.readFile(new URL('../assets/js/shieldio-blocks.js',import.meta.url),'utf8'),context);
   const Blockly=context.Blockly, api=context.window;
   Blockly.Events.disable();
-  Blockly.inject=(container,options)=>{toolbox=options.toolbox;workspace=new Blockly.Workspace();workspace.updateToolbox=value=>{toolbox=value;};workspace.setTheme=()=>{};workspace.zoomToFit=()=>{};workspace.cleanUp=()=>{};return workspace;};
+  Blockly.inject=(container,options)=>{toolbox=options.toolbox;theme=options.theme;workspace=new Blockly.Workspace();workspace.updateToolbox=value=>{toolbox=value;};workspace.setTheme=()=>{};workspace.zoomToFit=()=>{};workspace.cleanUp=()=>{};return workspace;};
   Blockly.svgResize=()=>{};
   for(const method of ['initSvg','render','moveBy'])Blockly.Block.prototype[method]=function(){};
   vm.runInContext(await fs.readFile(new URL('../assets/js/blockly-editor.js',import.meta.url),'utf8'),context);ready();
@@ -37,6 +37,13 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
     const config=api.SHIELDIO_CREATE_TOOLBOX({profile,advanced:true}).contents.flatMap(c=>c.contents||[]).find(b=>b.type===type) || {type};
     return Blockly.serialization.blocks.append(config,workspace);
   };
+  for (const category of api.SHIELDIO_CREATE_TOOLBOX({advanced:true}).contents) {
+    for (const item of category.contents || []) {
+      const block=workspace.newBlock(item.type);
+      assert.equal(theme.blockStyles[block.getStyleName()].colourPrimary,category.colour,`${item.type} matches its toolbox category`);
+      block.dispose();
+    }
+  }
   const roots=()=>{workspace.clear();const setup=make('shieldio_setup'),loop=make('shieldio_loop');return {setup,loop};};
   const regenerate=()=>{workspace.fireChangeListener({isUiEvent:false});assert.equal(api.SHIELDIO_EDITOR.getError(),null);return api.SHIELDIO_EDITOR.getCode();};
   const fixtures={};

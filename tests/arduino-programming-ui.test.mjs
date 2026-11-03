@@ -30,12 +30,12 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
   const get=id=>{assert.ok(elements.has(id),'Missing HTML element '+id);return elements.get(id);};
   get('blocksTab').attributes['aria-selected']='true';get('codeTab').attributes['aria-selected']='false';
   let portRequests=0,compilations=0,fetches=0,uploads=0;
-  const downloads=[],buildMessages=[],windowEvents={},storage=new Map([["shieldio-source-v1",savedSource]]);
+  const downloads=[],buildMessages=[],windowEvents={},documentEvents={},storage=new Map([["shieldio-source-v1",savedSource]]);
   let blockSource="void setup(){} void loop(){}";
   const navigator=serial?{serial:{async requestPort(){portRequests++;if(portError)throw portError;return {direct:true};},addEventListener(){}}}:{};
   const window={location:{search},isSecureContext:true,SHIELDIO_EDITOR:{getCode:()=>blockSource,getError:()=>null,resize(){}},addEventListener(name,handler){windowEvents[name]=handler;}};
   const context=vm.createContext({
-    window,navigator,document:{body:{classList:{toggle(){}}},documentElement:{lang:'cs'},getElementById:get,createElement:()=>new Element('generated')},
+    window,navigator,document:{addEventListener(name,handler){documentEvents[name]=handler;},body:{classList:{toggle(){}}},documentElement:{lang:'cs'},getElementById:get,createElement:()=>new Element('generated')},
     MutationObserver:class{observe(){}},
     localStorage:{getItem:key=>storage.get(key) || null,setItem:(key,value)=>storage.set(key,value)},
     async fetch(url){fetches++;assert.match(String(url),/^https:\/\/shieldio.cz\/assets\/code\/(?:digitalni_metr|ultrazvukovy_radar)\//);return {ok:!exampleFailure,text:async()=>exampleText};},
@@ -49,8 +49,23 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
     parseHex(){},async flashNano(port,hex,options){if(!flashSuccess)throw Error('Discovery must not flash hardware');uploads++;options.onProgress('write',100);options.onProgress('verify',100);options.onProgress('done',100);}
   });
   vm.runInContext(source,context,{filename:'arduino-programming.mjs'});
-  return {get,downloads,buildMessages,windowEvents,storage,setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations,fetches,uploads})};
+  return {get,downloads,buildMessages,windowEvents,storage,setLanguage(lang){context.document.documentElement.lang=lang;documentEvents["shieldio-lang-change"]?.();},setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations,fetches,uploads})};
 }
+{
+  const m=model(),button=m.get('toggleToolsBtn');
+  assert.equal(button.textContent,dictionary['programming.tools'].cs);
+  button.click();assert.equal(button.textContent,dictionary['programming.simpleMode'].cs);
+  assert.equal(button.getAttribute('aria-expanded'),'true');
+  assert.equal(button.getAttribute('data-i18n'),'programming.simpleMode');
+  m.setLanguage('en');assert.equal(button.textContent,dictionary['programming.simpleMode'].en);
+  button.click();assert.equal(button.textContent,dictionary['programming.tools'].en);
+  assert.equal(button.getAttribute('aria-expanded'),'false');
+  m.get('codeTab').click();assert.equal(button.textContent,dictionary['programming.simpleMode'].en);
+  m.setLanguage('cs');assert.equal(button.textContent,dictionary['programming.simpleMode'].cs);
+  button.click();assert.equal(button.textContent,dictionary['programming.tools'].cs);
+  assert.equal(m.get('blocksTab').getAttribute('aria-selected'),'true');
+}
+
 {
   const m=model();
   assert.equal(m.get('uploadBtn').disabled,true);

@@ -4583,6 +4583,10 @@
     "cs": "Zadní strana krytu desky Shieldio RED s vyraženým nápisem Shieldio baseline RED",
     "en": "Back of the Shieldio RED enclosure with embossed Shieldio baseline RED lettering"
   },
+  "programming.simpleMode": {
+    "cs": "Jednodušší režim",
+    "en": "Simple mode"
+  },
   "programming.tools": {
     "cs": "Další nástroje",
     "en": "More tools"
@@ -5278,5 +5282,97 @@
   "programming.commentCode": {
     "cs": "Komentář",
     "en": "Toggle comment"
+  },
+  "guides.hub.assembly.title": {
+    "cs": "Pájení a sestavení RED V3",
+    "en": "Soldering and assembling RED V3"
+  },
+  "guides.hub.assembly.body": {
+    "cs": "Fotonávod, pořadí osazování a kontrola spojů před zapnutím.",
+    "en": "Photo guide, component placement order and joint checks before power-up."
+  },
+  "guides.hub.parts.title": {
+    "cs": "Součástky a zapojení RED V3",
+    "en": "RED V3 components and wiring"
+  },
+  "guides.hub.parts.body": {
+    "cs": "Osazovací tabulka, hodnoty součástek a přiřazení pinů.",
+    "en": "Component table, component values and pin assignments."
+  },
+  "guides.hub.programming.title": {
+    "cs": "První nahrání programu",
+    "en": "Upload your first program"
+  },
+  "guides.hub.programming.body": {
+    "cs": "Připojení přes USB, výběr portu a nahrání z editoru Shieldio.",
+    "en": "USB connection, port selection and uploading from the Shieldio editor."
+  },
+  "guides.hub.projects.title": {
+    "cs": "Projekty RED",
+    "en": "RED projects"
+  },
+  "guides.hub.projects.body": {
+    "cs": "Blikání LED, digitální metr, parkovací asistent a další projekty.",
+    "en": "Blink an LED, measure distance, build a parking assistant and explore more projects."
+  },
+  "guides.hub.theory.title": {
+    "cs": "Jak fungují součástky",
+    "en": "How components work"
+  },
+  "guides.hub.theory.body": {
+    "cs": "Ohmův zákon, LED, tlačítka, PWM, ultrazvuk, kondenzátory a PCB.",
+    "en": "Ohm’s law, LEDs, buttons, PWM, ultrasound, capacitors and PCBs."
+  },
+  "guides.hub.teachers.title": {
+    "cs": "Materiály pro učitele",
+    "en": "Teaching materials"
+  },
+  "guides.hub.teachers.body": {
+    "cs": "Příprava hodiny, metodický list, pracovní list a hodnoticí rubrika.",
+    "en": "Lesson preparation, teaching notes, a worksheet and an assessment rubric."
+  },
+  "guides.hub.heading": {
+    "cs": "Návody a materiály",
+    "en": "Guides and materials"
+  },
+  "guides.hub.lead": {
+    "cs": "Sestavení desky, programování, projekty a podklady pro výuku.",
+    "en": "Board assembly, programming, projects and classroom resources."
+  },
+  "guides.hub.revision": {
+    "cs": "Fotonávod a osazovací tabulka se vztahují k RED V3. Před sestavením ověř označení revize na své desce.",
+    "en": "The assembly photo guide and component table cover RED V3. Check the revision printed on your board before assembly."
+  },
+  "home.resources.assembly": {
+    "cs": "Pájení a sestavení RED V3",
+    "en": "Soldering and assembling RED V3"
+  },
+  "home.resources.parts": {
+    "cs": "Součástky a zapojení RED V3",
+    "en": "RED V3 components and wiring"
+  },
+  "home.resources.theory": {
+    "cs": "Jak fungují součástky",
+    "en": "How components work"
+  },
+  "home.resources.teachers": {
+    "cs": "Materiály pro učitele",
+    "en": "Teaching materials"
+  },
+  "home.resources.heading": {
+    "cs": "Návody a materiály",
+    "en": "Guides and materials"
+  },
+  "home.resources.all": {
+    "cs": "Všechny návody a podklady",
+    "en": "All guides and resources"
+  },
+  "teachers.resources.all": {
+    "cs": "Všechny materiály pro výuku",
+    "en": "All teaching resources"
+  },
+  "teachers.resources.worksheet": {
+    "cs": "Pracovní list k vytištění",
+    "en": "Printable worksheet"
   }
 }

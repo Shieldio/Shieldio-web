@@ -78,8 +78,30 @@
 .programming-studio .blockly-editor-grid { margin-top: 0; height: auto; flex: 1 1 0; min-height: 220px; min-width: 0; }
 .programming-studio .blockly-editor-grid.code-visible { grid-template-columns: minmax(0, min(var(--blockly-left), calc(100% - 272px))) 12px minmax(260px, 1fr); }
 .programming-studio :is(#blocklyDiv, .blockly-code-panel) { height: 100%; min-height: 0; border-radius: 8px; }
-.programming-studio #blocklyDiv .blocklyTreeSelected { background: color-mix(in srgb, var(--accent) 13%, var(--surface)) !important; }
-.programming-studio #blocklyDiv .blocklyTreeRow { margin: 3px 5px; padding: 8px 10px !important; border-radius: 7px; }
+/* Blockly 13: category dots and selection use the same colour as their blocks. */
+.programming-studio #blocklyDiv .blocklyToolbox { padding: 8px 0; border-right: 1px solid var(--line); }
+.programming-studio #blocklyDiv .blocklyToolboxCategoryContainer { margin: 0 6px 4px; }
+.programming-studio #blocklyDiv .blocklyToolboxCategory {
+  display: flex; align-items: center; min-height: 40px; height: auto; line-height: 1.35;
+  margin: 0; padding: 9px 12px !important; border: 0 !important; border-radius: 7px;
+  background: transparent !important; cursor: pointer;
+}
+.programming-studio #blocklyDiv .blocklyToolboxCategoryIcon {
+  display: inline-block !important; visibility: visible; width: 12px; height: 12px;
+  margin-right: 10px; border-radius: 50%; background: var(--block-category); background-image: none;
+}
+.programming-studio #blocklyDiv .blocklyToolboxCategoryLabel {
+  color: var(--ink) !important; font: 500 13px/1.35 var(--font-body, system-ui, sans-serif); padding: 0;
+}
+.programming-studio #blocklyDiv .blocklyToolboxCategory:hover { background: var(--paper-2) !important; }
+.programming-studio #blocklyDiv .blocklyToolboxSelected {
+  background: color-mix(in srgb, var(--block-category) 18%, var(--surface)) !important;
+  box-shadow: inset 3px 0 var(--block-category);
+}
+.programming-studio #blocklyDiv .blocklyToolboxSelected .blocklyToolboxCategoryLabel { font-weight: 700; }
+.programming-studio #blocklyDiv .blocklyToolboxCategoryContainer:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 7px; }
+.programming-studio #blocklyDiv .blocklyFlyout { filter: none; }
+.programming-studio #toggleToolsBtn[aria-expanded="true"] { background: var(--paper-2); border-color: var(--ink-soft); }
 .programming-studio .blockly-splitter:hover::before, .programming-studio .blockly-splitter:focus-visible::before { background: var(--accent); }
 .programming-studio .blockly-toggle-code.active { color: var(--accent-deep); border-color: var(--accent-deep); }
 .programming-source-wrap { position:relative; display: flex; flex: 1 1 0; min-width: 0; min-height: 220px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }

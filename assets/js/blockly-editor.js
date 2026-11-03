@@ -4,24 +4,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("blocklyDiv");
   if (!container || typeof Blockly === "undefined") return;
 
+  // Blockly 13 uses blocklyToolboxCategory (older TreeRow rules no longer apply).
+  class ShieldioCategory extends Blockly.ToolboxCategory {
+    addColourBorder_(colour) {
+      super.addColourBorder_(colour);
+      this.rowDiv_.style.setProperty("--block-category", colour);
+    }
+  }
+  Blockly.registry.register(Blockly.registry.Type.TOOLBOX_ITEM, Blockly.ToolboxCategory.registrationName, ShieldioCategory, true);
+  const palette = window.SHIELDIO_BLOCK_PALETTE;
+  const blockStyle = colour => ({colourPrimary:colour,colourSecondary:colour,colourTertiary:colour});
+
   // Scratch/mBlock-style rounded blocks (Blockly's own "zelos" renderer) instead of
   // the default rectangular "geras" look, plus a theme matching Shieldio's palette —
   // built fresh for light/dark so the workspace itself follows the site's theme toggle
   function buildShieldioTheme(isDark) {
     return Blockly.Theme.defineTheme("shieldio-" + (isDark ? "dark" : "light"), {
-      base: Blockly.Themes.Classic,
+      base: Blockly.Themes.Zelos,
+      blockStyles: {
+        shieldio_start: blockStyle(palette.start),
+        shieldio_hardware: blockStyle(palette.hardware),
+        shieldio_pins: blockStyle(palette.conditions),
+        shieldio_serial: blockStyle(palette.serial),
+        loop_blocks: blockStyle(palette.control),
+        logic_blocks: blockStyle(palette.conditions),
+        math_blocks: blockStyle(palette.values),
+        text_blocks: blockStyle(palette.values),
+        variable_blocks: blockStyle(palette.variables),
+        variable_dynamic_blocks: blockStyle(palette.variables),
+      },
       fontStyle: { family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Arial, sans-serif", weight: "500", size: 13 },
       componentStyles: {
-        workspaceBackgroundColour: isDark ? "#1c1c1e" : "#f5f5f7",
-        toolboxBackgroundColour: isDark ? "#000000" : "#ffffff",
+        workspaceBackgroundColour: isDark ? "#181b20" : "#fafbfc",
+        toolboxBackgroundColour: isDark ? "#202329" : "#ffffff",
         toolboxForegroundColour: isDark ? "#f5f5f7" : "#1d1d1f",
-        flyoutBackgroundColour: isDark ? "#121214" : "#fbfbfd",
+        flyoutBackgroundColour: isDark ? "#272b33" : "#f3f5f8",
         flyoutForegroundColour: isDark ? "#f5f5f7" : "#1d1d1f",
         flyoutOpacity: 1,
         scrollbarColour: isDark ? "#48484a" : "#d2d2d7",
-        insertionMarkerColour: "#f72338",
+        insertionMarkerColour: "#0d9488",
         insertionMarkerOpacity: 0.3,
-        cursorColour: "#f72338",
+        cursorColour: "#0d9488",
       },
     });
   }

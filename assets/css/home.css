@@ -47,3 +47,9 @@
   .home-page .home-learn{border-left:0;border-top:1px solid var(--line);padding:28px 0 0;}
   .home-page .home-text-links{flex-direction:column;align-items:flex-start;gap:16px;}
 }
+
+.home-page .home-resource-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.home-page .home-resource-links a{padding:18px 20px;border:1px solid var(--line);border-radius:10px;color:var(--ink);background:var(--surface);font-weight:600;text-decoration:none;}
+.home-page .home-resource-links a:hover{border-color:var(--accent);color:var(--accent-deep);}
+.home-page .home-resource-links a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media(max-width:640px){.home-page .home-resource-links{grid-template-columns:minmax(0,1fr);}}

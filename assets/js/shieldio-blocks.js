@@ -5,11 +5,12 @@
 // so it's safe to hardcode.
 
 (function () {
-  const RED = "#f72338";
-  const GOLD = "#b7791f";
-  const ORANGE = "#c05621";
-  const SENSE_BLUE = "#2878a5";
-  const OPERATOR_GREEN = "#21835a";
+  // One palette for category markers, custom blocks and Blockly's built-in blocks.
+  const palette = window.SHIELDIO_BLOCK_PALETTE = Object.freeze({
+    start: "#996b13", hardware: "#c84350", control: "#b65f18",
+    conditions: "#3375a5", values: "#32834a", variables: "#b65f18", serial: "#8058b1",
+  });
+  const {hardware:RED, start:GOLD, control:ORANGE, conditions:SENSE_BLUE, values:OPERATOR_GREEN} = palette;
 
   // ---------- start blocks (two separate hats, not one combined block —
   // mirrors how Arduino itself splits setup()/loop(), and how Scratch uses
@@ -19,7 +20,7 @@
     init: function () {
       this.appendDummyInput().appendField("▶ Když deska nastartuje");
       this.appendStatementInput("SETUP").setCheck(null);
-      this.setColour(GOLD);
+      this.setStyle("shieldio_start");
       this.hat = "cap";
       this.setDeletable(false);
       this.setTooltip("Proběhne jednou, hned po zapnutí desky.");
@@ -30,7 +31,7 @@
     init: function () {
       this.appendDummyInput().appendField("↻ Opakuj pořád");
       this.appendStatementInput("LOOP").setCheck(null);
-      this.setColour(ORANGE);
+      this.setStyle("shieldio_start");
       this.hat = "cap";
       this.setDeletable(false);
       this.setTooltip("Opakuje se pořád dokola, dokud je deska zapnutá.");
@@ -47,7 +48,7 @@
         .appendField(new Blockly.FieldDropdown([["zapnout", "HIGH"], ["vypnout", "LOW"]]), "STATE");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
       this.setTooltip("Rozsvítí nebo zhasne červenou/zelenou LED na desce.");
     },
   };
@@ -58,7 +59,7 @@
       this.appendDummyInput().appendField("°");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
       this.setInputsInline(true);
       this.setTooltip("Úhel 0–180°.");
     },
@@ -72,7 +73,7 @@
       this.appendDummyInput().appendField("ms");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
       this.setInputsInline(true);
       this.setTooltip("Přehraje tón na bzučáku danou frekvencí a délkou.");
     },
@@ -85,7 +86,7 @@
         .appendField(new Blockly.FieldDropdown([["1", "BUTTON1"], ["2", "BUTTON2"]]), "BTN")
         .appendField("je stisknuté");
       this.setOutput(true, "Boolean");
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
       this.setTooltip("Pravda, pokud je dané tlačítko právě stisknuté.");
     },
   };
@@ -94,7 +95,7 @@
     init: function () {
       this.appendDummyInput().appendField("vzdálenost (cm)");
       this.setOutput(true, "Number");
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
       this.setTooltip("Vzdálenost v cm ze společného vzorku. Bez echa je neplatná (NAN); ověř platnost měření.");
     },
   };
@@ -103,7 +104,7 @@
     init: function () {
       this.appendDummyInput().appendField(document.documentElement.lang === "en" ? "distance measurement is valid" : "měření vzdálenosti je platné");
       this.setOutput(true, "Boolean");
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
       this.setTooltip(document.documentElement.lang === "en" ? "False when no echo is received. Distance is sampled once per loop." : "Nepravda, když senzor nevrátí echo. Vzdálenost se měří jednou pro celý průchod.");
     },
   };
@@ -114,7 +115,7 @@
       this.appendDummyInput().appendField("ms");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(RED);
+      this.setStyle("loop_blocks");
       this.setInputsInline(true);
     },
   };
@@ -133,7 +134,7 @@
         if (withElse) this.appendStatementInput("ELSE").appendField("jinak");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(SENSE_BLUE);
+        this.setStyle("logic_blocks");
         this.setTooltip("Rozhodne, které příkazy se provedou podle zadané podmínky.");
       },
     };
@@ -149,7 +150,7 @@
       this.appendValueInput("TEXT").setCheck(null).appendField("napiš na displej");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
       this.setInputsInline(true);
       this.setTooltip("Vymaže displej a napíše na něj text nebo hodnotu.");
     },
@@ -160,7 +161,7 @@
       this.appendDummyInput().appendField("vymaž displej");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(RED);
+      this.setStyle("shieldio_hardware");
     },
   };
 
@@ -314,15 +315,15 @@
 
   const L = (cs, en) => document.documentElement.lang === "en" ? en : cs;
   Blockly.defineBlocksWithJsonArray([
-    {type:"arduino_pin_mode",message0:L("nastav pin %1 jako %2","set pin %1 to %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"field_dropdown",name:"MODE",options:[[L("výstup","output"),"OUTPUT"],[L("vstup","input"),"INPUT"],[L("vstup s pull-up","input pull-up"),"INPUT_PULLUP"]]}],previousStatement:null,nextStatement:null,colour:SENSE_BLUE},
-    {type:"arduino_digital_write",message0:L("digitální pin %1 nastav %2","digital pin %1 write %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"field_dropdown",name:"STATE",options:[["HIGH / 1","HIGH"],["LOW / 0","LOW"]]}],previousStatement:null,nextStatement:null,colour:SENSE_BLUE},
-    {type:"arduino_digital_read",message0:L("pin %1 je HIGH","pin %1 is HIGH"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Boolean",colour:SENSE_BLUE},
-    {type:"arduino_analog_read",message0:L("analogová hodnota pinu %1","analog value of pin %1"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Number",colour:SENSE_BLUE},
-    {type:"arduino_pwm",message0:L("PWM na pinu %1 hodnota %2","PWM on pin %1 value %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"input_value",name:"VALUE",check:"Number"}],inputsInline:true,previousStatement:null,nextStatement:null,colour:SENSE_BLUE,tooltip:L("Na Nano použij pin 3, 5, 6, 9, 10 nebo 11; hodnota 0–255.","On Nano use pin 3, 5, 6, 9, 10 or 11; value 0–255.")},
-    {type:"arduino_pin",message0:L("označení pinu %1","pin label %1"),args0:[{type:"field_dropdown",name:"PIN",options:[...Array.from({length:8},(_,i)=>["A"+i,"A"+i]),["LED_BUILTIN","LED_BUILTIN"]]}],output:"Number",colour:SENSE_BLUE},
-    {type:"arduino_serial_begin",message0:L("spusť sériovou linku %1 baud","start serial at %1 baud"),args0:[{type:"input_value",name:"BAUD",check:"Number"}],previousStatement:null,nextStatement:null,colour:GOLD},
-    {type:"arduino_serial_print",message0:L("vypiš na sériovou linku %1","print to serial %1"),args0:[{type:"input_value",name:"TEXT"}],previousStatement:null,nextStatement:null,colour:GOLD},
-    {type:"arduino_millis",message0:L("čas od startu (ms)","time since startup (ms)"),output:"Number",colour:ORANGE},
+    {type:"arduino_pin_mode",message0:L("nastav pin %1 jako %2","set pin %1 to %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"field_dropdown",name:"MODE",options:[[L("výstup","output"),"OUTPUT"],[L("vstup","input"),"INPUT"],[L("vstup s pull-up","input pull-up"),"INPUT_PULLUP"]]}],previousStatement:null,nextStatement:null,style:"shieldio_pins"},
+    {type:"arduino_digital_write",message0:L("digitální pin %1 nastav %2","digital pin %1 write %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"field_dropdown",name:"STATE",options:[["HIGH / 1","HIGH"],["LOW / 0","LOW"]]}],previousStatement:null,nextStatement:null,style:"shieldio_pins"},
+    {type:"arduino_digital_read",message0:L("pin %1 je HIGH","pin %1 is HIGH"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Boolean",style:"shieldio_pins"},
+    {type:"arduino_analog_read",message0:L("analogová hodnota pinu %1","analog value of pin %1"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Number",style:"shieldio_pins"},
+    {type:"arduino_pwm",message0:L("PWM na pinu %1 hodnota %2","PWM on pin %1 value %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"input_value",name:"VALUE",check:"Number"}],inputsInline:true,previousStatement:null,nextStatement:null,style:"shieldio_pins",tooltip:L("Na Nano použij pin 3, 5, 6, 9, 10 nebo 11; hodnota 0–255.","On Nano use pin 3, 5, 6, 9, 10 or 11; value 0–255.")},
+    {type:"arduino_pin",message0:L("označení pinu %1","pin label %1"),args0:[{type:"field_dropdown",name:"PIN",options:[...Array.from({length:8},(_,i)=>["A"+i,"A"+i]),["LED_BUILTIN","LED_BUILTIN"]]}],output:"Number",style:"shieldio_pins"},
+    {type:"arduino_serial_begin",message0:L("spusť sériovou linku %1 baud","start serial at %1 baud"),args0:[{type:"input_value",name:"BAUD",check:"Number"}],previousStatement:null,nextStatement:null,style:"shieldio_serial"},
+    {type:"arduino_serial_print",message0:L("vypiš na sériovou linku %1","print to serial %1"),args0:[{type:"input_value",name:"TEXT"}],previousStatement:null,nextStatement:null,style:"shieldio_serial"},
+    {type:"arduino_millis",message0:L("čas od startu (ms)","time since startup (ms)"),output:"Number",style:"loop_blocks"},
   ]);
   const value = (block,name,fallback) => arduino.valueToCode(block,name,arduino.ORDER_NONE) || fallback;
   arduino.forBlock.arduino_pin_mode = b => `pinMode(${value(b,"PIN","13")}, ${b.getFieldValue("MODE")});\n`;
@@ -365,8 +366,8 @@
     contents.push(category(L("Podmínky","Conditions"),SENSE_BLUE,["shieldio_if","shieldio_if_else","logic_compare",...(advanced?["shieldio_if_elseif_else","logic_operation","logic_negate","logic_boolean"]:[])]));
     contents.push(category(L("Hodnoty","Values"),OPERATOR_GREEN,["math_number","text",...(advanced?["math_arithmetic"]:[])]));
     if(advanced) {
-      contents.push({kind:"category",name:L("Proměnné (čísla)","Variables (numbers)"),colour:OPERATOR_GREEN,custom:"VARIABLE"});
-      contents.push(category(L("Sériová linka","Serial"),GOLD,["arduino_serial_begin","arduino_serial_print"]));
+      contents.push({kind:"category",name:L("Proměnné (čísla)","Variables (numbers)"),colour:palette.variables,custom:"VARIABLE"});
+      contents.push(category(L("Sériová linka","Serial"),palette.serial,["arduino_serial_begin","arduino_serial_print"]));
     }
     return {kind:"categoryToolbox",contents};
   };

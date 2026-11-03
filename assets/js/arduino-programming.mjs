@@ -4,6 +4,7 @@ import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
+  tools: ["Další nástroje", "More tools"], simpleMode: ["Jednodušší režim", "Simple mode"],
   exampleLoading: ["Načítám ukázkový program…", "Loading the example program…"],
   exampleLoaded: ["Ukázka je připravená. Připoj desku a zvol Spustit na desce.", "Example ready. Connect your board and choose Run on board."],
   exampleLoadError: ["Ukázkový program se nepodařilo načíst. Obnov stránku nebo otevři jeho soubor .ino.", "Could not load the example. Reload or open its .ino file."],
@@ -117,17 +118,24 @@ function paintProject() {
   next.hidden = !(statusKey === "done" || (statusKey === "compiled" && !uploadRequested));
   next.textContent = statusKey === "done" ? localized(copy.change) : localized(["Další krok: klikni na Spustit na desce. Kontrola sama program do desky neposílá.", "Next: choose Run on board. Checking alone does not send the program to the board."]);
 }
+function paintToolsButton() {
+  const key = toolsOpen ? "simpleMode" : "tools";
+  $("toggleToolsBtn").setAttribute("data-i18n", "programming." + key);
+  $("toggleToolsBtn").textContent = t(key);
+}
 function setTools(open) {
   if (!open && mode() === "code") switchMode("blocks");
   toolsOpen = open;
   $("programmingStudio").dataset.tools = open ? "open" : "closed";
   $("toggleToolsBtn").setAttribute("aria-expanded",String(open));
+  paintToolsButton();
   window.SHIELDIO_EDITOR?.resize();
 }
 $("toggleToolsBtn").addEventListener("click", () => setTools(!toolsOpen));
 window.addEventListener("shieldio:project-import", () => {importedProject=true;paintProject();});
 
 function paint() {
+  paintToolsButton();
   $("uploadStatus").textContent = t(statusKey) + (statusPercent === null ? "" : ` · ${statusPercent} %`);
   $("uploadStatus").dataset.error = String(statusError);
   $("connectBoardBtn").textContent = t(selectedPort ? "disconnect" : "connect");
@@ -475,6 +483,7 @@ window.addEventListener("keydown", event => {
   if(event.key==="Escape" && expanded) $("focusEditorBtn").click();
   if((event.ctrlKey || event.metaKey) && event.key==="Enter") {event.preventDefault();run(event.shiftKey);}
 });
+document.addEventListener("shieldio-lang-change", paintToolsButton);
 new MutationObserver(() => {paint();paintLibraries();updateSourcePosition();}).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 setBusy(false); paint();updateSourcePosition();
 
