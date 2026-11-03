@@ -72,12 +72,33 @@
   {
     "title": "Návod: Časovač",
     "desc": "Krok za krokem návod na časovač / čidlo pohybu s deskou Shieldio Red.",
-    "url": "/instructions/baseline/red/casovac/index.html"
+    "url": "/instructions/baseline/red/casovac/index.html",
+    "kind": "project",
+    "keywords": [
+      "časovač",
+      "čidlo pohybu",
+      "ultrazvuk",
+      "HC-SR04",
+      "čas",
+      "timer",
+      "motion"
+    ]
   },
   {
     "title": "Digitální metr s RED",
     "desc": "Digitální metr s HC-SR04 a OLED: zapojení RED, výpočet z rychlosti zvuku, Arduino program a ověření měření.",
-    "url": "/instructions/baseline/red/digitalni-metr/index.html"
+    "url": "/instructions/baseline/red/digitalni-metr/index.html",
+    "kind": "project",
+    "keywords": [
+      "měření vzdálenosti",
+      "ultrazvuk",
+      "HC-SR04",
+      "OLED",
+      "SSD1306",
+      "displej",
+      "distance",
+      "display"
+    ]
   },
   {
     "title": "Návody: Baseline Red",
@@ -87,7 +108,18 @@
   {
     "title": "Návod: Parkovací asistent",
     "desc": "Krok za krokem návod na parkovacího asistenta s deskou Shieldio Red.",
-    "url": "/instructions/baseline/red/parkovaci-asistent/index.html"
+    "url": "/instructions/baseline/red/parkovaci-asistent/index.html",
+    "kind": "project",
+    "keywords": [
+      "parkovací senzor",
+      "ultrazvuk",
+      "HC-SR04",
+      "vzdálenost",
+      "LED",
+      "bzučák",
+      "parking",
+      "buzzer"
+    ]
   },
   {
     "title": "Přehled součástek a zapojení RED",
@@ -97,7 +129,20 @@
   {
     "title": "Ultrazvukový radar s RED",
     "desc": "Ultrazvukový skener RED: HC-SR04 na servu, OLED mapa v měřítku, zapojení, Arduino program a kontrola směru.",
-    "url": "/instructions/baseline/red/radar/index.html"
+    "url": "/instructions/baseline/red/radar/index.html",
+    "kind": "project",
+    "keywords": [
+      "ultrazvukový radar",
+      "servo",
+      "SG90",
+      "ultrazvuk",
+      "HC-SR04",
+      "OLED",
+      "SSD1306",
+      "skenování",
+      "scanner",
+      "display"
+    ]
   },
   {
     "title": "Jak pájet elektroniku: sestavení desky RED krok za krokem",
@@ -107,17 +152,52 @@
   {
     "title": "Návod: Theremin",
     "desc": "Krok za krokem návod na theremin s deskou Shieldio Red, bzučák mění tón podle vzdálenosti ruky.",
-    "url": "/instructions/baseline/red/theremin/index.html"
+    "url": "/instructions/baseline/red/theremin/index.html",
+    "kind": "project",
+    "keywords": [
+      "bezdotykový nástroj",
+      "bzučák",
+      "zvuk",
+      "ultrazvuk",
+      "HC-SR04",
+      "tón",
+      "buzzer",
+      "sound"
+    ]
   },
   {
     "title": "Návod: Prototyp závory",
     "desc": "Krok za krokem návod na interaktivní závoru s deskou Shieldio Red.",
-    "url": "/instructions/baseline/red/zavora/index.html"
+    "url": "/instructions/baseline/red/zavora/index.html",
+    "kind": "project",
+    "keywords": [
+      "automatická závora",
+      "servo",
+      "SG90",
+      "ultrazvuk",
+      "HC-SR04",
+      "senzor vzdálenosti",
+      "podmínka",
+      "barrier",
+      "distance sensor"
+    ]
   },
   {
     "title": "Programování RED",
     "desc": "Programuj Shieldio RED v blocích nebo Arduino C++, zkompiluj program a nahraj ho přes USB přímo z prohlížeče.",
-    "url": "/instructions/blokovy-editor.html"
+    "url": "/instructions/blokovy-editor.html",
+    "keywords": [
+      "programování",
+      "kompilátor",
+      "nahrávač",
+      "bloky",
+      "Arduino C++",
+      "USB",
+      "knihovny",
+      "compiler",
+      "upload",
+      "editor"
+    ]
   },
   {
     "title": "Návody",

@@ -185,8 +185,8 @@ ne jen redakční detail.
 - **Popisuj záměr, ne zaručený výsledek.** Správně: „Navrženo tak, aby s ní mohl
   učit i učitel bez hlubších znalostí elektroniky." Špatně: „Zvládne ji i učitel
   bez technického vzdělání."
-- **Stav produktů drž pravdivý a konzistentní.** Existuje jen **RED** (první série,
-  k předobjednání). **Green**, **Yellow** a **PRO** jsou koncepty, **PowerAdd**
+- **Stav produktů drž pravdivý a konzistentní.** Existuje **RED V4** (testování, V5 v přípravě).
+  RED se zatím neprodává; formulář zjišťuje nezávazný zájem bez rezervace. **Green**, **Yellow** a **PRO** jsou koncepty, **PowerAdd**
   je prototyp ve vývoji. Kde padne „3 úrovně", musí být poblíž jasné, že dvě
   z nich zatím nejsou k mání.
 - **Publikum není jen škola.** Píše se pro učitele, kroužky **i domácí kutily**.

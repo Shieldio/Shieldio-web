@@ -75,6 +75,23 @@ for loc in ET.parse(ROOT/'sitemap.xml').getroot().iter('{http://www.sitemaps.org
     elif result[0] in PAGES and (parsed[result[0]].redirect or re.search(r'name="robots"[^>]*content="[^"]*noindex',PAGES[result[0]])):errors.append('Sitemap includes retired/draft page: '+loc.text)
 
 plain=lambda s:unescape(re.sub(r'<[^>]+>','',s))
+# Teacher content must translate as fully as its navigation; neutral time ranges are shared.
+class TeacherTranslations(HTMLParser):
+    def __init__(self):super().__init__();self.active=False;self.stack=[]
+    def handle_starttag(self,tag,attrs):
+        a=dict(attrs)
+        if tag=='div' and a.get('class')=='hero':self.active=True
+        if tag=='footer':self.active=False
+        if tag not in {'img','input','meta','link','br','hr'}:self.stack.append((tag,a.get('data-i18n')))
+    def handle_endtag(self,tag):
+        if self.stack and self.stack[-1][0]==tag:self.stack.pop()
+    def handle_data(self,text):
+        if self.active and re.search(r'[A-Za-zÀ-ž]',text) and not re.fullmatch(r'\s*\d+–\d+ min\s*',text) and not any(key for _,key in self.stack):errors.append('Teacher content has untranslated text: '+text.strip())
+teacher=TeacherTranslations();teacher.feed(PAGES['company/pro-ucitele.html'])
+if 'href="products/RED.html#varianty"' not in PAGES['index.html']:errors.append('Homepage comparison must open the RED variants section')
+if not re.search(r'<section id="varianty"[\s\S]*?<table[\s\S]*?RED DIY[\s\S]*?RED READY[\s\S]*?</table>',PAGES['products/RED.html']):errors.append('RED variants comparison is missing')
+for key in ['about.step1_p','faq.a6','red.variants.status','teachers.availability']:
+    if 'zatím neprodává' not in plain(D[key]['cs']):errors.append('Availability must use the current non-commercial status: '+key)
 for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>',PAGES['faq.html'],re.S):
     obj=json.loads(block)
     if obj.get('@type')=='FAQPage':

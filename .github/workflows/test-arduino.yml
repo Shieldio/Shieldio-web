@@ -1,7 +1,7 @@
 name: Test Arduino programming
 on:
   push:
-    branches: [main, codex/site-unify-20261103]
+    branches: [main, codex/site-audit-fixes-20261103]
     paths:
       - 'assets/js/arduino-*.mjs'
       - 'index.html'
@@ -15,6 +15,7 @@ on:
       - 'assets/data/search-index.json'
       - 'assets/js/guide-*.js'
       - 'assets/js/site-chrome.js'
+      - 'assets/js/search.js'
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
@@ -41,6 +42,7 @@ on:
       - 'assets/data/search-index.json'
       - 'assets/js/guide-*.js'
       - 'assets/js/site-chrome.js'
+      - 'assets/js/search.js'
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
@@ -70,6 +72,7 @@ jobs:
         with:
           node-version: '22'
       - run: python3 tests/site-content.test.py
+      - run: node tests/site-search.test.mjs
       - run: node --check assets/js/guide-engine.js
       - run: node --check assets/js/arduino-programming.mjs
       - run: node --check assets/js/arduino-compiler-worker.mjs

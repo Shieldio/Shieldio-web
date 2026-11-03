@@ -1,19 +1,34 @@
-// Shieldio — site search: small modal over a static JSON index, substring match, no backend
+// Shieldio — local search over page titles, descriptions and project components.
 
 document.addEventListener("DOMContentLoaded", () => {
-  let indexData = null;
+  let indexData = null, loading = null;
   let overlay, input, resultsEl;
 
   function escapeHtml(s) {
     return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
+  function normalize(value) {
+    return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  function prepareEntry(entry, order) {
+    const title = normalize(entry.title), description = normalize(entry.desc);
+    const keywords = normalize((entry.keywords || []).join(" "));
+    return {...entry, order, titleText:title, descriptionText:description, keywordsText:keywords, searchText:`${title} ${description} ${keywords}`};
+  }
+
   function renderResults(query) {
-    const q = query.trim().toLowerCase();
+    const q = normalize(query);
     if (!indexData) { resultsEl.innerHTML = '<p class="search-empty">Načítám…</p>'; return; }
     if (!q) { resultsEl.innerHTML = '<p class="search-empty">Začni psát název stránky, produktu nebo návodu…</p>'; return; }
+    const terms = q.split(/\s+/);
     const matches = indexData
-      .filter((e) => (e.title + " " + e.desc).toLowerCase().includes(q))
+      .filter((e) => terms.every(term => e.searchText.includes(term)))
+      .map(e => ({...e, score:(e.titleText === q ? 100 : e.titleText.includes(q) ? 60 : 0)
+        + (e.kind === "project" ? 25 : 0) + (e.keywordsText.includes(q) ? 60 : 0)
+        + (e.descriptionText.includes(q) ? 10 : 0)}))
+      .sort((a,b) => b.score - a.score || a.order - b.order)
       .slice(0, 8);
     if (!matches.length) { resultsEl.innerHTML = '<p class="search-empty">Nic jsem nenašel.</p>'; return; }
     resultsEl.innerHTML = matches
@@ -57,10 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ensureModal();
     overlay.classList.add("active");
     if (!indexData) {
-      fetch("/assets/data/search-index.json")
-        .then((r) => r.json())
-        .then((data) => { indexData = data; renderResults(input.value); })
-        .catch(() => { resultsEl.innerHTML = '<p class="search-empty">Vyhledávání se nepodařilo načíst.</p>'; });
+      if (!loading) loading = fetch("/assets/data/search-index.json", {cache:"no-cache"})
+        .then((r) => {if (!r.ok) throw Error("Search index unavailable");return r.json();})
+        .then((data) => { indexData = data.map(prepareEntry); renderResults(input.value); })
+        .catch(() => { resultsEl.innerHTML = '<p class="search-empty">Vyhledávání se nepodařilo načíst. Zkus ho otevřít znovu.</p>'; })
+        .finally(() => {loading = null;});
     }
     renderResults(input.value);
     setTimeout(() => input.focus(), 50);

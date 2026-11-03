@@ -120,8 +120,8 @@
     "en": "for RED, the only board available now"
   },
   "home.board_tag": {
-    "cs": "RED · první série",
-    "en": "RED · first batch"
+    "cs": "RED · prototyp V4",
+    "en": "RED · V4 prototype"
   },
   "home.audience.eyebrow": {
     "cs": "Vyberte si svůj začátek",
@@ -132,8 +132,8 @@
     "en": "One board, three ways to get started."
   },
   "home.audience.p": {
-    "cs": "RED můžete vzít rovnou do výuky, použít v kroužku nebo si ji postavit doma. Liší se jen cesta, ne hardware ani návody.",
-    "en": "You can take RED straight into a lesson, use it in a club, or build it at home. The path changes, but the hardware and guides stay the same."
+    "cs": "Materiály pro RED připravujeme pro školu, kroužek i domácí dílnu. Liší se cesta k prvnímu projektu, hardware i návody zůstávají stejné.",
+    "en": "RED materials are being developed for classrooms, clubs and home workshops. The route to the first project varies; the hardware and guides stay the same."
   },
   "home.audience.school_label": {
     "cs": "Škola",
@@ -144,8 +144,8 @@
     "en": "A prepared start for the classroom"
   },
   "home.audience.school_p": {
-    "cs": "Sestavená RED, metodika a pracovní list k prvnímu projektu. Pro více desek je k dispozici EduSET 5×.",
-    "en": "An assembled RED, a lesson plan, and a worksheet for the first project. The 5× EduSET is available when you need more boards."
+    "cs": "Návrh hodiny a pracovní list k prvnímu projektu. Možnosti školní ukázky probereme podle potřeb třídy.",
+    "en": "A draft lesson plan and worksheet for the first project. Get in touch to discuss a school demonstration for your class."
   },
   "home.audience.school_link": {
     "cs": "Informace pro učitele →",
@@ -176,8 +176,8 @@
     "en": "Build it, or start programming"
   },
   "home.audience.home_p": {
-    "cs": "Vyberte si RED DIY pro vlastní pájení, nebo sestavenou RED READY. Podrobný fotonávod zůstává k dispozici oběma variantám.",
-    "en": "Choose RED DIY for soldering it yourself, or the assembled RED READY. The detailed photo guide remains available for both options."
+    "cs": "Plánovaná DIY varianta počítá s vlastním pájením, READY se sestavenou deskou. Podívejte se, co je potřeba před prvním programem.",
+    "en": "The planned DIY version is for soldering at home; READY uses an assembled board. See what each needs before the first program."
   },
   "home.audience.home_link": {
     "cs": "Porovnat varianty →",
@@ -3966,5 +3966,365 @@
   "start.back": {
     "cs": "← Návody",
     "en": "← Guides"
+  },
+  "teachers.ctaGuide": {
+    "cs": "Zobrazit návod na projekt",
+    "en": "Open the project guide"
+  },
+  "teachers.ctaContact": {
+    "cs": "Domluvit ukázku",
+    "en": "Arrange a demonstration"
+  },
+  "teachers.ctaIntro": {
+    "cs": "Ozvěte se, rádi domluvíme ukázku nebo probereme, jak by projekt zapadl do vaší výuky.",
+    "en": "Get in touch to discuss a demonstration or how the project could fit your lessons."
+  },
+  "teachers.ctaHeading": {
+    "cs": "Chcete to vyzkoušet ve své třídě?",
+    "en": "Want to try it with your class?"
+  },
+  "teachers.availability": {
+    "cs": "<b>Dostupnost:</b> RED V4 testujeme a připravujeme V5. RED se zatím neprodává. Formulář slouží k nezávaznému zjištění zájmu, bez objednávky nebo rezervace. Možnosti školní ukázky nebo pilotního použití sdělíme přes <a href=\"../index.html#kontakt\">kontaktní formulář</a>.",
+    "en": "<b>Availability:</b> RED V4 is being tested and V5 is in preparation. RED is not on sale yet. The form records non-binding interest, without an order or reservation. Ask about a school demonstration or pilot through the <a href=\"../index.html#kontakt\">contact form</a>."
+  },
+  "teachers.safetyV3": {
+    "cs": "upozornění pro prototyp V3: hodnoty R6 a R7 v sadě se liší od potisku desky; rozhodující je aktuální návod a označení sáčku.",
+    "en": "V3 prototype note: the R6 and R7 values supplied in the kit differ from the PCB markings. Follow the current guide and labelled component bags."
+  },
+  "teachers.safetyCheck": {
+    "cs": "kontrola polarity a pájených spojů učitelem před prvním připojením napájení,",
+    "en": "teacher inspection of polarity and solder joints before connecting power;"
+  },
+  "teachers.safetyStand": {
+    "cs": "stabilní stojánek na páječku a jasně vymezená horká zóna,",
+    "en": "a stable soldering iron stand and a clearly marked hot area;"
+  },
+  "teachers.safetyGlasses": {
+    "cs": "ochranné brýle, větrané pracoviště nebo odsávání a žáruvzdorná podložka,",
+    "en": "safety glasses, ventilation or fume extraction, and a heat-resistant mat;"
+  },
+  "teachers.safetyIntro": {
+    "cs": "Pro běžnou hodinu programování doporučujeme <b>sestavenou variantu RED</b>. Pájení plánujte jako samostatnou aktivitu s přímým dohledem, podle věku žáků a pravidel školy.",
+    "en": "For a programming lesson, use the <b>assembled RED</b>. Plan soldering as a separate supervised activity, taking pupils' ages and school rules into account."
+  },
+  "teachers.safetyHeading": {
+    "cs": "Bezpečnost a pájení.",
+    "en": "Safety and soldering."
+  },
+  "teachers.nextProjects": {
+    "cs": "Žák, který tohle zvládne rychle, může pokračovat na některý z dalších projektů na stejné desce: <a href=\"../instructions/baseline/red/parkovaci-asistent/index.html\">Parkovací asistent</a>, <a href=\"../instructions/baseline/red/casovac/index.html\">Časovač</a> nebo <a href=\"../instructions/baseline/red/theremin/index.html\">Theremin</a>, každý znovu používá stejný ultrazvukový senzor, ale v jiném kontextu.",
+    "en": "Students who finish early can try another project on the same board: <a href=\"../instructions/baseline/red/parkovaci-asistent/index.html\">Parking assistant</a>, <a href=\"../instructions/baseline/red/casovac/index.html\">Timer</a> or <a href=\"../instructions/baseline/red/theremin/index.html\">Theremin</a>. Each uses the same ultrasonic sensor in a different way."
+  },
+  "teachers.extensionDisplay": {
+    "cs": "Zobrazovat na displeji aktuální naměřenou vzdálenost.",
+    "en": "Show the current measured distance on the display."
+  },
+  "teachers.extensionThreshold": {
+    "cs": "Upravit práh vzdálenosti, na jakou se závora otevírá.",
+    "en": "Change the distance threshold that opens the barrier."
+  },
+  "teachers.extensionClose": {
+    "cs": "Aby se závora po pár sekundách sama zase zavřela.",
+    "en": "Make the barrier close automatically after a few seconds."
+  },
+  "teachers.extensionsHeading": {
+    "cs": "Rozšíření pro rychlejší žáky.",
+    "en": "Extension tasks."
+  },
+  "teachers.questionCondition": {
+    "cs": "Kde v programu je místo, které rozhoduje, jestli se závora otevře, nebo ne?",
+    "en": "Which part of the program decides whether to open the barrier?"
+  },
+  "teachers.questionServo": {
+    "cs": "Proč servo potřebuje jiný signál než obyčejné rozsvícení LED?",
+    "en": "Why does a servo need a different signal from an LED?"
+  },
+  "teachers.questionSensor": {
+    "cs": "Co se stane, když se ultrazvukový senzor omylem otočí opačným směrem?",
+    "en": "What happens if the ultrasonic sensor points in the wrong direction?"
+  },
+  "teachers.questions": {
+    "cs": "<b>Kontrolní otázky:</b>",
+    "en": "<b>Review questions:</b>"
+  },
+  "teachers.criterion": {
+    "cs": "<b>Funkční kritérium:</b> závora se otevře, když se přiblíží překážka, a zůstane zavřená, když je cesta volná.",
+    "en": "<b>Functional criterion:</b> the barrier opens when an obstacle approaches and stays closed when the path is clear."
+  },
+  "teachers.assessmentHeading": {
+    "cs": "Jak poznat, že to žák pochopil.",
+    "en": "Checking understanding."
+  },
+  "teachers.terms": {
+    "cs": "Servo, PWM, ultrazvukový senzor, vzdálenost, podmínka (if/else), vstup a výstup, ladění (debug). Srozumitelné vysvětlení každého pojmu i s fyzikálním pozadím je v sekci <a href=\"../instructions/jak-to-funguje/index.html\">Jak to funguje pod pokličkou</a>, hodí se jako podklad pro učitele i jako rozšiřující materiál pro rychlejší žáky.",
+    "en": "Servo, PWM, ultrasonic sensor, distance, if/else condition, input and output, debugging. The <a href=\"../instructions/jak-to-funguje/index.html\">How it works</a> section explains the components and their physical principles. Use it for teacher preparation or extension work."
+  },
+  "teachers.termsHeading": {
+    "cs": "Klíčové pojmy.",
+    "en": "Key terms."
+  },
+  "teachers.interactiveGuide": {
+    "cs": "Krok za krokem, s fotkami a řešením nejčastějších chyb u každého kroku, vede žáky samotný <a href=\"../instructions/baseline/red/zavora/index.html\">interaktivní návod na automatickou závoru</a>, obsahuje jednotlivé kroky, kontrolní otázky a diagnostiku. Žák si mezi kroky přepíná sám.",
+    "en": "The <a href=\"../instructions/baseline/red/zavora/index.html\">interactive automatic barrier guide</a> leads students through the project with photos, review questions and diagnostics for common problems. Students move between steps themselves."
+  },
+  "teachers.activity5": {
+    "cs": "Kontrolní otázky a krátký exit ticket.",
+    "en": "Review questions and a short exit ticket."
+  },
+  "teachers.time5": {
+    "cs": "39–45 min",
+    "en": "39–45 min"
+  },
+  "teachers.activity4": {
+    "cs": "Testování a ladění podle diagnostického stromu v návodu.",
+    "en": "Test and debug using the diagnostic tree in the guide."
+  },
+  "teachers.time4": {
+    "cs": "30–39 min",
+    "en": "30–39 min"
+  },
+  "teachers.activity3": {
+    "cs": "Doplnění podmínky do připraveného blokového programu, kompilace a nahrání do RED.",
+    "en": "Complete the condition in the starter block program, compile it and upload it to RED."
+  },
+  "teachers.time3": {
+    "cs": "12–30 min",
+    "en": "12–30 min"
+  },
+  "teachers.activity2": {
+    "cs": "Kontrola připravené sestavené desky, připojení serva a senzoru.",
+    "en": "Check the assembled board and the servo and sensor connections."
+  },
+  "teachers.time2": {
+    "cs": "5–12 min",
+    "en": "5–12 min"
+  },
+  "teachers.activity1": {
+    "cs": "Motivace a ukázka hotové automatické závory.",
+    "en": "Introduce the task and demonstrate a working automatic barrier."
+  },
+  "teachers.time1": {
+    "cs": "0–5 min",
+    "en": "0–5 min"
+  },
+  "teachers.activityColumn": {
+    "cs": "Aktivita",
+    "en": "Activity"
+  },
+  "teachers.timeColumn": {
+    "cs": "Čas",
+    "en": "Time"
+  },
+  "teachers.scheduleHeading": {
+    "cs": "Průběh hodiny.",
+    "en": "Lesson outline."
+  },
+  "teachers.needsDemo": {
+    "cs": "Volitelně: 3D tištěný model auta nebo cokoliv, čemu bude závora bránit v cestě, pro názornější demonstraci.",
+    "en": "Optional: a 3D-printed model car or another object to demonstrate the barrier."
+  },
+  "teachers.needsCable": {
+    "cs": "USB-A na USB-C kabel (součástí každé sady).",
+    "en": "A USB-A to USB-C data cable, included with each kit."
+  },
+  "teachers.needsComputer": {
+    "cs": "Počítač nebo notebook s Chrome nebo Edge pro každou skupinu. Editor Shieldio běží v prohlížeči; kompilátor a knihovny se stáhnou při prvním použití.",
+    "en": "A computer or laptop with desktop Chrome or Edge for each group. The Shieldio editor runs in the browser; the compiler and libraries download on first use."
+  },
+  "teachers.needsBoard": {
+    "cs": "Deska <b>Shieldio RED</b>, sestavená nebo zapájená podle <a href=\"../instructions/baseline/red/sestaveni/index.html\">návodu na sestavení</a>. Pájení plánujte jako samostatnou aktivitu.",
+    "en": "An assembled <b>Shieldio RED</b>, or one students have soldered following the <a href=\"../instructions/baseline/red/sestaveni/index.html\">assembly guide</a>. Plan soldering as a separate activity."
+  },
+  "teachers.needsHeading": {
+    "cs": "Co budete potřebovat.",
+    "en": "What you need."
+  },
+  "teachers.objectiveDebug": {
+    "cs": "Samostatně <b>odladit</b> nefunkční zapojení podle jednoduchého diagnostického postupu (je vidět signál? je servo napájené? apod.).",
+    "en": "<b>Debug</b> a wiring problem using a simple diagnostic procedure: is a signal present, is the servo powered, and so on."
+  },
+  "teachers.objectiveDisplay": {
+    "cs": "Použít <b>OLED displej</b> jako výstup pro zpětnou vazbu z programu.",
+    "en": "Use the <b>OLED display</b> to show feedback from the program."
+  },
+  "teachers.objectiveServo": {
+    "cs": "Vysvětlit, jak délka řídicího pulzu určuje polohu serva.",
+    "en": "Explain how the length of a control pulse sets the servo position."
+  },
+  "teachers.objectiveCondition": {
+    "cs": "Sestavit v blokovém programování <b>podmínku</b> (if/else) reagující na naměřenou hodnotu.",
+    "en": "Build an <b>if/else condition</b> in the block editor that responds to a measured value."
+  },
+  "teachers.objectiveSensor": {
+    "cs": "Vysvětlit, jak <b>ultrazvukový senzor</b> HC-SR04 měří vzdálenost pomocí času letu zvuku.",
+    "en": "Explain how the HC-SR04 <b>ultrasonic sensor</b> measures distance using the travel time of sound."
+  },
+  "teachers.objectiveIO": {
+    "cs": "Popsat vztah <b>vstup → zpracování → výstup</b> na konkrétním příkladu (senzor vzdálenosti → podmínka v programu → pohyb serva).",
+    "en": "Describe <b>input → processing → output</b> using a concrete example: distance sensor → program condition → servo movement."
+  },
+  "teachers.objectivesIntro": {
+    "cs": "Po dokončení projektu žák dokáže:",
+    "en": "After completing the project, students can:"
+  },
+  "teachers.objectivesHeading": {
+    "cs": "Vzdělávací cíle.",
+    "en": "Learning objectives."
+  },
+  "teachers.lessonIntro": {
+    "cs": "Takhle konkrétně vypadá jeden ze zpracovaných projektů pro desku RED, od cílů hodiny po hodnoticí kritéria.",
+    "en": "One documented RED project, from lesson objectives to assessment criteria."
+  },
+  "teachers.lessonHeading": {
+    "cs": "Konkrétní příklad: hodina Automatická závora.",
+    "en": "Example lesson: Automatic barrier."
+  },
+  "teachers.curriculum": {
+    "cs": "<b>Potřebujete podklad pro vlastní ŠVP nebo hodnocení?</b> Níže je zkrácený přehled pro rychlou orientaci. <a href=\"metodika-zavora.html\">Návrh metodického listu</a> obsahuje cíle, vazbu na RVP ZV 2025 a upravitelnou hodnoticí rubriku; před použitím jej přizpůsobte ŠVP a podmínkám své školy.",
+    "en": "<b>Need material for your school curriculum or assessment?</b> The overview below is a starting point. The <a href=\"metodika-zavora.html\">draft methodology sheet (in Czech)</a> includes objectives, links to the Czech RVP ZV 2025 curriculum and an editable assessment rubric. Adapt it to your school curriculum and classroom conditions."
+  },
+  "teachers.firstLesson": {
+    "cs": "Po předchozím ověření školních počítačů: připojení přes USB-C, povolení sériového portu, kompilace a nahrání připraveného programu a následná vlastní úprava projektu.",
+    "en": "After testing the school computers in advance: connect over USB-C, grant access to the serial port, compile and upload the starter program, then modify the project."
+  },
+  "teachers.firstLessonLabel": {
+    "cs": "Jak probíhá první hodina",
+    "en": "The first lesson"
+  },
+  "teachers.contents": {
+    "cs": "<b>Sestavená varianta:</b> deska s modulem kompatibilním s Arduino® Nano, ultrazvukovým senzorem, OLED displejem, servem, tlačítky, bzučákem a 1,5m USB-A na USB-C kabelem. <b>Nesestavená:</b> stejné součástky zvlášť k zapájení.",
+    "en": "<b>Assembled version:</b> a board with an Arduino® Nano-compatible module, ultrasonic sensor, OLED display, servo, buttons, buzzer and a 1.5 m USB-A to USB-C cable. <b>DIY version:</b> the same components supplied separately for soldering."
+  },
+  "teachers.contentsLabel": {
+    "cs": "Co je v balení",
+    "en": "Kit contents"
+  },
+  "teachers.equipment": {
+    "cs": "Desku, USB-A na USB-C kabel, přístup k blokovému editoru v prohlížeči a návod s fotkami, který může procházet po jednotlivých krocích.",
+    "en": "A board, a USB-A to USB-C cable, the browser-based block editor and a photo guide that students can follow one step at a time."
+  },
+  "teachers.equipmentLabel": {
+    "cs": "Co dostane žák",
+    "en": "Student equipment"
+  },
+  "teachers.preparation": {
+    "cs": "Na jednom školním počítači předem otestovat Chrome/Edge, USB port, datový kabel, editor Shieldio a ukázkovou desku. Pro třídu připravit náhradní datový kabel a ideálně jednu záložní desku.",
+    "en": "Test Chrome/Edge, the USB port, a data cable, the Shieldio editor and a sample board on a school computer in advance. Have a spare data cable and, ideally, a spare board ready for the class."
+  },
+  "teachers.preparationLabel": {
+    "cs": "Co musí připravit učitel",
+    "en": "Teacher preparation"
+  },
+  "teachers.programmingLabel": {
+    "cs": "Způsob programování",
+    "en": "Programming mode"
+  },
+  "teachers.softwareLabel": {
+    "cs": "Software",
+    "en": "Software"
+  },
+  "teachers.computerLabel": {
+    "cs": "Požadavky na počítače",
+    "en": "Computer requirements"
+  },
+  "teachers.group": {
+    "cs": "<b>1–2 žáci</b> na jednu desku, ideální pro práci ve dvojicích.",
+    "en": "<b>1–2 students</b> per board, suitable for pair work."
+  },
+  "teachers.groupLabel": {
+    "cs": "Počet žáků na desku",
+    "en": "Students per board"
+  },
+  "teachers.duration": {
+    "cs": "<b>45 minut</b> pro základní variantu s připravenou sestavenou deskou; <b>90 minut</b> pro zapojení, vlastní úpravy a důkladnou reflexi.",
+    "en": "<b>45 minutes</b> for the basic activity with an assembled board ready to use; <b>90 minutes</b> for wiring, custom changes and a fuller discussion of the results."
+  },
+  "teachers.durationLabel": {
+    "cs": "Délka hodiny",
+    "en": "Lesson length"
+  },
+  "teachers.years": {
+    "cs": "<b>RED:</b> typicky 8.–9. třída a SŠ. Green a Yellow jsou zatím koncepty, proto podle nich ještě nelze plánovat školní výuku.",
+    "en": "<b>RED:</b> typically ages 13–19. Green and Yellow are concepts, so they are not yet a basis for planning classroom activities."
+  },
+  "teachers.yearsLabel": {
+    "cs": "Doporučené ročníky",
+    "en": "Suggested school years"
+  },
+  "teachers.age": {
+    "cs": "Deska RED je navržená především pro <b>2. stupeň ZŠ, SŠ a kroužky</b>. U mladších žáků záleží na zkušenosti skupiny a míře podpory učitele.",
+    "en": "RED is designed primarily for <b>lower and upper secondary students and clubs</b>. With younger pupils, suitability depends on the group's experience and the support available from the teacher."
+  },
+  "teachers.ageLabel": {
+    "cs": "Doporučený věk",
+    "en": "Suggested age group"
+  },
+  "teachers.factsHeading": {
+    "cs": "Praktické informace.",
+    "en": "Practical information."
+  },
+  "teachers.lead": {
+    "cs": "Co ověřit na školním počítači, jak připravit desku a jak může vypadat hodina se závorou. Metodický list je návrh k úpravě podle konkrétní třídy.",
+    "en": "What to check on school computers, how to prepare the board and how to structure a barrier project lesson. Adapt the draft lesson plan to your class."
+  },
+  "teachers.heading": {
+    "cs": "Příprava hodiny s RED.",
+    "en": "Preparing a lesson with RED."
+  },
+  "teachers.eyebrow": {
+    "cs": "Pro učitele",
+    "en": "For teachers"
+  },
+  "teachers.stat.duration": {
+    "cs": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Délka tohoto projektu</span><b>45 minut</b> se sestavenou deskou; <b>90 minut</b> v rozšířené variantě",
+    "en": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Project length</span><b>45 minutes</b> with an assembled board; <b>90 minutes</b> for the extended version"
+  },
+  "teachers.stat.difficulty": {
+    "cs": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Náročnost</span><b>Pokročilá</b> (Baseline Red)",
+    "en": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Difficulty</span><b>Advanced</b> (Baseline Red)"
+  },
+  "teachers.stat.age": {
+    "cs": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Doporučený věk</span><b>2. stupeň ZŠ a SŠ</b>, i pro robotický kroužek",
+    "en": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Suggested age group</span><b>Lower and upper secondary students</b>, including robotics clubs"
+  },
+  "teachers.stat.group": {
+    "cs": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Počet žáků</span>skupiny po <b>1–2</b> na jednu desku",
+    "en": "<span class=\"guide-mode-label\" style=\"display:block; margin-bottom:4px;\">Group size</span><b>1–2 students</b> per board"
+  },
+  "red.variants.heading": {
+    "cs": "Plánované varianty RED.",
+    "en": "Planned RED versions."
+  },
+  "red.variants.status": {
+    "cs": "RED V4 testujeme a připravujeme V5. RED se zatím neprodává; přehled popisuje plánované možnosti sestavení. Formulář níže slouží pouze k nezávaznému zjištění zájmu.",
+    "en": "RED V4 is being tested and V5 is in preparation. RED is not on sale yet; this overview describes the planned assembly options. The form below only records non-binding interest."
+  },
+  "red.variants.column": {
+    "cs": "Před prvním programem",
+    "en": "Before the first program"
+  },
+  "red.variants.diy": {
+    "cs": "RED DIY · vlastní pájení",
+    "en": "RED DIY · solder it yourself"
+  },
+  "red.variants.diyText": {
+    "cs": "Součástky je potřeba osadit a zapájet, zkontrolovat polaritu a spoje. Postup najdete v <a href=\"/instructions/baseline/red/sestaveni/\">návodu na sestavení</a>.",
+    "en": "Fit and solder the components, then inspect polarity and joints. Follow the <a href=\"/instructions/baseline/red/sestaveni/\">assembly guide</a>."
+  },
+  "red.variants.ready": {
+    "cs": "RED READY · sestavená deska",
+    "en": "RED READY · assembled board"
+  },
+  "red.variants.readyText": {
+    "cs": "Pájení není součástí programovací hodiny. Předem ověřte datový USB kabel, port a <a href=\"/instructions/programovani/\">první nahrání programu</a>.",
+    "en": "Soldering is not part of the programming lesson. Check the USB data cable, serial port and <a href=\"/instructions/programovani/\">first program upload</a> in advance."
+  },
+  "red.variants.same": {
+    "cs": "Obě varianty používají stejný hardware RED, editor Shieldio a projektové návody. Liší se přípravou desky.",
+    "en": "Both versions use the same RED hardware, Shieldio editor and project guides. The difference is board preparation."
+  },
+  "red.variants.version": {
+    "cs": "Varianta",
+    "en": "Version"
   }
 }

@@ -29,3 +29,30 @@ for(const id of ['zavora','parkovaci-asistent','casovac','theremin']){
  }
 }
 console.log('Site journeys: four RED guides, both languages and both programming modes point to Shieldio and show matching diagnostics.');
+
+const dictionary=JSON.parse(await fs.readFile(new URL('../assets/data/i18n.json',import.meta.url),'utf8'));
+const languageScript=await fs.readFile(new URL('../assets/js/lang.js',import.meta.url),'utf8');
+for(const [path,scope] of [['company/pro-ucitele.html','body'],['products/RED.html','#varianty']]){
+ const html=await fs.readFile(new URL('../'+path,import.meta.url),'utf8');
+ const dom=new JSDOM(html,{url:'https://shieldio.cz/'+path,runScripts:'outside-only'}),w=dom.window;
+ w.localStorage.setItem('shieldio-lang','en');w.fetch=async()=>({json:async()=>dictionary});
+ const translated=new Promise(resolve=>w.document.addEventListener('shieldio-lang-change',resolve,{once:true}));
+ w.eval(languageScript);await translated;
+ assert.equal(w.document.documentElement.lang,'en');
+ const root=w.document.querySelector(scope);
+ for(const el of root.querySelectorAll('[data-i18n]')){
+  const expected=w.document.createElement('div');expected.innerHTML=dictionary[el.dataset.i18n].en;
+  assert.equal(el.textContent,expected.textContent,`${path}: ${el.dataset.i18n} is translated`);
+ }
+ if(path.startsWith('company/')){
+  assert.equal(root.querySelector('h1').textContent,'Preparing a lesson with RED.');
+  assert.ok(!/Příprava hodiny|Doporučený věk|Průběh hodiny|Bezpečnost a pájení/.test(root.textContent));
+ } else assert.match(root.textContent,/RED is not on sale yet/);
+ w.document.querySelector('.lang-toggle').click();assert.equal(w.document.documentElement.lang,'cs');
+ for(const el of root.querySelectorAll('[data-i18n]')){
+  const expected=w.document.createElement('div');expected.innerHTML=dictionary[el.dataset.i18n].cs;
+  assert.equal(el.textContent,expected.textContent,`${path}: Czech text is restored`);
+ }
+ dom.window.close();
+}
+console.log('Site language: actual CS/EN switching translates the full teacher page and RED comparison, including links and availability.');

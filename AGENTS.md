@@ -5,9 +5,9 @@ Web je česky, s runtime přepínáním do angličtiny. Píše se česky, i comm
 
 ## Základní fakta
 
-- **42 HTML souborů**, žádný build proces, žádné node_modules, žádný package.json.
+- **48 HTML souborů hlavního webu**, žádný build proces, žádné node_modules, žádný package.json.
 - Deploy: **`git push` na `main`** → Cloudflare Workers (static assets). Nic víc.
-  Není tu žádný CI krok, který by chytil rozbitou cestu — co pushneš, to je živě.
+  Odkazy, překlady a projektové cesty kontrolují `tests/site-content.test.py` a `tests/site-journeys.test.mjs` v CI.
 - Struktura: `index.html`, `faq.html`, `404.html` v kořeni; složky `products/`,
   `instructions/`, `company/`, `aktuality/`, `edu/`, `assets/`.
 - `assets/css/style.css` je jediný stylesheet pro celý web (~1700 řádků).
@@ -143,8 +143,9 @@ které tvrdily víc, než je pravda. Než napíšeš jakékoli tvrzení, ověř 
 - **Netvrď schopnosti, které nemáš čím doložit.** „Zvládne ji i učitel bez technického
   vzdělání" bylo nahrazeno za „Navrženo tak, aby s ní mohl učit i učitel bez hlubších
   znalostí elektroniky." Rozdíl mezi slibem a záměrem je tady podstatný.
-- **Nedělej z konceptu hotový produkt.** Existuje jen deska **RED** (první série,
-  k předobjednání, 550 Kč DIY / 750 Kč READY / EduSET 5× 3500 Kč).
+- **Nedělej z konceptu hotový produkt.** Existuje deska **RED V4**, kterou testujeme; **V5 připravujeme**.
+  RED se zatím neprodává. Formulář pouze zjišťuje nezávazný zájem, bez objednávky či rezervace.
+  DIY a READY jsou plánované možnosti sestavení; neobnovuj staré ceny nebo předobjednávky.
   **Green a Yellow jsou koncepty**, **PowerAdd je prototyp ve vývoji**, **PRO je koncept**.
   Kdekoli zmíníš „3 úrovně", musí být poblíž jasné, že dvě z nich zatím nejsou.
 - **Stav dostupnosti drž konzistentní napříč VŠEMI výskyty**, včetně JSON-LD.
