@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try { hasManualWork = Boolean(JSON.parse(localStorage.getItem("shieldio-workspace-v1") || "null")?.workspace); } catch {}
   }
   const presetId = Object.hasOwn(PRESETS, requestedPreset) ? requestedPreset
-    : !requestedPreset && !entryParams.has("example") && !hasManualWork ? "blikani" : null;
+    : !requestedPreset && !entryParams.has("example") && !entryParams.has("module") && !entryParams.has("profile") && !hasManualWork ? "blikani" : null;
   const workspaceStorageKey = "shieldio-workspace-v1" + (presetId ? ":preset:" + presetId : "");
   if (presetId) {
     PRESETS[presetId](workspace, loopBlock);

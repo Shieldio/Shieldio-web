@@ -70,6 +70,7 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
 {
   const m=model({serial:true});
   assert.equal(m.get('usbCompatibility').hidden,true);assert.equal(m.get('uploadBtn').disabled,false);
+  assert.equal(m.get('uploadBtn').getAttribute('aria-describedby'),'uploadStatus','Supported upload must not announce the hidden unsupported-browser instructions');
   await m.get('connectBoardBtn').listeners.click();assert.equal(m.counts().portRequests,1);
   assert.equal(m.get('boardConnection').dataset.connected,'true');
   await m.get('connectBoardBtn').listeners.click();assert.equal(m.get('boardConnection').dataset.connected,'false');

@@ -50,7 +50,7 @@ const t = key => (messages[key] || messages.failure)[document.documentElement.la
 const $ = id => document.getElementById(id);
 const supported = "serial" in navigator && window.isSecureContext;
 let selectedPort = null, busy = false, cached = null, worker = null, controller = null, disconnected = false;
-let libraries = [], expanded = false, toolsOpen = false, importedProject = false;
+let libraries = [], expanded = false, toolsOpen = false, importedProject = false, uploadRequested = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
@@ -105,7 +105,7 @@ function paintProject() {
   $("projectTitle").textContent = localized(copy.title);
   $("projectExpected").textContent = localized(copy.expected);
   const next = $("projectNext");
-  next.hidden = !["compiled", "done"].includes(statusKey);
+  next.hidden = !(statusKey === "done" || (statusKey === "compiled" && !uploadRequested));
   next.textContent = statusKey === "done" ? localized(copy.change) : localized(["Další krok: klikni na Spustit na desce. Kontrola sama program do desky neposílá.", "Next: choose Run on board. Checking alone does not send the program to the board."]);
 }
 function setTools(open) {
@@ -125,6 +125,7 @@ function paint() {
   $("boardConnection").textContent = t(selectedPort ? "usbSelected" : supported ? "usbIdle" : "usbUnavailable");
   $("boardConnection").dataset.connected = String(Boolean(selectedPort));
   $("usbCompatibility").hidden = supported;
+  $("uploadBtn").setAttribute("aria-describedby",supported ? "uploadStatus" : "usbCompatibility uploadStatus");
   $("focusEditorBtn").textContent = t(expanded ? "unfocus" : "focus");
   paintProject();
 }
@@ -140,6 +141,7 @@ function setBusy(value) {
   codePanel.inert = value;
   $("uploadProgress").hidden = !value;
   $("programmingStudio").dataset.busy = String(value);
+  paintProject();
 }
 function invalidate() {
   if (cached && cached.source !== source()) {
@@ -255,6 +257,7 @@ function showError(error) {
 }
 async function run(upload) {
   if (busy || (upload && !supported)) return;
+  uploadRequested = upload;
   setBusy(true);
   controller = new AbortController();
   disconnected = false;
@@ -276,7 +279,7 @@ async function run(upload) {
       });
     }
   } catch (error) { showError(controller.signal.aborted && !disconnected ? new Error("CANCELLED") : error); }
-  finally { setBusy(false); controller = null; }
+  finally { uploadRequested = false; setBusy(false); controller = null; }
 }
 $("compileBtn").addEventListener("click", () => run(false));
 $("uploadBtn").addEventListener("click", () => run(true));
