@@ -1,0 +1,39 @@
+name: Nahlásit chybu
+description: Nefungující krok, program, proklik nebo nesprávný údaj.
+title: "[Chyba] "
+body:
+  - type: markdown
+    attributes:
+      value: "Napiš, kde ses zastavil. Nepřidávej hesla, přístupové klíče ani osobní údaje žáků."
+  - type: dropdown
+    id: area
+    attributes:
+      label: Kde je problém?
+      options:
+        - Editor a spuštění programu
+        - Návod nebo zapojení RED
+        - Hlavní web a překlady
+        - Learn
+        - Simulation
+        - Flight360
+        - Light nebo Luxmaxing
+        - Jinde
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Odkaz na stránku
+      placeholder: https://shieldio.cz/...
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Co jsi udělal a co se stalo?
+      description: Přidej krátký postup, přesnou chybovou zprávu a očekávaný výsledek.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Prohlížeč, zařízení a případně revize desky
+      description: U hardwaru přidej revizi PCB, zapojení a program. U webové chyby stačí prohlížeč a zařízení.

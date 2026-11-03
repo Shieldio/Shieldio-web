@@ -64,8 +64,8 @@
     "en": "Educational electronics for schools and home"
   },
   "home.hero.h1": {
-    "cs": "<em>Stavebnice kompatibilní s Arduino®</em> pro školu, kroužek i domácí dílnu.",
-    "en": "An <em>Arduino®-compatible kit</em> for school, clubs, and the home workshop."
+    "cs": "<em>Stavebnice</em> pro školu, kroužek i domácí dílnu.",
+    "en": "<em>An electronics kit</em> for school, clubs, and the home workshop."
   },
   "home.hero.lead": {
     "cs": "Senzor změří vzdálenost, program rozhodne a servo zvedne závoru.",
@@ -92,8 +92,8 @@
     "en": "I want to try it out"
   },
   "home.hero.path3_action": {
-    "cs": "Ukázkový projekt a pracovní list",
-    "en": "Sample project and worksheet"
+    "cs": "Rozblikat první LED",
+    "en": "Make the first LED blink"
   },
   "home.hero.cta_secondary": {
     "cs": "Prohlédnout všechny produkty →",
@@ -488,8 +488,8 @@
     "en": "Start with an LED, servo or the barrier starter program. Advanced blocks and Arduino C++ share the same editor."
   },
   "home.step4.h3": {
-    "cs": "Zkompilovat, nahrát a vyzkoušet",
-    "en": "Compile, upload and test"
+    "cs": "Spustit a sledovat výsledek",
+    "en": "Run and watch the result"
   },
   "home.step4.p": {
     "cs": "Vyberte USB port a nahrajte program do desky. Pak změňte třeba dobu blikání nebo vzdálenost, při které se otevře závora.",
@@ -3600,12 +3600,12 @@
     "en": "Nano · old bootloader (57600)"
   },
   "programming.compile": {
-    "cs": "Zkompilovat",
-    "en": "Compile"
+    "cs": "Zkontrolovat program",
+    "en": "Check program"
   },
   "programming.upload": {
-    "cs": "Nahrát do desky",
-    "en": "Upload to board"
+    "cs": "Spustit na desce",
+    "en": "Run on board"
   },
   "programming.cancel": {
     "cs": "Zrušit",
@@ -3616,8 +3616,8 @@
     "en": "Upload progress"
   },
   "programming.details": {
-    "cs": "Podrobnosti kompilace a nahrávání",
-    "en": "Compiler and upload details"
+    "cs": "Technické podrobnosti",
+    "en": "Technical details"
   },
   "programming.import": {
     "cs": "Otevřít .ino",
@@ -3640,24 +3640,24 @@
     "en": "USB connection"
   },
   "programming.helpUsb": {
-    "cs": "Použij datový USB kabel a Chrome nebo Edge na počítači. Vyber sériový port desky. Pokud se deska nehlásí, zavři sériový monitor v jiném programu a zkus druhý bootloader.",
-    "en": "Use a USB data cable and desktop Chrome or Edge. Select the board’s serial port. If the board does not respond, close any other Serial Monitor and try the other bootloader."
+    "cs": "Použij datový USB kabel a Chrome nebo Edge na počítači. Po kliknutí na Spustit na desce vyber v okně připojenou RED. Pokud si nejsi jistý, porovnej seznam portů před připojením a po něm.",
+    "en": "Use a USB data cable and desktop Chrome or Edge. After choosing Run on board, select the connected RED in the dialog. If unsure, compare the port list before and after connecting it."
   },
   "programming.helpBuildTitle": {
-    "cs": "Kompilace v prohlížeči",
-    "en": "Compile in your browser"
+    "cs": "Co dělá kontrola programu",
+    "en": "What checking does"
   },
   "programming.helpBuild": {
-    "cs": "Při prvním použití se stáhne kompilátor a knihovny. Tvůj kód zůstává v počítači. Součástí jsou ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vlastní C++ knihovny pro AVR přidáš v nabídce Knihovny.",
-    "en": "The compiler and libraries download on first use. Your code stays on your computer. ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX and SSD1306 are included. Add your own AVR C++ libraries from the Libraries menu."
+    "cs": "Zkontrolovat program připraví soubor pro desku, ale nic do ní neposílá. Spustit na desce provede přípravu i nahrání. Teprve potom sleduj LED, displej nebo servo. Příprava neověří, zda program dělá to, co jsi zamýšlel.",
+    "en": "Check program prepares a file without sending it to the board. Run on board prepares and uploads it. Then watch the LED, display or servo. Preparation does not prove the program does what you intended."
   },
   "programming.helpCodeTitle": {
     "cs": "Bloky a vlastní kód",
     "en": "Blocks and your own code"
   },
   "programming.helpCode": {
-    "cs": "Při prvním otevření Arduino C++ se převezme kód z bloků. Potom zůstávají obě verze oddělené. Vlastní kód se překládá jako C++: funkce deklaruj před prvním použitím. Bloky i kód si ukládej do souboru.",
-    "en": "The first time you open Arduino C++, it copies the code from your blocks. After that, the two versions stay separate. Custom code compiles as C++: declare functions before their first use. Save your blocks and code to files."
+    "cs": "Další nástroje otevřou Arduino C++, ukládání a knihovny. Při prvním přepnutí do C++ se převezme kód z bloků; další úpravy obou verzí jsou oddělené. Vlastní funkce deklaruj před použitím a práci si ukládej do souboru.",
+    "en": "More tools opens Arduino C++, saving and libraries. The first switch to C++ copies the blocks; later edits to the two versions are separate. Declare custom functions before use and save your work to a file."
   },
   "programming.hardwareTitle": {
     "cs": "Piny odpovídají desce RED",
@@ -3704,12 +3704,12 @@
     "en": "Board bootloader"
   },
   "programming.browserTitle": {
-    "cs": "Tady můžeš programovat a kompilovat.",
-    "en": "You can program and compile here."
+    "cs": "Program upravíš i tady. Do desky ho pošli z počítače.",
+    "en": "You can edit here. Use a computer to send it to the board."
   },
   "programming.browserHelp": {
-    "cs": "Tento prohlížeč nepodporuje přímé USB nahrávání. Pro nahrání bez pomocné aplikace otevři editor v Chrome nebo Edge na počítači. Rozpracovaný program si přenes uložením bloků nebo souboru .ino.",
-    "en": "This browser does not support direct USB upload. To upload without a helper app, open the editor in desktop Chrome or Edge. Transfer your work by saving your blocks or an .ino file."
+    "cs": "Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači a připoj desku datovým USB kabelem. Svůj program přeneseš přes Další nástroje → Soubor → Uložit bloky nebo Uložit .ino.",
+    "en": "To run on RED, use desktop Chrome or Edge and a USB data cable. Transfer your work through More tools → File → Save blocks or Save .ino."
   },
   "programming.files": {
     "cs": "Program",
@@ -3776,8 +3776,8 @@
     "en": "Universal Arduino"
   },
   "programming.module": {
-    "cs": "Modul",
-    "en": "Module"
+    "cs": "Chci ovládat",
+    "en": "Control"
   },
   "programming.moduleAll": {
     "cs": "Všechny moduly",
@@ -3816,20 +3816,20 @@
     "en": "Fit program"
   },
   "programming.shortcuts": {
-    "cs": "Tab: odsazení · Ctrl/⌘ + Enter: kompilace · + Shift: nahrání",
-    "en": "Tab: indent · Ctrl/⌘ + Enter: compile · + Shift: upload"
+    "cs": "Tab: odsazení · Ctrl/⌘ + Enter: kontrola · + Shift: spuštění na desce",
+    "en": "Tab: indent · Ctrl/⌘ + Enter: check · + Shift: run on board"
   },
   "start.title": {
-    "cs": "První program a nahrání do RED | Shieldio",
-    "en": "First program and RED upload | Shieldio"
+    "cs": "Rozblikej LED na RED | Shieldio",
+    "en": "Make an LED blink on RED | Shieldio"
   },
   "start.heading": {
-    "cs": "První program do RED.",
-    "en": "Your first program on RED."
+    "cs": "Rozblikej LED. Pak změň její rytmus.",
+    "en": "Make an LED blink. Then change its rhythm."
   },
   "start.lead": {
-    "cs": "Bloky, kompilace i nahrávání jsou v editoru Shieldio. Potřebuješ sestavenou RED s Nano / ATmega328P, datový USB kabel a Chrome nebo Edge na počítači.",
-    "en": "Blocks, compilation and upload share the Shieldio editor. You need an assembled RED with Nano / ATmega328P, a USB data cable and desktop Chrome or Edge."
+    "cs": "Začneš hotovým programem. Na sestavené RED rozblikáš zelenou LED a pak změníš, jak rychle bliká. Potřebuješ datový USB kabel a Chrome nebo Edge na počítači.",
+    "en": "Start with a prepared program. Make the green LED on an assembled RED blink, then change its speed. You need a USB data cable and desktop Chrome or Edge."
   },
   "start.open": {
     "cs": "Otevřít blikání LED",
@@ -3840,8 +3840,8 @@
     "en": "Choose another project"
   },
   "start.firstDownload": {
-    "cs": "Při první kompilaci se stáhne kompilátor a knihovny. Počítej s připojením k internetu; ve školní síti musí být dostupné cdn.jsdelivr.net a unpkg.com. Tvůj program se překládá v počítači, neposílá se ke kompilaci na server.",
-    "en": "The compiler and libraries download on first compilation. You need internet access, including cdn.jsdelivr.net and unpkg.com on school networks. Your program is compiled on your computer, not sent to a compilation server."
+    "cs": "Při prvním spuštění editor stáhne nástroje pro přípravu programu. Potřebuje internet a přístup k cdn.jsdelivr.net a unpkg.com. Program se připravuje v počítači. Bloky si uložíš přes Další nástroje → Soubor → Uložit bloky.",
+    "en": "On first use, the editor downloads tools to prepare the program. It needs internet access to cdn.jsdelivr.net and unpkg.com. Preparation runs on your computer. Save blocks through More tools → File → Save blocks."
   },
   "start.step1": {
     "cs": "1. Podívej se na program",
@@ -3852,28 +3852,28 @@
     "en": "The example switches the green D6 LED on, waits 500 ms, switches it off and waits 500 ms. The loop repeats this sequence. Type time directly into the field. Module selection changes the toolbox, not your program."
   },
   "start.step2": {
-    "cs": "2. Připoj RED",
-    "en": "2. Connect RED"
+    "cs": "1. Připoj RED k počítači",
+    "en": "1. Connect RED to your computer"
   },
   "start.step2Text": {
-    "cs": "Připoj desku datovým USB kabelem a klikni na <b>Připojit desku</b>. Vyber port odpovídající desce. Pokud si nejsi jistý, porovnej seznam před připojením a po něm. Stejný port nesmí mít otevřený jiný program.",
-    "en": "Connect the board using a USB data cable and click <b>Connect board</b>. Choose its serial port. If unsure, compare the list before and after connecting. Another program must not hold the port open."
+    "cs": "Zapoj sestavenou RED datovým USB kabelem. Otevři připravený program přes tlačítko nahoře. V blocích zatím nic neměň.",
+    "en": "Connect an assembled RED using a USB data cable. Open the prepared program with the button above. Leave the blocks unchanged for now."
   },
   "start.step3": {
-    "cs": "3. Zkompiluj a nahraj",
-    "en": "3. Compile and upload"
+    "cs": "2. Spusť program a najdi zelenou LED",
+    "en": "2. Run the program and find the green LED"
   },
   "start.step3Text": {
-    "cs": "<b>Zkompilovat</b> zkontroluje program a vytvoří HEX, ale do desky nic nezapíše. <b>Nahrát do desky</b> provede kompilaci, zápis i kontrolu zapsaných dat. Po úspěchu začne LED blikat. Během nahrávání neodpojuj kabel.",
-    "en": "<b>Compile</b> checks the program and creates HEX without writing to the board. <b>Upload to board</b> compiles, writes and verifies the data. After success, the LED starts blinking. Keep the cable connected during upload."
+    "cs": "Klikni na <b>Spustit na desce</b> a v okně vyber připojenou RED. Počkej na <b>Nahráno</b>; kabel neodpojuj. Pak sleduj zelenou LED: půl sekundy svítí a půl sekundy nesvítí. Samotná kontrola programu LED nespustí.",
+    "en": "Choose <b>Run on board</b> and select the connected RED in the dialog. Wait for <b>Uploaded</b>; keep the cable connected. Watch the green LED: half a second on, half a second off. Checking alone does not start the LED."
   },
   "start.step4": {
-    "cs": "4. Změň jednu hodnotu",
-    "en": "4. Change one value"
+    "cs": "3. Zpomal blikání",
+    "en": "3. Slow the blinking down"
   },
   "start.step4Text": {
-    "cs": "Přepiš obě čekání třeba na 1000 ms, znovu nahraj a porovnej výsledek. Přes <b>Zobrazit kód</b> uvidíš Arduino C++, které blokům odpovídá. V nabídce <b>Soubor</b> uložíš bloky, .ino nebo zkompilovaný .hex.",
-    "en": "Change both waits to 1000 ms, upload again and compare. <b>Show code</b> displays the generated Arduino C++. The <b>File</b> menu saves blocks, .ino or the compiled .hex."
+    "cs": "Odhadni, co se stane, když obě čísla <b>500</b> změníš na <b>1000</b>. Změň je a znovu klikni na <b>Spustit na desce</b>. Bliká LED podle tvého odhadu? Pak zkus vlastní čas.",
+    "en": "Predict what will happen if you change both <b>500</b> values to <b>1000</b>. Change them and choose <b>Run on board</b> again. Does the LED match your prediction? Then try your own time."
   },
   "start.trouble": {
     "cs": "Port nebo nahrávání nefunguje",
@@ -3884,20 +3884,20 @@
     "en": "Check the data cable, another USB port and school account permissions. A charging-only cable cannot transfer a program."
   },
   "start.bootloader": {
-    "cs": "V <b>Nastavení desky</b> je Optiboot 115200 a starý Nano bootloader 57600. Pokud deska neodpovídá, zkus druhou volbu. Výběr bootloaderu není změna firmwaru bootloaderu.",
-    "en": "<b>Board settings</b> offers Optiboot 115200 and old Nano bootloader 57600. Try the other option if the board does not respond. This setting does not replace the bootloader itself."
+    "cs": "Pokud deska neodpovídá, otevři <b>Další nástroje → Nastavení desky</b> a zkus druhý bootloader. Volby jsou Optiboot 115200 a starý Nano 57600; tím bootloader v desce nepřepisuješ.",
+    "en": "If the board does not respond, open <b>More tools → Board settings</b> and try the other bootloader. Options are Optiboot 115200 and old Nano 57600; this does not replace the board bootloader."
   },
   "start.details": {
-    "cs": "Rozbal podrobnosti kompilace a nahrávání. Při chybě v C++ zkontroluj uvedený řádek; při problému s USB nejdřív kabel a port.",
-    "en": "Expand compilation and upload details. For C++ errors, check the reported line; for USB problems, check the cable and port first."
+    "cs": "Pod zprávou otevři <b>Technické podrobnosti</b>. U chyby programu najdeš řádek; při problému s USB ověř nejdřív kabel a port.",
+    "en": "Open <b>Technical details</b> below the message. Program errors include a line; for USB problems check the cable and port first."
   },
   "start.advanced": {
     "cs": "Vlastní C++, knihovny a jiný hardware",
     "en": "Custom C++, libraries and other hardware"
   },
   "start.advancedText": {
-    "cs": "Ruční program vlož do <b>Arduino C++</b> nebo otevři soubor .ino. Funkce deklaruj před použitím. ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX a SSD1306 jsou připravené. Vlastní C++ knihovnu pro AVR přidej přes <b>Knihovny → Přidat složku knihovny</b>; nejdřív rozbal ZIP. Import zatím nepodporuje C a assembler.",
-    "en": "Paste a program into <b>Arduino C++</b> or open an .ino file. Declare functions before use. ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX and SSD1306 are included. Import an AVR C++ library through <b>Libraries → Add library folder</b>; extract its ZIP first. C and assembly imports are not supported yet."
+    "cs": "Otevři <b>Další nástroje</b>. Vlastní kód vlož do <b>Arduino C++</b> nebo načti soubor .ino. Vlastní funkce deklaruj před použitím. C++ knihovnu pro AVR přidej přes <b>Knihovny → Přidat složku knihovny</b>; ZIP nejdřív rozbal. C, assembler a předkompilované knihovny zatím nepodporujeme.",
+    "en": "Open <b>More tools</b>. Enter code in <b>Arduino C++</b> or open an .ino file. Declare custom functions before use. Add an AVR C++ library through <b>Libraries → Add library folder</b>; unzip it first. C, assembly and precompiled libraries are not yet supported."
   },
   "start.target": {
     "cs": "Univerzální bloky nevyužívají přednastavené piny RED. Kompilátor a nahrávač ale zatím cílí na klasické Nano s ATmega328P, nikoli Nano Every, Nano 33 nebo ESP32.",
@@ -4582,5 +4582,457 @@
   "home.photo.additional3": {
     "cs": "Zadní strana krytu desky Shieldio RED s vyraženým nápisem Shieldio baseline RED",
     "en": "Back of the Shieldio RED enclosure with embossed Shieldio baseline RED lettering"
+  },
+  "programming.tools": {
+    "cs": "Další nástroje",
+    "en": "More tools"
+  },
+  "start.downloadLabel": {
+    "cs": "První načtení a ukládání práce",
+    "en": "First load and saving your work"
+  },
+  "student.card.led.title": {
+    "cs": "1. Rozblikej zelenou LED",
+    "en": "1. Make the green LED blink"
+  },
+  "student.card.led.body": {
+    "cs": "Otevři připravené blikání a zvol <b>Spustit na desce</b>. Zelená LED se střídavě rozsvítí a zhasne. Pak změň obě čekání z 500 na 1000 ms a spusť znovu.",
+    "en": "Open the prepared blink program and choose <b>Run on board</b>. The green LED turns on and off. Then change both waits from 500 to 1000 ms and run it again."
+  },
+  "student.card.led.action": {
+    "cs": "Otevřít blikání LED →",
+    "en": "Open LED blink →"
+  },
+  "student.card.barrier.title": {
+    "cs": "2. Automatická závora",
+    "en": "2. Automatic barrier"
+  },
+  "student.card.barrier.body": {
+    "cs": "Připrav senzor a servo podle návodu. Předmět blíž než 15 cm přepne polohu serva; ověř, že se tvoje závora otevírá. Pak změň hranici vzdálenosti. Foto ukazuje prototyp.",
+    "en": "Connect the sensor and servo using the guide. An object closer than 15 cm changes the servo position; check that your barrier opens. Then change the distance threshold. The photo shows a prototype."
+  },
+  "student.card.barrier.action": {
+    "cs": "Připravit a rozhýbat závoru →",
+    "en": "Prepare and move the barrier →"
+  },
+  "student.card.parking.title": {
+    "cs": "3. Parkovací asistent",
+    "en": "3. Parking assistant"
+  },
+  "student.card.parking.body": {
+    "cs": "Spusť připravený program podle návodu. V 20 cm svítí zelená LED, v 10 cm červená; OLED ukazuje vzdálenost. Pak změň jeden práh. Na fotografii je samotný senzor.",
+    "en": "Run the prepared program using the guide. At 20 cm the green LED lights, at 10 cm the red LED lights; the OLED shows distance. Then change one threshold. The photo shows only the sensor."
+  },
+  "student.card.parking.action": {
+    "cs": "Vyzkoušet vzdálenost a LED →",
+    "en": "Try distance and LEDs →"
+  },
+  "student.card.meter.title": {
+    "cs": "Digitální metr",
+    "en": "Digital ruler"
+  },
+  "student.card.meter.body": {
+    "cs": "Podle návodu spusť měření a posuň předmět před senzorem: na OLED se změní vzdálenost v cm. Pak změň polohu předmětu a porovnej údaj s pravítkem. Foto ukazuje senzor.",
+    "en": "Run the measurement using the guide and move an object in front of the sensor: the OLED distance in cm changes. Then move the object and compare the reading with a ruler. The photo shows the sensor."
+  },
+  "student.card.meter.action": {
+    "cs": "Spustit měření podle návodu →",
+    "en": "Run the measurement with the guide →"
+  },
+  "student.card.theremin.title": {
+    "cs": "Theremin – bezdotykový nástroj",
+    "en": "Theremin – touchless instrument"
+  },
+  "student.card.theremin.body": {
+    "cs": "Sestav program podle zadání v návodu. Pohybem ruky před senzorem měň tón bzučáku. Pak uprav rozsah tónů. Na fotografii je bzučák, ne hotový nástroj.",
+    "en": "Build the program from the task in the guide. Move your hand in front of the sensor to change the buzzer pitch. Then adjust the pitch range. The photo shows the buzzer, not a finished instrument."
+  },
+  "student.card.theremin.action": {
+    "cs": "Otevřít zadání nástroje →",
+    "en": "Open the instrument task →"
+  },
+  "student.card.timer.title": {
+    "cs": "Časovač",
+    "en": "Timer"
+  },
+  "student.card.timer.body": {
+    "cs": "V návodu si zvol, který pohyb měření spustí a který zastaví. Sestav program a sleduj čas na OLED. Pak změň spouštěcí vzdálenost. Foto ukazuje detail desky.",
+    "en": "Use the guide to choose which movement starts and stops timing. Build the program and watch the time on the OLED. Then change the trigger distance. The photo shows a board detail."
+  },
+  "student.card.timer.action": {
+    "cs": "Otevřít zadání časovače →",
+    "en": "Open the timer task →"
+  },
+  "student.card.radar.title": {
+    "cs": "Ultrazvukový radar · rozšíření",
+    "en": "Ultrasonic radar · extension"
+  },
+  "student.card.radar.body": {
+    "cs": "Nejdřív připrav vlastní držák a vodiče podle návodu. Cílem je otáčet senzorem a zobrazit body na OLED; pak změň krok otáčení. Foto ukazuje jen senzor, ne hotový radar.",
+    "en": "First prepare your own mount and wiring using the guide. The aim is to rotate the sensor and display points on the OLED; then change the rotation step. The photo shows only the sensor, not a finished radar."
+  },
+  "student.card.radar.action": {
+    "cs": "Prohlédnout díly a postup →",
+    "en": "View the parts and steps →"
+  },
+  "student.eyebrow": {
+    "cs": "RED · první výsledek",
+    "en": "RED · your first result"
+  },
+  "student.heading": {
+    "cs": "Nejdřív rozblikej <em>LED</em>.",
+    "en": "Start with a <em>blinking LED</em>."
+  },
+  "student.lead": {
+    "cs": "Se sestavenou deskou začni blikáním. Potom rozhýbej závoru nebo nech LED reagovat na vzdálenost.",
+    "en": "With an assembled board, start with blinking. Then move a barrier or make LEDs respond to distance."
+  },
+  "student.start": {
+    "cs": "Otevřít připravené blikání",
+    "en": "Open the prepared blink program"
+  },
+  "student.help": {
+    "cs": "Potřebuji pomoct s prvním spuštěním",
+    "en": "Help with my first run"
+  },
+  "student.computer": {
+    "cs": "Pro spuštění použij počítač s Chrome nebo Edge a datový USB kabel.",
+    "en": "To run on the board, use a computer with Chrome or Edge and a data USB cable."
+  },
+  "student.run.heading": {
+    "cs": "Jak spustit program na desce",
+    "en": "How to run a program on the board"
+  },
+  "student.run.steps": {
+    "cs": "<li>Připoj sestavenou RED datovým USB kabelem.</li><li>Zvol <b>Spustit na desce</b> a podle výzvy vyber port RED. Počkej na dokončení nahrávání.</li><li>Sleduj zelenou LED. Změň obě čekání z 500 na 1000 ms a spusť znovu: blikání bude pomalejší.</li>",
+    "en": "<li>Connect an assembled RED with a data USB cable.</li><li>Choose <b>Run on board</b> and select the RED port when prompted. Wait for the upload to finish.</li><li>Watch the green LED. Change both waits from 500 to 1000 ms and run again: blinking will be slower.</li>"
+  },
+  "student.check": {
+    "cs": "<b>Zkontrolovat program</b> připraví program, ale do desky nic nenahraje. Výsledek ověříš až na desce.",
+    "en": "<b>Check program</b> prepares the program without uploading it. Test the result on the board."
+  },
+  "student.route": {
+    "cs": "LED → závora → senzor",
+    "en": "LED → barrier → sensor"
+  },
+  "student.ready": {
+    "cs": "Už máš zapojeno podle návodu? Otevři přímo <a href=\"/instructions/blokovy-editor.html?preset=zavora\">program závory</a> nebo <a href=\"/instructions/blokovy-editor.html?preset=parkovani&amp;module=all\">program parkovacího asistenta</a>.",
+    "en": "Already connected everything using the guide? Open the <a href=\"/instructions/blokovy-editor.html?preset=zavora\">barrier program</a> or <a href=\"/instructions/blokovy-editor.html?preset=parkovani&amp;module=all\">parking assistant program</a> directly."
+  },
+  "student.more": {
+    "cs": "Až zvládneš první projekty",
+    "en": "After your first projects"
+  },
+  "student.prep.heading": {
+    "cs": "Deska ještě není sestavená?",
+    "en": "Board not assembled yet?"
+  },
+  "student.prep.body": {
+    "cs": "Nejdřív ověř revizi PCB. Veřejný fotonávod a osazovací tabulka jsou pro <b>RED V3</b>; BOM pro V4 zde zatím není. Pro jinou revizi si vyžádej její podklady.",
+    "en": "First check the PCB revision. The public photo guide and bill of materials cover <b>RED V3</b>; a V4 BOM is not yet available here. Request the documentation for any other revision."
+  },
+  "student.prep.build": {
+    "cs": "Sestavit RED V3",
+    "en": "Assemble RED V3"
+  },
+  "student.prep.parts": {
+    "cs": "Součástky a zapojení V3",
+    "en": "V3 parts and wiring"
+  },
+  "student.status": {
+    "cs": "RED V4 testujeme a připravujeme V5. Green, Yellow a PRO jsou koncepty. <a href=\"/products/index.html\">Stav desek →</a>",
+    "en": "We are testing RED V4 and preparing V5. Green, Yellow and PRO are concepts. <a href=\"/products/index.html\">Board status →</a>"
+  },
+  "student.red.lead": {
+    "cs": "Začněte blikající LED. Potom nechte senzor zvednout závoru nebo ukázat vzdálenost na OLED. RED má senzor, servo i displej na jedné desce.",
+    "en": "Start with a blinking LED. Then use the sensor to lift a barrier or show distance on the OLED. RED has the sensor, servo and display on one board."
+  },
+  "student.red.start": {
+    "cs": "Začít blikáním LED",
+    "en": "Start with LED blink"
+  },
+  "student.red.eyebrow": {
+    "cs": "Od prvního bliknutí k vlastní změně",
+    "en": "From the first blink to your own change"
+  },
+  "student.red.heading": {
+    "cs": "Nejdřív LED, potom závora a senzor.",
+    "en": "First the LED, then the barrier and sensor."
+  },
+  "student.red.led.title": {
+    "cs": "Blikající zelená LED",
+    "en": "Blinking green LED"
+  },
+  "student.red.led.body": {
+    "cs": "Otevřete připravený program a zvolte <b>Spustit na desce</b>. Zelená LED bliká. Změňte obě čekání z 500 na 1000 ms a spusťte znovu: blikání zpomalí. Obrázek ukazuje editor.",
+    "en": "Open the prepared program and choose <b>Run on board</b>. The green LED blinks. Change both waits from 500 to 1000 ms and run again: blinking slows down. The image shows the editor."
+  },
+  "student.red.led.link": {
+    "cs": "Otevřít blikání LED →",
+    "en": "Open LED blink →"
+  },
+  "student.red.project1.body": {
+    "cs": "Otevřete návod a spusťte startovní program. Předmět pod 15 cm zvedne závoru. Pak změňte práh 15 cm. Foto ukazuje skutečný prototyp.",
+    "en": "Open the guide and run the starter program. An object within 15 cm lifts the barrier. Then change the 15 cm threshold. The photo shows the actual prototype."
+  },
+  "student.red.project2.body": {
+    "cs": "Podle návodu spusťte připravený program: v 20 cm svítí zelená LED, v 10 cm červená a OLED ukazuje vzdálenost. Pak změňte jeden práh. Foto ukazuje samotný senzor.",
+    "en": "Run the prepared program using the guide: at 20 cm the green LED lights, at 10 cm the red LED lights and the OLED shows distance. Then change one threshold. The photo shows only the sensor."
+  },
+  "student.red.project3.body": {
+    "cs": "Sestavte program podle zadání v návodu. Pohyb ruky mění tón bzučáku; pak upravte rozsah tónů. Foto ukazuje bzučák, ne hotový nástroj.",
+    "en": "Build the program from the task in the guide. Hand movement changes the buzzer pitch; then adjust the pitch range. The photo shows the buzzer, not a finished instrument."
+  },
+  "student.red.project4.body": {
+    "cs": "Podle zadání sestavte program pro měření času na OLED. Ověřte zvolený pohyb pro spuštění a zastavení, pak změňte práh vzdálenosti. Foto ukazuje detail desky.",
+    "en": "Build a program from the task to show timing on the OLED. Check your chosen start and stop movements, then change the distance threshold. The photo shows a board detail."
+  },
+  "student.red.project5.body": {
+    "cs": "Spusťte měření podle návodu a posuňte předmět: OLED ukáže změnu vzdálenosti v cm. Pak porovnejte údaj s pravítkem. Foto ukazuje použitý displej.",
+    "en": "Run the measurement using the guide and move an object: the OLED shows the change in distance in cm. Then compare the reading with a ruler. The photo shows the display used."
+  },
+  "student.red.project6.body": {
+    "cs": "Rozšíření vyžaduje vlastní držák a vodiče. Podle návodu připravte otáčení senzoru a body na OLED; pak změňte krok otáčení. Foto ukazuje jen senzor.",
+    "en": "This extension needs your own mount and wiring. Use the guide to prepare sensor rotation and points on the OLED; then change the rotation step. The photo shows only the sensor."
+  },
+  "student.red.barrier.guide": {
+    "cs": "Připravit a rozhýbat závoru →",
+    "en": "Prepare and move the barrier →"
+  },
+  "student.red.parking.guide": {
+    "cs": "Vyzkoušet vzdálenost a LED →",
+    "en": "Try distance and LEDs →"
+  },
+  "student.red.parking.program": {
+    "cs": "Připravený program →",
+    "en": "Prepared program →"
+  },
+  "student.red.barrier.program": {
+    "cs": "Startovní program →",
+    "en": "Starter program →"
+  },
+  "student.red.projects": {
+    "cs": "Všechny projekty a příprava desky",
+    "en": "All projects and board preparation"
+  },
+  "student.red.check": {
+    "cs": "Máte sestavenou RED? Připojte ji datovým USB kabelem k počítači s Chrome nebo Edge. <b>Spustit na desce</b> program zkontroluje a nahraje. Samotné <b>Zkontrolovat program</b> do desky nic nezapíše.",
+    "en": "Have an assembled RED? Connect it with a data USB cable to a computer with Chrome or Edge. <b>Run on board</b> checks and uploads the program. <b>Check program</b> alone writes nothing to the board."
+  },
+  "student.red.specs.summary": {
+    "cs": "Součástky a technické údaje RED",
+    "en": "RED components and technical details"
+  },
+  "legal2026.menu": {
+    "cs": "Otevřít menu",
+    "en": "Open menu"
+  },
+  "legal2026.terms.summary": {
+    "cs": "Shieldio je studentský vzdělávací projekt. RED se zatím neprodává. Zprávou ani formulářem zájmu si nic neobjednáte a nic neplatíte.",
+    "en": "Shieldio is a student educational project. RED is not for sale yet. Sending a message or interest form does not order anything or require payment."
+  },
+  "legal2026.terms.toc": {
+    "cs": "<a href=\"#projekt\">Projekt a kontakt</a> · <a href=\"#zajem\">Formuláře</a> · <a href=\"#navody\">Návody a editor</a> · <a href=\"#prava\">Práva a obsah</a>",
+    "en": "<a href=\"#projekt\">Project and contact</a> · <a href=\"#zajem\">Forms</a> · <a href=\"#navody\">Guides and editor</a> · <a href=\"#prava\">Rights and content</a>"
+  },
+  "legal2026.terms.summary_h": {
+    "cs": "Co je dobré vědět",
+    "en": "At a glance"
+  },
+  "legal2026.terms.project": {
+    "cs": "Shieldio je studentský vývojový a vzdělávací projekt. Web provozuje Adam Hlásný. Dotazy a chyby na webu můžete poslat na <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>.",
+    "en": "Shieldio is a student development and educational project. The website is operated by Adam Hlásný. Send questions and website errors to <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>."
+  },
+  "legal2026.terms.project_h": {
+    "cs": "Projekt a kontakt",
+    "en": "Project and contact"
+  },
+  "legal2026.terms.forms": {
+    "cs": "Kontaktní formulář slouží k dotazům a domluvě ukázky. <a href=\"../products/RED.html#zajem\">Formulář zájmu o RED</a> pouze zjišťuje nezávazný zájem. Odesláním nevzniká objednávka, rezervace, kupní smlouva ani povinnost produkt koupit nebo dodat. Web nyní nepřijímá platby a nenabízí prodej ani dopravu.",
+    "en": "The contact form is for questions and arranging a demonstration. The <a href=\"../products/RED.html#zajem\">RED interest form</a> only records non-binding interest. Submission creates no order, reservation, purchase contract or obligation to buy or supply a product. The website currently accepts no payments and offers no sales or shipping."
+  },
+  "legal2026.terms.forms_h": {
+    "cs": "Zpráva ani zájem nejsou objednávka",
+    "en": "A message or expression of interest is not an order"
+  },
+  "legal2026.terms.guides": {
+    "cs": "Návody a ukázky slouží k učení a experimentování. Před zapojením odpojte napájení a zkontrolujte zapojení podle návodu. Pokud si nejste jisti, požádejte učitele nebo zkušeného dospělého. Chybu v návodu nám prosím nahlaste.",
+    "en": "Guides and examples support learning and experimentation. Disconnect power before wiring and check the circuit against the guide. If unsure, ask a teacher or experienced adult. Please report any errors in a guide."
+  },
+  "legal2026.terms.editor": {
+    "cs": "Editor skládá program z bloků nebo Arduino C++ a kompiluje ho v prohlížeči. Pro nahrání do desky vybíráte USB sériový port v dialogu prohlížeče. Než program spustíte, zkontrolujte připojenou desku i to, co program ovládá. Uložte si vlastní kopii práce; data prohlížeče lze smazat.",
+    "en": "The editor builds a program from blocks or Arduino C++ and compiles it in your browser. To upload to a board, you select a USB serial port in the browser dialog. Before running a program, check the connected board and what the program controls. Save your own copy of your work; browser data can be deleted."
+  },
+  "legal2026.terms.guides_h": {
+    "cs": "Návody, editor a bezpečná práce",
+    "en": "Guides, editor and safe use"
+  },
+  "legal2026.terms.rights": {
+    "cs": "Tyto podmínky neomezují práva ani odpovědnost, které podle zákona nelze vyloučit. Vzdělávací účel materiálů sám o sobě taková práva neruší.",
+    "en": "These terms do not limit rights or liability that cannot be excluded by law. The educational purpose of the materials does not remove those rights."
+  },
+  "legal2026.terms.links": {
+    "cs": "Odkazy na externí služby otevírají weby s vlastními pravidly. Názvy třetích stran popisují kompatibilitu nebo zdroj, nikoli partnerství, certifikaci či podporu. Arduino® je ochranná známka Arduino SA; Shieldio není oficiálním produktem Arduino.",
+    "en": "Links to external services open websites with their own rules. Third-party names describe compatibility or a source, rather than a partnership, certification or endorsement. Arduino® is a trademark of Arduino SA; Shieldio is not an official Arduino product."
+  },
+  "legal2026.terms.rights_h": {
+    "cs": "Obsah, odkazy a vaše práva",
+    "en": "Content, links and your rights"
+  },
+  "legal2026.terms.privacy": {
+    "cs": "Jak fungují formuláře, místní ukládání a externí služby, popisují <a href=\"privacy.html\">Zásady ochrany osobních údajů</a>. Používání webu ani odeslání zprávy není automatickým souhlasem s jiným zpracováním nebo marketingem.",
+    "en": "The <a href=\"privacy.html\">Privacy Policy</a> explains forms, local storage and external services. Website use or sending a message does not automatically consent to other processing or marketing."
+  },
+  "legal2026.terms.privacy_h": {
+    "cs": "Osobní údaje",
+    "en": "Personal data"
+  },
+  "legal2026.terms.title": {
+    "cs": "Podmínky používání webu | Shieldio",
+    "en": "Website terms of use | Shieldio"
+  },
+  "legal2026.terms.eyebrow": {
+    "cs": "Právní informace",
+    "en": "Legal information"
+  },
+  "legal2026.terms.h1": {
+    "cs": "Podmínky používání webu Shieldio",
+    "en": "Shieldio website terms of use"
+  },
+  "legal2026.terms.lead": {
+    "cs": "Pravidla pro web a vzdělávací materiály. Aktualizováno 3. listopadu 2026.",
+    "en": "Rules for the website and educational materials. Updated 3 November 2026."
+  },
+  "legal2026.privacy.summary": {
+    "cs": "Pro čtení návodů nepotřebuješ účet. Když odešleš formulář, údaje odejdou přes Web3Forms, abychom mohli vyřídit zprávu. Editor ukládá práci v tomto prohlížeči; kompilace probíhá místně. Externí služby ale při načítání webu nebo nástrojů dostávají technické údaje o připojení.",
+    "en": "You do not need an account to read the guides. When you submit a form, its data goes through Web3Forms so we can handle your message. The editor saves work in this browser and compiles locally. External services still receive technical connection data when the website or tools load."
+  },
+  "legal2026.privacy.toc": {
+    "cs": "<a href=\"#formulare\">Formuláře</a> · <a href=\"#editor\">Editor a úložiště</a> · <a href=\"#dodavatele\">Dodavatelé a uchování</a> · <a href=\"#prava\">Vaše práva</a>",
+    "en": "<a href=\"#formulare\">Forms</a> · <a href=\"#editor\">Editor and storage</a> · <a href=\"#dodavatele\">Providers and retention</a> · <a href=\"#prava\">Your rights</a>"
+  },
+  "legal2026.privacy.summary_h": {
+    "cs": "Tvoje údaje v kostce",
+    "en": "Your data at a glance"
+  },
+  "legal2026.privacy.controller": {
+    "cs": "Správcem osobních údajů pro web shieldio.cz je Adam Hlásný. Dotazy, žádosti o výmaz nebo námitky posílejte na <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. Shieldio je studentský vývojový a vzdělávací projekt.",
+    "en": "The controller of personal data for shieldio.cz is Adam Hlásný. Send questions, erasure requests or objections to <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. Shieldio is a student development and educational project."
+  },
+  "legal2026.privacy.controller_h": {
+    "cs": "1. Kdo údaje spravuje",
+    "en": "1. Who controls the data"
+  },
+  "legal2026.privacy.contact": {
+    "cs": "<a href=\"../index.html#kontakt\">Kontakt</a>: povinné jméno, e-mail a zpráva; škola či organizace je nepovinná. Účelem je vyřízení dotazu nebo domluva ukázky.",
+    "en": "<a href=\"../index.html#kontakt\">Contact</a>: name, email and message are required; school or organisation is optional. The purpose is to answer a question or arrange a demonstration."
+  },
+  "legal2026.privacy.interest": {
+    "cs": "<a href=\"../products/RED.html#zajem\">Zájem o RED</a>: povinné jméno a e-mail; škola či organizace a zpráva jsou nepovinné. Účelem je vyhodnocení nezávazného zájmu a související odpověď. Nejde o objednávku ani rezervaci.",
+    "en": "<a href=\"../products/RED.html#zajem\">RED interest</a>: name and email are required; school or organisation and message are optional. The purpose is to evaluate non-binding interest and respond about it. This is neither an order nor a reservation."
+  },
+  "legal2026.privacy.flow": {
+    "cs": "Oba formuláře odesílají vyplněné údaje přes zabezpečené spojení do služby Web3Forms, která doručuje zprávy projektu. Součástí přenosu jsou také technická pole formuláře a ochrany proti spamu. Odeslaná zpráva tedy nezůstává jen ve vašem zařízení.",
+    "en": "Both forms send the completed fields over a secure connection to Web3Forms, which delivers messages to the project. Transfers also include technical form and spam protection fields. A submitted message does not remain only on your device."
+  },
+  "legal2026.privacy.basis": {
+    "cs": "Právním základem je oprávněný zájem na vyřízení vámi zahájené komunikace a zjištění zájmu o projekt (čl. 6 odst. 1 písm. f GDPR). Proti zpracování můžete vznést námitku. Údaje poskytujete dobrovolně, nejde o zákonnou ani smluvní povinnost; bez povinných polí formulář neodešlete a bez e-mailu nelze odpovědět. Odeslání nezakládá souhlas s newsletterem ani marketingem.",
+    "en": "The existing legal basis is the legitimate interest in handling communication you initiate and assessing interest in the project (GDPR Article 6(1)(f)). You may object to processing. Providing data is voluntary, with no statutory or contractual requirement; required fields are needed to submit the form and an email is needed to reply. Submission does not consent to a newsletter or marketing."
+  },
+  "legal2026.privacy.children": {
+    "cs": "Do zpráv neposílejte hesla, zdravotní údaje ani osobní údaje spolužáků nebo jiných žáků. Pro dotaz obvykle stačí popis problému bez jejich jmen.",
+    "en": "Do not send passwords, health information or personal data about classmates or other pupils. A description of the problem without their names is usually enough."
+  },
+  "legal2026.privacy.forms_h": {
+    "cs": "2. Co odesílají formuláře",
+    "en": "2. What the forms send"
+  },
+  "legal2026.privacy.survey": {
+    "cs": "Na <a href=\"dotaznik.html\">stránce dotazníku</a> je odkaz na Microsoft Forms, nikoli vložený formulář. Externí služba se otevře až po kliknutí. Dotazník slouží průzkumu potřeb škol. Po přechodu zkontrolujte, jaké údaje formulář žádá; osobní údaje žáků do odpovědí neuvádějte. Samotné kliknutí není souhlasem se zpracováním. <a href=\"https://privacy.microsoft.com/privacystatement\">Informace Microsoftu</a>.",
+    "en": "The <a href=\"dotaznik.html\">survey page</a> links to Microsoft Forms instead of embedding it. The external service opens only after you click. The survey explores schools’ needs. Check which data the form requests when it opens; do not include pupils’ personal data in answers. Clicking alone is not consent to processing. <a href=\"https://privacy.microsoft.com/privacystatement\">Microsoft privacy information</a>."
+  },
+  "legal2026.privacy.survey_h": {
+    "cs": "3. Externí školní dotazník",
+    "en": "3. External school survey"
+  },
+  "legal2026.privacy.editor": {
+    "cs": "Bloky a Arduino C++ se ukládají do localStorage pro obnovení rozpracované práce. Vlastní importované knihovny zůstávají v paměti otevřené záložky. Program se připravuje místně v prohlížeči; editor jej ani vlastní knihovny neposílá na server ke kompilaci. Z internetu stahuje potřebné nástroje a podklady.",
+    "en": "Blocks and Arduino C++ are saved in localStorage to restore work. Imported custom libraries remain in the open tab memory. The program is prepared locally in the browser; the editor does not send it or custom libraries to a server for compilation. It downloads the required tools and resources."
+  },
+  "legal2026.privacy.serial": {
+    "cs": "WebSerial propojí prohlížeč s deskou až po výběru sériového portu v dialogu prohlížeče. Program se nahrává do vybrané desky. Oprávnění k portu můžete odebrat v nastavení oprávnění webu.",
+    "en": "WebSerial connects the browser to a board after you select a serial port in the browser dialog. The program is uploaded to the selected board. You can revoke port permission in the browser’s site permissions."
+  },
+  "legal2026.privacy.storage": {
+    "cs": "Místní úložiště obsahuje jazyk (<code>shieldio-lang</code>), vzhled (<code>shieldio-theme</code>), postup a volby návodů (<code>shieldio-guide-*</code>), bloky (<code>shieldio-workspace-v1*</code>), zdrojový kód (<code>shieldio-source-v1*</code>) a šířku panelů editoru (<code>shieldio-blockly-split</code>). Kód nenastavuje automatické vypršení. Záznamy zůstávají do přepsání nebo smazání dat webu v prohlížeči. Smazáním přijdete i o uloženou práci a postup. Na sdíleném počítači si práci exportujte a data webu po práci smažte.",
+    "en": "Local storage holds language (<code>shieldio-lang</code>), theme (<code>shieldio-theme</code>), guide progress and options (<code>shieldio-guide-*</code>), blocks (<code>shieldio-workspace-v1*</code>), source code (<code>shieldio-source-v1*</code>) and editor panel width (<code>shieldio-blockly-split</code>). The code sets no automatic expiry. Entries remain until overwritten or the browser’s site data is cleared. Clearing it also removes saved work and progress. On a shared computer, export your work and clear site data afterwards."
+  },
+  "legal2026.privacy.cookies": {
+    "cs": "Ve zdrojovém kódu webu nejsou aktivní reklamní ani analytické skripty. Místní ukládání slouží výše popsaným funkcím webu. Podle <a href=\"https://uoou.gov.cz/verejnost/qa-otazky-a-odpovedi/cookies\">ÚOOÚ</a> se pravidla pro cookies vztahují i na localStorage; výjimka ze souhlasu závisí na nezbytnosti konkrétního účelu. Používání webu není souhlas.",
+    "en": "The website source contains no active advertising or analytics scripts. Local storage supports the website features described above. Under <a href=\"https://uoou.gov.cz/verejnost/qa-otazky-a-odpovedi/cookies\">ÚOOÚ guidance</a>, cookie rules also apply to localStorage; exemption from consent depends on necessity for the specific purpose. Website use is not consent."
+  },
+  "legal2026.privacy.editor_h": {
+    "cs": "4. Editor a údaje v prohlížeči",
+    "en": "4. Editor and browser data"
+  },
+  "legal2026.privacy.host": {
+    "cs": "Cloudflare doručuje a zabezpečuje web. Při přístupu se zpracovávají technické údaje o spojení, zejména IP adresa a údaje o požadavku. Provoz a zabezpečení webu sledují oprávněný zájem na funkční a bezpečné službě (čl. 6 odst. 1 písm. f GDPR). <a href=\"https://www.cloudflare.com/privacypolicy/\">Zásady Cloudflare</a>.",
+    "en": "Cloudflare delivers and secures the website. Access involves processing technical connection data, including IP address and request information. Website operation and security pursue the legitimate interest in a functioning, secure service (GDPR Article 6(1)(f)). <a href=\"https://www.cloudflare.com/privacypolicy/\">Cloudflare policy</a>."
+  },
+  "legal2026.privacy.cdn": {
+    "cs": "Editor načítá Blockly z unpkg a kompilátor AVR z jsDelivr; některé výukové stránky načítají KaTeX z jsDelivr. Tyto služby při požadavku získávají technické údaje o připojení. Kód editoru jim neposílá obsah programu ke kompilaci. <a href=\"https://www.jsdelivr.com/terms/privacy-policy\">Zásady jsDelivr</a> · <a href=\"https://unpkg.com/about\">Informace unpkg</a>.",
+    "en": "The editor loads Blockly from unpkg and the AVR compiler from jsDelivr; some learning pages load KaTeX from jsDelivr. These services receive technical connection data with requests. The editor code does not send them the program for compilation. <a href=\"https://www.jsdelivr.com/terms/privacy-policy\">jsDelivr policy</a> · <a href=\"https://unpkg.com/about\">unpkg information</a>."
+  },
+  "legal2026.privacy.retention": {
+    "cs": "Zprávy u Shieldio uchováváme po dobu potřebnou k vyřízení a návazné komunikaci, nejdéle 12 měsíců od poslední komunikace; déle pouze při nezbytnosti ochrany konkrétních právních nároků. Tento limit automaticky nemaže kopie u dodavatelů; jejich obecné podmínky se mohou lišit.",
+    "en": "Shieldio retains messages as needed to handle them and follow-up communication, for no longer than 12 months after the last contact, unless longer retention is necessary for specific legal claims. This limit does not automatically delete provider copies; their general terms may differ."
+  },
+  "legal2026.privacy.web3": {
+    "cs": "<a href=\"https://web3forms.com/privacy\">Web3Forms</a> ve svých zásadách uvádí u odeslaných formulářů maximálně tři roky uchování, pokud tarif nebo dřívější výmaz nestanoví kratší dobu. Uvádí také provoz z Indie a infrastrukturu AWS, Cloudflare a Hetzner; údaje tak mohou být zpracovávány mimo Evropský hospodářský prostor (EHP). Jde o obecné informace služby, nikoli popis smluvního nastavení Shieldio.",
+    "en": "<a href=\"https://web3forms.com/privacy\">Web3Forms</a> states in its policy a maximum of three years for submissions unless a plan or earlier deletion shortens this. It also lists operations from India and AWS, Cloudflare and Hetzner infrastructure; data may therefore be processed outside the European Economic Area (EEA). This is general service information, rather than a description of Shieldio’s contractual settings."
+  },
+  "legal2026.privacy.providers_h": {
+    "cs": "5. Dodavatelé, uchování a předání",
+    "en": "5. Providers, retention and transfers"
+  },
+  "legal2026.privacy.rights": {
+    "cs": "Za podmínek GDPR můžete žádat přístup a kopii údajů (čl. 15), opravu (čl. 16), výmaz (čl. 17) nebo omezení zpracování (čl. 18). U opravy, výmazu či omezení se uplatní také oznamování příjemcům a informace o nich podle čl. 19. Přenositelnost (čl. 20) platí při automatizovaném zpracování založeném na souhlasu nebo smlouvě; nejde o obecné právo pro každou zprávu.",
+    "en": "Subject to GDPR conditions, you may request access and a copy (Article 15), rectification (16), erasure (17) or restriction (18). Rectification, erasure and restriction also involve recipient notification and information under Article 19. Portability (20) applies to automated processing based on consent or contract; it is not a general right for every message."
+  },
+  "legal2026.privacy.objection": {
+    "cs": "Proti zpracování na základě oprávněného zájmu můžete vznést námitku z důvodů své konkrétní situace (čl. 21). Pokud by se zpracování opíralo o souhlas, lze jej kdykoli odvolat bez vlivu na předchozí zákonné zpracování. Ověřené formuláře ani editor nerozhodují automaticky o vašich právech nebo podobně významných záležitostech (čl. 22); kompilace programu takovým rozhodnutím není.",
+    "en": "You may object to processing based on legitimate interests on grounds relating to your situation (Article 21). If processing relies on consent, you can withdraw it at any time without affecting prior lawful processing. The verified forms and editor do not make automated decisions about your rights or similarly significant matters (Article 22); compiling a program is not such a decision."
+  },
+  "legal2026.privacy.request": {
+    "cs": "Napište na <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>, co potřebujete vyřešit. Žádosti vyřizujeme bez zbytečného odkladu, nejpozději do jednoho měsíce; při složitosti nebo počtu žádostí lze lhůtu prodloužit o další dva měsíce, s vysvětlením během prvního měsíce. Vyřízení je zpravidla bezplatné. Při odůvodněných pochybnostech lze požádat jen o údaje nutné k ověření totožnosti. Stížnost můžete podat u <a href=\"https://uoou.gov.cz/\">Úřadu pro ochranu osobních údajů</a>.",
+    "en": "Email <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a> and explain what you need. We handle requests without undue delay, within one month at the latest; complexity or the number of requests may justify two additional months, explained during the first month. Requests are generally free. Reasonable doubts about identity may require only information necessary to verify it. You may complain to the <a href=\"https://uoou.gov.cz/\">Czech Data Protection Authority</a>."
+  },
+  "legal2026.privacy.rights_h": {
+    "cs": "6. Jaká máte práva",
+    "en": "6. Your rights"
+  },
+  "legal2026.privacy.scope": {
+    "cs": "Chcete se na zpracování údajů zeptat? Napište na <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. Pravidla ochrany osobních údajů stanoví <a href=\"https://eur-lex.europa.eu/legal-content/CS/TXT/?uri=CELEX:32016R0679\">GDPR, zejména čl. 5, 6, 12, 13 a 15–22</a>.",
+    "en": "Questions about how data is processed? Email <a href=\"mailto:info@shieldio.cz\">info@shieldio.cz</a>. Personal data protection rules are set out in the <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32016R0679\">GDPR, particularly Articles 5, 6, 12, 13 and 15–22</a>."
+  },
+  "legal2026.privacy.sources_h": {
+    "cs": "7. Další informace",
+    "en": "7. Further information"
+  },
+  "legal2026.privacy.title": {
+    "cs": "Ochrana osobních údajů | Shieldio",
+    "en": "Privacy policy | Shieldio"
+  },
+  "legal2026.privacy.eyebrow": {
+    "cs": "Právní informace",
+    "en": "Legal information"
+  },
+  "legal2026.privacy.h1": {
+    "cs": "Ochrana osobních údajů",
+    "en": "Privacy policy"
+  },
+  "legal2026.privacy.lead": {
+    "cs": "Jak fungují formuláře, editor a externí služby. Aktualizováno 3. listopadu 2026.",
+    "en": "How forms, the editor and external services work. Updated 3 November 2026."
   }
 }

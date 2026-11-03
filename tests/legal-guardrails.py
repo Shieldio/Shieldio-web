@@ -2,7 +2,10 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = [p for p in ROOT.rglob("*") if p.is_file() and ".git" not in p.parts and "learn" not in p.parts and "tests" not in p.parts]
+# These rules govern the main product site; the sibling apps have separate flows.
+PUBLIC_ROOTS = {"index.html", "faq.html", "404.html", "products", "company", "instructions", "edu", "aktuality"}
+FILES = [p for p in ROOT.rglob("*.html") if p.relative_to(ROOT).parts[0] in PUBLIC_ROOTS]
+FILES.append(ROOT / "assets/data/i18n.json")
 TEXT = "\n".join(p.read_text(encoding="utf-8", errors="ignore") for p in FILES)
 
 FORBIDDEN = (

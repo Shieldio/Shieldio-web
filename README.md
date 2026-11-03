@@ -1,43 +1,44 @@
 # Shieldio-web
-Official website of Shieldio – a modular STEM platform helping schools teach electronics and programming through intuitive educational hardware.
 
-## Shieldio Learn – deployment
+Web Shieldio a související výukové aplikace pro elektroniku a programování. Hlavní web je statické HTML, CSS a JavaScript s přepínáním češtiny a angličtiny.
 
-Redakční pravidla a stav obsahu jsou v `learn/CONTENT.md`.
+## Kde začít
 
-Shieldio Learn je samostatná statická větev v adresáři `learn/`, nasazovaná ze stejného repozitáře jako druhý Cloudflare Worker. Hlavní web používá `wrangler.jsonc`; Learn používá `wrangler.learn.jsonc`. Díky tomu se změny routingu Learn nedotýkají `shieldio.cz`.
+- [Hlavní web](https://shieldio.cz/) · [zdroj úvodní stránky](index.html)
+- [Editor Shieldio](https://shieldio.cz/instructions/blokovy-editor.html) · [zdroj editoru](instructions/blokovy-editor.html)
+- [Projekty RED](https://shieldio.cz/instructions/baseline/red/) · [zdroj rozcestníku](instructions/baseline/red/index.html)
+- [Přehled návodů](instructions/index.html) · [produkty a jejich stav](products/index.html)
 
-### První nasazení
+## Části repozitáře
 
-1. V Cloudflare musí být zóna `shieldio.cz` aktivní ve stejném účtu, do kterého je přihlášený Wrangler.
-2. Z kořene repozitáře spusťte `npx wrangler deploy --config wrangler.learn.jsonc`.
-3. Konfigurace vytvoří Worker `shieldio-learn` a připojí Custom Domain `learn.shieldio.cz`.
+| Část | Cesty ve zdrojích |
+|---|---|
+| Hlavní web a editor | `index.html`, `products/`, `instructions/`, `company/`, `edu/`, `aktuality/`, `assets/` |
+| Learn | `learn/`, `learn/worker.js` |
+| Light | `light/` |
+| Simulation | `experiments/simulation/`, `workers/simulation.mjs` |
+| Flight360 | `experiments/flight360/`, `workers/flight360.mjs` |
+| Luxmaxing | `luxmaxing/` |
 
-Pro zvolený způsob **není potřeba ručně vytvářet DNS záznam**:
+Podrobná mapa je v [REPOSITORY.md](docs/REPOSITORY.md). Každá část zůstává na své dosavadní cestě.
 
-- Type: vytváří a spravuje Cloudflare automaticky pro Worker Custom Domain,
-- Name/Host: `learn`,
-- Target/Value: Worker `shieldio-learn`, nejde o ručně zadávaný CNAME cíl,
-- SSL: certifikát vydá Cloudflare automaticky.
+## Lokální náhled hlavního webu
 
-Pokud už na `learn.shieldio.cz` existuje A, AAAA nebo CNAME záznam, je nutné jej před přidáním Custom Domain odstranit; Cloudflare Custom Domain nelze připojit přes existující CNAME. Stejného výsledku lze dosáhnout v dashboardu přes **Workers & Pages → shieldio-learn → Settings → Domains & Routes → Add → Custom Domain** a zadáním `learn.shieldio.cz`.
-
-### Ověření
-
-Po nasazení otevřete:
-
-- `https://learn.shieldio.cz/`
-- `https://learn.shieldio.cz/maturita/`
-- `https://learn.shieldio.cz/maturita/otazka/demo-otazka-01/`
-
-Ověřte stav 200, platný HTTPS certifikát a to, že `https://shieldio.cz/` dál zobrazuje hlavní produktový web. Lokálně lze obsah kontrolovat bez Worker routingu na `http://127.0.0.1:PORT/learn/`; host-based routing se testuje pomocí `npx wrangler dev --config wrangler.learn.jsonc`.
-
-## Light – deployment
-
-Veřejná iniciativa Light je samostatný statický web v adresáři `light/`. Nasazuje se jako Worker `shieldio-light` s Custom Domain `light.shieldio.cz`, stejným způsobem jako Learn, ale bez aplikačního Worker skriptu:
+Z kořene repozitáře spusť:
 
 ```bash
-npx wrangler deploy --config wrangler.light.jsonc
+python3 -m http.server 8080
 ```
 
-Konfigurace je oddělená od hlavního webu i Learn. Formuláře odesílají přes schválený Web3Forms tok; repozitář neobsahuje formulářový backend ani databázi.
+Otevři [http://127.0.0.1:8080/](http://127.0.0.1:8080/). Použij HTTP server: načítání překladů přes `file://` nefunguje. Tento server neposkytuje aplikační funkce Cloudflare Workers.
+
+## Dokumentace pro přispěvatele
+
+- [Přispívání, testy a překlady](docs/CONTRIBUTING.md)
+- [Nasazení jednotlivých aplikací](docs/DEPLOYMENT.md)
+- [Co ještě doložit před launchem](docs/BEFORE_LAUNCH.md)
+- [Pravidla práce v repozitáři](AGENTS.md) a [značka a vzhled](BRAND.md)
+
+RED V4 se testuje, V5 se připravuje; RED se zatím neprodává. Green, Yellow a PRO jsou koncepty, PowerAdd je prototyp ve vývoji. Texty i návody mají tento stav popisovat věcně.
+
+Chybu nebo nápad založ přes [Issues](https://github.com/Shieldio/Shieldio-web/issues/new/choose). Formuláře pomohou uvést stránku, kroky a očekávaný výsledek.

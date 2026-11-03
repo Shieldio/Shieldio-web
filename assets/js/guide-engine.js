@@ -76,15 +76,16 @@
     why_like_this: { cs: "Proč to tak je", en: "Why it's like this" },
     connected_default: { cs: "Zapojeno", en: "Connected" },
     not_working: { cs: "Nedaří se mi", en: "It's not working" },
-    program_uploaded: { cs: "Program je nahraný", en: "The program uploaded" },
+    program_uploaded: { cs: "Nahráno – jdu vyzkoušet výsledek", en: "Uploaded – test the result" },
     shows_error: { cs: "Hlásí chybu", en: "It shows an error" },
     tree_yes: { cs: "ANO", en: "YES" },
     tree_no: { cs: "NE", en: "NO" },
     tree_retry: { cs: "Zkus to znovu podle kroků výše.", en: "Try again following the steps above." },
     tree_done: { cs: "Hotovo", en: "Done" },
     tree_need_help: { cs: "Potřebuji pomoc", en: "I need help" },
-    first_programming: { cs: "První nahrání do RED: port, kompilace a nahrání krok za krokem", en: "First RED upload: port selection, compilation and upload" },
+    first_programming: { cs: "Jak spustit první program na RED", en: "How to run your first RED program" },
     open_blocks_editor: { cs: "Otevřít v editoru Shieldio", en: "Open in the Shieldio editor" },
+    upload_next: { cs: "V editoru zvol Spustit na desce a vyber připojenou RED. Po zprávě Nahráno se vrať sem a vyzkoušej výsledek. Samotná kontrola programu nestačí.", en: "In the editor, choose Run on board and select the connected RED. After Uploaded, return here and test the result. Checking alone is not enough." },
     open_project: { cs: "Otevřít projekt", en: "Open project" },
     arduino_code_soon: { cs: "Otevři editor Shieldio a vyber odpovídající modul. Blokový program můžeš zobrazit jako Arduino C++ nebo doplnit vlastní kód.", en: "Open the Shieldio editor and choose a module. View a block program as Arduino C++ or add your own code." },
     done_result_alt: { cs: "Hotový výsledek", en: "Finished result" },
@@ -508,6 +509,7 @@
       ${media}
       ${content.instructions ? `<p class="guide-instructions">${t(content.instructions)}</p>` : ""}
       ${actionArea}
+      <p class="guide-instructions">${ui("upload_next")}</p>
       ${programmingHelp}
       <div class="guide-step-actions" style="margin-top:24px;">
         <button type="button" class="btn btn-primary" data-action="ok">${ui("program_uploaded")}</button>

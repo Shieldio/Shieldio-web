@@ -40,6 +40,15 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const roots=()=>{workspace.clear();const setup=make('shieldio_setup'),loop=make('shieldio_loop');return {setup,loop};};
   const regenerate=()=>{workspace.fireChangeListener({isUiEvent:false});assert.equal(api.SHIELDIO_EDITOR.getError(),null);return api.SHIELDIO_EDITOR.getCode();};
   const fixtures={};
+  if(!search && !Object.keys(initialStore).length) {
+    assert.equal(api.SHIELDIO_EDITOR.getPresetId(),'blikani','A new visitor gets an observable first program');
+    assert.match(api.SHIELDIO_EDITOR.getCode(),/digitalWrite\(LED_GREEN, HIGH\)/);
+  }
+  if(!search && initialStore['shieldio-workspace-v1']) {
+    assert.equal(api.SHIELDIO_EDITOR.getPresetId(),null,'Existing manual work takes precedence over a starter');
+    assert.equal(storage.get('shieldio-workspace-v1'),initialStore['shieldio-workspace-v1']);
+  }
+
   if(expectedModule)assert.equal(get('moduleSelect').value,expectedModule,'Guide module link selects the requested toolbox');
   if(search.includes('preset=blikani')){
     fixtures.blinkStarter=api.SHIELDIO_EDITOR.getCode();assert.match(fixtures.blinkStarter,/#define LED_GREEN 6/);assert.equal((fixtures.blinkStarter.match(new RegExp('delay\\('+expectedDelay+'\\)','g'))||[]).length,2);
@@ -102,6 +111,7 @@ if(typeof process !== "undefined" && process.argv[1] && import.meta.url===pathTo
   const fixtures=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE);
   const blink=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=blikani&module=led',expectedModule:'led'});
   fixtures.blinkStarter=blink.blinkStarter;
+  await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{initialStore:{'shieldio-workspace-v1':JSON.stringify(blink.blinkProject)}});
   const edited=JSON.stringify(blink.blinkProject).replaceAll('"NUM":500','"NUM":750');
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=blikani',expectedModule:'led',expectedDelay:750,initialStore:{'shieldio-workspace-v1:preset:blikani':edited,'shieldio-workspace-v1':'unrelated manual project'}});
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=constructor'});
