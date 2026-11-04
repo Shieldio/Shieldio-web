@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ESP32 Studio | Shieldio</title>
+  <meta name="description" content="Samostatný C++ editor a USB nahrávání sloučeného firmwaru pro rodinu ESP32. Nástroj pro vlastní projekty a pokročilé uživatele.">
+  <link rel="canonical" href="https://shieldio.cz/esp32/">
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("shieldio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch{}</script>
+  <link rel="stylesheet" href="./studio.css?v=20261104-1">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Shieldio"><img class="logo-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+  <nav><a href="/instructions/blokovy-editor.html" data-copy="redEditor">Editor RED</a><button id="language" type="button">EN</button><button id="theme" type="button" aria-label="Přepnout vzhled" data-aria="theme">◐</button></nav>
+</header>
+<main>
+  <div class="intro"><div><p class="eyebrow" data-copy="eyebrow">NÁSTROJE PRO POKROČILÉ</p><h1>ESP32 Studio<span class="badge">BETA</span></h1><p class="subtitle" data-copy="intro">Vlastní kód. Vlastní deska. Přímé USB.</p></div><a href="/" class="back" data-copy="back">Zpět na Shieldio ↗</a></div>
+  <div class="studio">
+    <section class="editor pane" aria-labelledby="codeHeading">
+      <div class="pane-heading"><h2 id="codeHeading">sketch.ino</h2><span class="language-tag">Arduino C++</span><span id="saveState" class="save-state" data-copy="autosave">Ukládá se v prohlížeči</span></div>
+      <div class="editor-toolbar">
+        <button id="openSource" data-copy="open">Otevřít .ino</button><input id="sourceFile" type="file" accept=".ino,.cpp,.txt" hidden>
+        <button id="saveSource" data-copy="save">Uložit .ino</button>
+        <button id="formatCode" title="Ctrl/⌘ + Shift + F" data-copy="format">Zarovnat</button>
+        <button id="saveBinary" hidden data-copy="saveBin">Stáhnout .bin</button>
+      </div>
+      <div class="source-wrap"><pre id="lineNumbers" aria-hidden="true">1</pre><textarea id="source" aria-label="Arduino C++ kód" data-aria="sourceLabel" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" maxlength="200000"></textarea></div>
+      <div class="source-footer"><span id="cursor">1:1</span><span>UTF-8 · C++</span></div>
+      <div class="build-bar"><button id="compile" class="secondary" disabled data-copy="compile">Zkontrolovat C++</button><button id="run" class="primary" disabled data-copy="run">Sestavit a nahrát</button><span id="compilerBadge" class="compiler-badge" data-copy="checking">Ověřuji kompilátor…</span></div>
+      <p id="compilerNote" class="compiler-note" role="status"></p>
+    </section>
+    <aside class="settings">
+      <section class="pane board-pane" aria-labelledby="boardHeading"><div class="pane-heading"><h2 id="boardHeading" data-copy="board">Deska</h2><span class="small-tag">ESP32</span></div>
+        <div class="pane-content"><label for="board" data-copy="boardLabel">Rodina / varianta</label><select id="board">
+          <option value="esp32">ESP32 · Dev Module</option><option value="esp32s2">ESP32-S2</option><option value="esp32s3">ESP32-S3</option><option value="esp32c2">ESP32-C2</option><option value="esp32c3">ESP32-C3</option><option value="esp32c5">ESP32-C5</option><option value="esp32c6">ESP32-C6</option><option value="esp32c61">ESP32-C61</option><option value="esp32h2">ESP32-H2</option><option value="esp32p4">ESP32-P4</option><option value="nano-esp32">Arduino Nano ESP32 · S3</option>
+        </select><p id="boardHint" class="hint"></p><div id="usbState" class="usb-state"><span class="dot"></span><span data-copy="usb">USB port vybereš při nahrávání</span></div></div>
+      </section>
+      <section class="pane firmware-pane" aria-labelledby="firmwareHeading"><div class="pane-heading"><h2 id="firmwareHeading" data-copy="firmware">Hotový firmware</h2><span class="small-tag">.BIN</span></div>
+        <div class="pane-content"><p class="short" data-copy="firmwareIntro">Nahraj sloučený obraz z Arduino IDE přímo do desky.</p>
+          <label class="file-drop" for="firmware"><span class="file-icon" aria-hidden="true">↥</span><strong data-copy="chooseBin">Vybrat .merged.bin</strong><span id="fileInfo" data-copy="fileLimit">Kompletní obraz · nejvýše 32 MB</span><input id="firmware" type="file" accept=".bin,application/octet-stream" aria-describedby="binHelp"></label>
+          <button id="flash" class="primary full" disabled data-copy="flash">Nahrát firmware přes USB</button>
+          <p id="binHelp" class="hint" data-copy="binHelp">Obraz od adresy 0x0, tabulka oddílů na 0x8000. Samotná aplikace .bin nestačí. Nahrání může přepsat uložená data desky.</p>
+        </div>
+      </section>
+      <details class="pane help"><summary data-copy="help">Připojení a podporované desky</summary><div class="pane-content">
+        <p data-copy="browserHelp">Použij Chrome nebo Edge na počítači a datový USB kabel. Zavři sériové monitory v jiných programech.</p>
+        <p data-copy="bootHelp">Pokud připojení selže, podrž BOOT, krátce stiskni RESET/EN a při připojování BOOT uvolni. U nativního USB může být potřeba port vybrat znovu.</p>
+        <p data-copy="supportHelp">Nahrávání je připravené pro uvedené čipy. Fyzické testování všech variant zatím neproběhlo. Piny, flash a periferie závisí na konkrétní desce.</p>
+        <p data-copy="customHelp">Vlastní rozložení oddílů, šifrovaný firmware a ESP8266 zatím nejsou podporované.</p>
+      </div></details>
+    </aside>
+    <section class="pane result" aria-labelledby="resultHeading"><div class="pane-heading"><h2 id="resultHeading" data-copy="output">Výstup</h2><strong id="progressText"></strong><button id="cancel" class="cancel" hidden data-copy="cancel">Zrušit</button></div><div class="result-body">
+      <p id="status" role="status" aria-live="polite" aria-atomic="true" data-copy="ready">Připraveno.</p><progress id="progress" max="100" hidden aria-label="Průběh nahrávání" data-aria="progress"></progress>
+      <details id="logDetails"><summary data-copy="logs">Technický výpis</summary><pre id="log"></pre></details>
+    </div></section>
+  </div>
+  <noscript><p>Pro editor a USB nahrávání zapni JavaScript.</p></noscript>
+</main>
+<footer><span>Shieldio · ESP32 Studio</span><a href="/company/privacy.html" data-copy="privacy">Soukromí</a><span data-copy="local">Firmware a USB připojení zůstávají v prohlížeči.</span></footer>
+<script type="module" src="./studio.mjs?v=20261104-1"></script>
+</body>
+</html>

@@ -5638,5 +5638,17 @@
   "wheel.dProfile": {
     "cs": "D-profil",
     "en": "D-profile"
+  },
+  "home.esp32.title": {
+    "cs": "Pro pokročilé",
+    "en": "For advanced users"
+  },
+  "home.esp32.description": {
+    "cs": "ESP32 Studio: samostatný C++ editor a USB nahrávání sloučeného firmwaru pro vlastní projekty.",
+    "en": "ESP32 Studio: a separate C++ editor and USB flashing of merged firmware for your own projects."
+  },
+  "home.esp32.link": {
+    "cs": "Otevřít ESP32 Studio →",
+    "en": "Open ESP32 Studio →"
   }
 }
