@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="cs"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D tisk | Shieldio</title><meta name="description" content="Prohlížeč STL modelů pro 3D tisk. Otáčení, přiblížení a rozměry přímo v prohlížeči."><link rel="canonical" href="https://shieldio.cz/3D-tisk/"><link rel="icon" href="/assets/icons/favicon.svg"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="/assets/css/3d-print.css"><script type="importmap">{"imports":{"three":"/assets/vendor/three/three.module.js"}}</script></head><body data-i18n-title="print3d.title"><div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="/index.html"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="/products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="/instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="/company/pro-ucitele.html" data-i18n="nav.teachers">Pro učitele</a>
+        <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="/instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
+      </nav>
+      <a class="cta-small" href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <button class="nav-toggle" type="button" aria-label="Otevřít menu" data-i18n-aria-label="nav.menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap print3d"><span class="eyebrow">SHIELDIO / STL</span><h1 data-i18n="print3d.h1" >3D tisk</h1><p data-i18n="print3d.lead" class="lead">Otevři STL model a prohlédni si ho ze všech stran.</p><div class="print-toolbar"><label class="print-open" for="stl-file"><span data-i18n="print3d.open" >Otevřít STL</span></label><input id="stl-file" type="file" accept=".stl" hidden><button data-i18n="print3d.demo" id="demo" type="button">Ukázkový model</button><button data-i18n="print3d.reset" id="reset" type="button">Výchozí pohled</button><label><input type="checkbox" id="wire"> <span data-i18n="print3d.wire" >Drátový model</span></label><a data-i18n="print3d.download" id="download" download="kostka-20mm.stl" href="/assets/models/kostka-20mm.stl">Stáhnout STL</a></div><div id="viewer" tabindex="0" aria-label="3D model"><p id="status" role="status">Načítání prohlížeče…</p></div><div class="print-meta"><strong id="model-name">Ukázka: kostka 20 mm</strong><output id="dimensions"></output></div><p data-i18n="print3d.hint" class="print-hint">Tažením otáčej · kolečkem přibližuj · pravým tlačítkem posouvej</p><p data-i18n="print3d.privacy" class="print-hint">STL můžeš i přetáhnout do náhledu. Soubor zůstává v tvém zařízení. Limit 30 MB. STL nemá jednotky; rozměry uvádíme v mm.</p></main><footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="/index.html#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="/instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="/edu/index.html" data-i18n="nav.edu">Edu</a>
+      <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="/company/pro-ucitele.html" data-i18n="footer.teachers">Pro učitele</a>
+      <a href="/faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="/aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="/company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
+    </nav>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+</footer>
+
+<script src="/assets/js/animations.js"></script>
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/theme.js?v=20261104-interactions1"></script>
+<script src="/assets/js/search.js?v=20261104-interactions1"></script>
+<script src="/assets/js/lang.js"></script>
+<script src="/assets/js/site-chrome.js?v=20261103-unified"></script>
+<script type="module" src="/assets/js/3d-print.mjs"></script></body></html>

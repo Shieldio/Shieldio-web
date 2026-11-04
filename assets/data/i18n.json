@@ -5426,5 +5426,61 @@
   "red.interest.messagePlaceholder": {
     "cs": "K čemu by vám RED pomohla?",
     "en": "How would you use RED?"
+  },
+  "print3d.title": {
+    "cs": "3D tisk | Shieldio",
+    "en": "3D printing | Shieldio"
+  },
+  "print3d.h1": {
+    "cs": "3D tisk",
+    "en": "3D printing"
+  },
+  "print3d.lead": {
+    "cs": "Otevři STL model a prohlédni si ho ze všech stran.",
+    "en": "Open an STL model and inspect it from every angle."
+  },
+  "print3d.open": {
+    "cs": "Otevřít STL",
+    "en": "Open STL"
+  },
+  "print3d.reset": {
+    "cs": "Výchozí pohled",
+    "en": "Reset view"
+  },
+  "print3d.demo": {
+    "cs": "Ukázkový model",
+    "en": "Sample model"
+  },
+  "print3d.wire": {
+    "cs": "Drátový model",
+    "en": "Wireframe"
+  },
+  "print3d.download": {
+    "cs": "Stáhnout STL",
+    "en": "Download STL"
+  },
+  "print3d.hint": {
+    "cs": "Tažením otáčej · kolečkem přibližuj · pravým tlačítkem posouvej",
+    "en": "Drag to rotate · scroll to zoom · right-drag to pan"
+  },
+  "print3d.privacy": {
+    "cs": "STL můžeš i přetáhnout do náhledu. Soubor zůstává v tvém zařízení. Limit 30 MB. STL nemá jednotky; rozměry uvádíme v mm.",
+    "en": "You can also drop an STL into the viewer. Your file stays on your device. Limit: 30 MB. STL has no units; dimensions are shown in mm."
+  },
+  "print3d.sample": {
+    "cs": "Ukázka: kostka 20 mm",
+    "en": "Sample: 20 mm cube"
+  },
+  "print3d.loading": {
+    "cs": "Načítání prohlížeče…",
+    "en": "Loading viewer…"
+  },
+  "print3d.error": {
+    "cs": "Model se nepodařilo otevřít. Vyber platný STL do 30 MB.",
+    "en": "Could not open the model. Choose a valid STL up to 30 MB."
+  },
+  "print3d.webgl": {
+    "cs": "3D náhled není dostupný. Zkus zapnout hardwarovou akceleraci nebo jiný prohlížeč.",
+    "en": "3D preview is unavailable. Try enabling hardware acceleration or using another browser."
   }
 }
