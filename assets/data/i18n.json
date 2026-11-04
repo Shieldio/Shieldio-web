@@ -3704,8 +3704,8 @@
     "en": "Board bootloader"
   },
   "programming.browserTitle": {
-    "cs": "Program upravíš i tady. Do desky ho pošli z počítače.",
-    "en": "You can edit here. Use a computer to send it to the board."
+    "cs": "Pro nahrávání použij Chrome nebo Edge na počítači.",
+    "en": "Use desktop Chrome or Edge to upload."
   },
   "programming.browserHelp": {
     "cs": "Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači a připoj desku datovým USB kabelem. Svůj program přeneseš přes Další nástroje → Soubor → Uložit bloky nebo Uložit .ino.",
@@ -5374,5 +5374,9 @@
   "teachers.resources.worksheet": {
     "cs": "Pracovní list k vytištění",
     "en": "Printable worksheet"
+  },
+  "programming.browserWhy": {
+    "cs": "Podrobnosti",
+    "en": "Details"
   }
 }

@@ -10,7 +10,7 @@ const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',impor
 const source=(await fs.readFile(new URL('../assets/js/arduino-programming.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-programming.mjs"');
 const dictionary=JSON.parse(await fs.readFile(new URL('../assets/data/i18n.json',import.meta.url),'utf8'));
 for(const key of [...html.matchAll(/data-i18n(?:-title|-aria-label)?="([^"]+)"/g)].map(m=>m[1])) assert.ok(dictionary[key],key);
-function model({serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false,flashSuccess=false,compileError=null}={}){
+function model({serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false,flashSuccess=false,compileError=null,compileResult={}}={}){
   const elements=new Map();
   class Element{
     constructor(id){this.id=id;this.value='';this.hidden=false;this.disabled=false;this.dataset={};this.attributes={};this.listeners={};this.options=[];this.children=[];this.style={};this.selectionStart=0;this.selectionEnd=0;this.classList={toggle(){}};}
@@ -30,7 +30,7 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
   const get=id=>{assert.ok(elements.has(id),'Missing HTML element '+id);return elements.get(id);};
   get('blocksTab').attributes['aria-selected']='true';get('codeTab').attributes['aria-selected']='false';
   let portRequests=0,compilations=0,fetches=0,uploads=0;
-  const downloads=[],buildMessages=[],windowEvents={},documentEvents={},storage=new Map([["shieldio-source-v1",savedSource]]);
+  const progressStates=[],downloads=[],buildMessages=[],windowEvents={},documentEvents={},storage=new Map([["shieldio-source-v1",savedSource]]);
   let blockSource="void setup(){} void loop(){}";
   const navigator=serial?{serial:{async requestPort(){portRequests++;if(portError)throw portError;return {direct:true};},addEventListener(){}}}:{};
   const window={location:{search},isSecureContext:true,SHIELDIO_EDITOR:{getCode:()=>blockSource,getError:()=>null,resize(){}},addEventListener(name,handler){windowEvents[name]=handler;}};
@@ -43,13 +43,13 @@ function model({serial=false,portError=null,savedSource="",search="",exampleText
     AbortController,URLSearchParams,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,
     URL:class extends URL {static createObjectURL(blob){downloads.push(blob);return 'blob:test';}static revokeObjectURL(){}},
     Worker:class {
-      postMessage(data){buildMessages.push(data);compilations++;Promise.resolve().then(()=>this.onmessage({data:compileError?{error:compileError}:{result:{fitsTarget:true,flashBytes:2,ramBytes:0,hex:':test',stderr:[]}}}));}
+      postMessage(data){buildMessages.push(data);compilations++;Promise.resolve().then(()=>this.onmessage({data:compileError?{error:compileError}:{result:{fitsTarget:true,flashBytes:2,ramBytes:0,hex:':test',stderr:[],...compileResult}}}));}
       terminate(){}
     },
-    parseHex(){},async flashNano(port,hex,options){if(!flashSuccess)throw Error('Discovery must not flash hardware');uploads++;options.onProgress('write',100);options.onProgress('verify',100);options.onProgress('done',100);}
+    parseHex(){},async flashNano(port,hex,options){if(!flashSuccess)throw Error('Discovery must not flash hardware');uploads++;for(const [phase,percent] of [['reset',0],['write',50],['write',100],['verify',0],['verify',100],['done',100]]){options.onProgress(phase,percent);progressStates.push({phase,value:get('uploadProgress').value,label:get('uploadPercent').textContent});}}
   });
   vm.runInContext(source,context,{filename:'arduino-programming.mjs'});
-  return {get,downloads,buildMessages,windowEvents,storage,setLanguage(lang){context.document.documentElement.lang=lang;documentEvents["shieldio-lang-change"]?.();},setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations,fetches,uploads})};
+  return {get,progressStates,downloads,buildMessages,windowEvents,storage,setLanguage(lang){context.document.documentElement.lang=lang;documentEvents["shieldio-lang-change"]?.();},setBlockSource(value){blockSource=value;},counts:()=>({portRequests,compilations,fetches,uploads})};
 }
 {
   const m=model(),button=m.get('toggleToolsBtn');
@@ -157,14 +157,14 @@ console.log('UI: direct USB default, unsupported-browser compilation/export, por
   await m.get('compileBtn').listeners.click();
   assert.equal(m.counts().portRequests,0);
   assert.equal(m.counts().uploads,0);
-  assert.match(m.get('uploadStatus').textContent,/Na desce se ještě nic nezměnilo/);
-  assert.match(m.get('projectNext').textContent,/Spustit na desce/);
+  assert.equal(m.get('uploadStatus').textContent,'Zkompilováno');
+  assert.equal(m.get('projectNext').hidden,true);
   assert.ok(!m.get('projectNext').textContent.includes('LED bliká'));
   await m.get('uploadBtn').listeners.click();
   assert.equal(m.counts().compilations,1,'One upload action reuses a current successful check');
   assert.equal(m.counts().portRequests,1);assert.equal(m.counts().uploads,1);
   assert.match(m.get('uploadStatus').textContent,/Nahráno/);
-  assert.match(m.get('projectNext').textContent,/500 na 1000/);
+  assert.equal(m.get('projectNext').textContent,'');
   m.setBlockSource('changed');m.get('arduinoSource').listeners.input();
   assert.equal(m.get('projectNext').hidden,true,'An old upload result is no longer guidance for changed code');
   m.get('codeTab').listeners.click();assert.equal(m.get('programmingStudio').dataset.tools,'open');
@@ -175,8 +175,8 @@ console.log('UI: direct USB default, unsupported-browser compilation/export, por
   const m=model({serial:true,flashSuccess:true,search:'?preset=parkovani'});
   await m.get('uploadBtn').listeners.click();
   assert.deepEqual(m.counts(),{portRequests:1,compilations:1,fetches:0,uploads:1},'One learner action selects, prepares and uploads');
-  assert.match(m.get('projectNext').textContent,/15 nebo 30/);
-  m.windowEvents['shieldio:project-import']();assert.equal(m.get('projectTitle').textContent,'Co tvůj program udělá?');
+  assert.equal(m.get('projectNext').hidden,true);
+  m.windowEvents['shieldio:project-import']();assert.equal(m.get('projectTitle').textContent,'Programování RED');
 }
 
 // Compiler failures stay visible, select the correct line, and never edit code
@@ -207,3 +207,27 @@ console.log('UI: direct USB default, unsupported-browser compilation/export, por
   assert.equal(m.storage.get('shieldio-source-v1'),m.get('arduinoSource').value);
 }
 console.log('Compiler error UI: visible deduplicated errors, exact line navigation, explicit guarded patch, stale marker cleanup and formatter autosave passed.');
+
+// Upload progress stays monotonic through write + verify, and success remains visible.
+{
+  const m=model({serial:true,flashSuccess:true,compileResult:{flashBytes:15360,ramBytes:426,oledBufferBytes:1024}});
+  await m.get('uploadBtn').click();
+  assert.equal(m.get('uploadStatus').textContent,'Nahráno');
+  assert.equal(m.get('uploadProgress').hidden,false);assert.equal(m.get('uploadProgress').value,100);
+  assert.equal(m.get('uploadPercent').textContent,'100 %');
+  assert.deepEqual(m.progressStates.slice(1).map(x=>x.value),[25,50,50,100,100]);
+  assert.equal(m.get('memoryUsage').hidden,false);
+  assert.equal(m.get('flashUsage').value,15360);assert.equal(m.get('flashPercent').textContent,'50 %');
+  assert.equal(m.get('ramUsage').value,1450);assert.equal(m.get('ramPercent').textContent,'71 %');
+  assert.equal(m.get('ramLabel').textContent,'RAM · data + OLED');
+  assert.equal(m.get('projectNext').textContent,'');
+  m.setLanguage('en');assert.equal(m.get('uploadStatus').textContent,'Uploaded');
+  m.setBlockSource('edited');m.get('arduinoSource').listeners.input();
+  assert.equal(m.get('memoryUsage').hidden,true,'Memory from an old program must not describe the edited one');
+  assert.equal(m.get('uploadProgress').hidden,true,'An edit retires the successful upload bar');
+}
+{
+  const m=model({compileError:'FLASH_OVERFLOW'});await m.get('compileBtn').click();
+  assert.equal(m.get('memoryUsage').hidden,true);assert.equal(m.get('uploadProgress').hidden,true);
+}
+console.log('Result UI: continuous verified upload progress, persistent completion, Flash/static RAM + OLED usage, translation and stale result cleanup passed.');

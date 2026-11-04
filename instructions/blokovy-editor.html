@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261103-toolbox1">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261104-status1">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -70,10 +70,10 @@
       <label class="programming-board-name" for="boardSelect"><span data-i18n="programming.board">Deska</span>
         <select id="boardSelect"><option value="red">Shieldio RED</option></select>
       </label>
-      <span class="programming-target">Nano · ATmega328P · 16 MHz</span>
       <span id="boardConnection" class="programming-connection">USB · deska není vybraná</span>
       <details id="connectionSettings" class="programming-settings">
         <summary data-i18n="programming.settings">Nastavení desky</summary>
+        <p class="programming-target">Nano · ATmega328P · 16 MHz</p>
         <div class="programming-device">
           <div class="programming-field">
             <label for="bootloaderSelect" data-i18n="programming.bootloader">Bootloader desky</label>
@@ -86,8 +86,10 @@
       </details>
     </div>
     <div id="usbCompatibility" class="programming-compatibility" hidden>
-      <strong data-i18n="programming.browserTitle">Program upravíš i tady. Do desky ho pošli z počítače.</strong>
+      <strong data-i18n="programming.browserTitle">Pro nahrávání použij Chrome nebo Edge na počítači.</strong>
+      <details class="programming-browser-help"><summary data-i18n="programming.browserWhy">Podrobnosti</summary>
       <p data-i18n="programming.browserHelp">Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači a připoj desku datovým USB kabelem. Svůj program přeneseš přes Další nástroje → Soubor → Uložit bloky nebo Uložit .ino.</p>
+      </details>
     </div>
     <div class="programming-filebar programming-expert">
       <details class="programming-files" id="projectFiles">
@@ -114,24 +116,26 @@
           <p id="libraryStatus" role="status" aria-live="polite"></p>
         </div>
       </details>
-      <span class="programming-local-note" data-i18n="programming.localBuild">Kompilace v počítači · přímé USB</span>
     </div>
     <div class="programming-status">
       <div class="programming-status-line">
         <p id="uploadStatus" role="status" aria-live="polite" aria-atomic="true">Načítám programovací prostředí…</p>
-        
+        <strong id="uploadPercent" class="programming-upload-percent" hidden></strong>
       </div>
       <p id="projectNext" class="programming-next" hidden></p>
       <progress id="uploadProgress" max="100" hidden aria-label="Průběh nahrávání" data-i18n-aria-label="programming.progress"></progress>
+      <div id="memoryUsage" class="programming-memory" hidden>
+        <div class="programming-memory-item"><div class="programming-memory-heading"><span>Flash</span><strong id="flashPercent"></strong></div><meter id="flashUsage" min="0" max="30720" value="0" aria-label="Flash"></meter><span id="flashBytes" class="programming-memory-bytes"></span></div>
+        <div class="programming-memory-item"><div class="programming-memory-heading"><span id="ramLabel">RAM · statická</span><strong id="ramPercent"></strong></div><meter id="ramUsage" min="0" max="2048" value="0" aria-label="RAM · statická"></meter><span id="ramBytes" class="programming-memory-bytes"></span></div>
+      </div>
       <div id="compilerErrors" class="programming-errors" role="alert" aria-atomic="true" hidden>
-        <h2 id="compilerErrorHeading"></h2>
+        <h2 id="compilerErrorHeading" class="visually-hidden"></h2>
         <p id="compilerErrorContext" hidden></p>
         <div id="compilerErrorList"></div>
         <p id="compilerErrorMore" hidden></p>
       </div>
       <details id="compilerDetails" class="programming-diagnostics" hidden>
         <summary data-i18n="programming.details">Technické podrobnosti</summary>
-        <p id="memoryUsage" class="programming-memory"></p>
         <pre id="compilerLog"></pre>
       </details>
     </div>
@@ -228,9 +232,9 @@
 <script src="https://unpkg.com/blockly@13.2.1/blockly_compressed.js"></script>
 <script src="https://unpkg.com/blockly@13.2.1/blocks_compressed.js"></script>
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
-<script src="../assets/js/shieldio-blocks.js?v=20261103-toolbox1"></script>
-<script src="../assets/js/blockly-editor.js?v=20261103-toolbox1"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261103-toolbox1"></script>
+<script src="../assets/js/shieldio-blocks.js?v=20261104-status1"></script>
+<script src="../assets/js/blockly-editor.js?v=20261104-status1"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261104-status1"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js"></script>

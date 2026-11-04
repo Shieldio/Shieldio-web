@@ -1,12 +1,14 @@
 import { importLibrary, validateLibraries } from "./arduino-libraries.mjs";
 import { codeKeyEdit, formatIndentation, toggleLineComment } from "./arduino-source-editor.mjs?v=20261103-assist2";
-import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from "./arduino-diagnostics.mjs?v=20261103-assist2";
+import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from "./arduino-diagnostics.mjs?v=20261104-status1";
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
+  ramStatic: ["RAM · statická", "RAM · static"], ramOled: ["RAM · data + OLED", "RAM · data + OLED"],
+  ramDetail: ["Statická data a vyhrazený buffer OLED. Zásobník a další dynamické alokace nejsou zahrnuté.", "Static data and reserved OLED buffer. Stack and other dynamic allocations are not included."],
   tools: ["Další nástroje", "More tools"], simpleMode: ["Jednodušší režim", "Simple mode"],
-  exampleLoading: ["Načítám ukázkový program…", "Loading the example program…"],
-  exampleLoaded: ["Ukázka je připravená. Připoj desku a zvol Spustit na desce.", "Example ready. Connect your board and choose Run on board."],
+  exampleLoading: ["Načítání ukázky…", "Loading example…"],
+  exampleLoaded: ["Ukázka načtena", "Example loaded"],
   exampleLoadError: ["Ukázkový program se nepodařilo načíst. Obnov stránku nebo otevři jeho soubor .ino.", "Could not load the example. Reload or open its .ino file."],
   focus: ["Zvětšit editor", "Expand editor"], unfocus: ["Zpět na web", "Back to website"],
   removeLibrary: ["Odebrat", "Remove"], libraryAdded: ["Knihovna je připravená. Použij její #include v programu.", "Library ready. Use its #include in your program."],
@@ -16,28 +18,28 @@ const messages = {
   LIBRARY_LANGUAGE: ["Tato knihovna obsahuje C, assembler nebo předkompilované objekty. Zatím podporujeme C++ a hlavičky.", "This library contains C, assembly or precompiled objects. Only C++ and headers are supported yet."],
   LIBRARY_PATH: ["Knihovna obsahuje nepodporovanou cestu k souboru.", "The library contains an unsupported file path."],
   LIBRARY_CONFLICT: ["Knihovna koliduje s připravenou nebo jinou vlastní knihovnou.", "The library conflicts with an included or another custom library."],
-  ready: ["Připoj RED datovým USB kabelem. Potom zvol Spustit na desce.", "Connect RED with a USB data cable. Then choose Run on board."],
-  connected: ["Deska je vybraná. Klikni na Spustit na desce.", "Board selected. Choose Run on board."],
+  ready: ["Připraveno", "Ready"],
+  connected: ["Deska vybraná", "Board selected"],
   connect: ["Připojit desku", "Connect board"], disconnect: ["Odpojit", "Disconnect"],
-  compiling: ["Připravuji program pro desku…", "Preparing your program for the board…"],
-  compiled: ["Kontrola dokončena. Na desce se ještě nic nezměnilo.", "Check complete. Nothing has changed on the board yet."],
-  changed: ["Program se změnil. Spusť kontrolu nebo ho nahraj do desky.", "The program changed. Check it or upload it to the board."],
-  reset: ["Připojuji se k desce…", "Connecting to the board…"],
-  write: ["Posílám program do desky", "Sending your program to the board"], verify: ["Kontroluji, že deska dostala celý program", "Checking the board received the complete program"],
-  done: ["Nahráno. Teď sleduj, co deska dělá.", "Uploaded. Now watch what the board does."],
+  compiling: ["Kompilace…", "Compiling…"],
+  compiled: ["Zkompilováno", "Compiled"],
+  changed: ["Program změněn", "Program changed"],
+  reset: ["Připojování…", "Connecting…"],
+  write: ["Nahrávání…", "Uploading…"], verify: ["Ověřování…", "Verifying…"],
+  done: ["Nahráno", "Uploaded"],
   cancelled: ["Zastaveno. Pokud už probíhalo nahrávání, spusť program na desce znovu.", "Stopped. If upload had started, run the program on the board again."],
   noPort: ["Deska nebyla vybraná. Zkus Spustit na desce znovu a vyber její USB port.", "No board selected. Choose Run on board again and select its USB port."],
   unsupported: ["Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači.", "To run on RED, open the editor in desktop Chrome or Edge."],
-  failure: ["Nepodařilo se to. Otevři podrobnosti a zkus doporučený postup.", "That did not work. Open the details and try the suggested steps."],
-  compileError: ["Chyba v programu. Podívej se na označené místo a návrh opravy.", "Error in the program. Check the marked location and suggested fix."],
-  errorsTitle: ["Chyby při přípravě programu", "Program preparation errors"],
+  failure: ["Operace selhala", "Operation failed"],
+  compileError: ["Chyba kompilace", "Compilation error"],
+  errorsTitle: ["Chyba v programu", "Program error"],
   blockErrorContext: ["Tento kód vznikl z bloků. Uprav bloky a spusť kontrolu znovu.", "This code was generated from blocks. Edit the blocks, then check again."],
   goToLine: ["Přejít na řádek", "Go to line"],
   addClosingParen: ["Doplnit )", "Insert )"],
   fixApplied: ["Závorka je doplněná. Spusť kontrolu znovu.", "Parenthesis inserted. Check the program again."],
-  formatted: ["Odsazení upraveno.", "Indentation updated."],
+  formatted: ["Kód zarovnán", "Code formatted"],
   moreErrors: ["Další chyby jsou v technických podrobnostech. Nejdřív oprav první chybu.", "More errors are in the technical details. Fix the first error first."],
-  fileLoaded: ["Program byl načten do záložky Arduino C++.", "Program loaded into the Arduino C++ tab."],
+  fileLoaded: ["Program načten", "Program loaded"],
   codeUnavailable: ["Blokový editor se nenačetl. Obnov stránku nebo použij záložku Arduino C++.", "The block editor did not load. Reload or use the Arduino C++ tab."],
   errorGenerated: ["V blocích je chyba. Oprav ji podle zprávy pod výběrem součástky.", "There is a block error. Follow the message below the component selector."],
   codeChanged: ["Program se mezitím změnil. Spusť ho znovu.", "The program changed in the meantime. Run it again."],
@@ -61,6 +63,7 @@ const supported = "serial" in navigator && window.isSecureContext;
 let selectedPort = null, busy = false, cached = null, worker = null, controller = null, disconnected = false;
 let libraries = [], expanded = false, toolsOpen = false, importedProject = false, uploadRequested = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
+let memorySnapshot = null;
 let lastCompile = null, failedBuild = null, errorLine = null, renderedLineCount = 0;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
@@ -98,7 +101,7 @@ const projectCopy = {
     change: ["Přesuň překážku a porovnej obraz na displeji. Odpovídá jejímu novému místu?", "Move the obstacle and compare the display. Does it match the new position?"]
   },
   own: {
-    title: ["Co tvůj program udělá?", "What will your program do?"],
+    title: ["Programování RED", "Program RED"],
     expected: ["Vyber si jeden výstup, který budeš na desce sledovat. Potom svůj program spusť.", "Choose one output to watch on the board. Then run your program."],
     change: ["Porovnej výsledek se svým odhadem. Změň jednu věc a spusť program znovu.", "Compare the result with your prediction. Change one thing and run the program again."]
   }
@@ -114,9 +117,9 @@ function paintProject() {
   const copy = project();
   $("projectTitle").textContent = localized(copy.title);
   $("projectExpected").textContent = localized(copy.expected);
-  const next = $("projectNext");
-  next.hidden = !(statusKey === "done" || (statusKey === "compiled" && !uploadRequested));
-  next.textContent = statusKey === "done" ? localized(copy.change) : localized(["Další krok: klikni na Spustit na desce. Kontrola sama program do desky neposílá.", "Next: choose Run on board. Checking alone does not send the program to the board."]);
+  $("projectExpected").hidden = copy === projectCopy.own;
+  $("projectNext").hidden = true;
+  $("projectNext").textContent = "";
 }
 function paintToolsButton() {
   const key = toolsOpen ? "simpleMode" : "tools";
@@ -134,9 +137,32 @@ function setTools(open) {
 $("toggleToolsBtn").addEventListener("click", () => setTools(!toolsOpen));
 window.addEventListener("shieldio:project-import", () => {importedProject=true;paintProject();});
 
+function clearMemory() { memorySnapshot=null; $("memoryUsage").hidden=true; }
+function paintMemory() {
+  $("memoryUsage").hidden=!memorySnapshot;
+  if (!memorySnapshot) return;
+  const {flash,ram,oled}=memorySnapshot;
+  const locale=document.documentElement.lang==="en"?"en-US":"cs-CZ";
+  const bytes=n=>n.toLocaleString(locale);
+  for (const [kind,value,max] of [["flash",flash,NANO_FLASH_BYTES],["ram",ram,2048]]) {
+    $(kind+"Percent").textContent=Math.round(value/max*100)+" %";
+    $(kind+"Bytes").textContent=bytes(value)+" / "+bytes(max)+" B";
+    $(kind+"Usage").value=value;
+    $(kind+"Usage").setAttribute("aria-valuetext",bytes(value)+" / "+bytes(max)+" B");
+  }
+  $("ramLabel").textContent=t(oled?"ramOled":"ramStatic");
+  $("ramUsage").setAttribute("aria-label",t(oled?"ramOled":"ramStatic"));
+  $("ramUsage").setAttribute("title",t("ramDetail"));
+}
 function paint() {
   paintToolsButton();
-  $("uploadStatus").textContent = t(statusKey) + (statusPercent === null ? "" : ` · ${statusPercent} %`);
+  $("uploadStatus").textContent = t(statusKey);
+  $("uploadStatus").hidden=statusKey==="ready";
+  $("uploadPercent").textContent=statusPercent===null?"":Math.round(statusPercent)+" %";
+  $("uploadPercent").hidden=statusPercent===null;
+  $("uploadProgress").hidden=!(busy || statusKey==="done");
+  $("programmingStudio").dataset.status=statusError?"error":statusKey;
+  paintMemory();
   $("uploadStatus").dataset.error = String(statusError);
   $("connectBoardBtn").textContent = t(selectedPort ? "disconnect" : "connect");
   $("boardConnection").textContent = t(selectedPort ? "usbSelected" : supported ? "usbIdle" : "usbUnavailable");
@@ -158,7 +184,7 @@ function setBusy(value) {
   blocksPanel.inert = value;
   codePanel.inert = value;
   $("compilerErrors").inert = value;
-  $("uploadProgress").hidden = !value;
+  $("uploadProgress").hidden = !(value || statusKey === "done");
   $("programmingStudio").dataset.busy = String(value);
   paintProject();
 }
@@ -171,7 +197,7 @@ function invalidate() {
   if (cached && cached.source !== source()) {
     cached = null;
     $("downloadHexBtn").disabled = true;
-    $("memoryUsage").textContent = "";
+    clearMemory();
     if (!busy) status("changed");
   }
 }
@@ -296,7 +322,7 @@ function renderCompilerErrors() {
   if (!failedBuild.diagnostics.length) {
     const hint=document.createElement("p");hint.textContent=t(failedBuild.key);list.append(hint);
   }
-  for (const diagnostic of failedBuild.diagnostics.slice(0,5)) {
+  for (const diagnostic of failedBuild.diagnostics.slice(0,1)) {
     const item=document.createElement("div");item.className="programming-error-item";
     const heading=document.createElement("strong"),hint=document.createElement("p");
     const copy=describeDiagnostic(diagnostic,lang);heading.textContent=copy.title;hint.textContent=copy.hint;
@@ -325,7 +351,7 @@ function renderCompilerErrors() {
     }
     list.append(item);
   }
-  $("compilerErrorMore").hidden=failedBuild.diagnostics.length<=5;
+  $("compilerErrorMore").hidden=failedBuild.diagnostics.length<=1;
   $("compilerErrorMore").textContent=t("moreErrors");
   const editable=failedBuild.mode==="code" && failedBuild.source===sourceInput.value;
   errorLine=editable ? failedBuild.diagnostics.find(d=>d.inSketch)?.line || null : null;
@@ -373,7 +399,10 @@ async function compile(signal) {
   if (mode() === "blocks" && !window.SHIELDIO_EDITOR) throw new Error("codeUnavailable");
   if (mode() === "blocks" && window.SHIELDIO_EDITOR.getError()) throw new Error("errorGenerated");
   if (!text.trim()) throw new Error("HEX_EMPTY");
-  if (cached?.source === text) return cached.result;
+  if (cached?.source === text) {
+    const result=cached.result,oled=result.oledBufferBytes??(/Adafruit_SSD1306\.h/.test(text)?1024:0);
+    memorySnapshot={flash:result.flashBytes,ram:result.ramBytes+oled,oled};status("compiled");return result;
+  }
   status("compiling");
   $("uploadProgress").removeAttribute("value");
   const result = await compileInWorker(text, signal);
@@ -384,14 +413,14 @@ async function compile(signal) {
   if (text !== source()) throw new Error("codeChanged");
   cached = { source: text, result };
   $("downloadHexBtn").disabled = false;
-  $("memoryUsage").textContent = `Flash ${result.flashBytes.toLocaleString()} / 30 720 B · RAM ${result.ramBytes} / 2048 B${oledBytes ? " (+1024 B OLED)" : ""}`;
+  memorySnapshot={flash:result.flashBytes,ram:result.ramBytes+oledBytes,oled:oledBytes};
   $("compilerLog").textContent = result.stderr.join("\n");
   $("compilerDetails").hidden = false;
   status("compiled");
   return result;
 }
 function showError(error) {
-  $("memoryUsage").textContent="";
+  clearMemory();
   const log=[error.message,error.details].filter(Boolean).join("\n");
   const diagnostics=parseCompilerDiagnostics(log,lastCompile?.source||source());
   const key = disconnected ? "SERIAL_DISCONNECTED" : error.message === "CANCELLED" ? "cancelled" : messages[error.message] ? error.message : diagnostics.length ? "compileError" : "failure";
@@ -421,8 +450,10 @@ async function run(upload) {
       await flashNano(selectedPort, result.hex, {
         baudRate: Number($("bootloaderSelect").value), signal: controller.signal,
         onProgress: (phase, percent) => {
-          status(phase, false, ["write", "verify"].includes(phase) ? percent : null);
-          $("uploadProgress").value = phase === "write" ? percent / 2 : phase === "verify" ? 50 + percent / 2 : phase === "done" ? 100 : 0;
+          const progress=phase==="write"?percent/2:phase==="verify"?50+percent/2:phase==="done"?100:null;
+          if (progress===null) $("uploadProgress").removeAttribute("value");
+          else $("uploadProgress").value=progress;
+          status(phase,false,progress);
         },
       });
     }
@@ -461,7 +492,7 @@ function paintLibraries() {
   });
 }
 function librariesChanged() {
-  cached=null;$("downloadHexBtn").disabled=true;$("memoryUsage").textContent="";status("changed");paintLibraries();
+  cached=null;$("downloadHexBtn").disabled=true;clearMemory();status("changed");paintLibraries();
 }
 $("addLibraryBtn").addEventListener("click", () => $("libraryFolderInput").click());
 $("libraryFolderInput").addEventListener("change", async event => {
@@ -483,7 +514,7 @@ window.addEventListener("keydown", event => {
   if(event.key==="Escape" && expanded) $("focusEditorBtn").click();
   if((event.ctrlKey || event.metaKey) && event.key==="Enter") {event.preventDefault();run(event.shiftKey);}
 });
-document.addEventListener("shieldio-lang-change", paintToolsButton);
+document.addEventListener("shieldio-lang-change", paint);
 new MutationObserver(() => {paint();paintLibraries();updateSourcePosition();}).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 setBusy(false); paint();updateSourcePosition();
 

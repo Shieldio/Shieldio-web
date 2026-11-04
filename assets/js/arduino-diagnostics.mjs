@@ -43,7 +43,7 @@ export function describeDiagnostic(diagnostic, language = 'cs') {
   const en = language === 'en', symbol = diagnostic.symbol || '';
   const copy = {
     closingParen: ['Chybí uzavírací závorka ).', 'A closing parenthesis ) is missing.'],
-    semicolon: ['Očekává se středník ;.', 'A semicolon ; is expected.'],
+    semicolon: ['Chybí středník ;.', 'A semicolon ; is expected.'],
     closingBrace: ['Chybí uzavírací složená závorka }.', 'A closing brace } is missing.'],
     quote: ['Řetězec nebo znak nemá uzavírací uvozovku.', 'A string or character literal has no closing quote.'],
     identifier: [symbol ? `Neznámý název: ${symbol}.` : 'Neznámý název v programu.', symbol ? `Unknown name: ${symbol}.` : 'Unknown name in the program.'],
@@ -53,7 +53,7 @@ export function describeDiagnostic(diagnostic, language = 'cs') {
   };
   const hints = {
     closingParen: ['Před středník doplň ). Například digitalWrite(LED_GREEN, LOW);', 'Add ) before the semicolon. For example: digitalWrite(LED_GREEN, LOW);'],
-    semicolon: ['Zkontroluj konec tohoto a předchozího řádku. Příkaz obvykle končí středníkem.', 'Check the end of this line and the previous one. A statement usually ends with a semicolon.'],
+    semicolon: ['Středník může chybět na předchozím řádku.', 'The semicolon may be missing on the previous line.'],
     closingBrace: ['Každá otevírací { musí mít odpovídající }. Zkontroluj bloky funkcí, podmínek a cyklů.', 'Each opening { needs a matching }. Check functions, conditions and loops.'],
     quote: ['Zkontroluj dvojici uvozovek a případná zpětná lomítka před nimi.', 'Check the matching quotes and any backslashes before them.'],
     identifier: ['Zkontroluj překlep, velká a malá písmena a deklaraci proměnné nebo funkce před použitím.', 'Check spelling, letter case, and whether the variable or function is declared before use.'],
