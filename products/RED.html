@@ -208,9 +208,9 @@
   <div class="wrap">
     <div class="preorder-head-grid">
       <div class="section-head" style="margin-bottom:0;">
-        <span class="eyebrow-dark">Vývojová série</span>
-        <h2>Mám zájem o <span class="text-tier-red">RED</span>.</h2>
-        <p>RED V4 právě testujeme a současně připravujeme V5. Formulář nám pomůže zjistit, komu by budoucí vývojová série dávala smysl — ve škole, kroužku nebo doma.</p>
+        <span class="eyebrow-dark" data-i18n="red.interest.eyebrow">Vývojová série</span>
+        <h2 data-i18n="red.interest.heading">Mám zájem o <span class="text-tier-red">RED</span>.</h2>
+        <p data-i18n="red.interest.body">RED V4 právě testujeme a současně připravujeme V5. Formulář nám pomůže zjistit, komu by budoucí vývojová série dávala smysl — ve škole, kroužku nebo doma.</p>
       </div>
       <div class="photo-frame"><img src="../assets/images/RED_detail_button_qr_clean.jpg" width="1400" height="1400" loading="lazy" alt="Detail sestavené desky Shieldio RED s tlačítkem a QR kódem"></div>
     </div>
@@ -218,13 +218,13 @@
       <input type="hidden" name="access_key" value="a13ed669-5fc4-4329-bf27-a4e40dd0b1e7">
       <input type="hidden" name="subject" value="Zájem o vývojovou sérii Shieldio RED">
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-      <div class="field"><label for="interest-name">Jméno</label><input id="interest-name" name="jmeno" type="text" autocomplete="name" placeholder="Jana Nováková" required></div>
-      <div class="field"><label for="interest-email">E-mail</label><input id="interest-email" name="email" type="email" autocomplete="email" spellcheck="false" placeholder="jana.novakova.cz" required></div>
-      <div class="field"><label for="interest-school">Škola nebo organizace (nepovinné)</label><input id="interest-school" name="skola" type="text" autocomplete="organization"></div>
-      <div class="field"><label for="interest-message">Zpráva (nepovinné)</label><textarea id="interest-message" name="zprava" placeholder="K čemu by vám RED pomohla?"></textarea></div>
-      <button class="btn btn-primary" type="submit">Odeslat nezávazný zájem</button>
-      <p class="form-privacy-note">Údaje použijeme pouze k vyřízení této zprávy. Podrobnosti najdete v <a href="../company/privacy.html">Zásadách ochrany osobních údajů</a>.</p>
-      <p class="preorder-disclaimer">Odesláním formuláře nevzniká objednávka, rezervace, kupní smlouva ani povinnost produkt koupit nebo dodat. Formulář slouží pouze k ověření zájmu o připravovaný studentský projekt.</p>
+      <div class="field"><label for="interest-name" data-i18n="red.interest.name">Jméno</label><input id="interest-name" name="jmeno" type="text" autocomplete="name" placeholder="Jana Nováková" required></div>
+      <div class="field"><label for="interest-email">E-mail</label><input id="interest-email" name="email" type="email" autocomplete="email" spellcheck="false" placeholder="jana@example.com" required></div>
+      <div class="field"><label for="interest-school" data-i18n="red.interest.school">Škola nebo organizace (nepovinné)</label><input id="interest-school" name="skola" type="text" autocomplete="organization"></div>
+      <div class="field"><label for="interest-message" data-i18n="red.interest.message">Zpráva (nepovinné)</label><textarea id="interest-message" name="zprava" placeholder="K čemu by vám RED pomohla?" data-i18n-placeholder="red.interest.messagePlaceholder"></textarea></div>
+      <button class="btn btn-primary" type="submit" data-i18n="red.interest.submit">Odeslat nezávazný zájem</button>
+      <p class="form-privacy-note" data-i18n="red.interest.privacy">Údaje použijeme pouze k vyřízení této zprávy. Podrobnosti najdete v <a href="../company/privacy.html">Zásadách ochrany osobních údajů</a>.</p>
+      <p class="preorder-disclaimer" data-i18n="red.interest.disclaimer">Odesláním formuláře nevzniká objednávka, rezervace, kupní smlouva ani povinnost produkt koupit nebo dodat. Formulář slouží pouze k ověření zájmu o připravovaný studentský projekt.</p>
       <p class="form-status" aria-live="polite"></p>
     </form>
   </div>
@@ -266,11 +266,11 @@
 
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
-<script src="../assets/js/theme.js"></script>
-<script src="../assets/js/search.js?v=20261103-search"></script>
+<script src="../assets/js/theme.js?v=20261104-interactions1"></script>
+<script src="../assets/js/search.js?v=20261104-interactions1"></script>
 <script src="../assets/js/lang.js"></script>
 <script src="../assets/js/site-chrome.js?v=20261103-unified"></script>
 <script src="../assets/js/lightbox.js"></script>
-<script src="../assets/js/contact-form.js"></script>
+<script src="../assets/js/contact-form.js?v=20261104-interactions1"></script>
 </body>
 </html>

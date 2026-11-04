@@ -1,7 +1,7 @@
 // Shieldio — local search over page titles, descriptions and project components.
 
 document.addEventListener("DOMContentLoaded", () => {
-  let indexData = null, loading = null;
+  let indexData = null, loading = null, loadError = false, previousFocus;
   let overlay, input, resultsEl;
 
   const languageText = (cs,en) => document.documentElement?.lang === "en" ? en : cs;
@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
       overlay.querySelector(".modal-close").setAttribute("aria-label", languageText("Zavřít", "Close search"));
       input.setAttribute("placeholder", languageText("Hledat na webu…", "Search the site…"));
       input.setAttribute("aria-label", languageText("Hledat na webu", "Search the site"));
+      overlay.setAttribute("aria-label", languageText("Hledat na webu", "Search the site"));
+      renderResults(input.value);
     }
   }
   document.addEventListener("shieldio-lang-change", labelSearch);
@@ -30,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderResults(query) {
     const q = normalize(query);
-    if (!indexData) { resultsEl.innerHTML = '<p class="search-empty">Načítám…</p>'; return; }
-    if (!q) { resultsEl.innerHTML = '<p class="search-empty">Začni psát název stránky, produktu nebo návodu…</p>'; return; }
+    if (!indexData) { resultsEl.innerHTML = '<p class="search-empty">' + (loadError ? languageText("Vyhledávání se nepodařilo načíst. Zkus ho otevřít znovu.", "Search could not load. Close it and try again.") : languageText("Načítám…", "Loading…")) + "</p>"; return; }
+    if (!q) { resultsEl.innerHTML = '<p class="search-empty">' + languageText("Začni psát název stránky, produktu nebo návodu…", "Type a page, product or guide name…") + "</p>"; return; }
     const terms = q.split(/\s+/);
     const matches = indexData
       .filter((e) => terms.every(term => e.searchText.includes(term)))
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         + (e.descriptionText.includes(q) ? 10 : 0)}))
       .sort((a,b) => b.score - a.score || a.order - b.order)
       .slice(0, 8);
-    if (!matches.length) { resultsEl.innerHTML = '<p class="search-empty">Nic jsem nenašel.</p>'; return; }
+    if (!matches.length) { resultsEl.innerHTML = '<p class="search-empty">' + languageText("Nic jsem nenašel.", "No results found.") + "</p>"; return; }
     resultsEl.innerHTML = matches
       .map(
         (e) => `
@@ -56,6 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (overlay) return;
     overlay = document.createElement("div");
     overlay.className = "modal-overlay search-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
     overlay.innerHTML = `
       <div class="modal-card search-card">
         <button type="button" class="modal-close" aria-label="Zavřít">&times;</button>
@@ -66,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(overlay);
     input = overlay.querySelector(".search-input");
     resultsEl = overlay.querySelector(".search-results");
+    resultsEl.setAttribute("aria-live", "polite");
     labelSearch();
 
     overlay.addEventListener("click", (e) => { if (e.target === overlay) closeSearch(); });
@@ -81,24 +86,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function openSearch() {
     ensureModal();
+    if (!overlay.classList.contains("active")) previousFocus = document.activeElement;
     overlay.classList.add("active");
     if (!indexData) {
-      if (!loading) loading = fetch("/assets/data/search-index.json", {cache:"no-cache"})
+      if (!loading) { loadError = false; loading = fetch("/assets/data/search-index.json", {cache:"no-cache"})
         .then((r) => {if (!r.ok) throw Error("Search index unavailable");return r.json();})
         .then((data) => { indexData = data.map(prepareEntry); renderResults(input.value); })
-        .catch(() => { resultsEl.innerHTML = '<p class="search-empty">Vyhledávání se nepodařilo načíst. Zkus ho otevřít znovu.</p>'; })
-        .finally(() => {loading = null;});
+        .catch(() => {loadError = true; renderResults(input.value);})
+        .finally(() => {loading = null;});}
     }
     renderResults(input.value);
-    setTimeout(() => input.focus(), 50);
+    input.focus();
   }
 
   function closeSearch() {
     if (overlay) overlay.classList.remove("active");
+    previousFocus?.focus?.();
   }
 
   document.addEventListener("keydown", (e) => {
-    if (overlay && overlay.classList.contains("active") && e.key === "Escape") closeSearch();
+    if (overlay && overlay.classList.contains("active")) {
+      if (e.key === "Escape") closeSearch();
+      if (e.key === "Tab") {
+        const nodes = [...overlay.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href]')], first = nodes[0], last = nodes.at(-1);
+        if (e.shiftKey && document.activeElement === first) {e.preventDefault(); last?.focus();}
+        else if (!e.shiftKey && document.activeElement === last) {e.preventDefault(); first?.focus();}
+      }
+    }
     if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       openSearch();

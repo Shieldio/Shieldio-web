@@ -6,6 +6,8 @@
     const cycles = 4, width = 500, height = 70, margin = 6;
     const cycleW = (width - 2 * margin) / cycles;
     const onW = cycleW * (dutyPct / 100);
+    if (dutyPct <= 0) return `${margin},${height-margin} ${width-margin},${height-margin}`;
+    if (dutyPct >= 100) return `${margin},${margin} ${width-margin},${margin}`;
     const highY = margin, lowY = height - margin;
     let x = margin;
     const pts = [`${x},${lowY}`];
@@ -78,6 +80,7 @@
       if (modeToggle) {
         modeToggle.querySelectorAll(".guide-mode-btn").forEach((btn) => {
           btn.classList.toggle("active", btn.dataset.pwmMode === mode);
+          btn.setAttribute("aria-pressed", String(btn.dataset.pwmMode === mode));
         });
       }
     }

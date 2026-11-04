@@ -5386,5 +5386,45 @@
   "learn.sources": {
     "cs": "Zdroje a předpoklady modelu",
     "en": "Sources and model assumptions"
+  },
+  "red.interest.eyebrow": {
+    "cs": "Vývojová série",
+    "en": "Development series"
+  },
+  "red.interest.heading": {
+    "cs": "Mám zájem o <span class=\"text-tier-red\">RED</span>.",
+    "en": "I am interested in <span class=\"text-tier-red\">RED</span>."
+  },
+  "red.interest.body": {
+    "cs": "RED V4 právě testujeme a současně připravujeme V5. Formulář nám pomůže zjistit, komu by budoucí vývojová série dávala smysl — ve škole, kroužku nebo doma.",
+    "en": "We are testing RED V4 and preparing V5. This form helps us understand interest in a future development series for schools, clubs and home use."
+  },
+  "red.interest.name": {
+    "cs": "Jméno",
+    "en": "Name"
+  },
+  "red.interest.school": {
+    "cs": "Škola nebo organizace (nepovinné)",
+    "en": "School or organisation (optional)"
+  },
+  "red.interest.message": {
+    "cs": "Zpráva (nepovinné)",
+    "en": "Message (optional)"
+  },
+  "red.interest.submit": {
+    "cs": "Odeslat nezávazný zájem",
+    "en": "Send non-binding interest"
+  },
+  "red.interest.privacy": {
+    "cs": "Údaje použijeme pouze k vyřízení této zprávy. Podrobnosti najdete v <a href=\"../company/privacy.html\">Zásadách ochrany osobních údajů</a>.",
+    "en": "We use your details only to respond to this message. See our <a href=\"../company/privacy.html\">Privacy Policy</a>."
+  },
+  "red.interest.disclaimer": {
+    "cs": "Odesláním formuláře nevzniká objednávka, rezervace, kupní smlouva ani povinnost produkt koupit nebo dodat. Formulář slouží pouze k ověření zájmu o připravovaný studentský projekt.",
+    "en": "Submitting this form does not create an order, reservation, purchase agreement or obligation to buy or deliver a product. It only records interest in the student project under development."
+  },
+  "red.interest.messagePlaceholder": {
+    "cs": "K čemu by vám RED pomohla?",
+    "en": "How would you use RED?"
   }
 }

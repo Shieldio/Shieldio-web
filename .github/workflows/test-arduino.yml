@@ -1,7 +1,7 @@
 name: Test Arduino programming
 on:
   push:
-    branches: [main, codex/site-audit-fixes-20261103]
+    branches: [main, codex/site-audit-fixes-20261103, codex/interaction-fixes-20261104]
     paths:
       - 'assets/js/arduino-*.mjs'
       - 'index.html'
@@ -19,6 +19,10 @@ on:
       - 'assets/css/component-lessons.css'
       - 'assets/js/site-chrome.js'
       - 'assets/js/search.js'
+      - 'assets/js/theme.js'
+      - 'assets/js/pwm-sim.js'
+      - 'assets/js/resistor-calculator.js'
+      - 'assets/js/contact-form.js'
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
@@ -54,6 +58,10 @@ on:
       - 'assets/css/component-lessons.css'
       - 'assets/js/site-chrome.js'
       - 'assets/js/search.js'
+      - 'assets/js/theme.js'
+      - 'assets/js/pwm-sim.js'
+      - 'assets/js/resistor-calculator.js'
+      - 'assets/js/contact-form.js'
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
@@ -79,6 +87,7 @@ jobs:
     env:
       BLOCKLY_TEST_DIR: /tmp/shieldio-test-deps/node_modules/blockly
       JSDOM_TEST_PACKAGE: /tmp/shieldio-test-deps/node_modules/jsdom
+      KATEX_TEST_PACKAGE: /tmp/shieldio-test-deps/node_modules/katex
       XMLDOM_TEST_PACKAGE: /tmp/shieldio-test-deps/node_modules/@xmldom/xmldom/lib/index.js
       BLOCKLY_FIXTURES: /tmp/shieldio-block-fixtures.json
       AVR_TOOLCHAIN_DIR: /tmp/shieldio-avr/package
@@ -101,8 +110,9 @@ jobs:
       - run: node tests/arduino-libraries.test.mjs
       - run: node tests/arduino-compiler-worker.test.mjs
       - name: Install headless Blockly test dependencies
-        run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11 jsdom@27.4.0
+        run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11 jsdom@27.4.0 katex@0.16.11
       - run: node tests/arduino-blocks.test.mjs
+      - run: node tests/site-interactions.test.mjs
       - run: node tests/site-learning.test.mjs
       - run: node tests/site-journeys.test.mjs
       - run: node tests/arduino-distance.test.mjs

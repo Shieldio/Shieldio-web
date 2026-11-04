@@ -27,6 +27,8 @@
 
   const STRINGS = {
     cs: {
+      invalidCurrent: "Zadej proud větší než 0 mA.",
+      invalidVoltage: "Zadej nezáporná napětí ve voltech.",
       needHigherSupply: "Napájecí napětí musí být vyšší než úbytek napětí na LED.",
       varSupply: "napájení",
       varLed: "LED",
@@ -37,6 +39,8 @@
         `Vzorec: R = (Vnapájení − VLED) ⁄ Iproud = (${Vs} − ${Vf}) V ⁄ ${Ima} A ≈ ${R}. Nejbližší běžně vyráběná hodnota z řady E12 je ${std}.`,
     },
     en: {
+      invalidCurrent: "Enter a current greater than 0 mA.",
+      invalidVoltage: "Enter non-negative voltages in volts.",
       needHigherSupply: "The supply voltage must be higher than the LED's voltage drop.",
       varSupply: "supply",
       varLed: "LED",
@@ -67,11 +71,11 @@
       const Vs = parseFloat(vs.value);
       const Vf = parseFloat(vf.value);
       const Ima = parseFloat(i.value);
-      if (!isFinite(Vs) || !isFinite(Vf) || !isFinite(Ima) || Ima <= 0 || Vs <= Vf) {
+      if (!isFinite(Vs) || !isFinite(Vf) || !isFinite(Ima) || Ima <= 0 || Vs < 0 || Vf < 0 || Vs <= Vf) {
         rOut.textContent = "—";
         if (standardOut) standardOut.textContent = "—";
         if (actualCurrentOut) actualCurrentOut.textContent = "—";
-        if (note) note.textContent = t.needHigherSupply;
+        if (note) note.textContent = !isFinite(Ima) || Ima <= 0 ? t.invalidCurrent : !isFinite(Vs) || !isFinite(Vf) || Vs < 0 || Vf < 0 ? t.invalidVoltage : t.needHigherSupply;
         return;
       }
       const R = (Vs - Vf) / (Ima / 1000);
@@ -81,8 +85,10 @@
       if (standardOut) standardOut.textContent = formatOhm(std);
       if (actualCurrentOut) actualCurrentOut.textContent = `${actualCurrent.toLocaleString(currentLang() === "cs" ? "cs-CZ" : "en-US", { maximumFractionDigits: 1 })} mA`;
       if (note) {
-        const tail = ` \\approx ${formatOhm(R).replace("Ω", "\\,\\Omega").replace("kΩ", "\\,\\text{k}\\Omega")}`;
-        const formula = `R = \\dfrac{V_{${t.varSupply}} - V_{${t.varLed}}}{I_{${t.varCurrent}}} = \\dfrac{${Vs} - ${Vf}\\,\\text{V}}{${(Ima / 1000).toLocaleString("cs-CZ")}\\,\\text{A}}${tail}`;
+        const texNumber = value => value.toLocaleString(currentLang() === "cs" ? "cs-CZ" : "en-US", {useGrouping:false,maximumFractionDigits:6}).replace(",", "{,}");
+        const scale = R >= 1e6 ? 1e6 : R >= 1000 ? 1000 : 1;
+        const unit = scale === 1e6 ? "M" : scale === 1000 ? "k" : "";
+        const formula = `R = \\dfrac{U_S-U_F}{I} = \\dfrac{(${texNumber(Vs)}-${texNumber(Vf)})\\,\\mathrm{V}}{${texNumber(Ima/1000)}\\,\\mathrm{A}} \\approx ${texNumber(R/scale)}\\,\\mathrm{${unit}\\Omega}`;
         if (window.katex) {
           note.innerHTML = "";
           const formulaSpan = document.createElement("span");
@@ -94,7 +100,7 @@
           }
           note.appendChild(document.createTextNode(" " + t.nearestValue(formatOhm(std), `${actualCurrent.toLocaleString(currentLang() === "cs" ? "cs-CZ" : "en-US", { maximumFractionDigits: 1 })} mA`)));
         } else {
-          note.textContent = t.textFallback(Vs, Vf, (Ima / 1000).toLocaleString("cs-CZ"), formatOhm(R), formatOhm(std));
+          note.textContent = t.textFallback(Vs, Vf, (Ima / 1000).toLocaleString(currentLang() === "cs" ? "cs-CZ" : "en-US"), formatOhm(R), formatOhm(std));
         }
       }
     }
@@ -148,6 +154,7 @@
     }
 
     function render() {
+      const saved = [...root.querySelectorAll("input,select")].map(field => ({selector:field.id ? "#" + field.id : '[data-band="' + field.dataset.band + '"]', value:field.value}));
       const t = copy[lang()];
       const digitOptions = BAND_COLORS.slice(0, 10);
       const multiplierOptions = BAND_COLORS.filter(color => color.multiplier !== undefined);
@@ -195,6 +202,7 @@
       root.querySelector('[data-band="1"]').value = "red";
       root.querySelector('[data-band="2"]').value = "brown";
       root.querySelector('[data-band="3"]').value = "gold";
+      saved.forEach(({selector,value}) => {const field = root.querySelector(selector); if (field) field.value = value;});
       updateValue(); updateBands();
     }
     document.addEventListener("shieldio-lang-change", render);

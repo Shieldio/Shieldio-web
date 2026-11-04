@@ -82,8 +82,6 @@
 
   // keep tabs in sync if the user flips the toggle in another tab
   window.addEventListener("storage", (e) => {
-    if (e.key === "shieldio-theme" && e.newValue) {
-      document.documentElement.dataset.theme = e.newValue;
-    }
+    if (e.key === "shieldio-theme" && ["dark", "light"].includes(e.newValue)) setTheme(e.newValue);
   });
 })();
