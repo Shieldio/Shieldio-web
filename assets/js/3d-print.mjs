@@ -19,7 +19,8 @@ const material=new THREE.MeshLambertMaterial({color:0x0d9488,side:THREE.DoubleSi
 let mesh, radius=20, url, sample=true, sequence=0;
 function reset(){camera.position.set(radius*1.6,radius*1.2,radius*1.8);camera.near=radius/1000;camera.far=radius*100;camera.updateProjectionMatrix();controls.target.set(0,0,0);controls.minDistance=radius*.15;controls.maxDistance=radius*20;controls.update();}
 function nameSample(){if(sample)$('model-name').textContent=en()?'Sample: 20 mm cube':'Ukázka: kostka 20 mm';}
-function show(buffer,name,isSample,fit=true){
+function show(buffer,name,isSample,fit=true,wheel=false){
+ material.side=wheel?THREE.FrontSide:THREE.DoubleSide;material.needsUpdate=true;
  const geometry=new STLLoader().parse(buffer), pos=geometry.getAttribute('position');
  if(!pos||!pos.count||pos.count>(software?90000:3000000)){geometry.dispose();throw Error('Invalid geometry');}
  for(const value of pos.array)if(!Number.isFinite(value)){geometry.dispose();throw Error('Nonfinite vertex');}
@@ -39,6 +40,6 @@ host.addEventListener('dragover',e=>{e.preventDefault();host.classList.add('drag
 host.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-','Home'].includes(e.key))return;e.preventDefault();if(e.key==='Home'){reset();return;}if(e.key==='+'||e.key==='-')camera.position.multiplyScalar(e.key==='+'?.9:1.1);else{const spherical=new THREE.Spherical().setFromVector3(camera.position.clone().sub(controls.target));spherical.theta+=e.key==='ArrowLeft'?.15:e.key==='ArrowRight'?-.15:0;spherical.phi+=e.key==='ArrowUp'?-.15:e.key==='ArrowDown'?.15:0;spherical.makeSafe();camera.position.copy(new THREE.Vector3().setFromSpherical(spherical).add(controls.target));}controls.update();});
 new ResizeObserver(()=>{const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();}).observe(host);
 document.addEventListener('shieldio-lang-change',nameSample);
-displayModel=(buffer,name,fit=true)=>{++sequence;show(buffer,name,false,fit);return true;};
+displayModel=(buffer,name,fit=true)=>{++sequence;show(buffer,name,false,fit,true);return true;};
 function frame(){requestAnimationFrame(frame);controls.update();renderer.render(scene,camera);}frame();if(!document.getElementById("wheel-form"))demo();
 }

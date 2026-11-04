@@ -12,6 +12,8 @@ function inspect(p){
 }
 inspect(defaults);
 for(const diameter of [40,55,67,100])for(const recess of [0,10,30])for(const hole of ['D','round'])for(const style of ['spokes','solid'])inspect({...defaults,diameter,recess,hole,style});
+for(const spokes of [3,4,5,6,8,10,12])for(const flatCut of [.1,.65,1.5])for(const recess of [0,20])inspect({...defaults,spokes,flatCut,recess});
+for(const recessDiameter of [17,20,27,40,49.6])inspect({...defaults,recess:20,recessDiameter});
 const round=inspect({...defaults,style:'solid',hole:'round'});const analytic=Math.PI*((defaults.diameter/2)**2-(defaults.shaft/2)**2)*defaults.width;assert.ok(Math.abs(round.volume/analytic-1)<.001);
 assert.ok(validate({...defaults,recess:defaults.width}).length);assert.ok(validate({...defaults,shaft:NaN}).length);assert.ok(validate({...defaults,hub:3}).length);assert.ok(validate({...defaults,spokes:4.5}).length);
 console.log('Wheel: 97 variants; closed manifold, winding, D flat, bounds, STL, volume and invalid input passed.');
