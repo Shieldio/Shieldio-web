@@ -1,5 +1,5 @@
-import {defaults,validate,generateWheel,toSTL} from './wheel-geometry.mjs';
-import {displayModel} from './3d-print.mjs';
+import {defaults,validate,generateWheel,toSTL} from './wheel-geometry.mjs?v=20261104-4';
+import {displayModel} from './3d-print.mjs?v=20261104-4';
 const form=document.getElementById('wheel-form'),preset=document.getElementById('wheel-preset'),download=document.getElementById('download'),error=document.getElementById('wheel-error'),stats=document.getElementById('wheel-stats');
 const en=()=>document.documentElement.lang==='en';
 const storage='shieldio-wheel-v1';let current={...defaults},objectURL,timer,first=true,model,currentView='wheel';
