@@ -20,7 +20,7 @@ function render(fit=first){
  }catch(e){error.textContent=en()?'Could not generate this wheel. Check the dimensions.':'Kolo se nepodařilo vytvořit. Zkontroluj rozměry.';disable(true);}
 }
 form.addEventListener('submit',e=>e.preventDefault());
-form.addEventListener('input',()=>{preset.value='custom';disable(true);clearTimeout(timer);timer=setTimeout(()=>render(false),120);});
+form.addEventListener('input',e=>{if(e.target===preset)return;preset.value='custom';disable(true);clearTimeout(timer);timer=setTimeout(()=>render(false),120);});
 form.addEventListener('change',e=>{if(e.target.id!=='wheel-preset')render(false);});
 preset.addEventListener('change',()=>{if(preset.value==='custom')return;fill({...defaults,diameter:Number(preset.value)});render(true);});
 document.getElementById('wheel-restore').addEventListener('click',()=>{fill({...defaults});render(true);});
