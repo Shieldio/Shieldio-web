@@ -32,8 +32,8 @@ async function model({serial=true,available=[],flashError=null,disconnectPhase=n
 }
 {
   const m=await model();
-  assert.equal(m.get("compile").disabled,true);assert.equal(m.get("run").disabled,true);
-  assert.match(m.get("compilerNote").textContent,/zatím není připojené/);
+  assert.ok(!html.includes('id="compile"'));assert.ok(!html.includes('id="run"'));
+  assert.ok(!source.includes('compilerBoards('),"Free Studio never requests a compilation server");
   m.get("source").value="my ESP32 source";await m.get("source").emit("input");
   m.get("board").value="esp32s3";await m.get("board").emit("change");
   assert.ok(!m.get("source").value.includes("my ESP32 source"));
@@ -52,17 +52,9 @@ async function model({serial=true,available=[],flashError=null,disconnectPhase=n
   assert.equal(m.get("flash").disabled,true,"A different board invalidates the selected image");
 }
 {
-  const m=await model({available:["esp32"]});
-  assert.equal(m.get("compile").disabled,false);await m.get("compile").click();
-  assert.deepEqual(m.counts(),{requests:0,uploads:0,builds:1});
-  await m.get("run").click();assert.deepEqual(m.counts(),{requests:1,uploads:1,builds:1},"Upload reuses the current build");
-  m.get("source").value+="\n// changed";await m.get("source").emit("input");assert.equal(m.get("saveBinary").hidden,true);
-  await m.get("compile").click();assert.equal(m.counts().builds,2);
-}
-{
-  const m=await model({serial:false,available:["esp32"]});
-  assert.equal(m.get("run").disabled,true);assert.equal(m.get("compile").disabled,false);
-  await m.get("compile").click();assert.equal(m.counts().requests,0);
+  const m=await model({serial:false});
+  assert.equal(m.get("flash").disabled,true);assert.equal(m.get("saveSource").disabled,false);
+  assert.deepEqual(m.counts(),{requests:0,uploads:0,builds:0});
 }
 {
   const m=await model({flashError:Error("MD5 mismatch")}),bytes=firmwareFor(boardById("esp32"));
@@ -71,7 +63,7 @@ async function model({serial=true,available=[],flashError=null,disconnectPhase=n
   assert.equal(m.get("status").dataset.error,"true");assert.equal(m.get("progress").hidden,true);
   assert.equal(m.get("flash").disabled,false,"Failed upload releases the controls");
 }
-console.log("Studio UI: independent source per board, unavailable compiler, valid/invalid files, no accidental builds, cache invalidation, USB compatibility and error recovery passed.");
+console.log("Studio UI: independent source per board, no compilation server, valid/invalid files, no accidental builds, local source storage, USB compatibility and error recovery passed.");
 
 for(const phase of ["write","verify"]) {
   const m=await model({disconnectPhase:phase}),bytes=firmwareFor(boardById("esp32"));

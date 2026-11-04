@@ -1,10 +1,13 @@
 import {BOARDS,boardById,MAX_IMAGE,validateFirmware} from "./boards.mjs";
 import {flashFirmware} from "./flasher.mjs";
-import {compilerBoards,compile} from "./compiler.mjs";
 import {codeKeyEdit,formatIndentation} from "../assets/js/arduino-source-editor.mjs";
 
 const $=id=>document.getElementById(id);
 const copy={
+  freeMode:["Bez serveru a předplatného","No server or subscription"],
+  arduinoDownload:["Arduino IDE ↗","Arduino IDE ↗"],
+  localBuild:["Ulož .ino, sestav ho v Arduino IDE a přes Sketch → Export Compiled Binary vyexportuj .merged.bin. Ten potom nahraj vpravo přes USB.","Save the .ino, build it in Arduino IDE and use Sketch → Export Compiled Binary to export a .merged.bin. Then upload it over USB on the right."],
+  buildHelp:["Pro sestavení nainstaluj v Arduino IDE balík esp32 by Espressif Systems a zvol konkrétní desku. Použij aktuální verzi balíku; sloučený soubor má příponu .merged.bin.","To build, install esp32 by Espressif Systems in Arduino IDE and select your exact board. Use the current board package; the merged image ends in .merged.bin."],
   redEditor:["Editor RED","RED editor"],theme:["Přepnout vzhled","Change appearance"],
   eyebrow:["NÁSTROJE PRO POKROČILÉ","TOOLS FOR ADVANCED USERS"],intro:["Vlastní kód. Vlastní deska. Přímé USB.","Your code. Your board. Direct USB."],back:["Zpět na Shieldio ↗","Back to Shieldio ↗"],
   autosave:["Ukládá se v prohlížeči","Saved in your browser"],open:["Otevřít .ino","Open .ino"],save:["Uložit .ino","Save .ino"],format:["Zarovnat","Format"],saveBin:["Stáhnout .bin","Download .bin"],
@@ -41,28 +44,24 @@ const copy={
   SOURCE_SIZE:["Zdrojový soubor může mít nejvýše 200 kB.","Source files must be no larger than 200 kB."],
   failure:["Operace selhala. Zkontroluj kabel, čip a technický výpis.","Operation failed. Check the cable, chip and technical log."],
 };
-let lang=0,target="esp32",busy=false,available=[],image=null,compiled=null,controller=null,statusKey="ready",statusError=false,port=null,revision=0,resetting=false;
+let lang=0,target="esp32",busy=false,image=null,controller=null,statusKey="ready",statusError=false,port=null,revision=0,resetting=false;
 const defaultCode='void setup() {\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  Serial.println("Ahoj ESP32!");\n  delay(1000);\n}\n';
 const storageKey=()=> "shieldio-esp32-source:"+target;
 const board=()=>boardById(target);
 const supported=()=>Boolean(navigator.serial&&window.isSecureContext);
 const t=key=>(copy[key]||copy.failure)[lang];
-const canCompile=()=>available.includes(target);
 try{lang=localStorage.getItem("shieldio-esp32-lang")==="en"?1:0;const last=localStorage.getItem("shieldio-esp32-board");if(boardById(last))target=last;}catch{}
 
 function controls(){
-  for(const id of ["board","openSource","saveSource","formatCode","sourceFile","firmware","saveBinary"])$(id).disabled=busy;
-  $("source").readOnly=busy;$("compile").disabled=busy||!canCompile();
-  $("run").disabled=busy||!canCompile()||!supported();$("flash").disabled=busy||!image||!supported();
-  $("cancel").hidden=!busy;$("saveBinary").hidden=!compiled;
+  for(const id of ["board","openSource","saveSource","formatCode","sourceFile","firmware"])$(id).disabled=busy;
+  $("source").readOnly=busy;$("flash").disabled=busy||!image||!supported();
+  $("cancel").hidden=!busy;
 }
 function paint(){
   document.documentElement.lang=lang?"en":"cs";
   for(const el of document.querySelectorAll("[data-copy]"))el.textContent=t(el.dataset.copy);
   for(const el of document.querySelectorAll("[data-aria]"))el.setAttribute("aria-label",t(el.dataset.aria));
   $("language").textContent=lang?"CS":"EN";
-  $("compilerBadge").textContent=t(canCompile()?"compilerOnline":"compilerOffline");
-  $("compilerNote").textContent=t(canCompile()?"onlineNote":board().fqbn?"offlineNote":"binOnly");
   $("boardHint").textContent=t(board().fqbn?"boardDefault":"binOnly");
   $("usbState").querySelector("span:last-child").textContent=t(supported()?"usb":"browserUnsupported");
   $("status").textContent=t(statusKey);$("status").dataset.error=String(statusError);
@@ -77,7 +76,6 @@ function updatePosition(){
   $("lineNumbers").scrollTop=input.scrollTop;$("cursor").textContent=before.length+":"+String(before.at(-1).length+1);
 }
 function persist(){
-  compiled=null;$("saveBinary").hidden=true;
   try{localStorage.setItem(storageKey(),$("source").value);$("saveState").textContent=t("saved");}catch{$("saveState").textContent=t("notSaved");}
   updatePosition();
 }
@@ -107,14 +105,13 @@ $("theme").addEventListener("click",()=>{const value=document.documentElement.da
 $("board").addEventListener("change",()=>{
   if(busy)return;
   try{localStorage.setItem(storageKey(),$("source").value);}catch{}
-  target=$("board").value;revision++;port=null;image=null;compiled=null;$("firmware").value="";$("progress").hidden=true;$("progressText").textContent="";restore();status("ready");paint();
+  target=$("board").value;revision++;port=null;image=null;$("firmware").value="";$("progress").hidden=true;$("progressText").textContent="";restore();status("ready");paint();
   try{localStorage.setItem("shieldio-esp32-board",target);}catch{}
 });
 function download(data,name,type){
   const url=URL.createObjectURL(new Blob([data],{type})),a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 $("saveSource").addEventListener("click",()=>download($("source").value,target+"_sketch.ino","text/plain;charset=utf-8"));
-$("saveBinary").addEventListener("click",()=>{if(compiled)download(compiled.image,target+"_sketch.merged.bin","application/octet-stream");});
 $("openSource").addEventListener("click",()=>$("sourceFile").click());
 $("sourceFile").addEventListener("change",async event=>{
   const file=event.target.files?.[0];if(!file||busy)return;const current=revision;
@@ -140,27 +137,16 @@ function error(e){
   if(controller?.signal.aborted){status("cancelled",true);return;}
   status(e.message in copy?e.message:"failure",true);if(e.details||!(e.message in copy)){log(e.details||String(e));$("logDetails").open=true;}
 }
-async function action(kind){
-  if(busy)return;
-  if(kind==="firmware"&&!image)return;
-  if(kind!=="firmware"&&!canCompile()){status("NO_COMPILER",true);return;}
-  if(kind!=="compile"&&!supported()){status("browserUnsupported",true);return;}
+async function action(){
+  if(busy||!image)return;
+  if(!supported()){status("browserUnsupported",true);return;}
   busy=true;resetting=false;controller=new AbortController();controls();$("log").textContent="";$("progress").hidden=true;$("progressText").textContent="";
   try{
-    // Ask for USB while the user's click still supplies browser activation.
-    if(kind!=="compile"&&!port)port=await navigator.serial.requestPort();
-    let bytes=image?.bytes;
-    if(kind!=="firmware"){
-      status("compiling");$("progress").hidden=false;$("progress").removeAttribute("value");
-      const result=compiled||await compile($("source").value,target,{signal:controller.signal});
-      compiled=result;bytes=result.image;result.logs.forEach(log);status("compiled");$("progress").hidden=true;
-    }
-    if(kind!=="compile")await flashFirmware(port,bytes,board(),{signal:controller.signal,onProgress:progress,onLog:log});
+    if(!port)port=await navigator.serial.requestPort();
+    await flashFirmware(port,image.bytes,board(),{signal:controller.signal,onProgress:progress,onLog:log});
   }catch(e){error(e);}finally{busy=false;controller=null;controls();if(statusKey!=="done"){$("progress").hidden=true;$("progressText").textContent="";}}
 }
-$("compile").addEventListener("click",()=>action("compile"));$("run").addEventListener("click",()=>action("run"));$("flash").addEventListener("click",()=>action("firmware"));
+$("flash").addEventListener("click",action);
 $("cancel").addEventListener("click",()=>controller?.abort());
 if(supported())navigator.serial.addEventListener("disconnect",event=>{if((event.port||event.target)===port){port=null;if(!resetting)controller?.abort();}});
 restore();paint();
-const availability=await compilerBoards({signal:AbortSignal.timeout(5000)});
-available=availability;paint();

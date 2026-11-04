@@ -19,11 +19,12 @@ Služba pouští jediný build, další vrací 429. Nezpřístupňovat Docker da
 Provozovatel, hostitel ani rozpočet serveru zatím nebyli zvoleni.
 Obyčejný Cloudflare Worker pro statické soubory tento nativní toolchain nespustí.
 
-Frontend povolí kompilaci až po odpovědi JSON s `protocol=shieldio-esp32-v1`
-a deskou v `boards`. Chybějící API nebo fallback HTML se nesmí použít jako úspěch,
-nesmí se spustit AVR kompilátor a nesmí se nabízet nefunkční sestavení ESP32.
-Kompilátor se hlásí jako dostupný jen při existenci toolchain image.
-Před vystavením API je nutné image skutečně sestavit a ověřit kompilací sketchů.
+Bezplatná verze Studia toto API nevolá a nenabízí online sestavení. Zdrojový
+kód se edituje a ukládá lokálně; sestavení probíhá v Arduino IDE na počítači.
+Modul compiler.mjs a tento prototyp API jsou odloženou přípravou, nikoliv
+aktivovanou službou. Případné budoucí připojení vyžaduje změnu frontendu,
+ověření Docker image a skutečné testovací kompilace. Nic se samo neaktivuje
+pouhým zveřejněním API.
 
 ## Rozsah
 

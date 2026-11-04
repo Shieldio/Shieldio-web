@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://shieldio.cz/esp32/">
   <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("shieldio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch{}</script>
-  <link rel="stylesheet" href="./studio.css?v=20261104-1">
+  <link rel="stylesheet" href="./studio.css?v=20261104-free2">
 </head>
 <body>
 <header class="topbar">
@@ -24,12 +24,11 @@
         <button id="openSource" data-copy="open">Otevřít .ino</button><input id="sourceFile" type="file" accept=".ino,.cpp,.txt" hidden>
         <button id="saveSource" data-copy="save">Uložit .ino</button>
         <button id="formatCode" title="Ctrl/⌘ + Shift + F" data-copy="format">Zarovnat</button>
-        <button id="saveBinary" hidden data-copy="saveBin">Stáhnout .bin</button>
       </div>
       <div class="source-wrap"><pre id="lineNumbers" aria-hidden="true">1</pre><textarea id="source" aria-label="Arduino C++ kód" data-aria="sourceLabel" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" maxlength="200000"></textarea></div>
       <div class="source-footer"><span id="cursor">1:1</span><span>UTF-8 · C++</span></div>
-      <div class="build-bar"><button id="compile" class="secondary" disabled data-copy="compile">Zkontrolovat C++</button><button id="run" class="primary" disabled data-copy="run">Sestavit a nahrát</button><span id="compilerBadge" class="compiler-badge" data-copy="checking">Ověřuji kompilátor…</span></div>
-      <p id="compilerNote" class="compiler-note" role="status"></p>
+      <div class="build-bar"><span class="free-label" data-copy="freeMode">Bez serveru a předplatného</span><a class="secondary ide-link" href="https://www.arduino.cc/en/software/" target="_blank" rel="noopener" data-copy="arduinoDownload">Arduino IDE ↗</a></div>
+      <p class="compiler-note" data-copy="localBuild">Ulož .ino, sestav ho v Arduino IDE a přes Sketch → Export Compiled Binary vyexportuj .merged.bin. Ten potom nahraj vpravo přes USB.</p>
     </section>
     <aside class="settings">
       <section class="pane board-pane" aria-labelledby="boardHeading"><div class="pane-heading"><h2 id="boardHeading" data-copy="board">Deska</h2><span class="small-tag">ESP32</span></div>
@@ -45,6 +44,7 @@
         </div>
       </section>
       <details class="pane help"><summary data-copy="help">Připojení a podporované desky</summary><div class="pane-content">
+        <p data-copy="buildHelp">Pro sestavení nainstaluj v Arduino IDE balík esp32 by Espressif Systems a zvol konkrétní desku. Použij aktuální verzi balíku; sloučený soubor má příponu .merged.bin.</p>
         <p data-copy="browserHelp">Použij Chrome nebo Edge na počítači a datový USB kabel. Zavři sériové monitory v jiných programech.</p>
         <p data-copy="bootHelp">Pokud připojení selže, podrž BOOT, krátce stiskni RESET/EN a při připojování BOOT uvolni. U nativního USB může být potřeba port vybrat znovu.</p>
         <p data-copy="supportHelp">Nahrávání je připravené pro uvedené čipy. Fyzické testování všech variant zatím neproběhlo. Piny, flash a periferie závisí na konkrétní desce.</p>
@@ -59,6 +59,6 @@
   <noscript><p>Pro editor a USB nahrávání zapni JavaScript.</p></noscript>
 </main>
 <footer><span>Shieldio · ESP32 Studio</span><a href="/company/privacy.html" data-copy="privacy">Soukromí</a><span data-copy="local">Firmware a USB připojení zůstávají v prohlížeči.</span></footer>
-<script type="module" src="./studio.mjs?v=20261104-1"></script>
+<script type="module" src="./studio.mjs?v=20261104-free2"></script>
 </body>
 </html>
