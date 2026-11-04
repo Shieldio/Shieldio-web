@@ -5482,5 +5482,161 @@
   "print3d.webgl": {
     "cs": "3D náhled není dostupný. Zkus zapnout hardwarovou akceleraci nebo jiný prohlížeč.",
     "en": "3D preview is unavailable. Try enabling hardware acceleration or using another browser."
+  },
+  "wheel.heading": {
+    "cs": "Konfigurátor kol",
+    "en": "Wheel configurator"
+  },
+  "wheel.intro": {
+    "cs": "Kolo pro sumorobota. Uprav rozměry, zkontroluj náhled a stáhni STL.",
+    "en": "A wheel for your sumo robot. Adjust dimensions, inspect the preview and download STL."
+  },
+  "wheel.base": {
+    "cs": "Výchozí kolo: Ø55 × 38 mm. D-otvor Ø4,4 mm a ploška 1,55 mm od osy podle posledního modelu.",
+    "en": "Default wheel: Ø55 × 38 mm. Ø4.4 mm D-bore, flat 1.55 mm from the axis, based on the last model."
+  },
+  "wheel.preset": {
+    "cs": "Předvolba",
+    "en": "Preset"
+  },
+  "wheel.last": {
+    "cs": "Poslední kolo · 55 × 38",
+    "en": "Last wheel · 55 × 38"
+  },
+  "wheel.large": {
+    "cs": "Stejný profil · Ø67",
+    "en": "Same profile · Ø67"
+  },
+  "wheel.custom": {
+    "cs": "Vlastní rozměry",
+    "en": "Custom dimensions"
+  },
+  "wheel.wheel": {
+    "cs": "Rozměry kola",
+    "en": "Wheel dimensions"
+  },
+  "wheel.diameter": {
+    "cs": "Vnější průměr (mm)",
+    "en": "Outer diameter (mm)"
+  },
+  "wheel.width": {
+    "cs": "Celková šířka (mm)",
+    "en": "Total width (mm)"
+  },
+  "wheel.rim": {
+    "cs": "Tloušťka obruče (mm)",
+    "en": "Rim thickness (mm)"
+  },
+  "wheel.recess": {
+    "cs": "Zapuštění od motoru (mm)",
+    "en": "Motor-side recess (mm)"
+  },
+  "wheel.recessHint": {
+    "cs": "0 = bez zapuštění. Kruhová kapsa na straně motoru zkrátí náboj a vnitřní část paprsků; obruč zůstává přes celou šířku.",
+    "en": "0 = no recess. A round motor-side pocket shortens the hub and inner spokes; the rim retains its full width."
+  },
+  "wheel.construction": {
+    "cs": "Konstrukce",
+    "en": "Construction"
+  },
+  "wheel.style": {
+    "cs": "Provedení",
+    "en": "Style"
+  },
+  "wheel.spokesOption": {
+    "cs": "Paprsky",
+    "en": "Spoked"
+  },
+  "wheel.solid": {
+    "cs": "Plné kolo",
+    "en": "Solid wheel"
+  },
+  "wheel.hub": {
+    "cs": "Průměr náboje (mm)",
+    "en": "Hub diameter (mm)"
+  },
+  "wheel.spokes": {
+    "cs": "Počet paprsků",
+    "en": "Spoke count"
+  },
+  "wheel.spokeWidth": {
+    "cs": "Šířka paprsku u obruče (mm)",
+    "en": "Spoke width at rim (mm)"
+  },
+  "wheel.spokeHint": {
+    "cs": "Paprsky se směrem k náboji zužují. Všechny rozměry jsou bez přídavné gumové obruče.",
+    "en": "Spokes taper towards the hub. All dimensions exclude any rubber tire."
+  },
+  "wheel.shaftLegend": {
+    "cs": "Otvor pro hřídel",
+    "en": "Shaft bore"
+  },
+  "wheel.motor": {
+    "cs": "GA25 / 25GA370 · vlastní otvor",
+    "en": "GA25 / 25GA370 · custom bore"
+  },
+  "wheel.hole": {
+    "cs": "Tvar otvoru",
+    "en": "Bore shape"
+  },
+  "wheel.round": {
+    "cs": "Kruhový",
+    "en": "Round"
+  },
+  "wheel.shaft": {
+    "cs": "Průměr otvoru (mm)",
+    "en": "Bore diameter (mm)"
+  },
+  "wheel.flatCut": {
+    "cs": "Seříznutí D-profilu (mm)",
+    "en": "D-flat cut depth (mm)"
+  },
+  "wheel.fit": {
+    "cs": "Ø4,4 mm je již ověřený tiskový rozměr, bez další automatické vůle. Pro jiný motor nebo tiskárnu uprav otvor podle zkoušky.",
+    "en": "Ø4.4 mm is the previously tested print dimension, with no extra automatic clearance. For another motor or printer, adjust the bore after a fit test."
+  },
+  "wheel.export": {
+    "cs": "Stáhnout kolo STL",
+    "en": "Download wheel STL"
+  },
+  "wheel.restore": {
+    "cs": "Obnovit výchozí",
+    "en": "Restore defaults"
+  },
+  "wheel.private": {
+    "cs": "Soukromý nástroj · přístup přes odkaz",
+    "en": "Private tool · link access"
+  },
+  "wheel.privacy": {
+    "cs": "Bez přihlášení. Model se vytváří ve tvém prohlížeči a nikam se neodesílá.",
+    "en": "No sign-in. The model is generated in your browser and is never uploaded."
+  },
+  "wheel.view": {
+    "cs": "3D náhled",
+    "en": "3D preview"
+  },
+  "wheel.sectionHint": {
+    "cs": "Zapuštění je na spodní straně kola v tiskové poloze. Prohlédni si ho otočením modelu.",
+    "en": "The recess is on the bottom of the wheel in print orientation. Rotate the model to inspect it."
+  },
+  "wheel.upload": {
+    "cs": "Prohlédnout vlastní STL",
+    "en": "Inspect your own STL"
+  },
+  "wheel.unit": {
+    "cs": "Rozměry STL v mm",
+    "en": "STL dimensions in mm"
+  },
+  "wheel.title": {
+    "cs": "Konfigurátor kol | Shieldio",
+    "en": "Wheel configurator | Shieldio"
+  },
+  "wheel.recessDiameter": {
+    "cs": "Průměr zapuštění (mm)",
+    "en": "Recess diameter (mm)"
+  },
+  "wheel.dProfile": {
+    "cs": "D-profil",
+    "en": "D-profile"
   }
 }
