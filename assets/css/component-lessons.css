@@ -1,0 +1,58 @@
+/* Shared reading layout for the seven component lessons. */
+.learn-page #learnContent .wrap{max-width:960px;}
+.learn-page .hero{padding-top:40px;}
+.learn-page .hero h1{font-size:clamp(34px,5vw,54px);max-width:none;line-height:1.12;margin:12px 0 16px;}
+.learn-page .hero .lead{font-size:18px;line-height:1.6;max-width:720px;}
+.learn-page .hero .fade-up{opacity:1;transform:none;}
+.learn-page .learn-back{display:inline-block;font-size:13px;color:var(--accent-deep);margin-bottom:20px;text-underline-offset:3px;}
+.learn-page .learn-section{padding-bottom:48px;}
+.learn-page .learn-section .section-head{max-width:740px;margin-bottom:20px;}
+.learn-page .learn-section h2{font-size:clamp(23px,3vw,30px);line-height:1.25;}
+.learn-page .learn-section h3{font-size:21px;line-height:1.35;margin:28px 0 12px;}
+.learn-page .learn-body{max-width:740px;font-size:16px;line-height:1.75;}
+.learn-page .learn-body p{margin-top:16px;}
+.learn-page .learn-body + .learn-body{margin-top:24px;}
+.learn-page .learn-board-tie{max-width:740px;margin:28px 0;padding:18px 20px;font-size:14px;line-height:1.7;background:var(--paper-2);border-color:var(--accent);}
+.learn-page #learnContent :is(.level-simple-only,.level-advanced,.level-equations){overflow:visible;max-height:none;opacity:1;visibility:visible;pointer-events:auto;transition:none;}
+.learn-page [hidden]{display:none !important;}
+:root:not([data-learn-level]) .learn-page :is(.level-advanced,.level-equations){display:none;}
+.learn-page [data-level-toggle]{gap:10px !important;margin:24px 0 10px !important;}
+.learn-page .guide-mode-toggle{flex-wrap:wrap;}
+.learn-page .guide-mode-btn{min-height:40px;}
+.learn-page .learn-diagram{max-width:740px;margin:26px 0;padding:20px;}
+.learn-page .learn-diagram-caption{font:13px/1.6 system-ui,sans-serif;}
+.learn-page .transient-grid{grid-template-columns:1fr;max-width:740px;gap:20px;}
+.learn-page .transient-card{padding:20px;}
+.learn-page .transient-card svg{max-width:620px;margin:0 auto 12px;}
+.learn-page .transient-card h3{font-size:20px;margin:8px 0;}
+.learn-page .transient-curve{stroke-dasharray:none;stroke-dashoffset:0;transition:none;}
+.learn-page .equivalent-model{max-width:740px;grid-template-columns:1fr;padding:20px;gap:16px;}
+.learn-page .equivalent-model h3{margin:8px 0;}
+.learn-page .equivalent-model svg{max-width:620px;}
+.learn-page .lab-svg-label{font:13px system-ui,sans-serif;fill:var(--ink);}
+.learn-page .learn-eq-block{margin:18px 0;padding:14px 16px;border:1px solid var(--line);border-radius:8px;}
+.learn-page .katex-display{margin:8px 0;}
+.learn-page .learn-table{display:block;max-width:100%;overflow:auto;}
+.learn-page .learn-table th{font:600 12px/1.5 system-ui,sans-serif;text-transform:none;letter-spacing:0;}
+.learn-page .concept-lab{max-width:100%;padding:22px;margin:28px 0;background:var(--surface);border-radius:12px;}
+.learn-page .concept-lab-head h2{font-size:24px;}
+.learn-page .concept-lab-grid{grid-template-columns:minmax(190px,.65fr) minmax(0,1.4fr);gap:20px;}
+.learn-page .concept-lab-stage{padding:8px;background:var(--paper-2);border-radius:8px;}
+.learn-page .concept-lab-readings{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
+.learn-page .concept-lab-field{font:13px/1.5 system-ui,sans-serif;text-transform:none;letter-spacing:0;}
+.learn-page .concept-lab-controls :is(button,select){min-height:40px;}
+.learn-page .concept-lab-equation{overflow-wrap:anywhere;}
+.learn-page .learn-sources{max-width:740px;border-top:1px solid var(--line);margin-top:32px;padding-top:20px;}
+.learn-page .learn-sources h2{font-size:18px;}
+.learn-page .learn-sources ul{margin:12px 0;padding-left:20px;font-size:13px;line-height:1.9;}
+@media(max-width:680px){
+ .learn-page .hero{padding-top:28px;}.learn-page .hero .lead{font-size:16px;}
+ .learn-page .concept-lab{padding:16px;}.learn-page .concept-lab-grid{grid-template-columns:1fr;}
+ .learn-page .concept-lab-stage{padding:4px;}.learn-page .transient-card{padding:14px;}
+ .learn-page .learn-eq-block{padding:10px;}
+}
+
+.learn-page .transient-plots{display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;}
+.learn-page .transient-plots svg{width:100%;min-width:0;margin:0;}
+.learn-page .concept-lab .lab-svg-label{font-size:17px;}
+@media(max-width:540px){.learn-page .transient-plots{grid-template-columns:1fr;}.learn-page .transient-plots svg{max-width:320px;}}

@@ -1636,12 +1636,12 @@
     "en": "For curious minds"
   },
   "learn_hub.h1": {
-    "cs": "Jak to funguje <em>pod pokličkou</em>.",
-    "en": "How it works <em>under the hood</em>."
+    "cs": "Jak fungují součástky",
+    "en": "How components work"
   },
   "learn_hub.lead": {
-    "cs": "Návody na sestavení říkají, co zapojit. Tady si každý jev nejdřív vyzkoušíš v interaktivním modelu a potom zvolíš hloubku: jednoduchou představu, podrobné vysvětlení nebo úplný výpočet se vzorci.",
-    "en": "Assembly guides tell you what to connect. Here, you can first try each phenomenon in an interactive model, then choose the depth: a simple mental model, a detailed explanation, or a full calculation with equations."
+    "cs": "Sedm témat s výpočtovými modely a příklady. Začni stručným vysvětlením; podrobnosti a vzorce najdeš v dalších úrovních.",
+    "en": "Seven topics with calculation models and examples. Start with a short explanation; choose another level for details and equations."
   },
   "learn_hub.level_simple_note": {
     "cs": "názorně pro 6.–8. třídu, bez vzorců a odborných zkratek",
@@ -1652,8 +1652,8 @@
     "en": "for makers and secondary school: what happens inside and why"
   },
   "learn_hub.level_full_note": {
-    "cs": "úroveň maturity: modely, veličiny a výpočty",
-    "en": "school-leaving exam level: models, quantities, and calculations"
+    "cs": "výpočty, jednotky a meze použitých modelů",
+    "en": "calculations, units and limits of the models"
   },
   "learn_hub.ohm_h3": {
     "cs": "01 · Ohmův zákon",
@@ -1748,8 +1748,8 @@
     "en": "Advanced"
   },
   "learn.level_full": {
-    "cs": "Profi",
-    "en": "Pro"
+    "cs": "Se vzorci",
+    "en": "With equations"
   },
   "learn.topic_back": {
     "cs": "← Zpět na přehled témat",
@@ -1800,8 +1800,8 @@
     "en": "How it works · 01 · Resistors"
   },
   "learn_ohm.h1": {
-    "cs": "Ohmův zákon a proč zrovna 220 Ω.",
-    "en": "Ohm's law, and why 220 Ω."
+    "cs": "Ohmův zákon",
+    "en": "Ohm’s law"
   },
   "learn_ohm.lead": {
     "cs": "Kalkulačka pro výpočet rezistoru k LED podle Ohmova zákona, s vysvětlením, odkud vzorec pochází a co dělá rezistor uvnitř.",
@@ -1824,8 +1824,8 @@
     "en": "Rearranged to solve for resistance, it looks like this:"
   },
   "learn_ohm.adv_p3": {
-    "cs": "LED dioda má při svícení určitý propustný úbytek napětí, u červené LED zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA. Deska RED má napájení 5 V. Proud LED roste s napětím velmi strmě, takže při přímém připojení bez sériového rezistoru by ho omezoval hlavně vnitřní odpor zdroje a vodičů. Mohl by rychle překročit dovolenou hodnotu a LED poškodit.",
-    "en": "An LED has a forward voltage drop while lit — roughly 2 V for a red LED — and can only handle a limited current, usually around 15 to 20 mA. The RED board uses a 5 V supply. LED current rises very steeply with voltage, so without a series resistor it would be limited mainly by the source and wiring resistance. It could quickly exceed the allowed value and damage the LED."
+    "cs": "Pro příklad použijeme červenou LED s odhadovaným úbytkem 2 V a zvoleným proudem 15 mA při napájení 5 V. Skutečný úbytek a dovolený proud ověř v katalogu LED. Připojení ke zdroji bez omezení proudu může LED poškodit.",
+    "en": "This example assumes a red LED with an estimated 2 V drop, a chosen current of 15 mA and a 5 V supply. Check actual voltage and current limits in the datasheet. Connecting it without current limiting can damage it."
   },
   "learn_ohm.adv_p4": {
     "cs": "Rezistor v sérii s LED tenhle přebytek napětí \"spotřebuje\" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:",
@@ -1856,8 +1856,8 @@
     "en": "Actual current"
   },
   "learn_ohm.calc_note": {
-    "cs": "Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.",
-    "en": "With inputs of 5 V, 2 V, and 15 mA, you get about 200 Ω; the nearest standard E12 value is exactly 220 Ω. Try changing the current to 20 mA or the supply to 3.3 V in the calculator, and see how the resistance needed changes."
+    "cs": "Pro 5 V, úbytek LED 2 V a cílový proud 15 mA vyjde 200 Ω. Nejbližší vyšší hodnota E12 je 220 Ω; odhad proudu je potom 13,6 mA.",
+    "en": "For a 5 V supply, a 2 V LED drop and a target current of 15 mA, the result is 200 Ω. The next higher E12 value is 220 Ω, giving an estimated 13.6 mA."
   },
   "learn_ohm.aside": {
     "cs": "<b>Co dělá rezistor uvnitř:</b> je to materiál, který klade odpor průchodu proudu, čím vyšší odpor, tím míň proudu jím při stejném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají jim energii jako teplo, proto se rezistor při provozu mírně zahřívá.",
@@ -1940,12 +1940,12 @@
     "en": "<b>Resistor power</b> (three equivalent forms, depending on what you know):"
   },
   "learn_ohm.eq_sub_label": {
-    "cs": "Dosazení pro R1/R2 (220 Ω, 15 mA):",
-    "en": "Substituting for R1/R2 (220 Ω, 15 mA):"
+    "cs": "Pro odpor 220 Ω a odhadovaný proud LED 13,6 mA:",
+    "en": "For a 220 Ω resistor and an estimated LED current of 13.6 mA:"
   },
   "learn_ohm.eq_conclusion": {
-    "cs": "Hodnota 0,05 W je hluboko pod běžnou dovolenou zátěží malého 0,25W rezistoru. Teplotní nárůst proto bude malý, přesto není výkon nulový.",
-    "en": "A value of 0.05 W is well below the common rating of a small 0.25 W resistor. Its temperature rise will therefore be small, although the dissipated power is not zero."
+    "cs": "Odhad 0,041 W je pod jmenovitým výkonem 0,25 W použitého rezistoru. Výsledek platí pro zvolený proud; při jiných podmínkách výkon přepočítej.",
+    "en": "The estimated 0.041 W is below the resistor’s 0.25 W rating. This result applies to the chosen current; recalculate power for other conditions."
   },
   "learn_ohm.pro_divider_h3": {
     "cs": "Napěťový dělič a Kirchhoffovy zákony",
@@ -1964,24 +1964,24 @@
     "en": "How it works · 06 · Capacitors"
   },
   "learn_cap.h1": {
-    "cs": "Jak funguje kondenzátor a proč na něm někdy záleží polarita.",
-    "en": "How a capacitor works, and why polarity sometimes matters."
+    "cs": "Kondenzátory",
+    "en": "Capacitors"
   },
   "learn_cap.lead": {
-    "cs": "Zásobník elektrického náboje, filtr proti rychlým výkyvům a součástka, u které může záležet na polaritě.",
-    "en": "A store of electric charge, a filter for fast fluctuations, and a component whose polarity may matter."
+    "cs": "Uchování energie, polarita a nabíjení přes rezistor.",
+    "en": "Stored energy, polarity and charging through a resistor."
   },
   "learn_cap.h2_purpose": {
-    "cs": "K čemu je kondenzátor vůbec dobrý.",
-    "en": "What a capacitor is actually good for."
+    "cs": "Co kondenzátor dělá",
+    "en": "What a capacitor does"
   },
   "learn_cap.simple_p1": {
     "cs": "Kondenzátor na krátkou dobu uchová část elektrické energie. Dokáže ji rychle přijmout i vrátit, a proto pomáhá vyrovnat krátké kolísání napájení.",
     "en": "A capacitor stores some electrical energy for a short time. It can accept and return it quickly, helping to smooth brief changes in the power supply."
   },
   "learn_cap.simple_p2": {
-    "cs": "Malý keramický kondenzátor můžeš otočit oběma směry. Válcový elektrolytický má označené plus a minus a musí se zapojit správně.",
-    "en": "A small ceramic capacitor can face either way. A cylindrical electrolytic capacitor has marked plus and minus sides and must be connected correctly."
+    "cs": "Keramický kondenzátor nemá polaritu. U běžného hliníkového elektrolytického kondenzátoru označuje pruh na pouzdru záporný vývod. Před zapojením ověř jeho označení.",
+    "en": "A ceramic capacitor is not polarised. On a typical aluminium electrolytic capacitor, the stripe marks the negative lead. Check its markings before connecting it."
   },
   "learn_cap.adv_p1": {
     "cs": "Kondenzátor ukládá energii do elektrického pole mezi dvěma elektrodami. Napětí na něm se nemůže změnit skokem, takže při krátkém poklesu napájení může dodat část náboje a při krátké špičce ho naopak přijmout. Kondenzátor umístěný blízko napájecích pinů tím omezuje rychlé změny napětí; tomuto použití se říká blokování nebo decoupling. Nenahrazuje však zdroj ani baterii při delším nebo příliš velkém odběru.",
@@ -2000,28 +2000,28 @@
     "en": "An <b>electrolytic capacitor</b> has two foil electrodes and a very thin insulating oxide layer formed on one of them. This layer depends on correct polarity; reverse voltage can damage it, produce gas inside, and raise pressure. The negative lead is therefore marked on the case. In the RED guide it is fitted late because of the practical low-to-tall assembly order, not because it electrically has to be soldered last."
   },
   "learn_cap.h2_noise": {
-    "cs": "Jak kondenzátor tlumí šum a zákmity.",
-    "en": "How a capacitor dampens noise and bounce."
+    "cs": "Kondenzátor v napájení a u tlačítka",
+    "en": "Capacitors in supplies and button circuits"
   },
   "learn_cap.noise_simple": {
-    "cs": "Kondenzátor se nabíjí a vybíjí postupně, ne naráz. Krátké výkyvy napětí proto zmenší, podobně jako tlumič zjemní náraz.",
-    "en": "A capacitor charges and discharges gradually, not all at once. It therefore reduces brief voltage changes, much like a shock absorber softens a bump."
+    "cs": "Kondenzátor mezi napájením a zemí pomáhá omezit krátké výkyvy napětí. Samotný kondenzátor ale nezaručí stabilní napájení ani spolehlivé čtení tlačítka.",
+    "en": "A capacitor between supply and ground helps reduce brief voltage variations. A capacitor alone does not guarantee a stable supply or reliable button readings."
   },
   "learn_cap.noise_adv_p1": {
-    "cs": "Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, čím rychlejší je změna napětí, tím snáz ji \"propustí\" skrz sebe, a čím pomalejší, tím víc ji vyhladí. Prakticky to znamená: rychlé výkyvy a šum se přes kondenzátor částečně vybijí a zploští, zatímco pomalé, užitečné napětí zůstává skoro nedotčené. Přesně tenhle efekt se využívá dvěma způsoby, které se na první pohled zdají nesouvisející, ale je za nimi stejná fyzika:",
-    "en": "A capacitor charges and discharges gradually, not instantly: the faster a voltage change is, the more easily it \"passes through\" the capacitor, and the slower it is, the more it gets smoothed out. In practice this means fast swings and noise partially discharge through the capacitor and get flattened, while slow, useful voltage stays almost untouched. This exact effect gets used in two ways that seem unrelated at first glance, but share the same underlying physics:"
+    "cs": "Výsledek závisí na zapojení. Paralelně k napájení poskytuje kondenzátor cestu pro střídavou složku proudu. V sérii se signálem naopak blokuje ustálený stejnosměrný proud. Nelze obecně říct, že vyhladí každý signál.",
+    "en": "The effect depends on the circuit. Across a supply, a capacitor provides a path for alternating current components. In series with a signal, it blocks steady DC. It therefore does not smooth every signal."
   },
   "learn_cap.decoupling_p": {
-    "cs": "<b>Vyhlazování napájení:</b> malý keramický kondenzátor u napájecího pinu čipu odfiltruje rychlé špičky a \"cvrlikání\" na napájecí větvi, aby k citlivé elektronice dorazilo klidnější napětí.",
-    "en": "<b>Power decoupling:</b> a small ceramic capacitor by a chip's power pin filters out fast spikes and \"chatter\" on the supply rail, so calmer voltage reaches the sensitive electronics."
+    "cs": "<b>Blokování napájení:</b> kondenzátor u napájecích pinů pomáhá při rychlých změnách odběru. Důležité jsou krátké spoje, ESR a ESL. Nenahradí zdroj s dostatečným proudem.",
+    "en": "<b>Supply decoupling:</b> a capacitor near supply pins helps with rapid load changes. Short connections, ESR and ESL matter. It cannot replace a supply with enough current."
   },
   "learn_cap.hw_debounce_p": {
-    "cs": "<b>Hardwarový debounce:</b> kondenzátor zapojený paralelně k tlačítku vyhladí i elektrické zákmity (bounce) z <a href=\"../tlacitka-a-debounce/index.html\">mechanického odskakování kontaktů</a>, takže na pin dorazí jeden čistý přechod místo rychlé série \"cvak-cvak-cvak\". Deska Shieldio RED řeší debounce softwarově, žádný debounce kondenzátor na ní není, ale princip je stejný jako u vyhlazování napájení, jen v menším měřítku.",
-    "en": "<b>Hardware debounce:</b> a capacitor wired in parallel with a button smooths out the electrical bounce from <a href=\"../tlacitka-a-debounce/index.html\">the mechanical contacts bouncing</a>, so a single clean transition reaches the pin instead of a fast \"click-click-click\" series. The Shieldio RED board handles debounce in software, there's no debounce capacitor on it, but the principle is the same as power decoupling, just on a smaller scale."
+    "cs": "<b>Zákmity tlačítka:</b> rezistor a kondenzátor mohou zpomalit změnu napětí na vstupu. Návrh musí zohlednit prahy a hysterezi vstupu i proud při sepnutí. Viz <a href=\"../tlacitka-a-debounce/index.html\">tlačítka a zákmity</a>.",
+    "en": "<b>Contact bounce:</b> a resistor and capacitor can slow input voltage changes. Input thresholds, hysteresis and current when closing the contact matter. See <a href=\"../tlacitka-a-debounce/index.html\">buttons and contact bounce</a>."
   },
   "learn_cap.board_tie": {
-    "cs": "<b>Na desce Shieldio RED:</b> tři keramické kondenzátory C1, C2 a C4 (104, tedy 100 nF) sedí poblíž napájecích pinů a vyhlazují drobné výkyvy. Elektrolytický kondenzátor C3 (100 µF) je větší a pomalejší, drží napájení stabilní ve chvílích, kdy servo nebo bzučák najednou odeberou víc proudu.",
-    "en": "<b>On the Shieldio RED board:</b> three ceramic capacitors, C1, C2, and C4 (104, i.e. 100 nF), sit near the power pins and smooth out small dips. The electrolytic capacitor C3 (100 µF) is bigger and slower, keeping the supply stable during moments when the servo or buzzer suddenly draw more current."
+    "cs": "<b>RED V3:</b> osazovací tabulka uvádí C1, C2 a C4 jako 100 nF a C3 jako 100 µF. Kondenzátory podporují napájení, ale nenahradí zdroj pro servo. U jiné revize ověř její osazovací tabulku.",
+    "en": "<b>RED V3:</b> the component table lists C1, C2 and C4 as 100 nF and C3 as 100 µF. The capacitors support the supply but cannot replace a source for the servo. Check the component table for other revisions."
   },
   "learn_cap.transient_h2": {
     "cs": "Přechodové děje: kondenzátor a cívka.",
@@ -2044,16 +2044,16 @@
     "en": "Capacitor in an RC circuit"
   },
   "learn_cap.rc_card_p": {
-    "cs": "Napětí na kondenzátoru nemůže skočit. Při nabíjení roste a při vybíjení klesá plynule; odpor určuje, jak rychle se proud i napětí mění.",
-    "en": "A capacitor's voltage cannot jump. It rises smoothly while charging and falls smoothly while discharging; resistance determines how quickly current and voltage change."
+    "cs": "Po připojení konstantního napětí roste napětí původně vybitého kondenzátoru k U_S. Nejrychleji se mění na začátku, potom se růst zpomaluje. Časová konstanta je τ = RC.",
+    "en": "After a constant voltage is applied, the initially uncharged capacitor’s voltage approaches U_S. It changes fastest at the start, then rises more slowly. The time constant is τ = RC."
   },
   "learn_cap.rl_card_h3": {
     "cs": "Cívka v RL obvodu",
     "en": "Inductor in an RL circuit"
   },
   "learn_cap.rl_card_p": {
-    "cs": "Proud ideální cívkou nemůže skočit. Cívka změně proudu odporuje a ukládá energii do magnetického pole. Při odpojení může vytvořit vysoké napětí, proto se u relé a motorů používá ochranná dioda.",
-    "en": "Current through an ideal inductor cannot jump. An inductor opposes a change in current and stores energy in a magnetic field. When disconnected it can create a high voltage, which is why relays and motors use a flyback diode."
+    "cs": "Po připojení konstantního napětí roste proud z nuly k U_S/R. Časová konstanta je τ = L/R. Při odpojení zdroje musí mít proud cívkou cestu, například přes ochrannou diodu.",
+    "en": "After a constant voltage is applied, current rises from zero towards U_S/R. The time constant is τ = L/R. When the source is disconnected, the inductor current needs a path, for example through a flyback diode."
   },
   "learn_cap.equiv_eyebrow": {
     "cs": "Náhradní schéma",
@@ -2072,48 +2072,48 @@
     "en": "Equivalent circuit of a real capacitor"
   },
   "learn_cap.rc_p": {
-    "cs": "<b>RC časová konstanta:</b> rychlost, jakou se kondenzátor nabíjí nebo vybíjí přes rezistor, popisuje součin R a C, které se říká tau. Po jedné časové konstantě je kondenzátor nabitý na zhruba 63 % konečné hodnoty, po pěti τ prakticky na 100 %. Debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ dá τ = 1 ms, dost rychle na to, aby stisk tlačítka nebyl znatelně opožděný, ale dost pomalu na vyhlazení zákmitů v řádu mikrosekund až jednotek milisekund.",
-    "en": "<b>The RC time constant:</b> how fast a capacitor charges or discharges through a resistor is described by the product of R and C, called tau. After one time constant, the capacitor is charged to about 63% of its final value; after five τ, practically 100%. A 100 nF debounce capacitor with a 10 kΩ pull-up resistor gives τ = 1 ms, fast enough that a button press isn't noticeably delayed, but slow enough to smooth out bounce lasting microseconds to a few milliseconds."
+    "cs": "<b>Časová konstanta τ = RC:</b> při nabíjení původně vybitého kondenzátoru přes rezistor z konstantního napětí dosáhne napětí za jednu τ asi 63 % konečné hodnoty. Za pět τ je to 99,3 %. Pro 10 kΩ a 100 nF vyjde τ = 1 ms; to samo nezaručuje potlačení zákmitů tlačítka.",
+    "en": "<b>Time constant τ = RC:</b> an initially uncharged capacitor charging through a resistor from a constant voltage reaches about 63% of its final voltage after one τ and 99.3% after five τ. For 10 kΩ and 100 nF, τ = 1 ms; this alone does not guarantee contact debouncing."
   },
   "learn_cap.impedance_p": {
-    "cs": "<b>Impedance:</b> pro střídavý signál se chování kondenzátoru popisuje jeho impedancí, tedy odporem vůči střídavému proudu. Se stoupající frekvencí impedance klesá, kondenzátor se pro rychlé signály chová skoro jako zkrat, pro pomalé skoro jako rozpojený obvod, proto propouští šum snáz než pomalé užitečné napětí.",
-    "en": "<b>Impedance:</b> for an AC signal, a capacitor's behaviour is described by its impedance, its resistance to alternating current. As frequency rises, impedance falls; a capacitor behaves almost like a short circuit for fast signals and almost like an open circuit for slow ones, which is why it passes noise more easily than slow, useful voltage."
+    "cs": "<b>Ideální kondenzátor:</b> velikost reaktance s frekvencí klesá. U skutečného kondenzátoru tento trend platí jen do okolí vlastní rezonance. Při vyšších frekvencích může převládnout parazitní indukčnost.",
+    "en": "<b>Ideal capacitor:</b> its reactance magnitude falls with frequency. For a real capacitor, this trend applies only up to its self-resonance region. Parasitic inductance can dominate at higher frequencies."
   },
   "learn_cap.table_h1": {
     "cs": "Signál",
     "en": "Signal"
   },
   "learn_cap.table_h2": {
-    "cs": "Impedance kondenzátoru",
-    "en": "Capacitor impedance"
+    "cs": "Ideální kondenzátor",
+    "en": "Ideal capacitor"
   },
   "learn_cap.table_h3": {
     "cs": "Chování",
     "en": "Behaviour"
   },
   "learn_cap.table_r1a": {
-    "cs": "Pomalý / stejnosměrný",
-    "en": "Slow / DC"
+    "cs": "Ustálené DC",
+    "en": "Steady DC"
   },
   "learn_cap.table_r1b": {
-    "cs": "vysoká",
-    "en": "high"
+    "cs": "nevede proud",
+    "en": "no current flows"
   },
   "learn_cap.table_r1c": {
-    "cs": "skoro nepropustí, drží napětí",
-    "en": "barely passes through, holds the voltage"
+    "cs": "po nabití, při zanedbání svodu",
+    "en": "after charging, neglecting leakage"
   },
   "learn_cap.table_r2a": {
-    "cs": "Rychlý šum",
-    "en": "Fast noise"
+    "cs": "Vyšší frekvence",
+    "en": "Higher frequency"
   },
   "learn_cap.table_r2b": {
-    "cs": "nízká",
-    "en": "low"
+    "cs": "menší reaktance",
+    "en": "lower reactance"
   },
   "learn_cap.table_r2c": {
-    "cs": "propustí a \"vybije\" špičku pryč",
-    "en": "passes through and \"discharges\" the spike away"
+    "cs": "u skutečné součástky omezeno ESR a ESL",
+    "en": "limited by ESR and ESL in a real component"
   },
   "learn_cap.eq_units": {
     "cs": "Značení jednotek: <b>R</b> odpor [Ω], <b>C</b> kapacita [F], <b>L</b> indukčnost [H], <b>U</b> napětí [V], <b>I</b> proud [A], <b>τ</b> časová konstanta [s], <b>f</b> frekvence [Hz].",
@@ -2128,16 +2128,16 @@
     "en": "For a 100 nF debounce capacitor with a 10 kΩ pull-up resistor:"
   },
   "learn_cap.eq_xc_label": {
-    "cs": "<b>Kapacitní reaktance (impedance kondenzátoru)</b> pro harmonický signál o frekvenci \\(f\\):",
-    "en": "<b>Capacitive reactance (capacitor impedance)</b> for a harmonic signal at frequency \\(f\\):"
+    "cs": "<b>Kapacitní reaktance ideálního kondenzátoru</b> při frekvenci \\(f\\):",
+    "en": "<b>Capacitive reactance of an ideal capacitor</b> at frequency \\(f\\):"
   },
   "learn_cap.eq_xc_sub_label": {
     "cs": "Dosazení pro stejný debounce kondenzátor 100 nF při frekvenci zákmitů kolem 1 kHz:",
     "en": "Substituting for the same 100 nF debounce capacitor at a bounce frequency around 1 kHz:"
   },
   "learn_cap.eq_xc_conclusion": {
-    "cs": "To je pořád v řádu pull-up rezistoru 10 kΩ, ale výrazně méně, než jaký by X_C vyšel pro pomalé, jednotky Hz trvající změny napětí od stisku tlačítka. Přesně tenhle rozdíl v reaktanci pro různé frekvence je to, co dělá z kondenzátoru filtr, rychlý šum (vysoké f) propustí snáz než pomalý užitečný signál (nízké f).",
-    "en": "That's still in the same order of magnitude as the 10 kΩ pull-up resistor, but well below what X_C would be for the slow, few-Hz voltage changes from a button press. This exact difference in reactance across frequencies is what turns a capacitor into a filter, passing fast noise (high f) more easily than a slow, useful signal (low f)."
+    "cs": "Výsledek 1,59 kΩ popisuje ideální kondenzátor při 1 kHz. Útlum filtru závisí také na okolních odporech a zapojení. Z tohoto čísla samotného nelze určit, zda obvod odstraní zákmity tlačítka.",
+    "en": "The 1.59 kΩ result describes an ideal capacitor at 1 kHz. Filter attenuation also depends on surrounding resistances and circuit topology. This number alone cannot establish whether a circuit will debounce a button."
   },
   "learn_cap.eq_phasor_label": {
     "cs": "<b>Fázorová (komplexní) analýza:</b> kondenzátor má impedanci",
@@ -2152,8 +2152,8 @@
     "en": "Transient response at school-leaving exam level"
   },
   "learn_cap.pro_transient_p": {
-    "cs": "Pro obvod prvního řádu určuje časová konstanta rychlost změny. Kondenzátor při vybíjení a proud cívkou po odpojení klesají exponenciálně:",
-    "en": "In a first-order circuit, the time constant determines the rate of change. Capacitor voltage during discharge and inductor current after disconnection decay exponentially:"
+    "cs": "Vztahy níže popisují vybíjení nabitého kondenzátoru přes rezistor a pokles proudu cívkou v uzavřené smyčce s odporem R. U cívky musí po odpojení zdroje zůstat cesta pro proud.",
+    "en": "The expressions below describe a charged capacitor discharging through a resistor and an inductor’s current decaying in a closed resistive loop. An inductor needs a current path after the source is disconnected."
   },
   "learn_cap.pro_energy_p": {
     "cs": "Energie kondenzátoru je uložena v elektrickém poli, energie cívky v magnetickém poli:",
@@ -2168,8 +2168,8 @@
     "en": "How it works · 07 · The board itself"
   },
   "learn_pcb.h1": {
-    "cs": "Co je PCB a proč jsou cestičky z mědi.",
-    "en": "What a PCB is, and why traces are made of copper."
+    "cs": "Plošný spoj",
+    "en": "Printed circuit boards"
   },
   "learn_pcb.lead": {
     "cs": "Ještě než na desku připájíš první součástku, je sama o sobě výsledkem malého výrobního procesu. Co se v ní vlastně skrývá.",
@@ -2340,8 +2340,8 @@
     "en": "Unit notation: <b>R</b> resistance [Ω], <b>ρ</b> resistivity [Ω·m], <b>L</b> length [m], <b>A</b> cross-section [m²]."
   },
   "learn_pcb.eq_label": {
-    "cs": "<b>Odpor vodiče</b> libovolného tvaru se spočítá jako:",
-    "en": "<b>The resistance of a conductor</b> of any shape is calculated as:"
+    "cs": "<b>Odpor vodiče s konstantním průřezem</b> se spočítá jako:",
+    "en": "<b>The resistance of a conductor with uniform cross-section</b> is:"
   },
   "learn_pcb.eq_note": {
     "cs": "kde \\(\\rho\\) (rho) je měrný elektrický odpor materiálu (rezistivita), \\(L\\) je délka vodiče a \\(A\\) jeho průřez (šířka krát tloušťka mědi).",
@@ -2364,8 +2364,8 @@
     "en": "Substituting for a typical 1 oz copper trace (35 µm thick), 1 mm wide and 10 cm long:"
   },
   "learn_pcb.eq_conclusion": {
-    "cs": "I dlouhá cestička má tedy jen zlomky ohmu, proto se odpor mědi na desce běžně zanedbává, důležitý začíná být až u dlouhých tenkých cestiček s vysokým proudem.",
-    "en": "So even a long trace only has fractions of an ohm, which is why copper resistance on a board is normally ignored; it only starts to matter for long, thin traces carrying high current."
+    "cs": "Při 1 A odpovídá odpor 0,048 Ω úbytku 48 mV. U napájecích a zemních cest proto kontroluj úbytek napětí i zahřívání.",
+    "en": "At 1 A, a resistance of 0.048 Ω gives a 48 mV drop. Check both voltage drop and heating in supply and ground traces."
   },
   "learn_pcb.pro_loss_h3": {
     "cs": "Úbytek napětí, ztráty a teplota",
@@ -2384,8 +2384,8 @@
     "en": "How it works · 02 · Buttons"
   },
   "learn_debounce.h1": {
-    "cs": "Pull-up rezistory, tlačítka a debounce.",
-    "en": "Pull-up resistors, buttons, and debounce."
+    "cs": "Tlačítka a zákmity",
+    "en": "Buttons and contact bounce"
   },
   "learn_debounce.lead": {
     "cs": "Proč tlačítko samo o sobě nestačí a co se za scénou řeší při každém stisku.",
@@ -2416,24 +2416,24 @@
     "en": "filtered signal"
   },
   "learn_debounce.svg_press": {
-    "cs": "stisk tlačítka",
-    "en": "button press"
+    "cs": "potvrzený stisk",
+    "en": "accepted press"
   },
   "learn_debounce.diagram_caption": {
-    "cs": "Nahoře jeden stisk vytvoří několik rychlých změn. Dole je program spojí do jediného čistého stisku.",
-    "en": "At the top, one press creates several rapid changes. At the bottom, the program merges them into one clean press."
+    "cs": "Nahoře jeden stisk vyvolá několik změn. Dole se stav změní až po požadované době bez dalšího zákmitu.",
+    "en": "One press creates several transitions above. Below, the accepted state changes only after the required interval without another transition."
   },
   "learn_debounce.sw_p1": {
-    "cs": "Debounce se běžně řeší v programu: po zaznamenané změně signálu se dalších pár milisekund (typicky 20 až 50 ms) žádná další změna nebere v potaz, zákmity tak zmizí a zůstane jeden čistý stisk. V blokovém programování to bloky pro tlačítko dělají automaticky na pozadí, nemusíš na to myslet, ale je užitečné vědět, proč tenhle krátký okamžik ignorování vlastně existuje.",
-    "en": "Debounce is usually handled in software: after a recorded signal change, no further change is taken into account for the next few milliseconds (typically 20 to 50 ms), so the bounce disappears and one clean press remains. In block-based programming, the button blocks do this automatically in the background, you don't have to think about it, but it's useful to know why this brief window of ignoring changes exists at all."
+    "cs": "Jedna možnost debounce je přijmout změnu až po 20–50 ms stabilního signálu. Vhodná doba závisí na tlačítku a požadované odezvě. Blok „tlačítko je stisknuté“ v současném editoru Shieldio čte přímo stav vstupu; automatické potlačení zákmitů nepřidává.",
+    "en": "One debouncing method accepts a change only after the signal stays stable for 20–50 ms. The interval depends on the switch and response requirements. The current Shieldio “button is pressed” block reads the input directly; it does not add automatic debouncing."
   },
   "learn_debounce.hw_p2": {
-    "cs": "Debounce jde ošetřit i hardwarově, malým kondenzátorem paralelně k tlačítku, který zákmity elektricky \"vyhladí\" ještě dřív, než signál dorazí na pin, víc v kapitole o <a href=\"../kondenzatory/index.html\">kondenzátorech</a>.",
-    "en": "Debounce can also be handled in hardware, with a small capacitor wired in parallel with the button that electrically \"smooths out\" the bounce before the signal even reaches the pin, more on that in the chapter on <a href=\"../kondenzatory/index.html\">capacitors</a>."
+    "cs": "Hardwarové řešení může použít RC článek a vstup s hysterezí. Musí být navržené pro konkrétní tlačítko a vstup; samotný kondenzátor není univerzální oprava. Viz <a href=\"../kondenzatory/index.html\">kondenzátory</a>.",
+    "en": "A hardware solution can use an RC network and an input with hysteresis. It must be designed for the particular switch and input; a capacitor alone is not a universal fix. See <a href=\"../kondenzatory/index.html\">capacitors</a>."
   },
   "learn_debounce.board_tie": {
-    "cs": "<b>Na desce Shieldio RED:</b> R3 a R4 (10 kΩ) jsou přesně tyhle pull-up rezistory pro tlačítka SW1 a SW2. Debounce na desce řeší jen software, žádný debounce kondenzátor tam navíc není.",
-    "en": "<b>On the Shieldio RED board:</b> R3 and R4 (10 kΩ) are exactly these pull-up resistors for buttons SW1 and SW2. Debounce on the board is handled purely in software; there's no extra debounce capacitor."
+    "cs": "<b>RED V3:</b> R3 a R4 (10 kΩ) jsou pull-up rezistory tlačítek SW1 a SW2. Osazení neobsahuje zvláštní debounce kondenzátor. Program počítající jednotlivé stisky musí řešit i zákmity.",
+    "en": "<b>RED V3:</b> R3 and R4 (10 kΩ) pull up SW1 and SW2. There is no dedicated debounce capacitor. A program that counts individual presses must also handle contact bounce."
   },
   "learn_debounce.eq_units": {
     "cs": "Značení jednotek: <b>U</b> napětí [V], <b>R</b> odpor [Ω], <b>I</b> proud [A].",
@@ -2468,8 +2468,8 @@
     "en": "How it works · 03 · Semiconductors"
   },
   "learn_dioda.h1": {
-    "cs": "Jak funguje dioda a LED.",
-    "en": "How a diode and LED work."
+    "cs": "Dioda a LED",
+    "en": "Diodes and LEDs"
   },
   "learn_dioda.lead": {
     "cs": "Proč polarita u těchhle dvou součástek záleží, a co se doopravdy děje uvnitř polovodiče.",
@@ -2520,8 +2520,8 @@
     "en": "With the constants \\( h = 6.626 \\times 10^{-34}\\,\\text{J·s} \\) and \\( c = 3 \\times 10^{8}\\,\\text{m/s} \\), for a red LED with a wavelength of about 660 nm:"
   },
   "learn_dioda.eq_conclusion": {
-    "cs": "Tahle energie v elektronvoltech přibližně odpovídá prahovému napětí, které červená LED potřebuje k rozsvícení, přesně to napětí je vidět jako \"úbytek na LED\" v kalkulačce u <a href=\"../ohmuv-zakon/index.html\">Ohmova zákona</a>. Kratší vlnová délka (modrá, fialová LED) znamená vyšší energii fotonu, a tedy i vyšší prahové napětí.",
-    "en": "This energy in electronvolts roughly matches the threshold voltage a red LED needs to light up, exactly the voltage shown as \"voltage drop on the LED\" in the calculator on the <a href=\"../ohmuv-zakon/index.html\">Ohm's law</a> page. A shorter wavelength (blue, violet LEDs) means higher photon energy, and so a higher threshold voltage too."
+    "cs": "Pro 660 nm vyjde energie fotonu asi 1,88 eV. To naznačuje řád propustného napětí LED, ale neurčuje přesnou hodnotu ani bezpečný proud. Pro návrh použij katalogové údaje při zvoleném proudu a teplotě.",
+    "en": "At 660 nm, photon energy is about 1.88 eV. This indicates the LED voltage scale, but does not determine its exact forward voltage or safe current. Use datasheet values at the chosen current and temperature."
   },
   "learn_dioda.pro_operating_h3": {
     "cs": "Pracovní bod diody",
@@ -2556,8 +2556,8 @@
     "en": "How it works · 04 · Signals"
   },
   "learn_pwm.h1": {
-    "cs": "PWM: jak deska řídí LED i servo.",
-    "en": "PWM: how the board drives an LED and a servo."
+    "cs": "PWM a řízení serva",
+    "en": "PWM and servo control"
   },
   "learn_pwm.lead": {
     "cs": "Arduino umí na výstupu jen 0 V nebo 5 V. Jak z toho vznikne plynulé stmívání a přesné natočení serva.",
@@ -2676,8 +2676,8 @@
     "en": "How it works · 05 · Sensors"
   },
   "learn_ultrazvuk.h1": {
-    "cs": "Ultrazvuk a měření vzdálenosti.",
-    "en": "Ultrasound and distance measurement."
+    "cs": "Měření ultrazvukem",
+    "en": "Ultrasonic measurement"
   },
   "learn_ultrazvuk.lead": {
     "cs": "Stejný princip, kterým se orientují netopýři nebo lodní sonary, jen v malém senzoru na desce.",
@@ -5378,5 +5378,13 @@
   "programming.browserWhy": {
     "cs": "Podrobnosti",
     "en": "Details"
+  },
+  "learn.formulas_heading": {
+    "cs": "Vztahy a výpočty",
+    "en": "Equations and calculations"
+  },
+  "learn.sources": {
+    "cs": "Zdroje a předpoklady modelu",
+    "en": "Sources and model assumptions"
   }
 }

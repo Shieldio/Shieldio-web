@@ -10,6 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/dioda-a-led/">
 
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="../../../assets/css/component-lessons.css?v=20261104-review1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -74,7 +75,7 @@
 
 </head>
 
-<body data-i18n-title="learn_dioda.title">
+<body class="learn-page" data-i18n-title="learn_dioda.title">
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -96,11 +97,13 @@
 </div>
 
 
+<main id="learnContent">
 <div class="hero" style="padding-bottom:40px;">
   <div class="wrap">
+<a class="learn-back" href="../index.html" data-i18n="learn.topic_back">← Zpět na přehled témat</a>
     <div class="fade-up">
       <span class="eyebrow" data-i18n="learn_dioda.eyebrow">Jak to funguje · 03 · Polovodiče</span>
-      <h1 data-i18n="learn_dioda.h1">Jak funguje dioda a LED.</h1>
+      <h1 data-i18n="learn_dioda.h1">Dioda a LED</h1>
       <p class="lead" style="max-width:640px;" data-i18n="learn_dioda.lead">Proč polarita u těchhle dvou součástek záleží, a co se doopravdy děje uvnitř polovodiče.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
@@ -108,7 +111,7 @@
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
         <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -156,12 +159,13 @@
     </div>
 
     <div class="level-equations learn-body">
+<h2 data-i18n="learn.formulas_heading">Vztahy a výpočty</h2>
       <p data-i18n="learn_dioda.eq_units">Značení jednotek: <b>E</b> energie fotonu [J] nebo [eV], <b>h</b> Planckova konstanta [J·s], <b>c</b> rychlost světla [m/s], <b>λ</b> vlnová délka [m].</p>
       <p data-i18n="learn_dioda.eq_intro">Barva světla LED je daná energií fotonu, kterou elektron při přechodu vyzáří. Energie fotonu souvisí s vlnovou délkou světla vztahem:</p>
       <div class="learn-eq-block">\[ E = \frac{h \times c}{\lambda} \]</div>
       <p data-i18n="learn_dioda.eq_sub_label">S konstantami \( h = 6{,}626 \times 10^{-34}\,\text{J·s} \) a \( c = 3 \times 10^{8}\,\text{m/s} \), pro červenou LED s vlnovou délkou přibližně 660 nm:</p>
       <div class="learn-eq-block">\[ E = \frac{6{,}626 \times 10^{-34} \times 3 \times 10^{8}}{660 \times 10^{-9}} \approx 3{,}01 \times 10^{-19}\,\text{J} \approx 1{,}88\,\text{eV} \]</div>
-      <p data-i18n="learn_dioda.eq_conclusion">Tahle energie v elektronvoltech přibližně odpovídá prahovému napětí, které červená LED potřebuje k rozsvícení, přesně to napětí je vidět jako "úbytek na LED" v kalkulačce u <a href="../ohmuv-zakon/index.html">Ohmova zákona</a>. Kratší vlnová délka (modrá, fialová LED) znamená vyšší energii fotonu, a tedy i vyšší prahové napětí.</p>
+      <p data-i18n="learn_dioda.eq_conclusion">Pro 660 nm vyjde energie fotonu asi 1,88 eV. To naznačuje řád propustného napětí LED, ale neurčuje přesnou hodnotu ani bezpečný proud. Pro návrh použij katalogové údaje při zvoleném proudu a teplotě.</p>
       <h3 data-i18n="learn_dioda.pro_operating_h3">Pracovní bod diody</h3>
       <p data-i18n="learn_dioda.pro_operating_p">Proud diodou není určen samotnou diodou. V sériovém obvodu musí současně vyhovět voltampérové charakteristice diody a přímce dané zdrojem a rezistorem. Jejich průsečík je pracovní bod.</p>
       <div class="learn-eq-block">\[ I_D\approx I_S\left(e^{U_D/(nU_T)}-1\right),\qquad I_D=\frac{U_S-U_D}{R} \]</div>
@@ -197,6 +201,7 @@
 </section>
 
 
+</main>
 <footer>
   <div class="wrap footer-inner">
     <div class="logo"><img class="logo-full logo-full-light" src="../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
@@ -224,8 +229,8 @@
 <script src="../../../assets/js/search.js?v=20261103-search"></script>
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
-<script src="../../../assets/js/level-toggle.js"></script>
-<script src="../../../assets/js/concept-labs.js"></script>
+<script src="../../../assets/js/level-toggle.js?v=20261104-review1"></script>
+<script src="../../../assets/js/concept-labs.js?v=20261104-review1"></script>
 
 </body>
 </html>

@@ -10,6 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/tlacitka-a-debounce/">
 
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="../../../assets/css/component-lessons.css?v=20261104-review1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -74,7 +75,7 @@
 
 </head>
 
-<body data-i18n-title="learn_debounce.title">
+<body class="learn-page" data-i18n-title="learn_debounce.title">
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -96,11 +97,13 @@
 </div>
 
 
+<main id="learnContent">
 <div class="hero" style="padding-bottom:40px;">
   <div class="wrap">
+<a class="learn-back" href="../index.html" data-i18n="learn.topic_back">← Zpět na přehled témat</a>
     <div class="fade-up">
       <span class="eyebrow" data-i18n="learn_debounce.eyebrow">Jak to funguje · 02 · Tlačítka</span>
-      <h1 data-i18n="learn_debounce.h1">Pull-up rezistory, tlačítka a debounce.</h1>
+      <h1 data-i18n="learn_debounce.h1">Tlačítka a zákmity</h1>
       <p class="lead" style="max-width:640px;" data-i18n="learn_debounce.lead">Proč tlačítko samo o sobě nestačí a co se za scénou řeší při každém stisku.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
@@ -108,7 +111,7 @@
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
         <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -129,25 +132,25 @@
     <div class="learn-diagram">
       <svg viewBox="0 0 500 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Graf signálu tlačítka se zákmity a po ošetření debounce" data-i18n-aria-label="learn_debounce.svg_diagram_alt">
         <text x="0" y="16" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_raw">signál bez ošetření</text>
-        <polyline points="10,60 150,60 155,30 160,60 168,30 174,60 180,30 186,60 192,30 198,60 204,30 210,60 216,32 490,32"
-          fill="none" stroke="var(--tier-red)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <polyline points="10,30 150,30 150,60 160,60 160,30 174,30 174,60 186,60 186,30 198,30 198,60 210,60 210,30 216,30 216,60 490,60" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
         <text x="0" y="108" font-family="JetBrains Mono" font-size="11" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_debounced">signál po odfiltrování</text>
-        <polyline points="10,150 210,150 210,122 490,122"
+        <polyline points="10,122 300,122 300,150 490,150"
           fill="none" stroke="var(--tier-green)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-        <line x1="210" y1="105" x2="210" y2="175" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="216" y="185" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_press">stisk tlačítka</text>
+        <line x1="300" y1="105" x2="300" y2="175" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="306" y="185" font-family="JetBrains Mono" font-size="10" fill="var(--ink-soft)" data-i18n="learn_debounce.svg_press">potvrzený stisk</text>
       </svg>
-      <p class="learn-diagram-caption" data-i18n="learn_debounce.diagram_caption">Nahoře jeden stisk vytvoří několik rychlých změn. Dole je program spojí do jediného čistého stisku.</p>
+      <p class="learn-diagram-caption" data-i18n="learn_debounce.diagram_caption">Nahoře jeden stisk vyvolá několik změn. Dole se stav změní až po požadované době bez dalšího zákmitu.</p>
     </div>
 
     <div class="level-advanced learn-body">
-      <p data-i18n="learn_debounce.sw_p1">Debounce se běžně řeší v programu: po zaznamenané změně signálu se dalších pár milisekund (typicky 20 až 50 ms) žádná další změna nebere v potaz, zákmity tak zmizí a zůstane jeden čistý stisk. V blokovém programování to bloky pro tlačítko dělají automaticky na pozadí, nemusíš na to myslet, ale je užitečné vědět, proč tenhle krátký okamžik ignorování vlastně existuje.</p>
-      <p data-i18n="learn_debounce.hw_p2">Debounce jde ošetřit i hardwarově, malým kondenzátorem paralelně k tlačítku, který zákmity elektricky "vyhladí" ještě dřív, než signál dorazí na pin, víc v kapitole o <a href="../kondenzatory/index.html">kondenzátorech</a>.</p>
+      <p data-i18n="learn_debounce.sw_p1">Jedna možnost debounce je přijmout změnu až po 20–50 ms stabilního signálu. Vhodná doba závisí na tlačítku a požadované odezvě. Blok „tlačítko je stisknuté“ v současném editoru Shieldio čte přímo stav vstupu; automatické potlačení zákmitů nepřidává.</p>
+      <p data-i18n="learn_debounce.hw_p2">Hardwarové řešení může použít RC článek a vstup s hysterezí. Musí být navržené pro konkrétní tlačítko a vstup; samotný kondenzátor není univerzální oprava. Viz <a href="../kondenzatory/index.html">kondenzátory</a>.</p>
     </div>
 
-    <div class="learn-board-tie level-advanced" data-i18n="learn_debounce.board_tie"><b>Na desce Shieldio RED:</b> R3 a R4 (10 kΩ) jsou přesně tyhle pull-up rezistory pro tlačítka SW1 a SW2. Debounce na desce řeší jen software, žádný debounce kondenzátor tam navíc není.</div>
+    <div class="learn-board-tie level-advanced" data-i18n="learn_debounce.board_tie"><b>RED V3:</b> R3 a R4 (10 kΩ) jsou pull-up rezistory tlačítek SW1 a SW2. Osazení neobsahuje zvláštní debounce kondenzátor. Program počítající jednotlivé stisky musí řešit i zákmity.</div>
 
     <div class="level-equations learn-body">
+<h2 data-i18n="learn.formulas_heading">Vztahy a výpočty</h2>
       <p data-i18n="learn_debounce.eq_units">Značení jednotek: <b>U</b> napětí [V], <b>R</b> odpor [Ω], <b>I</b> proud [A].</p>
       <p data-i18n="learn_debounce.eq_intro">Pull-up rezistor tvoří s tlačítkem jednoduchý obvod: když je tlačítko puštěné, celé napájecí napětí je na pinu, a pull-up rezistorem neteče žádný proud. Ve chvíli stisku ale rezistor spojuje 5 V se zemí, a Ohmův zákon (viz <a href="../ohmuv-zakon/index.html">Ohmův zákon</a>) určí, jak velký proud jím při stisku poteče:</p>
       <div class="learn-eq-block">\[ I\ [\text{A}] = \frac{U}{R} \]</div>
@@ -181,6 +184,7 @@
 </section>
 
 
+</main>
 <footer>
   <div class="wrap footer-inner">
     <div class="logo"><img class="logo-full logo-full-light" src="../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
@@ -208,8 +212,8 @@
 <script src="../../../assets/js/search.js?v=20261103-search"></script>
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
-<script src="../../../assets/js/level-toggle.js"></script>
-<script src="../../../assets/js/concept-labs.js"></script>
+<script src="../../../assets/js/level-toggle.js?v=20261104-review1"></script>
+<script src="../../../assets/js/concept-labs.js?v=20261104-review1"></script>
 
 </body>
 </html>

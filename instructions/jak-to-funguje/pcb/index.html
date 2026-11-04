@@ -10,6 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/pcb/">
 
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="../../../assets/css/component-lessons.css?v=20261104-review1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -82,7 +83,7 @@
 
 </head>
 
-<body data-i18n-title="learn_pcb.title">
+<body class="learn-page" data-i18n-title="learn_pcb.title">
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -104,11 +105,13 @@
 </div>
 
 
+<main id="learnContent">
 <div class="hero" style="padding-bottom:24px;">
   <div class="wrap">
+<a class="learn-back" href="../index.html" data-i18n="learn.topic_back">← Zpět na přehled témat</a>
     <div class="fade-up">
       <span class="eyebrow" data-i18n="learn_pcb.eyebrow">Jak to funguje · 07 · Deska samotná</span>
-      <h1 data-i18n="learn_pcb.h1">Co je PCB a proč jsou cestičky z mědi.</h1>
+      <h1 data-i18n="learn_pcb.h1">Plošný spoj</h1>
       <p class="lead" style="max-width:640px;" data-i18n="learn_pcb.lead">Ještě než na desku připájíš první součástku, je sama o sobě výsledkem malého výrobního procesu. Co se v ní vlastně skrývá.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
@@ -116,7 +119,7 @@
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
         <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -189,8 +192,9 @@
     </div>
 
     <div class="level-equations learn-body">
+<h2 data-i18n="learn.formulas_heading">Vztahy a výpočty</h2>
       <p data-i18n="learn_pcb.eq_units">Značení jednotek: <b>R</b> odpor [Ω], <b>ρ</b> rezistivita [Ω·m], <b>L</b> délka [m], <b>A</b> průřez [m²].</p>
-      <p data-i18n="learn_pcb.eq_label"><b>Odpor vodiče</b> libovolného tvaru se spočítá jako:</p>
+      <p data-i18n="learn_pcb.eq_label"><b>Odpor vodiče s konstantním průřezem</b> se spočítá jako:</p>
       <div class="learn-eq-block">\[ R\ [\Omega] = \rho \, \frac{L}{A} \]</div>
       <p data-i18n="learn_pcb.eq_note">kde \(\rho\) (rho) je měrný elektrický odpor materiálu (rezistivita), \(L\) je délka vodiče a \(A\) jeho průřez (šířka krát tloušťka mědi).</p>
       <table class="learn-table">
@@ -202,7 +206,7 @@
       </table>
       <p data-i18n="learn_pcb.eq_sub_label">Dosazení pro typickou cestičku z 1 oz mědi (tloušťka 35 µm), širokou 1 mm a dlouhou 10 cm:</p>
       <div class="learn-eq-block">\[ R = 1{,}68 \times 10^{-8}\,\Omega{\cdot}\text{m} \times \frac{0{,}10\,\text{m}}{0{,}001\,\text{m} \times 0{,}000035\,\text{m}} \approx 0{,}048\,\Omega \]</div>
-      <p data-i18n="learn_pcb.eq_conclusion">I dlouhá cestička má tedy jen zlomky ohmu, proto se odpor mědi na desce běžně zanedbává, důležitý začíná být až u dlouhých tenkých cestiček s vysokým proudem.</p>
+      <p data-i18n="learn_pcb.eq_conclusion">Při 1 A odpovídá odpor 0,048 Ω úbytku 48 mV. U napájecích a zemních cest proto kontroluj úbytek napětí i zahřívání.</p>
       <h3 data-i18n="learn_pcb.pro_loss_h3">Úbytek napětí, ztráty a teplota</h3>
       <p data-i18n="learn_pcb.pro_loss_p">Odpor cestičky způsobí úbytek napětí a ohřev. Zdvojnásobení proudu zdvojnásobí úbytek, ale ztrátový výkon zvětší čtyřikrát. U výše vypočtené cestičky při 1 A jde přibližně o 48 mV a 48 mW; při 2 A už o 96 mV a 192 mW.</p>
       <div class="learn-eq-block">\[ \Delta U=IR,\qquad P=I^2R \]</div>
@@ -230,6 +234,7 @@
 </section>
 
 
+</main>
 <footer>
   <div class="wrap footer-inner">
     <div class="logo"><img class="logo-full logo-full-light" src="../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
@@ -257,8 +262,8 @@
 <script src="../../../assets/js/search.js?v=20261103-search"></script>
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
-<script src="../../../assets/js/level-toggle.js"></script>
-<script src="../../../assets/js/concept-labs.js"></script>
+<script src="../../../assets/js/level-toggle.js?v=20261104-review1"></script>
+<script src="../../../assets/js/concept-labs.js?v=20261104-review1"></script>
 
 </body>
 </html>

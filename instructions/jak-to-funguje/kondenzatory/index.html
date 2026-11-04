@@ -10,6 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/kondenzatory/">
 
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="../../../assets/css/component-lessons.css?v=20261104-review1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -61,7 +62,7 @@
       "name": "Jak kondenzátor tlumí šum a zákmity?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Kondenzátor propouští rychlé změny napětí (šum) snadněji než pomalé, funguje proto jako filtr, který vyhlazuje krátké špičky. Malý kondenzátor paralelně k tlačítku dokáže elektricky vyhladit i mechanické zákmity (bounce), ještě než signál dorazí na pin mikrokontroléru."
+        "text": "Výsledek závisí na zapojení. Paralelně k napájení poskytuje kondenzátor cestu pro střídavou složku proudu. V sérii se signálem naopak blokuje ustálený stejnosměrný proud. Nelze obecně říct, že vyhladí každý signál."
       }
     }
   ]
@@ -82,7 +83,7 @@
 
 </head>
 
-<body data-i18n-title="learn_kondenzatory.title">
+<body class="learn-page" data-i18n-title="learn_kondenzatory.title">
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -104,19 +105,21 @@
 </div>
 
 
+<main id="learnContent">
 <div class="hero" style="padding-bottom:24px;">
   <div class="wrap">
+<a class="learn-back" href="../index.html" data-i18n="learn.topic_back">← Zpět na přehled témat</a>
     <div class="fade-up">
       <span class="eyebrow" data-i18n="learn_cap.eyebrow">Jak to funguje · 06 · Kondenzátory</span>
-      <h1 data-i18n="learn_cap.h1">Jak funguje kondenzátor a proč na něm někdy záleží polarita.</h1>
-      <p class="lead" style="max-width:640px;" data-i18n="learn_cap.lead">Zásobník elektrického náboje, filtr proti rychlým výkyvům a součástka, u které může záležet na polaritě.</p>
+      <h1 data-i18n="learn_cap.h1">Kondenzátory</h1>
+      <p class="lead" style="max-width:640px;" data-i18n="learn_cap.lead">Uchování energie, polarita a nabíjení přes rezistor.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
       <span class="guide-mode-label" data-i18n="learn.level_label">Úroveň vysvětlení</span>
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
         <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -125,11 +128,11 @@
 <section class="learn-section" style="padding-top:0; border-top:none;">
   <div class="wrap">
     <div class="section-head" style="max-width:680px;">
-      <h2 data-i18n="learn_cap.h2_purpose">K čemu je kondenzátor vůbec dobrý.</h2>
+      <h2 data-i18n="learn_cap.h2_purpose">Co kondenzátor dělá</h2>
     </div>
     <div class="learn-body level-simple-only">
       <p data-i18n="learn_cap.simple_p1">Kondenzátor na krátkou dobu uchová část elektrické energie. Dokáže ji rychle přijmout i vrátit, a proto pomáhá vyrovnat krátké kolísání napájení.</p>
-      <p data-i18n="learn_cap.simple_p2">Malý keramický kondenzátor můžeš otočit oběma směry. Válcový elektrolytický má označené plus a minus a musí se zapojit správně.</p>
+      <p data-i18n="learn_cap.simple_p2">Keramický kondenzátor nemá polaritu. U běžného hliníkového elektrolytického kondenzátoru označuje pruh na pouzdru záporný vývod. Před zapojením ověř jeho označení.</p>
     </div>
 
     <div class="level-advanced learn-body">
@@ -166,18 +169,18 @@
     </div>
 
     <div class="section-head" style="max-width:680px; margin-top:56px;">
-      <h2 data-i18n="learn_cap.h2_noise">Jak kondenzátor tlumí šum a zákmity.</h2>
+      <h2 data-i18n="learn_cap.h2_noise">Kondenzátor v napájení a u tlačítka</h2>
     </div>
     <div class="learn-body level-simple-only">
-      <p data-i18n="learn_cap.noise_simple">Kondenzátor se nabíjí a vybíjí postupně, ne naráz. Krátké výkyvy napětí proto zmenší, podobně jako tlumič zjemní náraz.</p>
+      <p data-i18n="learn_cap.noise_simple">Kondenzátor mezi napájením a zemí pomáhá omezit krátké výkyvy napětí. Samotný kondenzátor ale nezaručí stabilní napájení ani spolehlivé čtení tlačítka.</p>
     </div>
     <div class="level-advanced learn-body">
-      <p data-i18n="learn_cap.noise_adv_p1">Kondenzátor se nabíjí a vybíjí postupně, ne okamžitě, čím rychlejší je změna napětí, tím snáz ji "propustí" skrz sebe, a čím pomalejší, tím víc ji vyhladí. Prakticky to znamená: rychlé výkyvy a šum se přes kondenzátor částečně vybijí a zploští, zatímco pomalé, užitečné napětí zůstává skoro nedotčené. Přesně tenhle efekt se využívá dvěma způsoby, které se na první pohled zdají nesouvisející, ale je za nimi stejná fyzika:</p>
-      <p data-i18n="learn_cap.decoupling_p"><b>Vyhlazování napájení:</b> malý keramický kondenzátor u napájecího pinu čipu odfiltruje rychlé špičky a "cvrlikání" na napájecí větvi, aby k citlivé elektronice dorazilo klidnější napětí.</p>
-      <p data-i18n="learn_cap.hw_debounce_p"><b>Hardwarový debounce:</b> kondenzátor zapojený paralelně k tlačítku vyhladí i elektrické zákmity (bounce) z <a href="../tlacitka-a-debounce/index.html">mechanického odskakování kontaktů</a>, takže na pin dorazí jeden čistý přechod místo rychlé série "cvak-cvak-cvak". Deska Shieldio RED řeší debounce softwarově, žádný debounce kondenzátor na ní není, ale princip je stejný jako u vyhlazování napájení, jen v menším měřítku.</p>
+      <p data-i18n="learn_cap.noise_adv_p1">Výsledek závisí na zapojení. Paralelně k napájení poskytuje kondenzátor cestu pro střídavou složku proudu. V sérii se signálem naopak blokuje ustálený stejnosměrný proud. Nelze obecně říct, že vyhladí každý signál.</p>
+      <p data-i18n="learn_cap.decoupling_p"><b>Blokování napájení:</b> kondenzátor u napájecích pinů pomáhá při rychlých změnách odběru. Důležité jsou krátké spoje, ESR a ESL. Nenahradí zdroj s dostatečným proudem.</p>
+      <p data-i18n="learn_cap.hw_debounce_p"><b>Zákmity tlačítka:</b> rezistor a kondenzátor mohou zpomalit změnu napětí na vstupu. Návrh musí zohlednit prahy a hysterezi vstupu i proud při sepnutí. Viz <a href="../tlacitka-a-debounce/index.html">tlačítka a zákmity</a>.</p>
     </div>
 
-    <div class="learn-board-tie" data-i18n="learn_cap.board_tie"><b>Na desce Shieldio RED:</b> tři keramické kondenzátory C1, C2 a C4 (104, tedy 100 nF) sedí poblíž napájecích pinů a vyhlazují drobné výkyvy. Elektrolytický kondenzátor C3 (100 µF) je větší a pomalejší, drží napájení stabilní ve chvílích, kdy servo nebo bzučák najednou odeberou víc proudu.</div>
+    <div class="learn-board-tie level-advanced" data-i18n="learn_cap.board_tie"><b>RED V3:</b> osazovací tabulka uvádí C1, C2 a C4 jako 100 nF a C3 jako 100 µF. Kondenzátory podporují napájení, ale nenahradí zdroj pro servo. U jiné revize ověř její osazovací tabulku.</div>
 
     <div class="level-advanced transient-section">
       <div class="section-head" style="max-width:760px; margin-top:56px;">
@@ -186,23 +189,17 @@
       </div>
       <div class="transient-grid">
         <article class="transient-card">
-          <svg viewBox="0 0 420 180" role="img" aria-label="RC obvod a průběh napětí kondenzátoru" data-i18n-aria-label="learn_cap.rc_svg_alt">
-            <path class="lab-wire" d="M28 48 H92 M148 48 H205 V126 H28 V48"/><path class="lab-symbol" d="M92 48 l10 -10 10 20 10 -20 10 20 10 -20 6 10"/><line class="lab-symbol" x1="205" y1="76" x2="205" y2="104"/><line class="lab-symbol" x1="224" y1="76" x2="224" y2="104"/><path class="transient-axis" d="M250 132 H402 M250 132 V28"/><path class="transient-curve transient-curve-cap" d="M250 132 C278 128 292 82 322 56 C350 33 374 29 402 28"/>
-            <text class="lab-svg-label" x="117" y="28">R</text><text class="lab-svg-label" x="211" y="68">C</text><text class="lab-svg-label" x="320" y="154">t</text><text class="lab-svg-label" x="258" y="22">U<tspan baseline-shift="sub">C</tspan></text>
-          </svg>
+          <div class="transient-plots" role="img" aria-label="RC obvod a průběh napětí kondenzátoru" data-i18n-aria-label="learn_cap.rc_svg_alt"><svg viewBox="0 0 280 220" aria-hidden="true"><path class="lab-wire" d="M40 78 V45 H95 M155 45 H220 V95 M220 120 V170 H40 V122"/><circle class="lab-symbol" cx="40" cy="100" r="22"/><text class="lab-svg-label" x="34" y="97">+</text><text class="lab-svg-label" x="34" y="115">−</text><text class="lab-svg-label" x="12" y="205">U_S</text><rect class="lab-symbol" x="95" y="35" width="60" height="20"/><text class="lab-svg-label" x="120" y="25">R</text><path class="lab-symbol" d="M204 95 H236 M204 120 H236"/><text class="lab-svg-label" x="240" y="110">C</text><path class="transient-axis" d="M310 32 V170 H574"/><path class="lab-guide" d="M310 40 H560"/><path class="transient-curve" d="M310.00 170.00 L313.12 162.12 L316.25 154.72 L319.38 147.77 L322.50 141.24 L325.62 135.11 L328.75 129.35 L331.88 123.93 L335.00 118.85 L338.12 114.07 L341.25 109.58 L344.38 105.37 L347.50 101.41 L350.62 97.69 L353.75 94.19 L356.88 90.91 L360.00 87.82 L363.12 84.93 L366.25 82.20 L369.38 79.65 L372.50 77.25 L375.62 74.99 L378.75 72.87 L381.88 70.88 L385.00 69.01 L388.12 67.25 L391.25 65.60 L394.38 64.05 L397.50 62.59 L400.62 61.22 L403.75 59.94 L406.88 58.73 L410.00 57.59 L413.12 56.53 L416.25 55.53 L419.38 54.59 L422.50 53.70 L425.62 52.87 L428.75 52.09 L431.88 51.36 L435.00 50.67 L438.12 50.02 L441.25 49.42 L444.38 48.85 L447.50 48.31 L450.62 47.81 L453.75 47.33 L456.88 46.89 L460.00 46.47 L463.12 46.08 L466.25 45.71 L469.38 45.37 L472.50 45.04 L475.62 44.74 L478.75 44.45 L481.88 44.18 L485.00 43.93 L488.12 43.69 L491.25 43.46 L494.38 43.25 L497.50 43.06 L500.62 42.87 L503.75 42.70 L506.88 42.53 L510.00 42.38 L513.12 42.24 L516.25 42.10 L519.38 41.97 L522.50 41.85 L525.62 41.74 L528.75 41.64 L531.88 41.54 L535.00 41.44 L538.12 41.36 L541.25 41.27 L544.38 41.20 L547.50 41.12 L550.62 41.06 L553.75 40.99 L556.88 40.93 L560.00 40.88"/><text class="lab-svg-label" x="278" y="26">U_C</text><text class="lab-svg-label" x="460" y="29">U_S</text><text class="lab-svg-label" x="300" y="191">0</text><text class="lab-svg-label" x="350" y="191">τ</text><text class="lab-svg-label" x="545" y="191">5τ</text><text class="lab-svg-label" x="577" y="190">t</text></svg><svg viewBox="280 0 320 220" aria-hidden="true"><path class="lab-wire" d="M40 78 V45 H95 M155 45 H220 V95 M220 120 V170 H40 V122"/><circle class="lab-symbol" cx="40" cy="100" r="22"/><text class="lab-svg-label" x="34" y="97">+</text><text class="lab-svg-label" x="34" y="115">−</text><text class="lab-svg-label" x="12" y="205">U_S</text><rect class="lab-symbol" x="95" y="35" width="60" height="20"/><text class="lab-svg-label" x="120" y="25">R</text><path class="lab-symbol" d="M204 95 H236 M204 120 H236"/><text class="lab-svg-label" x="240" y="110">C</text><path class="transient-axis" d="M310 32 V170 H574"/><path class="lab-guide" d="M310 40 H560"/><path class="transient-curve" d="M310.00 170.00 L313.12 162.12 L316.25 154.72 L319.38 147.77 L322.50 141.24 L325.62 135.11 L328.75 129.35 L331.88 123.93 L335.00 118.85 L338.12 114.07 L341.25 109.58 L344.38 105.37 L347.50 101.41 L350.62 97.69 L353.75 94.19 L356.88 90.91 L360.00 87.82 L363.12 84.93 L366.25 82.20 L369.38 79.65 L372.50 77.25 L375.62 74.99 L378.75 72.87 L381.88 70.88 L385.00 69.01 L388.12 67.25 L391.25 65.60 L394.38 64.05 L397.50 62.59 L400.62 61.22 L403.75 59.94 L406.88 58.73 L410.00 57.59 L413.12 56.53 L416.25 55.53 L419.38 54.59 L422.50 53.70 L425.62 52.87 L428.75 52.09 L431.88 51.36 L435.00 50.67 L438.12 50.02 L441.25 49.42 L444.38 48.85 L447.50 48.31 L450.62 47.81 L453.75 47.33 L456.88 46.89 L460.00 46.47 L463.12 46.08 L466.25 45.71 L469.38 45.37 L472.50 45.04 L475.62 44.74 L478.75 44.45 L481.88 44.18 L485.00 43.93 L488.12 43.69 L491.25 43.46 L494.38 43.25 L497.50 43.06 L500.62 42.87 L503.75 42.70 L506.88 42.53 L510.00 42.38 L513.12 42.24 L516.25 42.10 L519.38 41.97 L522.50 41.85 L525.62 41.74 L528.75 41.64 L531.88 41.54 L535.00 41.44 L538.12 41.36 L541.25 41.27 L544.38 41.20 L547.50 41.12 L550.62 41.06 L553.75 40.99 L556.88 40.93 L560.00 40.88"/><text class="lab-svg-label" x="278" y="26">U_C</text><text class="lab-svg-label" x="460" y="29">U_S</text><text class="lab-svg-label" x="300" y="191">0</text><text class="lab-svg-label" x="350" y="191">τ</text><text class="lab-svg-label" x="545" y="191">5τ</text><text class="lab-svg-label" x="577" y="190">t</text></svg></div>
           <h3 data-i18n="learn_cap.rc_card_h3">Kondenzátor v RC obvodu</h3>
-          <p data-i18n="learn_cap.rc_card_p">Napětí na kondenzátoru nemůže skočit. Při nabíjení roste a při vybíjení klesá plynule; odpor určuje, jak rychle se proud i napětí mění.</p>
+          <p data-i18n="learn_cap.rc_card_p">Po připojení konstantního napětí roste napětí původně vybitého kondenzátoru k U_S. Nejrychleji se mění na začátku, potom se růst zpomaluje. Časová konstanta je τ = RC.</p>
         </article>
         <article class="transient-card">
-          <svg viewBox="0 0 420 180" role="img" aria-label="RL obvod a průběh proudu cívkou" data-i18n-aria-label="learn_cap.rl_svg_alt">
-            <path class="lab-wire" d="M28 48 H92 M148 48 H174 M230 48 H230 V126 H28 V48"/><path class="lab-symbol" d="M92 48 l10 -10 10 20 10 -20 10 20 10 -20 6 10"/><path class="lab-symbol" d="M174 48 c0 -24 14 -24 14 0 c0 -24 14 -24 14 0 c0 -24 14 -24 14 0 c0 -24 14 -24 14 0"/><path class="transient-axis" d="M250 132 H402 M250 132 V28"/><path class="transient-curve transient-curve-coil" d="M250 132 C278 128 292 82 322 56 C350 33 374 29 402 28"/>
-            <text class="lab-svg-label" x="117" y="28">R</text><text class="lab-svg-label" x="198" y="25">L</text><text class="lab-svg-label" x="320" y="154">t</text><text class="lab-svg-label" x="258" y="22">I<tspan baseline-shift="sub">L</tspan></text>
-          </svg>
+          <div class="transient-plots" role="img" aria-label="RL obvod a průběh proudu cívkou" data-i18n-aria-label="learn_cap.rl_svg_alt"><svg viewBox="0 0 280 220" aria-hidden="true"><path class="lab-wire" d="M40 78 V45 H95 M155 45 H175 M231 45 H250 V170 H40 V122"/><circle class="lab-symbol" cx="40" cy="100" r="22"/><text class="lab-svg-label" x="34" y="97">+</text><text class="lab-svg-label" x="34" y="115">−</text><text class="lab-svg-label" x="12" y="205">U_S</text><rect class="lab-symbol" x="95" y="35" width="60" height="20"/><text class="lab-svg-label" x="120" y="25">R</text><path class="lab-symbol" d="M175 45 c0 -22 14 -22 14 0 c0 -22 14 -22 14 0 c0 -22 14 -22 14 0 c0 -22 14 -22 14 0"/><text class="lab-svg-label" x="201" y="20">L</text><path class="transient-axis" d="M310 32 V170 H574"/><path class="lab-guide" d="M310 40 H560"/><path class="transient-curve" d="M310.00 170.00 L313.12 162.12 L316.25 154.72 L319.38 147.77 L322.50 141.24 L325.62 135.11 L328.75 129.35 L331.88 123.93 L335.00 118.85 L338.12 114.07 L341.25 109.58 L344.38 105.37 L347.50 101.41 L350.62 97.69 L353.75 94.19 L356.88 90.91 L360.00 87.82 L363.12 84.93 L366.25 82.20 L369.38 79.65 L372.50 77.25 L375.62 74.99 L378.75 72.87 L381.88 70.88 L385.00 69.01 L388.12 67.25 L391.25 65.60 L394.38 64.05 L397.50 62.59 L400.62 61.22 L403.75 59.94 L406.88 58.73 L410.00 57.59 L413.12 56.53 L416.25 55.53 L419.38 54.59 L422.50 53.70 L425.62 52.87 L428.75 52.09 L431.88 51.36 L435.00 50.67 L438.12 50.02 L441.25 49.42 L444.38 48.85 L447.50 48.31 L450.62 47.81 L453.75 47.33 L456.88 46.89 L460.00 46.47 L463.12 46.08 L466.25 45.71 L469.38 45.37 L472.50 45.04 L475.62 44.74 L478.75 44.45 L481.88 44.18 L485.00 43.93 L488.12 43.69 L491.25 43.46 L494.38 43.25 L497.50 43.06 L500.62 42.87 L503.75 42.70 L506.88 42.53 L510.00 42.38 L513.12 42.24 L516.25 42.10 L519.38 41.97 L522.50 41.85 L525.62 41.74 L528.75 41.64 L531.88 41.54 L535.00 41.44 L538.12 41.36 L541.25 41.27 L544.38 41.20 L547.50 41.12 L550.62 41.06 L553.75 40.99 L556.88 40.93 L560.00 40.88"/><text class="lab-svg-label" x="278" y="26">I_L</text><text class="lab-svg-label" x="460" y="29">U_S/R</text><text class="lab-svg-label" x="300" y="191">0</text><text class="lab-svg-label" x="350" y="191">τ</text><text class="lab-svg-label" x="545" y="191">5τ</text><text class="lab-svg-label" x="577" y="190">t</text></svg><svg viewBox="280 0 320 220" aria-hidden="true"><path class="lab-wire" d="M40 78 V45 H95 M155 45 H175 M231 45 H250 V170 H40 V122"/><circle class="lab-symbol" cx="40" cy="100" r="22"/><text class="lab-svg-label" x="34" y="97">+</text><text class="lab-svg-label" x="34" y="115">−</text><text class="lab-svg-label" x="12" y="205">U_S</text><rect class="lab-symbol" x="95" y="35" width="60" height="20"/><text class="lab-svg-label" x="120" y="25">R</text><path class="lab-symbol" d="M175 45 c0 -22 14 -22 14 0 c0 -22 14 -22 14 0 c0 -22 14 -22 14 0 c0 -22 14 -22 14 0"/><text class="lab-svg-label" x="201" y="20">L</text><path class="transient-axis" d="M310 32 V170 H574"/><path class="lab-guide" d="M310 40 H560"/><path class="transient-curve" d="M310.00 170.00 L313.12 162.12 L316.25 154.72 L319.38 147.77 L322.50 141.24 L325.62 135.11 L328.75 129.35 L331.88 123.93 L335.00 118.85 L338.12 114.07 L341.25 109.58 L344.38 105.37 L347.50 101.41 L350.62 97.69 L353.75 94.19 L356.88 90.91 L360.00 87.82 L363.12 84.93 L366.25 82.20 L369.38 79.65 L372.50 77.25 L375.62 74.99 L378.75 72.87 L381.88 70.88 L385.00 69.01 L388.12 67.25 L391.25 65.60 L394.38 64.05 L397.50 62.59 L400.62 61.22 L403.75 59.94 L406.88 58.73 L410.00 57.59 L413.12 56.53 L416.25 55.53 L419.38 54.59 L422.50 53.70 L425.62 52.87 L428.75 52.09 L431.88 51.36 L435.00 50.67 L438.12 50.02 L441.25 49.42 L444.38 48.85 L447.50 48.31 L450.62 47.81 L453.75 47.33 L456.88 46.89 L460.00 46.47 L463.12 46.08 L466.25 45.71 L469.38 45.37 L472.50 45.04 L475.62 44.74 L478.75 44.45 L481.88 44.18 L485.00 43.93 L488.12 43.69 L491.25 43.46 L494.38 43.25 L497.50 43.06 L500.62 42.87 L503.75 42.70 L506.88 42.53 L510.00 42.38 L513.12 42.24 L516.25 42.10 L519.38 41.97 L522.50 41.85 L525.62 41.74 L528.75 41.64 L531.88 41.54 L535.00 41.44 L538.12 41.36 L541.25 41.27 L544.38 41.20 L547.50 41.12 L550.62 41.06 L553.75 40.99 L556.88 40.93 L560.00 40.88"/><text class="lab-svg-label" x="278" y="26">I_L</text><text class="lab-svg-label" x="460" y="29">U_S/R</text><text class="lab-svg-label" x="300" y="191">0</text><text class="lab-svg-label" x="350" y="191">τ</text><text class="lab-svg-label" x="545" y="191">5τ</text><text class="lab-svg-label" x="577" y="190">t</text></svg></div>
           <h3 data-i18n="learn_cap.rl_card_h3">Cívka v RL obvodu</h3>
-          <p data-i18n="learn_cap.rl_card_p">Proud ideální cívkou nemůže skočit. Cívka změně proudu odporuje a ukládá energii do magnetického pole. Při odpojení může vytvořit vysoké napětí, proto se u relé a motorů používá ochranná dioda.</p>
+          <p data-i18n="learn_cap.rl_card_p">Po připojení konstantního napětí roste proud z nuly k U_S/R. Časová konstanta je τ = L/R. Při odpojení zdroje musí mít proud cívkou cestu, například přes ochrannou diodu.</p>
         </article>
       </div>
-      <div class="equivalent-model">
+      <div class="equivalent-model level-equations">
         <div>
           <span class="eyebrow-dark" data-i18n="learn_cap.equiv_eyebrow">Náhradní schéma</span>
           <h3 data-i18n="learn_cap.equiv_h3">Skutečná součástka není ideální.</h3>
@@ -211,7 +208,7 @@
         <svg viewBox="0 0 640 190" role="img" aria-label="Náhradní schéma reálného kondenzátoru" data-i18n-aria-label="learn_cap.equiv_svg_alt">
           <path class="lab-wire" d="M28 95 H86 M150 95 H200 M270 95 H322 M360 95 H612"/>
           <path class="lab-symbol" d="M86 95 c0 -22 16 -22 16 0 c0 -22 16 -22 16 0 c0 -22 16 -22 16 0 c0 -22 16 -22 16 0"/>
-          <rect class="lab-component" x="200" y="72" width="70" height="46" rx="8"/><path class="lab-symbol" d="M212 95 l9 -10 9 20 9 -20 9 20 10 -10"/>
+          <rect class="lab-component" x="200" y="72" width="70" height="46" rx="8"/>
           <line class="lab-symbol" x1="322" y1="68" x2="322" y2="122"/><line class="lab-symbol" x1="360" y1="68" x2="360" y2="122"/>
           <path class="lab-wire" d="M304 95 V160 H316 M366 160 H378 V95"/><rect class="lab-component" x="316" y="140" width="50" height="38" rx="8"/>
           <text class="lab-svg-label" x="112" y="55" text-anchor="middle">ESL</text><text class="lab-svg-label" x="235" y="55" text-anchor="middle">ESR</text><text class="lab-svg-label" x="341" y="55" text-anchor="middle">C</text><text class="lab-svg-label" x="341" y="166" text-anchor="middle">R<tspan baseline-shift="sub">svod</tspan></text>
@@ -220,31 +217,32 @@
     </div>
 
     <div class="level-advanced learn-body">
-      <p data-i18n="learn_cap.rc_p"><b>RC časová konstanta:</b> rychlost, jakou se kondenzátor nabíjí nebo vybíjí přes rezistor, popisuje součin R a C, které se říká tau. Po jedné časové konstantě je kondenzátor nabitý na zhruba 63 % konečné hodnoty, po pěti τ prakticky na 100 %. Debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ dá τ = 1 ms, dost rychle na to, aby stisk tlačítka nebyl znatelně opožděný, ale dost pomalu na vyhlazení zákmitů v řádu mikrosekund až jednotek milisekund.</p>
-      <p data-i18n="learn_cap.impedance_p"><b>Impedance:</b> pro střídavý signál se chování kondenzátoru popisuje jeho impedancí, tedy odporem vůči střídavému proudu. Se stoupající frekvencí impedance klesá, kondenzátor se pro rychlé signály chová skoro jako zkrat, pro pomalé skoro jako rozpojený obvod, proto propouští šum snáz než pomalé užitečné napětí.</p>
+      <p data-i18n="learn_cap.rc_p"><b>Časová konstanta τ = RC:</b> při nabíjení původně vybitého kondenzátoru přes rezistor z konstantního napětí dosáhne napětí za jednu τ asi 63 % konečné hodnoty. Za pět τ je to 99,3 %. Pro 10 kΩ a 100 nF vyjde τ = 1 ms; to samo nezaručuje potlačení zákmitů tlačítka.</p>
+      <p data-i18n="learn_cap.impedance_p"><b>Ideální kondenzátor:</b> velikost reaktance s frekvencí klesá. U skutečného kondenzátoru tento trend platí jen do okolí vlastní rezonance. Při vyšších frekvencích může převládnout parazitní indukčnost.</p>
       <table class="learn-table">
-        <tr><th data-i18n="learn_cap.table_h1">Signál</th><th data-i18n="learn_cap.table_h2">Impedance kondenzátoru</th><th data-i18n="learn_cap.table_h3">Chování</th></tr>
-        <tr><td data-i18n="learn_cap.table_r1a">Pomalý / stejnosměrný</td><td data-i18n="learn_cap.table_r1b">vysoká</td><td data-i18n="learn_cap.table_r1c">skoro nepropustí, drží napětí</td></tr>
-        <tr><td data-i18n="learn_cap.table_r2a">Rychlý šum</td><td data-i18n="learn_cap.table_r2b">nízká</td><td data-i18n="learn_cap.table_r2c">propustí a "vybije" špičku pryč</td></tr>
+        <tr><th data-i18n="learn_cap.table_h1">Signál</th><th data-i18n="learn_cap.table_h2">Ideální kondenzátor</th><th data-i18n="learn_cap.table_h3">Chování</th></tr>
+        <tr><td data-i18n="learn_cap.table_r1a">Ustálené DC</td><td data-i18n="learn_cap.table_r1b">nevede proud</td><td data-i18n="learn_cap.table_r1c">po nabití, při zanedbání svodu</td></tr>
+        <tr><td data-i18n="learn_cap.table_r2a">Vyšší frekvence</td><td data-i18n="learn_cap.table_r2b">menší reaktance</td><td data-i18n="learn_cap.table_r2c">u skutečné součástky omezeno ESR a ESL</td></tr>
       </table>
     </div>
 
     <div class="level-equations learn-body">
+<h2 data-i18n="learn.formulas_heading">Vztahy a výpočty</h2>
       <p data-i18n="learn_cap.eq_units">Značení jednotek: <b>R</b> odpor [Ω], <b>C</b> kapacita [F], <b>L</b> indukčnost [H], <b>U</b> napětí [V], <b>I</b> proud [A], <b>τ</b> časová konstanta [s], <b>f</b> frekvence [Hz].</p>
       <p data-i18n="learn_cap.eq_rc_label"><b>RC časová konstanta:</b></p>
       <div class="learn-eq-block">\[ \tau\ [\text{s}] = R \times C \]</div>
       <p data-i18n="learn_cap.eq_rc_sub_label">Pro debounce kondenzátor 100 nF s pull-up rezistorem 10 kΩ:</p>
       <div class="learn-eq-block">\[ \tau = 10\,000\,\Omega \times 100 \times 10^{-9}\,\text{F} = 1\,\text{ms} \]</div>
-      <p data-i18n="learn_cap.eq_xc_label"><b>Kapacitní reaktance (impedance kondenzátoru)</b> pro harmonický signál o frekvenci \(f\):</p>
+      <p data-i18n="learn_cap.eq_xc_label"><b>Kapacitní reaktance ideálního kondenzátoru</b> při frekvenci \(f\):</p>
       <div class="learn-eq-block">\[ X_C\ [\Omega] = \frac{1}{2\pi f C} \]</div>
       <p data-i18n="learn_cap.eq_xc_sub_label">Dosazení pro stejný debounce kondenzátor 100 nF při frekvenci zákmitů kolem 1 kHz:</p>
       <div class="learn-eq-block">\[ X_C = \frac{1}{2\pi \times 1000\,\text{Hz} \times 100 \times 10^{-9}\,\text{F}} \approx 1{,}59\,\text{k}\Omega \]</div>
-      <p data-i18n="learn_cap.eq_xc_conclusion">To je pořád v řádu pull-up rezistoru 10 kΩ, ale výrazně méně, než jaký by X_C vyšel pro pomalé, jednotky Hz trvající změny napětí od stisku tlačítka. Přesně tenhle rozdíl v reaktanci pro různé frekvence je to, co dělá z kondenzátoru filtr, rychlý šum (vysoké f) propustí snáz než pomalý užitečný signál (nízké f).</p>
+      <p data-i18n="learn_cap.eq_xc_conclusion">Výsledek 1,59 kΩ popisuje ideální kondenzátor při 1 kHz. Útlum filtru závisí také na okolních odporech a zapojení. Z tohoto čísla samotného nelze určit, zda obvod odstraní zákmity tlačítka.</p>
       <p data-i18n="learn_cap.eq_phasor_label"><b>Fázorová (komplexní) analýza:</b> kondenzátor má impedanci</p>
       <div class="learn-eq-block">\[ Z_C = \frac{1}{j\omega C}, \qquad \omega = 2\pi f \]</div>
       <p data-i18n="learn_cap.eq_phasor_note">kde \(j\) je imaginární jednotka. Proud kondenzátorem předbíhá napětí na něm o 90°, na rozdíl od rezistoru, kde jsou proud a napětí vždy ve fázi.</p>
       <h3 data-i18n="learn_cap.pro_transient_h3">Přechodové děje na maturitní úrovni</h3>
-      <p data-i18n="learn_cap.pro_transient_p">Pro obvod prvního řádu určuje časová konstanta rychlost změny. Kondenzátor při vybíjení a proud cívkou po odpojení klesají exponenciálně:</p>
+      <p data-i18n="learn_cap.pro_transient_p">Vztahy níže popisují vybíjení nabitého kondenzátoru přes rezistor a pokles proudu cívkou v uzavřené smyčce s odporem R. U cívky musí po odpojení zdroje zůstat cesta pro proud.</p>
       <div class="learn-eq-block">\[ \tau_{RC}=RC, \qquad U_C(t)=U_0 e^{-t/(RC)} \]</div>
       <div class="learn-eq-block">\[ \tau_{RL}=\frac{L}{R}, \qquad I_L(t)=I_0 e^{-tR/L} \]</div>
       <p data-i18n="learn_cap.pro_energy_p">Energie kondenzátoru je uložena v elektrickém poli, energie cívky v magnetickém poli:</p>
@@ -253,7 +251,8 @@
       <div class="learn-eq-block">\[ Z(j\omega) \approx ESR + j\omega ESL + \frac{1}{j\omega C} \]</div>
     </div>
 
-    <div class="topic-nav">
+    <aside class="learn-sources"><h2 data-i18n="learn.sources">Zdroje a předpoklady modelu</h2><ul><li><a href="https://openstax.org/books/university-physics-volume-2/pages/10-5-rc-circuits">OpenStax · RC circuits</a></li><li><a href="https://industrial.panasonic.com/ww/ds/ss/technical/b2">Panasonic · Basic knowledge of capacitors</a></li></ul></aside>
+<div class="topic-nav">
       <a class="topic-nav-back" href="../index.html" data-i18n="learn.topic_back">← Zpět na přehled témat</a>
       <div class="topic-nav-items">
         <a class="topic-nav-item" href="../ohmuv-zakon/index.html"><span class="topic-nav-num">01</span> <span data-i18n="learn.topic01">Ohmův zákon</span></a>
@@ -273,6 +272,7 @@
 </section>
 
 
+</main>
 <footer>
   <div class="wrap footer-inner">
     <div class="logo"><img class="logo-full logo-full-light" src="../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
@@ -300,8 +300,8 @@
 <script src="../../../assets/js/search.js?v=20261103-search"></script>
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
-<script src="../../../assets/js/level-toggle.js"></script>
-<script src="../../../assets/js/concept-labs.js"></script>
+<script src="../../../assets/js/level-toggle.js?v=20261104-review1"></script>
+<script src="../../../assets/js/concept-labs.js?v=20261104-review1"></script>
 
 </body>
 </html>

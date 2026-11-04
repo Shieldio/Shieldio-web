@@ -16,9 +16,9 @@
       title: "Interaktivní model",
       change: "Změň hodnoty a sleduj, co se stane.",
       voltage: "Napětí", resistance: "Odpor", current: "Proud", power: "Výkon",
-      press: "Simulovat stisk", debounce: "Čekání programu po stisku", rawEdges: "Změn bez ošetření", accepted: "Uznané stisky",
+      press: "Simulovat stisk", debounce: "Požadovaná doba stabilního stavu", rawEdges: "Změn bez ošetření", accepted: "Uznané stisky",
       diodeType: "Součástka", silicon: "Křemíková dioda", redLed: "Červená LED", blueLed: "Modrá LED",
-      direction: "Směr", forward: "propustný", reverse: "závěrný", threshold: "Prahové napětí", dark: "nesvítí", shines: "svítí",
+      direction: "Směr", forward: "propustný", reverse: "závěrný", threshold: "Modelový úbytek", dark: "nesvítí", shines: "svítí",
       distance: "Vzdálenost", temperature: "Teplota vzduchu", ping: "Vyslat pulz", echo: "Čas ozvěny", soundSpeed: "Rychlost zvuku",
       mode: "Průběh", charge: "Nabíjení", discharge: "Vybíjení", capacitance: "Kapacita", time: "Čas od začátku", tau: "Časová konstanta", speed: "Rychlost změny", slow: "pomalá", medium: "střední", fast: "rychlá", timeAxis: "čas →", voltageAxis: "napětí",
       width: "Šířka cestičky", length: "Délka cestičky", thickness: "Tloušťka mědi", drop: "Úbytek napětí", loss: "Ztrátový výkon",
@@ -27,7 +27,7 @@
       ultrasonicAlt: "Měření vzdálenosti ultrazvukovým pulzem", capacitorAlt: "Křivka nabíjení a vybíjení kondenzátoru", pcbAlt: "Měděná cestička na plošném spoji",
       ohmSimple: "Vyšší napětí žene stejným odporem větší proud. Vyšší odpor proud brzdí.",
       debounceSimple: "Jeden mechanický stisk vytvoří několik rychlých hran. Debounce je sloučí do jedné události.",
-      diodeSimple: "V propustném směru proud kolem typického úbytku prudce roste. Zjednodušený model ho v závěrném směru blokuje.",
+      diodeSimple: "Výpočet předpokládá rezistor 220 Ω v sérii a konstantní úbytek na diodě. Nezahrnuje průraz, svod ani vliv teploty. Nejde o návod k připojení LED na záporné napětí.",
       ultrasonicSimple: "Pulz urazí cestu k překážce i zpět. Proto se při výpočtu vzdálenosti dráha dělí dvěma.",
       capacitorSimple: "Kondenzátor se nenabije ani nevybije naráz. Posuň čas a sleduj, jak se napětí mění postupně.",
       pcbSimple: "Delší a užší měděná cestička má větší odpor. Při stejném proudu proto ztrácí víc energie jako teplo.",
@@ -38,7 +38,7 @@
       voltage: "Voltage", resistance: "Resistance", current: "Current", power: "Power",
       press: "Simulate press", debounce: "Program wait after a press", rawEdges: "Raw transitions", accepted: "Accepted presses",
       diodeType: "Component", silicon: "Silicon diode", redLed: "Red LED", blueLed: "Blue LED",
-      direction: "Direction", forward: "forward", reverse: "reverse", threshold: "Threshold voltage", dark: "off", shines: "on",
+      direction: "Direction", forward: "forward", reverse: "reverse", threshold: "Model forward drop", dark: "off", shines: "on",
       distance: "Distance", temperature: "Air temperature", ping: "Send pulse", echo: "Echo time", soundSpeed: "Speed of sound",
       mode: "Curve", charge: "Charging", discharge: "Discharging", capacitance: "Capacitance", time: "Time since start", tau: "Time constant", speed: "Rate of change", slow: "slow", medium: "medium", fast: "fast", timeAxis: "time →", voltageAxis: "voltage",
       width: "Trace width", length: "Trace length", thickness: "Copper thickness", drop: "Voltage drop", loss: "Power loss",
@@ -47,7 +47,7 @@
       ultrasonicAlt: "Distance measurement using an ultrasonic pulse", capacitorAlt: "Capacitor charging and discharging curve", pcbAlt: "Copper trace on a printed circuit board",
       ohmSimple: "More voltage drives more current through the same resistance. More resistance limits current.",
       debounceSimple: "One mechanical press creates several fast transitions. Debouncing merges them into one event.",
-      diodeSimple: "In the forward direction, current rises steeply around the typical voltage drop. The simplified model blocks it in reverse.",
+      diodeSimple: "The calculation assumes a 220 Ω series resistor and a fixed diode voltage drop. It omits breakdown, leakage and temperature effects. It is not an instruction to apply reverse voltage to an LED.",
       ultrasonicSimple: "The pulse travels to the obstacle and back. That is why the travelled distance is divided by two.",
       capacitorSimple: "A capacitor does not charge or discharge all at once. Move time and watch the voltage change gradually.",
       pcbSimple: "A longer, narrower copper trace has more resistance. At the same current, it loses more energy as heat.",
@@ -65,8 +65,10 @@
   function field(label, input, output, className) {
     return `<label class="concept-lab-field${className ? " " + className : ""}"><span>${label} <output>${output}</output></span>${input}</label>`;
   }
+  let activeTopic;
+  const headings={cs:{ohm:"Napětí a proud v rezistoru",debounce:"Zákmity tlačítka",diode:"Dioda s rezistorem 220 Ω",ultrasonic:"Doba letu ozvěny",capacitor:"Nabíjení a vybíjení při 5 V",pcb:"Odpor měděné cestičky"},en:{ohm:"Voltage and current in a resistor",debounce:"Contact bounce",diode:"Diode with a 220 Ω resistor",ultrasonic:"Echo travel time",capacitor:"Charging and discharging at 5 V",pcb:"Copper trace resistance"}};
   function shell(simpleText, controls, visual, readings, equation) {
-    return `<div class="concept-lab-head"><div><span class="eyebrow-dark">${tx("title")}</span><h2>${tx("change")}</h2></div></div>
+    return `<div class="concept-lab-head"><div><span class="eyebrow-dark">${tx("title")}</span><h2>${headings[lang()][activeTopic]}</h2></div></div>
       <div class="concept-lab-grid"><div class="concept-lab-controls">${controls}</div><div class="concept-lab-stage">${visual}</div></div>
       <p class="concept-lab-simple">${simpleText}</p>
       <div class="concept-lab-readings lab-depth-advanced">${readings}</div>
@@ -81,8 +83,8 @@
       field(tx("voltage"), '<input data-lab="u" type="range" min="1" max="12" step="0.5" value="5">', '<span data-lab-out="u">5,0 V</span>') +
       field(tx("resistance"), '<input data-lab="r" type="range" min="100" max="2000" step="10" value="220">', '<span data-lab-out="r">220 Ω</span>'),
       `<svg viewBox="0 0 620 220" role="img" aria-label="${tx("ohmAlt")}">
-        <path class="lab-wire" d="M90 45 H530 V175 H90 Z"/><rect x="260" y="25" width="100" height="40" rx="8" class="lab-component"/>
-        <path d="M278 45 l12 -12 12 24 12 -24 12 24 12 -24 12 12" class="lab-symbol"/><line x1="75" y1="82" x2="105" y2="82" class="lab-symbol"/><line x1="82" y1="105" x2="98" y2="105" class="lab-symbol"/>
+        <path class="lab-wire" d="M90 82 V45 H260 M360 45 H530 V175 H90 V105"/><rect x="260" y="25" width="100" height="40" rx="8" class="lab-component"/>
+        <line x1="75" y1="82" x2="105" y2="82" class="lab-symbol"/><line x1="82" y1="105" x2="98" y2="105" class="lab-symbol"/>
         <text x="310" y="92" text-anchor="middle" class="lab-svg-label" data-lab-out="svg-r">220 Ω</text><text x="120" y="132" class="lab-svg-label" data-lab-out="svg-u">5,0 V</text>
         <g data-lab="flow">${[0,1,2,3,4].map(i => `<circle r="6" class="lab-flow-dot" style="animation-delay:${-i * .35}s"><animateMotion dur="2s" repeatCount="indefinite" path="M90 45 H530 V175 H90 V45"/></circle>`).join("")}</g>
       </svg>`,
@@ -108,15 +110,23 @@
     root.innerHTML = shell(tx("debounceSimple"),
       field(tx("debounce"), '<input data-lab="wait" type="range" min="5" max="60" step="5" value="25">', '<span data-lab-out="wait">25 ms</span>') +
       `<button class="btn btn-primary" type="button" data-lab="press">${tx("press")}</button>`,
-      `<svg viewBox="0 0 620 230" role="img" aria-label="${tx("debounceAlt")}"><text x="18" y="30" class="lab-svg-label">RAW</text><text x="18" y="145" class="lab-svg-label">CLEAN</text>
+      `<svg viewBox="0 0 620 230" role="img" aria-label="${tx("debounceAlt")}"><text x="18" y="30" class="lab-svg-label">${lang()==="cs"?"Vstup":"Input"}</text><text x="18" y="145" class="lab-svg-label">${lang()==="cs"?"Po filtru":"Filtered"}</text>
         <path data-lab="raw" class="lab-signal lab-signal-raw" d=""/><path data-lab="clean" class="lab-signal lab-signal-clean" d=""/><line data-lab="sweep" x1="70" y1="10" x2="70" y2="215" class="lab-sweep"/></svg>`,
       reading(tx("rawEdges"), "7", "edges") + reading(tx("accepted"), "1", "accepted"),
       '<span data-lab-out="formula">t_stabilní ≥ t_debounce = 25 ms</span>');
     const draw = () => {
       const wait = +root.querySelector('[data-lab="wait"]').value;
-      const pts = [[70,80],[165,80],[170,45],[178,80],[187,45],[199,80],[211,45],[226,80],[240,45],[560,45]];
-      root.querySelector('[data-lab="raw"]').setAttribute("d", "M" + pts.map(p=>p.join(" ")).join(" L"));
-      root.querySelector('[data-lab="clean"]').setAttribute("d", `M70 190 H${240 + wait * 2.5} V155 H560`);
+      const transitions=[0,4,9,15,22,30,39],pts=[[70,45],[165,45]],clean=[[70,155]];
+      let previous=45,acceptedState=false,acceptedCount=0;
+      for(const [i,t] of transitions.entries()){
+        const x=165+t*2.5,y=i%2===0?80:45;pts.push([x,previous],[x,y]);previous=y;
+        const state=i%2===0,next=transitions[i+1]??Infinity;
+        if(next-t>wait && state!==acceptedState){const acceptedX=165+(t+wait)*2.5;clean.push([acceptedX,acceptedState?190:155],[acceptedX,state?190:155]);acceptedState=state;if(state)acceptedCount++;}
+      }
+      pts.push([560,80]);clean.push([560,acceptedState?190:155]);
+      root.querySelector('[data-lab="raw"]').setAttribute("d","M"+pts.map(p=>p.join(" ")).join(" L"));
+      root.querySelector('[data-lab="clean"]').setAttribute("d","M"+clean.map(p=>p.join(" ")).join(" L"));
+      root.querySelector('[data-lab-out="accepted"]').textContent=String(acceptedCount);
       root.querySelector('[data-lab-out="wait"]').textContent = num(wait,0) + " ms";
       root.querySelector('[data-lab-out="formula"]').textContent = `t_stabilní ≥ t_debounce = ${num(wait,0)} ms`;
     };
@@ -130,9 +140,7 @@
     root.innerHTML = shell(tx("diodeSimple"),
       field(tx("voltage"), '<input data-lab="u" type="range" min="-5" max="5" step="0.1" value="2">', '<span data-lab-out="u">2,0 V</span>') +
       field(tx("diodeType"), `<select data-lab="type"><option value="0.7">${tx("silicon")}</option><option value="1.9" selected>${tx("redLed")}</option><option value="3.0">${tx("blueLed")}</option></select>`, ""),
-      `<svg viewBox="0 0 620 240" role="img" aria-label="${tx("diodeAlt")}"><line x1="65" y1="120" x2="555" y2="120" class="lab-wire"/><polygon points="275,75 275,165 365,120" class="lab-component"/><line x1="370" y1="72" x2="370" y2="168" class="lab-symbol"/>
-        <circle cx="470" cy="120" r="42" class="lab-led" data-lab="led"/><g data-lab="diode-flow">${[0,1,2].map(i=>`<circle cx="100" cy="120" r="6" class="lab-flow-dot diode-dot" style="animation-delay:${-i*.4}s"/>`).join("")}</g>
-        <text x="310" y="205" text-anchor="middle" class="lab-svg-label" data-lab-out="state"></text></svg>`,
+      `<svg viewBox="0 0 620 240" role="img" aria-label="${tx("diodeAlt")}"><path class="lab-wire" d="M90 95 V60 H210 M290 60 H375 M425 60 H530 V190 H90 V145"/><circle cx="90" cy="120" r="25" class="lab-symbol"/><text x="84" y="115" class="lab-svg-label">+</text><text x="84" y="135" class="lab-svg-label">−</text><rect x="210" y="48" width="80" height="24" class="lab-symbol"/><text x="250" y="35" text-anchor="middle" class="lab-svg-label">220 Ω</text><circle cx="400" cy="60" r="35" class="lab-led" data-lab="led"/><path d="M375 40 V80 L425 60 Z M425 38 V82" class="lab-symbol"/><text x="366" y="110" class="lab-svg-label">A</text><text x="425" y="110" class="lab-svg-label">K</text><g data-lab="diode-flow">${[0,1,2].map(i=>`<circle cx="100" cy="60" r="4" class="lab-flow-dot diode-dot" style="animation-delay:${-i*.4}s"/>`).join("")}</g><text x="310" y="220" text-anchor="middle" class="lab-svg-label" data-lab-out="state"></text></svg>`,
       reading(tx("direction"), "", "direction") + reading(tx("threshold"), "1,9 V", "vf") + reading(tx("current"), "0,5 mA", "i"),
       '<span data-lab-out="formula">I ≈ max(0; (U − U_F) / 220 Ω)</span>');
     const update = () => {
@@ -142,7 +150,9 @@
       root.querySelector('[data-lab-out="vf"]').textContent = num(vf,1) + " V";
       root.querySelector('[data-lab-out="i"]').textContent = num(i,1) + " mA";
       root.querySelector('[data-lab-out="direction"]').textContent = forward ? tx("forward") : tx("reverse");
-      root.querySelector('[data-lab-out="state"]').textContent = i > 0 ? tx("shines") : tx("dark");
+      const isLed=vf!==0.7;
+      root.querySelector('[data-lab-out="state"]').textContent=isLed?(i>0?tx("shines"):tx("dark")):(lang()==="cs"?(i>0?"vede proud":"proud v modelu neteče"):(i>0?"conducting":"no current in model"));
+      root.querySelector('[data-lab="led"]').style.display=isLed?"":"none";
       root.querySelector('[data-lab="led"]').style.opacity = String(.12 + Math.min(1,i/15)*.88);
       root.querySelector('[data-lab="diode-flow"]').classList.toggle("is-flowing", i > .05);
       root.querySelector('[data-lab-out="formula"]').textContent = `I ≈ max(0; (${num(u,1)} V − ${num(vf,1)} V) / 220 Ω) = ${num(i,1)} mA`;
@@ -164,7 +174,7 @@
       root.querySelector('[data-lab-out="d"]').textContent=num(d,0)+" cm"; root.querySelector('[data-lab-out="svg-d"]').textContent=num(d,0)+" cm";
       root.querySelector('[data-lab-out="temp"]').textContent=num(t,0)+" °C"; root.querySelector('[data-lab-out="echo"]').textContent=num(echo,0)+" µs"; root.querySelector('[data-lab-out="speed"]').textContent=num(v,1)+" m/s";
       root.querySelector('[data-lab="obstacle"]').setAttribute("x",x); root.querySelector('[data-lab-out="svg-d"]').setAttribute("x",(110+x)/2);
-      root.querySelector('[data-lab-out="formula"]').textContent=`d = t · v / 2 = ${num(echo,0)} µs · ${num(v,1)} m/s / 2 = ${num(d,0)} cm`;
+      root.querySelector('[data-lab-out="formula"]').textContent=`d = t · v / 2 = ${num(echo,0)} µs · ${num(v,1)} m/s / 20 000 = ${num(d,0)} cm`;
       root.dataset.targetX=x;
     };
     root.querySelectorAll("input").forEach(x=>x.addEventListener("input",update));
@@ -177,15 +187,17 @@
       field(tx("speed"), '<input data-lab="speed" type="range" min="1" max="5" step="1" value="3">', '<span data-lab-out="speed">'+tx("medium")+'</span>', "lab-depth-simple")+
       field(tx("resistance"), '<input data-lab="r" type="range" min="1" max="100" step="1" value="10">', '<span data-lab-out="r">10 kΩ</span>', "lab-depth-advanced")+
       field(tx("capacitance"), '<select data-lab="c"><option value="0.1">0,1 µF</option><option value="1">1 µF</option><option value="10">10 µF</option><option value="100" selected>100 µF</option><option value="1000">1000 µF</option></select>', "", "lab-depth-advanced")+
-      field(tx("time"), '<input data-lab="time" type="range" min="0" max="10" step="0.1" value="1">', '<span data-lab-out="time">1,0 s</span>'),
-      `<svg viewBox="0 0 620 270" role="img" aria-label="${tx("capacitorAlt")}"><line x1="65" y1="220" x2="570" y2="220" class="lab-axis"/><line x1="65" y1="35" x2="65" y2="220" class="lab-axis"/><path data-lab="curve" class="lab-curve" d=""/><circle data-lab="point" r="8" class="lab-point"/><g data-lab="plates"><line x1="500" y1="70" x2="500" y2="180" class="lab-symbol"/><line x1="540" y1="70" x2="540" y2="180" class="lab-symbol"/></g><text x="317" y="248" text-anchor="middle" class="lab-svg-label">${tx("timeAxis")}</text><text x="38" y="128" text-anchor="middle" class="lab-svg-label" transform="rotate(-90 38 128)">${tx("voltageAxis")}</text></svg>`,
+      field(tx("time"), '<input data-lab="time" type="range" min="0" max="5" step="0.01" value="1">', '<span data-lab-out="time">1,0 s</span>'),
+      `<svg viewBox="0 0 620 270" role="img" aria-label="${tx("capacitorAlt")}"><line x1="65" y1="220" x2="570" y2="220" class="lab-axis"/><line x1="65" y1="35" x2="65" y2="220" class="lab-axis"/><path data-lab="curve" class="lab-curve" d=""/><circle data-lab="point" r="8" class="lab-point"/><text x="30" y="48" class="lab-svg-label">5 V</text><text x="40" y="220" class="lab-svg-label">0</text><text x="65" y="245" class="lab-svg-label">0</text><text x="495" y="245" text-anchor="end" class="lab-svg-label" data-lab-out="time-max">5τ</text><text x="317" y="248" text-anchor="middle" class="lab-svg-label">${tx("timeAxis")}</text><text x="38" y="128" text-anchor="middle" class="lab-svg-label" transform="rotate(-90 38 128)">${tx("voltageAxis")}</text></svg>`,
       reading(tx("tau"), "1,00 s", "tau") + reading(tx("voltage"), "3,16 V", "voltage"),
       '<span data-lab-out="formula">U_C(t) = U_S · (1 − e^(−t/RC))</span>');
+    const duration=t=>t<.001?num(t*1e6,1)+" µs":t<1?num(t*1000,1)+" ms":num(t,2)+" s";
     let mode="charge";
-    const update=()=>{const r=+root.querySelector('[data-lab="r"]').value,c=+root.querySelector('[data-lab="c"]').value,elapsed=+root.querySelector('[data-lab="time"]').value,tau=r*1000*c/1e6,n=elapsed/tau;const ratio=mode==="charge"?1-Math.exp(-n):Math.exp(-n),u=5*ratio;
+    const update=()=>{const r=+root.querySelector('[data-lab="r"]').value,c=+root.querySelector('[data-lab="c"]').value,tau=r*1000*c/1e6,n=+root.querySelector('[data-lab="time"]').value,elapsed=n*tau;const ratio=mode==="charge"?1-Math.exp(-n):Math.exp(-n),u=5*ratio;
+      root.querySelector('[data-lab-out="time-max"]').textContent=duration(5*tau);
       const speed=+root.querySelector('[data-lab="speed"]').value;root.querySelector('[data-lab-out="speed"]').textContent=speed<3?tx("slow"):speed>3?tx("fast"):tx("medium");
-      root.querySelector('[data-lab-out="r"]').textContent=num(r,0)+" kΩ";root.querySelector('[data-lab-out="time"]').textContent=num(elapsed,1)+" s";root.querySelector('[data-lab-out="tau"]').textContent=tau<1?num(tau*1000,0)+" ms":num(tau,2)+" s";root.querySelector('[data-lab-out="voltage"]').textContent=num(u,2)+" V";
-      const pts=[];for(let i=0;i<=100;i++){const x=65+i/100*430,t=i/10,q=mode==="charge"?1-Math.exp(-t/tau):Math.exp(-t/tau),y=220-q*175;pts.push((i?"L":"M")+x+" "+y)}root.querySelector('[data-lab="curve"]').setAttribute("d",pts.join(" "));const px=65+elapsed/10*430,py=220-ratio*175;root.querySelector('[data-lab="point"]').setAttribute("cx",px);root.querySelector('[data-lab="point"]').setAttribute("cy",py);
+      root.querySelector('[data-lab-out="r"]').textContent=num(r,0)+" kΩ";root.querySelector('[data-lab-out="time"]').textContent=duration(elapsed);root.querySelector('[data-lab-out="tau"]').textContent=duration(tau);root.querySelector('[data-lab-out="voltage"]').textContent=num(u,2)+" V";
+      const pts=[];for(let i=0;i<=100;i++){const x=65+i/100*430,t=i/100*5*tau,q=mode==="charge"?1-Math.exp(-t/tau):Math.exp(-t/tau),y=220-q*175;pts.push((i?"L":"M")+x+" "+y)}root.querySelector('[data-lab="curve"]').setAttribute("d",pts.join(" "));const px=65+n/5*430,py=220-ratio*175;root.querySelector('[data-lab="point"]').setAttribute("cx",px);root.querySelector('[data-lab="point"]').setAttribute("cy",py);
       root.querySelector('[data-lab-out="formula"]').textContent=mode==="charge"?`U_C(t) = U_S · (1 − e^(−t/RC)) = ${num(u,2)} V`:`U_C(t) = U_0 · e^(−t/RC) = ${num(u,2)} V`;
     };
     root.querySelector('[data-lab="speed"]').addEventListener("input",e=>{root.querySelector('[data-lab="r"]').value=[100,33,10,3,1][+e.target.value-1];update()});root.querySelectorAll('[data-lab="r"],[data-lab="c"],[data-lab="time"]').forEach(x=>x.addEventListener("input",update));root.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.mode;root.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle("active",x===b));update()}));update();
@@ -207,13 +219,22 @@
 
   const BUILD = { ohm, debounce, diode, ultrasonic, capacitor, pcb };
   function init() {
-    const slug = location.pathname.split("/").filter(Boolean).slice(-2, -1)[0];
+    const parts=location.pathname.split("/").filter(Boolean);
+    if(parts.at(-1)==="index.html")parts.pop();
+    const slug=parts.at(-1);
     const topic = TOPIC[slug]; if (!topic || !BUILD[topic]) return;
     const wrap = document.querySelector(".learn-section > .wrap"); if (!wrap) return;
     let root = wrap.querySelector(".concept-lab");
     if (!root) { root=document.createElement("section"); root.className="concept-lab"; const anchor=wrap.querySelector(".learn-diagram, .resistor-calc, .learn-board-tie"); wrap.insertBefore(root,anchor||wrap.firstChild); }
-    BUILD[topic](root);
+    activeTopic=topic;BUILD[topic](root);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded",init); else init();
-  document.addEventListener("shieldio-lang-change",()=>{const root=document.querySelector(".concept-lab");if(root){root.remove();init();}});
+  document.addEventListener("shieldio-lang-change",()=>{
+    const root=document.querySelector(".concept-lab");if(!root)return;
+    const values=[...root.querySelectorAll("input[data-lab],select[data-lab]")].map(el=>[el.dataset.lab,el.value]);
+    const mode=root.querySelector("[data-mode].active")?.dataset.mode;
+    root.remove();init();const next=document.querySelector(".concept-lab");if(!next)return;
+    for(const [key,value] of values){const field=next.querySelector('[data-lab="'+key+'"]');if(field){field.value=value;field.dispatchEvent(new Event("input",{bubbles:true}));}}
+    if(mode)next.querySelector('[data-mode="'+mode+'"]')?.click();
+  });
 })();

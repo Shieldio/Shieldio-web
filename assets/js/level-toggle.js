@@ -18,6 +18,9 @@
 
   function apply(level) {
     document.documentElement.dataset.learnLevel = level;
+    document.querySelectorAll(".level-simple-only, .level-advanced, .level-equations").forEach(block => {
+      block.hidden=block.classList.contains("level-simple-only")?level!=="simple":block.classList.contains("level-equations")?level!=="equations":level==="simple";
+    });
     document.querySelectorAll("[data-level-toggle]").forEach((toggle) => {
       toggle.querySelectorAll(".guide-mode-btn").forEach((btn) => {
         const active = btn.dataset.level === level;

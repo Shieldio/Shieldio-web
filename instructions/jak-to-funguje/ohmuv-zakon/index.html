@@ -10,6 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/jak-to-funguje/ohmuv-zakon/">
 
 <link rel="stylesheet" href="../../../assets/css/style.css">
+<link rel="stylesheet" href="../../../assets/css/component-lessons.css?v=20261104-review1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -83,7 +84,7 @@
 
 </head>
 
-<body data-i18n-title="learn_ohm.title">
+<body class="learn-page" data-i18n-title="learn_ohm.title">
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -105,11 +106,13 @@
 </div>
 
 
+<main id="learnContent">
 <div class="hero" style="padding-bottom:24px;">
   <div class="wrap">
+<a class="learn-back" href="../index.html" data-i18n="learn.topic_back">← Zpět na přehled témat</a>
     <div class="fade-up">
       <span class="eyebrow" data-i18n="learn_ohm.eyebrow">Jak to funguje · 01 · Rezistory</span>
-      <h1 data-i18n="learn_ohm.h1">Ohmův zákon a proč zrovna 220 Ω.</h1>
+      <h1 data-i18n="learn_ohm.h1">Ohmův zákon</h1>
       <p class="lead" style="max-width:640px;" data-i18n="learn_ohm.lead">Kalkulačka pro výpočet rezistoru k LED podle Ohmova zákona, s vysvětlením, odkud vzorec pochází a co dělá rezistor uvnitř.</p>
     </div>
     <div data-level-toggle class="fade-up" style="display:flex; align-items:center; gap:16px; margin-top:32px; flex-wrap:wrap;">
@@ -117,7 +120,7 @@
       <div class="guide-mode-toggle">
         <button type="button" class="guide-mode-btn" data-level="simple" data-i18n="learn.level_simple">Jednoduše</button>
         <button type="button" class="guide-mode-btn" data-level="advanced" data-i18n="learn.level_advanced">Složitěji</button>
-        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Profi</button>
+        <button type="button" class="guide-mode-btn" data-level="equations" data-i18n="learn.level_full">Se vzorci</button>
       </div>
     </div>
   </div>
@@ -137,7 +140,7 @@
         <p data-i18n="learn_ohm.adv_p2">Přeuspořádaný na výpočet odporu vypadá takto:</p>
         <div class="learn-eq-block">\[ R = \frac{U}{I} \]</div>
       </div>
-      <p data-i18n="learn_ohm.adv_p3">LED dioda má při svícení určitý propustný úbytek napětí, u červené LED zhruba 2 V, a snese jen omezený proud, obvykle kolem 15 až 20 mA. Deska RED má napájení 5 V. Proud LED roste s napětím velmi strmě, takže při přímém připojení bez sériového rezistoru by ho omezoval hlavně vnitřní odpor zdroje a vodičů. Mohl by rychle překročit dovolenou hodnotu a LED poškodit.</p>
+      <p data-i18n="learn_ohm.adv_p3">Pro příklad použijeme červenou LED s odhadovaným úbytkem 2 V a zvoleným proudem 15 mA při napájení 5 V. Skutečný úbytek a dovolený proud ověř v katalogu LED. Připojení ke zdroji bez omezení proudu může LED poškodit.</p>
       <p data-i18n="learn_ohm.adv_p4">Rezistor v sérii s LED tenhle přebytek napětí "spotřebuje" jako teplo a proud omezí na bezpečnou hodnotu. Hodnota rezistoru se počítá z rozdílu napětí a požadovaného proudu:</p>
     </div>
 
@@ -165,7 +168,7 @@
     </div>
 
     <div class="learn-body level-advanced">
-      <p data-i18n="learn_ohm.calc_note">Se vstupy 5 V, 2 V a 15 mA vyjde přibližně 200 Ω, nejbližší běžně vyráběná hodnota z řady E12 je právě 220 Ω. Zkus si v kalkulačce změnit proud na 20 mA nebo napájení na 3,3 V, uvidíš, jak se potřebný odpor mění.</p>
+      <p data-i18n="learn_ohm.calc_note">Pro 5 V, úbytek LED 2 V a cílový proud 15 mA vyjde 200 Ω. Nejbližší vyšší hodnota E12 je 220 Ω; odhad proudu je potom 13,6 mA.</p>
     </div>
 
     <div class="learn-aside level-advanced" data-i18n="learn_ohm.aside"><b>Co dělá rezistor uvnitř:</b> je to materiál, který klade odpor průchodu proudu, čím vyšší odpor, tím míň proudu jím při stejném napětí protéká. Elektrony na cestě rezistorem narážejí do atomů materiálu a předávají jim energii jako teplo, proto se rezistor při provozu mírně zahřívá.</div>
@@ -214,6 +217,7 @@
     <div class="level-advanced resistor-color-tool" id="resistorColorTool" aria-live="polite"></div>
 
     <div class="level-equations learn-body">
+<h2 data-i18n="learn.formulas_heading">Vztahy a výpočty</h2>
       <p data-i18n="learn_ohm.eq_units">Značení jednotek v následujících vzorcích: <b>R</b> odpor [Ω], <b>U</b> napětí [V], <b>I</b> proud [A], <b>P</b> výkon [W].</p>
       <p data-i18n="learn_ohm.eq_series_label"><b>Sériové řazení</b> (rezistory za sebou):</p>
       <div class="learn-eq-block" data-i18n="learn_ohm.eq_series_block">\[ R_{sériové}\ [\Omega] = R_1 + R_2 + \dots + R_n \]</div>
@@ -221,9 +225,9 @@
       <div class="learn-eq-block" data-i18n="learn_ohm.eq_parallel_block">\[ \frac{1}{R_{paralelní}\ [\Omega]} = \frac{1}{R_1} + \frac{1}{R_2} + \dots + \frac{1}{R_n} \]</div>
       <p data-i18n="learn_ohm.eq_power_label"><b>Výkon rezistoru</b> (tři ekvivalentní tvary podle toho, co znáš):</p>
       <div class="learn-eq-block">\[ P\ [\text{W}] = U \times I = I^2 R = \frac{U^2}{R} \]</div>
-      <p data-i18n="learn_ohm.eq_sub_label">Dosazení pro R1/R2 (220 Ω, 15 mA):</p>
-      <div class="learn-eq-block">\[ P = (0{,}015\,\text{A})^2 \times 220\,\Omega \approx 0{,}05\,\text{W} \]</div>
-      <p data-i18n="learn_ohm.eq_conclusion">Hodnota 0,05 W je hluboko pod běžnou dovolenou zátěží malého 0,25W rezistoru. Teplotní nárůst proto bude malý, přesto není výkon nulový.</p>
+      <p data-i18n="learn_ohm.eq_sub_label">Pro odpor 220 Ω a odhadovaný proud LED 13,6 mA:</p>
+      <div class="learn-eq-block">\[ P = (0{,}0136\,\text{A})^2 \times 220\,\Omega \approx 0{,}041\,\text{W} \]</div>
+      <p data-i18n="learn_ohm.eq_conclusion">Odhad 0,041 W je pod jmenovitým výkonem 0,25 W použitého rezistoru. Výsledek platí pro zvolený proud; při jiných podmínkách výkon přepočítej.</p>
       <h3 data-i18n="learn_ohm.pro_divider_h3">Napěťový dělič a Kirchhoffovy zákony</h3>
       <p data-i18n="learn_ohm.pro_divider_p">Dva rezistory v sérii mohou vytvořit menší výstupní napětí. Vzorec platí pro nezatížený dělič; připojená zátěž se zapojí paralelně k dolnímu rezistoru a výsledek změní.</p>
       <div class="learn-eq-block">\[ U_{out}=U_{in}\frac{R_2}{R_1+R_2};\qquad 5\,\text{V}\cdot\frac{2{,}2\,\text{k}\Omega}{1\,\text{k}\Omega+2{,}2\,\text{k}\Omega}\approx3{,}44\,\text{V} \]</div>
@@ -251,6 +255,7 @@
 </section>
 
 
+</main>
 <footer>
   <div class="wrap footer-inner">
     <div class="logo"><img class="logo-full logo-full-light" src="../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
@@ -278,9 +283,9 @@
 <script src="../../../assets/js/search.js?v=20261103-search"></script>
 <script src="../../../assets/js/lang.js"></script>
 <script src="../../../assets/js/site-chrome.js?v=20261103-unified"></script>
-<script src="../../../assets/js/level-toggle.js"></script>
+<script src="../../../assets/js/level-toggle.js?v=20261104-review1"></script>
 <script src="../../../assets/js/resistor-calculator.js"></script>
-<script src="../../../assets/js/concept-labs.js"></script>
+<script src="../../../assets/js/concept-labs.js?v=20261104-review1"></script>
 
 </body>
 </html>

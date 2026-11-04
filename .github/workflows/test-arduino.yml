@@ -14,6 +14,9 @@ on:
       - 'assets/data/i18n.json'
       - 'assets/data/search-index.json'
       - 'assets/js/guide-*.js'
+      - 'assets/js/concept-labs.js'
+      - 'assets/js/level-toggle.js'
+      - 'assets/css/component-lessons.css'
       - 'assets/js/site-chrome.js'
       - 'assets/js/search.js'
       - 'sitemap.xml'
@@ -46,6 +49,9 @@ on:
       - 'assets/data/i18n.json'
       - 'assets/data/search-index.json'
       - 'assets/js/guide-*.js'
+      - 'assets/js/concept-labs.js'
+      - 'assets/js/level-toggle.js'
+      - 'assets/css/component-lessons.css'
       - 'assets/js/site-chrome.js'
       - 'assets/js/search.js'
       - 'sitemap.xml'
@@ -97,6 +103,7 @@ jobs:
       - name: Install headless Blockly test dependencies
         run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11 jsdom@27.4.0
       - run: node tests/arduino-blocks.test.mjs
+      - run: node tests/site-learning.test.mjs
       - run: node tests/site-journeys.test.mjs
       - run: node tests/arduino-distance.test.mjs
       - name: Download pinned AVR toolchain for real compilation tests
