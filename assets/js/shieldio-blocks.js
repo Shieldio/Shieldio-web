@@ -7,10 +7,10 @@
 (function () {
   // One palette for category markers, custom blocks and Blockly's built-in blocks.
   const palette = window.SHIELDIO_BLOCK_PALETTE = Object.freeze({
-    start: "#996b13", hardware: "#c84350", control: "#b65f18",
-    conditions: "#3375a5", values: "#32834a", variables: "#b65f18", serial: "#8058b1",
+    start: "#FFBF00", hardware: "#00AFC3", control: "#FFAB19",
+    pins: "#4C97FF", conditions: "#59C059", values: "#59C059", variables: "#FF8C1A", serial: "#9966FF",
   });
-  const {hardware:RED, start:GOLD, control:ORANGE, conditions:SENSE_BLUE, values:OPERATOR_GREEN} = palette;
+  const {hardware:RED, start:GOLD, control:ORANGE, pins:SENSE_BLUE, values:OPERATOR_GREEN} = palette;
 
   // ---------- start blocks (two separate hats, not one combined block —
   // mirrors how Arduino itself splits setup()/loop(), and how Scratch uses
@@ -18,10 +18,9 @@
 
   Blockly.Blocks["shieldio_setup"] = {
     init: function () {
-      this.appendDummyInput().appendField("▶ Když deska nastartuje");
+      this.appendDummyInput().appendField(document.documentElement.lang === "en" ? "▶ When the board starts" : "▶ Když deska nastartuje");
       this.appendStatementInput("SETUP").setCheck(null);
       this.setStyle("shieldio_start");
-      this.hat = "cap";
       this.setDeletable(false);
       this.setTooltip("Proběhne jednou, hned po zapnutí desky.");
     },
@@ -29,10 +28,9 @@
 
   Blockly.Blocks["shieldio_loop"] = {
     init: function () {
-      this.appendDummyInput().appendField("↻ Opakuj pořád");
+      this.appendDummyInput().appendField(document.documentElement.lang === "en" ? "↻ Repeat forever" : "↻ Opakuj pořád");
       this.appendStatementInput("LOOP").setCheck(null);
-      this.setStyle("shieldio_start");
-      this.hat = "cap";
+      this.setStyle("shieldio_forever");
       this.setDeletable(false);
       this.setTooltip("Opakuje se pořád dokola, dokud je deska zapnutá.");
     },
@@ -134,7 +132,7 @@
         if (withElse) this.appendStatementInput("ELSE").appendField("jinak");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setStyle("logic_blocks");
+        this.setStyle("loop_blocks");
         this.setTooltip("Rozhodne, které příkazy se provedou podle zadané podmínky.");
       },
     };
@@ -359,12 +357,11 @@
   const category = (name,colour,types) => ({kind:"category",name,colour,contents:types.map(block)});
   window.SHIELDIO_CREATE_TOOLBOX = ({profile="red",module="all",advanced=false} = {}) => {
     const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_print","shieldio_oled_clear"]};
-    const contents = [category(L("Začátek","Start"),GOLD,["shieldio_setup","shieldio_loop"])];
+    const contents = [category(L("Události","Events"),GOLD,["shieldio_setup"])];
     if(profile === "red") contents.push(category(L("Moduly RED","RED modules"),RED,module === "all" ? Object.values(modules).flat() : modules[module] || []));
     if(profile === "universal" || advanced) contents.push(category(L("Piny Arduino","Arduino pins"),SENSE_BLUE,["arduino_pin_mode","arduino_digital_write","arduino_digital_read","arduino_analog_read","arduino_pwm","arduino_pin"]));
-    contents.push(category(L("Čas a cykly","Time and loops"),ORANGE,["shieldio_wait","controls_repeat_ext",...(advanced?["controls_whileUntil","arduino_millis"]:[])]));
-    contents.push(category(L("Podmínky","Conditions"),SENSE_BLUE,["shieldio_if","shieldio_if_else","logic_compare",...(advanced?["shieldio_if_elseif_else","logic_operation","logic_negate","logic_boolean"]:[])]));
-    contents.push(category(L("Hodnoty","Values"),OPERATOR_GREEN,["math_number","text",...(advanced?["math_arithmetic"]:[])]));
+    contents.push(category(L("Řízení","Control"),ORANGE,["shieldio_loop","shieldio_wait","controls_repeat_ext","shieldio_if","shieldio_if_else",...(advanced?["controls_whileUntil","shieldio_if_elseif_else","arduino_millis"]:[])]));
+    contents.push(category(L("Operátory","Operators"),OPERATOR_GREEN,["logic_compare","math_number","text",...(advanced?["logic_operation","logic_negate","logic_boolean","math_arithmetic"]:[])]));
     if(advanced) {
       contents.push({kind:"category",name:L("Proměnné (čísla)","Variables (numbers)"),colour:palette.variables,custom:"VARIABLE"});
       contents.push(category(L("Sériová linka","Serial"),palette.serial,["arduino_serial_begin","arduino_serial_print"]));

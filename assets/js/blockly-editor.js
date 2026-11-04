@@ -13,7 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   Blockly.registry.register(Blockly.registry.Type.TOOLBOX_ITEM, Blockly.ToolboxCategory.registrationName, ShieldioCategory, true);
   const palette = window.SHIELDIO_BLOCK_PALETTE;
-  const blockStyle = colour => ({colourPrimary:colour,colourSecondary:colour,colourTertiary:colour});
+  const blockStyle = (colour, hat) => ({
+    colourPrimary: colour,
+    colourSecondary: Blockly.utils.colour.blend("#000000", colour, 0.1),
+    colourTertiary: Blockly.utils.colour.blend("#000000", colour, 0.2),
+    ...(hat ? {hat} : {}),
+  });
 
   // Scratch/mBlock-style rounded blocks (Blockly's own "zelos" renderer) instead of
   // the default rectangular "geras" look, plus a theme matching Shieldio's palette —
@@ -22,9 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return Blockly.Theme.defineTheme("shieldio-" + (isDark ? "dark" : "light"), {
       base: Blockly.Themes.Zelos,
       blockStyles: {
-        shieldio_start: blockStyle(palette.start),
+        // Blockly reapplies styles when dragging and changing themes: keep hats in the style.
+        shieldio_start: blockStyle(palette.start, "cap"),
+        shieldio_forever: blockStyle(palette.control, "cap"),
         shieldio_hardware: blockStyle(palette.hardware),
-        shieldio_pins: blockStyle(palette.conditions),
+        shieldio_pins: blockStyle(palette.pins),
         shieldio_serial: blockStyle(palette.serial),
         loop_blocks: blockStyle(palette.control),
         logic_blocks: blockStyle(palette.conditions),

@@ -20,16 +20,17 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const get=id=>{assert.ok(els.has(id),'Missing element '+id);return els.get(id);};
   get('blockProfileSelect').value='red';get('moduleSelect').value='all';
   let ready,workspace,toolbox,theme;
+  const windowEvents = {};
   const storage=new Map(Object.entries(initialStore)),storageReads=[];
   const context=vm.createContext({console,setTimeout,clearTimeout,structuredClone,URLSearchParams,location:{search},
     Event:class{constructor(type){this.type=type;}},ResizeObserver:class{observe(){}},
-    localStorage:{getItem(key){storageReads.push(key);return storage.get(key)??null;},setItem(key,value){storage.set(key,value);}},window:{addEventListener(){},dispatchEvent(){}},
+    localStorage:{getItem(key){storageReads.push(key);return storage.get(key)??null;},setItem(key,value){storage.set(key,value);}},window:{addEventListener(name,fn){windowEvents[name]=fn;},dispatchEvent(){}},
     document:{documentElement:{lang:'cs',dataset:{}},getElementById:get,addEventListener(name,fn){if(name==='DOMContentLoaded')ready=fn;},createElement:()=>new Element('temp'),createElementNS:(ns,name)=>xml.createElementNS(ns,name)},DOMParser,XMLSerializer});
   for(const file of ['blockly_compressed.js','blocks_compressed.js','msg/cs.js'])vm.runInContext(await fs.readFile(blocklyDir+'/'+file,'utf8'),context);
   vm.runInContext(await fs.readFile(new URL('../assets/js/shieldio-blocks.js',import.meta.url),'utf8'),context);
   const Blockly=context.Blockly, api=context.window;
   Blockly.Events.disable();
-  Blockly.inject=(container,options)=>{toolbox=options.toolbox;theme=options.theme;workspace=new Blockly.Workspace();workspace.updateToolbox=value=>{toolbox=value;};workspace.setTheme=()=>{};workspace.zoomToFit=()=>{};workspace.cleanUp=()=>{};return workspace;};
+  Blockly.inject=(container,options)=>{toolbox=options.toolbox;theme=options.theme;workspace=new Blockly.Workspace();workspace.updateToolbox=value=>{toolbox=value;};workspace.setTheme=value=>{theme=value;};workspace.zoomToFit=()=>{};workspace.cleanUp=()=>{};return workspace;};
   Blockly.svgResize=()=>{};
   for(const method of ['initSvg','render','moveBy'])Blockly.Block.prototype[method]=function(){};
   vm.runInContext(await fs.readFile(new URL('../assets/js/blockly-editor.js',import.meta.url),'utf8'),context);ready();
@@ -43,6 +44,31 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
       assert.equal(theme.blockStyles[block.getStyleName()].colourPrimary,category.colour,`${item.type} matches its toolbox category`);
       block.dispose();
     }
+  }
+  // Dragging reapplies BlockSvg.setStyle; a manually assigned block.hat is lost.
+  // Exercise that real Blockly method, then the theme-change path, for both roots.
+  for (const isDark of [false, true]) {
+    windowEvents["shieldio:theme-change"]({detail:{theme:isDark ? "dark" : "light"}});
+    for (const [type,style] of [["shieldio_setup","shieldio_start"],["shieldio_loop","shieldio_forever"]]) {
+      const root = workspace.newBlock(type);
+      assert.equal(root.getStyleName(),style);
+      const rendered = {
+        workspace:{getRenderer:()=>({getConstants:()=>({getBlockStyle:name=>theme.blockStyles[name]})})},
+        svgGroup:{classList:{contains(){return false;},add(){},remove(){}}},
+        pathObject:{setStyle(){}},applyColour(){},
+      };
+      for (let refresh=0;refresh<2;refresh++) {
+        Blockly.BlockSvg.prototype.setStyle.call(rendered,style);
+        assert.equal(rendered.hat,"cap",type+" keeps its hat on style refresh");
+      }
+      assert.equal(root.previousConnection,null);
+      assert.equal(root.nextConnection,null);
+      root.dispose();
+    }
+    const control = toolbox.contents.find(category=>category.name==="Řízení");
+    assert.ok(control.contents.some(item=>item.type==="shieldio_if"));
+    assert.ok(control.contents.some(item=>item.type==="shieldio_loop"));
+    assert.ok(!toolbox.contents.find(category=>category.name==="Operátory").contents.some(item=>item.type==="shieldio_if"));
   }
   const roots=()=>{workspace.clear();const setup=make('shieldio_setup'),loop=make('shieldio_loop');return {setup,loop};};
   const regenerate=()=>{workspace.fireChangeListener({isUiEvent:false});assert.equal(api.SHIELDIO_EDITOR.getError(),null);return api.SHIELDIO_EDITOR.getCode();};
