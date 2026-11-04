@@ -8,6 +8,14 @@ const copy={
   arduinoDownload:["Arduino IDE ↗","Arduino IDE ↗"],
   localBuild:["Ulož .ino, sestav ho v Arduino IDE a přes Sketch → Export Compiled Binary vyexportuj .merged.bin. Ten potom nahraj vpravo přes USB.","Save the .ino, build it in Arduino IDE and use Sketch → Export Compiled Binary to export a .merged.bin. Then upload it over USB on the right."],
   buildHelp:["Pro sestavení nainstaluj v Arduino IDE balík esp32 by Espressif Systems a zvol konkrétní desku. Použij aktuální verzi balíku; sloučený soubor má příponu .merged.bin.","To build, install esp32 by Espressif Systems in Arduino IDE and select your exact board. Use the current board package; the merged image ends in .merged.bin."],
+  buildSteps:["Jak sestavit firmware zdarma","How to build firmware for free"],
+  installStep:["V Arduino IDE otevři nastavení a do Additional Boards Manager URLs přidej tuto adresu:","In Arduino IDE preferences, add this URL to Additional Boards Manager URLs:"],
+  packageStep:["Ve správci desek nainstaluj esp32 by Espressif Systems (verzi 3.3.12 nebo novější).","In Boards Manager, install esp32 by Espressif Systems (version 3.3.12 or later)."],
+  sourceStep:["Klikni na Uložit .ino a otevři soubor v Arduino IDE. Pokud IDE nabídne vytvoření složky se stejným názvem, potvrď ho. Přidej knihovny použité v kódu.","Click Save .ino and open the file in Arduino IDE. Accept creating a matching sketch folder if prompted. Install the libraries used by your code."],
+  exportStep:["Zvol Sketch → Export Compiled Binary. Přes Sketch → Show Sketch Folder otevři složku projektu; v build najdi soubor končící .merged.bin. Vyber ho zde a spusť nahrávání přes USB.","Choose Sketch → Export Compiled Binary. Open Sketch → Show Sketch Folder; find the file ending in .merged.bin under build. Select it here and flash over USB."],
+  customBuild:["ESP32-C2 a C61 vyžadují Arduino jako komponentu ESP-IDF nebo vlastní sestavení statických knihoven. Běžný balík v Arduino IDE pro ně nestačí. Hotový sloučený obraz se standardní tabulkou oddílů na 0x8000 sem můžeš načíst.","ESP32-C2 and C61 require Arduino as an ESP-IDF component or rebuilding the static libraries. The standard Arduino IDE package is not enough. You can load a merged image with the standard partition table at 0x8000 here."],
+  buildDocs:["Postup od Espressifu ↗","Espressif instructions ↗"],
+  selectIdeBoard:["V Tools → Board zvol vlastní desku; obecný profil pro tento čip:","Select your exact board in Tools → Board; generic profile for this chip:"],
   redEditor:["Editor RED","RED editor"],theme:["Přepnout vzhled","Change appearance"],
   eyebrow:["NÁSTROJE PRO POKROČILÉ","TOOLS FOR ADVANCED USERS"],intro:["Vlastní kód. Vlastní deska. Přímé USB.","Your code. Your board. Direct USB."],back:["Zpět na Shieldio ↗","Back to Shieldio ↗"],
   autosave:["Ukládá se v prohlížeči","Saved in your browser"],open:["Otevřít .ino","Open .ino"],save:["Uložit .ino","Save .ino"],format:["Zarovnat","Format"],saveBin:["Stáhnout .bin","Download .bin"],
@@ -62,7 +70,12 @@ function paint(){
   for(const el of document.querySelectorAll("[data-copy]"))el.textContent=t(el.dataset.copy);
   for(const el of document.querySelectorAll("[data-aria]"))el.setAttribute("aria-label",t(el.dataset.aria));
   $("language").textContent=lang?"CS":"EN";
-  $("boardHint").textContent=t(board().fqbn?"boardDefault":"binOnly");
+  const targetBoard=board(),standardBuild=Boolean(targetBoard.fqbn);
+  $("boardHint").textContent=t(standardBuild?"boardDefault":"binOnly");
+  $("ideSteps").hidden=!standardBuild;$("customBuild").hidden=standardBuild;
+  $("buildSummary").textContent=t(standardBuild?"localBuild":"binOnly");
+  $("ideBoard").textContent=t("selectIdeBoard")+" "+(target==="nano-esp32"?"Arduino Nano ESP32":targetBoard.chip.replace("ESP32-","ESP32")+" Dev Module")+".";
+  $("buildDocs").href="https://docs.espressif.com/projects/arduino-esp32/en/latest/"+(standardBuild?"installing.html":"esp-idf_component.html");
   $("usbState").querySelector("span:last-child").textContent=t(supported()?"usb":"browserUnsupported");
   $("status").textContent=t(statusKey);$("status").dataset.error=String(statusError);
   if(image)$("fileInfo").textContent=image.name+" · "+image.bytes.length.toLocaleString(lang?"en-US":"cs-CZ")+" B";
@@ -150,3 +163,4 @@ $("flash").addEventListener("click",action);
 $("cancel").addEventListener("click",()=>controller?.abort());
 if(supported())navigator.serial.addEventListener("disconnect",event=>{if((event.port||event.target)===port){port=null;if(!resetting)controller?.abort();}});
 restore();paint();
+

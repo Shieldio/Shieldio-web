@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://shieldio.cz/esp32/">
   <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("shieldio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch{}</script>
-  <link rel="stylesheet" href="./studio.css?v=20261104-free2">
+  <link rel="stylesheet" href="./studio.css?v=20261104-free3">
 </head>
 <body>
 <header class="topbar">
@@ -28,7 +28,19 @@
       <div class="source-wrap"><pre id="lineNumbers" aria-hidden="true">1</pre><textarea id="source" aria-label="Arduino C++ kód" data-aria="sourceLabel" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" maxlength="200000"></textarea></div>
       <div class="source-footer"><span id="cursor">1:1</span><span>UTF-8 · C++</span></div>
       <div class="build-bar"><span class="free-label" data-copy="freeMode">Bez serveru a předplatného</span><a class="secondary ide-link" href="https://www.arduino.cc/en/software/" target="_blank" rel="noopener" data-copy="arduinoDownload">Arduino IDE ↗</a></div>
-      <p class="compiler-note" data-copy="localBuild">Ulož .ino, sestav ho v Arduino IDE a přes Sketch → Export Compiled Binary vyexportuj .merged.bin. Ten potom nahraj vpravo přes USB.</p>
+      <p id="buildSummary" class="compiler-note" data-copy="localBuild">Ulož .ino, sestav ho v Arduino IDE a přes Sketch → Export Compiled Binary vyexportuj .merged.bin. Ten potom nahraj vpravo přes USB.</p>
+      <details class="build-help"><summary data-copy="buildSteps">Jak sestavit firmware zdarma</summary>
+        <div class="build-help-content">
+          <ol id="ideSteps">
+            <li><span data-copy="installStep">V Arduino IDE otevři nastavení a do Additional Boards Manager URLs přidej tuto adresu:</span><code class="package-url">https://espressif.github.io/arduino-esp32/package_esp32_index.json</code></li>
+            <li><span data-copy="packageStep">Ve správci desek nainstaluj esp32 by Espressif Systems (verzi 3.3.12 nebo novější).</span> <span id="ideBoard"></span></li>
+            <li data-copy="sourceStep">Klikni na Uložit .ino a otevři soubor v Arduino IDE. Pokud IDE nabídne vytvoření složky se stejným názvem, potvrď ho. Přidej knihovny použité v kódu.</li>
+            <li data-copy="exportStep">Zvol Sketch → Export Compiled Binary. Přes Sketch → Show Sketch Folder otevři složku projektu; v build najdi soubor končící .merged.bin. Vyber ho zde a spusť nahrávání přes USB.</li>
+          </ol>
+          <p id="customBuild" hidden data-copy="customBuild">ESP32-C2 a C61 vyžadují Arduino jako komponentu ESP-IDF nebo vlastní sestavení statických knihoven. Běžný balík v Arduino IDE pro ně nestačí. Hotový sloučený obraz se standardní tabulkou oddílů na 0x8000 sem můžeš načíst.</p>
+          <a id="buildDocs" href="https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html" target="_blank" rel="noopener" data-copy="buildDocs">Postup od Espressifu ↗</a>
+        </div>
+      </details>
     </section>
     <aside class="settings">
       <section class="pane board-pane" aria-labelledby="boardHeading"><div class="pane-heading"><h2 id="boardHeading" data-copy="board">Deska</h2><span class="small-tag">ESP32</span></div>
@@ -59,6 +71,7 @@
   <noscript><p>Pro editor a USB nahrávání zapni JavaScript.</p></noscript>
 </main>
 <footer><span>Shieldio · ESP32 Studio</span><a href="/company/privacy.html" data-copy="privacy">Soukromí</a><span data-copy="local">Firmware a USB připojení zůstávají v prohlížeči.</span></footer>
-<script type="module" src="./studio.mjs?v=20261104-free2"></script>
+<script type="module" src="./studio.mjs?v=20261104-free3"></script>
 </body>
 </html>
+

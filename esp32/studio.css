@@ -8,3 +8,5 @@
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
 
 .free-label{font-size:12px;color:var(--ink-soft)}.build-bar .ide-link{margin-left:auto;text-decoration:none}.build-bar .ide-link:hover{border-color:var(--accent);color:var(--accent)}
+.build-help{border-top:1px solid var(--line);font-size:12px;color:var(--ink-soft)}.build-help summary{padding:12px 18px;cursor:pointer;color:var(--ink);font-weight:600}.build-help-content{padding:0 18px 16px}.build-help ol{margin:0 0 12px;padding-left:20px}.build-help li+li{margin-top:12px}.build-help p{margin:0 0 12px}.build-help a{color:var(--accent)}.package-url{display:block;margin-top:6px;padding:8px;background:var(--editor);border:1px solid var(--line);border-radius:6px;font-size:11px;overflow-wrap:anywhere;user-select:all}
+

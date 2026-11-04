@@ -34,6 +34,15 @@ async function model({serial=true,available=[],flashError=null,disconnectPhase=n
   const m=await model();
   assert.ok(!html.includes('id="compile"'));assert.ok(!html.includes('id="run"'));
   assert.ok(!source.includes('compilerBoards('),"Free Studio never requests a compilation server");
+  assert.equal(m.get("ideSteps").hidden,false);
+  assert.match(m.get("ideBoard").textContent,/ESP32 Dev Module/);
+  m.get("board").value="esp32c61";await m.get("board").emit("change");
+  assert.equal(m.get("ideSteps").hidden,true,"C61 must not offer the standard IDE build path");
+  assert.equal(m.get("customBuild").hidden,false);
+  assert.match(m.get("buildDocs").href,/esp-idf_component/);
+  m.get("board").value="nano-esp32";await m.get("board").emit("change");
+  assert.equal(m.get("ideSteps").hidden,false);assert.match(m.get("ideBoard").textContent,/Arduino Nano ESP32/);
+  m.get("board").value="esp32";await m.get("board").emit("change");
   m.get("source").value="my ESP32 source";await m.get("source").emit("input");
   m.get("board").value="esp32s3";await m.get("board").emit("change");
   assert.ok(!m.get("source").value.includes("my ESP32 source"));
@@ -76,4 +85,8 @@ for(const match of html.matchAll(/data-(?:copy|aria)="([^"]+)"/g)) {
   assert.ok(Array.isArray(messages[match[1]]),"Translation: "+match[1]);
   assert.equal(messages[match[1]].length,2);
 }
+for(const match of html.matchAll(/<([a-z][\w-]*)\b[^>]*data-copy="([^"]+)"[^>]*>([^<]*)<\/\1>/g)) {
+  assert.equal(match[3],messages[match[2]][0],"Czech fallback: "+match[2]);
+}
 console.log("Native USB reset, interrupted writes and all Czech/English interface strings passed.");
+
