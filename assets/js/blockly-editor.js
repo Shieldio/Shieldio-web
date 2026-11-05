@@ -163,7 +163,9 @@ document.addEventListener("DOMContentLoaded", () => {
     universal:["Piny určuješ v blocích. Výběr nabídky nemění hotový program. Kompilace zatím cílí na Nano / ATmega328P.","Choose pins in the blocks. Changing the toolbox keeps your program. Compilation currently targets Nano / ATmega328P."],
   };
   function updateToolbox() {
-    const profile = profileSelect.value || "red", module = moduleSelect.value || "all";
+    const profile = profileSelect.value || "red", module = "all";
+    // YELLOW and PRO are placeholders; old component filters migrate to the RED family.
+    moduleSelect.value = "red";
     workspace.updateToolbox(window.SHIELDIO_CREATE_TOOLBOX({profile,module,advanced:advancedToggle.checked}));
     document.getElementById("moduleField").hidden = profile !== "red";
     const hint = hints[profile === "universal" ? "universal" : module] || hints.all;
@@ -185,15 +187,15 @@ document.addEventListener("DOMContentLoaded", () => {
         workspace.clear();Blockly.serialization.workspaces.load(saved.workspace, workspace);
         if (!workspace.getBlocksByType("shieldio_setup",false).length || !workspace.getBlocksByType("shieldio_loop",false).length) throw Error("Incomplete project");
         profileSelect.value = saved.profile === "universal" ? "universal" : "red";
-        moduleSelect.value = saved.module || "all";advancedToggle.checked = Boolean(saved.advanced);updateToolbox();
+        moduleSelect.value = "red";advancedToggle.checked = Boolean(saved.advanced);updateToolbox();
       }
     } catch {workspace.clear();Blockly.serialization.workspaces.load(initial,workspace);}
   }
   // Guide links adjust the toolbox without replacing the visitor's existing blocks.
   const entryModule = entryParams.get("module"), entryProfile = entryParams.get("profile");
-  if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) {profileSelect.value="red";moduleSelect.value=entryModule;}
+  if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) {profileSelect.value="red";moduleSelect.value="red";}
   if (entryProfile === "universal") profileSelect.value="universal";
-  if (presetId === "blikani") {profileSelect.value="red";moduleSelect.value="led";}
+  if (presetId === "blikani") {profileSelect.value="red";moduleSelect.value="red";}
   updateToolbox();
   const projectState = () => ({format:"shieldio-blocks-v1",workspace:Blockly.serialization.workspaces.save(workspace),profile:profileSelect.value,module:moduleSelect.value,advanced:advancedToggle.checked});
   let saveTimer;
@@ -222,7 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
       servo: types.has("shieldio_servo"),
       buzzer: types.has("shieldio_buzzer"),
       distance: types.has("shieldio_distance") || types.has("shieldio_distance_valid"),
-      display: types.has("shieldio_oled_print") || types.has("shieldio_oled_clear"),
+      display: [...types].some(type => type.startsWith("shieldio_oled_")),
+      graphics: [...types].some(type => ["shieldio_oled_pixel","shieldio_oled_line","shieldio_oled_square","shieldio_oled_rect","shieldio_oled_circle"].includes(type)),
     };
   }
 
@@ -241,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (features.display) {
       includes.push("#include <ShieldioDisplay.h>");
-      globals.push("ShieldioDisplay shieldioDisplay;");
+      globals.push((features.graphics ? "ShieldioCanvas" : "ShieldioDisplay") + " shieldioDisplay;");
       setup.push("shieldioDisplay.begin();");
     }
     if (features.distance) {
@@ -402,7 +405,7 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
         throw new Error("Chybí blok Při spuštění nebo Opakuj stále.");
       }
       fillDefaults(workspace.getAllBlocks(false));
-      if(parsed.profile) {profileSelect.value=parsed.profile === "universal" ? "universal" : "red";moduleSelect.value=parsed.module || "all";advancedToggle.checked=Boolean(parsed.advanced);updateToolbox();}
+      if(parsed.profile) {profileSelect.value=parsed.profile === "universal" ? "universal" : "red";moduleSelect.value="red";advancedToggle.checked=Boolean(parsed.advanced);updateToolbox();}
       workspace.cleanUp();
       regenerate();autosave();
       window.dispatchEvent(new Event("shieldio:project-import"));

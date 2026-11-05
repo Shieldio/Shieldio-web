@@ -18,7 +18,7 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',import.meta.url),'utf8');
   const els=new Map([...html.matchAll(/id="([^"]+)"/g)].map(m=>[m[1],new Element(m[1])]));
   const get=id=>{assert.ok(els.has(id),'Missing element '+id);return els.get(id);};
-  get('blockProfileSelect').value='red';get('moduleSelect').value='all';
+  get('blockProfileSelect').value='red';get('moduleSelect').value='red';
   let ready,workspace,toolbox,theme;
   const windowEvents = {};
   const storage=new Map(Object.entries(initialStore)),storageReads=[];
@@ -82,7 +82,7 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
     assert.equal(storage.get('shieldio-workspace-v1'),initialStore['shieldio-workspace-v1']);
   }
 
-  if(expectedModule)assert.equal(get('moduleSelect').value,expectedModule,'Guide module link selects the requested toolbox');
+  if(expectedModule)assert.equal(get('moduleSelect').value,'red','Legacy guide links select the RED module family');
   if(search.includes('preset=blikani')){
     fixtures.blinkStarter=api.SHIELDIO_EDITOR.getCode();assert.match(fixtures.blinkStarter,/#define LED_GREEN 6/);assert.equal((fixtures.blinkStarter.match(new RegExp('delay\\('+expectedDelay+'\\)','g'))||[]).length,2);
     fixtures.blinkProject={workspace:Blockly.serialization.workspaces.save(workspace),profile:'red',module:'led',advanced:false};
@@ -112,7 +112,8 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   assert.match(regenerate(),/delay\(1250\)/);fixtures.LED=regenerate();
   const count=workspace.getAllBlocks(false).length;get('moduleSelect').value='servo';await get('moduleSelect').emit('change');
   assert.equal(workspace.getAllBlocks(false).length,count,'Module selection preserves the program');
-  assert.deepEqual(Array.from(toolbox.contents.find(c=>c.name==='Moduly RED').contents,b=>b.type),['shieldio_servo']);
+  assert.ok(toolbox.contents.find(c=>c.name==='Moduly RED').contents.some(b=>b.type==='shieldio_led'),'Old component filters show the RED family');
+  for (const unavailable of ['yellow','pro']) {get('moduleSelect').value=unavailable;await get('moduleSelect').emit('change');assert.equal(get('moduleSelect').value,'red');}
   get('blockProfileSelect').value='universal';await get('blockProfileSelect').emit('change');assert.equal(get('moduleField').hidden,true);assert.equal(workspace.getAllBlocks(false).length,count);
   assert.ok(!toolbox.contents.some(c=>c.name==='Moduly RED'));
   const arithmetic=make('math_arithmetic');arithmetic.getInputTargetBlock('A').setFieldValue(1000,'NUM');arithmetic.getInputTargetBlock('B').setFieldValue(2,'NUM');wait.getInput('MS').connection.connect(arithmetic.outputConnection);
@@ -127,6 +128,23 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   fixtures.universal=regenerate();assert.match(fixtures.universal,/pinMode\(13, OUTPUT\)/);assert.match(fixtures.universal,/Serial.begin\(9600\)/);assert.ok(!/#define (?:LED_|TRIG|ECHO)|ShieldioDisplay|Servo\.h/.test(fixtures.universal));
   const variable=workspace.getVariableMap().createVariable('napeti');const set=make('variables_set');set.setFieldValue(variable.getId(),'VAR');serial.nextConnection.connect(set.previousConnection);assert.match(regenerate(),/float v_0 = 0/);assert.match(regenerate(),/v_0 = 0/);
   ({setup,loop}=roots());const oled=make('shieldio_oled_print');loop.getInput('LOOP').connection.connect(oled.previousConnection);fixtures.OLED=regenerate();assert.match(fixtures.OLED,/#include <ShieldioDisplay.h>/);assert.match(fixtures.OLED,/shieldioDisplay.text/);
+  ({setup,loop}=roots());
+  const direct=make('shieldio_oled_text');direct.setFieldValue('A"\\\\B','TEXT');
+  loop.getInput('LOOP').connection.connect(direct.previousConnection);
+  const directCode=regenerate();assert.ok(directCode.includes('ShieldioDisplay shieldioDisplay;'));
+  assert.ok(!directCode.includes('ShieldioCanvas'));
+  assert.ok(!direct.getInput('TEXT'),'Text is edited on the command, without a nested block');
+  assert.ok(directCode.includes(api.SHIELDIO_ARDUINO_GENERATOR.forBlock.text(direct)[0]));
+  ({setup,loop}=roots());
+  let last=null;
+  for(const type of ['shieldio_oled_clear','shieldio_oled_pixel','shieldio_oled_line','shieldio_oled_square','shieldio_oled_rect','shieldio_oled_circle']){
+    const shape=make(type);(last?last.nextConnection:loop.getInput('LOOP').connection).connect(shape.previousConnection);
+    if(type==='shieldio_oled_circle')shape.setFieldValue('true','FILL');
+    last=shape;
+  }
+  fixtures.graphics=regenerate();
+  assert.match(fixtures.graphics,/ShieldioCanvas shieldioDisplay;/);
+  for(const call of ['pixel(64, 32)','line(0, 0, 127, 63)','rect(8, 8, 20, 20, false)','rect(8, 8, 32, 16, false)','circle(64, 32, 12, true)'])assert.ok(fixtures.graphics.includes(call),call);
   ({setup,loop}=roots());const servo=make('shieldio_servo');loop.getInput('LOOP').connection.connect(servo.previousConnection);fixtures.servo=regenerate();assert.match(fixtures.servo,/attach\(SERVO_PIN\)/);
   ({setup,loop}=roots());
   const sensorLoop=make('controls_whileUntil'),distanceCheck=make('logic_compare'),distance=make('shieldio_distance'),limit=make('math_number'),pause=make('shieldio_wait');

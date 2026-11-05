@@ -7,7 +7,7 @@
 (function () {
   // One palette for category markers, custom blocks and Blockly's built-in blocks.
   const palette = window.SHIELDIO_BLOCK_PALETTE = Object.freeze({
-    start: "#FFBF00", hardware: "#00AFC3", control: "#FFAB19",
+    start: "#FFBF00", hardware: "#f72338", control: "#FFAB19",
     pins: "#4C97FF", conditions: "#59C059", values: "#59C059", variables: "#FF8C1A", serial: "#9966FF",
   });
   const {hardware:RED, start:GOLD, control:ORANGE, pins:SENSE_BLUE, values:OPERATOR_GREEN} = palette;
@@ -145,12 +145,24 @@
 
   Blockly.Blocks["shieldio_oled_print"] = {
     init: function () {
-      this.appendValueInput("TEXT").setCheck(null).appendField("napiš na displej");
+      this.appendValueInput("TEXT").setCheck(null).appendField(document.documentElement.lang === "en" ? "write value on display" : "napiš hodnotu na displej");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setStyle("shieldio_hardware");
       this.setInputsInline(true);
       this.setTooltip("Vymaže displej a napíše na něj text nebo hodnotu.");
+    },
+  };
+
+  Blockly.Blocks["shieldio_oled_text"] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField(document.documentElement.lang === "en" ? "write on display" : "napiš na displej")
+        .appendField(new Blockly.FieldTextInput("Ahoj!"), "TEXT");
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setStyle("shieldio_hardware");
+      this.setTooltip(document.documentElement.lang === "en" ? "Type directly here. Clears the display; ASCII text, up to 16 characters." : "Text napiš přímo sem. Vymaže displej; nejvýše 16 znaků bez diakritiky.");
     },
   };
 
@@ -162,6 +174,21 @@
       this.setStyle("shieldio_hardware");
     },
   };
+
+
+  // Pixel coordinates start at the top left. Shapes accumulate until "clear display".
+  const G = (cs, en) => document.documentElement.lang === "en" ? en : cs;
+  const input = name => ({type:"input_value",name,check:"Number"});
+  const fill = {type:"field_dropdown",name:"FILL",options:[[G("obrys","outline"),"false"],[G("vyplněný","filled"),"true"]]};
+  const shape = (type, message0, args0) => ({type, message0, args0, inputsInline:true, previousStatement:null, nextStatement:null, style:"shieldio_hardware",
+    tooltip:G("OLED 128 × 64 bodů. X: 0–127, Y: 0–63. Tvary zůstávají až do vymazání displeje.", "OLED 128 × 64 pixels. X: 0–127, Y: 0–63. Shapes stay until the display is cleared.")});
+  Blockly.defineBlocksWithJsonArray([
+    shape("shieldio_oled_pixel", G("bod x %1 y %2","pixel x %1 y %2"), [input("X"), input("Y")]),
+    shape("shieldio_oled_line", G("čára z x %1 y %2 do x %3 y %4","line from x %1 y %2 to x %3 y %4"), [input("X"),input("Y"),input("X2"),input("Y2")]),
+    shape("shieldio_oled_square", G("čtverec x %1 y %2 strana %3 %4","square x %1 y %2 side %3 %4"), [input("X"),input("Y"),input("SIZE"),fill]),
+    shape("shieldio_oled_rect", G("obdélník x %1 y %2 šířka %3 výška %4 %5","rectangle x %1 y %2 width %3 height %4 %5"), [input("X"),input("Y"),input("WIDTH"),input("HEIGHT"),fill]),
+    shape("shieldio_oled_circle", G("kruh střed x %1 y %2 poloměr %3 %4","circle centre x %1 y %2 radius %3 %4"), [input("X"),input("Y"),input("RADIUS"),fill]),
+  ]);
 
   // ---------- Arduino generator ----------
 
@@ -227,6 +254,17 @@
     const text = arduino.valueToCode(block, "TEXT", arduino.ORDER_NONE) || '\"\"';
     return `shieldioDisplay.clear();\nshieldioDisplay.text(0, 0, String(${text}).c_str());\nshieldioDisplay.render();\n`;
   };
+  arduino.forBlock["shieldio_oled_text"] = function (block) {
+    const quoted = arduino.forBlock["text"](block)[0];
+    return `shieldioDisplay.clear();\nshieldioDisplay.text(0, 0, ${quoted});\nshieldioDisplay.render();\n`;
+  };
+  const coord = (b, name, fallback = "0") => arduino.valueToCode(b, name, arduino.ORDER_NONE) || fallback;
+  const draw = code => code + ";\nshieldioDisplay.render();\n";
+  arduino.forBlock.shieldio_oled_pixel = b => draw(`shieldioDisplay.pixel(${coord(b,"X")}, ${coord(b,"Y")})`);
+  arduino.forBlock.shieldio_oled_line = b => draw(`shieldioDisplay.line(${coord(b,"X")}, ${coord(b,"Y")}, ${coord(b,"X2")}, ${coord(b,"Y2")})`);
+  arduino.forBlock.shieldio_oled_rect = b => draw(`shieldioDisplay.rect(${coord(b,"X")}, ${coord(b,"Y")}, ${coord(b,"WIDTH","32")}, ${coord(b,"HEIGHT","16")}, ${b.getFieldValue("FILL") === "true"})`);
+  arduino.forBlock.shieldio_oled_square = b => draw(`shieldioDisplay.rect(${coord(b,"X")}, ${coord(b,"Y")}, ${coord(b,"SIZE","20")}, ${coord(b,"SIZE","20")}, ${b.getFieldValue("FILL") === "true"})`);
+  arduino.forBlock.shieldio_oled_circle = b => draw(`shieldioDisplay.circle(${coord(b,"X","64")}, ${coord(b,"Y","32")}, ${coord(b,"RADIUS","12")}, ${b.getFieldValue("FILL") === "true"})`);
   arduino.forBlock["shieldio_oled_clear"] = () => "shieldioDisplay.clear();\nshieldioDisplay.render();\n";
 
   // -- standard blocks used from Blockly's core block library --
@@ -345,6 +383,11 @@
   const defaults = {
     shieldio_wait:{MS:number(500)}, shieldio_servo:{ANGLE:number(90)},
     shieldio_buzzer:{FREQ:number(440),DURATION:number(200)}, shieldio_oled_print:{TEXT:text("Ahoj!")},
+    shieldio_oled_pixel:{X:number(64),Y:number(32)},
+    shieldio_oled_line:{X:number(0),Y:number(0),X2:number(127),Y2:number(63)},
+    shieldio_oled_square:{X:number(8),Y:number(8),SIZE:number(20)},
+    shieldio_oled_rect:{X:number(8),Y:number(8),WIDTH:number(32),HEIGHT:number(16)},
+    shieldio_oled_circle:{X:number(64),Y:number(32),RADIUS:number(12)},
     controls_repeat_ext:{TIMES:number(10)}, math_arithmetic:{A:number(1),B:number(1)},
     logic_compare:{A:number(0),B:number(10)}, math_change:{DELTA:number(1)}, variables_set:{VALUE:number(0)},
     arduino_pin_mode:{PIN:number(13)}, arduino_digital_write:{PIN:number(13)},
@@ -356,7 +399,7 @@
   const block = type => ({kind:"block",type,...(defaults[type] ? {inputs:Object.fromEntries(Object.entries(defaults[type]).map(([name,shadow])=>[name,{shadow}]))} : {})});
   const category = (name,colour,types) => ({kind:"category",name,colour,contents:types.map(block)});
   window.SHIELDIO_CREATE_TOOLBOX = ({profile="red",module="all",advanced=false} = {}) => {
-    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_print","shieldio_oled_clear"]};
+    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_text",...(advanced?["shieldio_oled_print"]:[]),"shieldio_oled_clear","shieldio_oled_pixel","shieldio_oled_line","shieldio_oled_square","shieldio_oled_rect","shieldio_oled_circle"]};
     const contents = [category(L("Události","Events"),GOLD,["shieldio_setup"])];
     if(profile === "red") contents.push(category(L("Moduly RED","RED modules"),RED,module === "all" ? Object.values(modules).flat() : modules[module] || []));
     if(profile === "universal" || advanced) contents.push(category(L("Piny Arduino","Arduino pins"),SENSE_BLUE,["arduino_pin_mode","arduino_digital_write","arduino_digital_read","arduino_analog_read","arduino_pwm","arduino_pin"]));
