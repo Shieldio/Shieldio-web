@@ -13,3 +13,7 @@ learn/worker.js
 learn/CONTENT.md
 docs
 tests
+node_modules
+**/node_modules
+package.json
+package-lock.json
