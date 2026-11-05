@@ -1,0 +1,43 @@
+name: Nasadit hlavní web na Cloudflare Workers
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/**'
+      - 'instructions/**'
+      - '*.html'
+      - 'company/**'
+      - 'products/**'
+      - 'edu/**'
+      - 'aktuality/**'
+      - '3D-tisk/**'
+      - 'wrangler.jsonc'
+      - '.assetsignore'
+      - '_redirects'
+      - '.github/workflows/deploy-main-worker.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-shieldio-web
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Ověřit zdroje editoru
+        run: |
+          node --check assets/js/blockly-editor.js
+          node --check assets/js/arduino-programming.mjs
+          python3 -c "import json; json.load(open('assets/data/i18n.json'))"
+      - name: Nasadit hlavní web
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
+          command: deploy --config wrangler.jsonc
