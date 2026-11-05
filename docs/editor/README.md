@@ -43,7 +43,7 @@ Test `node tests/arduino-programming-ui.test.mjs` ověřuje dostupnost kompilace
 ## Pracovní prostředí a bloky
 
 - Výběr desky zůstává podle barev; zatím jediný podporovaný cíl je RED / klasický Nano, ATmega328P, 16 MHz. Univerzální Arduino mění nabídku bloků, nikoli cílový procesor kompilace či uploaderu. Kód bez hardwarových Shieldio bloků neobsahuje jejich piny ani knihovny.
-- Moduly RED: LED, tlačítka, HC-SR04, servo, bzučák, SSD1306 OLED. Filtr upravuje pouze toolbox a nikdy nemaže bloky z pracovní plochy. Pokročilá nabídka zpřístupní matematiku, číselné proměnné, sériovou linku a přímou práci s piny.
+- Moduly RED: LED, tlačítka, HC-SR04, servo, bzučák, SSD1306 OLED. Výběr rodiny nabízí RED a neaktivní YELLOW/PRO; změna nabídky nemaže program. Pokročilá nabídka zpřístupní matematiku, číselné proměnné, sériovou linku a přímou práci s piny.
 - Vstupy času, úhlu, tónu, textu, porovnání a opakování obsahují editovatelné shadow bloky. Číslo/text lze napsat přímo; vložený výraz nahradí placeholder, po jeho odebrání se pole vrátí. Chybějící placeholdery doplníme i při importu staršího projektu.
 - Kód generují jen bloky připojené k setup/loop; nepoužité odložené bloky nezavádějí hardwarové závislosti. Ultrazvuk používá 30ms timeout.
 - Pracovní plocha se přizpůsobuje změnám okna přes ResizeObserver; nerozmísťuje a nepřibližuje program sama. Celý program je samostatná akce. Náhled C++ je na širším okně vedle bloků, pod 1050px pod nimi.
@@ -52,7 +52,7 @@ Test `node tests/arduino-programming-ui.test.mjs` ověřuje dostupnost kompilace
 
 ## ShieldioDisplay a vlastní knihovny
 
-Přibalený `assets/arduino/ShieldioDisplay.json` obsahuje nezměněné zdroje ShieldioDisplay 0.1.1, MIT licenci a přesný odkaz na upstream commit. Načte se z vlastního webu podle použití hlavičky. OLED bloky jej používají místo 1024B Adafruit framebufferu. ShieldioDisplay má 16×8 ASCII textovou mřížku, nepodporuje diakritiku a při begin() zobrazí sekundový úvodní text. Staré ruční Adafruit programy lze dále kompilovat.
+Přibalený `assets/arduino/ShieldioDisplay.json` obsahuje zdroje ShieldioDisplay 0.2.0, MIT licenci a přesný odkaz na upstream commit. Načte se z vlastního webu podle použití hlavičky. Textové OLED bloky používají úsporný ShieldioDisplay; bloky pro tvary volí ShieldioCanvas s 1024B grafickou pamětí. ShieldioDisplay má 16×8 ASCII textovou mřížku, nepodporuje diakritiku a při begin() zobrazí sekundový úvodní text. Staré ruční Adafruit programy lze dále kompilovat.
 
 Import vybírá kořenovou složku jedné rozbalené knihovny. Podporován je formát se src/ (rekurzivně) i starší kořen + utility/. Příklady se nekompilují. Podporujeme .h/.hpp/.hh/.inc/.ipp/.tpp a C++ .cpp/.cc/.cxx. C, assembler, binární archivy a jiné architektury se odmítnou s vysvětlením; nejde o plnou implementaci všech formátů Arduino CLI.
 
@@ -69,3 +69,9 @@ Hlavičky a zdroje zůstávají v prohlížeči a předávají se Workeru. Z př
 `assets/js/arduino-diagnostics.mjs` čte chyby GCC, slučuje totožné zprávy a nabízí vysvětlení běžných chyb. Přechod do zdroje je dostupný pouze pro řádky ručně psaného sketche. Jednoznačně chybějící `)` lze doplnit samostatným tlačítkem; návrh platí jen pro nezměněnou verzi zdroje. Knihovní chyby se neoznačují jako řádky sketche.
 
 `assets/js/arduino-source-editor.mjs` zajišťuje Tab/Shift+Tab, odsazení nového řádku, párování závorek a uvozovek, přepínání řádkových komentářů a úpravu odsazení. Formátování mění odsazení, nikoli syntaxi C++; zachovává obsah víceřádkových řetězců a maker. Regrese pokrývá `tests/arduino-editor-assist.test.mjs` společně s testem UI.
+
+## Průběh a správa projektu
+
+Lišta zůstává viditelná před spuštěním i po dokončení. Kompilace má neurčitý běžící indikátor; nahrávání a zpětné ověření ukazují skutečný průběh zápisu a čtení. Fáze jsou označené Kompilace, Nahrání a Ověření.
+
+Nový projekt vytvoří prázdné bloky i C++, odstraní vlastní knihovny a přejde na samostatné ukládání bez původního presetu. Vymazat bloky ponechá startovní bloky; v režimu C++ se stejná akce jmenuje Vymazat kód. Neprázdná práce se maže až po potvrzení. Obnovit editor před načtením stránky uloží bloky i C++; při chybě ukládání se obnovení neprovede. Během kompilace a nahrávání jsou tyto akce zakázané.
