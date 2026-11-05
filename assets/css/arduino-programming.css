@@ -204,3 +204,6 @@
 .programming-compatibility strong{font-size:12px;font-weight:500;}
 .programming-browser-help{font-size:12px;margin-top:4px;color:var(--ink-soft);}
 .programming-browser-help summary{cursor:pointer;}
+
+/* Unavailable module families remain visible without inviting interaction. */
+.programming-module-field option:disabled { color: var(--ink-soft); }

@@ -3740,8 +3740,8 @@
     "en": "Libraries"
   },
   "programming.includedLibraries": {
-    "cs": "<strong>Připravené:</strong> ShieldioDisplay 0.1.1, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.",
-    "en": "<strong>Included:</strong> ShieldioDisplay 0.1.1, Servo, Wire, SPI, Adafruit GFX and SSD1306. Selected automatically from your program."
+    "cs": "<strong>Připravené:</strong> ShieldioDisplay 0.2.0, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.",
+    "en": "<strong>Included:</strong> ShieldioDisplay 0.2.0, Servo, Wire, SPI, Adafruit GFX and SSD1306. Selected automatically from your program."
   },
   "programming.libraryHelp": {
     "cs": "Vlastní knihovnu rozbal a přidej její složku. Podporujeme hlavičky a C++ zdroje pro AVR; závislosti přidej také. C, assembler a předkompilované knihovny zatím nejsou podporované.",
@@ -5650,5 +5650,17 @@
   "home.esp32.link": {
     "cs": "Otevřít ESP32 Studio →",
     "en": "Open ESP32 Studio →"
+  },
+  "programming.familyRed": {
+    "cs": "Moduly RED",
+    "en": "RED modules"
+  },
+  "programming.familyYellow": {
+    "cs": "Moduly YELLOW — připravujeme",
+    "en": "YELLOW modules — coming later"
+  },
+  "programming.familyPro": {
+    "cs": "Moduly PRO — připravujeme",
+    "en": "PRO modules — coming later"
   }
 }
