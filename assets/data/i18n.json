@@ -5662,5 +5662,29 @@
   "programming.familyPro": {
     "cs": "Moduly PRO — připravujeme",
     "en": "PRO modules — coming later"
+  },
+  "programming.newProject": {
+    "cs": "Nový projekt",
+    "en": "New project"
+  },
+  "programming.reloadEditor": {
+    "cs": "Obnovit editor",
+    "en": "Reload editor"
+  },
+  "programming.stages": {
+    "cs": "Průběh programu",
+    "en": "Program progress"
+  },
+  "programming.stageCompile": {
+    "cs": "1 · Kompilace",
+    "en": "1 · Compile"
+  },
+  "programming.stageWrite": {
+    "cs": "2 · Nahrání",
+    "en": "2 · Upload"
+  },
+  "programming.stageVerify": {
+    "cs": "3 · Ověření",
+    "en": "3 · Verify"
   }
 }

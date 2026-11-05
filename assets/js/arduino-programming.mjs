@@ -4,6 +4,12 @@ import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
+  clearBlocks: ["Vymazat bloky","Clear blocks"], clearCode: ["Vymazat kód","Clear code"],
+  confirmClear: ["Vymazat aktuální program? Před vymazáním si ho můžeš uložit přes Soubor.","Clear the current program? You can save it using File first."],
+  confirmNew: ["Začít nový projekt? Současné bloky, kód a přidané knihovny budou nahrazeny prázdným projektem.","Start a new project? Current blocks, code and added libraries will be replaced with an empty project."],
+  saveFailure: ["Projekt se nepodařilo uložit. Před obnovením ho stáhni přes Soubor.","Could not save the project. Download it using File before reloading."],
+  compilingHint: ["Kompilace… První spuštění může trvat déle.","Compiling… The first build may take longer."],
+
   ramStatic: ["RAM · statická", "RAM · static"], ramOled: ["RAM · data + OLED", "RAM · data + OLED"],
   ramDetail: ["Statická data a vyhrazený buffer OLED. Zásobník a další dynamické alokace nejsou zahrnuté.", "Static data and reserved OLED buffer. Stack and other dynamic allocations are not included."],
   tools: ["Další nástroje", "More tools"], simpleMode: ["Jednodušší režim", "Simple mode"],
@@ -70,7 +76,7 @@ const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr
 const entryParams = new URLSearchParams(window.location?.search || "");
 const requestedExample = entryParams.get("example");
 const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExample : null;
-const sourceStorageKey = "shieldio-source-v1" + (exampleId ? ":example:" + exampleId : "");
+let sourceStorageKey = "shieldio-source-v1" + (exampleId ? ":example:" + exampleId : "");
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
 const source = () => mode() === "code" ? sourceInput.value : window.SHIELDIO_EDITOR?.getCode() || "";
 
@@ -157,10 +163,22 @@ function paintMemory() {
 function paint() {
   paintToolsButton();
   $("uploadStatus").textContent = t(statusKey);
-  $("uploadStatus").hidden=statusKey==="ready";
+  $("uploadStatus").hidden=false;
+  if(statusKey==="compiling") $("uploadStatus").textContent=t("compilingHint");
+  $("clearProjectBtn").textContent=t(mode()==="code"?"clearCode":"clearBlocks");
   $("uploadPercent").textContent=statusPercent===null?"":Math.round(statusPercent)+" %";
   $("uploadPercent").hidden=statusPercent===null;
-  $("uploadProgress").hidden=!(busy || statusKey==="done");
+  $("uploadProgress").hidden=false;
+  const running=busy && ["compiling","reset","exampleLoading"].includes(statusKey);
+  if(running) $("uploadProgress").removeAttribute("value");
+  else if(statusPercent!==null) $("uploadProgress").value=statusPercent;
+  else $("uploadProgress").value=["compiled","done"].includes(statusKey)?100:0;
+  const stage=["compiling","compiled"].includes(statusKey)?"compile":statusKey==="write"||statusKey==="reset"?"write":statusKey==="verify"||statusKey==="done"?"verify":null;
+  const order=["compile","write","verify"];
+  for(const [i,id]of ["stageCompile","stageWrite","stageVerify"].entries()) {
+    $(id).dataset.state=stage===order[i]?(["compiled","done"].includes(statusKey)?"done":"active"):stage && order.indexOf(stage)>i?"done":"idle";
+    if(stage===order[i]) $(id).setAttribute("aria-current","step");else $(id).removeAttribute("aria-current");
+  }
   $("programmingStudio").dataset.status=statusError?"error":statusKey;
   paintMemory();
   $("uploadStatus").dataset.error = String(statusError);
@@ -176,7 +194,7 @@ function paint() {
 function status(key, error = false, percent = null) { statusKey = key; statusError = error; statusPercent = percent; paint(); }
 function setBusy(value) {
   busy = value;
-  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn", "addLibraryBtn", "boardSelect", "blockProfileSelect", "moduleSelect", "advancedBlocksToggle", "loadBlocksBtn", "saveBlocksBtn", "formatSourceBtn", "toggleCommentBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
+  for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn", "addLibraryBtn", "boardSelect", "blockProfileSelect", "moduleSelect", "advancedBlocksToggle", "loadBlocksBtn", "saveBlocksBtn", "formatSourceBtn", "toggleCommentBtn", "newProjectBtn", "clearProjectBtn", "reloadEditorBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
   $("downloadHexBtn").disabled = value || !cached || cached.source !== source();
   $("toggleToolsBtn").disabled = value;
   $("cancelBuildBtn").hidden = !value;
@@ -184,7 +202,7 @@ function setBusy(value) {
   blocksPanel.inert = value;
   codePanel.inert = value;
   $("compilerErrors").inert = value;
-  $("uploadProgress").hidden = !(value || statusKey === "done");
+  $("uploadProgress").hidden = false;
   $("programmingStudio").dataset.busy = String(value);
   paintProject();
 }
@@ -212,7 +230,7 @@ function switchMode(next) {
   blocksPanel.hidden = isCode;
   codePanel.hidden = !isCode;
   if (!isCode) window.SHIELDIO_EDITOR?.resize();
-  invalidate();updateSourcePosition();paintProject();
+  invalidate();updateSourcePosition();paintProject();$("clearProjectBtn").textContent=t(isCode?"clearCode":"clearBlocks");
 }
 $("blocksTab").addEventListener("click", () => switchMode("blocks"));
 $("codeTab").addEventListener("click", () => switchMode("code"));
@@ -463,6 +481,42 @@ async function run(upload) {
 $("compileBtn").addEventListener("click", () => run(false));
 $("uploadBtn").addEventListener("click", () => run(true));
 $("cancelBuildBtn").addEventListener("click", () => controller?.abort());
+
+const emptySketch = "void setup() {\n}\n\nvoid loop() {\n}\n";
+function resetResults() {
+  cached=null;lastCompile=null;clearMemory();clearCompilerErrors();
+  $("downloadHexBtn").disabled=true;$("compilerDetails").hidden=true;
+  $("compilerLog").textContent="";status("ready");updateSourcePosition();
+}
+function hasProjectContent() {
+  return Boolean(window.SHIELDIO_EDITOR?.hasContent?.() || (sourceInput.value.trim() && sourceInput.value!==emptySketch));
+}
+$("clearProjectBtn").addEventListener("click", () => {
+  if(busy) return;
+  const content=mode()==="blocks"?window.SHIELDIO_EDITOR?.hasContent?.():sourceInput.value.trim() && sourceInput.value!==emptySketch;
+  if(content && !window.confirm(t("confirmClear"))) return;
+  if(mode()==="blocks") window.SHIELDIO_EDITOR?.clear();
+  else {sourceInput.value=emptySketch;localStorage.setItem(sourceStorageKey,sourceInput.value);}
+  resetResults();
+});
+$("newProjectBtn").addEventListener("click", () => {
+  if(busy || (hasProjectContent() && !window.confirm(t("confirmNew")))) return;
+  window.SHIELDIO_EDITOR?.clear(true);
+  sourceStorageKey="shieldio-source-v1";sourceInput.value=emptySketch;
+  localStorage.setItem(sourceStorageKey,sourceInput.value);
+  libraries=[];paintLibraries();importedProject=true;
+  window.history?.replaceState(null,"",window.location.pathname);
+  switchMode("blocks");resetResults();
+});
+$("reloadEditorBtn").addEventListener("click", () => {
+  if(busy) return;
+  try {
+    window.SHIELDIO_EDITOR?.persist();
+    localStorage.setItem(sourceStorageKey,sourceInput.value);
+  } catch { status("saveFailure",true);return; }
+  window.location.reload();
+});
+
 
 function download(text, filename) {
   const url = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));

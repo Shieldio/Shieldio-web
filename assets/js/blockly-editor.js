@@ -140,9 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!requestedPreset && !entryParams.has("example")) {
     try { hasManualWork = Boolean(JSON.parse(localStorage.getItem("shieldio-workspace-v1") || "null")?.workspace); } catch {}
   }
-  const presetId = Object.hasOwn(PRESETS, requestedPreset) ? requestedPreset
+  let presetId = Object.hasOwn(PRESETS, requestedPreset) ? requestedPreset
     : !requestedPreset && !entryParams.has("example") && !entryParams.has("module") && !entryParams.has("profile") && !hasManualWork ? "blikani" : null;
-  const workspaceStorageKey = "shieldio-workspace-v1" + (presetId ? ":preset:" + presetId : "");
+  let workspaceStorageKey = "shieldio-workspace-v1" + (presetId ? ":preset:" + presetId : "");
   if (presetId) {
     PRESETS[presetId](workspace, loopBlock);
     workspace.cleanUp();
@@ -211,6 +211,28 @@ document.addEventListener("DOMContentLoaded", () => {
     getError: () => generationError,
     getPresetId: () => presetId,
     resize: () => Blockly.svgResize(workspace),
+    hasContent: () => workspace.getAllBlocks(false).some(block => !["shieldio_setup","shieldio_loop"].includes(block.type)),
+    persist: () => {
+      clearTimeout(saveTimer);
+      localStorage.setItem(workspaceStorageKey, JSON.stringify(projectState()));
+    },
+    clear: (newProject = false) => {
+      clearTimeout(saveTimer);
+      Blockly.Events.setGroup(true);
+      try {
+        workspace.clear();
+        for (const [type,y] of [["shieldio_setup",30],["shieldio_loop",220]]) {
+          const root=workspace.newBlock(type);root.initSvg();root.render();root.moveBy(30,y);
+        }
+        if (newProject) {
+          presetId=null;workspaceStorageKey="shieldio-workspace-v1";
+          profileSelect.value="red";moduleSelect.value="red";advancedToggle.checked=false;updateToolbox();
+        }
+      } finally { Blockly.Events.setGroup(false); }
+      regenerate();
+      localStorage.setItem(workspaceStorageKey, JSON.stringify(projectState()));
+      Blockly.svgResize(workspace);
+    },
   };
 
   function detectFeatures() {

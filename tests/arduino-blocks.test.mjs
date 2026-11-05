@@ -156,6 +156,13 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   assert.match(api.SHIELDIO_ARDUINO_GENERATOR.blockToCode(multiply)[0],/\(1 \+ 2\) \* 3/);
   sum.setFieldValue('POWER','OP');assert.match(api.SHIELDIO_ARDUINO_GENERATOR.blockToCode(sum)[0],/^pow\(1, 2\)/);
   const text=make('text');text.setFieldValue('a\nb"\\','TEXT');assert.equal(api.SHIELDIO_ARDUINO_GENERATOR.blockToCode(text)[0],'"a\\012b\\"\\\\"');
+  assert.ok(api.SHIELDIO_EDITOR.hasContent());
+  api.SHIELDIO_EDITOR.clear(true);
+  assert.equal(api.SHIELDIO_EDITOR.hasContent(),false);
+  assert.equal(api.SHIELDIO_EDITOR.getPresetId(),null);
+  assert.equal(workspace.getAllBlocks(false).length,2,'Reset keeps both entry blocks');
+  api.SHIELDIO_EDITOR.persist();
+  assert.ok(storage.get('shieldio-workspace-v1').includes('shieldio_setup'));
   workspace.dispose();console.log('Blockly: editable inputs, formula replacement, old project migration, module filtering, universal pins, variables, OLED, servo, precedence and string escaping passed.');return fixtures;
 }
 if(typeof process !== "undefined" && process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href){

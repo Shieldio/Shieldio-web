@@ -207,3 +207,15 @@
 
 /* Unavailable module families remain visible without inviting interaction. */
 .programming-module-field option:disabled { color: var(--ink-soft); }
+
+/* Persistent workflow feedback and project actions in both editor modes. */
+.programming-project-actions {display:flex;flex-wrap:wrap;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);}
+.programming-stages {display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;margin:0 0 10px;padding:0;font-size:12px;color:var(--ink-soft);}
+.programming-stages li {border-bottom:3px solid var(--line);padding:0 0 6px;}
+.programming-stages li[data-state="active"] {border-color:var(--accent);color:var(--ink);font-weight:700;}
+.programming-stages li[data-state="done"] {border-color:var(--accent);color:var(--accent);}
+.programming-status #uploadProgress {height:16px;border-radius:8px;}
+.programming-status #uploadProgress:indeterminate {background:linear-gradient(100deg,var(--line) 20%,var(--accent) 50%,var(--line) 80%);background-size:200% 100%;animation:programming-progress 1.6s linear infinite;}
+.programming-status #uploadProgress:indeterminate::-webkit-progress-bar {background:transparent;}
+@keyframes programming-progress {to{background-position:-200% 0;}}
+@media(prefers-reduced-motion:reduce){.programming-status #uploadProgress:indeterminate{animation:none;}}
