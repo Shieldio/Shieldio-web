@@ -4,6 +4,7 @@ import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
+  reloadHint: ["Obnoví stránku a zachová rozpracovaný program.","Reloads the page and keeps your current program."],
   clearBlocks: ["Vymazat bloky","Clear blocks"], clearCode: ["Vymazat kód","Clear code"],
   confirmClear: ["Vymazat aktuální program? Před vymazáním si ho můžeš uložit přes Soubor.","Clear the current program? You can save it using File first."],
   confirmNew: ["Začít nový projekt? Současné bloky, kód a přidané knihovny budou nahrazeny prázdným projektem.","Start a new project? Current blocks, code and added libraries will be replaced with an empty project."],
@@ -166,6 +167,7 @@ function paint() {
   $("uploadStatus").hidden=false;
   if(statusKey==="compiling") $("uploadStatus").textContent=t("compilingHint");
   $("clearProjectBtn").textContent=t(mode()==="code"?"clearCode":"clearBlocks");
+  $("reloadEditorBtn").title=t("reloadHint");
   $("uploadPercent").textContent=statusPercent===null?"":Math.round(statusPercent)+" %";
   $("uploadPercent").hidden=statusPercent===null;
   $("uploadProgress").hidden=false;
