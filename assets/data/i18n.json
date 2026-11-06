@@ -5686,5 +5686,12 @@
   "programming.stageVerify": {
     "cs": "3 · Ověření",
     "en": "3 · Verify"
-  }
+  },
+  "programming.projectMenu": {"cs": "Projekt", "en": "Project"},
+  "programming.serialMonitor": {"cs": "Sériový monitor", "en": "Serial monitor"},
+  "programming.serialBaud": {"cs": "Rychlost", "en": "Baud rate"},
+  "programming.serialStart": {"cs": "Spustit příjem", "en": "Start receiving"},
+  "programming.serialClear": {"cs": "Vymazat výpis", "en": "Clear output"},
+  "programming.serialAutoscroll": {"cs": "Posouvat výpis", "en": "Auto-scroll"},
+  "programming.serialOutput": {"cs": "Přijatá sériová data", "en": "Received serial data"}
 }

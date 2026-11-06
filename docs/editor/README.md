@@ -75,3 +75,12 @@ Hlavičky a zdroje zůstávají v prohlížeči a předávají se Workeru. Z př
 Lišta zůstává viditelná před spuštěním i po dokončení. Kompilace má neurčitý běžící indikátor; nahrávání a zpětné ověření ukazují skutečný průběh zápisu a čtení. Fáze jsou označené Kompilace, Nahrání a Ověření.
 
 Nový projekt vytvoří prázdné bloky i C++, odstraní vlastní knihovny a přejde na samostatné ukládání bez původního presetu. Vymazat bloky ponechá startovní bloky; v režimu C++ se stejná akce jmenuje Vymazat kód. Neprázdná práce se maže až po potvrzení. Obnovit editor před načtením stránky uloží bloky i C++; při chybě ukládání se obnovení neprovede. Během kompilace a nahrávání jsou tyto akce zakázané.
+
+
+## Sériový monitor
+
+Rozbalovací panel pod editorem přijímá UTF-8 text z `Serial.print()` a `Serial.println()` přes stejný Web Serial port jako nahrávání. Rychlost musí odpovídat `Serial.begin(...)`; výchozí je 9600 baud. Monitor nabízí zastavení příjmu, vymazání a automatické posouvání výpisu. Uchovává posledních 65 536 znaků a obnovuje výpis nejvýše jednou za 80 ms. Výpis vkládá přes `textContent`.
+
+`arduino-serial-monitor.mjs` vlastní čtečku a otevřený port. Před nahráváním UI čeká na zrušení čtení, uvolnění zámku a uzavření portu; po úspěšném nahrání obnoví předchozí příjem se zvolenou rychlostí. Odpojení desky a chyby monitoru mají samostatný stav a nepřepisují výsledek kompilace. K použití je potřeba desktop Chrome/Edge a zabezpečený kontext.
+
+`node tests/arduino-serial-monitor.test.mjs` ověřuje rozdělené UTF-8 znaky, rychlost, přerušení, uvolnění portu a odpojení. Test UI navíc kontroluje limit výpisu a předání stejného portu nahrávání i obnovení příjmu. Tyto testy používají simulované streamy; fyzické USB se jimi neověřuje.

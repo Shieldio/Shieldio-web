@@ -5,12 +5,13 @@ import vm from 'node:vm';
 import { Blob } from 'node:buffer';
 import { importLibrary, validateLibraries } from '../assets/js/arduino-libraries.mjs';
 import * as sourceEditor from '../assets/js/arduino-source-editor.mjs';
+import { SerialMonitor } from '../assets/js/arduino-serial-monitor.mjs';
 import * as diagnostics from '../assets/js/arduino-diagnostics.mjs';
 const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',import.meta.url),'utf8');
 const source=(await fs.readFile(new URL('../assets/js/arduino-programming.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-programming.mjs"');
 const dictionary=JSON.parse(await fs.readFile(new URL('../assets/data/i18n.json',import.meta.url),'utf8'));
 for(const key of [...html.matchAll(/data-i18n(?:-title|-aria-label)?="([^"]+)"/g)].map(m=>m[1])) assert.ok(dictionary[key],key);
-function model({confirmReset=true,serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false,flashSuccess=false,compileError=null,compileResult={}}={}){
+function model({mockPort=null,confirmReset=true,serial=false,portError=null,savedSource="",search="",exampleText="void setup(){} void loop(){}",exampleFailure=false,flashSuccess=false,compileError=null,compileResult={}}={}){
   const elements=new Map();
   class Element{
     constructor(id){this.id=id;this.value='';this.hidden=false;this.disabled=false;this.dataset={};this.attributes={};this.listeners={};this.options=[];this.children=[];this.style={};this.selectionStart=0;this.selectionEnd=0;this.classList={toggle(){}};}
@@ -32,21 +33,21 @@ function model({confirmReset=true,serial=false,portError=null,savedSource="",sea
   let portRequests=0,compilations=0,fetches=0,uploads=0;
   const progressStates=[],downloads=[],buildMessages=[],windowEvents={},documentEvents={},storage=new Map([["shieldio-source-v1",savedSource]]);
   let blockSource="void setup(){} void loop(){}",cleared=0,persisted=0,reloads=0,confirmations=0;
-  const navigator=serial?{serial:{async requestPort(){portRequests++;if(portError)throw portError;return {direct:true};},addEventListener(){}}}:{};
+  const navigator=serial?{serial:{async requestPort(){portRequests++;if(portError)throw portError;return mockPort || {direct:true};},addEventListener(){}}}:{};
   const window={confirm(){confirmations++;return confirmReset;},location:{search,pathname:"/instructions/blokovy-editor",reload(){reloads++;}},isSecureContext:true,SHIELDIO_EDITOR:{hasContent:()=>blockSource!=="void setup(){} void loop(){}",clear(){cleared++;blockSource="void setup(){} void loop(){}";},persist(){persisted++;},getCode:()=>blockSource,getError:()=>null,resize(){}},addEventListener(name,handler){windowEvents[name]=handler;}};
   const context=vm.createContext({
     window,navigator,document:{addEventListener(name,handler){documentEvents[name]=handler;},body:{classList:{toggle(){}}},documentElement:{lang:'cs'},getElementById:get,createElement:()=>new Element('generated')},
     MutationObserver:class{observe(){}},
     localStorage:{getItem:key=>storage.get(key) || null,setItem:(key,value)=>storage.set(key,value)},
     async fetch(url){fetches++;assert.match(String(url),/^https:\/\/shieldio.cz\/assets\/code\/(?:digitalni_metr|ultrazvukovy_radar)\//);return {ok:!exampleFailure,text:async()=>exampleText};},
-    importLibrary,validateLibraries,...sourceEditor,...diagnostics,Event:class{constructor(type){this.type=type;}},
+    SerialMonitor,importLibrary,validateLibraries,...sourceEditor,...diagnostics,Event:class{constructor(type){this.type=type;}},
     AbortController,URLSearchParams,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,
     URL:class extends URL {static createObjectURL(blob){downloads.push(blob);return 'blob:test';}static revokeObjectURL(){}},
     Worker:class {
       postMessage(data){buildMessages.push(data);compilations++;Promise.resolve().then(()=>this.onmessage({data:compileError?{error:compileError}:{result:{fitsTarget:true,flashBytes:2,ramBytes:0,hex:':test',stderr:[],...compileResult}}}));}
       terminate(){}
     },
-    parseHex(){},async flashNano(port,hex,options){if(!flashSuccess)throw Error('Discovery must not flash hardware');uploads++;for(const [phase,percent] of [['reset',0],['write',50],['write',100],['verify',0],['verify',100],['done',100]]){options.onProgress(phase,percent);progressStates.push({phase,value:get('uploadProgress').value,label:get('uploadPercent').textContent});}}
+    parseHex(){},async flashNano(port,hex,options){assert.ok(!port.readable?.locked,'Monitor reader must release the port before upload');assert.ok(!port.opened,'Monitor must close the port before upload');if(!flashSuccess)throw Error('Discovery must not flash hardware');uploads++;for(const [phase,percent] of [['reset',0],['write',50],['write',100],['verify',0],['verify',100],['done',100]]){options.onProgress(phase,percent);progressStates.push({phase,value:get('uploadProgress').value,label:get('uploadPercent').textContent});}}
   });
   vm.runInContext(source,context,{filename:'arduino-programming.mjs'});
   return {get,progressStates,downloads,buildMessages,windowEvents,storage,setLanguage(lang){context.document.documentElement.lang=lang;documentEvents["shieldio-lang-change"]?.();},setBlockSource(value){blockSource=value;},actions:()=>({cleared,persisted,reloads,confirmations}),counts:()=>({portRequests,compilations,fetches,uploads})};
@@ -252,3 +253,38 @@ console.log('Result UI: continuous verified upload progress, persistent completi
  assert.equal(m.get('stageWrite').dataset.state,'idle');
 }
 console.log('Project actions: guarded reset, source persistence and reload; persistent phase progress passed.');
+
+// The monitor shares the selected port; upload must pause it, close, then resume.
+{
+  const port = {
+    opened: false, opens: 0, closes: 0,
+    async open(options) {
+      assert.equal(this.opened, false); this.opened = true; this.opens++; this.baud = options.baudRate;
+      this.readable = new ReadableStream({ start: controller => { this.input = controller; } });
+    },
+    async close() { assert.equal(this.readable.locked, false); this.opened = false; this.closes++; }
+  };
+  const m = model({ serial: true, mockPort: port, flashSuccess: true });
+  m.get('serialBaud').value = '115200';
+  await m.get('serialConnectBtn').click();
+  assert.equal(m.counts().portRequests, 1); assert.equal(port.baud, 115200);
+  assert.equal(m.get('serialBaud').disabled, true);
+  assert.equal(m.get('serialConnectBtn').textContent, 'Zastavit příjem');
+  port.input.enqueue(new TextEncoder().encode('<script>data</script>\n' + 'x'.repeat(70000)));
+  await new Promise(resolve => setTimeout(resolve, 100));
+  assert.equal(m.get('serialOutput').textContent.length, 65536, 'Serial output stays bounded');
+  m.get('serialClearBtn').click(); assert.equal(m.get('serialOutput').textContent, '');
+  await m.get('uploadBtn').listeners.click();
+  assert.equal(m.counts().uploads, 1); assert.equal(m.counts().portRequests, 1, 'Reuse the selected port');
+  assert.equal(port.closes, 1); assert.equal(port.opens, 2, 'Receiving resumes after upload');
+  assert.equal(m.get('uploadStatus').textContent, 'Nahráno');
+  await m.get('connectBoardBtn').click();
+  assert.equal(port.opened, false); assert.equal(m.get('boardConnection').dataset.connected, 'false');
+  assert.equal(m.get('serialBaud').disabled, false);
+}
+{
+  const m = model(); assert.equal(m.get('serialConnectBtn').disabled, true);
+  await m.get('serialConnectBtn').click(); assert.equal(m.counts().portRequests, 0);
+}
+console.log('Serial UI: bounded output, baud control, shared port, upload handoff/resume and unsupported browser passed.');
+

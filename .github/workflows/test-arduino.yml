@@ -111,6 +111,7 @@ jobs:
       - run: node --check assets/js/shieldio-blocks.js
       - run: node --check assets/js/blockly-editor.js
       - run: node --test tests/arduino-flasher.test.mjs
+      - run: node tests/arduino-serial-monitor.test.mjs
       - run: node tests/arduino-programming-ui.test.mjs
       - run: node tests/arduino-editor-assist.test.mjs
       - run: node tests/esp32-studio.test.mjs
@@ -131,4 +132,5 @@ jobs:
           mkdir -p "/tmp/shieldio-avr"
           tar -xzf "/tmp/shieldio-avr.tgz" -C "/tmp/shieldio-avr"
       - run: node --test tests/arduino-compiler.test.mjs
+
 

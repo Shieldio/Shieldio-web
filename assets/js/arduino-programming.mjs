@@ -1,9 +1,18 @@
+import { SerialMonitor } from "./arduino-serial-monitor.mjs?v=20261106-serial1";
 import { importLibrary, validateLibraries } from "./arduino-libraries.mjs";
 import { codeKeyEdit, formatIndentation, toggleLineComment } from "./arduino-source-editor.mjs?v=20261103-assist2";
 import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from "./arduino-diagnostics.mjs?v=20261104-status1";
 import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
 
 const messages = {
+  serialIdle: ["Nastav stejnou rychlost jako v Serial.begin(9600) a spusť příjem.", "Match the baud rate to Serial.begin(9600), then start receiving."],
+  serialStart: ["Spustit příjem", "Start receiving"], serialStop: ["Zastavit příjem", "Stop receiving"],
+  serialReading: ["Přijímám data z Arduina…", "Receiving data from Arduino…"],
+  serialOpening: ["Otevírám sériový port…", "Opening serial port…"],
+  serialPaused: ["Příjem pozastaven pro nahrávání.", "Receiving paused for upload."],
+  serialStopped: ["Příjem zastaven.", "Receiving stopped."],
+  serialNoPort: ["Deska nebyla vybraná.", "No board selected."],
+  serialError: ["Port se nepodařilo otevřít nebo bylo spojení přerušeno. Zavři sériový monitor v Arduino IDE a dalších kartách a zkus příjem znovu.", "Could not open the port or the connection was interrupted. Close serial monitors in Arduino IDE and other tabs, then try again."],
   reloadHint: ["Obnoví stránku a zachová rozpracovaný program.","Reloads the page and keeps your current program."],
   clearBlocks: ["Vymazat bloky","Clear blocks"], clearCode: ["Vymazat kód","Clear code"],
   confirmClear: ["Vymazat aktuální program? Před vymazáním si ho můžeš uložit přes Soubor.","Clear the current program? You can save it using File first."],
@@ -71,6 +80,7 @@ let selectedPort = null, busy = false, cached = null, worker = null, controller 
 let libraries = [], expanded = false, toolsOpen = false, importedProject = false, uploadRequested = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
 let memorySnapshot = null;
+let serialChanging = false, serialStatusKey = "serialIdle", serialText = "", serialTimer = null;
 let lastCompile = null, failedBuild = null, errorLine = null, renderedLineCount = 0;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
@@ -80,6 +90,66 @@ const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExampl
 let sourceStorageKey = "shieldio-source-v1" + (exampleId ? ":example:" + exampleId : "");
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
 const source = () => mode() === "code" ? sourceInput.value : window.SHIELDIO_EDITOR?.getCode() || "";
+
+const serialMonitor = new SerialMonitor({
+  onText(text) {
+    serialText = (serialText + text).slice(-65536);
+    if (serialTimer === null) serialTimer = setTimeout(renderSerial, 80);
+  },
+  onError() { serialStatusKey = "serialError"; paintSerial(); },
+  onClose() {
+    if (serialStatusKey === "serialReading") serialStatusKey = "serialStopped";
+    paintSerial();
+  }
+});
+function renderSerial() {
+  if (serialTimer !== null) clearTimeout(serialTimer);
+  serialTimer = null;
+  const output = $("serialOutput");
+  output.textContent = serialText;
+  if ($("serialAutoscroll").checked) output.scrollTop = output.scrollHeight;
+}
+function paintSerial() {
+  $("serialConnectBtn").textContent = t(serialMonitor.active ? "serialStop" : "serialStart");
+  // Remove the static translation key after initialization; subsequent labels depend on state.
+  $("serialConnectBtn").removeAttribute("data-i18n");
+  $("serialConnectBtn").disabled = !supported || busy || serialChanging;
+  $("serialBaud").disabled = busy || serialChanging || serialMonitor.active;
+  $("serialStatus").textContent = t(supported ? serialStatusKey : "unsupported");
+  $("serialStatus").dataset.error = String(serialStatusKey === "serialError");
+  if (!busy) {
+    $("uploadBtn").disabled = !supported || serialChanging;
+    $("connectBoardBtn").disabled = !supported || serialChanging;
+  }
+}
+async function startSerial() {
+  serialStatusKey = "serialOpening"; paintSerial();
+  await serialMonitor.start(selectedPort, Number($("serialBaud").value) || 9600);
+  if (serialMonitor.active) serialStatusKey = "serialReading";
+  else if (serialStatusKey !== "serialError") serialStatusKey = "serialStopped";
+  paintSerial();
+}
+$("serialConnectBtn").addEventListener("click", async () => {
+  if (busy || serialChanging || !supported) return;
+  serialChanging = true; paintSerial();
+  try {
+    if (serialMonitor.active) { await serialMonitor.stop(); serialStatusKey = "serialStopped"; }
+    else {
+      // Request permission directly from the click, before awaiting unrelated work.
+      if (!selectedPort && !await selectPort()) return;
+      await startSerial();
+    }
+  } catch (error) { serialStatusKey = error.name === "NotFoundError" ? "serialNoPort" : "serialError"; }
+  finally { serialChanging = false; paintSerial(); paint(); }
+});
+$("serialClearBtn").addEventListener("click", () => { serialText = ""; renderSerial(); });
+const menuIds = ["projectMenu", "connectionSettings", "projectFiles", "libraryManager"];
+for (const id of menuIds) $(id).addEventListener("toggle", () => {
+  if ($(id).open) for (const other of menuIds) if (other !== id) $(other).open = false;
+});
+document.addEventListener("click", event => {
+  for (const id of menuIds) if (!$(id).contains(event.target)) $(id).open = false;
+});
 
 const projectCopy = {
   blikani: {
@@ -156,12 +226,14 @@ function paintMemory() {
     $(kind+"Bytes").textContent=bytes(value)+" / "+bytes(max)+" B";
     $(kind+"Usage").value=value;
     $(kind+"Usage").setAttribute("aria-valuetext",bytes(value)+" / "+bytes(max)+" B");
+    $(kind+"Percent").title=bytes(value)+" / "+bytes(max)+" B";
   }
   $("ramLabel").textContent=t(oled?"ramOled":"ramStatic");
   $("ramUsage").setAttribute("aria-label",t(oled?"ramOled":"ramStatic"));
   $("ramUsage").setAttribute("title",t("ramDetail"));
 }
 function paint() {
+  paintSerial();
   paintToolsButton();
   $("uploadStatus").textContent = t(statusKey);
   $("uploadStatus").hidden=false;
@@ -206,6 +278,7 @@ function setBusy(value) {
   $("compilerErrors").inert = value;
   $("uploadProgress").hidden = false;
   $("programmingStudio").dataset.busy = String(value);
+  paintSerial();
   paintProject();
 }
 function invalidate() {
@@ -387,8 +460,14 @@ async function selectPort() {
   return true;
 }
 $("connectBoardBtn").addEventListener("click", async () => {
-  if (busy) return;
-  if (selectedPort) { selectedPort = null; status("ready"); return; }
+  if (busy || serialChanging) return;
+  if (selectedPort) {
+    serialChanging = true; paintSerial();
+    try { await serialMonitor.stop(); selectedPort = null; status("ready"); }
+    catch { serialStatusKey = "serialError"; }
+    finally { serialChanging = false; paintSerial(); }
+    return;
+  }
   setBusy(true); controller = new AbortController();
   try { await selectPort(); }
   catch (error) { if (error.name === "NotFoundError") status("noPort"); else showError(error); }
@@ -397,6 +476,8 @@ $("connectBoardBtn").addEventListener("click", async () => {
 if (supported) navigator.serial.addEventListener("disconnect", event => {
   if ((event.port || event.target) !== selectedPort) return;
   selectedPort = null; disconnected = true;
+  serialStatusKey = "serialError";
+  void serialMonitor.stop().catch(() => {}).finally(paintSerial);
   controller?.abort();
   status("SERIAL_DISCONNECTED", true);
 });
@@ -452,7 +533,8 @@ function showError(error) {
   $("compilerDetails").open = Boolean(details) && !diagnostics.length;
 }
 async function run(upload) {
-  if (busy || (upload && !supported)) return;
+  if (busy || serialChanging || (upload && !supported)) return;
+  let resumeSerial = false, uploaded = false;
   uploadRequested = upload;
   clearCompilerErrors();lastCompile=null;
   setBusy(true);
@@ -467,6 +549,12 @@ async function run(upload) {
     const result = await compile(controller.signal);
     if (upload) {
       controller.signal.throwIfAborted();
+      resumeSerial = serialMonitor.active;
+      if (resumeSerial) {
+        await serialMonitor.stop();
+        serialStatusKey = "serialPaused"; paintSerial();
+      }
+      controller.signal.throwIfAborted();
       await flashNano(selectedPort, result.hex, {
         baudRate: Number($("bootloaderSelect").value), signal: controller.signal,
         onProgress: (phase, percent) => {
@@ -476,9 +564,15 @@ async function run(upload) {
           status(phase,false,progress);
         },
       });
+      uploaded = true;
     }
   } catch (error) { showError(controller.signal.aborted && !disconnected ? new Error("CANCELLED") : error); }
-  finally { uploadRequested = false; setBusy(false); controller = null; }
+  finally {
+    if (resumeSerial && uploaded && selectedPort && !disconnected) {
+      try { await startSerial(); } catch { serialStatusKey = "serialError"; }
+    }
+    uploadRequested = false; setBusy(false); controller = null;
+  }
 }
 $("compileBtn").addEventListener("click", () => run(false));
 $("uploadBtn").addEventListener("click", () => run(true));
@@ -567,6 +661,7 @@ $("focusEditorBtn").addEventListener("click", () => {
   $("focusEditorBtn").setAttribute("aria-pressed",String(expanded));paint();window.SHIELDIO_EDITOR?.resize();
 });
 window.addEventListener("keydown", event => {
+  if(event.key==="Escape") for (const id of menuIds) $(id).open = false;
   if(event.key==="Escape" && expanded) $("focusEditorBtn").click();
   if((event.ctrlKey || event.metaKey) && event.key==="Enter") {event.preventDefault();run(event.shiftKey);}
 });
@@ -594,3 +689,4 @@ if(exampleId) {
   if(sourceInput.value.trim()) {switchMode("code");status("fileLoaded");}
   else loadExample();
 }
+
