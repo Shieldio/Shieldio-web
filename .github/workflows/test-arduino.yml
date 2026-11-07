@@ -119,7 +119,7 @@ jobs:
       - run: node tests/arduino-libraries.test.mjs
       - run: node tests/arduino-compiler-worker.test.mjs
       - name: Install headless Blockly test dependencies
-        run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.11 jsdom@27.4.0 katex@0.16.11
+        run: npm install --prefix "/tmp/shieldio-test-deps" --ignore-scripts --no-audit --no-fund --no-save blockly@13.2.1 @xmldom/xmldom@0.8.15 jsdom@27.4.0 katex@0.16.11
       - run: node tests/arduino-blocks.test.mjs
       - run: node tests/site-interactions.test.mjs
       - run: node tests/site-learning.test.mjs

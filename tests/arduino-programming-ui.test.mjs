@@ -180,6 +180,23 @@ console.log('UI: direct USB default, unsupported-browser compilation/export, por
   m.windowEvents['shieldio:project-import']();assert.equal(m.get('projectTitle').textContent,'Programování RED');
 }
 
+// C++ upload requires explicit approval even when a port was selected earlier.
+{
+  const denied=model({serial:true,confirmReset:false,flashSuccess:true});
+  denied.get('codeTab').click();
+  await denied.get('uploadBtn').click();
+  assert.equal(denied.actions().confirmations,1);
+  assert.deepEqual(denied.counts(),{portRequests:0,compilations:0,fetches:0,uploads:0});
+  await denied.get('compileBtn').click();
+  assert.equal(denied.counts().compilations,1,'Compile-only does not need upload approval');
+
+  const accepted=model({serial:true,confirmReset:true,flashSuccess:true});
+  accepted.get('codeTab').click();
+  await accepted.get('uploadBtn').click();
+  assert.equal(accepted.actions().confirmations,1);
+  assert.equal(accepted.counts().uploads,1);
+}
+
 // Compiler failures stay visible, select the correct line, and never edit code
 // or touch hardware until the visitor explicitly chooses an action.
 {
