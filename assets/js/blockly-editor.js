@@ -435,7 +435,7 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
     try {
       if (file.size > MAX_IMPORTED_PROJECT_BYTES) throw new Error("Projekt přesahuje limit 400 kB.");
       const text = await file.text();
-      if (new TextEncoder().encode(text).byteLength > MAX_IMPORTED_PROJECT_BYTES) throw new Error("Projekt přesahuje limit 400 kB.");
+      if (text.length > MAX_IMPORTED_PROJECT_BYTES) throw new Error("Projekt přesahuje limit 400 kB.");
       const parsed = JSON.parse(text);
       const savedWorkspace = parsed && parsed.format === "shieldio-blocks-v1" ? parsed.workspace : parsed;
       validateImportedProject(savedWorkspace);
