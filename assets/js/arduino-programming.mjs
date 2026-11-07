@@ -16,6 +16,7 @@ const messages = {
   reloadHint: ["Obnoví stránku a zachová rozpracovaný program.","Reloads the page and keeps your current program."],
   clearBlocks: ["Vymazat bloky","Clear blocks"], clearCode: ["Vymazat kód","Clear code"],
   confirmClear: ["Vymazat aktuální program? Před vymazáním si ho můžeš uložit přes Soubor.","Clear the current program? You can save it using File first."],
+  confirmAdvancedUpload: ["Nahráváš vlastní Arduino C++ kód nebo knihovnu. Program může ovládat připojené součástky a poškodit nevhodně zapojený hardware. Pokračuj jen s důvěryhodným kódem a bezpečným zapojením. Nahrát na desku?", "You are uploading custom Arduino C++ code or a library. It can control connected electronics and may damage incorrectly wired hardware. Proceed only with trusted code and safe wiring. Upload to board?"],
   confirmNew: ["Začít nový projekt? Současné bloky, kód a přidané knihovny budou nahrazeny prázdným projektem.","Start a new project? Current blocks, code and added libraries will be replaced with an empty project."],
   saveFailure: ["Projekt se nepodařilo uložit. Před obnovením ho stáhni přes Soubor.","Could not save the project. Download it using File before reloading."],
   compilingHint: ["Kompilace… První spuštění může trvat déle.","Compiling… The first build may take longer."],
@@ -534,6 +535,9 @@ function showError(error) {
 }
 async function run(upload) {
   if (busy || serialChanging || (upload && !supported)) return;
+  // A selected port is not consent to run arbitrary imported C++ on hardware.
+  // Ask at the user gesture, before any USB request or compilation begins.
+  if (upload && (mode() === "code" || libraries.length) && !window.confirm(t("confirmAdvancedUpload"))) return;
   let resumeSerial = false, uploaded = false;
   uploadRequested = upload;
   clearCompilerErrors();lastCompile=null;
