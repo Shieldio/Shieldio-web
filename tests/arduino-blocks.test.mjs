@@ -120,7 +120,7 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   assert.match(regenerate(),/delay\(1000 \+ 2\)/,'A formula can replace the editable placeholder');
   arithmetic.dispose();assert.ok(wait.getInputTargetBlock('MS').isShadow(),'Removing a formula restores direct entry');
   const saved=Blockly.serialization.workspaces.save(workspace);delete saved.blocks.blocks.find(b=>b.type==='shieldio_loop').inputs.LOOP.block.next.block.inputs;
-  get('loadBlocksInput').files=[{text:async()=>JSON.stringify(saved)}];await get('loadBlocksInput').emit('change');assert.match(regenerate(),/delay\\(500\\)/,'Old blank value inputs receive editable defaults');
+  get('loadBlocksInput').files=[{text:async()=>JSON.stringify(saved)}];await get('loadBlocksInput').emit('change');assert.match(regenerate(),/delay\(500\)/,'Old blank value inputs receive editable defaults');
   const restoredCode=regenerate();
   get('loadBlocksInput').files=[{size:400001,text:async()=>{throw Error('Oversized project must not be read');}}];
   await get('loadBlocksInput').emit('change');
