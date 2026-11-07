@@ -411,6 +411,21 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
     downloadFile(JSON.stringify(projectState(), null, 2), "application/json", "shieldio_red_bloky.shieldio.json");
   });
 
+  // Imported projects are untrusted JSON. Bound both size and nesting before Blockly
+  // traverses the structure to avoid freezing shared school computers.
+  const MAX_IMPORTED_PROJECT_BYTES = 400000;
+  function validateImportedProject(tree) {
+    if (!tree || typeof tree !== "object" || Array.isArray(tree)) throw new Error("Soubor neobsahuje pracovní plochu.");
+    const pending = [[tree, 0]];
+    let visited = 0;
+    while (pending.length) {
+      const [value, depth] = pending.pop();
+      if (++visited > 20000 || depth > 80) throw new Error("Projekt je příliš složitý nebo hluboce vnořený.");
+      for (const child of Object.values(value)) {
+        if (child && typeof child === "object") pending.push([child, depth + 1]);
+      }
+    }
+  }
   const loadInput = document.getElementById("loadBlocksInput");
   document.getElementById("loadBlocksBtn")?.addEventListener("click", () => loadInput?.click());
   loadInput?.addEventListener("change", async () => {
@@ -418,9 +433,12 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
     if (!file) return;
     const backup = Blockly.serialization.workspaces.save(workspace);
     try {
-      const parsed = JSON.parse(await file.text());
+      if (file.size > MAX_IMPORTED_PROJECT_BYTES) throw new Error("Projekt přesahuje limit 400 kB.");
+      const text = await file.text();
+      if (new TextEncoder().encode(text).byteLength > MAX_IMPORTED_PROJECT_BYTES) throw new Error("Projekt přesahuje limit 400 kB.");
+      const parsed = JSON.parse(text);
       const savedWorkspace = parsed && parsed.format === "shieldio-blocks-v1" ? parsed.workspace : parsed;
-      if (!savedWorkspace || typeof savedWorkspace !== "object") throw new Error("Soubor neobsahuje pracovní plochu.");
+      validateImportedProject(savedWorkspace);
       workspace.clear();
       Blockly.serialization.workspaces.load(savedWorkspace, workspace);
       if (!workspace.getBlocksByType("shieldio_setup", false).length || !workspace.getBlocksByType("shieldio_loop", false).length) {
