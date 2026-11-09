@@ -92,3 +92,18 @@ test("header helper does not disable Web Serial via a permissions restriction", 
   const headers = addSecurityHeaders(new Headers(), "text/html");
   assert.ok(!headers.get("Permissions-Policy").includes("serial="));
 });
+
+test("nepřepisuje stávající přísnější bezpečnostní pravidla", () => {
+  const source = new Headers({
+    "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+    "Referrer-Policy": "no-referrer",
+    "Strict-Transport-Security": "max-age=63072000",
+    "Permissions-Policy": "camera=(), serial=()",
+    "X-Frame-Options": "DENY",
+  });
+  addSecurityHeaders(source, "text/html");
+  assert.equal(source.get("Content-Security-Policy"), "default-src 'none'; frame-ancestors 'none'");
+  assert.equal(source.get("Referrer-Policy"), "no-referrer");
+  assert.equal(source.get("Strict-Transport-Security"), "max-age=63072000");
+  assert.equal(source.get("Permissions-Policy"), "camera=(), serial=()");
+});
