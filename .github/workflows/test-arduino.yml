@@ -29,6 +29,9 @@ on:
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
+      - 'wrangler.jsonc'
+      - 'workers/main-web.mjs'
+      - 'tests/main-web-markdown.test.mjs'
       - 'tests/site-*'
       - 'tests/legal-guardrails.py'
       - 'README.md'
@@ -71,6 +74,9 @@ on:
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
+      - 'wrangler.jsonc'
+      - 'workers/main-web.mjs'
+      - 'tests/main-web-markdown.test.mjs'
       - 'tests/site-*'
       - 'tests/legal-guardrails.py'
       - 'README.md'
@@ -102,6 +108,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --test tests/main-web-markdown.test.mjs
       - run: python3 tests/site-content.test.py
       - run: python3 tests/legal-guardrails.py
       - run: node tests/site-search.test.mjs
