@@ -55,7 +55,7 @@ export function htmlToMarkdown(html, pageUrl) {
   const body = html.match(/<body\b[^>]*>([\s\S]*?)<\/body\s*>/i)?.[1] || html;
   // A real static text equivalent is generated from the same guide data
   // before deployment; expose it instead of the empty JavaScript shell.
-  const guideContent = body.match(/<main\\b[^>]*\\bid=["']guide-text-content["'][^>]*>([\\s\\S]*?)<\\/main\\s*>/i)?.[1];
+  const guideContent = body.match(/<main\b[^>]*\bid=["']guide-text-content["'][^>]*>([\s\S]*?)<\/main\s*>/i)?.[1];
   const safeBody = (guideContent || body)
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/<(script|style|noscript|template|svg)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, "");
