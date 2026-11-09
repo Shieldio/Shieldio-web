@@ -28,6 +28,7 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
     document:{documentElement:{lang:'cs',dataset:{}},getElementById:get,addEventListener(name,fn){if(name==='DOMContentLoaded')ready=fn;},createElement:()=>new Element('temp'),createElementNS:(ns,name)=>xml.createElementNS(ns,name)},DOMParser,XMLSerializer});
   for(const file of ['blockly_compressed.js','blocks_compressed.js','msg/cs.js'])vm.runInContext(await fs.readFile(blocklyDir+'/'+file,'utf8'),context);
   vm.runInContext(await fs.readFile(new URL('../assets/js/shieldio-blocks.js',import.meta.url),'utf8'),context);
+  vm.runInContext(await fs.readFile(new URL('../assets/js/block-project-validation.js',import.meta.url),'utf8'),context);
   const Blockly=context.Blockly, api=context.window;
   Blockly.Events.disable();
   Blockly.inject=(container,options)=>{toolbox=options.toolbox;theme=options.theme;workspace=new Blockly.Workspace();workspace.updateToolbox=value=>{toolbox=value;};workspace.setTheme=value=>{theme=value;};workspace.zoomToFit=()=>{};workspace.cleanUp=()=>{};return workspace;};
@@ -121,6 +122,19 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   arithmetic.dispose();assert.ok(wait.getInputTargetBlock('MS').isShadow(),'Removing a formula restores direct entry');
   const saved=Blockly.serialization.workspaces.save(workspace);delete saved.blocks.blocks.find(b=>b.type==='shieldio_loop').inputs.LOOP.block.next.block.inputs;
   get('loadBlocksInput').files=[{text:async()=>JSON.stringify(saved)}];await get('loadBlocksInput').emit('change');assert.match(regenerate(),/delay\(500\)/,'Old blank value inputs receive editable defaults');
+  // Block projects are untrusted files. Invalid imports must never replace
+  // working blocks or silently become firmware for the user's Nano.
+  const importInput=get('loadBlocksInput'), originalCode=api.SHIELDIO_EDITOR.getCode();
+  importInput.files=[{size:400001,text:async()=>{throw Error('Oversized file should not be read');}}];
+  await importInput.emit('change');
+  assert.match(get('editorStatus').textContent,/příliš velký/);
+  assert.equal(api.SHIELDIO_EDITOR.getCode(),originalCode,'Oversized project retains previous code');
+  const malicious=structuredClone(saved);
+  malicious.blocks.blocks.push({type:'definitely_not_supported'});
+  importInput.files=[{size:1000,text:async()=>JSON.stringify(malicious)}];
+  await importInput.emit('change');
+  assert.match(get('editorStatus').textContent,/neznámý nebo nepodporovaný blok/);
+  assert.equal(api.SHIELDIO_EDITOR.getCode(),originalCode,'Unknown block retains previous code');
   ({setup,loop}=roots());
   const mode=make('arduino_pin_mode','universal'),serial=make('arduino_serial_begin','universal'),write=make('arduino_digital_write','universal'),delay=make('shieldio_wait'),print=make('arduino_serial_print','universal');
   setup.getInput('SETUP').connection.connect(mode.previousConnection);mode.nextConnection.connect(serial.previousConnection);
