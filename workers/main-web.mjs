@@ -156,15 +156,18 @@ export function htmlToMarkdown(html, pageUrl) {
 // inline startup code, dynamic modules, WASM and third-party compiler assets.
 // A strict CSP requires a separate compatibility audit before enforcement.
 export function addSecurityHeaders(headers, contentType = "") {
+  // Keep stricter existing policies installed by another deployment layer.
+  // In particular, never replace a fully configured CSP with this baseline.
+  const ensure = (name, value) => { if (!headers.has(name)) headers.set(name, value); };
   headers.set("X-Content-Type-Options", "nosniff");
-  headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  headers.set("Strict-Transport-Security", "max-age=31536000");
-  headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
+  ensure("Referrer-Policy", "strict-origin-when-cross-origin");
+  ensure("Strict-Transport-Security", "max-age=31536000");
+  ensure("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
   if (/^text\/html(?:\s*;|$)/i.test(contentType)) {
-    headers.set("X-Frame-Options", "DENY");
+    ensure("X-Frame-Options", "DENY");
     // Blocks framed copies, <base> injection and plugin execution without
     // interfering with the script/style paths of existing learning tools.
-    headers.set("Content-Security-Policy", "frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
+    ensure("Content-Security-Policy", "frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
   }
   return headers;
 }
