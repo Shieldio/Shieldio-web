@@ -1,0 +1,121 @@
+name: Testovat a nasadit SEO / AI pro Shieldio Learn
+
+on:
+  pull_request:
+    paths:
+      - 'learn/**'
+      - 'assets/data/learn-questions.json'
+      - 'workers/main-web.mjs'
+      - 'wrangler.learn.jsonc'
+      - 'tests/learn-seo-ai.test.mjs'
+      - 'tests/learn-access.cjs'
+      - '.github/workflows/deploy-learn.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'learn/**'
+      - 'assets/data/learn-questions.json'
+      - 'workers/main-web.mjs'
+      - 'wrangler.learn.jsonc'
+      - 'tests/learn-seo-ai.test.mjs'
+      - 'tests/learn-access.cjs'
+      - '.github/workflows/deploy-learn.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-learn
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Ověřit syntaxi Learn Workeru
+        run: node --check learn/worker.js
+      - name: Testovat veřejné SEO, Markdown a staging
+        run: node --test tests/learn-seo-ai.test.mjs
+      - name: Ověřit ochranu beta materiálů a vstupu
+        run: node tests/learn-access.cjs
+      - name: Ověřit izolaci Learn+
+        run: node tests/learn-plus-safe.cjs
+      - name: Zkontrolovat Markdown z hlavního webu
+        run: node --test tests/main-web-markdown.test.mjs
+
+  deploy:
+    needs: validate
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Ověřit přístup k Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::V GitHub Secrets chybí CLOUDFLARE_API_TOKEN"
+            exit 1
+          fi
+      - name: Nasadit Learn Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
+          wranglerVersion: '4.158.0'
+          command: deploy --config wrangler.learn.jsonc
+      - name: Ověřit HTTP HTML, Markdown, sitemap a ochranu beta
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin="https://learn.shieldio.cz"
+          echo "Kontrola výchozí HTML reprezentace"
+          curl -fsSL --max-time 30 "$origin/" -o /tmp/learn.html
+          grep -q '<h1>' /tmp/learn.html
+
+          echo "Kontrola Markdown"
+          headers=$(mktemp)
+          curl -fsSL --max-time 30 -H 'Accept: text/markdown' -D "$headers" "$origin/" -o /tmp/learn.md
+          grep -qi '^content-type: text/markdown' "$headers"
+          grep -q 'Shieldio' /tmp/learn.md
+
+          echo "Kontrola indexovatelných otázek"
+          curl -fsSL --max-time 30 "$origin/maturita/automatizace/" -o /tmp/learn-auto.html
+          grep -q 'learn-public-topics' /tmp/learn-auto.html
+          curl -fsSL --max-time 30 "$origin/maturita/otazka/automatizace-23-pameti-pc/" -o /tmp/learn-topic.html
+          grep -q '<h1 data-question-title>Paměti PC</h1>' /tmp/learn-topic.html
+          curl -fsSL --max-time 30 -H 'Accept: text/markdown' "$origin/maturita/otazka/automatizace-23-pameti-pc/" -o /tmp/learn-topic.md
+          grep -q 'Paměti PC' /tmp/learn-topic.md
+
+          echo "Kontrola sitemap"
+          curl -fsSL --max-time 30 "$origin/sitemap.xml" -o /tmp/learn-sitemap.xml
+          grep -q 'automatizace-23-pameti-pc' /tmp/learn-sitemap.xml
+          if grep -q '/maturita/otazka/elektronika-' /tmp/learn-sitemap.xml; then
+            echo "::error::Beta elektronika se nesmí zveřejnit v sitemap"
+            exit 1
+          fi
+
+          echo "Kontrola textového AI rozcestníku"
+          curl -fsSL --max-time 30 "$origin/llms.txt" -o /tmp/learn-llms.txt
+          grep -q '# Shieldio Learn' /tmp/learn-llms.txt
+
+          echo "Kontrola beta brány bez přístupového cookie"
+          curl -fsSL --max-time 30 -D /tmp/beta-headers "$origin/maturita/elektronika/" -o /tmp/beta-content
+          grep -qi '^x-robots-tag: noindex' /tmp/beta-headers
+          grep -q 'přístupový kód' /tmp/beta-content
+
+          echo "Kontrola tajných částí - nespustit Markdown export pro Learn+"
+          curl -fsSL --max-time 30 -H 'Accept: text/markdown' -D /tmp/plus-headers "$origin/plus/" -o /tmp/plus-response
+          grep -qi '^content-type: text/html' /tmp/plus-headers
+
+          echo "Shieldio Learn: SEO, Markdown a soukromé oblasti OK"
