@@ -13,6 +13,8 @@ on:
       - '3D-tisk/**'
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
+      - 'scripts/generate-readable-guides.mjs'
+      - 'tests/readable-guides.test.mjs'
       - 'tests/main-web-markdown.test.mjs'
       - 'llms.txt'
       - 'sitemap.xml'
@@ -34,6 +36,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Připravit textové verze návodů bez JavaScriptu
+        run: node scripts/generate-readable-guides.mjs
+      - name: Ověřit úplnost textových návodů
+        run: node --test tests/readable-guides.test.mjs
       - name: Ověřit Markdown pro AI agenty
         run: node --test tests/main-web-markdown.test.mjs
       - name: Ověřit zdroje editoru
