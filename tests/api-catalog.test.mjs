@@ -61,3 +61,34 @@ test("úvodní stránka odkazuje na katalog v HTML i HTTP hlavičce", async () =
   assert.match(result.headers.get("Link"), /rel="api-catalog"/);
   assert.equal(result.status, 200);
 });
+
+test("homepage odkazuje přes HTTP Link na čtyři popsané veřejné zdroje", async () => {
+  const html = read("index.html");
+  const env = { ASSETS: { async fetch() {
+    return new Response(html, { status: 200, headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Link": '</favicon.ico>; rel="icon"',
+    }});
+  }}};
+  const expected = {
+    "api-catalog": "/.well-known/api-catalog",
+    "service-desc": "/api/simulation-openapi.json",
+    "service-doc": "/api/",
+    "describedby": "/llms.txt",
+  };
+  for (const [method, accept] of [["GET", "text/html"], ["GET", "text/markdown"], ["HEAD", "text/html"], ["HEAD", "text/markdown"]]) {
+    const result = await worker.fetch(new Request("https://shieldio.cz/", {
+      method, headers: { Accept: accept },
+    }), env);
+    assert.equal(result.status, 200);
+    const link = result.headers.get("Link");
+    assert.ok(link.includes('rel="icon"'), "zachovat původní Link");
+    for (const [rel, href] of Object.entries(expected)) {
+      assert.ok(link.includes('<' + href + '>; rel="' + rel + '"'), method + " " + accept + ": " + rel);
+      assert.equal((link.match(new RegExp('rel="' + rel + '"', "g")) || []).length, 1);
+    }
+    if (method === "HEAD") assert.equal(await result.text(), "");
+  }
+  const nonHome = await worker.fetch(new Request("https://shieldio.cz/faq.html"), env);
+  assert.ok(!nonHome.headers.get("Link")?.includes('rel="api-catalog"'));
+});

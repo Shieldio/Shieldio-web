@@ -82,13 +82,28 @@ jobs:
           node -e 'const c=require("/tmp/shieldio-openapi.json"); if(!c.openapi||!c.paths["/api/health"])process.exit(1)'
           curl -fsS --max-time 25 "https://shieldio.cz/api/" -o /tmp/shieldio-api-docs.html
           grep -q 'Simulation Health API' /tmp/shieldio-api-docs.html || { echo "::error::Chybí API dokumentace"; exit 1; }
+      - name: Ověřit Link hlavičky homepage na produkci
+        shell: bash
+        run: |
+          set -euo pipefail
+          for method in GET HEAD; do
+            if [ "$method" = HEAD ]; then
+              curl -fsSI --max-time 30 "https://shieldio.cz/?build=$GITHUB_SHA" -o /tmp/shieldio-home-link-headers
+            else
+              curl -fsS --max-time 30 -D /tmp/shieldio-home-link-headers -o /dev/null "https://shieldio.cz/?build=$GITHUB_SHA"
+            fi
+            grep -qi '^link:' /tmp/shieldio-home-link-headers || { echo "::error::Chybí HTTP Link na homepage"; exit 1; }
+            for relation in api-catalog service-desc service-doc describedby; do
+              grep -qiE "rel=\"$relation\"" /tmp/shieldio-home-link-headers || { echo "::error::Chybí rel=$relation pro $method"; exit 1; }
+            done
+          done
       - name: Ověřit externím skenerem isitagentready.com
         continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
           curl -fsS --retry 2 --max-time 160 -X POST "https://isitagentready.com/api/scan" -H "Content-Type: application/json" -d '{"url":"https://shieldio.cz"}' -o /tmp/shieldio-agent-scan.json
-          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const s=r?.checks?.discovery?.apiCatalog?.status; console.log("checks.discovery.apiCatalog.status:",s??"nezískáno"); if(s!=="pass")process.exit(1)'
+          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const a=r?.checks?.discovery?.apiCatalog?.status, l=r?.checks?.discoverability?.linkHeaders?.status; console.log("checks.discovery.apiCatalog.status:",a??"nezískáno"); console.log("checks.discoverability.linkHeaders.status:",l??"nezískáno"); if(a!=="pass"||l!=="pass")process.exit(1)'
       - name: Zkontrolovat HTTP content negotiation na produkci
         shell: bash
         run: |

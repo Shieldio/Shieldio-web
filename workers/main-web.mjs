@@ -175,6 +175,13 @@ export function addSecurityHeaders(headers, contentType = "") {
 // Public catalog of documented, deployed APIs (RFC 9727 / RFC 9264).
 // Do not list the disabled EduPage integration or the undeployed ESP32 compiler.
 const API_CATALOG_LINK = '</.well-known/api-catalog>; rel="api-catalog"';
+const HOME_DISCOVERY_LINKS = [
+  '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
+  '</api/simulation-openapi.json>; rel="service-desc"; type="application/json"',
+  '</api/>; rel="service-doc"; type="text/html"',
+  '</llms.txt>; rel="describedby"; type="text/plain"',
+].join(", ");
+
 const API_CATALOG = JSON.stringify({
   linkset: [{
     anchor: "https://simulation.shieldio.cz/api/health",
@@ -245,7 +252,9 @@ export default {
     const type = original.headers.get("content-type") || "";
     const headers = addSecurityHeaders(new Headers(original.headers), type);
     if (original.status === 200 && /^text\/html(?:\s*;|$)/i.test(type) && ["/", "/index.html"].includes(url.pathname)) {
-      headers.append("Link", API_CATALOG_LINK);
+      // RFC 8288: advertise both the catalog and its published documentation
+      // on HTML, Markdown and HEAD responses for the homepage.
+      headers.append("Link", HOME_DISCOVERY_LINKS);
     }
     const originalResponse = () => new Response(
       [204, 205, 304].includes(original.status) || request.method === "HEAD" ? null : original.body,
