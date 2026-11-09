@@ -228,6 +228,32 @@ export default {
     // those paths by accident via the root asset binding. This does NOT make
     // content already committed to a public GitHub repository confidential.
     const url = new URL(request.url);
+    // Versioned Agent Skills Discovery v0.2.0. Static files remain the
+    // source of truth; Worker pins MIME, CORS, GET/HEAD and negative responses.
+    if (url.pathname.startsWith("/.well-known/agent-skills/")) {
+      const isIndex = url.pathname === "/.well-known/agent-skills/index.json";
+      const isSkill = /^\/\.well-known\/agent-skills\/[a-z0-9]+(?:-[a-z0-9]+)*\/SKILL\.md$/.test(url.pathname);
+      if (!isIndex && !isSkill) return deniedAsset();
+      if (!["GET", "HEAD"].includes(request.method)) {
+        return new Response(null, {
+          status: 405,
+          headers: addSecurityHeaders(new Headers({ "Allow": "GET, HEAD" }), ""),
+        });
+      }
+      // Fetch as GET so HEAD advertises the exact same resource metadata.
+      const asset = await env.ASSETS.fetch(new Request(url, { method: "GET" }));
+      if (asset.status !== 200) return deniedAsset();
+      const contentType = isIndex ? "application/json; charset=utf-8" : "text/markdown; charset=utf-8";
+      const headers = addSecurityHeaders(new Headers(asset.headers), contentType);
+      headers.set("Content-Type", contentType);
+      headers.set("Access-Control-Allow-Origin", "*");
+      headers.set("Cache-Control", "public, max-age=300");
+      headers.delete("Content-Encoding");
+      headers.delete("Content-Length");
+      return new Response(request.method === "HEAD" ? null : asset.body, {
+        status: 200, headers,
+      });
+    }
     if (url.pathname === "/.well-known/api-catalog") {
       if (!["GET", "HEAD"].includes(request.method)) {
         return new Response("Method not allowed", {

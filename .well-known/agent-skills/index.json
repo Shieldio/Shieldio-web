@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "shieldio-red-projects",
+      "type": "skill-md",
+      "description": "Find verified public Shieldio RED project guides, component references, and assembly instructions, with revision and safety checks.",
+      "url": "/.well-known/agent-skills/shieldio-red-projects/SKILL.md",
+      "digest": "sha256:95a709aef468811c211feb139f11226d766e36635da4f64b2ef9d776f81de1cf"
+    },
+    {
+      "name": "shieldio-red-programming",
+      "type": "skill-md",
+      "description": "Guide programming and local USB uploading to Shieldio RED using its browser editor and documented Arduino Nano workflow.",
+      "url": "/.well-known/agent-skills/shieldio-red-programming/SKILL.md",
+      "digest": "sha256:9e026b6d854f697e5b50cb9fad7afd8a3404238c060db974c11cb2715e4985e8"
+    },
+    {
+      "name": "shieldio-electronics-learning",
+      "type": "skill-md",
+      "description": "Find and explain public Shieldio electronics lessons and RED classroom resources for students, teachers, and clubs.",
+      "url": "/.well-known/agent-skills/shieldio-electronics-learning/SKILL.md",
+      "digest": "sha256:f0aa91d41416b026414d3864fe6939cb5f78dd7349a1b74a14b6c75c7778d855"
+    }
+  ]
+}
