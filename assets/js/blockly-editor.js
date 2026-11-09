@@ -178,16 +178,30 @@ document.addEventListener("DOMContentLoaded", () => {
   new ResizeObserver(() => Blockly.svgResize(workspace)).observe(container);
   updateToolbox();
 
+  // Imported files and autosaved work are untrusted until validated. Blockly
+  // should never deserialize arbitrary JSON with unchecked depth or block types.
+  const validator = window.SHIELDIO_BLOCK_PROJECT;
+  const knownBlock = type => Boolean(
+    Object.hasOwn(Blockly.Blocks, type) &&
+    (type === "shieldio_setup" || type === "shieldio_loop" ||
+      typeof window.SHIELDIO_ARDUINO_GENERATOR?.forBlock?.[type] === "function")
+  );
+  function checkedProject(state) {
+    if (!validator) throw new Error("Kontrola projektu není dostupná. Obnov stránku.");
+    return validator.validateProject(state, knownBlock);
+  }
+
   // Each guide has its own saved project; opening it again keeps the visitor's edits.
   {
     const initial = Blockly.serialization.workspaces.save(workspace);
     try {
-      const saved = JSON.parse(localStorage.getItem(workspaceStorageKey) || "null");
-      if (saved?.workspace) {
-        workspace.clear();Blockly.serialization.workspaces.load(saved.workspace, workspace);
-        if (!workspace.getBlocksByType("shieldio_setup",false).length || !workspace.getBlocksByType("shieldio_loop",false).length) throw Error("Incomplete project");
-        profileSelect.value = saved.profile === "universal" ? "universal" : "red";
-        moduleSelect.value = "red";advancedToggle.checked = Boolean(saved.advanced);updateToolbox();
+      const stored = localStorage.getItem(workspaceStorageKey);
+      if (stored && stored.length <= validator?.LIMITS.bytes) {
+        const saved = JSON.parse(stored);
+        const checked = checkedProject(saved);
+        workspace.clear();Blockly.serialization.workspaces.load(checked.workspace, workspace);
+        profileSelect.value = checked.profile;
+        moduleSelect.value = "red";advancedToggle.checked = checked.advanced;updateToolbox();
       }
     } catch {workspace.clear();Blockly.serialization.workspaces.load(initial,workspace);}
   }
@@ -418,20 +432,27 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
     if (!file) return;
     const backup = Blockly.serialization.workspaces.save(workspace);
     try {
-      const parsed = JSON.parse(await file.text());
-      const savedWorkspace = parsed && parsed.format === "shieldio-blocks-v1" ? parsed.workspace : parsed;
-      if (!savedWorkspace || typeof savedWorkspace !== "object") throw new Error("Soubor neobsahuje pracovní plochu.");
-      workspace.clear();
-      Blockly.serialization.workspaces.load(savedWorkspace, workspace);
-      if (!workspace.getBlocksByType("shieldio_setup", false).length || !workspace.getBlocksByType("shieldio_loop", false).length) {
-        throw new Error("Chybí blok Při spuštění nebo Opakuj stále.");
+      if (typeof file.size === "number" && file.size > validator.LIMITS.bytes) {
+        throw new Error("Soubor je příliš velký (max. 400 kB).");
       }
+      const text = await file.text();
+      if (text.length > validator.LIMITS.bytes) throw new Error("Soubor je příliš velký (max. 400 kB).");
+      const checked = checkedProject(JSON.parse(text));
+      // Commit only validated data. On any error, recover the previous blocks.
+      workspace.clear();
+      Blockly.serialization.workspaces.load(checked.workspace, workspace);
       fillDefaults(workspace.getAllBlocks(false));
-      if(parsed.profile) {profileSelect.value=parsed.profile === "universal" ? "universal" : "red";moduleSelect.value="red";advancedToggle.checked=Boolean(parsed.advanced);updateToolbox();}
+      profileSelect.value = checked.profile;moduleSelect.value="red";
+      advancedToggle.checked = checked.advanced;updateToolbox();
       workspace.cleanUp();
       regenerate();autosave();
       window.dispatchEvent(new Event("shieldio:project-import"));
-      if (statusEl) { statusEl.textContent = "Blokový projekt byl načten."; statusEl.classList.remove("error"); }
+      if (statusEl) {
+        statusEl.textContent = document.documentElement.lang === "en"
+          ? "Blocks loaded. Review the generated C++ code and wiring before uploading to the board."
+          : "Bloky načteny. Před nahráním do desky zkontroluj vygenerovaný C++ kód a zapojení.";
+        statusEl.classList.remove("error");
+      }
     } catch (error) {
       workspace.clear();
       Blockly.serialization.workspaces.load(backup, workspace);
