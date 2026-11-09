@@ -18,6 +18,7 @@ on:
       - 'tests/readable-guides.test.mjs'
       - 'tests/main-web-markdown.test.mjs'
       - 'tests/api-catalog.test.mjs'
+      - 'tests/webmcp.test.mjs'
       - 'tests/security-baseline.test.mjs'
       - 'tests/block-project-validation.test.mjs'
       - 'tests/site-ai-discovery.test.mjs'
@@ -47,6 +48,8 @@ jobs:
         run: node --test tests/readable-guides.test.mjs
       - name: Ověřit Markdown pro AI agenty
         run: node --test tests/main-web-markdown.test.mjs
+      - name: Ověřit WebMCP nástroje pro agenty
+        run: node --test tests/webmcp.test.mjs
       - name: Ověřit API katalog RFC 9727
         run: node --test tests/api-catalog.test.mjs
       - name: Ověřit popisy pro vyhledávače a AI
@@ -78,6 +81,11 @@ jobs:
           grep -qi '^content-type: application/linkset+json' /tmp/shieldio-api-catalog-headers || { echo "::error::Chybný Content-Type API katalogu"; exit 1; }
           node -e 'const c=require("/tmp/shieldio-api-catalog.json"); if(!Array.isArray(c.linkset)||!c.linkset.length||!c.linkset.every(e=>e.anchor && e["service-desc"]?.[0]?.href && e["service-doc"]?.[0]?.href)){process.exit(1)}'
           curl -fsSI --max-time 25 "https://shieldio.cz/.well-known/api-catalog" | grep -qi '^link:.*api-catalog' || { echo "::error::Chybí API katalog Link v HEAD"; exit 1; }
+          echo "Kontrola WebMCP scriptu na produkci"
+          curl -fsSL --max-time 25 "https://shieldio.cz/?build=$GITHUB_SHA" -o /tmp/shieldio-home-webmcp.html
+          grep -q 'src="/assets/js/webmcp.js"' /tmp/shieldio-home-webmcp.html || { echo "::error::WebMCP není v HTML"; exit 1; }
+          curl -fsSL --max-time 25 "https://shieldio.cz/assets/js/webmcp.js?build=$GITHUB_SHA" -o /tmp/shieldio-webmcp.js
+          grep -q 'registerTool(tool' /tmp/shieldio-webmcp.js || { echo "::error::WebMCP skript se nenačetl"; exit 1; }
           echo "Kontrola Link hlaviček homepage podle RFC 8288"
           for accept in "text/html" "text/markdown"; do
             curl -fsSI --max-time 25 -H "Accept: $accept" "https://shieldio.cz/?build=$GITHUB_SHA" -o /tmp/shieldio-home-link-headers
@@ -93,7 +101,7 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsS --retry 2 --max-time 160 -X POST "https://isitagentready.com/api/scan" -H "Content-Type: application/json" -d '{"url":"https://shieldio.cz"}' -o /tmp/shieldio-agent-scan.json
-          node -e 'const r=require("/tmp/shieldio-agent-scan.json");const catalog=r?.checks?.discovery?.apiCatalog?.status;const links=r?.checks?.discoverability?.linkHeaders?.status;console.log("checks.discovery.apiCatalog.status:",catalog??"nezískáno");console.log("checks.discoverability.linkHeaders.status:",links??"nezískáno");if(catalog!=="pass"||links!=="pass")process.exit(1)'
+          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const catalog=r?.checks?.discovery?.apiCatalog?.status; const links=r?.checks?.discoverability?.linkHeaders?.status; const webmcp=r?.checks?.discovery?.webMcp?.status; console.log("checks.discovery.apiCatalog.status:",catalog??"nezískáno"); console.log("checks.discoverability.linkHeaders.status:",links??"nezískáno"); console.log("checks.discovery.webMcp.status:",webmcp??"nezískáno"); if(catalog!=="pass"||links!=="pass"||webmcp!=="pass")process.exit(1)'
       - name: Zkontrolovat HTTP content negotiation na produkci
         shell: bash
         run: |
