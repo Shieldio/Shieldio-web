@@ -103,7 +103,7 @@ try{
   // when an unchanged acquired time interval is redrawn. Assert the interval
   // boundaries instead of requiring byte-for-byte identical SVG geometry.
   const endpoints=path=>{
-    const samples=[...path.matchAll(/[ML](-?\\d+(?:\\.\\d+)?)\\s+(-?\\d+(?:\\.\\d+)?)/g)];
+    const samples=[...path.matchAll(/[ML](-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)/g)];
     assert.ok(samples.length>20,'a curve must retain more than 20 samples');
     return [samples[0],samples.at(-1)].map(match=>[Number(match[1]),Number(match[2])]);
   };
