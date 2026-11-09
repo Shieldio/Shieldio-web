@@ -74,6 +74,13 @@ jobs:
             curl -fsSL --max-time 25 "$url" -o /tmp/shieldio-guide.html
             curl -fsSL --max-time 25 -H 'Accept: text/markdown' "$url" -o /tmp/shieldio-guide.md
             grep -q 'id="guide-text-content"' /tmp/shieldio-guide.html || { echo "::error::Chybí bez-JS návod: $slug"; exit 1; }
+            if ! grep -q '^## Krok 1:' /tmp/shieldio-guide.md; then
+              echo "::warning::První odpověď neobsahuje začátek postupu: $slug"
+              echo "První řádky Markdown odpovědi:"
+              sed -n '1,50p' /tmp/shieldio-guide.md
+              echo "Kontrola čerstvé verze obsahu"
+              curl -fsSL --max-time 25 -H 'Accept: text/markdown' -H 'Cache-Control: no-cache' "$url?build=$GITHUB_SHA" -o /tmp/shieldio-guide.md
+            fi
             grep -q '^## Krok 1:' /tmp/shieldio-guide.md || { echo "::error::Markdown neobsahuje postup: $slug"; exit 1; }
             grep -q '^## Součástky a vybavení' /tmp/shieldio-guide.md || { echo "::error::Markdown neobsahuje součástky: $slug"; exit 1; }
           done
