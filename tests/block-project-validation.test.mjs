@@ -26,6 +26,8 @@ test("accepts raw Blockly workspaces and Shieldio wrapper format", () => {
   assert.equal(result.workspace,workspace);
   assert.equal(result.profile,"universal");
   assert.equal(result.advanced,true);
+  const legacy = {workspace:fresh(),profile:"red",module:"led",advanced:false};
+  assert.ok(validate(legacy).workspace,"Older project exports must still load");
 });
 
 test("rejects unknown block types, duplicate roots and unsupported files", () => {
