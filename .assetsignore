@@ -12,6 +12,7 @@ wrangler.stage.jsonc
 learn/worker.js
 learn/CONTENT.md
 workers
+scripts
 docs
 tests
 node_modules
