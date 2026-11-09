@@ -19,7 +19,8 @@
 
   function validateProject(state, isKnownBlockType) {
     if (!isObject(state)) invalid("očekává se objekt JSON.");
-    const wrapped = state.format === "shieldio-blocks-v1";
+    // Early saved projects used the wrapper without a format tag.
+    const wrapped = state.format === "shieldio-blocks-v1" || (!("format" in state) && isObject(state.workspace));
     if ("format" in state && !wrapped) invalid("nepodporovaný formát.");
     const workspace = wrapped ? state.workspace : state;
     if (!isObject(workspace) || !isObject(workspace.blocks) || !Array.isArray(workspace.blocks.blocks)) {
