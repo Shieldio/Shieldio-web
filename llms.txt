@@ -9,6 +9,12 @@
 - Included libraries: ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX and SSD1306. Imported AVR header/C++ libraries remain in the browser tab. C, assembly and precompiled library imports are not supported.
 - First use downloads compiler assets from jsDelivr and Blockly from unpkg. Source code is not sent to a remote compilation server. Offline availability is not guaranteed. Other boards are not upload targets.
 
+## How to read the public guides
+
+- To receive the readable Markdown representation, request any page with `Accept: text/markdown`. Plain HTML is returned by default.
+- The assembly guide and the barrier, parking assistant, timer and theremin guides include complete text instructions and troubleshooting even when JavaScript is unavailable. The interactive step-by-step guide remains available to browsers.
+- Assembly and component positions documented for RED V3 must not be assumed to apply to RED V4. For revision-specific work, verify the board version first.
+
 ## Build and projects
 
 - [Component reference](https://shieldio.cz/instructions/baseline/red/prehled/): PCB positions, values, polarity and signal pins.
