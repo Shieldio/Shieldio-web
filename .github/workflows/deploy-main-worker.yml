@@ -101,7 +101,17 @@ jobs:
               if [ "$valid" = 1 ]; then break; fi
               sleep 3
             done
-            test "$valid" = 1 || { echo "::error::Chybí veřejný soubor nebo jeho obsah: $path"; exit 1; }
+            if [ "$valid" != 1 ]; then
+              echo "::error::Chybí veřejný soubor nebo jeho obsah: $path"
+              echo "Začátek skutečné HTTP odpovědi:"
+              head -c 1000 "$destination"
+              echo
+              echo "Nadpisy a značky odpovědi:"
+              grep -oiE '<title[^>]*>[^<]*|<script[^>]*block[^>]*|cf-(mitigated|ray)|challenge-platform' "$destination" | head -25 || true
+              echo "HTTP hlavičky:"
+              curl -sSI --max-time 25 "https://shieldio-web.swwzr5pj2f.workers.dev/$path" | head -30
+              exit 1
+            fi
           done
           echo "Kontrola průvodce pro školy a kroužky"
           guide_url="https://shieldio.cz/edu/pro-koho-je-shieldio/?build=$GITHUB_SHA"
