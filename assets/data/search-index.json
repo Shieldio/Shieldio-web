@@ -60,13 +60,18 @@
     "url": "/edu/index.html"
   },
   {
+    "title": "Pro koho je Shieldio RED: výuka, kroužky a domácí projekty",
+    "desc": "Kdy má RED smysl, jak začít s Arduino Nano a senzory, kdy zvolit jinou stavebnici a jaký je stav prototypu.",
+    "url": "/edu/pro-koho-je-shieldio/"
+  },
+  {
     "title": "Časté otázky",
     "desc": "Odpovědi na časté otázky o deskách Shieldio, pro koho jsou, jak se programují, a jaký je rozdíl mezi úrovněmi.",
     "url": "/faq.html"
   },
   {
-    "title": "Shieldio · Stavebnice kompatibilní s Arduino® pro školu, kroužek i domov",
-    "desc": "Shieldio je studentský výukový projekt s deskou kompatibilní s Arduino® pro školy, kroužky a domácí kutily. RED je vývojový prototyp.",
+    "title": "Shieldio RED – výuková elektronika a Arduino projekty",
+    "desc": "Deska s modulem kompatibilním s Arduino Nano, ultrazvukem, servem a OLED. Projekty, webový editor a návody pro školy, kroužky i domácí kutily. RED V4 se testuje a není v prodeji.",
     "url": "/index.html"
   },
   {
