@@ -78,32 +78,22 @@ jobs:
           grep -qi '^content-type: application/linkset+json' /tmp/shieldio-api-catalog-headers || { echo "::error::Chybný Content-Type API katalogu"; exit 1; }
           node -e 'const c=require("/tmp/shieldio-api-catalog.json"); if(!Array.isArray(c.linkset)||!c.linkset.length||!c.linkset.every(e=>e.anchor && e["service-desc"]?.[0]?.href && e["service-doc"]?.[0]?.href)){process.exit(1)}'
           curl -fsSI --max-time 25 "https://shieldio.cz/.well-known/api-catalog" | grep -qi '^link:.*api-catalog' || { echo "::error::Chybí API katalog Link v HEAD"; exit 1; }
+          echo "Kontrola Link hlaviček homepage podle RFC 8288"
+          for accept in "text/html" "text/markdown"; do
+            curl -fsSI --max-time 25 -H "Accept: $accept" "https://shieldio.cz/?build=$GITHUB_SHA" -o /tmp/shieldio-home-link-headers
+            node -e 'const fs=require("node:fs");const h=fs.readFileSync("/tmp/shieldio-home-link-headers","utf8").toLowerCase(); const rel=["api-catalog","service-desc","service-doc","describedby"];for(const name of rel){ if(!new RegExp("rel=\\\"" + name + "\\\"").test(h)){console.error("Chybí Link rel: "+name);process.exit(1)} }'
+          done
           curl -fsS --max-time 25 "https://shieldio.cz/api/simulation-openapi.json" -o /tmp/shieldio-openapi.json
           node -e 'const c=require("/tmp/shieldio-openapi.json"); if(!c.openapi||!c.paths["/api/health"])process.exit(1)'
           curl -fsS --max-time 25 "https://shieldio.cz/api/" -o /tmp/shieldio-api-docs.html
           grep -q 'Simulation Health API' /tmp/shieldio-api-docs.html || { echo "::error::Chybí API dokumentace"; exit 1; }
-      - name: Ověřit Link hlavičky homepage na produkci
-        shell: bash
-        run: |
-          set -euo pipefail
-          for method in GET HEAD; do
-            if [ "$method" = HEAD ]; then
-              curl -fsSI --max-time 30 "https://shieldio.cz/?build=$GITHUB_SHA" -o /tmp/shieldio-home-link-headers
-            else
-              curl -fsS --max-time 30 -D /tmp/shieldio-home-link-headers -o /dev/null "https://shieldio.cz/?build=$GITHUB_SHA"
-            fi
-            grep -qi '^link:' /tmp/shieldio-home-link-headers || { echo "::error::Chybí HTTP Link na homepage"; exit 1; }
-            for relation in api-catalog service-desc service-doc describedby; do
-              grep -qiE "rel=\"$relation\"" /tmp/shieldio-home-link-headers || { echo "::error::Chybí rel=$relation pro $method"; exit 1; }
-            done
-          done
       - name: Ověřit externím skenerem isitagentready.com
         continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
           curl -fsS --retry 2 --max-time 160 -X POST "https://isitagentready.com/api/scan" -H "Content-Type: application/json" -d '{"url":"https://shieldio.cz"}' -o /tmp/shieldio-agent-scan.json
-          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const a=r?.checks?.discovery?.apiCatalog?.status, l=r?.checks?.discoverability?.linkHeaders?.status; console.log("checks.discovery.apiCatalog.status:",a??"nezískáno"); console.log("checks.discoverability.linkHeaders.status:",l??"nezískáno"); if(a!=="pass"||l!=="pass")process.exit(1)'
+          node -e 'const r=require("/tmp/shieldio-agent-scan.json");const catalog=r?.checks?.discovery?.apiCatalog?.status;const links=r?.checks?.discoverability?.linkHeaders?.status;console.log("checks.discovery.apiCatalog.status:",catalog??"nezískáno");console.log("checks.discoverability.linkHeaders.status:",links??"nezískáno");if(catalog!=="pass"||links!=="pass")process.exit(1)'
       - name: Zkontrolovat HTTP content negotiation na produkci
         shell: bash
         run: |
