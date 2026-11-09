@@ -117,6 +117,7 @@ jobs:
       - run: node scripts/generate-readable-guides.mjs
       - run: node --test tests/readable-guides.test.mjs
       - run: node --test tests/main-web-markdown.test.mjs
+      - run: node --test tests/site-ai-discovery.test.mjs
       - run: python3 tests/site-content.test.py
       - run: python3 tests/legal-guardrails.py
       - run: node tests/site-search.test.mjs
