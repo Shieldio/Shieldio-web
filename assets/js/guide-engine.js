@@ -12,6 +12,12 @@
   const root = document.getElementById("guide-app");
   if (!DATA || !root) return;
 
+  // Progressive enhancement: no-JS visitors see the full guide by default.
+  // Once the interactive guide starts, keep the complete readable version
+  // available as a collapsible alternative for keyboard/screen-reader users.
+  const readableDetails = document.querySelector("#guide-text-content details");
+  if (readableDetails) readableDetails.open = false;
+
   const tier = DATA.meta.tier || "red";
   root.classList.add(`tier-${tier}`);
 
