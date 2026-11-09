@@ -1,3 +1,5 @@
+import { htmlToMarkdown, wantsMarkdown } from '../workers/main-web.mjs';
+
 // Shieldio Learn runs as a separate Worker while reusing this repository's assets.
 // Public /maturita URLs are mapped to the isolated /learn static tree.
 const STATIC_PREFIX = "/learn";
@@ -658,16 +660,75 @@ async function probeEdupage(request, env, noteMode = false) {
   }
 }
 
+function safeAttribute(value) {
+  return String(value ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 function seoTransform(response, page) {
   if (!page) return response;
   return new HTMLRewriter()
     .on("title", { element(element) { element.setInnerContent(`${page.title} | Shieldio Learn`); } })
-    .on('meta[name="robots"]', { element(element) { element.remove(); } })
+    .on('meta[name="robots"]', { element(element) {
+      // An unpublished question must never have its noindex removed.
+      if (page.status === "complete") element.remove();
+    } })
+    .on("[data-question-title]", { element(element) { element.setInnerContent(page.title); } })
+    .on("[data-question-summary]", { element(element) { element.setInnerContent(page.summary || page.description); } })
     .on("head", { element(element) {
-      element.append(`<meta name="description" content="${page.description}"><link rel="canonical" href="${page.url}"><meta property="og:type" content="article"><meta property="og:site_name" content="Shieldio Learn"><meta property="og:title" content="${page.title}"><meta property="og:description" content="${page.description}"><meta property="og:url" content="${page.url}"><meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png"><meta name="twitter:card" content="summary_large_image">`, { html: true });
+      const title = safeAttribute(page.title);
+      const description = safeAttribute(page.description);
+      const canonical = safeAttribute(page.url);
+      element.append(`<meta name="description" content="${description}"><link rel="canonical" href="${canonical}"><meta property="og:type" content="article"><meta property="og:site_name" content="Shieldio Learn"><meta property="og:title" content="${title}"><meta property="og:description" content="${description}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png"><meta name="twitter:card" content="summary_large_image">`, { html: true });
     } })
     .transform(response);
 }
+
+// Render links to public study topics in the HTML *before* running client JS.
+// learn.js can still replace the list with the interactive progress UI.
+function publicSubjectTransform(response, topics) {
+  const published = topics.filter(topic => topic.subject === "automatizace" && topic.status === "complete");
+  const list = '<ol class="learn-public-topics">' + published.map(topic =>
+    `<li><a href="/maturita/otazka/${encodeURIComponent(topic.slug)}/">${safeAttribute(topic.number)}. ${safeAttribute(topic.title)}</a></li>`
+  ).join("") + "</ol>";
+  return new HTMLRewriter()
+    .on("[data-question-list]", { element(element) { element.setInnerContent(list, { html: true }); } })
+    .transform(response);
+}
+
+function addAcceptVary(headers) {
+  const value = headers.get("vary") || "";
+  if (value === "*") return;
+  if (!value.split(",").some(item => item.trim().toLowerCase() === "accept")) {
+    headers.set("vary", value ? `${value}, Accept` : "Accept");
+  }
+}
+
+async function publicRepresentation(request, response, path) {
+  // Do not export Learn+, authentication, beta electronics, API responses or errors.
+  const allowed = path === "/" || path === "/maturita/" ||
+    path === "/maturita/automatizace/" || path === "/maturita/procvicovani/" ||
+    path === "/pc-sestava/" || /^\/maturita\/otazka\/automatizace-[a-z0-9-]+\/$/.test(path);
+  if (!allowed || response.status !== 200 ||
+    !/^text\/html(?:\s*;|$)/i.test(response.headers.get("content-type") || "") ||
+    !["GET", "HEAD"].includes(request.method)) return response;
+
+  const headers = new Headers(response.headers);
+  addAcceptVary(headers);
+  if (!wantsMarkdown(request.headers.get("accept"))) {
+    return new Response(response.body, { status: response.status, headers });
+  }
+  if (request.method === "HEAD") {
+    headers.set("content-type", "text/markdown; charset=utf-8");
+    for (const key of ["content-length", "content-encoding", "etag"]) headers.delete(key);
+    return new Response(null, { status: 200, headers });
+  }
+  const markdown = htmlToMarkdown(await response.text(), request.url);
+  headers.set("content-type", "text/markdown; charset=utf-8");
+  for (const key of ["content-length", "content-encoding", "etag"]) headers.delete(key);
+  return new Response(markdown, { status: 200, headers });
+}
+
 
 function assetRequest(request, pathname) {
   const url = new URL(request.url);
@@ -698,6 +759,18 @@ export default {
       return new Response(null, { status: 303, headers: { location: isElectronicsPath(next) ? next : "/maturita/elektronika/", "set-cookie": `${ACCESS_COOKIE}=${token}; Path=/maturita/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`, "cache-control": "no-store" } });
     }
 
+    // Prevent indexing the independent staging host.
+    if (url.hostname === "stage.learn.shieldio.cz" && url.pathname === "/robots.txt") {
+      return new Response("User-agent: *\nDisallow: /\n", {
+        headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=300" }
+      });
+    }
+
+    if (url.pathname.endsWith("/index.html")) {
+      const canonicalPath = url.pathname.replace(/\/index\.html$/, "/");
+      return Response.redirect(`${url.origin}${canonicalPath}${url.search}`, 308);
+    }
+
     const normalizedPath = url.pathname.replace(/\/index\.html$/, "/");
     if (isElectronicsPath(normalizedPath) && !(await hasElectronicsAccess(request, env))) return accessPage(`${normalizedPath}${url.search}`);
 
@@ -705,7 +778,10 @@ export default {
       const dataResponse = await env.ASSETS.fetch(assetRequest(request, "/assets/data/learn-questions.json"));
       const data = await dataResponse.json();
       const fixedPaths = ["/", "/maturita/", "/maturita/automatizace/", "/pc-sestava/"];
-      const topicPaths = data.questions.filter(topic => topic.subject !== "elektronika").map(topic => `/maturita/otazka/${topic.slug}/`);
+      // Only publicly available, published topics belong in the sitemap.
+      // The electronics beta remains password-gated and unlisted.
+      const topicPaths = data.questions.filter(topic => topic.subject === "automatizace" && topic.status === "complete")
+        .map(topic => `/maturita/otazka/${topic.slug}/`);
       const urls = [...fixedPaths, ...topicPaths].map(path => `  <url><loc>https://learn.shieldio.cz${path}</loc><changefreq>${path.includes("/otazka/") ? "weekly" : "monthly"}</changefreq></url>`).join("\n");
       return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`, {
         headers: { "content-type": "application/xml; charset=UTF-8", "cache-control": "public, max-age=3600" }
@@ -730,11 +806,17 @@ export default {
       if (dataResponse.ok) {
         const data = await dataResponse.json();
         const topic = data.questions.find(item => item.slug === topicMatch[1]);
-        if (topic) seoPage = {
+        if (topic && topic.status === "complete") seoPage = {
           title: topic.title,
-          description: `Maturitní okruh ${topic.number}: ${topic.title}. Výklad, názorné prvky, vzorce, příklady a ověření znalostí.`,
+          summary: topic.summary,
+          status: topic.status,
+          description: `Maturitní okruh ${topic.number}: ${topic.title}. ${topic.summary || "Studijní materiál z elektrotechniky."}`,
           url: `https://learn.shieldio.cz${publicPath}`
         };
+        else if (!topic || topic.status !== "complete") {
+          const notFound = await env.ASSETS.fetch(assetRequest(request, `${STATIC_PREFIX}/404.html`));
+          return new Response(notFound.body, { status: 404, headers: notFound.headers });
+        }
       }
     } else if (publicPath.startsWith("/plus/")) {
       assetPath = `${STATIC_PREFIX}/edupage/${publicPath.slice("/plus/".length)}`;
@@ -744,8 +826,22 @@ export default {
       assetPath = `${STATIC_PREFIX}${publicPath}`;
     }
 
-    const response = await env.ASSETS.fetch(assetRequest(request, assetPath));
-    if (response.status !== 404) return publicPath.startsWith("/plus/") ? secureLearnPlus(response) : seoTransform(response, seoPage);
+    let response = await env.ASSETS.fetch(assetRequest(request, assetPath));
+    if (response.status !== 404) {
+      if (publicPath.startsWith("/plus/")) return secureLearnPlus(response);
+      if (publicPath === "/maturita/automatizace/" && response.ok) {
+        const catalog = await env.ASSETS.fetch(assetRequest(request, "/assets/data/learn-questions.json"));
+        if (catalog.ok) response = publicSubjectTransform(response, (await catalog.json()).questions);
+      }
+      response = seoTransform(response, seoPage);
+      // Staging is excluded even when the browser or crawler ignores robots.txt.
+      if (url.hostname === "stage.learn.shieldio.cz") {
+        const headers = new Headers(response.headers);
+        headers.set("x-robots-tag", "noindex, nofollow");
+        response = new Response(response.body, { status: response.status, headers });
+      }
+      return publicRepresentation(request, response, publicPath);
+    }
     const notFound = await env.ASSETS.fetch(assetRequest(request, `${STATIC_PREFIX}/404.html`));
     return new Response(notFound.body, { status: 404, headers: notFound.headers });
   },

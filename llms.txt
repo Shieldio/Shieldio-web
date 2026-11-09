@@ -29,3 +29,8 @@
 - [Barrier lesson plan](https://shieldio.cz/company/metodika-zavora.html): 45/90 minute proposals, worksheet and rubric, to adapt to the school’s conditions.
 - [About](https://shieldio.cz/company/about.html): the author and development status.
 - [FAQ](https://shieldio.cz/faq.html), [news](https://shieldio.cz/aktuality/), [contact](https://shieldio.cz/company/contact.html).
+
+## Shieldio Learn
+
+- [AI index studijních materiálů](https://learn.shieldio.cz/llms.txt): veřejné maturitní materiály a Markdown reprezentace na samostatné subdoméně.
+- [Maturita – automatizace](https://learn.shieldio.cz/maturita/automatizace/): veřejné okruhy. Elektronika v beta režimu není veřejně přístupná.

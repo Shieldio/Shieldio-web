@@ -23,12 +23,13 @@ Learn používá také Durable Object `NOTE_SUBMISSIONS` / `NoteSubmissionGuard`
 | [deploy.yml](../../.github/workflows/deploy.yml) | Každý push na `main` | `workflow_dispatch`; celý kořen → GitHub Pages |
 | [deploy-simulation.yml](../../.github/workflows/deploy-simulation.yml) | Push na `main`, pokud změna odpovídá `experiments/simulation/**`, `workers/simulation.mjs`, `wrangler.simulation.jsonc`, `tests/simulation-worker.test.mjs` nebo `.github/workflows/deploy-simulation.yml` | `workflow_dispatch`; příprava ngspice, výpočetní a browser testy → Worker Simulation |
 | [deploy-flight360.yml](../../.github/workflows/deploy-flight360.yml) | Push na `main`, pokud změna odpovídá `experiments/flight360/**`, `workers/flight360.mjs`, `wrangler.flight360.jsonc`, `tests/flight360-embed.test.mjs` nebo `.github/workflows/deploy-flight360.yml` | `workflow_dispatch`; test embed směrování a hlaviček → Worker Flight360 |
+| [deploy-learn.yml](../../.github/workflows/deploy-learn.yml) | Změny `learn/**`, katalogu otázek nebo sdíleného Markdown modulu na `main` | PR jen ověřuje testy; push po úspěšných testech nasazuje Learn a kontroluje produkci včetně beta brány |
 | [deploy-luxmaxing.yml](../../.github/workflows/deploy-luxmaxing.yml) | Push na `main`, pokud změna odpovídá `luxmaxing/**`, `wrangler.luxmaxing.jsonc` nebo `.github/workflows/deploy-luxmaxing.yml` | `workflow_dispatch`; Worker Luxmaxing |
 | [test-arduino.yml](../../.github/workflows/test-arduino.yml) | Push na `main` či `codex/site-audit-fixes-20261103` a událost `pull_request`, vždy s filtry `paths` uvedenými ve workflow | Pouze testy obsahu, navigace, UI, Blockly a AVR; bez nasazení |
 
 Při úpravě spouštěčů aktualizuj tuto tabulku. Úplný seznam cest testovacího workflow udržuj přímo v jeho `on.push.paths` a `on.pull_request.paths`.
 
-Cloudflare workflow potřebují secret `CLOUDFLARE_API_TOKEN`. Luxmaxing čte také `CLOUDFLARE_ACCOUNT_ID` ze secrets; Simulation a Flight360 mají ID účtu ve workflow. Learn a Light nemají samostatné deploy workflow; použij příkazy níže.
+Cloudflare workflow potřebují secret `CLOUDFLARE_API_TOKEN`. Luxmaxing čte také `CLOUDFLARE_ACCOUNT_ID` ze secrets; Simulation a Flight360 mají ID účtu ve workflow. Learn má vlastní [testovací a nasazovací workflow](../../.github/workflows/deploy-learn.yml) pro bezpečnou publikaci SEO, Markdown a public sitemap; Light nemá samostatný deploy workflow a nasazuje se níže uvedeným příkazem.
 
 ## Learn a Light: lokální kontrola a nasazení
 
@@ -61,3 +62,9 @@ Doménu lze připojit také v **Workers & Pages → příslušný Worker → Set
 Po nasazení ověř stav 200 a platné HTTPS na [Learn](https://learn.shieldio.cz/), [maturitě](https://learn.shieldio.cz/maturita/), [ukázkové otázce](https://learn.shieldio.cz/maturita/otazka/demo-otazka-01/) nebo [Light](https://light.shieldio.cz/) podle nasazované aplikace. Zkontroluj také, že [hlavní web](https://shieldio.cz/) dál zobrazuje produktový web a že formuláře a odkazy fungují.
 
 [Zpět na README](../../README.md) · [Mapa repozitáře](../development/repository-map.md)
+
+## SEO a AI na Learn
+
+Veřejný `learn.shieldio.cz` má vlastní `/robots.txt`, dynamickou `/sitemap.xml`, `/llms.txt` a Markdown content negotiation (`Accept: text/markdown`). Hlavní Worker Learn vkládá na serveru skutečné titulky, shrnutí a odkazy na indexovatelné otázky automatizace. Plné interaktivní kapitoly stále mohou vyžadovat JavaScript; Markdown není náhradou celé JS lekce.
+
+Veřejná sitemap záměrně **neobsahuje elektroniku v uzamčené beta fázi, Learn+ a neexistující témata**. Beta brána a Learn+ se nezpřístupňují robotům. Staging vrací `X-Robots-Tag: noindex, nofollow` a vlastní `robots.txt` s `Disallow: /`.
