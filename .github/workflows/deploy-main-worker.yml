@@ -17,6 +17,7 @@ on:
       - 'tests/readable-guides.test.mjs'
       - 'tests/main-web-markdown.test.mjs'
       - 'tests/security-baseline.test.mjs'
+      - 'tests/block-project-validation.test.mjs'
       - 'tests/site-ai-discovery.test.mjs'
       - 'llms.txt'
       - 'sitemap.xml'
@@ -48,8 +49,11 @@ jobs:
         run: node --test tests/site-ai-discovery.test.mjs
       - name: Ověřit bezpečnostní hlavičky a routování
         run: node --test tests/security-baseline.test.mjs
+      - name: Ověřit validaci blokových projektů
+        run: node --test tests/block-project-validation.test.mjs
       - name: Ověřit zdroje editoru
         run: |
+          node --check assets/js/block-project-validation.js
           node --check assets/js/blockly-editor.js
           node --check assets/js/arduino-programming.mjs
           python3 -c "import json; json.load(open('assets/data/i18n.json'))"
