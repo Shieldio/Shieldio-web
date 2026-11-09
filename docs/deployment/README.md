@@ -29,7 +29,7 @@ Learn používá také Durable Object `NOTE_SUBMISSIONS` / `NoteSubmissionGuard`
 
 Při úpravě spouštěčů aktualizuj tuto tabulku. Úplný seznam cest testovacího workflow udržuj přímo v jeho `on.push.paths` a `on.pull_request.paths`.
 
-Cloudflare workflow potřebují secret `CLOUDFLARE_API_TOKEN`. Luxmaxing čte také `CLOUDFLARE_ACCOUNT_ID` ze secrets; Simulation a Flight360 mají ID účtu ve workflow. Learn má vlastní [testovací a nasazovací workflow](../../.github/workflows/deploy-learn.yml) pro bezpečnou publikaci SEO, Markdown a public sitemap; Light nemá samostatný deploy workflow a nasazuje se níže uvedeným příkazem.
+Cloudflare workflow potřebují secret `CLOUDFLARE_API_TOKEN`. Luxmaxing, Simulation a Flight360 používají stejné Cloudflare Account ID uvedené ve svých workflows. Learn má vlastní [testovací a nasazovací workflow](../../.github/workflows/deploy-learn.yml) pro bezpečnou publikaci SEO, Markdown a public sitemap; Light nemá samostatný deploy workflow a nasazuje se níže uvedeným příkazem.
 
 ## Learn a Light: lokální kontrola a nasazení
 
