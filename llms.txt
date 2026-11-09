@@ -34,3 +34,11 @@
 
 - [AI index studijních materiálů](https://learn.shieldio.cz/llms.txt): veřejné maturitní materiály a Markdown reprezentace na samostatné subdoméně.
 - [Maturita – automatizace](https://learn.shieldio.cz/maturita/automatizace/): veřejné okruhy. Elektronika v beta režimu není veřejně přístupná.
+
+## Další veřejné subdomény
+
+- [Shieldio Learn](https://learn.shieldio.cz/llms.txt): studijní materiály a maturitní okruhy, veřejný Markdown pro AI.
+- [Shieldio Sim](https://simulation.shieldio.cz/): interaktivní simulátor elektrických obvodů, číslicové logiky a FBD.
+- [Light](https://light.shieldio.cz/): iniciativy odpovědného venkovního osvětlení.
+- [Luxmaxing](https://luxmaxing.shieldio.cz/): světelné podmínky ve školách.
+- [Flight360](https://flight360.shieldio.cz/): 360° letecké prohlídky.
