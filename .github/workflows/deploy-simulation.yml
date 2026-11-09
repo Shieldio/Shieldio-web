@@ -7,6 +7,7 @@ on:
       - 'workers/simulation.mjs'
       - 'wrangler.simulation.jsonc'
       - 'tests/simulation-worker.test.mjs'
+      - 'tests/subdomain-seo.test.mjs'
       - '.github/workflows/deploy-simulation.yml'
   workflow_dispatch:
 permissions:
@@ -25,6 +26,8 @@ jobs:
           node-version: '22'
       - name: Připravit ověřené simulační jádro ngspice
         run: node experiments/simulation/prepare-vendor.mjs
+      - name: Ověřit SEO a indexaci subdomén
+        run: node --test tests/subdomain-seo.test.mjs
       - name: Ověřit analogové výpočty, číslicovou logiku, ngspice a Worker
         run: node --test experiments/simulation/tests/*.test.mjs tests/simulation-worker.test.mjs
       - name: Ověřit skutečný prohlížeč a pracovní plochu
