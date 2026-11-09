@@ -22,6 +22,10 @@
 - [RED projects](https://shieldio.cz/instructions/baseline/red/): barrier, parking assistant, timer, theremin, distance meter and scanning radar. Radar requires additional mechanics and wiring.
 - [Electronics explanations](https://shieldio.cz/instructions/jak-to-funguje/): Ohm’s law, LED/diode, capacitors, PWM, pull-ups/debounce, ultrasonic sensing and PCBs.
 
+## Which learning setting fits RED?
+
+- [Who Shieldio RED is for](https://shieldio.cz/edu/pro-koho-je-shieldio/): Czech practical guide for school lessons, technology clubs and individual learning; also explains when RED is unsuitable and that the hardware is not on sale yet.
+
 ## Status and teaching
 
 - [Board overview](https://shieldio.cz/products/): current prototype/concept status; interest is non-binding, not an order.
