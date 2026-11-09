@@ -23,3 +23,18 @@ Očekává se `text/html` u standardního požadavku, `text/markdown; charset=ut
 Překlad na serveru používá český HTML fallback. Přepínání jazyka pomocí JavaScriptu v prohlížeči toto vyjednávání neovlivňuje. Markdown je určený pro obsahové stránky, ne jako programové API pro interaktivní editor.
 
 Alternativa: placená funkce Cloudflare *Markdown for Agents* v dashboardu převádí HTML přímo na síti. Tento Worker je nezávislé řešení bez tohoto přepínače.
+
+## Veřejné projektové návody bez JavaScriptu
+
+Pět vydaných návodů RED (sestavení V3, závora, parkovací asistent, časovač a theremin) má statickou textovou alternativu v samotném HTML, vygenerovanou z `assets/js/guide-data-*.js`.
+
+Při nasazení Cloudflare Workers i GitHub Pages se spouští:
+
+```sh
+node scripts/generate-readable-guides.mjs
+node --test tests/readable-guides.test.mjs
+```
+
+Zdrojové `index.html` v repozitáři obsahují interaktivní rám; generátor při sestavení doplní přístupný HTML návod pod něj. Návod je ve výchozím stavu otevřený pro návštěvníka bez JavaScriptu, po spuštění interaktivního průvodce se pouze sbalí, ale zůstává kdykoli rozbalitelný. Markdown Worker u těchto stránek přednostně exportuje statický úplný text.
+
+Zdroj pravdy jsou původní data návodů; **neupravuj odděleně generované bloky**. Při úpravě projektu aktualizuj odpovídající `guide-data-*.js`. Případné revize hardwaru uváděj výslovně. Interní návrhy GREEN/YELLOW se automaticky nepublikují.

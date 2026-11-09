@@ -13,6 +13,8 @@ on:
       - '3D-tisk/**'
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
+      - 'scripts/generate-readable-guides.mjs'
+      - 'tests/readable-guides.test.mjs'
       - 'tests/main-web-markdown.test.mjs'
       - 'llms.txt'
       - 'sitemap.xml'
@@ -34,6 +36,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Připravit textové verze návodů bez JavaScriptu
+        run: node scripts/generate-readable-guides.mjs
+      - name: Ověřit úplnost textových návodů
+        run: node --test tests/readable-guides.test.mjs
       - name: Ověřit Markdown pro AI agenty
         run: node --test tests/main-web-markdown.test.mjs
       - name: Ověřit zdroje editoru
@@ -61,4 +67,13 @@ jobs:
             test "${html_type%%;*}" = "text/html" || { echo "::error::Očekává se text/html na $url"; exit 1; }
             test "${md_type%%;*}" = "text/markdown" || { echo "::error::Očekává se text/markdown na $url"; exit 1; }
             grep -q 'Shieldio' /tmp/shieldio-response.md || { echo "::error::V odpovědi chybí obsah Shieldio"; exit 1; }
+          done
+          for slug in sestaveni zavora parkovaci-asistent casovac theremin; do
+            url="https://shieldio.cz/instructions/baseline/red/$slug/"
+            echo "Kontrola úplného návodu: $url"
+            curl -fsSL --max-time 25 "$url" -o /tmp/shieldio-guide.html
+            curl -fsSL --max-time 25 -H 'Accept: text/markdown' "$url" -o /tmp/shieldio-guide.md
+            grep -q 'id="guide-text-content"' /tmp/shieldio-guide.html || { echo "::error::Chybí bez-JS návod: $slug"; exit 1; }
+            grep -q '^## Krok 1:' /tmp/shieldio-guide.md || { echo "::error::Markdown neobsahuje postup: $slug"; exit 1; }
+            grep -q '^## Součástky a vybavení' /tmp/shieldio-guide.md || { echo "::error::Markdown neobsahuje součástky: $slug"; exit 1; }
           done
