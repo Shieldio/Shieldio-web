@@ -73,6 +73,14 @@ jobs:
             echo "Kontrola úplného návodu: $url"
             curl -fsSL --max-time 25 "$url" -o /tmp/shieldio-guide.html
             curl -fsSL --max-time 25 -H 'Accept: text/markdown' "$url" -o /tmp/shieldio-guide.md
+            if ! grep -q 'id="guide-text-content"' /tmp/shieldio-guide.html; then
+              echo "::warning::První HTML odpověď je zastaralá: $slug; ověřuji aktuální nasazení"
+              for attempt in 1 2 3; do
+                sleep 2
+                curl -fsSL --max-time 25 -H 'Cache-Control: no-cache' "$url?build=$GITHUB_SHA-$attempt" -o /tmp/shieldio-guide.html
+                if grep -q 'id="guide-text-content"' /tmp/shieldio-guide.html; then break; fi
+              done
+            fi
             grep -q 'id="guide-text-content"' /tmp/shieldio-guide.html || { echo "::error::Chybí bez-JS návod: $slug"; exit 1; }
             if ! grep -q '^## Krok 1:' /tmp/shieldio-guide.md; then
               echo "::warning::První odpověď neobsahuje začátek postupu: $slug"
