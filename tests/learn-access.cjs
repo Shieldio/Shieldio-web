@@ -6,6 +6,7 @@ const { webcrypto } = require('node:crypto');
 
 const source = fs.readFileSync(path.join(__dirname, '..', 'learn', 'worker.js'), 'utf8')
   .replace(/^import [^\n]+\n/gm, '')
+  .replace('export class NoteSubmissionGuard', 'class NoteSubmissionGuard')
   .replace('export default {', 'globalThis.worker = {');
 const context = { URL, Request, Response, TextEncoder, crypto: webcrypto };
 vm.runInNewContext(source, context);
