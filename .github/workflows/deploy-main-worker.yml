@@ -12,6 +12,10 @@ on:
       - 'aktuality/**'
       - '3D-tisk/**'
       - 'wrangler.jsonc'
+      - 'workers/main-web.mjs'
+      - 'tests/main-web-markdown.test.mjs'
+      - 'llms.txt'
+      - 'sitemap.xml'
       - '.assetsignore'
       - '_redirects'
       - '.github/workflows/deploy-main-worker.yml'
@@ -30,6 +34,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Ověřit Markdown pro AI agenty
+        run: node --test tests/main-web-markdown.test.mjs
       - name: Ověřit zdroje editoru
         run: |
           node --check assets/js/blockly-editor.js
@@ -42,3 +48,17 @@ jobs:
           accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
           wranglerVersion: '4.158.0'
           command: deploy --config wrangler.jsonc
+      - name: Zkontrolovat HTTP content negotiation na produkci
+        shell: bash
+        run: |
+          set -euo pipefail
+          for url in "https://shieldio-web.swwzr5pj2f.workers.dev/" "https://shieldio.cz/"; do
+            echo "Kontrola $url"
+            html_type=$(curl -fsSL --max-time 25 -o /dev/null -w '%{content_type}' "$url")
+            md_type=$(curl -fsSL --max-time 25 -H 'Accept: text/markdown' -o /tmp/shieldio-response.md -w '%{content_type}' "$url")
+            echo "HTML: $html_type"
+            echo "Markdown: $md_type"
+            test "${html_type%%;*}" = "text/html" || { echo "::error::Očekává se text/html na $url"; exit 1; }
+            test "${md_type%%;*}" = "text/markdown" || { echo "::error::Očekává se text/markdown na $url"; exit 1; }
+            grep -q 'Shieldio' /tmp/shieldio-response.md || { echo "::error::V odpovědi chybí obsah Shieldio"; exit 1; }
+          done
