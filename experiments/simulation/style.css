@@ -28,3 +28,6 @@
 @media(max-width:1100px){.scope header output{display:none}.instrument-controls #durationLabel{display:none}}@media(max-width:650px){#scopes{grid-template-columns:1fr!important;grid-auto-rows:minmax(180px,1fr)}.scope-width-grip{display:none}.instrument-controls input#speed{width:125px}.scope{min-width:0}}
 .scope-readout{padding:5px 9px;font:11px var(--mono);border-top:1px solid var(--line);font-variant-numeric:tabular-nums;line-height:1.5;color:var(--ink)}
 .model-parameters{border-block:1px solid var(--line);margin:12px 0;padding:8px 0}.model-parameters>summary{font-size:12px;font-weight:650}.scope header output{display:none}
+
+/* Accessible heading for crawler and screen-reader navigation without disturbing the workbench. */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
