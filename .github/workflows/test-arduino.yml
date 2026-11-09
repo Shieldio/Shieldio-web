@@ -32,6 +32,7 @@ on:
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
       - 'tests/main-web-markdown.test.mjs'
+      - 'tests/security-baseline.test.mjs'
       - 'tests/readable-guides.test.mjs'
       - 'tests/subdomain-seo.test.mjs'
       - 'experiments/simulation/index.html'
@@ -84,6 +85,7 @@ on:
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
       - 'tests/main-web-markdown.test.mjs'
+      - 'tests/security-baseline.test.mjs'
       - 'tests/readable-guides.test.mjs'
       - 'tests/subdomain-seo.test.mjs'
       - 'experiments/simulation/index.html'
@@ -126,6 +128,7 @@ jobs:
       - run: node --test tests/readable-guides.test.mjs
       - run: node --test tests/subdomain-seo.test.mjs
       - run: node --test tests/main-web-markdown.test.mjs
+      - run: node --test tests/security-baseline.test.mjs
       - run: node --test tests/site-ai-discovery.test.mjs
       - run: python3 tests/site-content.test.py
       - run: python3 tests/legal-guardrails.py
