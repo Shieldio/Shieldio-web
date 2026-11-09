@@ -1,12 +1,12 @@
 # Nasazení
 
-Hlavní web publikuje GitHub Pages workflow. Cloudflare integrace nasazuje hlavní Worker, pokud je zapnutá v účtu. Learn, Light a ostatní aplikace mají vlastní konfigurace; příkazy níže spouštěj z kořene repozitáře.
+Hlavní web publikuje GitHub Pages workflow. Cloudflare integrace nasazuje hlavní Worker, pokud je zapnutá v účtu. Hlavní Worker používá [Markdown content negotiation](markdown-for-agents.md): běžně HTML, na výslovné `Accept: text/markdown` odpovídá Markdownem. Learn, Light a ostatní aplikace mají vlastní konfigurace; příkazy níže spouštěj z kořene repozitáře.
 
 ## Konfigurace Workers
 
 | Část | Konfigurace | Worker / vstup | Assets | Custom Domain v konfiguraci |
 |---|---|---|---|---|
-| Hlavní web | [wrangler.jsonc](../../wrangler.jsonc) | `shieldio-web`, statický | `.` | Není uvedena; napojení spravuje účet |
+| Hlavní web | [wrangler.jsonc](../../wrangler.jsonc) | `shieldio-web`, `workers/main-web.mjs` | `.`, binding `ASSETS`, Worker první | Není uvedena; napojení spravuje účet |
 | Learn | [wrangler.learn.jsonc](../../wrangler.learn.jsonc) | `shieldio-learn`, `learn/worker.js` | `.`, binding `ASSETS`, Worker první | `learn.shieldio.cz` |
 | Learn staging | [wrangler.stage.jsonc](../../wrangler.stage.jsonc) | `shieldio-learn-stage`, `learn/worker.js` | `.`, binding `ASSETS`, Worker první | `stage.learn.shieldio.cz` |
 | Light | [wrangler.light.jsonc](../../wrangler.light.jsonc) | `shieldio-light`, statický | `light` | `light.shieldio.cz` |
