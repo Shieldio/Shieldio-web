@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arduino pro školy a kroužky: kdy použít Shieldio RED</title>
+<meta name="description" content="Pro koho je výuková deska Shieldio RED, jak začít s Arduino Nano, LED, ultrazvukem, servem a OLED a kdy raději zvolit jiné řešení. RED V4 je stále prototyp.">
+<link rel="canonical" href="https://shieldio.cz/edu/pro-koho-je-shieldio/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Pro koho je Shieldio RED a jak s ním začít">
+<meta property="og:description" content="Praktický přehled použití, požadavků, omezení a prvních projektů výukové elektroniky Shieldio RED.">
+<meta property="og:url" content="https://shieldio.cz/edu/pro-koho-je-shieldio/">
+<meta property="og:image" content="https://shieldio.cz/assets/images/RED_hand_hold_with_parts.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://shieldio.cz/edu/pro-koho-je-shieldio/#webpage",
+  "url": "https://shieldio.cz/edu/pro-koho-je-shieldio/",
+  "name": "Arduino pro školy a kroužky: kdy použít Shieldio RED",
+  "description": "Pro koho je Shieldio RED, jak začít s výukou Arduino elektroniky a jaká jsou omezení vývojového prototypu.",
+  "inLanguage": "cs",
+  "about": { "@id": "https://shieldio.cz/products/RED.html#product" },
+  "isPartOf": { "@id": "https://shieldio.cz/#website" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Shieldio","item":"https://shieldio.cz/"},
+    {"@type":"ListItem","position":2,"name":"Edu","item":"https://shieldio.cz/edu/"},
+    {"@type":"ListItem","position":3,"name":"Pro koho je Shieldio","item":"https://shieldio.cz/edu/pro-koho-je-shieldio/"}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="/"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="/products/">Produkty</a>
+        <a href="/instructions/">Návody</a>
+        <a href="/company/pro-ucitele.html">Pro učitele</a>
+        <a href="/company/about.html">O nás</a>
+        <a href="/instructions/blokovy-editor.html" class="nav-code-link">Programování</a>
+      </nav>
+      <a class="cta-small" href="/#kontakt">Kontakt</a>
+      <button class="nav-toggle" type="button" aria-label="Otevřít menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</div>
+<main id="hlavni-obsah" class="wrap" style="max-width:920px;padding-top:50px;padding-bottom:72px">
+  <p class="eyebrow">Výuková elektronika · praktický rozcestník</p>
+  <h1>Pro koho je Shieldio RED?</h1>
+  <p class="lead">Shieldio RED je vyvíjená elektronická deska s modulem kompatibilním s Arduino Nano. Umožňuje učit se na konkrétních úlohách: rozsvítit LED, změřit vzdálenost, ovládat servo a zobrazit hodnoty na OLED displeji. K tomu je k dispozici webový editor a projektové návody.</p>
+  <p><strong>Aktuální stav:</strong> RED V4 se testuje a připravuje se další revize. Deska zatím není v prodeji. Veřejně dostupné jsou návody, výukové podklady a editor; možnost využití desky ve škole se řeší individuálně přes kontakt.</p>
+
+  <section aria-labelledby="kdy-pouzivat">
+    <h2 id="kdy-pouzivat">Kdy má smysl se Shieldio zabývat</h2>
+    <h3>Výuka ve škole</h3>
+    <p>Pokud chcete během hodiny propojit programování s fyzickým výsledkem, můžete začít blikáním LED a pokračovat automatickou závorou. K projektu je připravený <a href="/company/metodika-zavora.html">návrh hodiny na 45 nebo 90 minut s pracovním listem</a>. Před hodinou je potřeba vyzkoušet USB připojení na školním počítači.</p>
+    <h3>Technický kroužek</h3>
+    <p>Skupina může postupovat od základního zapojení k úlohám s ultrazvukem, servem a displejem. <a href="/instructions/baseline/red/">Projektové návody RED</a> ukazují konkrétní práci se součástkami a umožňují upravit chování vlastního programu.</p>
+    <h3>Domácí zájem o Arduino</h3>
+    <p>Návody se dají číst i bez desky. <a href="/instructions/blokovy-editor.html">Webový editor Shieldio</a> umožňuje prohlížet bloky i Arduino C++; k nahrání programu do skutečného zařízení ale potřebujete kompatibilní hardware a USB datový kabel.</p>
+  </section>
+
+  <section aria-labelledby="vyber">
+    <h2 id="vyber">Kdy je lepší jiné řešení</h2>
+    <ul>
+      <li><strong>Potřebujete stavebnici ihned koupit:</strong> RED je zatím ve fázi vývoje, nikoli běžně dostupný výrobek.</li>
+      <li><strong>Chcete vlastní obvody stavět od nuly na nepájivém poli:</strong> samostatné Arduino a jednotlivé součástky vám dávají větší volnost v zapojení.</li>
+      <li><strong>Potřebujete nahrávat programy na ESP32 nebo jiné desky:</strong> výukové nahrávání ve webovém editoru Shieldio je aktuálně zaměřené na klasické Nano s ATmega328P.</li>
+      <li><strong>Pracujete v Safari nebo na telefonu:</strong> pro přímé nahrávání do desky přes Web Serial použijte podporovaný počítačový Chrome nebo Edge.</li>
+    </ul>
+    <p>Shieldio nenahrazuje každou Arduino stavebnici ani celé vybavení elektrotechnické laboratoře. Je zaměřené na konkrétní úlohy a jejich srozumitelný postup.</p>
+  </section>
+
+  <section aria-labelledby="prvni-hodina">
+    <h2 id="prvni-hodina">Jak připravit první vyzkoušení</h2>
+    <ol>
+      <li><a href="/instructions/programovani/">Projděte první program</a> s blikající LED a ověřte, jak se vybírá USB port.</li>
+      <li>Pro školní počítače ověřte oprávnění k USB, datový kabel a prohlížeč Chrome nebo Edge.</li>
+      <li><a href="/instructions/baseline/red/zavora/">Vyzkoušejte automatickou závoru</a> a změňte práh vzdálenosti, při kterém se servo otočí.</li>
+      <li>Pro žáky připravte otázku: co se má stát při chybě měření nebo při odpojení senzoru?</li>
+      <li>Pokud chcete návod použít ve třídě, upravte si <a href="/company/pro-ucitele.html">učitelské podklady</a> podle věku a vybavení.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="zdroje">
+    <h2 id="zdroje">Dokumentace a skutečný stav projektu</h2>
+    <ul>
+      <li><a href="/products/RED.html">RED – funkce, vývojový stav a nezávazný zájem</a></li>
+      <li><a href="/instructions/baseline/red/prehled/">Přehled součástek a pinů RED</a> – ověřujte revizi desky; podklady pro V3 nemusí platit pro V4.</li>
+      <li><a href="/instructions/baseline/red/sestaveni/">Sestavení a pájení RED V3</a> – výslovně pro tuto revizi.</li>
+      <li><a href="/edu/">Materiály pro výuku</a> a <a href="/faq.html">časté otázky</a></li>
+    </ul>
+    <p>Chcete projekt vyzkoušet s konkrétní skupinou? <a href="/#kontakt">Napište, o jaký typ výuky jde a jaké máte vybavení.</a> Nezávazný kontakt není objednávka ani rezervace desky.</p>
+  </section>
+</main>
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="/products/">Produkty</a><a href="/instructions/">Návody</a><a href="/instructions/blokovy-editor.html">Programování</a><a href="/edu/">Edu</a><a href="/company/pro-ucitele.html">Pro učitele</a><a href="/faq.html">FAQ</a><a href="/#kontakt">Kontakt</a>
+    </nav>
+    <div>© 2026 Shieldio</div>
+  </div>
+</footer>
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/theme.js"></script>
+</body>
+</html>
