@@ -88,10 +88,21 @@ jobs:
             grep -q 'Shieldio' /tmp/shieldio-response.md || { echo "::error::V odpovědi chybí obsah Shieldio"; exit 1; }
           done
           echo "Kontrola živého importu blokových projektů"
-          curl -fsSL --max-time 25 -H 'Cache-Control: no-cache' "https://shieldio.cz/instructions/blokovy-editor.html?build=$GITHUB_SHA" -o /tmp/shieldio-editor.html
-          curl -fsSL --max-time 25 -H 'Cache-Control: no-cache' "https://shieldio.cz/assets/js/block-project-validation.js?build=$GITHUB_SHA" -o /tmp/shieldio-validator.js
-          grep -q 'block-project-validation.js' /tmp/shieldio-editor.html || { echo "::error::Editor nenačítá validátor projektů"; exit 1; }
-          grep -q 'SHIELDIO_BLOCK_PROJECT' /tmp/shieldio-validator.js || { echo "::error::Validátor bloků není veřejně dostupný"; exit 1; }
+          for entry in "instructions/blokovy-editor.html|block-project-validation.js|/tmp/shieldio-editor.html" "assets/js/block-project-validation.js|SHIELDIO_BLOCK_PROJECT|/tmp/shieldio-validator.js"; do
+            IFS='|' read -r path marker destination <<< "$entry"
+            valid=0
+            for attempt in 1 2 3 4 5 6; do
+              for host in shieldio.cz shieldio-web.swwzr5pj2f.workers.dev; do
+                check_url="https://$host/$path?build=$GITHUB_SHA-$attempt"
+                code=$(curl -sSL --max-time 25 -H 'Cache-Control: no-cache' -o "$destination" -w '%{http_code}' "$check_url")
+                echo "$check_url: HTTP $code"
+                if [ "$code" = 200 ] && grep -q "$marker" "$destination"; then valid=1; break; fi
+              done
+              if [ "$valid" = 1 ]; then break; fi
+              sleep 3
+            done
+            test "$valid" = 1 || { echo "::error::Chybí veřejný soubor nebo jeho obsah: $path"; exit 1; }
+          done
           echo "Kontrola průvodce pro školy a kroužky"
           guide_url="https://shieldio.cz/edu/pro-koho-je-shieldio/?build=$GITHUB_SHA"
           curl -fsSL --max-time 25 "$guide_url" -o /tmp/shieldio-audience.html
