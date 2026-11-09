@@ -37,7 +37,6 @@
 
 ## Další veřejné subdomény
 
-- [Shieldio Learn](https://learn.shieldio.cz/llms.txt): studijní materiály a maturitní okruhy, veřejný Markdown pro AI.
 - [Shieldio Sim](https://simulation.shieldio.cz/): interaktivní simulátor elektrických obvodů, číslicové logiky a FBD.
 - [Light](https://light.shieldio.cz/): iniciativy odpovědného venkovního osvětlení.
 - [Luxmaxing](https://luxmaxing.shieldio.cz/): světelné podmínky ve školách.
