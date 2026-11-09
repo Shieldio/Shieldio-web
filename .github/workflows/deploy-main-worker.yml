@@ -106,18 +106,18 @@ jobs:
           curl -fsSL --max-time 25 -D /tmp/shieldio-agent-skills-headers "https://shieldio.cz/.well-known/agent-skills/index.json?build=$GITHUB_SHA" -o /tmp/shieldio-agent-skills.json
           grep -qi '^content-type: application/json' /tmp/shieldio-agent-skills-headers || { echo "::error::Index nemá application/json"; exit 1; }
           python3 - <<'PY'
-          import json, hashlib, urllib.request
+          import json, hashlib, subprocess
           from urllib.parse import urljoin
           index = json.load(open('/tmp/shieldio-agent-skills.json'))
           assert index['$schema'] == 'https://schemas.agentskills.io/discovery/0.2.0/schema.json'
           assert index['skills']
           for skill in index['skills']:
               url = urljoin('https://shieldio.cz/.well-known/agent-skills/index.json', skill['url'])
-              req = urllib.request.Request(url, headers={'Cache-Control': 'no-cache'})
-              with urllib.request.urlopen(req, timeout=25) as response:
-                  assert response.status == 200, url
-                  assert response.headers['Content-Type'].startswith(('text/markdown', 'text/plain'))
-                  body = response.read()
+              headers = subprocess.run(['curl', '-fsSI', '--max-time', '25', url],
+                                       check=True, capture_output=True).stdout.decode('utf-8').lower()
+              assert 'content-type: text/markdown' in headers or 'content-type: text/plain' in headers, url
+              body = subprocess.run(['curl', '-fsSL', '--max-time', '25', '-H', 'Cache-Control: no-cache', url],
+                                    check=True, capture_output=True).stdout
               actual = 'sha256:' + hashlib.sha256(body).hexdigest()
               assert actual == skill['digest'], f"{skill['name']} digest mismatch: {actual}"
               print(skill['name'], "SHA-256 OK")
