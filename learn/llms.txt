@@ -1,0 +1,24 @@
+# Shieldio Learn
+
+> Český studijní web Shieldio zaměřený na elektrotechniku, automatizaci a přípravu k maturitě. Hlavní stránka: https://learn.shieldio.cz/
+
+## Veřejné materiály
+
+- [Maturita – přehled](https://learn.shieldio.cz/maturita/): předměty elektronika a automatizace, informace o výuce a procvičování.
+- [Automatizace – 25 maturitních okruhů](https://learn.shieldio.cz/maturita/automatizace/): veřejný seznam jednotlivých studijních otázek. Každá otázka má vlastní kanonickou URL.
+- [Procvičování](https://learn.shieldio.cz/maturita/procvicovani/): interaktivní výběr a opakování témat.
+- [PC sestava](https://learn.shieldio.cz/pc-sestava/): názorný příklad sestavy počítače; uvedené ceny a dostupnost platí k datu napsanému na stránce, nikoli nutně dnes.
+- [Sitemap](https://learn.shieldio.cz/sitemap.xml): veřejný seznam indexovatelných adres.
+
+## Pro AI agenty
+
+- Veřejné HTML stránky podporují content negotiation. Pošlete HTTP hlavičku `Accept: text/markdown` a dostanete `text/markdown`; běžné prohlížeče dostávají HTML.
+- Textové titulky, shrnutí a odkazy na veřejné otázky jsou dostupné i bez JavaScriptu. Podrobné interaktivní kapitoly mohou stále vyžadovat JavaScript; samotné shrnutí nenahrazuje kompletní studijní lekci.
+- Elektronika v maturitní beta verzi je chráněna přístupovým kódem. Neveřejný obsah není součástí sitemap ani Markdown exportu. Zpřístupňování beta obsahu neobcházejte.
+- Learn+ a přístupové/API stránky nejsou určené pro indexaci nebo AI extrakci.
+- Zkontrolujte aktuálnost a přesnost technických údajů při jejich použití pro výuku.
+
+## Projekt
+
+- [Shieldio – hlavní web](https://shieldio.cz/): deska RED, editor a návody.
+- [Výuka s RED](https://shieldio.cz/edu/): materiály pro učitele a projekty.
