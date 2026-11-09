@@ -68,3 +68,12 @@ jobs:
             test "${md_type%%;*}" = "text/markdown" || { echo "::error::Očekává se text/markdown na $url"; exit 1; }
             grep -q 'Shieldio' /tmp/shieldio-response.md || { echo "::error::V odpovědi chybí obsah Shieldio"; exit 1; }
           done
+          for slug in sestaveni zavora parkovaci-asistent casovac theremin; do
+            url="https://shieldio.cz/instructions/baseline/red/$slug/"
+            echo "Kontrola úplného návodu: $url"
+            curl -fsSL --max-time 25 "$url" -o /tmp/shieldio-guide.html
+            curl -fsSL --max-time 25 -H 'Accept: text/markdown' "$url" -o /tmp/shieldio-guide.md
+            grep -q 'id="guide-text-content"' /tmp/shieldio-guide.html || { echo "::error::Chybí bez-JS návod: $slug"; exit 1; }
+            grep -q '^## Krok 1:' /tmp/shieldio-guide.md || { echo "::error::Markdown neobsahuje postup: $slug"; exit 1; }
+            grep -q '^## Součástky a vybavení' /tmp/shieldio-guide.md || { echo "::error::Markdown neobsahuje součástky: $slug"; exit 1; }
+          done
