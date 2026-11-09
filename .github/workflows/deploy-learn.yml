@@ -85,7 +85,12 @@ jobs:
 
           echo "Kontrola Markdown"
           headers=$(mktemp)
-          curl -fsSL --max-time 30 -H 'Accept: text/markdown' -D "$headers" "$origin/" -o /tmp/learn.md
+          curl -fsSL --max-time 30 -H 'Accept: text/markdown' -D "$headers" "$origin/?check=$GITHUB_SHA" -o /tmp/learn.md
+          echo "Markdown response headers:"
+          cat "$headers"
+          echo "Markdown response preview:"
+          head -c 400 /tmp/learn.md
+          echo
           grep -qi '^content-type: text/markdown' "$headers"
           grep -q 'Shieldio' /tmp/learn.md
 
