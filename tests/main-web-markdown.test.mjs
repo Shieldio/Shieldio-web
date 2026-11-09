@@ -57,3 +57,16 @@ test("HEAD, binary assets and errors retain HTTP semantics", async () => {
   const missing = await worker.fetch(new Request(url + "missing.html", { headers }), environment(404));
   assert.equal(missing.status, 404);
 });
+
+
+test("agent Markdown prefers <main> and links image alt text without nested links", () => {
+  const input = '<!doctype html><html><head><title>Example</title></head><body>' +
+    '<header><a href="/">Header</a></header>' +
+    '<main><h1>Obsah</h1><p>Text lekce.</p><a href="/lekce"><img src="/logo.svg" alt="Logo"> Lekce</a></main>' +
+    '<footer>Paticka</footer></body></html>';
+  const result = htmlToMarkdown(input, "https://shieldio.cz/");
+  assert.match(result, /# Obsah/);
+  assert.match(result, /Text lekce/);
+  assert.match(result, /\[Logo Lekce\]\(https:\/\/shieldio\.cz\/lekce\)/);
+  assert.doesNotMatch(result, /Header|Paticka|!\[Logo\]/);
+});

@@ -33,6 +33,10 @@ on:
       - 'workers/main-web.mjs'
       - 'tests/main-web-markdown.test.mjs'
       - 'tests/readable-guides.test.mjs'
+      - 'tests/subdomain-seo.test.mjs'
+      - 'experiments/simulation/index.html'
+      - 'experiments/simulation/style.css'
+      - 'luxmaxing/**'
       - 'scripts/generate-readable-guides.mjs'
       - 'assets/js/guide-data-*.js'
       - 'tests/site-*'
@@ -81,6 +85,10 @@ on:
       - 'workers/main-web.mjs'
       - 'tests/main-web-markdown.test.mjs'
       - 'tests/readable-guides.test.mjs'
+      - 'tests/subdomain-seo.test.mjs'
+      - 'experiments/simulation/index.html'
+      - 'experiments/simulation/style.css'
+      - 'luxmaxing/**'
       - 'scripts/generate-readable-guides.mjs'
       - 'assets/js/guide-data-*.js'
       - 'tests/site-*'
@@ -116,6 +124,7 @@ jobs:
           node-version: '22'
       - run: node scripts/generate-readable-guides.mjs
       - run: node --test tests/readable-guides.test.mjs
+      - run: node --test tests/subdomain-seo.test.mjs
       - run: node --test tests/main-web-markdown.test.mjs
       - run: python3 tests/site-content.test.py
       - run: python3 tests/legal-guardrails.py

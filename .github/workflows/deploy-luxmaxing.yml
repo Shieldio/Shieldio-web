@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Ověřit SEO a indexaci subdomén
+        run: node --test tests/subdomain-seo.test.mjs
       - name: Ověřit přihlašovací údaje
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

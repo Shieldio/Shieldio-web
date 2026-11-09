@@ -56,7 +56,10 @@ export function htmlToMarkdown(html, pageUrl) {
   // A real static text equivalent is generated from the same guide data
   // before deployment; expose it instead of the empty JavaScript shell.
   const guideContent = body.match(/<main\b[^>]*\bid=["']guide-text-content["'][^>]*>([\s\S]*?)<\/main\s*>/i)?.[1];
-  const safeBody = (guideContent || body)
+  // Keep only the article/main content on sites that use semantic HTML.
+  // Without this, agents receive banners, navigation, image logos and footer links.
+  const mainContent = body.match(/<main\b[^>]*>([\s\S]*?)<\/main\s*>/i)?.[1];
+  const safeBody = (guideContent || mainContent || body)
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/<(script|style|noscript|template|svg)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, "");
   const tokens = safeBody.match(/<[^>]*>|[^<]+/g) || [];
@@ -84,7 +87,12 @@ export function htmlToMarkdown(html, pageUrl) {
     } else if (tag === "img") {
       const alt = attribute(markup, "alt").trim();
       const src = absoluteHref(attribute(markup, "src"), pageUrl);
-      if (alt && src) output += `\n![${alt.replace(/[\[\]]/g, "")}](${src})\n`;
+      if (alt && src) {
+        // Nested images inside <a> are labels of the enclosing link. Rendering
+        // Markdown image syntax inside [link text] makes invalid nested links.
+        const insideLink = stack.some(item => item.tag === "a" && item.href);
+        output += insideLink ? alt.replace(/[\[\]]/g, "") : `\n![${alt.replace(/[\[\]]/g, "")}](${src})\n`;
+      }
     } else if (tag === "tr") { output += "\n| "; headerColumns = 0; inHeaderRow = false; }
     else if (tag === "th" || tag === "td") {
       if (tag === "th") { inHeaderRow = true; headerColumns++; }

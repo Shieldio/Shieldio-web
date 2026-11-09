@@ -68,3 +68,7 @@ Po nasazení ověř stav 200 a platné HTTPS na [Learn](https://learn.shieldio.c
 Veřejný `learn.shieldio.cz` má vlastní `/robots.txt`, dynamickou `/sitemap.xml`, `/llms.txt` a Markdown content negotiation (`Accept: text/markdown`). Hlavní Worker Learn vkládá na serveru skutečné titulky, shrnutí a odkazy na indexovatelné otázky automatizace. Plné interaktivní kapitoly stále mohou vyžadovat JavaScript; Markdown není náhradou celé JS lekce.
 
 Veřejná sitemap záměrně **neobsahuje elektroniku v uzamčené beta fázi, Learn+ a neexistující témata**. Beta brána a Learn+ se nezpřístupňují robotům. Staging vrací `X-Robots-Tag: noindex, nofollow` a vlastní `robots.txt` s `Disallow: /`.
+
+## Technické SEO ostatních subdomén
+
+`simulation.shieldio.cz` má kanonickou URL, indexovatelný sémantický nadpis a vlastní `/robots.txt` a `/sitemap.xml`. `luxmaxing.shieldio.cz` má vlastní `/robots.txt` a `/sitemap.xml`. Flight360 a Light již mají obdobné soubory; samotné přidání sitemapy nezaručuje indexaci. Základní kontrola: `node --test tests/subdomain-seo.test.mjs`.
