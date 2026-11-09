@@ -5718,5 +5718,9 @@
   "home.simple.hero.audience": {
     "cs": "Kdy má RED smysl a jak s ním začít",
     "en": "Who RED is for and how to get started"
+  },
+  "red.audience_link": {
+    "cs": "Pro koho je RED vhodná a kdy zvolit jiné řešení",
+    "en": "Who RED is for and when to choose a different solution"
   }
 }
