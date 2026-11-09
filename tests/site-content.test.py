@@ -31,6 +31,8 @@ def resolve(page,url):
     path=unquote(parsed.path)
     target=posixpath.normpath(path.lstrip('/') if path.startswith('/') else posixpath.join(posixpath.dirname(page),path)) if path else page
     if target=='.':target='index.html'
+    # Tuto cestu obsluhuje Cloudflare Worker, nejde o statický soubor.
+    if target=='.well-known/api-catalog':return target,unquote(parsed.fragment)
     match=next((candidate for candidate in [target,target+'.html',target.rstrip('/')+'/index.html'] if (ROOT/candidate).is_file()),None)
     return match,unquote(parsed.fragment)
 
