@@ -67,6 +67,6 @@ test("agent Markdown prefers <main> and links image alt text without nested link
   const result = htmlToMarkdown(input, "https://shieldio.cz/");
   assert.match(result, /# Obsah/);
   assert.match(result, /Text lekce/);
-  assert.match(result, /\\[Logo Lekce\\]\\(https:\\/\\/shieldio\\.cz\\/lekce\\)/);
-  assert.doesNotMatch(result, /Header|Paticka|!\\[Logo\\]/);
+  assert.match(result, /\[Logo Lekce\]\(https:\/\/shieldio\.cz\/lekce\)/);
+  assert.doesNotMatch(result, /Header|Paticka|!\[Logo\]/);
 });
