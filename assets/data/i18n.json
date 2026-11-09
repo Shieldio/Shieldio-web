@@ -52,8 +52,8 @@
     "en": "ELECTRONICS AND ROBOTICS, MADE SIMPLE FOR EVERYONE"
   },
   "home.title": {
-    "cs": "Shieldio RED – elektronická deska",
-    "en": "Shieldio RED – electronics board"
+    "cs": "Shieldio RED – výuková elektronika a Arduino projekty",
+    "en": "Shieldio RED – educational electronics and Arduino projects"
   },
   "home.topbar_cta": {
     "cs": "Domluvit ukázku",
@@ -5068,8 +5068,8 @@
     "en": "Shieldio RED"
   },
   "home.simple.hero.description": {
-    "cs": "Elektronická deska se senzorem vzdálenosti, servem a displejem.",
-    "en": "An electronics board with a distance sensor, servo and display."
+    "cs": "Výuková deska s modulem kompatibilním s Arduino Nano, ultrazvukem, servem a OLED displejem. Pro školy, kroužky i domácí projekty.",
+    "en": "A learning board with an Arduino Nano-compatible module, ultrasonic sensor, servo and OLED display. For schools, clubs and home projects."
   },
   "home.simple.hero.project": {
     "cs": "Prohlédnout projekty",
@@ -5687,11 +5687,36 @@
     "cs": "3 · Ověření",
     "en": "3 · Verify"
   },
-  "programming.projectMenu": {"cs": "Projekt", "en": "Project"},
-  "programming.serialMonitor": {"cs": "Sériový monitor", "en": "Serial monitor"},
-  "programming.serialBaud": {"cs": "Rychlost", "en": "Baud rate"},
-  "programming.serialStart": {"cs": "Spustit příjem", "en": "Start receiving"},
-  "programming.serialClear": {"cs": "Vymazat výpis", "en": "Clear output"},
-  "programming.serialAutoscroll": {"cs": "Posouvat výpis", "en": "Auto-scroll"},
-  "programming.serialOutput": {"cs": "Přijatá sériová data", "en": "Received serial data"}
+  "programming.projectMenu": {
+    "cs": "Projekt",
+    "en": "Project"
+  },
+  "programming.serialMonitor": {
+    "cs": "Sériový monitor",
+    "en": "Serial monitor"
+  },
+  "programming.serialBaud": {
+    "cs": "Rychlost",
+    "en": "Baud rate"
+  },
+  "programming.serialStart": {
+    "cs": "Spustit příjem",
+    "en": "Start receiving"
+  },
+  "programming.serialClear": {
+    "cs": "Vymazat výpis",
+    "en": "Clear output"
+  },
+  "programming.serialAutoscroll": {
+    "cs": "Posouvat výpis",
+    "en": "Auto-scroll"
+  },
+  "programming.serialOutput": {
+    "cs": "Přijatá sériová data",
+    "en": "Received serial data"
+  },
+  "home.simple.hero.audience": {
+    "cs": "Kdy má RED smysl a jak s ním začít",
+    "en": "Who RED is for and how to get started"
+  }
 }
