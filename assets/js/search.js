@@ -24,10 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
     return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
   }
 
+  // Entries currently come from our own static search JSON. Validate URLs anyway
+  // so a future imported index cannot inject javascript: links or HTML attributes.
+  function safeSearchHref(value) {
+    return typeof value === "string" &&
+      /^\/(?!\/)[^\s\\<>"']+$/.test(value) ? value : "";
+  }
+
   function prepareEntry(entry, order) {
     const title = normalize(entry.title), description = normalize(entry.desc);
     const keywords = normalize((entry.keywords || []).join(" "));
-    return {...entry, order, titleText:title, descriptionText:description, keywordsText:keywords, searchText:`${title} ${description} ${keywords}`};
+    return {...entry, url: safeSearchHref(entry.url), order, titleText:title, descriptionText:description, keywordsText:keywords, searchText:`${title} ${description} ${keywords}`};
   }
 
   function renderResults(query) {
@@ -36,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!q) { resultsEl.innerHTML = '<p class="search-empty">' + languageText("Začni psát název stránky, produktu nebo návodu…", "Type a page, product or guide name…") + "</p>"; return; }
     const terms = q.split(/\s+/);
     const matches = indexData
-      .filter((e) => terms.every(term => e.searchText.includes(term)))
+      .filter((e) => e.url && terms.every(term => e.searchText.includes(term)))
       .map(e => ({...e, score:(e.titleText === q ? 100 : e.titleText.includes(q) ? 60 : 0)
         + (e.kind === "project" ? 25 : 0) + (e.keywordsText.includes(q) ? 60 : 0)
         + (e.descriptionText.includes(q) ? 10 : 0)}))
@@ -46,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resultsEl.innerHTML = matches
       .map(
         (e) => `
-      <a class="search-result" href="${e.url}">
+      <a class="search-result" href="${escapeHtml(e.url)}">
         <span class="search-result-title">${escapeHtml(e.title)}</span>
         <span class="search-result-desc">${escapeHtml(e.desc)}</span>
       </a>`

@@ -16,6 +16,7 @@ on:
       - 'scripts/generate-readable-guides.mjs'
       - 'tests/readable-guides.test.mjs'
       - 'tests/main-web-markdown.test.mjs'
+      - 'tests/security-baseline.test.mjs'
       - 'tests/site-ai-discovery.test.mjs'
       - 'llms.txt'
       - 'sitemap.xml'
@@ -45,6 +46,8 @@ jobs:
         run: node --test tests/main-web-markdown.test.mjs
       - name: Ověřit popisy pro vyhledávače a AI
         run: node --test tests/site-ai-discovery.test.mjs
+      - name: Ověřit bezpečnostní hlavičky a routování
+        run: node --test tests/security-baseline.test.mjs
       - name: Ověřit zdroje editoru
         run: |
           node --check assets/js/blockly-editor.js
@@ -61,6 +64,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo "Kontrola bezpečnostních hlaviček a odmítnutí cizích assetů"
+          curl -fsSI --max-time 25 "https://shieldio.cz/" -o /tmp/shieldio-security-headers
+          grep -qi '^x-content-type-options: nosniff' /tmp/shieldio-security-headers || { echo "::error::Chybí ochrana MIME"; exit 1; }
+          grep -qi '^x-frame-options: DENY' /tmp/shieldio-security-headers || { echo "::error::Chybí ochrana proti clickjackingu"; exit 1; }
+          grep -qi '^content-security-policy:.*frame-ancestors' /tmp/shieldio-security-headers || { echo "::error::Chybí ochrana proti vkládání do cizích iframe"; exit 1; }
+          for restricted in learn/maturita/elektronika/ services/esp32-compiler/server.py; do
+            status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 25 "https://shieldio.cz/$restricted")
+            test "$status" = 404 || { echo "::error::Cizí statická větev $restricted vrátila $status místo 404"; exit 1; }
+          done
           for url in "https://shieldio-web.swwzr5pj2f.workers.dev/" "https://shieldio.cz/"; do
             echo "Kontrola $url"
             html_type=$(curl -fsSL --max-time 25 -o /dev/null -w '%{content_type}' "$url")

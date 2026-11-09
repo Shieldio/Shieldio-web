@@ -151,6 +151,40 @@ export function htmlToMarkdown(html, pageUrl) {
   return content + "\n";
 }
 
+// Baseline protection for HTML, Markdown and static assets.
+// Deliberately do not set script-src/style-src here: the public editor uses
+// inline startup code, dynamic modules, WASM and third-party compiler assets.
+// A strict CSP requires a separate compatibility audit before enforcement.
+export function addSecurityHeaders(headers, contentType = "") {
+  // Keep stricter existing policies installed by another deployment layer.
+  // In particular, never replace a fully configured CSP with this baseline.
+  const ensure = (name, value) => { if (!headers.has(name)) headers.set(name, value); };
+  headers.set("X-Content-Type-Options", "nosniff");
+  ensure("Referrer-Policy", "strict-origin-when-cross-origin");
+  ensure("Strict-Transport-Security", "max-age=31536000");
+  ensure("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
+  if (/^text\/html(?:\s*;|$)/i.test(contentType)) {
+    ensure("X-Frame-Options", "DENY");
+    // Blocks framed copies, <base> injection and plugin execution without
+    // interfering with the script/style paths of existing learning tools.
+    ensure("Content-Security-Policy", "frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
+  }
+  return headers;
+}
+
+const UNRELATED_STATIC_PATH = /^\/(?:learn|services)(?:\/|$)/i;
+
+function deniedAsset() {
+  return new Response("Not found", {
+    status: 404,
+    headers: addSecurityHeaders(new Headers({
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-store",
+      "X-Robots-Tag": "noindex, nofollow",
+    }), "text/plain"),
+  });
+}
+
 function varyAccept(headers) {
   const existing = headers.get("Vary") || "";
   if (existing !== "*" && !existing.split(",").some((part) => part.trim().toLowerCase() === "accept")) {
@@ -160,15 +194,27 @@ function varyAccept(headers) {
 
 export default {
   async fetch(request, env) {
+    // Learn beta and compiler service files are not public pages of the apex.
+    // They are deployed through their own Workers/services. Do not expose
+    // those paths by accident via the root asset binding. This does NOT make
+    // content already committed to a public GitHub repository confidential.
+    if (UNRELATED_STATIC_PATH.test(new URL(request.url).pathname)) return deniedAsset();
+
     const original = await env.ASSETS.fetch(request);
     const type = original.headers.get("content-type") || "";
-    // CSS, JS, downloads, redirects and error pages are always untouched.
-    if (!/^text\/html(?:\s*;|$)/i.test(type) || original.status !== 200 || !["GET", "HEAD"].includes(request.method)) return original;
+    const headers = addSecurityHeaders(new Headers(original.headers), type);
+    const originalResponse = () => new Response(
+      [204, 205, 304].includes(original.status) || request.method === "HEAD" ? null : original.body,
+      { status: original.status, statusText: original.statusText, headers }
+    );
+    // Preserve the response and error status; protect binary assets too.
+    if (!/^text\/html(?:\s*;|$)/i.test(type) || original.status !== 200 || !["GET", "HEAD"].includes(request.method)) {
+      return originalResponse();
+    }
 
-    const headers = new Headers(original.headers);
     varyAccept(headers);
     if (!wantsMarkdown(request.headers.get("Accept"))) {
-      return new Response(original.body, { status: original.status, statusText: original.statusText, headers });
+      return originalResponse();
     }
     // HEAD should negotiate the same representation without sending a body.
     if (request.method === "HEAD") {
