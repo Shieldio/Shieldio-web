@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veřejné API – Shieldio</title>
+<meta name="description" content="Dokumentace veřejných strojově dostupných rozhraní Shieldio a OpenAPI specifikace.">
+<link rel="canonical" href="https://shieldio.cz/api/">
+</head>
+<body>
+<main>
+<h1>Veřejná API Shieldio</h1>
+<p>Tato stránka dokumentuje rozhraní dostupná bez přihlášení. Aktuální strojově čitelný seznam je v <a href="/.well-known/api-catalog">API katalogu podle RFC 9727</a>.</p>
+<h2>Simulation Health API</h2>
+<p>Veřejné rozhraní pro kontrolu dostupnosti simulátoru. Je pouze pro čtení a nevyžaduje autentizaci.</p>
+<p><strong>Endpoint:</strong> <a href="https://simulation.shieldio.cz/api/health"><code>GET https://simulation.shieldio.cz/api/health</code></a></p>
+<p><strong>Odpověď:</strong> HTTP 200 a JSON s klíči <code>status</code> (hodnota <code>ok</code>), <code>app</code> (identifikátor <code>shieldio-simulation</code>) a <code>version</code> (textová verze aplikace).</p>
+<p><strong>OpenAPI:</strong> <a href="/api/simulation-openapi.json">simulation-openapi.json</a></p>
+<p>Označení <code>ok</code> potvrzuje odpověď health endpointu, nikoli funkčnost všech částí simulátoru nebo externích služeb.</p>
+<h2>Další integrace</h2>
+<p>EduPage rozhraní na Learn není veřejně aktivní a serverový kompilátor ESP32 zatím není nasazen. Proto nejsou součástí katalogu veřejných API.</p>
+</main>
+</body>
+</html>

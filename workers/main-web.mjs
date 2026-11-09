@@ -172,6 +172,27 @@ export function addSecurityHeaders(headers, contentType = "") {
   return headers;
 }
 
+// Public catalog of documented, deployed APIs (RFC 9727 / RFC 9264).
+// Do not list the disabled EduPage integration or the undeployed ESP32 compiler.
+const API_CATALOG_LINK = '</.well-known/api-catalog>; rel="api-catalog"';
+const API_CATALOG = JSON.stringify({
+  linkset: [{
+    anchor: "https://simulation.shieldio.cz/api/health",
+    "service-desc": [{
+      href: "https://shieldio.cz/api/simulation-openapi.json",
+      type: "application/json",
+    }],
+    "service-doc": [{
+      href: "https://shieldio.cz/api/",
+      type: "text/html",
+    }],
+    status: [{
+      href: "https://simulation.shieldio.cz/api/health",
+      type: "application/json",
+    }],
+  }],
+});
+
 const UNRELATED_STATIC_PATH = /^\/(?:learn|services)(?:\/|$)/i;
 
 function deniedAsset() {
@@ -198,11 +219,34 @@ export default {
     // They are deployed through their own Workers/services. Do not expose
     // those paths by accident via the root asset binding. This does NOT make
     // content already committed to a public GitHub repository confidential.
-    if (UNRELATED_STATIC_PATH.test(new URL(request.url).pathname)) return deniedAsset();
+    const url = new URL(request.url);
+    if (url.pathname === "/.well-known/api-catalog") {
+      if (!["GET", "HEAD"].includes(request.method)) {
+        return new Response("Method not allowed", {
+          status: 405,
+          headers: addSecurityHeaders(new Headers({
+            "Content-Type": "text/plain; charset=utf-8",
+            "Allow": "GET, HEAD",
+          }), "text/plain"),
+        });
+      }
+      const type = 'application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"';
+      const headers = addSecurityHeaders(new Headers({
+        "Content-Type": type,
+        "Cache-Control": "public, max-age=300",
+        "Access-Control-Allow-Origin": "*",
+        "Link": API_CATALOG_LINK,
+      }), type);
+      return new Response(request.method === "HEAD" ? null : API_CATALOG, { status: 200, headers });
+    }
+    if (UNRELATED_STATIC_PATH.test(url.pathname)) return deniedAsset();
 
     const original = await env.ASSETS.fetch(request);
     const type = original.headers.get("content-type") || "";
     const headers = addSecurityHeaders(new Headers(original.headers), type);
+    if (original.status === 200 && /^text\/html(?:\s*;|$)/i.test(type) && ["/", "/index.html"].includes(url.pathname)) {
+      headers.append("Link", API_CATALOG_LINK);
+    }
     const originalResponse = () => new Response(
       [204, 205, 304].includes(original.status) || request.method === "HEAD" ? null : original.body,
       { status: original.status, statusText: original.statusText, headers }

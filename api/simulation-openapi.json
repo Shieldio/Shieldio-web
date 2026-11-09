@@ -1,0 +1,52 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Shieldio Simulation Health API",
+    "version": "1.0.0",
+    "description": "Veřejný endpoint pro základní kontrolu dostupnosti simulátoru Shieldio. Odpověď status=ok není kompletním testem funkčnosti."
+  },
+  "servers": [
+    {
+      "url": "https://simulation.shieldio.cz"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Zjistit stav simulátoru",
+        "operationId": "getSimulationHealth",
+        "responses": {
+          "200": {
+            "description": "Základní stav služby",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "app",
+                    "version"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "const": "ok"
+                    },
+                    "app": {
+                      "type": "string",
+                      "const": "shieldio-simulation"
+                    },
+                    "version": {
+                      "type": "string",
+                      "description": "Verze běžící aplikace"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
