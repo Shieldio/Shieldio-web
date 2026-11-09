@@ -11,6 +11,7 @@ wrangler.learn.jsonc
 wrangler.stage.jsonc
 learn/worker.js
 learn/CONTENT.md
+workers
 docs
 tests
 node_modules
