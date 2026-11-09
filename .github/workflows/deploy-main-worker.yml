@@ -16,6 +16,7 @@ on:
       - 'scripts/generate-readable-guides.mjs'
       - 'tests/readable-guides.test.mjs'
       - 'tests/main-web-markdown.test.mjs'
+      - 'tests/site-ai-discovery.test.mjs'
       - 'llms.txt'
       - 'sitemap.xml'
       - '.assetsignore'
@@ -42,6 +43,8 @@ jobs:
         run: node --test tests/readable-guides.test.mjs
       - name: Ověřit Markdown pro AI agenty
         run: node --test tests/main-web-markdown.test.mjs
+      - name: Ověřit popisy pro vyhledávače a AI
+        run: node --test tests/site-ai-discovery.test.mjs
       - name: Ověřit zdroje editoru
         run: |
           node --check assets/js/blockly-editor.js
@@ -68,6 +71,13 @@ jobs:
             test "${md_type%%;*}" = "text/markdown" || { echo "::error::Očekává se text/markdown na $url"; exit 1; }
             grep -q 'Shieldio' /tmp/shieldio-response.md || { echo "::error::V odpovědi chybí obsah Shieldio"; exit 1; }
           done
+          echo "Kontrola průvodce pro školy a kroužky"
+          guide_url="https://shieldio.cz/edu/pro-koho-je-shieldio/?build=$GITHUB_SHA"
+          curl -fsSL --max-time 25 "$guide_url" -o /tmp/shieldio-audience.html
+          grep -q '<h1>Pro koho je Shieldio RED?</h1>' /tmp/shieldio-audience.html || { echo "::error::Nová cílová stránka neobsahuje titulek"; exit 1; }
+          curl -fsSL --max-time 25 -H 'Accept: text/markdown' "$guide_url" -o /tmp/shieldio-audience.md
+          grep -q 'Pro koho je Shieldio RED' /tmp/shieldio-audience.md || { echo "::error::Průvodce není čitelný v Markdownu"; exit 1; }
+          grep -q 'Deska zatím není v prodeji' /tmp/shieldio-audience.md || { echo "::error::Chybí upozornění na nedostupnost RED"; exit 1; }
           for slug in sestaveni zavora parkovaci-asistent casovac theremin; do
             url="https://shieldio.cz/instructions/baseline/red/$slug/"
             echo "Kontrola úplného návodu: $url"
