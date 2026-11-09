@@ -57,6 +57,7 @@ class HTMLRewriterStub {
 const catalog = JSON.parse(fs.readFileSync(new URL("../assets/data/learn-questions.json", import.meta.url), "utf8"));
 const source = fs.readFileSync(new URL("../learn/worker.js", import.meta.url), "utf8")
   .replace(/^import [^\n]+\n/gm, "")
+  .replace("export class NoteSubmissionGuard", "class NoteSubmissionGuard")
   .replace("export default {", "globalThis.worker = {");
 const scope = {
   URL, Request, Response, Headers, ReadableStream, TextEncoder,
