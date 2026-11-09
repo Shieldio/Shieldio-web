@@ -49,6 +49,8 @@ on:
       - 'assets/js/avr-compiler.mjs'
       - 'assets/js/shieldio-blocks.js'
       - 'assets/js/blockly-editor.js'
+      - 'assets/js/block-project-validation.js'
+      - 'tests/block-project-validation.test.mjs'
       - 'assets/arduino/**'
       - 'assets/css/arduino-programming.css'
       - 'tests/arduino-*.mjs'
@@ -102,6 +104,8 @@ on:
       - 'assets/js/avr-compiler.mjs'
       - 'assets/js/shieldio-blocks.js'
       - 'assets/js/blockly-editor.js'
+      - 'assets/js/block-project-validation.js'
+      - 'tests/block-project-validation.test.mjs'
       - 'assets/arduino/**'
       - 'assets/css/arduino-programming.css'
       - 'tests/arduino-*.mjs'
@@ -129,6 +133,7 @@ jobs:
       - run: node --test tests/subdomain-seo.test.mjs
       - run: node --test tests/main-web-markdown.test.mjs
       - run: node --test tests/security-baseline.test.mjs
+      - run: node --test tests/block-project-validation.test.mjs
       - run: node --test tests/site-ai-discovery.test.mjs
       - run: python3 tests/site-content.test.py
       - run: python3 tests/legal-guardrails.py
