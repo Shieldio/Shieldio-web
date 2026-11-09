@@ -8,11 +8,11 @@ function element(){
  const classes=new Set(),listeners={};
  return {attributes:{},setAttribute(name,value){this.attributes[name]=value;},listeners,innerHTML:'',value:'',className:'',classList:{add:c=>classes.add(c),remove:c=>classes.delete(c),contains:c=>classes.has(c)},addEventListener(n,fn){(listeners[n]||=[]).push(fn);},emit(n,e={}){for(const fn of listeners[n]||[])fn(e);},focus(){}};
 }
-function fixture({failFirst=false,lang="cs"}={}){
+function fixture({failFirst=false,lang="cs",entries=index}={}){
  const input=element(),results=element(),close=element(),overlay=element(),document=element(),requests=[];
  overlay.querySelector=selector=>({'.search-input':input,'.search-results':results,'.modal-close':close})[selector];
  document.documentElement={lang};document.querySelectorAll=()=>[];document.createElement=()=>overlay;document.body={appendChild(){}};
- vm.runInNewContext(script,{document,window:{location:{}},setTimeout:fn=>fn(),fetch:async(url,options)=>{requests.push({url,options});return {ok:!(failFirst&&requests.length===1),json:async()=>index};}});
+ vm.runInNewContext(script,{document,window:{location:{}},setTimeout:fn=>fn(),fetch:async(url,options)=>{requests.push({url,options});return {ok:!(failFirst&&requests.length===1),json:async()=>entries};}});
  document.emit('DOMContentLoaded');
  const open=()=>document.emit('keydown',{key:'k',ctrlKey:true,preventDefault(){}});
  const search=query=>{input.value=query;input.emit('input');return [...results.innerHTML.matchAll(/class="search-result" href="([^"]+)"/g)].map(m=>m[1]);};
@@ -34,3 +34,14 @@ retry.open();await flush();assert.equal(retry.search('zavora')[0],barrier,'Faile
 console.log('Site search: accent variants, component queries, project ranking, multiword queries, cache revalidation and retry passed.');
 
 const english=fixture({lang:"en"});english.open();assert.equal(english.input.attributes["aria-label"],"Search the site");assert.equal(english.close.attributes["aria-label"],"Close search");
+
+
+const hostile=fixture({entries:[
+ {title:"Bezpečnost test",desc:"Kontrolní položka",url:"javascript:alert(1)"},
+ {title:"Bezpečnost test",desc:"Externí podvodná stránka",url:"//attacker.example/"},
+ {title:"Bezpečnost test",desc:"HTML atribut",url:'/faq.html" onmouseover="alert(1)'},
+ {title:"Bezpečnost test",desc:"Správná interní cesta",url:"/faq.html"}
+]});
+hostile.open();await flush();
+assert.deepEqual(hostile.search("bezpečnost test"),["/faq.html"],"Only safe same-origin paths can become search links");
+assert.doesNotMatch(hostile.results.innerHTML,/javascript:|attacker\.example|onmouseover=/);
