@@ -761,7 +761,7 @@ export default {
 
     // Prevent indexing the independent staging host.
     if (url.hostname === "stage.learn.shieldio.cz" && url.pathname === "/robots.txt") {
-      return new Response("User-agent: *\\nDisallow: /\\n", {
+      return new Response("User-agent: *\nDisallow: /\n", {
         headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=300" }
       });
     }
