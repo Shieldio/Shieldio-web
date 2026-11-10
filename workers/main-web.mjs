@@ -1,3 +1,4 @@
+import { handleMcpRequest } from "./mcp-server.mjs";
 // Serves Markdown to agents while keeping the original HTML for browsers.
 // No package dependencies: the source HTML is the single source of truth.
 const OMIT = new Set([
@@ -228,6 +229,14 @@ export default {
     // those paths by accident via the root asset binding. This does NOT make
     // content already committed to a public GitHub repository confidential.
     const url = new URL(request.url);
+    // MCP discovery and stateless public Streamable HTTP interface.
+    if (url.pathname === "/.well-known/mcp/server-card.json" ||
+        url.pathname === "/mcp/server-card" || url.pathname === "/mcp") {
+      const response = await handleMcpRequest(request, env);
+      const type = response.headers.get("Content-Type") || "";
+      const headers = addSecurityHeaders(new Headers(response.headers), type);
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    }
     // Versioned Agent Skills Discovery v0.2.0. Static files remain the
     // source of truth; Worker pins MIME, CORS, GET/HEAD and negative responses.
     if (url.pathname.startsWith("/.well-known/agent-skills/")) {

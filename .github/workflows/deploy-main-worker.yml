@@ -14,6 +14,8 @@ on:
       - '3D-tisk/**'
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
+      - 'workers/mcp-server.mjs'
+      - 'tests/mcp-server.test.mjs'
       - 'scripts/generate-readable-guides.mjs'
       - 'tests/readable-guides.test.mjs'
       - 'tests/main-web-markdown.test.mjs'
@@ -54,6 +56,8 @@ jobs:
         run: node --test tests/webmcp.test.mjs
       - name: Ověřit Agent Skills Discovery v0.2.0 a SHA-256
         run: node --test tests/agent-skills-discovery.test.mjs
+      - name: Ověřit MCP Server Card a veřejný MCP endpoint
+        run: node --test tests/mcp-server.test.mjs
       - name: Ověřit API katalog RFC 9727
         run: node --test tests/api-catalog.test.mjs
       - name: Ověřit popisy pro vyhledávače a AI
@@ -75,6 +79,17 @@ jobs:
           accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
           wranglerVersion: '4.158.0'
           command: deploy --config wrangler.jsonc
+      - name: Ověřit MCP Server Card a MCP komunikaci na produkci
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 --retry-delay 2 --max-time 30 -D /tmp/shieldio-mcp-card-headers "https://shieldio.cz/.well-known/mcp/server-card.json?build=$GITHUB_SHA" -o /tmp/shieldio-mcp-card.json
+          grep -qi '^content-type: application/json' /tmp/shieldio-mcp-card-headers || { echo "::error::MCP card nemá JSON Content-Type"; exit 1; }
+          node -e 'const c=require("/tmp/shieldio-mcp-card.json"); if(!c.serverInfo?.name||!c.serverInfo?.version||c.transport?.endpoint!=="https://shieldio.cz/mcp"||!c.capabilities?.tools||!c.capabilities?.resources||!c.capabilities?.prompts)process.exit(1)'
+          curl -fsSL --max-time 30 "https://shieldio.cz/mcp/server-card?build=$GITHUB_SHA" -o /tmp/shieldio-mcp-current.json
+          node -e 'const c=require("/tmp/shieldio-mcp-current.json"); if(c.name!=="cz.shieldio/mcp"||c.remotes?.[0]?.url!=="https://shieldio.cz/mcp")process.exit(1)'
+          curl -fsSL --max-time 30 -X POST 'https://shieldio.cz/mcp' -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"github-ci","version":"1.0.0"}}}' -o /tmp/shieldio-mcp-init.json
+          node -e 'const r=require("/tmp/shieldio-mcp-init.json");if(r.result?.serverInfo?.name!=="cz.shieldio/mcp"||r.result?.protocolVersion!=="2025-06-18")process.exit(1)'
       - name: Ověřit API katalog na produkci
         shell: bash
         run: |
@@ -128,7 +143,7 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsS --retry 2 --max-time 160 -X POST "https://isitagentready.com/api/scan" -H "Content-Type: application/json" -d '{"url":"https://shieldio.cz"}' -o /tmp/shieldio-agent-scan.json
-          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const catalog=r?.checks?.discovery?.apiCatalog?.status; const links=r?.checks?.discoverability?.linkHeaders?.status; const webmcp=r?.checks?.discovery?.webMcp?.status; const skills=r?.checks?.discovery?.agentSkills?.status; console.log("checks.discovery.apiCatalog.status:",catalog??"nezískáno"); console.log("checks.discoverability.linkHeaders.status:",links??"nezískáno"); console.log("checks.discovery.webMcp.status:",webmcp??"nezískáno"); console.log("checks.discovery.agentSkills.status:",skills??"nezískáno"); if(catalog!=="pass"||links!=="pass"||webmcp!=="pass"||skills!=="pass")process.exit(1)'
+          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const catalog=r?.checks?.discovery?.apiCatalog?.status; const links=r?.checks?.discoverability?.linkHeaders?.status; const webmcp=r?.checks?.discovery?.webMcp?.status; const skills=r?.checks?.discovery?.agentSkills?.status; const mcp=r?.checks?.discovery?.mcpServerCard?.status; console.log("checks.discovery.apiCatalog.status:",catalog??"nezískáno"); console.log("checks.discoverability.linkHeaders.status:",links??"nezískáno"); console.log("checks.discovery.webMcp.status:",webmcp??"nezískáno"); console.log("checks.discovery.agentSkills.status:",skills??"nezískáno"); console.log("checks.discovery.mcpServerCard.status:",mcp??"nezískáno"); if(catalog!=="pass"||links!=="pass"||webmcp!=="pass"||skills!=="pass"||mcp!=="pass")process.exit(1)'
       - name: Zkontrolovat HTTP content negotiation na produkci
         shell: bash
         run: |
