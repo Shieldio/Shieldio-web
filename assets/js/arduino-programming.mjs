@@ -1,4 +1,5 @@
 import { SerialMonitor } from "./arduino-serial-monitor.mjs?v=20261106-serial1";
+import { SerialPlotter, drawSerialPlot, PLOT_COLORS } from "./arduino-serial-plotter.mjs?v=20261110-plot1";
 import { importLibrary, validateLibraries } from "./arduino-libraries.mjs";
 import { codeKeyEdit, formatIndentation, toggleLineComment } from "./arduino-source-editor.mjs?v=20261103-assist2";
 import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from "./arduino-diagnostics.mjs?v=20261104-status1";
@@ -12,6 +13,8 @@ const messages = {
   serialPaused: ["Příjem pozastaven pro nahrávání.", "Receiving paused for upload."],
   serialStopped: ["Příjem zastaven.", "Receiving stopped."],
   serialNoPort: ["Deska nebyla vybraná.", "No board selected."],
+  plotPause: ["Pozastavit graf", "Pause plot"], plotResume: ["Pokračovat v grafu", "Resume plot"],
+  plotWaiting: ["Čekám na číselná data…", "Waiting for numeric data…"],
   serialError: ["Port se nepodařilo otevřít nebo bylo spojení přerušeno. Zavři sériový monitor v Arduino IDE a dalších kartách a zkus příjem znovu.", "Could not open the port or the connection was interrupted. Close serial monitors in Arduino IDE and other tabs, then try again."],
   reloadHint: ["Obnoví stránku a zachová rozpracovaný program.","Reloads the page and keeps your current program."],
   clearBlocks: ["Vymazat bloky","Clear blocks"], clearCode: ["Vymazat kód","Clear code"],
@@ -81,6 +84,8 @@ let libraries = [], expanded = false, toolsOpen = false, importedProject = false
 let statusKey = "ready", statusError = false, statusPercent = null;
 let memorySnapshot = null;
 let serialChanging = false, serialStatusKey = "serialIdle", serialText = "", serialTimer = null;
+const serialPlotter = new SerialPlotter();
+let plotPaused = false, plotTimer = null;
 let lastCompile = null, failedBuild = null, errorLine = null, renderedLineCount = 0;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
 const exampleFiles = {digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
@@ -95,6 +100,7 @@ const serialMonitor = new SerialMonitor({
   onText(text) {
     serialText = (serialText + text).slice(-65536);
     if (serialTimer === null) serialTimer = setTimeout(renderSerial, 80);
+    if (!plotPaused && serialPlotter.append(text)) schedulePlot();
   },
   onError() { serialStatusKey = "serialError"; paintSerial(); },
   onClose() {
@@ -109,6 +115,54 @@ function renderSerial() {
   output.textContent = serialText;
   if ($("serialAutoscroll").checked) output.scrollTop = output.scrollHeight;
 }
+function latestPlotValue(name) {
+  for (let i = serialPlotter.samples.length - 1; i >= 0; i--) {
+    const value = serialPlotter.samples[i].values[name];
+    if (value !== undefined) return value;
+  }
+  return null;
+}
+function renderPlot() {
+  if (plotTimer !== null) clearTimeout(plotTimer);
+  plotTimer = null;
+  const en = document.documentElement.lang === "en";
+  const labels = serialPlotter.series.map((name, i) => {
+    const item = document.createElement("span");
+    const swatch = document.createElement("i");
+    swatch.style.backgroundColor = PLOT_COLORS[i];
+    swatch.setAttribute("aria-hidden", "true");
+    const value = latestPlotValue(name);
+    const label = document.createElement("span");
+    label.textContent = name + (value === null ? "" : ": " + value);
+    item.append(swatch, label);
+    return item;
+  });
+  $("plotLegend").replaceChildren(...labels);
+  const count = serialPlotter.count;
+  const running = serialMonitor.active;
+  const state = plotPaused ? (en ? " · paused" : " · pozastaveno") :
+    running ? (en ? " · receiving" : " · příjem běží") : "";
+  $("plotStatus").textContent = (en ? count + " samples · " + serialPlotter.series.length + " channels" :
+    count + " vzorků · " + serialPlotter.series.length + " řad") + state;
+  if ($("serialPlotterPanel").open) {
+    const auto = $("plotAutoScale").checked;
+    const min = auto ? null : Number($("plotMin").value);
+    const max = auto ? null : Number($("plotMax").value);
+    drawSerialPlot($("serialPlotCanvas"), serialPlotter, { min, max, emptyLabel: t("plotWaiting") });
+  }
+}
+function schedulePlot() {
+  if (!$("serialPlotterPanel").open || plotTimer !== null) return;
+  plotTimer = setTimeout(renderPlot, 80);
+}
+function paintPlotButtons() {
+  $("plotConnectBtn").textContent = t(serialMonitor.active ? "serialStop" : "serialStart");
+  $("plotConnectBtn").removeAttribute("data-i18n");
+  $("plotConnectBtn").disabled = !supported || busy || serialChanging;
+  $("plotBaud").disabled = busy || serialChanging || serialMonitor.active;
+  $("plotPauseBtn").textContent = t(plotPaused ? "plotResume" : "plotPause");
+  $("plotPauseBtn").removeAttribute("data-i18n");
+}
 function paintSerial() {
   $("serialConnectBtn").textContent = t(serialMonitor.active ? "serialStop" : "serialStart");
   // Remove the static translation key after initialization; subsequent labels depend on state.
@@ -117,6 +171,7 @@ function paintSerial() {
   $("serialBaud").disabled = busy || serialChanging || serialMonitor.active;
   $("serialStatus").textContent = t(supported ? serialStatusKey : "unsupported");
   $("serialStatus").dataset.error = String(serialStatusKey === "serialError");
+  paintPlotButtons();
   if (!busy) {
     $("uploadBtn").disabled = !supported || serialChanging;
     $("connectBoardBtn").disabled = !supported || serialChanging;
@@ -143,6 +198,30 @@ $("serialConnectBtn").addEventListener("click", async () => {
   finally { serialChanging = false; paintSerial(); paint(); }
 });
 $("serialClearBtn").addEventListener("click", () => { serialText = ""; renderSerial(); });
+$("serialBaud").addEventListener("change", () => { $("plotBaud").value = $("serialBaud").value; });
+$("plotBaud").addEventListener("change", () => { $("serialBaud").value = $("plotBaud").value; });
+$("plotConnectBtn").addEventListener("click", () => {
+  if (busy || serialChanging || !supported) return;
+  $("serialBaud").value = $("plotBaud").value;
+  // Jeden Web Serial reader; synchronní click zachová oprávnění uživatelského gesta.
+  $("serialConnectBtn").click();
+});
+$("plotPauseBtn").addEventListener("click", () => {
+  plotPaused = !plotPaused;
+  serialPlotter.partial = "";
+  paintPlotButtons();
+  renderPlot();
+});
+$("plotClearBtn").addEventListener("click", () => { serialPlotter.clear(); renderPlot(); });
+$("plotAutoScale").addEventListener("change", () => {
+  const fixed = !$("plotAutoScale").checked;
+  $("plotMinLabel").hidden = !fixed;
+  $("plotMaxLabel").hidden = !fixed;
+  renderPlot();
+});
+for (const id of ["plotMin", "plotMax"]) $(id).addEventListener("input", renderPlot);
+$("serialPlotterPanel").addEventListener("toggle", renderPlot);
+window.addEventListener("resize", schedulePlot);
 const menuIds = ["projectMenu", "connectionSettings", "projectFiles", "libraryManager"];
 for (const id of menuIds) $(id).addEventListener("toggle", () => {
   if ($(id).open) for (const other of menuIds) if (other !== id) $(other).open = false;
@@ -665,9 +744,9 @@ window.addEventListener("keydown", event => {
   if(event.key==="Escape" && expanded) $("focusEditorBtn").click();
   if((event.ctrlKey || event.metaKey) && event.key==="Enter") {event.preventDefault();run(event.shiftKey);}
 });
-document.addEventListener("shieldio-lang-change", paint);
+document.addEventListener("shieldio-lang-change", () => { paint(); renderPlot(); });
 new MutationObserver(() => {paint();paintLibraries();updateSourcePosition();}).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
-setBusy(false); paint();updateSourcePosition();
+setBusy(false); paint();updateSourcePosition();renderPlot();
 
 
 

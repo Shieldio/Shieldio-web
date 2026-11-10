@@ -145,6 +145,7 @@ jobs:
       - run: node --check assets/js/blockly-editor.js
       - run: node --test tests/arduino-flasher.test.mjs
       - run: node tests/arduino-serial-monitor.test.mjs
+      - run: node tests/arduino-serial-plotter.test.mjs
       - run: node tests/arduino-programming-ui.test.mjs
       - run: node tests/arduino-editor-assist.test.mjs
       - run: node tests/esp32-studio.test.mjs

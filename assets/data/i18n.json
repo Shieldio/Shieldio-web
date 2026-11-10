@@ -5715,6 +5715,38 @@
     "cs": "Přijatá sériová data",
     "en": "Received serial data"
   },
+  "programming.serialPlotter": {
+    "cs": "Sériový plotter",
+    "en": "Serial plotter"
+  },
+  "programming.plotPause": {
+    "cs": "Pozastavit graf",
+    "en": "Pause plot"
+  },
+  "programming.plotClear": {
+    "cs": "Vymazat graf",
+    "en": "Clear plot"
+  },
+  "programming.plotAutoScale": {
+    "cs": "Automatické měřítko Y",
+    "en": "Auto-scale Y"
+  },
+  "programming.plotMin": {
+    "cs": "Minimum",
+    "en": "Minimum"
+  },
+  "programming.plotMax": {
+    "cs": "Maximum",
+    "en": "Maximum"
+  },
+  "programming.plotCanvas": {
+    "cs": "Graf hodnot přijímaných přes sériovou linku",
+    "en": "Plot of values received over serial"
+  },
+  "programming.plotHelp": {
+    "cs": "Posílej číslo na každém řádku, více hodnot oddělených mezerami, nebo dvojice jako A:12 B:34. Graf a monitor přijímají stejná data.",
+    "en": "Send one number per line, multiple values separated by spaces, or pairs such as A:12 B:34. The plot and monitor receive the same data."
+  },
   "home.simple.hero.audience": {
     "cs": "Kdy má RED smysl a jak s ním začít",
     "en": "Who RED is for and how to get started"

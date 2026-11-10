@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261106-serial1">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261110-plot1">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -213,6 +213,25 @@
       <p id="serialStatus" role="status" aria-live="polite"></p>
       <pre id="serialOutput" class="programming-serial-output" tabindex="0" role="region" aria-label="Přijatá sériová data" data-i18n-aria-label="programming.serialOutput"></pre>
     </details>
+    <details class="programming-serial programming-plotter" id="serialPlotterPanel">
+      <summary data-i18n="programming.serialPlotter">Sériový plotter</summary>
+      <div class="programming-serial-controls">
+        <label for="plotBaud" data-i18n="programming.serialBaud">Rychlost</label>
+        <select id="plotBaud"><option>300</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option><option>230400</option><option>250000</option></select>
+        <button type="button" id="plotConnectBtn" class="blockly-toggle-code" data-i18n="programming.serialStart">Spustit příjem</button>
+        <button type="button" id="plotPauseBtn" class="blockly-toggle-code" data-i18n="programming.plotPause">Pozastavit graf</button>
+        <button type="button" id="plotClearBtn" class="blockly-toggle-code" data-i18n="programming.plotClear">Vymazat graf</button>
+      </div>
+      <div class="programming-plot-settings">
+        <label class="programming-plot-autoscale"><input type="checkbox" id="plotAutoScale" checked><span data-i18n="programming.plotAutoScale">Automatické měřítko Y</span></label>
+        <label id="plotMinLabel" hidden><span data-i18n="programming.plotMin">Minimum</span><input id="plotMin" type="number" value="-100" step="any"></label>
+        <label id="plotMaxLabel" hidden><span data-i18n="programming.plotMax">Maximum</span><input id="plotMax" type="number" value="100" step="any"></label>
+      </div>
+      <p id="plotStatus" class="programming-plot-status" role="status" aria-live="polite"></p>
+      <div class="programming-plot-frame"><canvas id="serialPlotCanvas" role="img" aria-label="Graf hodnot přijímaných přes sériovou linku" data-i18n-aria-label="programming.plotCanvas"></canvas></div>
+      <div id="plotLegend" class="programming-plot-legend" aria-live="off"></div>
+      <p class="programming-plot-help" data-i18n="programming.plotHelp">Posílej číslo na každém řádku, více hodnot oddělených mezerami, nebo dvojice jako A:12 B:34. Graf a monitor přijímají stejná data.</p>
+    </details>
     </div>
     <details class="programming-guide">
       <summary data-i18n="programming.guide">Jak připojit desku a pracovat s editorem</summary>
@@ -256,7 +275,7 @@
 <script src="../assets/js/shieldio-blocks.js?v=20261106-serial1"></script>
 <script src="../assets/js/block-project-validation.js?v=20261109-sec1"></script>
 <script src="../assets/js/blockly-editor.js?v=20261106-serial1"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261106-serial1"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261110-plot1"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js?v=20261104-interactions1"></script>

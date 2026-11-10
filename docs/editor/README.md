@@ -84,3 +84,23 @@ Rozbalovací panel pod editorem přijímá UTF-8 text z `Serial.print()` a `Seri
 `arduino-serial-monitor.mjs` vlastní čtečku a otevřený port. Před nahráváním UI čeká na zrušení čtení, uvolnění zámku a uzavření portu; po úspěšném nahrání obnoví předchozí příjem se zvolenou rychlostí. Odpojení desky a chyby monitoru mají samostatný stav a nepřepisují výsledek kompilace. K použití je potřeba desktop Chrome/Edge a zabezpečený kontext.
 
 `node tests/arduino-serial-monitor.test.mjs` ověřuje rozdělené UTF-8 znaky, rychlost, přerušení, uvolnění portu a odpojení. Test UI navíc kontroluje limit výpisu a předání stejného portu nahrávání i obnovení příjmu. Tyto testy používají simulované streamy; fyzické USB se jimi neověřuje.
+
+
+## Sériový plotter
+
+Pod sériovým monitorem je samostatný panel **Sériový plotter**. Monitor i plotter čtou stejný Web Serial stream a společně sdílejí rychlost přenosu i tlačítka příjmu. Nové USB spojení se neotvírá: při nahrávání se příjem zastaví, port uvolní a po úspěšném uploadu se obnoví, jako dříve. Safari plotter vykreslí, ale bez podpory Web Serial nemůže číst z desky.
+
+Každý kompletní řádek má obsahovat jedno číslo (`23.5`), až osm čísel oddělených mezerami, čárkami či středníky (`12 25`), nebo až osm pojmenovaných hodnot (`teplota:23.5 vlhkost:46`, případně `A=12,B=25`). Pro dvě křivky například:
+
+```cpp
+void setup() { Serial.begin(9600); }
+void loop() {
+  Serial.print("A:"); Serial.print(analogRead(A0));
+  Serial.print(" B:"); Serial.println(analogRead(A1));
+  delay(50);
+}
+```
+
+Textové zprávy a nečíselné řádky plotter ignoruje; v monitoru zůstávají viditelné. Ovládání grafu zahrnuje pozastavení (bez přerušení monitoru), vymazání, automatický nebo ruční rozsah osy Y a legendu aktuálních hodnot. Uchovává nejvýše 600 vzorků a osm řad. Po odpojení zůstane dosavadní graf viditelný; nové čtení lze spustit po opětovném připojení.
+
+`node tests/arduino-serial-plotter.test.mjs` ověřuje parser, nedokončené řádky, obě formy dat, omezení paměti a automatický rozsah. Test UI ověřuje souběh grafu s monitorem. Pro finální ověření je nutný Chrome/Edge s fyzickou RED.

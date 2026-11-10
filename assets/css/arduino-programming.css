@@ -294,3 +294,22 @@
 
 
 .programming-page .programming-studio[data-busy="true"] .programming-memory { grid-row: 2 / span 2; }
+
+/* Sériový plotter používá stejné tokeny jako editor a sériový monitor. */
+.programming-plotter > summary { font-weight: 600; }
+.programming-plot-settings { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 4px 0 8px; }
+.programming-plot-settings label { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; }
+.programming-plot-settings input[type="checkbox"] { accent-color: var(--accent); }
+.programming-plot-settings input[type="number"] { width: 85px; min-width: 0; padding: 6px 7px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); color: var(--ink); font: inherit; }
+.programming-plot-settings label[hidden] { display: none; }
+.programming-plot-status { min-height: 16px; margin: 0 0 6px; color: var(--ink-soft); font-size: 11px; }
+.programming-plot-frame { width: 100%; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; background: var(--paper); }
+.programming-plot-frame canvas { display: block; width: 100%; height: clamp(210px, 30dvh, 330px); }
+.programming-plot-legend { display: flex; align-items: center; flex-wrap: wrap; gap: 7px 15px; padding: 8px 2px 0; }
+.programming-plot-legend > span { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font: 12px/1.4 ui-monospace, monospace; }
+.programming-plot-legend i { display: inline-block; width: 11px; height: 4px; border-radius: 2px; flex: 0 0 auto; }
+.programming-plot-help { margin: 7px 0 2px; color: var(--ink-soft); font-size: 11px; line-height: 1.5; }
+@media (max-width: 700px) {
+  .programming-plot-frame canvas { height: 220px; }
+  .programming-plotter .programming-serial-controls { align-items: flex-start; }
+}

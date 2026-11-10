@@ -6,6 +6,7 @@ import { Blob } from 'node:buffer';
 import { importLibrary, validateLibraries } from '../assets/js/arduino-libraries.mjs';
 import * as sourceEditor from '../assets/js/arduino-source-editor.mjs';
 import { SerialMonitor } from '../assets/js/arduino-serial-monitor.mjs';
+import { SerialPlotter, drawSerialPlot, PLOT_COLORS } from '../assets/js/arduino-serial-plotter.mjs';
 import * as diagnostics from '../assets/js/arduino-diagnostics.mjs';
 const html=await fs.readFile(new URL('../instructions/blokovy-editor.html',import.meta.url),'utf8');
 const source=(await fs.readFile(new URL('../assets/js/arduino-programming.mjs',import.meta.url),'utf8')).replace(/^import .+;\n/gm,'').replaceAll('import.meta.url','"https://shieldio.cz/assets/js/arduino-programming.mjs"');
@@ -40,7 +41,7 @@ function model({mockPort=null,confirmReset=true,serial=false,portError=null,save
     MutationObserver:class{observe(){}},
     localStorage:{getItem:key=>storage.get(key) || null,setItem:(key,value)=>storage.set(key,value)},
     async fetch(url){fetches++;assert.match(String(url),/^https:\/\/shieldio.cz\/assets\/code\/(?:digitalni_metr|ultrazvukovy_radar)\//);return {ok:!exampleFailure,text:async()=>exampleText};},
-    SerialMonitor,importLibrary,validateLibraries,...sourceEditor,...diagnostics,Event:class{constructor(type){this.type=type;}},
+    SerialMonitor,SerialPlotter,drawSerialPlot,PLOT_COLORS,importLibrary,validateLibraries,...sourceEditor,...diagnostics,Event:class{constructor(type){this.type=type;}},
     AbortController,URLSearchParams,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,
     URL:class extends URL {static createObjectURL(blob){downloads.push(blob);return 'blob:test';}static revokeObjectURL(){}},
     Worker:class {
@@ -270,10 +271,17 @@ console.log('Project actions: guarded reset, source persistence and reload; pers
   assert.equal(m.counts().portRequests, 1); assert.equal(port.baud, 115200);
   assert.equal(m.get('serialBaud').disabled, true);
   assert.equal(m.get('serialConnectBtn').textContent, 'Zastavit příjem');
-  port.input.enqueue(new TextEncoder().encode('<script>data</script>\n' + 'x'.repeat(70000)));
+  port.input.enqueue(new TextEncoder().encode('<script>data</script>\n' + 'x'.repeat(70000) + '\nA:10 B:20\nA:20 B:10\n'));
   await new Promise(resolve => setTimeout(resolve, 100));
   assert.equal(m.get('serialOutput').textContent.length, 65536, 'Serial output stays bounded');
   m.get('serialClearBtn').click(); assert.equal(m.get('serialOutput').textContent, '');
+  m.get('plotPauseBtn').click();
+  assert.match(m.get('plotStatus').textContent, /2 vzorků/);
+  assert.equal(m.get('plotLegend').children.length, 2, 'Named series share the serial stream');
+  assert.equal(m.get('plotPauseBtn').textContent, 'Pokračovat v grafu');
+  m.get('plotPauseBtn').click();
+  m.get('plotClearBtn').click();
+  assert.match(m.get('plotStatus').textContent, /0 vzorků/);
   await m.get('uploadBtn').listeners.click();
   assert.equal(m.counts().uploads, 1); assert.equal(m.counts().portRequests, 1, 'Reuse the selected port');
   assert.equal(port.closes, 1); assert.equal(port.opens, 2, 'Receiving resumes after upload');
