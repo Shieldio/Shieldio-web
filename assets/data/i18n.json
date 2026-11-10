@@ -5116,12 +5116,12 @@
     "en": "The display shows the distance to an obstacle. A green or red LED lights up depending on the distance."
   },
   "home.simple.projects.parking.alt": {
-    "cs": "Ultrazvukový senzor HC-SR04 používaný v projektu",
-    "en": "HC-SR04 ultrasonic sensor used in the project"
+    "cs": "Ukázka parkovacího asistenta se Shieldio RED",
+    "en": "Parking assistant project with Shieldio RED"
   },
   "home.simple.projects.parking.caption": {
-    "cs": "Detail senzoru",
-    "en": "Sensor detail"
+    "cs": "Ukázka projektu",
+    "en": "Project example"
   },
   "home.simple.projects.theremin.h3": {
     "cs": "Bezdotykový nástroj",
@@ -5132,12 +5132,12 @@
     "en": "The distance between a hand and the sensor changes the buzzer pitch."
   },
   "home.simple.projects.theremin.alt": {
-    "cs": "Bzučák používaný v projektu bezdotykového nástroje",
-    "en": "Buzzer used in the touchless instrument project"
+    "cs": "Schéma: pohyb ruky před ultrazvukovým senzorem mění tón bzučáku",
+    "en": "Diagram: moving a hand in front of the ultrasonic sensor changes the buzzer pitch"
   },
   "home.simple.projects.theremin.caption": {
-    "cs": "Detail bzučáku",
-    "en": "Buzzer detail"
+    "cs": "Princip bezdotykového ovládání",
+    "en": "How contactless control works"
   },
   "home.simple.projects.guide": {
     "cs": "Návod k projektu",
