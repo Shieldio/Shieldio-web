@@ -11,7 +11,7 @@ export function parsePlotLine(line) {
   if (!input || input.length > 512) return null;
   const matches = [...input.matchAll(NAMED_RE)];
   if (matches.length) {
-    if (input.replace(NAMED_RE, "").replace(/[\\s,;]+/g, "")) return null;
+    if (input.replace(NAMED_RE, "").replace(/[\s,;]+/g, "")) return null;
     const result = Object.create(null);
     for (const match of matches) {
       const value = Number(match[2]);
@@ -20,7 +20,7 @@ export function parsePlotLine(line) {
     }
     return Object.keys(result).length <= 8 ? result : null;
   }
-  const tokens = input.split(/[\\s,;]+/);
+  const tokens = input.split(/[\s,;]+/);
   if (tokens.length > 8 || tokens.some(token => !NUM_RE.test(token))) return null;
   const result = Object.create(null);
   for (let i = 0; i < tokens.length; i++) {
@@ -46,7 +46,7 @@ export class SerialPlotter {
   append(chunk) {
     if (!chunk) return false;
     const joined = this.partial + String(chunk);
-    const lines = joined.split(/\\r\\n|\\r|\\n/);
+    const lines = joined.split(/\r\n|\r|\n/);
     this.partial = lines.pop() || "";
     // Poškozený nekonečný řádek nesmí neomezeně zabírat paměť.
     if (this.partial.length > 4096) this.partial = "";
