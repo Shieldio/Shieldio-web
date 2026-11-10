@@ -5076,8 +5076,8 @@
     "en": "View projects"
   },
   "home.simple.hero.interest": {
-    "cs": "Mám zájem o RED",
-    "en": "Interested in RED"
+    "cs": "Vyzkoušet Shieldio ve výuce",
+    "en": "Try Shieldio in the classroom"
   },
   "home.simple.hero.status": {
     "cs": "RED V4 testujeme. Zatím se neprodává.",
@@ -5232,8 +5232,8 @@
     "en": "Lesson preparation and requirements"
   },
   "home.simple.teachers.demo": {
-    "cs": "Domluvit ukázku",
-    "en": "Arrange a demonstration"
+    "cs": "Domluvit testování ve výuce",
+    "en": "Arrange classroom testing"
   },
   "home.simple.learn.title": {
     "cs": "Jak fungují součástky",
@@ -5248,8 +5248,8 @@
     "en": "Open the classroom"
   },
   "home.simple.contact.p": {
-    "cs": "Dotazy k RED a ukázkám pro školy.",
-    "en": "Questions about RED and demonstrations for schools."
+    "cs": "Chcete RED vyzkoušet ve výuce, domluvit ukázku nebo se na něco zeptat? Napište mi.",
+    "en": "Want to try RED in class, arrange a demo, or ask a question? Get in touch."
   },
   "nav.projects": {
     "cs": "Projekty",
