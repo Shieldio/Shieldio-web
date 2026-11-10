@@ -34,12 +34,12 @@
     <rect x="454" y="211" width="292" height="250" rx="17" fill="#156b7b" stroke="#0d4553" stroke-width="5"/>
     <rect x="466" y="223" width="268" height="226" rx="10" fill="none" stroke="#6fc6c0" stroke-opacity=".55" stroke-width="2"/>
     <g fill="#d2d9dd" stroke="#7c8b95" stroke-width="7">
-      <circle cx="535" cy="322" r="68"/>
-      <circle cx="665" cy="322" r="68"/>
+      <circle cx="530" cy="322" r="60"/>
+      <circle cx="670" cy="322" r="60"/>
     </g>
     <g fill="#657783" stroke="#f3f6f7" stroke-width="3">
-      <circle cx="535" cy="322" r="47"/>
-      <circle cx="665" cy="322" r="47"/>
+      <circle cx="530" cy="322" r="40"/>
+      <circle cx="670" cy="322" r="40"/>
     </g>
     <g fill="#c3d4d8">
       <rect x="486" y="455" width="17" height="43" rx="4"/>
