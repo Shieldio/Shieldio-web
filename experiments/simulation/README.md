@@ -113,3 +113,15 @@ W wire, Shift+R rotate, Esc cancel, Delete remove, Space run/pause.
 Drag a wire from a terminal to another terminal or an existing conductor.
 Shift changes the bend direction. A branch endpoint splits the conductor
 and makes an electrical junction; crossings alone remain unconnected.
+
+## Editor blokových schémat PTZS / EZS
+
+Samostatná pracovní plocha na `/ptzs.html`, dostupná přes **výběr prostředí** v hlavním simulátoru. Nemíchá se s analogovým, číslicovým ani FBD projektem a neprovádí simulaci alarmové ústředny. Knihovna obsahuje 20 autorských vektorových značek (ústředna, napájení, klávesnice, čtečky, detektory a signalizační zařízení).
+
+- Kliknutím na značku vložíte prvek, tažením jej přesunete, R jej otočí. Nástroj **Vodič (W)** spojuje koncové body nebo volné body na rastru 20 jednotek; propojení sleduje přesouvaný prvek.
+- Ve vlastnostech lze vyplnit vlastní popis a adresu zóny. **Vzorové blokové schéma** má adresy jen jako otazníky — skutečné adresy musí uživatel ověřit podle konkrétní instalace.
+- Každou značku lze stáhnout jako vlastní SVG, celou knihovnu jako ZIP se samostatnými SVG. Schéma lze exportovat do SVG, PNG nebo vytisknout / uložit do PDF.
+- Pro další úpravy se ukládá místně do prohlížeče nebo se exportuje/importuje JSON projekt.
+- Grafika je vlastní výuková tvorba. Nejde o certifikovanou ani úplnou knihovnu IEC 60617 či konkrétní ČSN. V případě dokumentace vyžadující normové značky je nutná kontrola podle příslušných předpisů a originálních podkladů.
+
+Kontrola: `node --test experiments/simulation/tests/ptzs-editor.test.mjs`.
