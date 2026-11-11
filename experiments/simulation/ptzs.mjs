@@ -51,7 +51,7 @@ el.innerHTML='<div class="muted">'+esc(def.name)+'</div><label for="labelEdit">O
 $('#labelEdit').addEventListener('change',(e)=>{checkpoint();n.label=e.target.value.slice(0,70)||def.name;changed();});
 $('#propRot').onclick=rotateSelected;$('#propDel').onclick=removeSelected;$('#propSvg').onclick=()=>download(def.id+'.svg',new Blob([singleSvg(def)],{type:'image/svg+xml'}));
 }
-function render(){draw();renderProperties();$('#projectTitle').value=doc.title;$('#canvas').setAttribute('viewBox',[view.x,view.y,view.w,view.h].join(' '));$('#zoom').textContent=Math.round(WIDTH/view.w*100)+' %';canvas.dataset.tool=tool;document.querySelectorAll('[data-tool]').forEach((b)=>b.classList.toggle('active',b.dataset.tool===tool));}
+function render(){draw();renderProperties();$('#projectTitle').value=doc.title;$('#canvas').setAttribute('viewBox',[view.x,view.y,view.w,view.h].join(' '));$('#zoom').textContent=Math.round(WIDTH/view.w*100)+' %';canvas.dataset.tool=tool;document.querySelectorAll('.toolbar [data-tool]').forEach((b)=>b.classList.toggle('active',b.dataset.tool===tool));}
 function select(kind,id){selected={kind,id};draw();renderProperties();}
 function setTool(t){tool=t;pending=null;render();status(t==='wire'?'Klikněte na vývod první značky nebo volný bod, potom na cílový vývod. Esc zruší čáru.':t==='pan'?'Tažením prázdné plochy posunete pohled.':'Přesouvejte značky tažením. Knihovna je vlevo.');}
 function addNode(type,at){const def=BYID.get(type);if(!def)return;checkpoint();const p=at||{x:view.x+view.w/2,y:view.y+view.h/2};const count=doc.nodes.filter((n)=>n.type===type).length+1;const n={id:newId(),type,x:snap(p.x),y:snap(p.y),rot:0,label:def.name+' '+count};doc.nodes.push(n);selected={kind:'node',id:n.id};setTool('select');changed();status('Značka vložena. Tažením ji přesuňte, ve Vlastnostech změňte označení.');}
@@ -107,7 +107,7 @@ function demo(){const n=(type,x,y,label)=>({id:newId(),type,x,y,rot:0,label}),a=
 return{version:1,title:'PZTS – vzorové blokové schéma',nodes:[a,b,c,d,e,f,g],wires:[[a,b],[b,c],[a,d],[d,e],[a,f],[f,g]].map(([p,q])=>({id:newId(),a:{id:p.id,port:'r'},b:{id:q.id,port:'l'}}))};}
 function replaceProject(next){checkpoint();doc=next;selected=null;pending=null;view={x:0,y:0,w:WIDTH,h:HEIGHT};changed();}
 $('#filter').oninput=library;
-document.querySelectorAll('[data-tool]').forEach((b)=>b.onclick=()=>setTool(b.dataset.tool));
+document.querySelectorAll('.toolbar [data-tool]').forEach((b)=>b.onclick=()=>setTool(b.dataset.tool));
 $('#rotate').onclick=rotateSelected;$('#delete').onclick=removeSelected;$('#undo').onclick=undo;$('#redo').onclick=redo;
 $('#zoomIn').onclick=()=>zoom(.8);$('#zoomOut').onclick=()=>zoom(1.25);$('#zoomReset').onclick=()=>{view={x:0,y:0,w:WIDTH,h:HEIGHT};render();};
 $('#exportSvg').onclick=()=>download(filename()+'.svg',svgBlob());$('#exportPng').onclick=pngExport;$('#printPdf').onclick=()=>{const before=clone(view);view=exportBounds();render();window.addEventListener('afterprint',()=>{view=before;render();},{once:true});window.print();};
