@@ -97,6 +97,31 @@ try{
   await send('Page.navigate',{url:origin+'/?example='+id});await until(()=>evaluate("document.querySelector('#scopeChart0 [data-measure-trace]')?.getAttribute('d').length>100&&document.querySelector('#run').textContent==='Spustit'"),'ready laboratory '+id);assert.equal(await evaluate("document.querySelector('#solverError').hidden"),true,id+' solver');if(['measure-inductance','bjt-common-emitter','opamp-slew'].includes(id))await shot('browser-'+id);
  }
  await click('.scope[data-scope="0"] .scope-menu > summary');await click('[data-scope-action="cursor"][data-scope="0"]');assert.equal(await evaluate("document.querySelector('#scopeReadout0').hidden"),false);const heldPaths=await evaluate("[...document.querySelectorAll('#scopeChart0 [data-measure-trace]')].map(e=>e.getAttribute('d'))");await click('#scopeChart0');assert.deepEqual(await evaluate("[...document.querySelectorAll('#scopeChart0 [data-measure-trace]')].map(e=>e.getAttribute('d'))"),heldPaths,'cursor inspection preserves the entire acquired interval');assert.ok(await evaluate("document.querySelector('#scopeReadout0').textContent.startsWith('U(RL)')&&document.querySelector('#scopeReadout0').textContent.includes('V/µs')"),'two cursors calculate slew from actual time samples');await shot('browser-slew-cursors');
+
+ // PZTS: skutečná navigace z přepínače prostředí, editace, ukládání a export.
+ await click('#modeSwitch');
+ await until(()=>evaluate("!!document.querySelector('[data-mode-choice=\"ptzs\"]')"),'PZTS choice');
+ await click('[data-mode-choice="ptzs"]');
+ await until(()=>evaluate("document.querySelectorAll('#parts [data-add]').length===20"),'PZTS library loaded');
+ assert.equal(await evaluate("document.title.includes('PZTS')"),true,'correct schematic terminology');
+ await click('#example');
+ assert.equal(await evaluate("document.querySelectorAll('#nodes .node').length"),7,'example contains seven alarm elements');
+ assert.equal(await evaluate("document.querySelectorAll('#wires [data-wire]').length"),6,'example contains six connections');
+ assert.equal(await evaluate("JSON.parse(localStorage.getItem('shieldio-ptzs-editor-v1')).nodes.length"),7,'the schema is stored locally');
+ await click('#zoomIn');
+ assert.ok(await evaluate("Number(document.querySelector('#canvas').viewBox.baseVal.width)<1600"),'zoom works');
+ await click('#undo');
+ assert.equal(await evaluate("document.querySelectorAll('#nodes .node').length"),0,'undo restores empty canvas');
+ await click('[data-add="pir"]');
+ assert.equal(await evaluate("document.querySelectorAll('#nodes .node').length"),1,'a symbol can be added');
+ await click('#rotate');
+ assert.ok(await evaluate("document.querySelector('#nodes .node > g')?.getAttribute('transform')==='rotate(90)'"),'selected symbol can be rotated');
+ await click('#downloadZip');
+ await click('#exportSvg');
+ await click('#exportPng');
+ await delay(350);
+ assert.doesNotMatch(await evaluate("document.querySelector('#status').textContent"),/nezdařil/,'export completed without reported error');
+ await shot('browser-ptzs-editor');
  assert.deepEqual(errors,[]);console.log('Browser version:',browser.Browser);console.log('Browser QA PASS: actual Worker, CSP, analog recording, differential measurement, third scope, canvas size/laptop resize, PNG export, dark/light, one-click digital input, FBD separation, four live diode XY demos, zoom, dual V/A axes, collapsible pickers, scope close/undo/recreate and inline channel removal.');
 }finally{socket?.close();chrome.kill('SIGTERM');await new Promise(r=>server.close(r));await delay(100);await rm(profile,{recursive:true,force:true}).catch(()=>{});}
 
