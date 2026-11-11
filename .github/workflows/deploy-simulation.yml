@@ -41,7 +41,7 @@ jobs:
           node -e "console.log('CHROME_BIN='+require('/tmp/shieldio-browser-qa/node_modules/playwright').chromium.executablePath())" >> "$GITHUB_ENV"
       - name: Ověřit skutečný prohlížeč a pracovní plochu
         env:
-          SIM_QA_SCREENSHOT_LOG: '1'
+          SIM_QA_SCREENSHOT_LOG: '0'
         run: node experiments/simulation/tests/browser-qa.mjs
       - name: Ověřit Firefox a WebKit
         env:
