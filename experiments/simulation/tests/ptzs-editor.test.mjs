@@ -11,7 +11,7 @@ const catalogExpression=source.slice(source.indexOf('const CATALOG=['),source.in
 const catalog=Function(catalogExpression+'\nreturn CATALOG;')();
 test('PTZS editor is separately linked from the simulation mode selector',()=>{
   assert.match(html,/<script type="module" src="\.\/ptzs\.mjs"><\/script>/);
-  assert.doesNotMatch(html,/<script(?:\s+[^>]*)?>[\s\S]*?<\/script>/);
+  assert.doesNotMatch(html,/<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?<\/script>/);
   assert.match(main,/data-mode-choice/);
   assert.match(main,/next==='ptzs'/);
   assert.match(main,/location\.assign\('\.\/ptzs\.html'\)/);
