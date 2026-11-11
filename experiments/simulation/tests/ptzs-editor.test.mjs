@@ -42,3 +42,31 @@ test('generated ZIP contains valid local, central and end headers',async()=>{
   assert.equal(b.getUint32(centralOffset,true),0x02014b50);
   assert.equal(b.getUint16(buf.byteLength-22+10,true),1);
 });
+
+test('PZTS export shows items outside the initial 1600 × 900 work area',()=>{
+  const start=source.indexOf('function exportBounds(){');
+  const end=source.indexOf('function schematicSvg()',start);
+  assert.ok(start>0&&end>start,'dynamic export bounds must exist');
+  const project={nodes:[{x:2800,y:-960},{x:3500,y:-100}],wires:[{a:{x:2750,y:-900},b:{x:3550,y:-40}}]};
+  const bounds=Function('doc','WIDTH','HEIGHT','endPoint',source.slice(start,end)+';return exportBounds();')(project,1600,900,p=>p);
+  assert.ok(bounds.x<=2710 && bounds.x+bounds.w>=3590,'all symbols are inside export');
+  assert.ok(bounds.y<=-1035 && bounds.y+bounds.h>=0,'vertical labels are inside export');
+  assert.ok(Math.abs(bounds.w/bounds.h-1600/900)<1e-10,'landscape aspect ratio is preserved');
+});
+test('PZTS project import sanitizes positions and rejects broken references',()=>{
+  const start=source.indexOf('function validateProject(');
+  const end=source.indexOf('function library()',start);
+  assert.ok(start>0&&end>start);
+  let i=0;
+  const validate=Function('BYID','newId','snap',source.slice(start,end)+';return validateProject;')(
+    new Map(catalog.map(c=>[c.id,c])),()=>String(++i),n=>Math.round(n/20)*20);
+  const base={title:'test',nodes:[{id:'a',type:'panel',x:2,y:24,label:'PZTS'}],wires:[{a:{id:'a',port:'r'},b:{x:120,y:100}}]};
+  const parsed=validate(base);
+  assert.equal(parsed.nodes[0].x,0);
+  assert.equal(parsed.nodes[0].y,20);
+  assert.equal(parsed.wires[0].a.port,'r');
+  assert.throws(()=>validate({...base,nodes:[{...base.nodes[0],type:'unknown'}]}));
+  assert.throws(()=>validate({...base,nodes:[base.nodes[0],base.nodes[0]]}));
+  assert.throws(()=>validate({...base,wires:[{a:{id:'missing',port:'l'},b:{x:0,y:0}}]}));
+  assert.throws(()=>validate({...base,wires:new Array(1501).fill(base.wires[0])}));
+});
