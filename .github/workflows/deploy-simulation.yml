@@ -30,18 +30,19 @@ jobs:
         run: node --test tests/subdomain-seo.test.mjs
       - name: Ověřit analogové výpočty, číslicovou logiku, ngspice a Worker
         run: node --test experiments/simulation/tests/*.test.mjs tests/simulation-worker.test.mjs
-      - name: Ověřit skutečný prohlížeč a pracovní plochu
-        env:
-          SIM_QA_SCREENSHOT_LOG: '1'
-        run: node experiments/simulation/tests/browser-qa.mjs
-      - name: Připravit Firefox a WebKit
+      - name: Připravit Chromium, Firefox a WebKit pro integrační testy
         run: |
-          # Keep the signed Ubuntu repository, avoid the intermittently slow Azure mirror.
+          # Browser QA nesmí spoléhat na předinstalovaný google-chrome v obrazu runneru.
           if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
             sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
           fi
           npm install --prefix /tmp/shieldio-browser-qa playwright@1.64.1
-          /tmp/shieldio-browser-qa/node_modules/.bin/playwright install --with-deps firefox webkit
+          /tmp/shieldio-browser-qa/node_modules/.bin/playwright install --with-deps chromium firefox webkit
+          node -e "process.stdout.write('CHROME_BIN='+require('/tmp/shieldio-browser-qa/node_modules/playwright').chromium.executablePath()+'\\n')" >> "$GITHUB_ENV"
+      - name: Ověřit skutečný prohlížeč a pracovní plochu
+        env:
+          SIM_QA_SCREENSHOT_LOG: '1'
+        run: node experiments/simulation/tests/browser-qa.mjs
       - name: Ověřit Firefox a WebKit
         env:
           PLAYWRIGHT_MODULE: /tmp/shieldio-browser-qa/node_modules/playwright/index.mjs
