@@ -38,7 +38,7 @@ jobs:
           fi
           npm install --prefix /tmp/shieldio-browser-qa playwright@1.64.1
           /tmp/shieldio-browser-qa/node_modules/.bin/playwright install --with-deps chromium firefox webkit
-          node -e "process.stdout.write('CHROME_BIN='+require('/tmp/shieldio-browser-qa/node_modules/playwright').chromium.executablePath()+'\\n')" >> "$GITHUB_ENV"
+          node -e "console.log('CHROME_BIN='+require('/tmp/shieldio-browser-qa/node_modules/playwright').chromium.executablePath())" >> "$GITHUB_ENV"
       - name: Ověřit skutečný prohlížeč a pracovní plochu
         env:
           SIM_QA_SCREENSHOT_LOG: '1'
