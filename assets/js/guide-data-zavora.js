@@ -313,15 +313,15 @@ window.SHIELDIO_GUIDE = {
       arduino: {
         screenshot: null,
         note: {
-          cs: 'Startovní program otevři v <a href="../../../../instructions/blokovy-editor.html?preset=zavora">našem editoru</a>, přes Zobrazit kód uvidíš jeho Arduino C++. Pro ruční úpravy jej zkopíruj do záložky Arduino C++.',
-          en: 'Open the starter program in <a href="../../../../instructions/blokovy-editor.html?preset=zavora">our editor</a>, Show code displays its Arduino C++. Copy it into the Arduino C++ tab for manual changes.',
+          cs: 'Startovní program otevři v <a href="../../../../instructions/blokovy-editor.html?preset=zavora">našem editoru</a>, zapni Pokročilý režim a otevři Arduino C++. Při prvním přepnutí se kód z bloků převezme automaticky; další úpravy obou verzí jsou oddělené.',
+          en: 'Open the starter program in <a href="../../../../instructions/blokovy-editor.html?preset=zavora">our editor</a>, enable Advanced mode and open Arduino C++. The first switch copies the block code automatically; later changes to each version remain separate.',
         },
         diagnostics: [
           {
             title: { cs: "Chyba: Nelze nahrát (upload error)", en: "Error: Can't upload (upload error)" },
             items: [
-              { cs: "Klikni na Připojit desku a vyber USB port RED.", en: "Click Connect board and select the RED USB port." },
-              { cs: "V Nastavení desky ověř bootloader Nano: Optiboot 115200 nebo starý 57600.", en: "Check the Nano bootloader in Board settings: Optiboot 115200 or old 57600." },
+              { cs: "V pokročilém režimu klikni na Připojit desku a vyber USB port RED.", en: "In advanced mode, click Connect board and select the RED USB port." },
+              { cs: "V pokročilém režimu v Nastavení desky ověř bootloader Nano: Optiboot 115200 nebo starý 57600.", en: "In advanced mode, check the Nano bootloader in Board settings: Optiboot 115200 or old 57600." },
               { cs: "Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.", en: "Try a different USB cable, some charging-only cables don't carry data." },
             ],
           },

@@ -93,7 +93,7 @@ const serialPlotter = new SerialPlotter();
 let plotPaused = false, plotTimer = null;
 let lastCompile = null, failedBuild = null, errorLine = null, renderedLineCount = 0;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
-const exampleFiles = {zviratko:"/assets/code/zviratko/zviratko.ino",digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
+const exampleFiles = {seriova_linka:"/assets/code/seriova_linka/seriova_linka.ino",zviratko:"/assets/code/zviratko/zviratko.ino",digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
 const entryParams = new URLSearchParams(window.location?.search || "");
 const requestedExample = entryParams.get("example");
 const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExample : null;
@@ -275,6 +275,11 @@ document.addEventListener("click", event => {
 });
 
 const projectCopy = {
+  seriova_linka: {
+    title: ["Vyzkoušej sériovou linku.", "Try the serial connection."],
+    expected: ["Rozbal Sériový monitor a spusť příjem na 9600 baud. Pošli 1 nebo 0 pro vestavěnou LED; plotter zobrazí A0.", "Open Serial monitor and start receiving at 9600 baud. Send 1 or 0 for the built-in LED; the plotter shows A0."],
+    change: ["Změň interval měření nebo připoj vlastní senzor na A0.", "Change the sampling interval or connect a sensor to A0."]
+  },
   zviratko: {
     title: ["Oživ zvířátko na displeji.", "Bring an animal to the display."],
     expected: ["Bez stisku kočka spí. Tlačítko 1 ji rozveselí, tlačítko 2 ukáže překvapeného psa.", "The cat sleeps when no button is pressed. Button 1 makes it happy; button 2 shows a surprised dog."],

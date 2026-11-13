@@ -1,106 +1,114 @@
-# Programování Shieldio RED v prohlížeči
+# Programování Shieldio v prohlížeči
 
-Vstupní stránka: `/instructions/blokovy-editor.html`. Zachovává odkazy a preset `?preset=zavora`.
+Editor: [`/instructions/blokovy-editor.html`](https://shieldio.cz/instructions/blokovy-editor.html).
+Aktuální uživatelský postup: [první program a přehled režimů](https://shieldio.cz/instructions/programovani/#rezimy).
+Návody na webu, průvodci projektů a textové verze odkazují na tento společný postup.
 
-## Architektura
+## Jednoduchý a pokročilý režim
 
-- Blockly generuje C++ pro RED. Událost `shieldio:code-change` zneplatní předchozí kompilaci.
-- Záložka Arduino C++ obsahuje oddělený ruční zdroj. Společná lišta importuje `.ino` do této záložky a exportuje `.ino` aktuálního režimu nebo `.hex` aktuální úspěšné kompilace v obou režimech. Nastavení desky, soubory, knihovny a návod jsou rozbalovací. Editor používá dostupnou výšku okna a umožňuje zvětšení na celé okno.
-- Module Worker překládá skutečným AVR GCC přes WebAssembly. Zdroj neopouští prohlížeč; neexistuje vzdálené compile API, tajný token ani serverový proces. Ruční `.ino` se překládá jako C++, s přidaným `Arduino.h`, bez automatického generování prototypů funkcí.
-- `arduino-flasher.mjs` implementuje STK500v1 přes Web Serial: reset DTR/RTS, synchronizace, kontrola signatury ATmega328P, zápis stránek po 128 B, přečtení a porovnání každé stránky, opuštění bootloaderu a uvolnění USB portu.
-- Výběr portu nastává přímo z kliknutí před případnou kompilací. Samotný port se otevírá až pro nahrání a vždy se zavře.
-- Uspěje pouze ověřený zápis; výpadek USB, timeout, jiný čip a odlišný obsah flash se hlásí jako chyby. Při přerušení zápisu je potřeba nahrát znovu.
-- Podporované desky: klasický Nano/RED, ATmega328P 16 MHz, 115200 pro Optiboot, 57600 pro starý bootloader. Limit aplikace 30 720 B v obou režimech chrání i větší starý bootloader. Nano Every/33/ESP32 nejsou podporované.
-- RAM údaj je statická alokace z ELF. U SSD1306 připočítáváme 1024 B dynamického framebufferu. Zbývající prostor musí stačit zásobníku a dalším dynamickým alokacím; statická kontrola nezaručuje běhovou bezpečnost libovolného C++.
+- Jednoduchý režim je určený pro Shieldio RED. Pod názvem desky jsou kategorie LED,
+  Tlačítka, Vzdálenost, Servo, Zvuk a Displej. Horní filtr rodin/modulů se nepoužívá.
+- Displej má uvnitř sekce Text, Zvířátka a Kreslení. Text se píše přímo do bloku;
+  čísla, úhly a ostatní hodnoty mají editovatelné shadow bloky. Výraz může nahradit
+  hodnotu a po odebrání se editovatelné pole vrátí.
+- Nové základní bloky čekání a délky tónu používají sekundy. Starší milisekundové
+  bloky zůstávají platné a zachovávají čas. V C++ jsou delay() a millis() v ms.
+- Pokročilý režim přidává Arduino C++, výběr desky, soubory, knihovny, sériový
+  plotter a odesílání zpráv. Volba Pokročilé bloky přidává matematiku, číselné
+  proměnné a sériové příkazy; pro časovač a theremin je potřeba.
+- Návrat do jednoduchého režimu obnoví RED a základní kategorie bez smazání bloků.
+  Opětovné otevření pokročilého režimu obnoví předchozí pro nastavení a desku.
+  Import univerzálního/pokročilého projektu otevře odpovídající režim.
 
-## Kompilátor a třetí strany
+## Desky a USB
 
-Připnutý balíček: [`@horang-corp/avr-gcc-wasm` 0.2.0](https://www.npmjs.com/package/@horang-corp/avr-gcc-wasm).
+| Volba Deska | Procesor | Analogové vstupy | Limit aplikace | Bootloader |
+| --- | --- | --- | --- | --- |
+| Shieldio RED / klasické Nano | ATmega328P, 16 MHz | A0–A7 | 30 720 B | Optiboot 115200 / starý Nano 57600 |
+| Arduino Uno R3 | ATmega328P, 16 MHz | A0–A5 | 32 256 B | 115200 |
 
-- [Zdrojový repozitář a build skripty](https://github.com/horang-corp/avr-gcc-wasm)
-- [Původní oznámení a licence](https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/THIRD_PARTY_NOTICES.md)
-- [Připnutý původní build adaptér](https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/firmware-builder.js)
+Volba desky se předává do Workeru, kompilátoru a uploaderu; určuje makro Arduino,
+analogové piny i meze HEX. Změna cíle zneplatní starou kompilaci.
+Uno/Nano používají univerzální piny; hardwarové moduly RED mají vlastní pevnou mapu.
+Uno R4, Nano Every a Nano 33 nejsou tímto AVR editorem podporované.
+ESP32 má samostatné Studio a není cílem RED uploaderu.
 
-Změny v `avr-compiler.mjs`: Nano identita a osm analogových vstupů, konzervativní Nano flash limit, načítání binárek explicitně, výběr pouze potřebných knihoven, výpočet statické RAM z ELF. WebAssembly nástroje a původní knihovní objekty se neupravují a načítají se z připnuté adresy na jsDelivr. První použití potřebuje internet; školní síť musí povolit `cdn.jsdelivr.net` a pro Blockly `unpkg.com`. Balíček obsahuje přibližně 54 MB nekomprimovaných podkladů. HTTP cache může opakované přenosy omezit; offline režim není garantovaný.
+Přímé USB používá Web Serial v desktop Chrome/Edge přes HTTPS nebo localhost.
+Safari nemá podporu USB; bloky, C++, kompilace a export mohou fungovat bez ní.
+Program se překládá místně, bez compile API a pomocného programu v místní síti.
 
-GCC a binutils jsou GPLv3+, knihovní objekty mají licence svých upstream projektů. Originální zdroje, úpravy a build pokyny toolchainu jsou v odkazovaném upstream repozitáři; zdroj naší úpravy je veřejně v tomto repozitáři. Vlastní C++ knihovny se načítají z místní složky; nepoužívá se registr ani vzdálený build.
+`arduino-flasher.mjs` implementuje STK500v1: reset DTR/RTS, synchronizaci, ověření
+ATmega328P, zápis 128B stránek a zpětné čtení každé stránky. Úspěch znamená ověřený
+zápis. Chyba či odpojení nevytváří úspěšný výsledek; po přerušení nahraj znovu.
 
-## Ověření
+## OLED a knihovny
 
-`node --test tests/arduino-flasher.test.mjs` ověřuje Intel HEX, ochranu bootloaderu, protokolový přenos se zpětnou kontrolou, odmítnutí jiného čipu, poškozený zápis a uvolnění portu při chybě nebo zrušení.
+`assets/arduino/ShieldioDisplay.json` obsahuje ShieldioDisplay 0.3.0, licenci MIT
+a přesný upstream commit. Načítá se podle include. Podporuje SSD1306 128×64 na
+A4/A5, ASCII text 16×8, menu a zvířecí tváře Cat/Dog/Lion s pěti náladami a očima.
+`face()` nahradí displej okamžitě a nepotřebuje render(). Text vyžaduje render();
+na textové třídě další render() po tváři obnovuje předchozí text.
+ShieldioCanvas pro tvary přidává pevný 1024B buffer. Samotný text a tváře jej nemají.
 
-Pro hardwarovou přejímku otevři stránku v desktop Chrome/Edge přes HTTPS nebo localhost, připoj RED, vyber port a nahraj blikání LED D5. Ověř oba bootloadery na příslušných deskách, servo, OLED a chování při vytažení USB. Cloudový test ani mock protokolu nenahrazuje tento fyzický test.
+Servo, Wire, SPI, Adafruit GFX a SSD1306 jsou přibalené. Starší Adafruit sketche
+zůstávají podporované; nový blokový OLED používá ShieldioDisplay/ShieldioCanvas.
+RAM údaj počítá statická data a případný 1024B dynamický buffer Adafruit SSD1306.
+Nezahrnuje běhový zásobník ani ostatní dynamické alokace.
 
-## Podpora prohlížečů
+Import vlastní knihovny vybírá kořenovou rozbalenou složku. Podporuje hlavičky
+a C++ zdroje ve src/ i starší formát root+utility/. C, assembler a binární archivy
+se odmítají. Závislosti je potřeba dodat; duplicitní veřejné hlavičky se odmítají.
+Limit včetně ShieldioDisplay: 8 knihoven, 160 souborů, 12 C++ jednotek, 2 MB textu.
+Vlastní knihovny jsou v paměti záložky a po obnovení je potřeba je načíst znovu.
 
-Editor používá výhradně přímé USB přes Web Serial, bez místního pomocného programu. Dostupnost ověřuje podle `navigator.serial` a zabezpečeného kontextu. Pro USB nahrávání používej desktop Chrome nebo Edge.
+## Monitor, plotter a odesílání
 
-V Safari není Web Serial dostupné. Bloky, Arduino C++, kompilace a export fungují nezávisle na USB transportu; ovládání připojení a nahrávání je zakázané a UI vysvětluje, jak program přenést do podporovaného prohlížeče. Přepínač transportu, lokální síťové spojení i klientské knihovny pro pomocníka byly odstraněny. Žádné compile API ani místní služba nejsou potřeba.
+Jednoduchý monitor má jediné připojení. Otevření s vybraným portem začne přijímat.
+Baud se odvozuje z číselného Serial.begin(...), jinak je 9600. Pokročilý monitor
+má ruční rychlost, zastavení, vymazání, autoscroll a zprávy s LF/CRLF/bez ukončení.
+Zpráva je nejvýše 4096 UTF-8 bajtů včetně konce řádku. Sketch musí data sám číst.
 
-Test `node tests/arduino-programming-ui.test.mjs` ověřuje dostupnost kompilace/exportu bez Web Serial, výběr a odpojení přímého USB, zrušení výběru portu, zotavení po chybě, ochranu proti exportu neaktuálního HEX a přenos zdrojového kódu. Workflow `test-arduino.yml` spouští UI i protokolové testy bez sítě a připojeného hardwaru.
+Monitor a plotter sdílí jeden port. Před nahráváním se dokončí probíhající zápis,
+uvolní reader/writer a zavře port; po úspěšném uploadu se příjem obnoví.
+Monitor uchovává 65 536 znaků, aktualizuje nejvýše po 80 ms a používá textContent.
+Plotter je jen v pokročilém režimu, návrat do jednoduchého jej zavře.
+Přijímá číslo na řádku, až osm hodnot, nebo pojmenované hodnoty A:12 B:34 / A=12,B=34.
+Uchovává 600 vzorků a osm řad. Textové zprávy ignoruje, monitor je nadále ukazuje.
 
+[Ukázka příjmu, grafu a příkazů](https://shieldio.cz/instructions/blokovy-editor.html?example=seriova_linka)
+posílá A0 a přijímá 1/0 pro vestavěnou LED Arduino modulu.
 
-## Pracovní prostředí a bloky
+## Architektura, úpravy a uložení
 
-- Výběr desky zůstává podle barev; zatím jediný podporovaný cíl je RED / klasický Nano, ATmega328P, 16 MHz. Univerzální Arduino mění nabídku bloků, nikoli cílový procesor kompilace či uploaderu. Kód bez hardwarových Shieldio bloků neobsahuje jejich piny ani knihovny.
-- Moduly RED: LED, tlačítka, HC-SR04, servo, bzučák, SSD1306 OLED. Výběr rodiny nabízí RED a neaktivní YELLOW/PRO; změna nabídky nemaže program. Pokročilá nabídka zpřístupní matematiku, číselné proměnné, sériovou linku a přímou práci s piny.
-- Vstupy času, úhlu, tónu, textu, porovnání a opakování obsahují editovatelné shadow bloky. Číslo/text lze napsat přímo; vložený výraz nahradí placeholder, po jeho odebrání se pole vrátí. Chybějící placeholdery doplníme i při importu staršího projektu.
-- Kód generují jen bloky připojené k setup/loop; nepoužité odložené bloky nezavádějí hardwarové závislosti. Ultrazvuk používá 30ms timeout.
-- Pracovní plocha se přizpůsobuje změnám okna přes ResizeObserver; nerozmísťuje a nepřibližuje program sama. Celý program je samostatná akce. Náhled C++ je na širším okně vedle bloků, pod 1050px pod nimi.
-- Bloky a rozepsaný C++ se průběžně ukládají do localStorage pro tentýž prohlížeč/origin. Ukládání do souboru zůstává potřebné pro přenos a zálohu. Parametr platného projektu `?preset=zavora` má přednost před automatickým obnovením.
-- Editor C++ má čísla řádků a Tab/Shift+Tab pro odsazení. Ctrl/Cmd+Enter kompiluje, se Shiftem nahrává; upload se pořád řídí dostupností USB a běžnými kontrolami.
+Blockly generuje C++ jen z bloků napojených na setup/loop; odložené bloky
+nezavádějí periferní závislosti. Ultrazvuk sdílí jeden vzorek, používá 30ms timeout
+a nejméně 60ms interval; chybějící echo je neplatné, nikoli nula centimetrů.
+`shieldio:code-change` zneplatňuje neaktuální HEX.
 
-## ShieldioDisplay a vlastní knihovny
+Ruční C++ je oddělený zdroj. Při prvním otevření se převezme kód z bloků, další
+změny jsou oddělené. Import .ino otevře Arduino C++, export .ino sleduje aktivní
+záložku. Funkce musí být deklarované před použitím; nejsou generované Arduino prototypy.
+Editor má čísla řádků, odsazování, párování a diagnostiku GCC s navigací do zdroje.
+Ctrl/Cmd+Enter kompiluje, se Shiftem nahrává. Formátování mění odsazení, ne syntaxi.
 
-Přibalený `assets/arduino/ShieldioDisplay.json` obsahuje zdroje ShieldioDisplay 0.2.0, MIT licenci a přesný odkaz na upstream commit. Načte se z vlastního webu podle použití hlavičky. Textové OLED bloky používají úsporný ShieldioDisplay; bloky pro tvary volí ShieldioCanvas s 1024B grafickou pamětí. ShieldioDisplay má 16×8 ASCII textovou mřížku, nepodporuje diakritiku a při begin() zobrazí sekundový úvodní text. Staré ruční Adafruit programy lze dále kompilovat.
+Bloky a C++ se ukládají do localStorage, předvolby mají samostatné klíče. Nový projekt
+vytvoří prázdnou práci, Vymazat bloky ponechá oba starty. Neprázdná práce vyžaduje
+potvrzení smazání. Ukládej export pro přenos a zálohu; data prohlížeče mohou zmizet.
 
-Import vybírá kořenovou složku jedné rozbalené knihovny. Podporován je formát se src/ (rekurzivně) i starší kořen + utility/. Příklady se nekompilují. Podporujeme .h/.hpp/.hh/.inc/.ipp/.tpp a C++ .cpp/.cc/.cxx. C, assembler, binární archivy a jiné architektury se odmítnou s vysvětlením; nejde o plnou implementaci všech formátů Arduino CLI.
+Předvolby: blikani, zavora, parkovani, zviratko. C++ ukázky: digitalni_metr,
+ultrazvukovy_radar, zviratko, seriova_linka. Časovač a theremin jsou zadání
+pro vlastní program, nikoli předstírané hotové sketche.
 
-Hlavičky a zdroje zůstávají v prohlížeči a předávají se Workeru. Z přímých a tranzitivních include vybereme pouze použité knihovny, přidáme jejich include cesty, každý C++ zdroj přeložíme samostatně a objekty spojíme se správnými přibalenými závislostmi. Shodné veřejné hlavičky se odmítají. Změna/odebrání knihovny zneplatní zkompilovaný HEX i pro stejný sketch. Limit včetně ShieldioDisplay je 8 knihoven, 160 souborů, 12 překládaných zdrojů a 2 MB textu. Importované knihovny jsou pouze pro otevřenou záložku a po obnovení se načítají znovu; UI to uvádí.
+## Kompilátor a ověření
 
-## Rozšířené testy
+AVR GCC/binutils přes WebAssembly používají připnutý balíček
+[@horang-corp/avr-gcc-wasm 0.2.0](https://www.npmjs.com/package/@horang-corp/avr-gcc-wasm).
+[Zdrojové build skripty](https://github.com/horang-corp/avr-gcc-wasm) a
+[licence](https://cdn.jsdelivr.net/npm/@horang-corp/avr-gcc-wasm@0.2.0/THIRD_PARTY_NOTICES.md).
+Nástroje se načítají z jsDelivr, Blockly z unpkg; první spuštění potřebuje internet.
+Původní nástroje mají cca 54 MB nekomprimovaných podkladů; offline režim není zaručený.
 
-`tests/arduino-blocks.test.mjs` používá skutečný Blockly 13.2.1 v headless workspace: zadání do placeholderu, nahrazení výrazem a návrat, migrace starého projektu, filtry bez smazání programu, univerzální piny, proměnné, knihovny a opravená priorita matematických výrazů. Vytváří skutečné sketche pro LED, univerzální Arduino, servo a OLED.
-
-`tests/arduino-libraries.test.mjs` kontroluje import, tranzitivní závislosti, limity, cesty, architektury, konflikty a odsazování. Rozšířený compiler test v CI překládá také sketche z Blockly, ShieldioDisplay a vlastní knihovnu s vnořeným C++ zdrojem závislým na Servo; ověřuje rovněž header-only knihovnu. Hardware ani vykreslení v reálném Chrome tyto testy nenahrazují.
-
-## Diagnostika a úpravy C++
-
-`assets/js/arduino-diagnostics.mjs` čte chyby GCC, slučuje totožné zprávy a nabízí vysvětlení běžných chyb. Přechod do zdroje je dostupný pouze pro řádky ručně psaného sketche. Jednoznačně chybějící `)` lze doplnit samostatným tlačítkem; návrh platí jen pro nezměněnou verzi zdroje. Knihovní chyby se neoznačují jako řádky sketche.
-
-`assets/js/arduino-source-editor.mjs` zajišťuje Tab/Shift+Tab, odsazení nového řádku, párování závorek a uvozovek, přepínání řádkových komentářů a úpravu odsazení. Formátování mění odsazení, nikoli syntaxi C++; zachovává obsah víceřádkových řetězců a maker. Regrese pokrývá `tests/arduino-editor-assist.test.mjs` společně s testem UI.
-
-## Průběh a správa projektu
-
-Lišta zůstává viditelná před spuštěním i po dokončení. Kompilace má neurčitý běžící indikátor; nahrávání a zpětné ověření ukazují skutečný průběh zápisu a čtení. Fáze jsou označené Kompilace, Nahrání a Ověření.
-
-Nový projekt vytvoří prázdné bloky i C++, odstraní vlastní knihovny a přejde na samostatné ukládání bez původního presetu. Vymazat bloky ponechá startovní bloky; v režimu C++ se stejná akce jmenuje Vymazat kód. Neprázdná práce se maže až po potvrzení. Obnovit editor před načtením stránky uloží bloky i C++; při chybě ukládání se obnovení neprovede. Během kompilace a nahrávání jsou tyto akce zakázané.
-
-
-## Sériový monitor
-
-Rozbalovací panel pod editorem přijímá UTF-8 text z `Serial.print()` a `Serial.println()` přes stejný Web Serial port jako nahrávání. Rychlost musí odpovídat `Serial.begin(...)`; výchozí je 9600 baud. Monitor nabízí zastavení příjmu, vymazání a automatické posouvání výpisu. Uchovává posledních 65 536 znaků a obnovuje výpis nejvýše jednou za 80 ms. Výpis vkládá přes `textContent`.
-
-`arduino-serial-monitor.mjs` vlastní čtečku a otevřený port. Před nahráváním UI čeká na zrušení čtení, uvolnění zámku a uzavření portu; po úspěšném nahrání obnoví předchozí příjem se zvolenou rychlostí. Odpojení desky a chyby monitoru mají samostatný stav a nepřepisují výsledek kompilace. K použití je potřeba desktop Chrome/Edge a zabezpečený kontext.
-
-`node tests/arduino-serial-monitor.test.mjs` ověřuje rozdělené UTF-8 znaky, rychlost, přerušení, uvolnění portu a odpojení. Test UI navíc kontroluje limit výpisu a předání stejného portu nahrávání i obnovení příjmu. Tyto testy používají simulované streamy; fyzické USB se jimi neověřuje.
-
-
-## Sériový plotter
-
-Pod sériovým monitorem je samostatný panel **Sériový plotter**. Monitor i plotter čtou stejný Web Serial stream a společně sdílejí rychlost přenosu i tlačítka příjmu. Nové USB spojení se neotvírá: při nahrávání se příjem zastaví, port uvolní a po úspěšném uploadu se obnoví, jako dříve. Safari plotter vykreslí, ale bez podpory Web Serial nemůže číst z desky.
-
-Každý kompletní řádek má obsahovat jedno číslo (`23.5`), až osm čísel oddělených mezerami, čárkami či středníky (`12 25`), nebo až osm pojmenovaných hodnot (`teplota:23.5 vlhkost:46`, případně `A=12,B=25`). Pro dvě křivky například:
-
-```cpp
-void setup() { Serial.begin(9600); }
-void loop() {
-  Serial.print("A:"); Serial.print(analogRead(A0));
-  Serial.print(" B:"); Serial.println(analogRead(A1));
-  delay(50);
-}
-```
-
-Textové zprávy a nečíselné řádky plotter ignoruje; v monitoru zůstávají viditelné. Ovládání grafu zahrnuje pozastavení (bez přerušení monitoru), vymazání, automatický nebo ruční rozsah osy Y a legendu aktuálních hodnot. Uchovává nejvýše 600 vzorků a osm řad. Po odpojení zůstane dosavadní graf viditelný; nové čtení lze spustit po opětovném připojení.
-
-`node tests/arduino-serial-plotter.test.mjs` ověřuje parser, nedokončené řádky, obě formy dat, omezení paměti a automatický rozsah. Test UI ověřuje souběh grafu s monitorem. Pro finální ověření je nutný Chrome/Edge s fyzickou RED.
+Testy pokrývají Blockly a režimy, Uno/Nano kompilaci i meze HEX, diagnostiku,
+import knihoven, příjem/odesílání serial dat, plotter a uvolnění portu při uploadu.
+Odkazy a obsah ověřují site-content a site-journeys testy.
+Skutečné AVR sestavení a mock USB nenahrazují fyzickou zkoušku na desce.

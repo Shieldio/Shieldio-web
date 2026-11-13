@@ -5,8 +5,13 @@
     "url": "/instructions/baseline/red/zviratko/index.html"
   },
   {
+    "title": "Sériový monitor, plotter a posílání příkazů",
+    "desc": "Příjem a odesílání dat přes USB, rychlost přenosu, LF/CRLF a ukázkový program pro Uno, Nano i RED.",
+    "url": "/instructions/programovani/#seriova-linka"
+  },
+  {
     "title": "Editor Shieldio kompiluje a nahrává do RED",
-    "desc": "Bloky i Arduino C++, skutečný AVR kompilátor v prohlížeči a přímé USB nahrávání do Nano / Shieldio RED.",
+    "desc": "Bloky i Arduino C++, kompilace a USB do RED, klasického Nano a Uno R3. Jednoduchý a pokročilý režim.",
     "url": "/aktuality/editor-shieldio.html"
   },
   {
@@ -194,7 +199,7 @@
   },
   {
     "title": "Programování RED",
-    "desc": "Programuj Shieldio RED v blocích nebo Arduino C++, zkompiluj program a nahraj ho přes USB přímo z prohlížeče.",
+    "desc": "Jednoduché bloky RED podle modulů, pokročilé C++, Uno/Nano, OLED zvířátka, USB nahrávání a sériový monitor i plotter.",
     "url": "/instructions/blokovy-editor.html",
     "keywords": [
       "programování",
@@ -256,7 +261,7 @@
   },
   {
     "title": "První program a nahrání do RED",
-    "desc": "První program pro Shieldio RED: otevři editor, připoj desku v Chrome nebo Edge, zkompiluj program a nahraj ho přes USB.",
+    "desc": "První program, režimy editoru, sekundy v blocích, OLED, Uno/Nano a sériový monitor, plotter i odesílání příkazů.",
     "url": "/instructions/programovani/index.html"
   },
   {

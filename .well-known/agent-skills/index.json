@@ -6,14 +6,14 @@
       "type": "skill-md",
       "description": "Find verified public Shieldio RED project guides, component references, and assembly instructions, with revision and safety checks.",
       "url": "/.well-known/agent-skills/shieldio-red-projects/SKILL.md",
-      "digest": "sha256:95a709aef468811c211feb139f11226d766e36635da4f64b2ef9d776f81de1cf"
+      "digest": "sha256:e67d654faf5db82ddb2393b05b22df3e00b959db3f9b1df0105af5ce1964bb62"
     },
     {
       "name": "shieldio-red-programming",
       "type": "skill-md",
-      "description": "Guide programming and local USB uploading to Shieldio RED using its browser editor and documented Arduino Nano workflow.",
+      "description": "Guide programming and local USB uploading to Shieldio RED using its browser editor and documented classic Uno/Nano workflow.",
       "url": "/.well-known/agent-skills/shieldio-red-programming/SKILL.md",
-      "digest": "sha256:9e026b6d854f697e5b50cb9fad7afd8a3404238c060db974c11cb2715e4985e8"
+      "digest": "sha256:fd1622f361a3d24661e847c662a180643ada72c387c6fe169d8b800234b29c54"
     },
     {
       "name": "shieldio-electronics-learning",

@@ -60,6 +60,121 @@
   </div>
 </div>
 
+<!-- SHIELDIO-READABLE-GUIDE-START -->
+<main id="guide-text-content" class="wrap" style="max-width:900px;margin:24px auto" data-agent-content="guide">
+<details class="guide-text-fallback" open>
+<summary style="cursor:pointer;padding:12px 0;font-weight:600">Kompletní textový návod – funguje i bez JavaScriptu</summary>
+<article class="guide-readable-article" style="padding-bottom:24px">
+<h1>Automatická závora</h1>
+<p><strong>Předpokládaný čas:</strong> 45 minut · rozšířeně 90</p>
+<h2>Co se naučíš</h2>
+<ul>
+<li>Servo</li>
+<li>Ultrazvuk</li>
+<li>Podmínky</li>
+<li>Automatizaci</li>
+</ul>
+<section><h2>Součástky a vybavení</h2>
+<ul>
+<li><strong>Shieldio RED</strong> — Hlavní deska celého projektu. Na ni se připojuje servo i ultrazvukový senzor.. Uvnitř desky je modul kompatibilní s Arduino® Nano, které podle nahraného programu ovládá vše připojené.</li>
+<li><strong>Arduino Nano</strong> — Malý počítač na desce, který podle nahraného programu ovládá servo i čte ultrazvukový senzor.. Pokud máš nesestavenou sadu, je už zasunutý v patici na desce z návodu na pájení. Nic dalšího s ním dělat nemusíš.</li>
+<li><strong>Servo SG90</strong> — Motor, který otáčí ramenem závory.. Řídí se PWM signálem. Délka pulzu určuje, do jakého úhlu se natočí.</li>
+<li><strong>Ultrazvuk HC-SR04</strong> — Měří vzdálenost přijíždějícího auta od závory.. Vyšle ultrazvukový signál a změří, za jak dlouho se odrazí zpátky.</li>
+<li><strong>OLED displej</strong> — Malý obrazovkový displej na desce, program na něj může vypisovat text nebo hodnoty.. Připojuje se přes I2C: SDA na A4 a SCL na A5. GND a VCC musí odpovídat popiskům na desce i modulu. Před zasunutím odpoj napájení.</li>
+<li><strong>USB-C kabel</strong> — Propojuje desku s počítačem. V sestavené i nesestavené kompletní sadě je součástí balení 1,5m USB-A na USB-C kabel.. Slouží k nahrání programu i k napájení během programování. Pokud dodaný kabel nemáš po ruce, funguje jakýkoli jiný funkční USB-C datový kabel.</li>
+</ul></section>
+<section aria-label="Postup krok za krokem">
+<section id="text-step-1"><h2>Krok 1: Připrav si součástky</h2>
+<p>Připrav položky ze seznamu součástek a vybavení.</p>
+</section>
+<section id="text-step-2"><h2>Krok 2: Zapoj servo</h2>
+<p>Servo zapoj do konektoru označeného SERVO na desce Shieldio RED. Před zasunutím bez napájení ověř GND, napájení a signál podle potisku desky.</p>
+<p><a href="../../../../assets/images/RED_hand_hold_with_parts.jpeg">Fotografie ke kroku 2: Zapoj servo</a></p>
+<h3>Nejčastější chyby</h3>
+<ul>
+<li>Servo není zasunuté úplně. Zkus ho zatlačit až na doraz.</li>
+<li>Kabel je otočený. Konektor má jen jednu správnou orientaci.</li>
+<li>Servo není ve správném konektoru. Zkontroluj popisek SERVO na desce.</li>
+</ul>
+</section>
+<section id="text-step-3"><h2>Krok 3: Zapoj ultrazvuk</h2>
+<p>Senzor HC-SR04 zapoj do konektoru označeného ULTRAZVUK. Bez napájení porovnej popisky VCC, TRIG, ECHO a GND na senzoru i desce.</p>
+<p><a href="../../../../assets/images/red-build-clean/16-ultrazvuk.jpg">Fotografie ke kroku 3: Zapoj ultrazvuk</a></p>
+<h3>Nejčastější chyby</h3>
+<ul>
+<li>Senzor není zasunutý úplně. Zkontroluj, že sedí na doraz.</li>
+<li>Kabel je v jiném konektoru než ULTRAZVUK.</li>
+<li>Senzor je otočený. Vysílač a přijímač musí směřovat od desky ven.</li>
+</ul>
+</section>
+<section id="text-step-4"><h2>Krok 4: Zapoj displej</h2>
+<p>OLED displej zapoj do konektoru označeného OLED na desce Shieldio RED. Před zasunutím bez napájení porovnej označení GND, VCC a signálů na modulu i desce. Co přesně se na něm zobrazí, záleží na programu, který si napíšeš.</p>
+<p><a href="../../../../assets/images/red-build-clean/17-oled-displej.jpg">Fotografie ke kroku 4: Zapoj displej</a></p>
+<h3>Nejčastější chyby</h3>
+<ul>
+<li>Displej se vůbec nerozsvítí. Zkontroluj, že je zasunutý na doraz v konektoru OLED.</li>
+<li>Displej svítí, ale nic nezobrazuje. Zkontroluj v programu, že je blok pro displej správně použitý.</li>
+<li>Displej je zasunutý v jiném konektoru. Zkontroluj popisek OLED na desce.</li>
+</ul>
+</section>
+<section id="text-step-5"><h2>Krok 5: Nahraj program</h2>
+<p>Bloky pro RED jsou v kategoriích modulů; základní časování je v sekundách. Arduino C++, proměnné a sériový plotter otevře Pokročilý režim. <a href="/instructions/programovani/#rezimy">Aktuální přehled režimů editoru</a> · <a href="/instructions/programovani/#seriova-linka">Monitor a sériová linka</a>.</p>
+<p>Otevři připravený startovní program. Po startu nastaví servo na 0°. Každý průchod používá jeden společný vzorek vzdálenosti: pokud je platný a menší než 15 cm, servo se nastaví na 90°, jinak při platném měření na 0°. Bez echa nedostane nový povel a ponechá poslední polohu. Zkus vlastní práh a před nahráním vysvětli, co se změní. OLED je volitelné rozšíření.</p>
+<h3>Diagnostika</h3>
+<h4>Chyba: Není nalezen port</h4>
+<ul>
+<li>Zkontroluj, že je deska připojená přes USB-C kabel.</li>
+<li>Zkus jiný USB port nebo kabel.</li>
+<li>Obnov stránku editoru Shieldio a zkus to znovu.</li>
+</ul>
+<h4>Chyba: Není připojeno Arduino</h4>
+<ul>
+<li>V editoru Shieldio zkontroluj, že je vybraná RED a správný USB port.</li>
+<li>Odpoj a znovu připoj USB-C kabel.</li>
+<li>Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.</li>
+</ul>
+<p><strong>Arduino C++:</strong> Startovní program otevři v našem editoru, zapni Pokročilý režim a otevři Arduino C++. Při prvním přepnutí se kód z bloků převezme automaticky; další úpravy obou verzí jsou oddělené.</p>
+<h3>Diagnostika nahrávání</h3>
+<h4>Chyba: Nelze nahrát (upload error)</h4>
+<ul>
+<li>V pokročilém režimu klikni na Připojit desku a vyber USB port RED.</li>
+<li>V pokročilém režimu v Nastavení desky ověř bootloader Nano: Optiboot 115200 nebo starý 57600.</li>
+<li>Zkus jiný USB kabel, některé nabíjecí kabely nepřenáší data.</li>
+</ul>
+<h4>Chyba: Kompilace selhala</h4>
+<ul>
+<li>Servo je přibalené. Ultrazvuk se měří přímo v programu; další knihovnu nepotřebuje.</li>
+<li>Projdi hlášku chyby. Obvykle ukazuje přesný řádek s problémem.</li>
+<li>Zkus kód znovu zkompilovat po uložení souboru.</li>
+</ul>
+<p><a href="../../../../instructions/blokovy-editor.html?preset=zavora">Otevřít startovní program v editoru Shieldio</a></p>
+</section>
+<section id="text-step-6"><h2>Krok 6: Vyzkoušej projekt</h2>
+<p>Ověř 20 cm → servo 0° a 10 cm → servo 90°. Vyzkoušej obě strany prahu 15 cm. Při nezískaném echu má servo ponechat poslední polohu; chyba měření nesmí sama vydat povel k otevření. Polohu ramene ověř podle své mechaniky.</p>
+<h3>Co dělat, když projekt nefunguje</h3>
+<p><strong>Otázka:</strong> Otevřela se závora?</p>
+<h4>Ne</h4>
+<p><strong>Otázka:</strong> Hýbe se servo vůbec?</p>
+<p><strong>Ne:</strong> Nejdřív v editoru ověř úspěšné nahrání, potom bez napájení zkontroluj GND, 5 V a signál serva podle revize. V kroku 2 ověř připojení a se samostatným programem serva vyzkoušej dva úhly. Pokud se nehýbe ani samostatně, obrať se s fotkou a revizí na podporu.</p>
+<h4>Ano</h4>
+<p><strong>Otázka:</strong> Zobraz měřenou vzdálenost na OLED. Mění se, když přiblížíš ruku?</p>
+<p><strong>Ano:</strong> Zkontroluj v programu prahovou hodnotu vzdálenosti. Možná je nastavená příliš nízko.</p>
+<p><strong>Ne:</strong> Ultrazvukový senzor asi není správně zapojený. Zkontroluj kabel v kroku 3.</p>
+</section>
+</section>
+<section><h2>Vyzkoušej dál</h2>
+<ul>
+<li>Zkus, aby se závora po pár sekundách sama zase zavřela.</li>
+<li>Uprav v programu práh vzdálenosti, na jakou se závora otevírá.</li>
+<li>Zkus na displeji zobrazovat aktuální naměřenou vzdálenost.</li>
+</ul>
+</section>
+<p><a href="/instructions/programovani/">Jak nahrát program do RED</a></p>
+</article>
+</details>
+</main>
+<!-- SHIELDIO-READABLE-GUIDE-END -->
+
 <footer>
   <div class="wrap footer-inner">
     <div class="logo"><img class="logo-full logo-full-light" src="../../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
@@ -87,7 +202,7 @@
 <script src="../../../../assets/js/search.js?v=20261104-interactions1"></script>
 <script src="../../../../assets/js/lang.js"></script>
 <script src="../../../../assets/js/site-chrome.js?v=20261103-unified"></script>
-<script src="../../../../assets/js/guide-data-zavora.js?v=20261103-unified"></script>
-<script src="../../../../assets/js/guide-engine.js?v=20261103-unified"></script>
+<script src="../../../../assets/js/guide-data-zavora.js?v=20261113-materials1"></script>
+<script src="../../../../assets/js/guide-engine.js?v=20261113-materials1"></script>
 </body>
 </html>

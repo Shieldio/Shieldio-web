@@ -56,3 +56,21 @@ for(const [path,scope] of [['company/pro-ucitele.html','body'],['products/RED.ht
  dom.window.close();
 }
 console.log('Site language: actual CS/EN switching translates the full teacher page and RED comparison, including links and availability.');
+
+// Current documentation reveals linked sections and keeps its actual controls bilingual.
+{
+ const file=await fs.readFile(new URL('../instructions/programovani/index.html',import.meta.url),'utf8');
+ const dom=new JSDOM(file,{url:'https://shieldio.cz/instructions/programovani/#seriova-linka',runScripts:'outside-only'}),w=dom.window;
+ const reveal=[...w.document.querySelectorAll('script:not([src])')].find(script=>script.textContent.includes('function openGuideSection'));
+ assert.ok(reveal);w.eval(reveal.textContent);
+ assert.equal(w.document.getElementById('seriova-linka').open,true,'A shared serial tutorial link reveals its section');
+ for(const id of ['rezimy','displej','seriova-linka','desky']) assert.equal(w.document.getElementById(id).tagName,'DETAILS');
+ assert.ok(w.document.querySelector('a[href="/instructions/blokovy-editor.html?example=seriova_linka"]'));
+ w.localStorage.setItem('shieldio-lang','en');w.fetch=async()=>({json:async()=>dictionary});
+ const ready=new Promise(resolve=>w.document.addEventListener('shieldio-lang-change',resolve,{once:true}));w.eval(languageScript);await ready;
+ assert.match(w.document.getElementById('rezimy').textContent,/Simple mode/);
+ assert.match(w.document.getElementById('seriova-linka').textContent,/Serial plotter/);
+ assert.match(w.document.getElementById('desky').textContent,/Uno R3/);
+ dom.window.close();
+}
+console.log('Editor materials: shared section anchors reveal content, serial example opens the editor, and CS/EN mode/board/serial guidance matches.');

@@ -95,6 +95,7 @@ function partList(guide) {
 }
 function stepSection(step, index) {
   let out = `<section id="text-step-${index + 1}"><h2>Krok ${index + 1}: ${safe(step.title)}</h2>\n`;
+  if (step.type === "upload") out += '<p>Bloky pro RED jsou v kategoriích modulů; základní časování je v sekundách. Arduino C++, proměnné a sériový plotter otevře Pokročilý režim. <a href="/instructions/programovani/#rezimy">Aktuální přehled režimů editoru</a> · <a href="/instructions/programovani/#seriova-linka">Monitor a sériová linka</a>.</p>\n';
   if (step.type === "parts-check") out += paragraph("Připrav položky ze seznamu součástek a vybavení.");
   out += paragraph(step.instructions);
   if (step.warning) out += paragraph(step.warning, "Upozornění:");

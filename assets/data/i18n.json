@@ -552,8 +552,8 @@
     "en": "From modules to your own C++"
   },
   "home.benefit6.p": {
-    "cs": "Vedle bloků pro RED je univerzální práce s piny a ruční Arduino C++. Vlastní C++ knihovnu pro AVR přidáte ze složky.",
-    "en": "Alongside RED blocks are universal pin control and an Arduino C++ editor. Import your own AVR C++ library from a folder."
+    "cs": "Jednoduché bloky RED jsou rozdělené podle modulů. Pokročilý režim přidává vlastní piny pro Uno/Nano, ruční Arduino C++ a C++ knihovny pro AVR ze složky.",
+    "en": "Simple RED blocks are grouped by module. Advanced mode adds Uno/Nano pins, manual Arduino C++ and custom C++ AVR libraries from a folder."
   },
   "home.schools.details_link": {
     "cs": "Doporučený věk, počet žáků na desku, co je v balení a další praktické detaily →",
@@ -1224,8 +1224,8 @@
     "en": "How is the board programmed?"
   },
   "faq.a3": {
-    "cs": "V <a href=\"/instructions/blokovy-editor.html\">editoru Shieldio</a> poskládáte bloky nebo napíšete Arduino C++. Kompilace probíhá v prohlížeči, nahrávání přes USB funguje v Chrome nebo Edge na počítači. Začněte <a href=\"/instructions/programovani/\">prvním nahráním</a>; mBlock ani Arduino IDE nejsou potřeba.",
-    "en": "Use the <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a> for blocks or Arduino C++. Compilation runs in the browser; USB upload uses desktop Chrome or Edge. Follow the <a href=\"/instructions/programovani/\">first-upload guide</a>; mBlock and Arduino IDE are not required."
+    "cs": "V <a href=\"/instructions/blokovy-editor.html\">editoru Shieldio</a> začnete jednoduchými bloky RED podle modulů, se zadáváním času v sekundách. Pokročilý režim přidává Arduino C++, klasické Uno R3 / Nano, knihovny a sériový monitor, plotter i odesílání příkazů. Kompilace probíhá v prohlížeči; USB funguje v Chrome nebo Edge na počítači. Začněte <a href=\"/instructions/programovani/\">prvním programem a přehledem editoru</a>.",
+    "en": "Start with simple RED blocks grouped by module and timing in seconds in the <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a>. Advanced mode adds Arduino C++, classic Uno R3 / Nano, libraries, serial monitoring, plotting and sending commands. Compilation runs in the browser; USB works in desktop Chrome or Edge. Start with the <a href=\"/instructions/programovani/\">first program and editor overview</a>."
   },
   "faq.q4": {
     "cs": "Jaký je rozdíl mezi Green, Yellow a Red?",
@@ -3440,8 +3440,8 @@
     "en": "2. Account for the round trip"
   },
   "project.librariesFalse": {
-    "cs": "Klikni na <b>Otevřít program v editoru</b>. Ukázka se načte do Arduino C++; vyber USB port RED a nahraj ji. Adafruit GFX a SSD1306 jsou přibalené. OLED má rozlišení 128 × 64 a adresu 0x3C. Pokud použiješ vlastní sériový monitor na 115200 baud, před dalším nahráváním ho odpoj.",
-    "en": "Click <b>Open program in the editor</b>. The example opens in Arduino C++; select the RED USB port and upload it. Adafruit GFX and SSD1306 are included. The OLED uses 128 × 64 pixels and address 0x3C. Disconnect any external 115200-baud serial monitor before another upload."
+    "cs": "Klikni na <b>Otevřít program v editoru</b>. Ukázka otevře Arduino C++ v pokročilém režimu; ponech desku Shieldio RED, vyber USB port a nahraj ji. Adafruit GFX a SSD1306 jsou přibalené, OLED má 128 × 64 bodů a adresu 0x3C. Vestavěný monitor a plotter nastav na <b>115200 baud</b>, jak uvádí program. Editor při nahrávání spojení uvolní a příjem obnoví. Případný monitor v jiné aplikaci před nahráváním zavři.",
+    "en": "Choose <b>Open program in editor</b>. The example opens Arduino C++ in advanced mode; keep Shieldio RED selected, choose its USB port and upload. Adafruit GFX and SSD1306 are included; the OLED is 128 × 64 at 0x3C. Set the built-in monitor and plotter to <b>115200 baud</b>, matching the program. The editor releases the port for upload and resumes receiving. Close any monitor in another application before uploading."
   },
   "meter.behaviour": {
     "cs": "Program provede tři měření s odstupem nejméně 65 ms a zobrazí jejich prostřední hodnotu (medián). Pokud některý odraz nepřijde do 30 ms nebo je mimo rozsah 2–400 cm, zobrazí <b>-- cm</b>. Chybějící odraz se nesmí tvářit jako vzdálenost nula.",
@@ -3524,8 +3524,8 @@
     "en": "1. Wiring and mechanics"
   },
   "project.librariesTrue": {
-    "cs": "Klikni na <b>Otevřít program v editoru</b>. Ukázka se načte do Arduino C++; vyber USB port RED a nahraj ji. Adafruit GFX a SSD1306 i Servo jsou přibalené. OLED má rozlišení 128 × 64 a adresu 0x3C. Pokud použiješ vlastní sériový monitor na 115200 baud, před dalším nahráváním ho odpoj.",
-    "en": "Click <b>Open program in the editor</b>. The example opens in Arduino C++; select the RED USB port and upload it. Adafruit GFX and SSD1306 plus Servo are included. The OLED uses 128 × 64 pixels and address 0x3C. Disconnect any external 115200-baud serial monitor before another upload."
+    "cs": "Klikni na <b>Otevřít program v editoru</b>. Ukázka otevře Arduino C++ v pokročilém režimu; ponech desku Shieldio RED, vyber USB port a nahraj ji. Adafruit GFX, SSD1306 i Servo jsou přibalené. OLED má 128 × 64 bodů a adresu 0x3C. Vestavěný monitor a plotter nastav na <b>115200 baud</b>, jak uvádí program. Editor spojení při nahrávání uvolní a příjem obnoví; monitor v jiné aplikaci zavři.",
+    "en": "Choose <b>Open program in editor</b>. The example opens Arduino C++ in advanced mode; keep Shieldio RED selected, choose its USB port and upload. Adafruit GFX, SSD1306 and Servo are included. The OLED is 128 × 64 at 0x3C. Set the built-in monitor and plotter to <b>115200 baud</b>, matching the program. The editor releases the port for upload and resumes receiving; close monitors in other applications."
   },
   "radar.behaviour": {
     "cs": "Program projíždí 30–150° po 5°. Po každém pohybu čeká 120 ms a pak měří. Na OLED je nejnovější bod pro každý úhel; neplatný nebo vzdálenější odraz předchozí bod vymaže. Obraz se obnovuje postupně, proto se pohybující předmět může objevit na více místech během jednoho průchodu.",
@@ -3892,16 +3892,16 @@
     "en": "Open <b>Technical details</b> below the message. Program errors include a line; for USB problems check the cable and port first."
   },
   "start.advanced": {
-    "cs": "Vlastní C++, knihovny a jiný hardware",
-    "en": "Custom C++, libraries and other hardware"
+    "cs": "Vlastní C++, Uno/Nano a knihovny",
+    "en": "Custom C++, Uno/Nano and libraries"
   },
   "start.advancedText": {
     "cs": "Otevři <b>Pokročilý režim</b>. Vlastní kód vlož do <b>Arduino C++</b> nebo načti soubor .ino. Vlastní funkce deklaruj před použitím. C++ knihovnu pro AVR přidej přes <b>Knihovny → Přidat složku knihovny</b>; ZIP nejdřív rozbal. C, assembler a předkompilované knihovny zatím nepodporujeme.",
     "en": "Open <b>Advanced mode</b>. Enter code in <b>Arduino C++</b> or open an .ino file. Declare custom functions before use. Add an AVR C++ library through <b>Libraries → Add library folder</b>; unzip it first. C, assembly and precompiled libraries are not yet supported."
   },
   "start.target": {
-    "cs": "Univerzální bloky nevyužívají přednastavené piny RED. Kompilátor a nahrávač ale zatím cílí na klasické Nano s ATmega328P, nikoli Nano Every, Nano 33 nebo ESP32.",
-    "en": "Universal blocks do not use the RED pin assignments. The compiler and uploader still target classic Nano with ATmega328P, not Nano Every, Nano 33 or ESP32."
+    "cs": "V pokročilém režimu vyber v nabídce <b>Deska</b> Shieldio RED, Arduino Nano nebo Arduino Uno R3. RED používá přednastavené moduly; Uno/Nano nabízejí vlastní piny. Podporované jsou klasické desky s ATmega328P na 16 MHz, nikoli Uno R4, Nano Every, Nano 33 ani ESP32.",
+    "en": "In advanced mode, use <b>Board</b> to choose Shieldio RED, Arduino Nano or Arduino Uno R3. RED has predefined modules; Uno/Nano expose individual pins. Supported boards use ATmega328P at 16 MHz; Uno R4, Nano Every, Nano 33 and ESP32 are not included."
   },
   "start.next": {
     "cs": "Pokračuj <a href=\"/instructions/baseline/red/zavora/\">automatickou závorou</a>, nebo si otevři <a href=\"/instructions/jak-to-funguje/\">vysvětlení součástek</a>.",
@@ -3920,8 +3920,8 @@
     "en": "The <a href=\"/instructions/blokovy-editor.html\">Shieldio editor</a> supports blocks, Arduino C++, compilation and USB upload. This workflow needs neither mBlock nor Arduino IDE. See the <a href=\"/instructions/programovani/\">first-upload guide</a>."
   },
   "teachers.programming": {
-    "cs": "Pro začátek vyberte v blocích konkrétní modul RED. Pokročilí mohou zapnout matematiku a proměnné, použít univerzální piny nebo přejít k vlastnímu C++.",
-    "en": "Start by selecting one RED module in the toolbox. Advanced students can enable maths and variables, use universal pins or write C++."
+    "cs": "Začněte v jednoduchém režimu: pod označením Shieldio RED jsou samostatné kategorie LED, Tlačítka, Vzdálenost, Servo, Zvuk a Displej. Čekání i délka tónu se zadávají v sekundách. Pokročilý režim otevře vlastní C++, matematiku a proměnné, výběr Uno/Nano i sériový plotter a odesílání příkazů. <a href=\"/instructions/programovani/#rezimy\">Přehled editoru a režimů</a>.",
+    "en": "Start in simple mode: under Shieldio RED are separate LEDs, Buttons, Distance, Servo, Sound and Display categories. Waits and tone duration use seconds. Advanced mode opens custom C++, maths and variables, Uno/Nano selection, serial plotting and sending commands. <a href=\"/instructions/programovani/#rezimy\">Editor and mode overview</a>."
   },
   "news.editor.title": {
     "cs": "Editor Shieldio kompiluje a nahrává do RED | Shieldio",
@@ -3932,16 +3932,16 @@
     "en": "Program RED directly on this website."
   },
   "news.editor.lead": {
-    "cs": "V editoru Shieldio sestavíš bloky nebo napíšeš Arduino C++. Program se přeloží pro Nano a v Chrome nebo Edge se nahraje přes USB.",
-    "en": "Build with blocks or write Arduino C++ in the Shieldio editor. It compiles for Nano and uploads over USB in Chrome or Edge."
+    "cs": "V editoru Shieldio sestavíš bloky nebo napíšeš Arduino C++. Jednoduchý režim je pro RED; pokročilý přidává klasické Uno R3 a Nano. V Chrome nebo Edge nahraješ program přímo přes USB.",
+    "en": "Build blocks or write Arduino C++ in the Shieldio editor. Simple mode is for RED; advanced mode also supports classic Uno R3 and Nano. Upload directly over USB in Chrome or Edge."
   },
   "news.editor.what": {
     "cs": "Co je v editoru",
     "en": "What the editor includes"
   },
   "news.editor.blocks": {
-    "cs": "V blocích vybereš modul RED: LED, tlačítka, ultrazvuk, servo, bzučák nebo OLED. Čas a další hodnoty píšeš přímo do políček; místo čísla můžeš vložit i výpočet. Pokročilá nabídka přidává matematiku a číselné proměnné.",
-    "en": "Choose a RED module: LED, buttons, ultrasonic sensor, servo, buzzer or OLED. Type time and other values directly into fields, or replace a number with a formula. Advanced mode adds maths and numeric variables."
+    "cs": "V jednoduchém režimu najdeš pod Shieldio RED kategorie LED, Tlačítka, Vzdálenost, Servo, Zvuk a Displej. Čekání a délka tónu jsou v sekundách. Displej sdružuje text, zvířátka i kreslení; text píšeš přímo do bloku. Pokročilý režim přidává matematiku, číselné proměnné a vlastní C++.",
+    "en": "Simple mode groups LEDs, Buttons, Distance, Servo, Sound and Display under Shieldio RED. Waits and tone duration use seconds. Display groups text, animals and drawing; type text directly in the block. Advanced mode adds maths, numeric variables and custom C++."
   },
   "news.editor.cpp": {
     "cs": "Vedle bloků je ruční Arduino C++. Kompilátor běží v prohlížeči; zdrojový kód se neposílá na server ke zpracování. Při prvním použití se stáhnou nástroje a knihovny.",
@@ -3952,12 +3952,12 @@
     "en": "Compilation produces HEX. The uploader checks the chip, writes the program and reads data back for verification. Automated tests do not replace checking your board, cable and school computer."
   },
   "news.editor.libraries": {
-    "cs": "ShieldioDisplay je přibalená společně se Servo, Wire, SPI, Adafruit GFX a SSD1306. Vlastní hlavičkovou nebo C++ knihovnu pro AVR můžeš načíst ze složky. C, assembler a předkompilované knihovny zatím importovat nejdou.",
-    "en": "ShieldioDisplay is included with Servo, Wire, SPI, Adafruit GFX and SSD1306. Import an AVR header-only or C++ library from a folder. C, assembly and precompiled library imports are not supported yet."
+    "cs": "ShieldioDisplay 0.3.0 včetně kočky, psa a lva je přibalená společně se Servo, Wire, SPI, Adafruit GFX a SSD1306. Vlastní hlavičkovou nebo C++ knihovnu pro AVR načteš ze složky. C, assembler a předkompilované knihovny zatím importovat nejdou.",
+    "en": "ShieldioDisplay 0.3.0 with cat, dog and lion is included alongside Servo, Wire, SPI, Adafruit GFX and SSD1306. Load custom header or C++ AVR libraries from a folder. C, assembly and precompiled libraries are not supported."
   },
   "news.editor.target": {
-    "cs": "Univerzální bloky pracují s vlastními piny, ale kompilace a nahrávání zatím míří na klasické Nano s ATmega328P. Green, Yellow, PRO, ESP32 ani jiné varianty Nano tímto nepřibývají mezi podporované desky.",
-    "en": "Universal blocks use your own pin assignments, but compilation and upload still target classic Nano with ATmega328P. Green, Yellow, PRO, ESP32 and other Nano variants are not added as supported upload targets."
+    "cs": "V nabídce Deska v pokročilém režimu zvolíš Shieldio RED, Arduino Nano nebo Arduino Uno R3 s ATmega328P. Výběr mění kompilaci, dostupné analogové piny i nahrávání. Green, Yellow a PRO zůstávají koncepty; Uno R4, Nano Every, Nano 33 a ESP32 tento editor nepodporuje.",
+    "en": "Advanced mode’s Board selector offers Shieldio RED, Arduino Nano and Arduino Uno R3 with ATmega328P. Selection changes compilation, analog pin choices and uploading. Green, Yellow and PRO remain concepts; this editor does not support Uno R4, Nano Every, Nano 33 or ESP32."
   },
   "project.openEditor": {
     "cs": "Otevřít program v editoru",
@@ -4768,8 +4768,8 @@
     "en": "Blinking green LED"
   },
   "student.red.led.body": {
-    "cs": "Otevřete připravený program a zvolte <b>Spustit na desce</b>. Zelená LED bliká. Změňte obě čekání z 0,5 na 1 s a spusťte znovu: blikání zpomalí. Obrázek ukazuje editor.",
-    "en": "Open the prepared program and choose <b>Run on board</b>. The green LED blinks. Change both waits from 0.5 to 1 s and run again: blinking slows down. The image shows the editor."
+    "cs": "Otevřete připravený program a zvolte <b>Spustit na desce</b>. Zelená LED bliká. Změňte obě čekání z 0,5 na 1 s a spusťte znovu: blikání zpomalí. Fotografie ukazuje LED součástky.",
+    "en": "Open the prepared program and choose <b>Run on board</b>. The green LED blinks. Change both waits from 0.5 to 1 s and run again: blinking slows down. The photograph shows the LED components."
   },
   "student.red.led.link": {
     "cs": "Otevřít blikání LED →",
@@ -5784,8 +5784,8 @@
     "en": "2. Open the starter program"
   },
   "pet.instructions": {
-    "cs": "Začni bloky a zvol <b>Spustit na desce</b>. V editoru najdeš zvlášť Tlačítka a Displej · zvířátka. Knihovna je přibalená automaticky. C++ varianta má stejné chování a překresluje jen při změně.",
-    "en": "Start with blocks and choose <b>Run on board</b>. Buttons and Display · animals have separate categories. The library is included automatically. The C++ version behaves the same and redraws only on change."
+    "cs": "Začni bloky a zvol <b>Spustit na desce</b>. Pod Shieldio RED použij kategorii <b>Tlačítka</b> a v kategorii <b>Displej</b> sekci <b>Zvířátka</b>. Knihovna ShieldioDisplay 0.3.0 je přibalená automaticky. C++ varianta otevře pokročilý režim, má stejné chování a překresluje jen při změně.",
+    "en": "Start with blocks and choose <b>Run on board</b>. Under Shieldio RED, use <b>Buttons</b> and the <b>Animals</b> section of <b>Display</b>. ShieldioDisplay 0.3.0 is included automatically. The C++ version opens advanced mode, behaves the same and redraws only on change."
   },
   "pet.blocks": {
     "cs": "Otevřít blokový projekt",
@@ -5858,5 +5858,53 @@
   "programming.simpleSerialHint": {
     "cs": "Po připojení se zprávy z programu zobrazí tady.",
     "en": "Messages from your program appear here after connecting."
+  },
+  "start.modesHeading": {
+    "cs": "Jak se vyznat v novém editoru",
+    "en": "Finding your way around the editor"
+  },
+  "start.modesText": {
+    "cs": "<b>Jednoduchý režim</b> otevře bloky pro Shieldio RED. Kategorie jsou LED, Tlačítka, Vzdálenost, Servo, Zvuk a Displej. Čekání i délku tónu zapisuj v sekundách: 0,5 s je půl sekundy. Text napiš přímo do pole bloku „napiš na displej“. <b>Pokročilý režim</b> zpřístupní Arduino C++, výběr desky, soubory, knihovny a další bloky. Návrat do jednoduchého režimu obnoví základní nabídku; program se nemaže. Starší milisekundové bloky zůstávají v původních jednotkách.",
+    "en": "<b>Simple mode</b> opens Shieldio RED blocks. Categories are LEDs, Buttons, Distance, Servo, Sound and Display. Enter waits and tone duration in seconds: 0.5 s is half a second. Type text directly in the “write on display” block. <b>Advanced mode</b> adds Arduino C++, board selection, files, libraries and more blocks. Returning to simple mode restores the basic palette without deleting your program. Older millisecond blocks keep their original units."
+  },
+  "start.displayHeading": {
+    "cs": "Displej: text, zvířátka a kreslení",
+    "en": "Display: text, animals and drawing"
+  },
+  "start.displayText": {
+    "cs": "V jediné kategorii <b>Displej</b> najdeš sekce Text, Zvířátka a Kreslení. ShieldioDisplay 0.3.0 se přidá automaticky: text podporuje ASCII bez diakritiky, zvířátka nabízejí kočku, psa a lva s pěti náladami a otevřenýma či zavřenýma očima. Pro tvary editor použije ShieldioCanvas; samotný text a zvířátka nepotřebují jeho další 1024B buffer. <a href=\"/instructions/baseline/red/zviratko/\">Vyzkoušet projekt se zvířátkem</a>.",
+    "en": "The single <b>Display</b> category contains Text, Animals and Drawing sections. ShieldioDisplay 0.3.0 is included automatically: text supports ASCII; animals include cat, dog and lion with five moods and open or closed eyes. Shapes use ShieldioCanvas; text and animal faces do not need its extra 1024-byte buffer. <a href=\"/instructions/baseline/red/zviratko/\">Try the animal project</a>."
+  },
+  "start.serialHeading": {
+    "cs": "Zprávy, graf a příkazy po USB",
+    "en": "Messages, plots and commands over USB"
+  },
+  "start.serialText": {
+    "cs": "V jednoduchém režimu rozbal <b>Sériový monitor</b>. Pokud je port vybraný, začne příjem; jinak zvol <b>Připojit monitor</b>. Rychlost se odvodí z číselné hodnoty v Serial.begin(...), jinak je 9600 baud. V pokročilém režimu můžeš rychlost nastavit ručně, otevřít <b>Sériový plotter</b> a do monitoru napsat zprávu k odeslání. Zvol LF, CRLF nebo bez ukončení a klikni na <b>Odeslat</b>; zprávu musí zpracovat tvůj program. Monitor i graf používají stejné spojení a při nahrávání se bezpečně odpojí.",
+    "en": "In simple mode, expand <b>Serial monitor</b>. Receiving starts if a port is selected; otherwise choose <b>Connect monitor</b>. Baud is inferred from a numeric Serial.begin(...) call, falling back to 9600. In advanced mode you can set baud manually, open the <b>Serial plotter</b> and type a message to send in the monitor. Choose LF, CRLF or no ending and press <b>Send</b>; your sketch must process the message. Monitor and plotter share one connection, released during upload."
+  },
+  "start.serialExample": {
+    "cs": "Otevřít ukázku sériové linky",
+    "en": "Open the serial example"
+  },
+  "start.serialTask": {
+    "cs": "Ukázka posílá hodnotu A0 každých 100 ms; v plotteru uvidíš řadu A0. V monitoru odešli 1 pro zapnutí nebo 0 pro vypnutí vestavěné LED na modulu Arduino (LED_BUILTIN). Nejde o červenou ani zelenou LED desky RED. Nezapojený A0 může ukazovat kolísající hodnoty; pro vlastní měření připoj vhodný senzor. C++ používá v delay() milisekundy, zatímco základní časové bloky jsou v sekundách.",
+    "en": "The example sends A0 every 100 ms; the plotter shows an A0 series. Send 1 in the monitor to turn the Arduino module’s built-in LED on, or 0 to turn it off (LED_BUILTIN). This is separate from RED’s red and green LEDs. An unconnected A0 may fluctuate; connect a suitable sensor for your measurements. C++ delay() uses milliseconds, while basic timing blocks use seconds."
+  },
+  "start.boardsHeading": {
+    "cs": "Uno, Nano a nastavení bootloaderu",
+    "en": "Uno, Nano and bootloader settings"
+  },
+  "teachers.editorQuickGuide": {
+    "cs": "Pro připravenou závoru ponechte jednoduchý režim a Shieldio RED. Bloky najdete v kategoriích Vzdálenost a Servo; displej je volitelné rozšíření v jediné kategorii Displej. Časové bloky jsou v sekundách. Pro vlastní C++, číselné proměnné nebo sériový graf otevřete Pokročilý režim. <a href=\"/instructions/programovani/#rezimy\">Aktuální přehled editoru pro přípravu hodiny</a>.",
+    "en": "Keep Simple mode and Shieldio RED for the ready barrier project. Its blocks are under Distance and Servo; the display is an optional extension in the single Display category. Timing blocks use seconds. Open Advanced mode for custom C++, numeric variables or serial plots. <a href=\"/instructions/programovani/#rezimy\">Current editor overview for lesson preparation</a>."
+  },
+  "start.boardBootloader": {
+    "cs": "Pro Uno R3 se používá 115200 baud. U Nano/RED v Pokročilý režim → Nastavení desky zvol Optiboot 115200 nebo starý Nano 57600 podle bootloaderu v desce. Tato volba bootloader nepřepisuje. Změna desky zahodí předchozí kompilaci a připraví nový program pro zvolený cíl.",
+    "en": "Uno R3 uses 115200 baud. For Nano/RED, open Advanced mode → Board settings and choose Optiboot 115200 or old Nano 57600 to match the board’s bootloader. This setting does not rewrite the bootloader. Changing board invalidates the previous build and prepares a new program for the selected target."
+  },
+  "news.editor.updated": {
+    "cs": "Aktualizováno 13. listopadu 2026.",
+    "en": "Updated 13 November 2026."
   }
 }

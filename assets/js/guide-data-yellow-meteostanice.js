@@ -63,7 +63,7 @@ window.SHIELDIO_GUIDE = {
     mblock: {
       term: "Editor Shieldio",
       photo: null,
-      text: "Webový editor pro bloky a Arduino C++. Kompilace a přímé USB nahrávání nyní podporují RED s Nano / ATmega328P; tato deska je zatím koncept.",
+      text: "Webový editor pro bloky a Arduino C++. Kompilace a přímé USB nahrávání podporují RED a klasické Uno R3 / Nano s ATmega328P; tato deska Shieldio je zatím koncept.",
       fact: null,
       datasheet: null,
     },
@@ -108,7 +108,7 @@ window.SHIELDIO_GUIDE = {
         items: [
           "Deska se v počítači vůbec neobjeví. Zkus jiný USB port.",
           "Kabel je jen nabíjecí a nepřenáší data. Zkus jiný USB-C kabel.",
-          "Tato deska je zatím koncept. Současný kompilátor a USB nahrávání podporují RED s Nano / ATmega328P.",
+          "Tato deska je zatím koncept. Současný kompilátor a USB nahrávání podporují RED a klasické Uno R3 / Nano s ATmega328P.",
         ],
       },
     },

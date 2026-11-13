@@ -13,7 +13,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Ultrazvuk", "Měření času", "Podmínky", "OLED displej"],
     parentHref: "../index.html",
     parentLabel: "Zpět na výběr projektů RED",
-    editorHref: "/instructions/blokovy-editor.html?module=all",
+    editorHref: "/instructions/blokovy-editor.html",
     programmingGuideHref: "/instructions/programovani/",
   },
 
@@ -177,7 +177,7 @@ window.SHIELDIO_GUIDE = {
       title: "Nahraj program",
       type: "upload",
       screenshot: null,
-      instructions: "V editoru Shieldio sestav program, který při přiblížení ruky pod zvolený práh spustí měření času a výsledek zobrazí na OLED. Předem si určete, zda druhé přiblížení čas zastaví, nebo zda se měří do oddálení ruky; obě varianty jsou možné, ale třída musí testovat stejnou.",
+      instructions: {"cs": "Pro blokovou variantu zapni Pokročilý režim a Pokročilé bloky; použiješ Vzdálenost, Proměnné a Displej. Blok čas od startu vrací milisekundy; výsledek v sekundách získáš vydělením rozdílu 1000. V editoru Shieldio sestav program, který při přiblížení ruky pod zvolený práh spustí měření času a výsledek zobrazí na OLED. Předem si určete, zda druhé přiblížení čas zastaví, nebo zda se měří do oddálení ruky; obě varianty jsou možné, ale třída musí testovat stejnou.", "en": "For the block version, enable Advanced mode and Advanced blocks; use Distance, Variables and Display. Time since startup is in milliseconds; divide the time difference by 1000 for seconds. Build a sketch that starts timing when a hand crosses your chosen distance threshold and displays the result on OLED. Decide whether the next approach or moving away stops timing, then test the same rule."},
       diagnostics: [
         {
           title: "Chyba: Není nalezen port",

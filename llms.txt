@@ -4,7 +4,7 @@
 
 ## Program RED
 
-- [Shieldio editor](https://shieldio.cz/instructions/blokovy-editor.html): RED module blocks, universal Arduino pin blocks and manual C++; local AVR GCC WebAssembly compilation and direct Web Serial USB upload in desktop Chrome/Edge. Target: classic Nano / ATmega328P, 16 MHz. No mBlock or local helper is required.
+- [Shieldio editor](https://shieldio.cz/instructions/blokovy-editor.html): RED module blocks, universal Arduino pin blocks and manual C++; local AVR GCC WebAssembly compilation and direct Web Serial USB upload in desktop Chrome/Edge. Targets: Shieldio RED, classic Nano and Uno R3 / ATmega328P, 16 MHz. Simple mode uses RED module categories and seconds for waits/tones; Advanced mode exposes target selection, C++, files, libraries, serial plotter and serial sending. The single Display category contains Text, Animals and Drawing; ShieldioDisplay 0.3.0 is included. No mBlock or local helper is required.
 - [First upload](https://shieldio.cz/instructions/programovani/): LED blink starter, serial port selection, compilation, upload and troubleshooting.
 - Included libraries: ShieldioDisplay, Servo, Wire, SPI, Adafruit GFX and SSD1306. Imported AVR header/C++ libraries remain in the browser tab. C, assembly and precompiled library imports are not supported.
 - First use downloads compiler assets from jsDelivr and Blockly from unpkg. Source code is not sent to a remote compilation server. Offline availability is not guaranteed. Other boards are not upload targets.
@@ -47,3 +47,7 @@
 - [Light](https://light.shieldio.cz/): iniciativy odpovědného venkovního osvětlení.
 - [Luxmaxing](https://luxmaxing.shieldio.cz/): světelné podmínky ve školách.
 - [Flight360](https://flight360.shieldio.cz/): 360° letecké prohlídky.
+
+- [Current editor workflow](https://shieldio.cz/instructions/programovani/#rezimy): simple/advanced modes, display blocks and board selection.
+- [Serial connection tutorial](https://shieldio.cz/instructions/programovani/#seriova-linka): receiving, plotting and sending commands, with an example sketch.
+- [OLED animal project](https://shieldio.cz/instructions/baseline/red/zviratko/): cat, dog and lion with moods and eye states.

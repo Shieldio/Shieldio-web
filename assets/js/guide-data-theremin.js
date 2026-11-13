@@ -13,7 +13,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Ultrazvuk", "Bzučák", "Mapování hodnot", "Zvuk"],
     parentHref: "../index.html",
     parentLabel: "Zpět na výběr projektů RED",
-    editorHref: "/instructions/blokovy-editor.html?module=buzzer",
+    editorHref: "/instructions/blokovy-editor.html",
     programmingGuideHref: "/instructions/programovani/",
   },
 
@@ -152,7 +152,7 @@ window.SHIELDIO_GUIDE = {
       title: "Nahraj program",
       type: "upload",
       screenshot: null,
-      instructions: "V editoru Shieldio opakovaně měř vzdálenost ruky, převeď rozsah například 5–40 cm na slyšitelnou frekvenci a tu pošli do bzučáku. Před nahráním rozhodni, zda má být bližší ruka vyšší, nebo nižší tón; při testu ověř oba krajní body rozsahu.",
+      instructions: {"cs": "Pro blokovou variantu zapni Pokročilý režim a Pokročilé bloky; použiješ Vzdálenost, Zvuk a Operátory. Frekvence je v Hz; základní blok délky tónu používá sekundy, pokročilý milisekundy. V editoru Shieldio opakovaně měř vzdálenost ruky, převeď rozsah například 5–40 cm na slyšitelnou frekvenci a tu pošli do bzučáku. Před nahráním rozhodni, zda má být bližší ruka vyšší, nebo nižší tón; při testu ověř oba krajní body rozsahu.", "en": "For the block version, enable Advanced mode and Advanced blocks; use Distance, Sound and Operators. Frequency is in Hz; basic tone duration uses seconds and advanced duration uses milliseconds. Repeatedly measure hand distance, map a range such as 5–40 cm to an audible frequency and play it on the buzzer. Choose which end gives the higher tone, then test both ends."},
       diagnostics: [
         {
           title: "Chyba: Není nalezen port",

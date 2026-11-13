@@ -24,7 +24,7 @@ test('AVR GCC compiles RED peripherals and example projects, and rejects invalid
       OLED: '#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>\nAdafruit_SSD1306 d(128,64,&Wire,-1); void setup(){d.begin(SSD1306_SWITCHCAPVCC,0x3C);} void loop(){d.clearDisplay();d.print("RED");d.display();}',
       Nano: 'static_assert(NUM_ANALOG_INPUTS == 8, "Nano has 8 analog inputs"); void setup(){} void loop(){analogRead(A7);}',
     };
-    for (const project of ['digitalni_metr','ultrazvukovy_radar','zviratko']) programs[project] = await fs.readFile(new URL(`../assets/code/${project}/${project}.ino`, import.meta.url), 'utf8');
+    for (const project of ['digitalni_metr','ultrazvukovy_radar','zviratko','seriova_linka']) programs[project] = await fs.readFile(new URL(`../assets/code/${project}/${project}.ino`, import.meta.url), 'utf8');
     if (process.env.BLOCKLY_FIXTURES) Object.assign(programs,Object.fromEntries(Object.entries(JSON.parse(await fs.readFile(process.env.BLOCKLY_FIXTURES,'utf8'))).map(([name,source])=>['blocks_'+name,source])));
     const display = JSON.parse(await fs.readFile(new URL('../assets/arduino/ShieldioDisplay.json',import.meta.url),'utf8'));
     for (const [name, sketch] of Object.entries(programs)) {

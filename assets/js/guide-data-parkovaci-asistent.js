@@ -13,7 +13,7 @@ window.SHIELDIO_GUIDE = {
     learn: ["Ultrazvuk", "Podmínky", "LED indikaci", "OLED displej"],
     parentHref: "../index.html",
     parentLabel: "Zpět na výběr projektů RED",
-    editorHref: "/instructions/blokovy-editor.html?preset=parkovani&module=all",
+    editorHref: "/instructions/blokovy-editor.html?preset=parkovani",
     programmingGuideHref: "/instructions/programovani/",
   },
 

@@ -7,7 +7,7 @@
 | Orientace ve zdrojích | [Mapa repozitáře](development/repository-map.md) |
 | Lokální vývoj, testy a překlady | [Přispívání](development/contributing.md) |
 | Logo, barvy a texty | [Značka a vzhled](development/brand.md) |
-| Kompilace, C++, bloky a USB | [Editor Shieldio](editor/README.md) |
+| Režimy, Uno/Nano, bloky, OLED a sériové nástroje | [Editor Shieldio](editor/README.md) |
 | Workers, domény a GitHub Actions | [Nasazení](deployment/README.md) |
 | Podklady před launchem | [Přehled](launch/README.md) |
 

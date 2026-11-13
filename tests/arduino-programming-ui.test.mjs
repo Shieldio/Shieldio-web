@@ -41,7 +41,7 @@ function model({mockPort=null,confirmReset=true,serial=false,portError=null,save
     window,navigator,document:{addEventListener(name,handler){documentEvents[name]=handler;},body:{classList:{toggle(){}}},documentElement:{lang:'cs'},getElementById:get,createElement:()=>new Element('generated')},
     MutationObserver:class{observe(){}},
     localStorage:{getItem:key=>storage.get(key) || null,setItem:(key,value)=>storage.set(key,value)},
-    async fetch(url){fetches++;assert.match(String(url),/^https:\/\/shieldio.cz\/assets\/code\/(?:digitalni_metr|ultrazvukovy_radar)\//);return {ok:!exampleFailure,text:async()=>exampleText};},
+    async fetch(url){fetches++;assert.match(String(url),/^https:\/\/shieldio.cz\/assets\/code\/(?:digitalni_metr|ultrazvukovy_radar|seriova_linka)\//);return {ok:!exampleFailure,text:async()=>exampleText};},
     SerialMonitor,SerialPlotter,drawSerialPlot,PLOT_COLORS,importLibrary,validateLibraries,...sourceEditor,...diagnostics,Event:class{constructor(type){this.type=type;}},
     AbortController,URLSearchParams,Blob,console,setTimeout,clearTimeout,NANO_FLASH_BYTES:30720,UNO_FLASH_BYTES:32256,
     URL:class extends URL {static createObjectURL(blob){downloads.push(blob);return 'blob:test';}static revokeObjectURL(){}},
@@ -330,3 +330,11 @@ console.log('Serial UI: bounded output, baud control, shared port, upload handof
   assert.equal(m.get('downloadHexBtn').disabled,true,'Oversized Nano build must not be downloadable');
 }
 console.log('Mode and board UI: target payload, Uno memory, cache invalidation, plotter visibility and mode callbacks passed.');
+
+{
+ const m=model({search:'?example=seriova_linka'});
+ await new Promise(resolve=>setTimeout(resolve,0));
+ assert.equal(m.get('codeTab').getAttribute('aria-selected'),'true');
+ assert.equal(m.get('programmingStudio').dataset.tools,'open');
+ assert.equal(m.get('projectTitle').textContent,'Vyzkoušej sériovou linku.');
+}

@@ -89,11 +89,12 @@
     tree_retry: { cs: "Zkus to znovu podle kroků výše.", en: "Try again following the steps above." },
     tree_done: { cs: "Hotovo", en: "Done" },
     tree_need_help: { cs: "Potřebuji pomoc", en: "I need help" },
-    first_programming: { cs: "Jak spustit první program na RED", en: "How to run your first RED program" },
+    first_programming: { cs: "Režimy editoru, bloky a nahrávání", en: "Editor modes, blocks and uploading" },
     open_blocks_editor: { cs: "Otevřít v editoru Shieldio", en: "Open in the Shieldio editor" },
+    editor_modes: { cs: "Bloky najdeš pod Shieldio RED v kategoriích modulů. Základní čekání a délka tónu jsou v sekundách. Pro vlastní C++, proměnné, výběr Uno/Nano a sériový plotter zapni Pokročilý režim.", en: "Find blocks in the module categories under Shieldio RED. Basic waits and tone durations use seconds. Enable Advanced mode for custom C++, variables, Uno/Nano selection and serial plotting." },
     upload_next: { cs: "V editoru zvol Spustit na desce a vyber připojenou RED. Po zprávě Nahráno se vrať sem a vyzkoušej výsledek. Samotná kontrola programu nestačí.", en: "In the editor, choose Run on board and select the connected RED. After Uploaded, return here and test the result. Checking alone is not enough." },
     open_project: { cs: "Otevřít projekt", en: "Open project" },
-    arduino_code_soon: { cs: "Otevři editor Shieldio a vyber odpovídající modul. Blokový program můžeš zobrazit jako Arduino C++ nebo doplnit vlastní kód.", en: "Open the Shieldio editor and choose a module. View a block program as Arduino C++ or add your own code." },
+    arduino_code_soon: { cs: "V editoru Shieldio najdeš bloky v kategoriích pod označením Shieldio RED. Pro náhled kódu a vlastní Arduino C++ zapni Pokročilý režim.", en: "Find blocks in the categories under Shieldio RED. Enable Advanced mode to view the generated code or write Arduino C++." },
     done_result_alt: { cs: "Hotový výsledek", en: "Finished result" },
     done_title: { cs: "Projekt je hotový.", en: "The project is done." },
     done_learned: { cs: "Dnes ses naučil:", en: "Today you learned:" },
@@ -506,15 +507,16 @@
       : "";
     const actionArea = codeArea + (tier === "red"
       ? `<p><a class="btn btn-primary" href="${editorHref}" target="_blank" rel="noopener">${ui("open_blocks_editor")}</a></p>`
-      : `<p>${state.uiLang === "en" ? "This board is a concept. Current editor and upload support RED / Nano only." : "Tato deska je zatím koncept. Současný editor a nahrávání jsou určené pro RED / Nano."}</p>`);
+      : `<p>${state.uiLang === "en" ? "This board is a concept. The editor supports RED and classic Uno R3 / Nano with ATmega328P." : "Tato deska je zatím koncept. Editor podporuje RED a klasické Uno R3 / Nano s ATmega328P."}</p>`);
     const programmingHelp = DATA.meta.programmingGuideHref
-      ? `<p style="margin-top:12px;"><a class="learn-theory-link" href="${DATA.meta.programmingGuideHref}">${ui("first_programming")}</a></p>`
+      ? `<p style="margin-top:12px;"><a class="learn-theory-link" href="${DATA.meta.programmingGuideHref}#rezimy">${ui("first_programming")}</a></p>`
       : "";
 
     return `
       ${media}
       ${content.instructions ? `<p class="guide-instructions">${t(content.instructions)}</p>` : ""}
       ${actionArea}
+      ${tier === "red" ? `<p class="guide-instructions">${ui("editor_modes")}</p>` : ""}
       <p class="guide-instructions">${ui("upload_next")}</p>
       ${programmingHelp}
       <div class="guide-step-actions" style="margin-top:24px;">

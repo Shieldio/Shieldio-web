@@ -4,6 +4,8 @@ Web, programovací editor a návody k desce RED. V tomto repozitáři jsou také
 
 **[shieldio.cz](https://shieldio.cz/)** · **[Editor](https://shieldio.cz/instructions/blokovy-editor.html)** · **[Projekty RED](https://shieldio.cz/instructions/baseline/red/)** · **[Dokumentace](docs/README.md)**
 
+Jednoduchý editor RED má moduly v samostatných kategoriích a časování v sekundách. Pokročilý režim přidává klasické Uno/Nano, Arduino C++, knihovny a sériový monitor, plotter i odesílání. [Aktuální přehled pro uživatele](https://shieldio.cz/instructions/programovani/#rezimy).
+
 ## Orientace ve zdrojích
 
 | Úprava | Kde začít |
