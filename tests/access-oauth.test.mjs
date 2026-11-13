@@ -79,6 +79,36 @@ test("Protected MCP does not delegate without a signed Access assertion", async 
   assert.equal(response.headers.get("X-Content-Type-Options"), "nosniff");
 });
 
+test("Valid Access JWT permits the existing read-only MCP methods", async () => {
+  const { jwt, fakeFetch } = await makeJwt();
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = fakeFetch;
+  try {
+    const runtime = {
+      ...env,
+      ASSETS: { fetch() { throw new Error("MCP initialization must not request assets"); } },
+    };
+    const response = await worker.fetch(new Request(root + "/mcp/secure", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json, text/event-stream",
+        "Cf-Access-Jwt-Assertion": jwt,
+      },
+      body: JSON.stringify({
+        jsonrpc: "2.0", id: 1, method: "initialize",
+        params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "test", version: "1" } },
+      }),
+    }), runtime);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("Cache-Control"), "no-store");
+    const rpc = await response.json();
+    assert.equal(rpc.result.serverInfo.name, "cz.shieldio/mcp");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test("Discovery is not faked: Cloudflare Access provisions the real OAuth server", () => {
   const docs = readFileSync(new URL("../docs/deployment/oauth-access.md", import.meta.url), "utf8");
   assert.match(docs, /Cloudflare Access Managed OAuth/);
