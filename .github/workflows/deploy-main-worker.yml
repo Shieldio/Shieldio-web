@@ -27,6 +27,8 @@ on:
       - 'tests/block-project-validation.test.mjs'
       - 'tests/site-ai-discovery.test.mjs'
       - 'llms.txt'
+      - 'auth.md'
+      - 'tests/auth-md-discovery.test.mjs'
       - 'sitemap.xml'
       - '.assetsignore'
       - '_redirects'
@@ -56,6 +58,8 @@ jobs:
         run: node --test tests/webmcp.test.mjs
       - name: Ověřit Agent Skills Discovery v0.2.0 a SHA-256
         run: node --test tests/agent-skills-discovery.test.mjs
+      - name: Ověřit Auth.md pro AI agenty
+        run: node --test tests/auth-md-discovery.test.mjs
       - name: Ověřit MCP Server Card a veřejný MCP endpoint
         run: node --test tests/mcp-server.test.mjs
       - name: Ověřit API katalog RFC 9727
@@ -79,6 +83,16 @@ jobs:
           accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
           wranglerVersion: '4.158.0'
           command: deploy --config wrangler.jsonc
+      - name: Ověřit Auth.md na produkci
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://shieldio.cz/auth.md?build=$GITHUB_SHA"
+          curl -fsSL --retry 3 --retry-delay 2 --max-time 30 -D /tmp/shieldio-auth-md-headers "$url" -o /tmp/shieldio-auth.md
+          grep -qi '^content-type: text/markdown' /tmp/shieldio-auth-md-headers || { echo "::error::Auth.md nemá Markdown Content-Type"; exit 1; }
+          grep -qi '^# .*auth.md' /tmp/shieldio-auth.md || { echo "::error::Chybí H1 obsahující auth.md"; exit 1; }
+          grep -qi 'anonymous, read-only access without registration' /tmp/shieldio-auth.md || { echo "::error::Auth.md nepopisuje skutečnou přístupovou metodu"; exit 1; }
+          curl -fsSI --max-time 25 "https://shieldio.cz/auth.md" | grep -qi '^content-type: text/markdown' || { echo "::error::HEAD Auth.md nemá Markdown Content-Type"; exit 1; }
       - name: Ověřit MCP Server Card a MCP komunikaci na produkci
         shell: bash
         run: |
