@@ -1,4 +1,4 @@
-import { buildFirmware, SENSOR } from "./avr-compiler.mjs?v=20261102-studio2";
+import { buildFirmware, SENSOR } from "./avr-compiler.mjs?v=20261113-friendly2";
 import { validateLibraries, resolveLibraries } from "./arduino-libraries.mjs";
 
 self.onmessage = async ({ data }) => {
@@ -14,6 +14,7 @@ self.onmessage = async ({ data }) => {
       source: "#include <Arduino.h>\n#line 1 \"shieldio.ino\"\n" + data.source,
       sensors: /Adafruit_SSD1306\.h/.test(combined) ? [SENSOR.OLED] : [],
       libraries,
+      board: data.board || "nano",
     });
     self.postMessage({ result });
   } catch (error) {

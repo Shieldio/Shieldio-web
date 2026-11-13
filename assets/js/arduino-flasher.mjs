@@ -1,5 +1,6 @@
 // ATmega328P STK500v1 over Web Serial. Writes application flash only, then reads it back.
 export const NANO_FLASH_BYTES = 30720;
+export const UNO_FLASH_BYTES = 32256;
 const PAGE = 128;
 
 export function parseHex(text, limit = NANO_FLASH_BYTES) {
@@ -33,8 +34,9 @@ export function parseHex(text, limit = NANO_FLASH_BYTES) {
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 function checkAbort(signal) { if (signal?.aborted) throw new Error("CANCELLED"); }
 
-export async function flashNano(port, hex, { baudRate = 115200, signal, onProgress = () => {} } = {}) {
-  const image = parseHex(hex); // Validate everything before opening/resetting a board.
+export async function flashArduino(port, hex, { board = "nano", baudRate = 115200, signal, onProgress = () => {} } = {}) {
+  if (!["nano", "uno"].includes(board)) throw new Error("BOARD_UNSUPPORTED");
+  const image = parseHex(hex, board === "uno" ? UNO_FLASH_BYTES : NANO_FLASH_BYTES); // Validate before opening/resetting a board.
   let reader, writer, pump, opened = false, stopping = false, failure, wake;
   let queue = [];
   const notify = () => { const callback = wake; wake = undefined; callback?.(); };
@@ -123,4 +125,9 @@ export async function flashNano(port, hex, { baudRate = 115200, signal, onProgre
     writer?.releaseLock();
     if (opened) await port.close().catch(() => {});
   }
+}
+
+// Existing integrations retain the Nano application bounds and bootloader options.
+export function flashNano(port, hex, options = {}) {
+  return flashArduino(port, hex, { ...options, board: "nano" });
 }

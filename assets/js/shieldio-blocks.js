@@ -42,7 +42,7 @@
     init: function () {
       this.appendDummyInput()
         .appendField("LED")
-        .appendField(new Blockly.FieldDropdown([["červená", "LED_RED"], ["zelená", "LED_GREEN"]]), "COLOR")
+        .appendField(new Blockly.FieldDropdown([["🔴 červená", "LED_RED"], ["🟢 zelená", "LED_GREEN"]]), "COLOR")
         .appendField(new Blockly.FieldDropdown([["zapnout", "HIGH"], ["vypnout", "LOW"]]), "STATE");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -75,6 +75,19 @@
       this.setInputsInline(true);
       this.setTooltip("Přehraje tón na bzučáku danou frekvencí a délkou.");
     },
+  };
+
+  Blockly.Blocks.shieldio_buzzer_seconds = {
+    init() {
+      const en = document.documentElement.lang === "en";
+      this.appendValueInput("FREQ").setCheck("Number").appendField(en ? "play tone" : "zahraj tón");
+      this.appendDummyInput().appendField(en ? "Hz for" : "Hz po dobu");
+      this.appendValueInput("SECONDS").setCheck("Number");
+      this.appendDummyInput().appendField("s");
+      this.setPreviousStatement(true); this.setNextStatement(true);
+      this.setStyle("shieldio_hardware"); this.setInputsInline(true);
+      this.setTooltip(en ? "Play a tone with duration in seconds." : "Přehraje tón; délku zadej v sekundách.");
+    }
   };
 
   Blockly.Blocks["shieldio_button"] = {
@@ -116,6 +129,16 @@
       this.setStyle("loop_blocks");
       this.setInputsInline(true);
     },
+  };
+
+  // New learner programs use seconds. Keep the legacy MS block unchanged on import.
+  Blockly.Blocks.shieldio_wait_seconds = {
+    init() {
+      this.appendValueInput("SECONDS").setCheck("Number").appendField(document.documentElement.lang === "en" ? "wait" : "počkej");
+      this.appendDummyInput().appendField("s");
+      this.setPreviousStatement(true); this.setNextStatement(true);
+      this.setStyle("loop_blocks"); this.setInputsInline(true);
+    }
   };
 
   // Ready-made condition blocks replace Blockly's mutator gear. Pupils can
@@ -245,6 +268,12 @@
     return `tone(BUZZER, ${freq}, ${dur});\n`;
   };
 
+  arduino.forBlock.shieldio_buzzer_seconds = block => {
+    const freq = arduino.valueToCode(block, "FREQ", arduino.ORDER_NONE) || "440";
+    const seconds = arduino.valueToCode(block, "SECONDS", arduino.ORDER_NONE) || "0.2";
+    return `tone(BUZZER, ${freq}, (unsigned long)((${seconds}) * 1000.0));\n`;
+  };
+
   arduino.forBlock["shieldio_button"] = function (block) {
     const btn = block.getFieldValue("BTN");
     return [`(digitalRead(${btn}) == LOW)`, arduino.ORDER_ATOMIC];
@@ -259,6 +288,13 @@
   arduino.forBlock["shieldio_wait"] = function (block) {
     const ms = arduino.valueToCode(block, "MS", arduino.ORDER_NONE) || "0";
     return `delay(${ms});\n`;
+  };
+
+  arduino.forBlock.shieldio_wait_seconds = block => {
+    const seconds = arduino.valueToCode(block, "SECONDS", arduino.ORDER_NONE) || "0";
+    // Fold literal inputs so old and new starter programs produce the same delay.
+    if (/^\d+(?:\.\d+)?$/.test(seconds)) return `delay(${Math.min(4294967295, Math.round(Number(seconds) * 1000))});\n`;
+    return `delay((unsigned long)constrain((${seconds}) * 1000.0, 0.0, 4294967295.0));\n`;
   };
 
   arduino.forBlock["shieldio_oled_print"] = function (block) {
@@ -372,12 +408,26 @@
     {type:"arduino_digital_write",message0:L("digitální pin %1 nastav %2","digital pin %1 write %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"field_dropdown",name:"STATE",options:[["HIGH / 1","HIGH"],["LOW / 0","LOW"]]}],previousStatement:null,nextStatement:null,style:"shieldio_pins"},
     {type:"arduino_digital_read",message0:L("pin %1 je HIGH","pin %1 is HIGH"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Boolean",style:"shieldio_pins"},
     {type:"arduino_analog_read",message0:L("analogová hodnota pinu %1","analog value of pin %1"),args0:[{type:"input_value",name:"PIN",check:"Number"}],output:"Number",style:"shieldio_pins"},
-    {type:"arduino_pwm",message0:L("PWM na pinu %1 hodnota %2","PWM on pin %1 value %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"input_value",name:"VALUE",check:"Number"}],inputsInline:true,previousStatement:null,nextStatement:null,style:"shieldio_pins",tooltip:L("Na Nano použij pin 3, 5, 6, 9, 10 nebo 11; hodnota 0–255.","On Nano use pin 3, 5, 6, 9, 10 or 11; value 0–255.")},
-    {type:"arduino_pin",message0:L("označení pinu %1","pin label %1"),args0:[{type:"field_dropdown",name:"PIN",options:[...Array.from({length:8},(_,i)=>["A"+i,"A"+i]),["LED_BUILTIN","LED_BUILTIN"]]}],output:"Number",style:"shieldio_pins"},
+    {type:"arduino_pwm",message0:L("PWM na pinu %1 hodnota %2","PWM on pin %1 value %2"),args0:[{type:"input_value",name:"PIN",check:"Number"},{type:"input_value",name:"VALUE",check:"Number"}],inputsInline:true,previousStatement:null,nextStatement:null,style:"shieldio_pins",tooltip:L("Na Nano / Uno použij pin 3, 5, 6, 9, 10 nebo 11; hodnota 0–255.","On Nano / Uno use pin 3, 5, 6, 9, 10 or 11; value 0–255.")},
     {type:"arduino_serial_begin",message0:L("spusť sériovou linku %1 baud","start serial at %1 baud"),args0:[{type:"input_value",name:"BAUD",check:"Number"}],previousStatement:null,nextStatement:null,style:"shieldio_serial"},
     {type:"arduino_serial_print",message0:L("vypiš na sériovou linku %1","print to serial %1"),args0:[{type:"input_value",name:"TEXT"}],previousStatement:null,nextStatement:null,style:"shieldio_serial"},
     {type:"arduino_millis",message0:L("čas od startu (ms)","time since startup (ms)"),output:"Number",style:"loop_blocks"},
   ]);
+  window.SHIELDIO_BOARD = "nano";
+  window.SHIELDIO_PIN_OPTIONS = () => [...Array.from({length:window.SHIELDIO_BOARD === "uno" ? 6 : 8},(_,i)=>["A"+i,"A"+i]),["LED_BUILTIN","LED_BUILTIN"]];
+  Blockly.Blocks.arduino_pin = {
+    init() {
+      this.appendDummyInput().appendField(L("označení pinu", "pin label"))
+        .appendField(new Blockly.FieldDropdown(function() {
+          const options = window.SHIELDIO_PIN_OPTIONS();
+          const current = this.getValue();
+          // Preserve existing source when changing targets; compilation can explain an invalid Uno pin.
+          if (current && !options.some(option => option[1] === current)) options.push([current + " (Nano)", current]);
+          return options;
+        }), "PIN");
+      this.setOutput(true,"Number"); this.setStyle("shieldio_pins");
+    }
+  };
   const value = (block,name,fallback) => arduino.valueToCode(block,name,arduino.ORDER_NONE) || fallback;
   arduino.forBlock.arduino_pin_mode = b => `pinMode(${value(b,"PIN","13")}, ${b.getFieldValue("MODE")});\n`;
   arduino.forBlock.arduino_digital_write = b => `digitalWrite(${value(b,"PIN","13")}, ${b.getFieldValue("STATE")});\n`;
@@ -398,8 +448,8 @@
   const text = value => ({type:"text",fields:{TEXT:value}});
   const pinA0 = {type:"arduino_pin",fields:{PIN:"A0"}};
   const defaults = {
-    shieldio_wait:{MS:number(500)}, shieldio_servo:{ANGLE:number(90)},
-    shieldio_buzzer:{FREQ:number(440),DURATION:number(200)}, shieldio_oled_print:{TEXT:text("Ahoj!")},
+    shieldio_wait_seconds:{SECONDS:number(0.5)}, shieldio_wait:{MS:number(500)}, shieldio_servo:{ANGLE:number(90)},
+    shieldio_buzzer_seconds:{FREQ:number(440),SECONDS:number(0.2)}, shieldio_buzzer:{FREQ:number(440),DURATION:number(200)}, shieldio_oled_print:{TEXT:text("Ahoj!")},
     shieldio_oled_pixel:{X:number(64),Y:number(32)},
     shieldio_oled_line:{X:number(0),Y:number(0),X2:number(127),Y2:number(63)},
     shieldio_oled_square:{X:number(8),Y:number(8),SIZE:number(20)},
@@ -416,16 +466,20 @@
   const block = type => ({kind:"block",type,...(defaults[type] ? {inputs:Object.fromEntries(Object.entries(defaults[type]).map(([name,shadow])=>[name,{shadow}]))} : {})});
   const category = (name,colour,types) => ({kind:"category",name,colour,contents:types.map(block)});
   window.SHIELDIO_CREATE_TOOLBOX = ({profile="red",module="all",advanced=false} = {}) => {
-    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_text",...(advanced?["shieldio_oled_print"]:[]),"shieldio_oled_clear"],faces:["shieldio_oled_face"],drawing:["shieldio_oled_pixel","shieldio_oled_line","shieldio_oled_square","shieldio_oled_rect","shieldio_oled_circle"]};
-    const names = {led:L("LED","LEDs"),buttons:L("Tlačítka","Buttons"),distance:L("Vzdálenost","Distance"),servo:L("Servo","Servo"),buzzer:L("Zvuk","Sound"),oled:L("Displej · text","Display · text"),faces:L("Displej · zvířátka","Display · animals"),drawing:L("Displej · kreslení","Display · drawing")};
+    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:[advanced?"shieldio_buzzer":"shieldio_buzzer_seconds"]};
+    const names = {led:L("LED","LEDs"),buttons:L("Tlačítka","Buttons"),distance:L("Vzdálenost","Distance"),servo:L("Servo","Servo"),buzzer:L("Zvuk","Sound")};
     const contents = [category(L("Události","Events"),GOLD,["shieldio_setup"])];
     if(profile === "red") {
-      const selected = module === "all" || module === "red" ? Object.keys(modules) : module === "oled" ? ["oled","faces","drawing"] : [module];
-      for (const key of selected) if (modules[key]) contents.push(category(names[key],RED,modules[key]));
+      for (const key of Object.keys(modules)) contents.push(category(names[key],RED,modules[key]));
+      contents.push({kind:"category",name:L("Displej","Display"),colour:RED,contents:[
+        {kind:"label",text:L("Text","Text")},... ["shieldio_oled_text",...(advanced?["shieldio_oled_print"]:[]),"shieldio_oled_clear"].map(block),
+        {kind:"label",text:L("Zvířátka","Animals")},block("shieldio_oled_face"),
+        {kind:"label",text:L("Kreslení","Drawing")},... ["shieldio_oled_pixel","shieldio_oled_line","shieldio_oled_square","shieldio_oled_rect","shieldio_oled_circle"].map(block)
+      ]});
     }
     if(profile === "universal" || advanced) contents.push(category(L("Piny Arduino","Arduino pins"),SENSE_BLUE,["arduino_pin_mode","arduino_digital_write","arduino_digital_read","arduino_analog_read","arduino_pwm","arduino_pin"]));
-    contents.push(category(L("Řízení","Control"),ORANGE,["shieldio_loop","shieldio_wait","controls_repeat_ext","shieldio_if","shieldio_if_else",...(advanced?["controls_whileUntil","shieldio_if_elseif_else","arduino_millis"]:[])]));
-    contents.push(category(L("Operátory","Operators"),OPERATOR_GREEN,["logic_compare","math_number","text",...(advanced?["logic_operation","logic_negate","logic_boolean","math_arithmetic"]:[])]));
+    contents.push(category(L("Řízení","Control"),ORANGE,["shieldio_loop",advanced?"shieldio_wait":"shieldio_wait_seconds","controls_repeat_ext","shieldio_if","shieldio_if_else",...(advanced?["controls_whileUntil","shieldio_if_elseif_else","arduino_millis"]:[])]));
+    contents.push(category(L("Operátory","Operators"),OPERATOR_GREEN,["logic_compare","math_number",...(advanced?["text","logic_operation","logic_negate","logic_boolean","math_arithmetic"]:[])]));
     if(advanced) {
       contents.push({kind:"category",name:L("Proměnné (čísla)","Variables (numbers)"),colour:palette.variables,custom:"VARIABLE"});
       contents.push(category(L("Sériová linka","Serial"),palette.serial,["arduino_serial_begin","arduino_serial_print"]));

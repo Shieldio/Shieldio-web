@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261110-plot1">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261113-friendly2">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -62,7 +62,7 @@
         <button type="button" id="compileBtn" class="btn btn-ghost programming-expert" data-i18n="programming.compile">Zkontrolovat program</button>
         <button type="button" id="uploadBtn" class="btn btn-primary" data-i18n="programming.upload" aria-describedby="usbCompatibility uploadStatus">Spustit na desce</button>
         <button type="button" id="focusEditorBtn" class="btn btn-ghost" aria-pressed="false" data-i18n="programming.focus">Zvětšit editor</button>
-        <button type="button" id="toggleToolsBtn" class="btn btn-ghost" aria-expanded="false" aria-controls="codeTab compileBtn connectionSettings projectFiles libraryManager blockProfileSelect advancedBlocksToggle" data-i18n="programming.tools">Další nástroje</button>
+        <button type="button" id="toggleToolsBtn" class="btn btn-ghost" aria-expanded="false" aria-controls="codeTab compileBtn connectionSettings projectFiles libraryManager blockProfileSelect advancedBlocksToggle" data-i18n="programming.tools">Pokročilý režim</button>
         <button type="button" id="cancelBuildBtn" class="btn btn-ghost" hidden data-i18n="programming.cancel">Zrušit</button>
       </div>
     </div>
@@ -77,13 +77,13 @@
       </details>
     <div class="programming-boardbar programming-expert">
       <label class="programming-board-name" for="boardSelect"><span data-i18n="programming.board">Deska</span>
-        <select id="boardSelect"><option value="red">Shieldio RED</option></select>
+        <select id="boardSelect"><option value="red">Shieldio RED</option><option value="nano">Arduino Nano · ATmega328P</option><option value="uno">Arduino Uno R3 · ATmega328P</option></select>
       </label>
       <span id="boardConnection" class="programming-connection">USB · deska není vybraná</span>
       <details id="connectionSettings" class="programming-settings">
         <summary data-i18n="programming.settings">Nastavení desky</summary>
         <div class="programming-settings-body programming-popover">
-        <p class="programming-target">Nano · ATmega328P · 16 MHz</p>
+        <p id="boardTarget" class="programming-target">Nano · ATmega328P · 16 MHz</p>
         <div class="programming-device">
           <div class="programming-field">
             <label for="bootloaderSelect" data-i18n="programming.bootloader">Bootloader desky</label>
@@ -112,7 +112,7 @@
       <details id="libraryManager" class="programming-libraries">
         <summary data-i18n="programming.libraries">Knihovny</summary>
         <div class="programming-library-body programming-popover">
-          <p data-i18n="programming.includedLibraries"><strong>Připravené:</strong> ShieldioDisplay 0.2.0, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.</p>
+          <p data-i18n="programming.includedLibraries"><strong>Připravené:</strong> ShieldioDisplay 0.3.0, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.</p>
           <p data-i18n="programming.libraryHelp">Vlastní knihovnu rozbal a přidej její složku. Podporujeme hlavičky a C++ zdroje pro AVR; závislosti přidej také. C, assembler a předkompilované knihovny zatím nejsou podporované.</p>
           <button type="button" id="addLibraryBtn" class="blockly-toggle-code" data-i18n="programming.addLibrary">Přidat složku knihovny</button>
           <input type="file" id="libraryFolderInput" webkitdirectory multiple hidden>
@@ -126,31 +126,19 @@
     <div id="usbCompatibility" class="programming-compatibility" hidden>
       <strong data-i18n="programming.browserTitle">Pro nahrávání použij Chrome nebo Edge na počítači.</strong>
       <details class="programming-browser-help"><summary data-i18n="programming.browserWhy">Podrobnosti</summary>
-      <p data-i18n="programming.browserHelp">Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači a připoj desku datovým USB kabelem. Svůj program přeneseš přes Další nástroje → Soubor → Uložit bloky nebo Uložit .ino.</p>
+      <p data-i18n="programming.browserHelp">Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači a připoj desku datovým USB kabelem. Svůj program přeneseš přes Pokročilý režim → Soubor → Uložit bloky nebo Uložit .ino.</p>
       </details>
     </div>
     <div id="blocksPanel" role="tabpanel" aria-labelledby="blocksTab">
     <div class="programming-block-actions">
       <div class="programming-block-filter">
-        <label class="programming-expert" for="blockProfileSelect" data-i18n="programming.blockProfile">Bloky pro</label>
-        <select class="programming-expert" id="blockProfileSelect">
+        <label hidden for="blockProfileSelect" data-i18n="programming.blockProfile">Bloky pro</label>
+        <select hidden id="blockProfileSelect">
           <option value="red" data-i18n="programming.redProfile">Moduly Shieldio RED</option>
           <option value="universal" data-i18n="programming.universalProfile">Univerzální Arduino</option>
         </select>
-        <div id="moduleField" class="programming-module-field">
-          <label for="moduleSelect" data-i18n="programming.module">Chci ovládat</label>
-          <select id="moduleSelect">
-            <option value="red" data-i18n="programming.allModulesRed">Všechny moduly RED</option>
-            <option value="led" data-i18n="programming.moduleLed">LED</option>
-            <option value="buttons" data-i18n="programming.moduleButtons">Tlačítka</option>
-            <option value="distance" data-i18n="programming.moduleDistance">Vzdálenost</option>
-            <option value="servo" data-i18n="programming.moduleServo">Servo</option>
-            <option value="buzzer" data-i18n="programming.moduleBuzzer">Zvuk</option>
-            <option value="oled" data-i18n="programming.moduleOled">Displej</option>
-            <option value="yellow" disabled data-i18n="programming.familyYellow">Moduly YELLOW — připravujeme</option>
-            <option value="pro" disabled data-i18n="programming.familyPro">Moduly PRO — připravujeme</option>
-          </select>
-        </div>
+        <div id="moduleField" hidden><select id="moduleSelect" hidden aria-label="Moduly RED"><option value="red">Shieldio RED</option></select></div>
+        <strong id="blockFamilyLabel" class="programming-family-label">Shieldio RED</strong>
         <label class="programming-advanced programming-expert"><input type="checkbox" id="advancedBlocksToggle"><span data-i18n="programming.advancedBlocks">Pokročilé bloky</span></label>
       </div>
       <div class="blockly-workspace-actions">
@@ -210,16 +198,24 @@
     <details class="programming-serial" id="serialMonitorPanel">
       <summary data-i18n="programming.serialMonitor">Sériový monitor</summary>
       <div class="programming-serial-controls">
-        <label for="serialBaud" data-i18n="programming.serialBaud">Rychlost</label>
-        <select id="serialBaud"><option>300</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option><option>230400</option><option>250000</option></select>
+        <label class="programming-expert" for="serialBaud" data-i18n="programming.serialBaud">Rychlost</label>
+        <select class="programming-expert" id="serialBaud"><option>300</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option><option>230400</option><option>250000</option></select>
         <button type="button" id="serialConnectBtn" class="blockly-toggle-code" data-i18n="programming.serialStart">Spustit příjem</button>
-        <button type="button" id="serialClearBtn" class="blockly-toggle-code" data-i18n="programming.serialClear">Vymazat výpis</button>
-        <label class="programming-serial-autoscroll"><input type="checkbox" id="serialAutoscroll" checked><span data-i18n="programming.serialAutoscroll">Posouvat výpis</span></label>
+        <button type="button" id="serialClearBtn" class="blockly-toggle-code programming-expert" data-i18n="programming.serialClear">Vymazat výpis</button>
+        <label class="programming-serial-autoscroll programming-expert"><input type="checkbox" id="serialAutoscroll" checked><span data-i18n="programming.serialAutoscroll">Posouvat výpis</span></label>
       </div>
+      <div class="programming-serial-send programming-expert">
+        <label for="serialSendInput" data-i18n="programming.serialSendLabel">Poslat do Arduina</label>
+        <input id="serialSendInput" type="text" maxlength="4096" autocomplete="off" data-i18n-placeholder="programming.serialSendPlaceholder" placeholder="Zpráva nebo příkaz">
+        <label class="visually-hidden" for="serialLineEnding" data-i18n="programming.serialLineEnding">Ukončení řádku</label>
+        <select id="serialLineEnding"><option value="lf">LF (\n)</option><option value="crlf">CRLF (\r\n)</option><option value="none" data-i18n="programming.serialNoEnding">Bez ukončení</option></select>
+        <button type="button" id="serialSendBtn" class="blockly-toggle-code" disabled data-i18n="programming.serialSend">Odeslat</button>
+      </div>
+      <p id="serialSendStatus" class="programming-expert" role="status" aria-live="polite"></p>
       <p id="serialStatus" role="status" aria-live="polite"></p>
       <pre id="serialOutput" class="programming-serial-output" tabindex="0" role="region" aria-label="Přijatá sériová data" data-i18n-aria-label="programming.serialOutput"></pre>
     </details>
-    <details class="programming-serial programming-plotter" id="serialPlotterPanel">
+    <details class="programming-serial programming-plotter programming-expert" id="serialPlotterPanel" hidden>
       <summary data-i18n="programming.serialPlotter">Sériový plotter</summary>
       <div class="programming-serial-controls">
         <label for="plotBaud" data-i18n="programming.serialBaud">Rychlost</label>
@@ -244,11 +240,11 @@
     <div class="programming-help">
       <div><h2 data-i18n="programming.helpUsbTitle">Připojení přes USB</h2><p data-i18n="programming.helpUsb">Použij datový USB kabel a Chrome nebo Edge na počítači. Po kliknutí na Spustit na desce vyber v okně připojenou RED. Pokud si nejsi jistý, porovnej seznam portů před připojením a po něm.</p></div>
       <div><h2 data-i18n="programming.helpBuildTitle">Co dělá kontrola programu</h2><p data-i18n="programming.helpBuild">Zkontrolovat program připraví soubor pro desku, ale nic do ní neposílá. Spustit na desce provede přípravu i nahrání. Teprve potom sleduj LED, displej nebo servo. Příprava neověří, zda program dělá to, co jsi zamýšlel.</p></div>
-      <div><h2 data-i18n="programming.helpCodeTitle">Bloky a vlastní kód</h2><p data-i18n="programming.helpCode">Další nástroje otevřou Arduino C++, ukládání a knihovny. Při prvním přepnutí do C++ se převezme kód z bloků; další úpravy obou verzí jsou oddělené. Vlastní funkce deklaruj před použitím a práci si ukládej do souboru.</p></div>
+      <div><h2 data-i18n="programming.helpCodeTitle">Bloky a vlastní kód</h2><p data-i18n="programming.helpCode">Pokročilý režim otevře Arduino C++, výběr Uno/Nano, ukládání a knihovny. Při prvním přepnutí do C++ se převezme kód z bloků; další úpravy obou verzí jsou oddělené. Vlastní funkce deklaruj před použitím a práci si ukládej do souboru.</p></div>
     </div>
     <div class="programming-pins">
       <h2 data-i18n="programming.hardwareTitle">Piny odpovídají desce RED</h2>
-      <p data-i18n="programming.hardware">Bloky používají LED D5/D6, ultrazvuk D7/D8, servo D9, bzučák D10, tlačítka D11/D12 a OLED na A4/A5. Tlačítka mají externí pull-up rezistory, stisk je LOW. Nahrávání je určené pro klasické Nano s ATmega328P; varianty Nano Every, ESP32 nebo Nano 33 používají jiný procesor.</p>
+      <p data-i18n="programming.hardware">Bloky RED používají LED D5/D6, ultrazvuk D7/D8, servo D9, bzučák D10, tlačítka D11/D12 a OLED na A4/A5. Tlačítka mají externí pull-up rezistory, stisk je LOW. V pokročilém režimu vybereš i klasické Arduino Uno R3 nebo Nano s ATmega328P. Uno R4, Nano Every a Nano 33 používají jiný procesor.</p>
     </div>
     </details>
   </div>
@@ -278,10 +274,10 @@
 <script src="https://unpkg.com/blockly@13.2.1/blockly_compressed.js"></script>
 <script src="https://unpkg.com/blockly@13.2.1/blocks_compressed.js"></script>
 <script src="https://unpkg.com/blockly@13.2.1/msg/cs.js"></script>
-<script src="../assets/js/shieldio-blocks.js?v=20261113-pet1"></script>
-<script src="../assets/js/block-project-validation.js?v=20261113-pet1"></script>
-<script src="../assets/js/blockly-editor.js?v=20261113-pet1"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261113-pet1"></script>
+<script src="../assets/js/shieldio-blocks.js?v=20261113-friendly2"></script>
+<script src="../assets/js/block-project-validation.js?v=20261113-friendly2"></script>
+<script src="../assets/js/blockly-editor.js?v=20261113-friendly2"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261113-friendly2"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js?v=20261104-interactions1"></script>

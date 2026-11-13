@@ -227,7 +227,7 @@
 .programming-page .programming-hero p.lead { margin-top: 3px; font-size: 12px; }
 .programming-page:has(#codeTab[aria-selected="true"]) .programming-hero { display: none; }
 .programming-page .programming-studio { padding-top: 8px; }
-.programming-page .programming-workspace { height: calc(100dvh - 160px); min-height: 440px; padding-bottom: 8px; overflow: visible; }
+.programming-page .programming-workspace { height: calc(100dvh - 160px); min-height: 440px; padding-bottom: 8px; overflow: auto; }
 .programming-page:has(#codeTab[aria-selected="true"]) .programming-workspace { height: calc(100dvh - 90px); }
 .programming-page .programming-toolbar { gap: 6px; padding-block: 6px; }
 .programming-utilitybar { position: relative; z-index: 5; display: flex; flex: 0 0 auto; align-items: center; flex-wrap: wrap; gap: 0 16px; padding: 2px 0; border-block: 1px solid var(--line); font-size: 12px; }
@@ -313,3 +313,19 @@
   .programming-plot-frame canvas { height: 220px; }
   .programming-plotter .programming-serial-controls { align-items: flex-start; }
 }
+
+/* Keep tools within the workspace even on short laptop viewports. */
+.programming-family-label { color: var(--ink); font-size: 13px; }
+.programming-page .programming-workspace > * { min-width: 0; }
+.programming-page .programming-studio :is(#blocksPanel, #arduinoCodePanel) { flex: 1 0 260px; }
+.programming-page #moduleField[hidden] { display: none; }
+.programming-serial[hidden] { display: none !important; }
+.programming-serial-send { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 4px 0 8px; }
+.programming-serial-send input { flex: 1 1 180px; min-width: 100px; }
+.programming-serial-send :is(input,select) { padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); color: var(--ink); font: inherit; }
+.programming-serial-send button { min-height: 32px; }
+.programming-studio[data-tools="closed"] #serialConnectBtn:disabled { display: none; }
+.programming-studio[data-tools="closed"] #serialMonitorPanel > summary { font-weight: 500; }
+.programming-page .blocklyTextInputField > .blocklyFieldRect { rx: 12px; ry: 12px; }
+.programming-page .blocklyHtmlInput { border-radius: 12px; }
+.programming-plot-frame canvas { max-height: 280px; }

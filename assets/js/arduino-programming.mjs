@@ -1,11 +1,15 @@
-import { SerialMonitor } from "./arduino-serial-monitor.mjs?v=20261106-serial1";
+import { SerialMonitor } from "./arduino-serial-monitor.mjs?v=20261113-friendly2";
 import { SerialPlotter, drawSerialPlot, PLOT_COLORS } from "./arduino-serial-plotter.mjs?v=20261110-plot1";
 import { importLibrary, validateLibraries } from "./arduino-libraries.mjs";
 import { codeKeyEdit, formatIndentation, toggleLineComment } from "./arduino-source-editor.mjs?v=20261103-assist2";
 import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from "./arduino-diagnostics.mjs?v=20261104-status1";
-import { flashNano, NANO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs";
+import { flashArduino, NANO_FLASH_BYTES, UNO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs?v=20261113-friendly2";
 
 const messages = {
+  serialSimpleConnect: ["Připojit monitor", "Connect monitor"],
+  serialSimpleIdle: ["Po připojení se zprávy z programu zobrazí tady.", "Messages from your program appear here after connecting."],
+  serialSent: ["Zpráva odeslána.", "Message sent."],
+  serialSendError: ["Zprávu se nepodařilo odeslat. Zkontroluj spojení a délku zprávy (max. 4096 bajtů včetně konce řádku).", "Could not send. Check the connection and message size (max. 4096 bytes including line ending)."],
   serialIdle: ["Nastav stejnou rychlost jako v Serial.begin(9600) a spusť příjem.", "Match the baud rate to Serial.begin(9600), then start receiving."],
   serialStart: ["Spustit příjem", "Start receiving"], serialStop: ["Zastavit příjem", "Stop receiving"],
   serialReading: ["Přijímám data z Arduina…", "Receiving data from Arduino…"],
@@ -25,7 +29,7 @@ const messages = {
 
   ramStatic: ["RAM · statická", "RAM · static"], ramOled: ["RAM · data + OLED", "RAM · data + OLED"],
   ramDetail: ["Statická data a vyhrazený buffer OLED. Zásobník a další dynamické alokace nejsou zahrnuté.", "Static data and reserved OLED buffer. Stack and other dynamic allocations are not included."],
-  tools: ["Další nástroje", "More tools"], simpleMode: ["Jednodušší režim", "Simple mode"],
+  tools: ["Pokročilý režim", "Advanced mode"], simpleMode: ["Jednoduchý režim", "Simple mode"],
   exampleLoading: ["Načítání ukázky…", "Loading example…"],
   exampleLoaded: ["Ukázka načtena", "Example loaded"],
   exampleLoadError: ["Ukázkový program se nepodařilo načíst. Obnov stránku nebo otevři jeho soubor .ino.", "Could not load the example. Reload or open its .ino file."],
@@ -64,12 +68,12 @@ const messages = {
   codeChanged: ["Program se mezitím změnil. Spusť ho znovu.", "The program changed in the meantime. Run it again."],
   compileTimeout: ["Příprava trvá příliš dlouho. Zkontroluj internet a zkus to znovu.", "Preparation took too long. Check your internet connection and try again."],
   loadFailure: ["Kompilátor se nepodařilo načíst. Zkontroluj internet a povolení cdn.jsdelivr.net ve školní síti.", "Could not load the compiler. Check your connection and school access to cdn.jsdelivr.net."],
-  FLASH_OVERFLOW: ["Program je větší než 30 720 bajtů pro Arduino Nano. Zkrať ho.", "The program exceeds Arduino Nano's 30,720-byte application limit. Reduce its size."],
+  FLASH_OVERFLOW: ["Program se nevejde do paměti vybrané desky. Zkrať ho.", "The program exceeds the selected board’s application memory. Reduce its size."],
   RAM_OVERFLOW: ["Programu a OLED displeji nestačí RAM desky. Zmenši pole, texty nebo počet proměnných.", "The program and OLED buffer exceed the board's RAM. Reduce arrays, strings or variables."],
   BOOTLOADER_SYNC: ["Deska neodpovídá. Zkus druhý bootloader, zkontroluj datový USB kabel a zavři sériový monitor v Arduino IDE.", "The board did not respond. Try the other bootloader, check the USB data cable and close Arduino IDE's Serial Monitor."],
   SERIAL_TIMEOUT: ["Deska přestala odpovídat. Zkontroluj kabel a nastavení bootloaderu a nahraj program znovu.", "The board stopped responding. Check the cable and bootloader setting, then upload again."],
   SERIAL_DISCONNECTED: ["USB deska byla odpojena. Připoj ji a vyber znovu.", "The USB board was disconnected. Reconnect and select it again."],
-  WRONG_CHIP: ["Vybraná deska nemá ATmega328P. Tento editor nahrává do klasického Arduino Nano / Shieldio RED.", "The selected board is not an ATmega328P. This editor uploads to classic Arduino Nano / Shieldio RED."],
+  WRONG_CHIP: ["Vybraná deska nemá ATmega328P. Tento editor podporuje klasické Uno R3, Nano a Shieldio RED.", "The selected board is not an ATmega328P. This editor supports classic Uno R3, Nano and Shieldio RED."],
   VERIFY_FAILED: ["Ověření zápisu selhalo. Program není potvrzený jako správně nahraný. Zkontroluj kabel a zkus nahrávání znovu.", "Flash verification failed. The upload is not confirmed. Check the cable and try uploading again."],
   STK_RESPONSE: ["Neočekávaná odpověď bootloaderu. Zkontroluj typ desky a bootloader.", "Unexpected bootloader response. Check your board and bootloader setting."],
   usbIdle: ["USB · deska není vybraná", "USB · no board selected"],
@@ -83,6 +87,7 @@ let selectedPort = null, busy = false, cached = null, worker = null, controller 
 let libraries = [], expanded = false, toolsOpen = false, importedProject = false, uploadRequested = false;
 let statusKey = "ready", statusError = false, statusPercent = null;
 let memorySnapshot = null;
+let serialSending = false, proBoard = "red";
 let serialChanging = false, serialStatusKey = "serialIdle", serialText = "", serialTimer = null;
 const serialPlotter = new SerialPlotter();
 let plotPaused = false, plotTimer = null;
@@ -93,6 +98,8 @@ const entryParams = new URLSearchParams(window.location?.search || "");
 const requestedExample = entryParams.get("example");
 const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExample : null;
 let sourceStorageKey = "shieldio-source-v1" + (exampleId ? ":example:" + exampleId : "");
+const selectedBoard = () => $("boardSelect").value === "uno" ? "uno" : "nano";
+const flashLimit = () => selectedBoard() === "uno" ? UNO_FLASH_BYTES : NANO_FLASH_BYTES;
 const mode = () => $("codeTab").getAttribute("aria-selected") === "true" ? "code" : "blocks";
 const source = () => mode() === "code" ? sourceInput.value : window.SHIELDIO_EDITOR?.getCode() || "";
 
@@ -164,12 +171,16 @@ function paintPlotButtons() {
   $("plotPauseBtn").removeAttribute("data-i18n");
 }
 function paintSerial() {
-  $("serialConnectBtn").textContent = t(serialMonitor.active ? "serialStop" : "serialStart");
+  $("serialConnectBtn").textContent = t(toolsOpen ? serialMonitor.active ? "serialStop" : "serialStart" : "serialSimpleConnect");
+  $("serialConnectBtn").hidden = !toolsOpen && serialMonitor.active;
+  $("serialSendBtn").disabled = !toolsOpen || !serialMonitor.active || busy || serialChanging || serialSending;
+  $("serialSendInput").disabled = !toolsOpen || !serialMonitor.active || busy || serialSending;
+  $("serialLineEnding").disabled = busy || serialSending;
   // Remove the static translation key after initialization; subsequent labels depend on state.
   $("serialConnectBtn").removeAttribute("data-i18n");
   $("serialConnectBtn").disabled = !supported || busy || serialChanging;
   $("serialBaud").disabled = busy || serialChanging || serialMonitor.active;
-  $("serialStatus").textContent = t(supported ? serialStatusKey : "unsupported");
+  $("serialStatus").textContent = t(supported ? !toolsOpen && ["serialIdle","serialStopped"].includes(serialStatusKey) ? "serialSimpleIdle" : serialStatusKey : "unsupported");
   $("serialStatus").dataset.error = String(serialStatusKey === "serialError");
   paintPlotButtons();
   if (!busy) {
@@ -177,9 +188,23 @@ function paintSerial() {
     $("connectBoardBtn").disabled = !supported || serialChanging;
   }
 }
+function inferSerialBaud() {
+  const match = source().match(/\bSerial\.begin\s*\(\s*(\d+)\s*(?:UL|U|L)?\s*\)/i);
+  const baud = match ? Number(match[1]) : 9600;
+  return baud >= 300 && baud <= 250000 ? baud : 9600;
+}
 async function startSerial() {
+  const baudRate = toolsOpen ? Number($("serialBaud").value) || 9600 : inferSerialBaud();
+  if (!toolsOpen) {
+    for (const id of ["serialBaud","plotBaud"]) {
+      if (!Array.from($(id).options).some(option=>Number(option.value) === baudRate)) {
+        const option=document.createElement("option");option.value=String(baudRate);option.textContent=String(baudRate);$(id).add(option);
+      }
+      $(id).value=String(baudRate);
+    }
+  }
   serialStatusKey = "serialOpening"; paintSerial();
-  await serialMonitor.start(selectedPort, Number($("serialBaud").value) || 9600);
+  await serialMonitor.start(selectedPort, baudRate);
   if (serialMonitor.active) serialStatusKey = "serialReading";
   else if (serialStatusKey !== "serialError") serialStatusKey = "serialStopped";
   paintSerial();
@@ -197,6 +222,25 @@ $("serialConnectBtn").addEventListener("click", async () => {
   } catch (error) { serialStatusKey = error.name === "NotFoundError" ? "serialNoPort" : "serialError"; }
   finally { serialChanging = false; paintSerial(); paint(); }
 });
+$("serialMonitorPanel").addEventListener("toggle", async () => {
+  if (!toolsOpen && $("serialMonitorPanel").open && selectedPort && !serialMonitor.active && !busy && !serialChanging) {
+    serialChanging = true;paintSerial();
+    try { await startSerial(); } catch { serialStatusKey="serialError"; }
+    finally { serialChanging=false;paintSerial(); }
+  }
+  window.SHIELDIO_EDITOR?.resize();
+});
+async function sendSerial() {
+  if (!toolsOpen || !serialMonitor.active || busy || serialChanging || serialSending) return;
+  serialSending=true;$("serialSendStatus").textContent="";paintSerial();
+  try {
+    await serialMonitor.send($("serialSendInput").value,{lineEnding:$("serialLineEnding").value || "lf"});
+    $("serialSendInput").value="";$("serialSendStatus").textContent=t("serialSent");
+  } catch { $("serialSendStatus").textContent=t("serialSendError"); }
+  finally { serialSending=false;paintSerial(); }
+}
+$("serialSendBtn").addEventListener("click",sendSerial);
+$("serialSendInput").addEventListener("keydown",event => { if (event.key === "Enter") {event.preventDefault();sendSerial();} });
 $("serialClearBtn").addEventListener("click", () => { serialText = ""; renderSerial(); });
 $("serialBaud").addEventListener("change", () => { $("plotBaud").value = $("serialBaud").value; });
 $("plotBaud").addEventListener("change", () => { $("serialBaud").value = $("plotBaud").value; });
@@ -239,7 +283,7 @@ const projectCopy = {
   blikani: {
     title: ["Rozblikej zelenou LED.", "Make the green LED blink."],
     expected: ["Najdi zelenou LED na RED. Ve výchozím programu půl sekundy svítí a půl sekundy nesvítí.", "Find the green LED on RED. The starter program keeps it on for half a second, then off for half a second."],
-    change: ["LED bliká? Změň oba časy 500 na 1000, odhadni rozdíl a spusť program znovu.", "Is the LED blinking? Change both 500 values to 1000, predict the difference and run it again."]
+    change: ["LED bliká? Změň obě čekání z 0,5 na 1 s, odhadni rozdíl a spusť program znovu.", "Is the LED blinking? Change both waits from 0.5 to 1 s, predict the difference and run it again."]
   },
   zavora: {
     title: ["Rozpohybuj závoru.", "Make the barrier move."],
@@ -276,7 +320,7 @@ function project() {
 }
 function paintProject() {
   const copy = project();
-  $("projectTitle").textContent = localized(copy.title);
+  $("projectTitle").textContent = copy === projectCopy.own && $("boardSelect").value !== "red" && $("boardSelect").value ? (document.documentElement.lang === "en" ? "Program " : "Programování ") + (selectedBoard() === "uno" ? "Arduino Uno R3" : "Arduino Nano") : localized(copy.title);
   $("projectExpected").textContent = localized(copy.expected);
   $("projectExpected").hidden = copy === projectCopy.own;
   $("projectNext").hidden = true;
@@ -289,14 +333,43 @@ function paintToolsButton() {
 }
 function setTools(open) {
   if (!open && mode() === "code") switchMode("blocks");
+  if (toolsOpen === open) { window.SHIELDIO_EDITOR?.setExperienceMode?.(open ? "pro" : "simple"); return; }
+  if (!open) { proBoard = $("boardSelect").value || "red"; $("boardSelect").value = "red"; $("serialPlotterPanel").open = false; }
+  else {
+    if (proBoard === "red" && $("blockProfileSelect").value === "universal") proBoard="nano";
+    $("boardSelect").value = proBoard;
+  }
   toolsOpen = open;
+  $("serialPlotterPanel").hidden = !open;
+  window.SHIELDIO_EDITOR?.setExperienceMode?.(open ? "pro" : "simple");
+  window.SHIELDIO_EDITOR?.setBoard?.(selectedBoard());
+  boardTargetChanged(false);
+  paintSerial();
   $("programmingStudio").dataset.tools = open ? "open" : "closed";
   $("toggleToolsBtn").setAttribute("aria-expanded",String(open));
   paintToolsButton();
   window.SHIELDIO_EDITOR?.resize();
 }
 $("toggleToolsBtn").addEventListener("click", () => setTools(!toolsOpen));
+window.addEventListener("shieldio:request-pro", () => setTools(true));
 window.addEventListener("shieldio:project-import", () => {importedProject=true;paintProject();});
+
+function boardTargetChanged(syncProfile = true) {
+  cached=null;$("downloadHexBtn").disabled=true;clearMemory();clearCompilerErrors();
+  const board=selectedBoard(), family=$("boardSelect").value || "red";
+  $("bootloaderSelect").disabled = busy || board === "uno";
+  if (board === "uno") $("bootloaderSelect").value = "115200";
+  if ($("bootloaderSelect").options[0]) $("bootloaderSelect").options[0].textContent = board === "uno" ? "Uno R3 · Optiboot (115200)" : "Nano / RED · Optiboot (115200)";
+  $("boardTarget").textContent = (board === "uno" ? "Uno R3" : "Nano") + " · ATmega328P · 16 MHz";
+  if (syncProfile) {
+    $("blockProfileSelect").value = family === "red" ? "red" : "universal";
+    $("blockProfileSelect").dispatchEvent(new Event("change"));
+  }
+  window.SHIELDIO_EDITOR?.setBoard?.(board);
+  $("blockFamilyLabel").textContent = family === "red" ? "Shieldio RED" : board === "uno" ? "Arduino Uno R3" : "Arduino Nano";
+  if (!busy) status("changed");
+}
+$("boardSelect").addEventListener("change", () => { if (!busy) {proBoard=$("boardSelect").value;boardTargetChanged();} });
 
 function clearMemory() { memorySnapshot=null; $("memoryUsage").hidden=true; }
 function paintMemory() {
@@ -305,9 +378,10 @@ function paintMemory() {
   const {flash,ram,oled}=memorySnapshot;
   const locale=document.documentElement.lang==="en"?"en-US":"cs-CZ";
   const bytes=n=>n.toLocaleString(locale);
-  for (const [kind,value,max] of [["flash",flash,NANO_FLASH_BYTES],["ram",ram,2048]]) {
+  for (const [kind,value,max] of [["flash",flash,flashLimit()],["ram",ram,2048]]) {
     $(kind+"Percent").textContent=Math.round(value/max*100)+" %";
     $(kind+"Bytes").textContent=bytes(value)+" / "+bytes(max)+" B";
+    $(kind+"Usage").max=max;
     $(kind+"Usage").value=value;
     $(kind+"Usage").setAttribute("aria-valuetext",bytes(value)+" / "+bytes(max)+" B");
     $(kind+"Percent").title=bytes(value)+" / "+bytes(max)+" B";
@@ -353,7 +427,8 @@ function status(key, error = false, percent = null) { statusKey = key; statusErr
 function setBusy(value) {
   busy = value;
   for (const id of ["compileBtn", "uploadBtn", "connectBoardBtn", "bootloaderSelect", "blocksTab", "codeTab", "importSourceBtn", "downloadSourceBtn", "addLibraryBtn", "boardSelect", "blockProfileSelect", "moduleSelect", "advancedBlocksToggle", "loadBlocksBtn", "saveBlocksBtn", "formatSourceBtn", "toggleCommentBtn", "newProjectBtn", "clearProjectBtn", "reloadEditorBtn"]) $(id).disabled = value || (!supported && (id === "uploadBtn" || id === "connectBoardBtn"));
-  $("downloadHexBtn").disabled = value || !cached || cached.source !== source();
+  $("downloadHexBtn").disabled = value || !cached || (cached.source !== source() || cached.board !== selectedBoard());
+  $("bootloaderSelect").disabled = value || selectedBoard() === "uno";
   $("toggleToolsBtn").disabled = value;
   $("cancelBuildBtn").hidden = !value;
   $("customLibraryList").inert = value;
@@ -371,7 +446,7 @@ function invalidate() {
     $("compilerDetails").hidden = true;
     if (!busy) status("changed");
   }
-  if (cached && cached.source !== source()) {
+  if (cached && (cached.source !== source() || cached.board !== selectedBoard())) {
     cached = null;
     $("downloadHexBtn").disabled = true;
     clearMemory();
@@ -568,35 +643,35 @@ if (supported) navigator.serial.addEventListener("disconnect", event => {
 
 function compileInWorker(text, signal) {
   return new Promise((resolve, reject) => {
-    worker = new Worker(new URL("./arduino-compiler-worker.mjs?v=20261102-studio2", import.meta.url), { type: "module" });
+    worker = new Worker(new URL("./arduino-compiler-worker.mjs?v=20261113-friendly2", import.meta.url), { type: "module" });
     const cleanup = () => { clearTimeout(timer); signal.removeEventListener("abort", cancel); worker?.terminate(); worker = null; };
     const cancel = () => { cleanup(); reject(new Error("CANCELLED")); };
     const timer = setTimeout(() => { cleanup(); reject(new Error("compileTimeout")); }, 120000);
     signal.addEventListener("abort", cancel, { once: true });
     worker.onmessage = ({ data }) => { cleanup(); if(data.error) {const error = new Error(data.error);error.details=data.details;reject(error);} else resolve(data.result); };
     worker.onerror = event => { event.preventDefault(); cleanup(); reject(new Error("loadFailure")); };
-    worker.postMessage({ source: text, libraries });
+    worker.postMessage({ source: text, libraries, board: selectedBoard() });
   });
 }
 async function compile(signal) {
-  const text = source();
+  const text = source(), board = selectedBoard();
   lastCompile={source:text,mode:mode()};
   if (mode() === "blocks" && !window.SHIELDIO_EDITOR) throw new Error("codeUnavailable");
   if (mode() === "blocks" && window.SHIELDIO_EDITOR.getError()) throw new Error("errorGenerated");
   if (!text.trim()) throw new Error("HEX_EMPTY");
-  if (cached?.source === text) {
+  if (cached?.source === text && cached.board === board) {
     const result=cached.result,oled=result.oledBufferBytes??(/Adafruit_SSD1306\.h/.test(text)?1024:0);
     memorySnapshot={flash:result.flashBytes,ram:result.ramBytes+oled,oled};status("compiled");return result;
   }
   status("compiling");
   $("uploadProgress").removeAttribute("value");
   const result = await compileInWorker(text, signal);
-  if (!result.fitsTarget || result.flashBytes > NANO_FLASH_BYTES) throw new Error("FLASH_OVERFLOW");
+  if (!result.fitsTarget || result.flashBytes > flashLimit()) throw new Error("FLASH_OVERFLOW");
   const oledBytes = result.oledBufferBytes ?? (/Adafruit_SSD1306\.h/.test(text) ? 1024 : 0);
   if (result.ramBytes + oledBytes >= 2048) throw new Error("RAM_OVERFLOW");
-  parseHex(result.hex);
-  if (text !== source()) throw new Error("codeChanged");
-  cached = { source: text, result };
+  parseHex(result.hex, flashLimit());
+  if (text !== source() || board !== selectedBoard()) throw new Error("codeChanged");
+  cached = { source: text, board, result };
   $("downloadHexBtn").disabled = false;
   memorySnapshot={flash:result.flashBytes,ram:result.ramBytes+oledBytes,oled:oledBytes};
   $("compilerLog").textContent = result.stderr.join("\n");
@@ -617,7 +692,7 @@ function showError(error) {
   $("compilerDetails").open = Boolean(details) && !diagnostics.length;
 }
 async function run(upload) {
-  if (busy || serialChanging || (upload && !supported)) return;
+  if (busy || serialChanging || serialSending || (upload && !supported)) return;
   let resumeSerial = false, uploaded = false;
   uploadRequested = upload;
   clearCompilerErrors();lastCompile=null;
@@ -633,14 +708,15 @@ async function run(upload) {
     const result = await compile(controller.signal);
     if (upload) {
       controller.signal.throwIfAborted();
-      resumeSerial = serialMonitor.active;
+      resumeSerial = serialMonitor.active || (!toolsOpen && $("serialMonitorPanel").open);
       if (resumeSerial) {
         await serialMonitor.stop();
         serialStatusKey = "serialPaused"; paintSerial();
       }
       controller.signal.throwIfAborted();
-      await flashNano(selectedPort, result.hex, {
-        baudRate: Number($("bootloaderSelect").value), signal: controller.signal,
+      await flashArduino(selectedPort, result.hex, {
+        board: selectedBoard(),
+        baudRate: selectedBoard() === "uno" ? 115200 : Number($("bootloaderSelect").value), signal: controller.signal,
         onProgress: (phase, percent) => {
           const progress=phase==="write"?percent/2:phase==="verify"?50+percent/2:phase==="done"?100:null;
           if (progress===null) $("uploadProgress").removeAttribute("value");
@@ -703,7 +779,7 @@ function download(text, filename) {
   const link = document.createElement("a"); link.href = url; link.download = filename; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-$("downloadHexBtn").addEventListener("click", () => { if (cached?.source === source()) download(cached.result.hex, "shieldio_program.hex"); });
+$("downloadHexBtn").addEventListener("click", () => { if (cached?.source === source() && cached.board === selectedBoard()) download(cached.result.hex, "shieldio_program.hex"); });
 $("downloadSourceBtn").addEventListener("click", () => download(source(), "shieldio_program.ino"));
 $("importSourceBtn").addEventListener("click", () => $("importSourceInput").click());
 $("importSourceInput").addEventListener("change", async event => {
@@ -752,6 +828,8 @@ window.addEventListener("keydown", event => {
 document.addEventListener("shieldio-lang-change", () => { paint(); renderPlot(); });
 new MutationObserver(() => {paint();paintLibraries();updateSourcePosition();}).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
 setBusy(false); paint();updateSourcePosition();renderPlot();
+window.SHIELDIO_EDITOR?.setExperienceMode?.("simple");
+window.addEventListener("shieldio:editor-ready", () => window.SHIELDIO_EDITOR?.setExperienceMode?.(toolsOpen ? "pro" : "simple"));
 
 
 

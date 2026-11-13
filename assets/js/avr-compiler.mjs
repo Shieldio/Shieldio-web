@@ -13,7 +13,10 @@ export const SENSOR = Object.freeze({
 
 const MCU = "atmega328p";
 const MULTILIB = "avr5";
-const NANO_APP_FLASH_BYTES = 30720;
+export const AVR_TARGETS = Object.freeze({
+  nano: Object.freeze({ board: "arduino:avr:nano:cpu=atmega328", macro: "ARDUINO_AVR_NANO", analogInputs: 8, appFlashBytes: 30720 }),
+  uno: Object.freeze({ board: "arduino:avr:uno", macro: "ARDUINO_AVR_UNO", analogInputs: 6, appFlashBytes: 32256 }),
+});
 const WASM_FILE_BY_TOOL = Object.freeze({
   cc1plus: "cc1plus.wasm",
   "avr-as": "avr-as.wasm",
@@ -174,11 +177,11 @@ function describeError(error) {
   return details.join(" ");
 }
 
-async function loadHeaders(fs, manifest, timings) {
+async function loadHeaders(fs, manifest, timings, target) {
   const start = performance.now();
   await Promise.all(manifest.headerFiles.map(async (virtualPath) => {
     let bytes = await fetchBytes(`/fs${virtualPath}`);
-    if (virtualPath === "/arduino/variant/pins_arduino.h") {
+    if (virtualPath === "/arduino/variant/pins_arduino.h" && target.analogInputs === 8) {
       bytes = new TextEncoder().encode(new TextDecoder().decode(bytes).replace(/(#define NUM_ANALOG_INPUTS\s+)6/, "$18"));
     }
     writeFile(fs, virtualPath, bytes);
@@ -221,7 +224,7 @@ async function loadLinkInputs(fs, manifest, objectPaths, firmwareObject, timings
   timings.linkInputsFsMs = performance.now() - start;
 }
 
-function compileArgs(sensors, input = "/build/HorangFirmware.cpp", output = "/build/HorangFirmware.s", includeDirs = []) {
+function compileArgs(sensors, input = "/build/HorangFirmware.cpp", output = "/build/HorangFirmware.s", includeDirs = [], target = AVR_TARGETS.nano) {
   return [
     "-quiet",
     "-imultilib", MULTILIB,
@@ -229,7 +232,7 @@ function compileArgs(sensors, input = "/build/HorangFirmware.cpp", output = "/bu
     "-D__AVR_DEVICE_NAME__=atmega328p",
     "-DF_CPU=16000000L",
     "-DARDUINO=10819",
-    "-DARDUINO_AVR_NANO",
+    `-D${target.macro}`,
     "-DARDUINO_ARCH_AVR",
     `-DUSE_OLED=${sensors.has(SENSOR.OLED) ? 1 : 0}`,
     `-DUSE_TOF=${sensors.has(SENSOR.TOF) ? 1 : 0}`,
@@ -315,12 +318,16 @@ function countIntelHexDataBytes(hex) {
  * @param {string[] | {
  *   source?: string,            // firmware source; if omitted, the bundled src/HorangFirmware.cpp is fetched
  *   libraries?: Array,         // validated local header/C++ library files
+ *   board?: "nano" | "uno",  // classic ATmega328P boards only; default nano (also Shieldio RED)
  *   sensors?: string[],         // SENSOR.OLED / SENSOR.TOF toggles passed as -DUSE_* flags
  *   assetsBase?: string | URL,  // where tools/ and assets/ are served from
  * }} options Either a sensor array (legacy) or an options object.
  */
 export async function buildFirmware(options = {}) {
   const opts = Array.isArray(options) ? { sensors: options } : options || {};
+  const board = opts.board ?? "nano";
+  if (!Object.hasOwn(AVR_TARGETS, board)) throw new Error("BOARD_UNSUPPORTED");
+  const target = AVR_TARGETS[board];
   if (opts.assetsBase) setAssetsBase(opts.assetsBase);
 
   const sensors = new Set(opts.sensors || []);
@@ -335,9 +342,9 @@ export async function buildFirmware(options = {}) {
   const assembly = await runTool(
     "cc1plus",
     createCc1plus,
-    compileArgs(sensors, undefined, undefined, custom.includeDirs),
+    compileArgs(sensors, undefined, undefined, custom.includeDirs, target),
     async (fs) => {
-      await loadHeaders(fs, manifest, timings);
+      await loadHeaders(fs, manifest, timings, target);
       custom.files.forEach(file => writeFile(fs, file.path, file.content));
       writeFile(fs, "/build/HorangFirmware.cpp", source);
     },
@@ -362,9 +369,9 @@ export async function buildFirmware(options = {}) {
   for (const [index, file] of custom.sources.entries()) {
     const assemblyPath = `/build/custom${index}.s`, objectPath = `/build/custom${index}.o`;
     const asm = await runTool("cc1plus", createCc1plus,
-      compileArgs(sensors, file.path, assemblyPath, custom.includeDirs), async fs => {
+      compileArgs(sensors, file.path, assemblyPath, custom.includeDirs, target), async fs => {
         ensureDir(fs, "/build");
-        await loadHeaders(fs, manifest, timings);
+        await loadHeaders(fs, manifest, timings, target);
         custom.files.forEach(input => writeFile(fs, input.path, input.content));
       }, assemblyPath, timings, stderr, memoryPeaks);
     const bytes = await runTool("avr-as", createAvrAs,
@@ -406,15 +413,15 @@ export async function buildFirmware(options = {}) {
     sensors: [...sensors],
     target: {
       mcu: MCU,
-      board: "arduino:avr:nano:cpu=atmega328",
-      appFlashBytes: NANO_APP_FLASH_BYTES,
+      board: target.board,
+      appFlashBytes: target.appFlashBytes,
     },
     bytes: hexBytes.byteLength,
     hexBytes: hexBytes.byteLength,
     flashBytes,
     ramBytes: elfRamBytes(elf),
     oledBufferBytes: sensors.has(SENSOR.OLED) ? 1024 : 0,
-    fitsTarget: flashBytes <= NANO_APP_FLASH_BYTES,
+    fitsTarget: flashBytes <= target.appFlashBytes,
     objectCount: objectPaths.length + 1 + customObjects.length,
     memory: {
       linearPeakBytesByTool: memoryPeaks,

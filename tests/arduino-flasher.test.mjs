@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { flashNano, parseHex, NANO_FLASH_BYTES } from '../assets/js/arduino-flasher.mjs';
+import { flashNano, flashArduino, parseHex, NANO_FLASH_BYTES, UNO_FLASH_BYTES } from '../assets/js/arduino-flasher.mjs';
 
 function record(address, type, data = []) {
   const bytes = [data.length, address >> 8, address & 255, type, ...data];
@@ -81,5 +81,26 @@ test('cancel during a pending serial response closes the port',async()=>{
 test('bad firmware does not open or reset a board',async()=>{
   let opened=false;
   await assert.rejects(flashNano({open(){opened=true;}},':bad'),/HEX_/);
+  assert.equal(opened,false);
+});
+test('Uno uses its own application bounds and the standard 115200 bootloader',async()=>{
+  const {port,state}=board();
+  await flashArduino(port,hex([1,2]),{board:'uno'});
+  assert.equal(state.baudRate,115200);
+  assert.equal(state.writes,1);
+  assert.equal(state.commands.at(-1),0x51);
+  const upperNanoAddress=record(0,0,[1])+'\n'+record(NANO_FLASH_BYTES,0,[2])+'\n'+record(0,1);
+  assert.throws(()=>parseHex(upperNanoAddress),/FLASH_OVERFLOW/);
+  assert.equal(parseHex(upperNanoAddress,UNO_FLASH_BYTES)[NANO_FLASH_BYTES],2);
+  assert.throws(()=>parseHex(record(0,0,[1])+'\n'+record(UNO_FLASH_BYTES,0,[2])+'\n'+record(0,1),UNO_FLASH_BYTES),/FLASH_OVERFLOW/);
+});
+test('board-specific HEX bounds and unsupported boards are checked before opening USB',async()=>{
+  let opened=false;
+  const port={open(){opened=true;}};
+  const tooLarge=record(0,0,[1])+'\n'+record(UNO_FLASH_BYTES,0,[2])+'\n'+record(0,1);
+  await assert.rejects(flashArduino(port,tooLarge,{board:'uno'}),/FLASH_OVERFLOW/);
+  await assert.rejects(flashArduino(port,hex([1]),{board:'uno-r4'}),/BOARD_UNSUPPORTED/);
+  const aboveNano=record(0,0,[1])+'\n'+record(NANO_FLASH_BYTES,0,[2])+'\n'+record(0,1);
+  await assert.rejects(flashNano(port,aboveNano,{board:'uno'}),/FLASH_OVERFLOW/,'Legacy Nano API retains Nano bounds');
   assert.equal(opened,false);
 });

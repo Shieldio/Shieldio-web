@@ -3656,16 +3656,16 @@
     "en": "Blocks and your own code"
   },
   "programming.helpCode": {
-    "cs": "Další nástroje otevřou Arduino C++, ukládání a knihovny. Při prvním přepnutí do C++ se převezme kód z bloků; další úpravy obou verzí jsou oddělené. Vlastní funkce deklaruj před použitím a práci si ukládej do souboru.",
-    "en": "More tools opens Arduino C++, saving and libraries. The first switch to C++ copies the blocks; later edits to the two versions are separate. Declare custom functions before use and save your work to a file."
+    "cs": "Pokročilý režim otevře Arduino C++, výběr Uno/Nano, ukládání a knihovny. Při prvním přepnutí do C++ se převezme kód z bloků; další úpravy obou verzí jsou oddělené. Vlastní funkce deklaruj před použitím a práci si ukládej do souboru.",
+    "en": "Advanced mode opens Arduino C++, Uno/Nano selection, files and libraries. The first switch to C++ copies the block code; later edits are separate. Declare your own functions before use and save your work to a file."
   },
   "programming.hardwareTitle": {
     "cs": "Piny odpovídají desce RED",
     "en": "Pins match the RED board"
   },
   "programming.hardware": {
-    "cs": "Bloky používají LED D5/D6, ultrazvuk D7/D8, servo D9, bzučák D10, tlačítka D11/D12 a OLED na A4/A5. Tlačítka mají externí pull-up rezistory, stisk je LOW. Nahrávání je určené pro klasické Nano s ATmega328P; varianty Nano Every, ESP32 nebo Nano 33 používají jiný procesor.",
-    "en": "Blocks use LEDs D5/D6, ultrasound D7/D8, servo D9, buzzer D10, buttons D11/D12 and OLED on A4/A5. The buttons have external pull-up resistors; pressed is LOW. Upload supports classic Nano with ATmega328P. Nano Every, ESP32 and Nano 33 use different processors."
+    "cs": "Bloky RED používají LED D5/D6, ultrazvuk D7/D8, servo D9, bzučák D10, tlačítka D11/D12 a OLED na A4/A5. Tlačítka mají externí pull-up rezistory, stisk je LOW. V pokročilém režimu vybereš i klasické Arduino Uno R3 nebo Nano s ATmega328P. Uno R4, Nano Every a Nano 33 používají jiný procesor.",
+    "en": "RED blocks use LEDs D5/D6, ultrasonic D7/D8, servo D9, buzzer D10, buttons D11/D12 and OLED A4/A5. Buttons have external pull-ups; pressed means LOW. Advanced mode also supports classic Arduino Uno R3 and Nano with ATmega328P. Uno R4, Nano Every and Nano 33 use different processors."
   },
   "programming.nav": {
     "cs": "Programování",
@@ -3708,8 +3708,8 @@
     "en": "Use desktop Chrome or Edge to upload."
   },
   "programming.browserHelp": {
-    "cs": "Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači a připoj desku datovým USB kabelem. Svůj program přeneseš přes Další nástroje → Soubor → Uložit bloky nebo Uložit .ino.",
-    "en": "To run on RED, use desktop Chrome or Edge and a USB data cable. Transfer your work through More tools → File → Save blocks or Save .ino."
+    "cs": "Pro spuštění na RED otevři editor v Chrome nebo Edge na počítači a připoj desku datovým USB kabelem. Svůj program přeneseš přes Pokročilý režim → Soubor → Uložit bloky nebo Uložit .ino.",
+    "en": "To run on RED, use desktop Chrome or Edge and a USB data cable. Transfer your work through Advanced mode → File → Save blocks or Save .ino."
   },
   "programming.files": {
     "cs": "Program",
@@ -3740,8 +3740,8 @@
     "en": "Libraries"
   },
   "programming.includedLibraries": {
-    "cs": "<strong>Připravené:</strong> ShieldioDisplay 0.2.0, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.",
-    "en": "<strong>Included:</strong> ShieldioDisplay 0.2.0, Servo, Wire, SPI, Adafruit GFX and SSD1306. Selected automatically from your program."
+    "cs": "<strong>Připravené:</strong> ShieldioDisplay 0.3.0, Servo, Wire, SPI, Adafruit GFX a SSD1306. Vloží se podle použití v programu.",
+    "en": "<strong>Included:</strong> ShieldioDisplay 0.3.0, Servo, Wire, SPI, Adafruit GFX and SSD1306. Selected automatically from your program."
   },
   "programming.libraryHelp": {
     "cs": "Vlastní knihovnu rozbal a přidej její složku. Podporujeme hlavičky a C++ zdroje pro AVR; závislosti přidej také. C, assembler a předkompilované knihovny zatím nejsou podporované.",
@@ -3840,8 +3840,8 @@
     "en": "Choose another project"
   },
   "start.firstDownload": {
-    "cs": "Při prvním spuštění editor stáhne nástroje pro přípravu programu. Potřebuje internet a přístup k cdn.jsdelivr.net a unpkg.com. Program se připravuje v počítači. Bloky si uložíš přes Další nástroje → Soubor → Uložit bloky.",
-    "en": "On first use, the editor downloads tools to prepare the program. It needs internet access to cdn.jsdelivr.net and unpkg.com. Preparation runs on your computer. Save blocks through More tools → File → Save blocks."
+    "cs": "Při prvním spuštění editor stáhne nástroje pro přípravu programu. Potřebuje internet a přístup k cdn.jsdelivr.net a unpkg.com. Program se připravuje v počítači. Bloky si uložíš přes Pokročilý režim → Soubor → Uložit bloky.",
+    "en": "On first use, the editor downloads tools to prepare the program. It needs internet access to cdn.jsdelivr.net and unpkg.com. Preparation runs on your computer. Save blocks through Advanced mode → File → Save blocks."
   },
   "start.step1": {
     "cs": "1. Podívej se na program",
@@ -3872,8 +3872,8 @@
     "en": "3. Slow the blinking down"
   },
   "start.step4Text": {
-    "cs": "Odhadni, co se stane, když obě čísla <b>500</b> změníš na <b>1000</b>. Změň je a znovu klikni na <b>Spustit na desce</b>. Bliká LED podle tvého odhadu? Pak zkus vlastní čas.",
-    "en": "Predict what will happen if you change both <b>500</b> values to <b>1000</b>. Change them and choose <b>Run on board</b> again. Does the LED match your prediction? Then try your own time."
+    "cs": "Odhadni, co se stane, když obě čekání <b>0,5 s</b> změníš na <b>1 s</b>. Změň je a znovu klikni na <b>Spustit na desce</b>. Bliká LED podle tvého odhadu? Pak zkus vlastní čas.",
+    "en": "Predict what will happen if you change both <b>0.5 s</b> waits to <b>1 s</b>. Change them and choose <b>Run on board</b> again. Does the LED match your prediction? Then try your own time."
   },
   "start.trouble": {
     "cs": "Port nebo nahrávání nefunguje",
@@ -3884,8 +3884,8 @@
     "en": "Check the data cable, another USB port and school account permissions. A charging-only cable cannot transfer a program."
   },
   "start.bootloader": {
-    "cs": "Pokud deska neodpovídá, otevři <b>Další nástroje → Nastavení desky</b> a zkus druhý bootloader. Volby jsou Optiboot 115200 a starý Nano 57600; tím bootloader v desce nepřepisuješ.",
-    "en": "If the board does not respond, open <b>More tools → Board settings</b> and try the other bootloader. Options are Optiboot 115200 and old Nano 57600; this does not replace the board bootloader."
+    "cs": "Pokud deska neodpovídá, otevři <b>Pokročilý režim → Nastavení desky</b> a zkus druhý bootloader. Volby jsou Optiboot 115200 a starý Nano 57600; tím bootloader v desce nepřepisuješ.",
+    "en": "If the board does not respond, open <b>Advanced mode → Board settings</b> and try the other bootloader. Options are Optiboot 115200 and old Nano 57600; this does not replace the board bootloader."
   },
   "start.details": {
     "cs": "Pod zprávou otevři <b>Technické podrobnosti</b>. U chyby programu najdeš řádek; při problému s USB ověř nejdřív kabel a port.",
@@ -3896,8 +3896,8 @@
     "en": "Custom C++, libraries and other hardware"
   },
   "start.advancedText": {
-    "cs": "Otevři <b>Další nástroje</b>. Vlastní kód vlož do <b>Arduino C++</b> nebo načti soubor .ino. Vlastní funkce deklaruj před použitím. C++ knihovnu pro AVR přidej přes <b>Knihovny → Přidat složku knihovny</b>; ZIP nejdřív rozbal. C, assembler a předkompilované knihovny zatím nepodporujeme.",
-    "en": "Open <b>More tools</b>. Enter code in <b>Arduino C++</b> or open an .ino file. Declare custom functions before use. Add an AVR C++ library through <b>Libraries → Add library folder</b>; unzip it first. C, assembly and precompiled libraries are not yet supported."
+    "cs": "Otevři <b>Pokročilý režim</b>. Vlastní kód vlož do <b>Arduino C++</b> nebo načti soubor .ino. Vlastní funkce deklaruj před použitím. C++ knihovnu pro AVR přidej přes <b>Knihovny → Přidat složku knihovny</b>; ZIP nejdřív rozbal. C, assembler a předkompilované knihovny zatím nepodporujeme.",
+    "en": "Open <b>Advanced mode</b>. Enter code in <b>Arduino C++</b> or open an .ino file. Declare custom functions before use. Add an AVR C++ library through <b>Libraries → Add library folder</b>; unzip it first. C, assembly and precompiled libraries are not yet supported."
   },
   "start.target": {
     "cs": "Univerzální bloky nevyužívají přednastavené piny RED. Kompilátor a nahrávač ale zatím cílí na klasické Nano s ATmega328P, nikoli Nano Every, Nano 33 nebo ESP32.",
@@ -4584,12 +4584,12 @@
     "en": "Back of the Shieldio RED enclosure with embossed Shieldio baseline RED lettering"
   },
   "programming.simpleMode": {
-    "cs": "Jednodušší režim",
+    "cs": "Jednoduchý režim",
     "en": "Simple mode"
   },
   "programming.tools": {
-    "cs": "Další nástroje",
-    "en": "More tools"
+    "cs": "Pokročilý režim",
+    "en": "Advanced mode"
   },
   "start.downloadLabel": {
     "cs": "První načtení a ukládání práce",
@@ -4600,8 +4600,8 @@
     "en": "1. Make the green LED blink"
   },
   "student.card.led.body": {
-    "cs": "Otevři připravené blikání a zvol <b>Spustit na desce</b>. Zelená LED se střídavě rozsvítí a zhasne. Pak změň obě čekání z 500 na 1000 ms a spusť znovu.",
-    "en": "Open the prepared blink program and choose <b>Run on board</b>. The green LED turns on and off. Then change both waits from 500 to 1000 ms and run it again."
+    "cs": "Otevři připravené blikání a zvol <b>Spustit na desce</b>. Zelená LED se střídavě rozsvítí a zhasne. Pak změň obě čekání z 0,5 na 1 s a spusť znovu.",
+    "en": "Open the prepared blink program and choose <b>Run on board</b>. The green LED turns on and off. Then change both waits from 0.5 to 1 s and run it again."
   },
   "student.card.led.action": {
     "cs": "Otevřít blikání LED →",
@@ -4708,8 +4708,8 @@
     "en": "How to run a program on the board"
   },
   "student.run.steps": {
-    "cs": "<li>Připoj sestavenou RED datovým USB kabelem.</li><li>Zvol <b>Spustit na desce</b> a podle výzvy vyber port RED. Počkej na dokončení nahrávání.</li><li>Sleduj zelenou LED. Změň obě čekání z 500 na 1000 ms a spusť znovu: blikání bude pomalejší.</li>",
-    "en": "<li>Connect an assembled RED with a data USB cable.</li><li>Choose <b>Run on board</b> and select the RED port when prompted. Wait for the upload to finish.</li><li>Watch the green LED. Change both waits from 500 to 1000 ms and run again: blinking will be slower.</li>"
+    "cs": "<li>Připoj sestavenou RED datovým USB kabelem.</li><li>Zvol <b>Spustit na desce</b> a podle výzvy vyber port RED. Počkej na dokončení nahrávání.</li><li>Sleduj zelenou LED. Změň obě čekání z 0,5 na 1 s a spusť znovu: blikání bude pomalejší.</li>",
+    "en": "<li>Connect an assembled RED with a data USB cable.</li><li>Choose <b>Run on board</b> and select the RED port when prompted. Wait for the upload to finish.</li><li>Watch the green LED. Change both waits from 0.5 to 1 s and run again: blinking will be slower.</li>"
   },
   "student.check": {
     "cs": "<b>Zkontrolovat program</b> připraví program, ale do desky nic nenahraje. Výsledek ověříš až na desce.",
@@ -4768,8 +4768,8 @@
     "en": "Blinking green LED"
   },
   "student.red.led.body": {
-    "cs": "Otevřete připravený program a zvolte <b>Spustit na desce</b>. Zelená LED bliká. Změňte obě čekání z 500 na 1000 ms a spusťte znovu: blikání zpomalí. Obrázek ukazuje editor.",
-    "en": "Open the prepared program and choose <b>Run on board</b>. The green LED blinks. Change both waits from 500 to 1000 ms and run again: blinking slows down. The image shows the editor."
+    "cs": "Otevřete připravený program a zvolte <b>Spustit na desce</b>. Zelená LED bliká. Změňte obě čekání z 0,5 na 1 s a spusťte znovu: blikání zpomalí. Obrázek ukazuje editor.",
+    "en": "Open the prepared program and choose <b>Run on board</b>. The green LED blinks. Change both waits from 0.5 to 1 s and run again: blinking slows down. The image shows the editor."
   },
   "student.red.led.link": {
     "cs": "Otevřít blikání LED →",
@@ -5808,8 +5808,8 @@
     "en": "4. Give your animal a personality"
   },
   "pet.change": {
-    "cs": "Změň psa na lva, vyber jinou z pěti nálad nebo nastav zavřené oči. Pro ruční mrknutí zobraz tvář se zavřenýma očima, počkej 150 ms a zobraz stejnou tvář s otevřenýma očima. Pak zkus podmínku z tlačítka nahradit platným měřením vzdálenosti.",
-    "en": "Change the dog to a lion, select another of the five moods or close its eyes. For a manual blink, show closed eyes, wait 150 ms and show the same face with open eyes. Then try replacing a button condition with a valid distance measurement."
+    "cs": "Změň psa na lva, vyber jinou z pěti nálad nebo nastav zavřené oči. Pro ruční mrknutí zobraz tvář se zavřenýma očima, počkej 0,15 s a zobraz stejnou tvář s otevřenýma očima. Pak zkus podmínku z tlačítka nahradit platným měřením vzdálenosti.",
+    "en": "Change the dog to a lion, select another of the five moods or close its eyes. For a manual blink, show closed eyes, wait 0.15 s and show the same face with open eyes. Then try replacing a button condition with a valid distance measurement."
   },
   "pet.help": {
     "cs": "Když se nedaří",
@@ -5830,5 +5830,33 @@
   "programming.allModulesRed": {
     "cs": "Všechny moduly RED",
     "en": "All RED modules"
+  },
+  "programming.serialSimpleConnect": {
+    "cs": "Připojit monitor",
+    "en": "Connect monitor"
+  },
+  "programming.serialSend": {
+    "cs": "Odeslat",
+    "en": "Send"
+  },
+  "programming.serialSendLabel": {
+    "cs": "Poslat do Arduina",
+    "en": "Send to Arduino"
+  },
+  "programming.serialSendPlaceholder": {
+    "cs": "Zpráva nebo příkaz",
+    "en": "Message or command"
+  },
+  "programming.serialLineEnding": {
+    "cs": "Ukončení řádku",
+    "en": "Line ending"
+  },
+  "programming.serialNoEnding": {
+    "cs": "Bez ukončení",
+    "en": "No ending"
+  },
+  "programming.simpleSerialHint": {
+    "cs": "Po připojení se zprávy z programu zobrazí tady.",
+    "en": "Messages from your program appear here after connecting."
   }
 }

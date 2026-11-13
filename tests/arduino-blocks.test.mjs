@@ -20,11 +20,11 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const get=id=>{assert.ok(els.has(id),'Missing element '+id);return els.get(id);};
   get('blockProfileSelect').value='red';get('moduleSelect').value='red';
   let ready,workspace,toolbox,theme;
-  const windowEvents = {};
+  const windowEvents = {},dispatchedEvents=[];
   const storage=new Map(Object.entries(initialStore)),storageReads=[];
   const context=vm.createContext({console,setTimeout,clearTimeout,structuredClone,URLSearchParams,location:{search},
     Event:class{constructor(type){this.type=type;}},ResizeObserver:class{observe(){}},
-    localStorage:{getItem(key){storageReads.push(key);return storage.get(key)??null;},setItem(key,value){storage.set(key,value);}},window:{addEventListener(name,fn){windowEvents[name]=fn;},dispatchEvent(){}},
+    localStorage:{getItem(key){storageReads.push(key);return storage.get(key)??null;},setItem(key,value){storage.set(key,value);}},window:{addEventListener(name,fn){windowEvents[name]=fn;},dispatchEvent(event){dispatchedEvents.push(event.type);}},
     document:{documentElement:{lang:'cs',dataset:{}},getElementById:get,addEventListener(name,fn){if(name==='DOMContentLoaded')ready=fn;},createElement:()=>new Element('temp'),createElementNS:(ns,name)=>xml.createElementNS(ns,name)},DOMParser,XMLSerializer});
   for(const file of ['blockly_compressed.js','blocks_compressed.js','msg/cs.js'])vm.runInContext(await fs.readFile(blocklyDir+'/'+file,'utf8'),context);
   vm.runInContext(await fs.readFile(new URL('../assets/js/shieldio-blocks.js',import.meta.url),'utf8'),context);
@@ -36,11 +36,12 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   for(const method of ['initSvg','render','moveBy'])Blockly.Block.prototype[method]=function(){};
   vm.runInContext(await fs.readFile(new URL('../assets/js/blockly-editor.js',import.meta.url),'utf8'),context);ready();
   const make=(type,profile='red')=>{
-    const config=api.SHIELDIO_CREATE_TOOLBOX({profile,advanced:true}).contents.flatMap(c=>c.contents||[]).find(b=>b.type===type) || {type};
+    const config=api.SHIELDIO_CREATE_TOOLBOX({profile,advanced:true}).contents.flatMap(c=>c.contents||[]).find(b=>b.type===type) || {type,inputs:Object.fromEntries(Object.entries(api.SHIELDIO_INPUT_DEFAULTS[type] || {}).map(([name,shadow])=>[name,{shadow}]))};
     return Blockly.serialization.blocks.append(config,workspace);
   };
   for (const category of api.SHIELDIO_CREATE_TOOLBOX({advanced:true}).contents) {
     for (const item of category.contents || []) {
+      if(item.kind !== "block") continue;
       const block=workspace.newBlock(item.type);
       assert.equal(theme.blockStyles[block.getStyleName()].colourPrimary,category.colour,`${item.type} matches its toolbox category`);
       block.dispose();
@@ -86,12 +87,21 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
     assert.equal(api.SHIELDIO_EDITOR.getPresetId(),'blikani','A new visitor gets an observable first program');
     assert.match(api.SHIELDIO_EDITOR.getCode(),/digitalWrite\(LED_GREEN, HIGH\)/);
   }
+  if (initialStore['shieldio-workspace-v1'] && initialStore['shieldio-workspace-v1'].includes('"profile":"universal"')) {
+    assert.ok(dispatchedEvents.includes('shieldio:request-pro'),'Autosaved advanced projects visibly request Pro');
+    assert.equal(get('blockProfileSelect').value,'universal');
+    assert.ok(toolbox.contents.some(c=>c.name==='Piny Arduino'));
+    api.SHIELDIO_EDITOR.setExperienceMode('simple');
+    assert.ok(!toolbox.contents.some(c=>c.name==='Piny Arduino'));
+    api.SHIELDIO_EDITOR.setExperienceMode('pro');
+    assert.equal(get('blockProfileSelect').value,'universal');
+  }
   if(!search && initialStore['shieldio-workspace-v1']) {
     assert.equal(api.SHIELDIO_EDITOR.getPresetId(),null,'Existing manual work takes precedence over a starter');
     assert.equal(storage.get('shieldio-workspace-v1'),initialStore['shieldio-workspace-v1']);
   }
 
-  if(expectedModule)assert.equal(get('moduleSelect').value,expectedModule,'Guide links select the requested RED module');
+  if(expectedModule)assert.equal(get('moduleSelect').value,'red','Legacy guide metadata uses all RED categories');
   if(search.includes('preset=blikani')){
     fixtures.blinkStarter=api.SHIELDIO_EDITOR.getCode();assert.match(fixtures.blinkStarter,/#define LED_GREEN 6/);assert.equal((fixtures.blinkStarter.match(new RegExp('delay\\('+expectedDelay+'\\)','g'))||[]).length,2);
     fixtures.blinkProject={workspace:Blockly.serialization.workspaces.save(workspace),profile:'red',module:'led',advanced:false};
@@ -114,6 +124,8 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
     assert.match(fixtures.parkingStarter,/shieldioDistanceCm < 30/);
     assert.match(fixtures.parkingStarter,/No echo/);
   }
+  // A mode change rebuilds the effective toolbox, without touching any program blocks.
+  api.SHIELDIO_EDITOR.setExperienceMode('pro');
   get('blockProfileSelect').value='red';get('moduleSelect').value='all';await get('moduleSelect').emit('change');
   let {setup,loop}=roots();
   const led=make('shieldio_led'),wait=make('shieldio_wait');loop.getInput('LOOP').connection.connect(led.previousConnection);led.nextConnection.connect(wait.previousConnection);
@@ -122,15 +134,35 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const count=workspace.getAllBlocks(false).length;get('moduleSelect').value='servo';await get('moduleSelect').emit('change');
   assert.equal(workspace.getAllBlocks(false).length,count,'Module selection preserves the program');
   assert.ok(toolbox.contents.find(c=>c.name==='Servo').contents.some(b=>b.type==='shieldio_servo'));
-  assert.ok(!toolbox.contents.some(c=>c.name==='LED'));
+  assert.ok(toolbox.contents.some(c=>c.name==='LED'),'Categories expose all RED modules without a duplicate filter');
   for (const unavailable of ['yellow','pro']) {get('moduleSelect').value=unavailable;await get('moduleSelect').emit('change');assert.equal(get('moduleSelect').value,'red');}
   get('blockProfileSelect').value='universal';await get('blockProfileSelect').emit('change');assert.equal(get('moduleField').hidden,true);assert.equal(workspace.getAllBlocks(false).length,count);
   assert.ok(!toolbox.contents.some(c=>c.name==='Servo'));
+  get('advancedBlocksToggle').checked=true;await get('advancedBlocksToggle').emit('change');
+  api.SHIELDIO_EDITOR.setExperienceMode('simple');
+  assert.equal(get('blockProfileSelect').value,'red');assert.equal(get('advancedBlocksToggle').checked,false);
+  assert.ok(!toolbox.contents.some(c=>['Piny Arduino','Proměnné (čísla)','Sériová linka'].includes(c.name)));
+  assert.ok(!toolbox.contents.find(c=>c.name==='Operátory').contents.some(b=>b.type==='text'));
+  assert.ok(toolbox.contents.find(c=>c.name==='Řízení').contents.some(b=>b.type==='shieldio_wait_seconds'));
+  assert.equal(workspace.getAllBlocks(false).length,count,'Returning to simple keeps the program');
+  api.SHIELDIO_EDITOR.setExperienceMode('pro');
+  assert.equal(get('blockProfileSelect').value,'universal');assert.equal(get('advancedBlocksToggle').checked,true);
+  assert.ok(toolbox.contents.some(c=>c.name==='Piny Arduino'));
+  api.SHIELDIO_EDITOR.setExperienceMode('simple');api.SHIELDIO_EDITOR.setExperienceMode('pro');
+  assert.equal(get('blockProfileSelect').value,'universal','Repeated mode transitions preserve Pro choices');
   const arithmetic=make('math_arithmetic');arithmetic.getInputTargetBlock('A').setFieldValue(1000,'NUM');arithmetic.getInputTargetBlock('B').setFieldValue(2,'NUM');wait.getInput('MS').connection.connect(arithmetic.outputConnection);
   assert.match(regenerate(),/delay\(1000 \+ 2\)/,'A formula can replace the editable placeholder');
   arithmetic.dispose();assert.ok(wait.getInputTargetBlock('MS').isShadow(),'Removing a formula restores direct entry');
   const saved=Blockly.serialization.workspaces.save(workspace);delete saved.blocks.blocks.find(b=>b.type==='shieldio_loop').inputs.LOOP.block.next.block.inputs;
   get('loadBlocksInput').files=[{text:async()=>JSON.stringify(saved)}];await get('loadBlocksInput').emit('change');assert.match(regenerate(),/delay\(500\)/,'Old blank value inputs receive editable defaults');
+  const universalImport={format:'shieldio-blocks-v1',workspace:saved,profile:'universal',module:'red',advanced:true};
+  api.SHIELDIO_EDITOR.setExperienceMode('simple');
+  get('loadBlocksInput').files=[{size:1000,text:async()=>JSON.stringify(universalImport)}];await get('loadBlocksInput').emit('change');
+  assert.ok(dispatchedEvents.includes('shieldio:request-pro'),'Advanced imports visibly request Pro mode');
+  assert.equal(get('blockProfileSelect').value,'universal');
+  assert.ok(toolbox.contents.some(c=>c.name==='Piny Arduino'));
+  api.SHIELDIO_EDITOR.setExperienceMode('simple');
+  assert.ok(!toolbox.contents.some(c=>c.name==='Piny Arduino'),'Imported universal project returns cleanly to simple');
   // Block projects are untrusted files. Invalid imports must never replace
   // working blocks or silently become firmware for the user's Nano.
   const importInput=get('loadBlocksInput'), originalCode=api.SHIELDIO_EDITOR.getCode();
@@ -167,7 +199,31 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   assert.ok(!faceCode.includes('ShieldioCanvas'));
   assert.ok(!faceCode.includes('.render()'));
   const displayToolbox=api.SHIELDIO_CREATE_TOOLBOX({module:'oled'});
-  assert.deepEqual(Array.from(displayToolbox.contents.filter(c=>c.name.startsWith('Displej')).map(c=>c.name)),['Displej · text','Displej · zvířátka','Displej · kreslení']);
+  assert.deepEqual(Array.from(displayToolbox.contents.filter(c=>c.name.startsWith('Displej')).map(c=>c.name)),['Displej']);
+  assert.deepEqual(Array.from(displayToolbox.contents.find(c=>c.name==='Displej').contents.filter(c=>c.kind==='label').map(c=>c.text)),['Text','Zvířátka','Kreslení']);
+  ({setup,loop}=roots());
+  const seconds=make('shieldio_wait_seconds');loop.getInput('LOOP').connection.connect(seconds.previousConnection);
+  assert.match(regenerate(),/delay\(500\)/);
+  seconds.getInputTargetBlock('SECONDS').setFieldValue(1.25,'NUM');assert.match(regenerate(),/delay\(1250\)/);
+  ({setup,loop}=roots());
+  const buzzerSeconds=make('shieldio_buzzer_seconds');loop.getInput('LOOP').connection.connect(buzzerSeconds.previousConnection);
+  fixtures.buzzerSeconds=regenerate();
+  assert.match(fixtures.buzzerSeconds,/#define BUZZER 10/);
+  assert.match(fixtures.buzzerSeconds,/tone\(BUZZER, 440, \(unsigned long\)\(\(0.2\) \* 1000.0\)\)/);
+  buzzerSeconds.getInputTargetBlock('SECONDS').setFieldValue(1.25,'NUM');
+  assert.match(regenerate(),/\(\(1.25\) \* 1000.0\)/);
+  assert.ok(api.SHIELDIO_CREATE_TOOLBOX().contents.find(c=>c.name==='Zvuk').contents.some(b=>b.type==='shieldio_buzzer_seconds'));
+  assert.ok(!api.SHIELDIO_CREATE_TOOLBOX().contents.find(c=>c.name==='Zvuk').contents.some(b=>b.type==='shieldio_buzzer'));
+  assert.ok(api.SHIELDIO_CREATE_TOOLBOX({advanced:true}).contents.find(c=>c.name==='Zvuk').contents.some(b=>b.type==='shieldio_buzzer'));
+  ({setup,loop}=roots());
+  const legacyBuzzer=make('shieldio_buzzer');loop.getInput('LOOP').connection.connect(legacyBuzzer.previousConnection);
+  assert.match(regenerate(),/tone\(BUZZER, 440, 200\)/,'Legacy millisecond tone is unchanged');
+  const nanoPin=make('arduino_pin','universal');nanoPin.setFieldValue('A7','PIN');
+  api.SHIELDIO_EDITOR.setBoard('uno');
+  assert.equal(nanoPin.getFieldValue('PIN'),'A7','Changing board never silently changes existing source');
+  assert.ok(!api.SHIELDIO_PIN_OPTIONS().some(option=>option[1]==='A7'));
+  const unoPin=make('arduino_pin','universal');assert.ok(!unoPin.getField('PIN').getOptions(false).some(option=>option[1]==='A7'));
+  api.SHIELDIO_EDITOR.setBoard('nano');assert.ok(api.SHIELDIO_PIN_OPTIONS().some(option=>option[1]==='A7'));
   ({setup,loop}=roots());
   let last=null;
   for(const type of ['shieldio_oled_clear','shieldio_oled_pixel','shieldio_oled_line','shieldio_oled_square','shieldio_oled_rect','shieldio_oled_circle']){
@@ -203,7 +259,8 @@ if(typeof process !== "undefined" && process.argv[1] && import.meta.url===pathTo
   const blink=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=blikani&module=led',expectedModule:'led'});
   fixtures.blinkStarter=blink.blinkStarter;
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{initialStore:{'shieldio-workspace-v1':JSON.stringify(blink.blinkProject)}});
-  const edited=JSON.stringify(blink.blinkProject).replaceAll('"NUM":500','"NUM":750');
+  await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{initialStore:{'shieldio-workspace-v1':JSON.stringify({...blink.blinkProject,profile:'universal',advanced:true})}});
+  const edited=JSON.stringify(blink.blinkProject).replaceAll('"NUM":0.5','"NUM":0.75');
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=blikani',expectedModule:'led',expectedDelay:750,initialStore:{'shieldio-workspace-v1:preset:blikani':edited,'shieldio-workspace-v1':'unrelated manual project'}});
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=constructor'});
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?module=buzzer',expectedModule:'buzzer'});

@@ -41,6 +41,18 @@ test('AVR GCC compiles RED peripherals and example projects, and rejects invalid
     assert.ok(headers.fitsTarget,'Header-only library compiles');
     const shieldio = await buildFirmware({source:'#include <Arduino.h>\n#include <ShieldioDisplay.h>\nShieldioDisplay d; void setup(){d.begin();d.text(0,0,"Test");d.render();} void loop(){}',libraries:[display]});
     assert.ok(shieldio.fitsTarget && shieldio.ramBytes<1024,'ShieldioDisplay fits Nano and avoids a 1024 B framebuffer');
+    const unoSource='#include <Arduino.h>\n#ifndef ARDUINO_AVR_UNO\n#error Uno board macro missing\n#endif\n#ifdef ARDUINO_AVR_NANO\n#error Nano macro must not leak into Uno\n#endif\nstatic_assert(NUM_ANALOG_INPUTS == 6, "Uno has 6 analog inputs");\nvoid setup(){pinMode(LED_BUILTIN,OUTPUT);} void loop(){analogRead(A5);}';
+    const uno=await buildFirmware({board:'uno',source:unoSource});
+    assert.equal(uno.target.board,'arduino:avr:uno');
+    assert.equal(uno.target.appFlashBytes,32256);
+    assert.ok(uno.fitsTarget);
+    const unoLibrary={name:'UnoCheck',files:[{path:'src/UnoCheck.h',content:'void checkUno();'},{path:'src/UnoCheck.cpp',content:'#include <Arduino.h>\n#ifndef ARDUINO_AVR_UNO\n#error Custom library board mismatch\n#endif\nstatic_assert(NUM_ANALOG_INPUTS==6,"Library must use Uno variant");\nvoid checkUno(){analogRead(A5);}'}]};
+    const unoCustom=await buildFirmware({board:'uno',source:'#include <Arduino.h>\n#include <UnoCheck.h>\nvoid setup(){checkUno();} void loop(){}',libraries:[unoLibrary]});
+    assert.equal(unoCustom.target.board,'arduino:avr:uno');
+    assert.ok(unoCustom.fitsTarget);
+    const nanoAgain=await buildFirmware({board:'nano',source:'#include <Arduino.h>\n#ifndef ARDUINO_AVR_NANO\n#error Nano board macro missing\n#endif\n#ifdef ARDUINO_AVR_UNO\n#error Uno macro must not leak into Nano\n#endif\nstatic_assert(NUM_ANALOG_INPUTS==8,"Nano variant must survive a previous Uno build");\nvoid setup(){} void loop(){analogRead(A7);}'});
+    assert.equal(nanoAgain.target.appFlashBytes,30720);
+    await assert.rejects(buildFirmware({board:'uno-r4',source:'void setup(){} void loop(){}'}),/BOARD_UNSUPPORTED/);
     await assert.rejects(buildFirmware({source:'#include <Arduino.h>\nvoid setup(){BROKEN;} void loop(){}'}),/BROKEN/);
   } finally { globalThis.fetch = originalFetch; }
 });

@@ -15,3 +15,6 @@ await self.onmessage({data:{source:'void setup(){} void loop(){}',libraries:[{na
 assert.equal(options.sensors.length,0,'Unused imported libraries do not reserve an OLED framebuffer');
 await self.onmessage({data:{source:'',libraries:[{name:'Bad',files:[{path:'../bad.h',content:''}]}]}});assert.equal(reply.error,'LIBRARY_PATH');assert.equal(reply.details,'../bad.h');
 console.log('Worker: local Shieldio library, source line mapping, transitive OLED memory and error propagation passed.');
+
+await self.onmessage({data:{source:'void setup(){} void loop(){}',board:'uno',libraries:[]}});
+assert.equal(options.board,'uno','Worker forwards the selected target');

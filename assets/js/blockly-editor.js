@@ -103,12 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
           IF0:{block:{type:"shieldio_button",fields:{BTN:"BUTTON1"}}},
           DO0:{block:face("Cat","Happy")},ELSE:{block:face("Cat","Sleepy")}
         }}}
-      },next:{block:{type:"shieldio_wait",inputs:{MS:{shadow:presetNumber(100)}}}}});
+      },next:{block:{type:"shieldio_wait_seconds",inputs:{SECONDS:{shadow:presetNumber(0.1)}}}}});
       loop.getInput("LOOP").connection.connect(decision.previousConnection);
     },
     blikani(ws, loop) {
       let previous = null;
-      for (const [type,state] of [["shieldio_led","HIGH"],["shieldio_wait"],["shieldio_led","LOW"],["shieldio_wait"]]) {
+      for (const [type,state] of [["shieldio_led","HIGH"],["shieldio_wait_seconds"],["shieldio_led","LOW"],["shieldio_wait_seconds"]]) {
         const block = ws.newBlock(type);block.initSvg();
         if (type === "shieldio_led") {block.setFieldValue("LED_GREEN","COLOR");block.setFieldValue(state,"STATE");}
         block.render();
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
           DO0:{block:{type:"shieldio_servo",inputs:{ANGLE:{shadow:presetNumber(90)}}}},
           ELSE:{block:{type:"shieldio_servo",inputs:{ANGLE:{shadow:presetNumber(0)}}}}
         }}}
-      }, next:{block:{type:"shieldio_wait",inputs:{MS:{shadow:presetNumber(60)}}}}});
+      }, next:{block:{type:"shieldio_wait_seconds",inputs:{SECONDS:{shadow:presetNumber(0.06)}}}}});
       loop.getInput("LOOP").connection.connect(decision.previousConnection);
     },
     parkovani(ws, loop) {
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ELSE:{block:both("LOW","LOW")}
         }}}}},
         ELSE:{block:{type:"shieldio_oled_print",inputs:{TEXT:{shadow:{type:"text",fields:{TEXT:"Bez echa/No echo"}}}},next:{block:both("LOW","LOW")}}}
-      },next:{block:{type:"shieldio_wait",inputs:{MS:{shadow:presetNumber(100)}}}}});
+      },next:{block:{type:"shieldio_wait_seconds",inputs:{SECONDS:{shadow:presetNumber(0.1)}}}}});
       loop.getInput("LOOP").connection.connect(decision.previousConnection);
     },
   };
@@ -170,20 +170,33 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons:["Tlačítka D11 a D12 mají externí pull-up. Stisk je LOW.","Buttons D11 and D12 use external pull-ups. Pressed means LOW."],
     distance:["HC-SR04: TRIG D7, ECHO D8. Jeden vzorek pro celý průchod; bez echa je neplatný. Použij blok platnosti měření.","HC-SR04: TRIG D7, ECHO D8. One sample per loop; no echo is invalid. Use the measurement-valid block."],
     servo:["Servo D9. Úhel 0–180° zadáš přímo do bloku.","Servo D9. Type an angle from 0–180° directly into the block."],
-    buzzer:["Bzučák D10. Frekvence v Hz, délka tónu v milisekundách.","Buzzer D10. Frequency in Hz, duration in milliseconds."],
+    buzzer:["Bzučák D10. Frekvence v Hz, délka tónu v jednoduchém režimu v sekundách.","Buzzer D10. Frequency in Hz; simple-mode duration is in seconds."],
     oled:["SSD1306 128×64 na A4/A5. ShieldioDisplay je připravená; text zatím bez diakritiky.","SSD1306 128×64 on A4/A5. ShieldioDisplay is included; text supports ASCII only."],
-    universal:["Piny určuješ v blocích. Výběr nabídky nemění hotový program. Kompilace zatím cílí na Nano / ATmega328P.","Choose pins in the blocks. Changing the toolbox keeps your program. Compilation currently targets Nano / ATmega328P."],
+    universal:["Piny určuješ v blocích. Výběr nabídky nemění hotový program. Cílovou desku Uno nebo Nano vybereš nahoře.","Choose pins in the blocks. Changing the toolbox keeps your program. Choose the Uno or Nano target above."],
   };
+  let experienceMode = "simple";
+  let proSettings = {profile:"red", advanced:false};
+  let requestPro = false;
   function updateToolbox() {
+    if (experienceMode === "simple") {
+      profileSelect.value = "red";
+      advancedToggle.checked = false;
+    } else proSettings = {profile:profileSelect.value === "universal" ? "universal" : "red", advanced:advancedToggle.checked};
     const profile = profileSelect.value || "red";
-    const module = ["led","buttons","distance","servo","buzzer","oled"].includes(moduleSelect.value) ? moduleSelect.value : "all";
-    // Filter the palette only; existing blocks stay in the workspace.
-    moduleSelect.value = module === "all" ? "red" : module;
-    workspace.updateToolbox(window.SHIELDIO_CREATE_TOOLBOX({profile,module,advanced:advancedToggle.checked}));
-    document.getElementById("moduleField").hidden = profile !== "red";
-    const hint = hints[profile === "universal" ? "universal" : module] || hints.all;
+    // Categories already separate the modules; the old selector is compatibility metadata only.
+    moduleSelect.value = "red";
+    workspace.updateToolbox(window.SHIELDIO_CREATE_TOOLBOX({profile,module:"all",advanced:advancedToggle.checked}));
+    document.getElementById("moduleField").hidden = true;
+    const hint = hints[profile === "universal" ? "universal" : "all"];
     moduleHelp.textContent = hint[document.documentElement.lang === "en" ? 1 : 0];
     Blockly.svgResize(workspace);
+  }
+  function restoreProjectSettings(checked) {
+    proSettings = {profile:checked.profile,advanced:checked.advanced};
+    if (checked.profile === "universal" || checked.advanced) {experienceMode="pro";requestPro=true;}
+    profileSelect.value = checked.profile;
+    advancedToggle.checked = checked.advanced;
+    updateToolbox();
   }
   for (const control of [profileSelect,moduleSelect,advancedToggle]) control.addEventListener("change", updateToolbox);
   document.addEventListener("shieldio-lang-change", updateToolbox);
@@ -213,16 +226,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const saved = JSON.parse(stored);
         const checked = checkedProject(saved);
         workspace.clear();Blockly.serialization.workspaces.load(checked.workspace, workspace);
-        profileSelect.value = checked.profile;
-        moduleSelect.value = checked.module || "red";advancedToggle.checked = checked.advanced;updateToolbox();
+        restoreProjectSettings(checked);
       }
     } catch {workspace.clear();Blockly.serialization.workspaces.load(initial,workspace);}
   }
   // Guide links adjust the toolbox without replacing the visitor's existing blocks.
   const entryModule = entryParams.get("module"), entryProfile = entryParams.get("profile");
-  if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) {profileSelect.value="red";moduleSelect.value=entryModule === "all" ? "red" : entryModule;}
-  if (entryProfile === "universal") profileSelect.value="universal";
-  if (presetId === "blikani") {profileSelect.value="red";moduleSelect.value="led";}
+  if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) moduleSelect.value="red";
+  if (entryProfile === "universal") restoreProjectSettings({profile:"universal",advanced:false});
+
   updateToolbox();
   const projectState = () => ({format:"shieldio-blocks-v1",workspace:Blockly.serialization.workspaces.save(workspace),profile:profileSelect.value,module:moduleSelect.value,advanced:advancedToggle.checked});
   let saveTimer;
@@ -238,6 +250,24 @@ document.addEventListener("DOMContentLoaded", () => {
     getError: () => generationError,
     getPresetId: () => presetId,
     resize: () => Blockly.svgResize(workspace),
+    setExperienceMode: next => {
+      const nextMode = next === "pro" ? "pro" : "simple";
+      if (experienceMode !== nextMode) {
+        if (experienceMode === "pro") proSettings={profile:profileSelect.value === "universal" ? "universal" : "red",advanced:advancedToggle.checked};
+        experienceMode=nextMode;
+        if (nextMode === "pro") {profileSelect.value=proSettings.profile;advancedToggle.checked=proSettings.advanced;}
+      }
+      updateToolbox();autosave();
+    },
+    setBoard: board => {
+      window.SHIELDIO_BOARD = board === "uno" ? "uno" : "nano";
+      for (const block of workspace.getBlocksByType("arduino_pin",false)) {
+        const field=block.getField("PIN");
+        field.getOptions(false); // Refresh dynamic choices without changing the saved pin.
+        block.setWarningText?.(window.SHIELDIO_BOARD === "uno" && ["A6","A7"].includes(field.getValue()) ? "A6/A7 jsou pouze na Nano. Pro Uno použij A0–A5." : null);
+      }
+      Blockly.svgResize(workspace);
+    },
     hasContent: () => workspace.getAllBlocks(false).some(block => !["shieldio_setup","shieldio_loop"].includes(block.type)),
     persist: () => {
       clearTimeout(saveTimer);
@@ -252,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const root=workspace.newBlock(type);root.initSvg();root.render();root.moveBy(30,y);
         }
         if (newProject) {
-          presetId=null;workspaceStorageKey="shieldio-workspace-v1";
+          presetId=null;workspaceStorageKey="shieldio-workspace-v1";proSettings={profile:"red",advanced:false};
           profileSelect.value="red";moduleSelect.value="red";advancedToggle.checked=false;updateToolbox();
         }
       } finally { Blockly.Events.setGroup(false); }
@@ -261,6 +291,8 @@ document.addEventListener("DOMContentLoaded", () => {
       Blockly.svgResize(workspace);
     },
   };
+
+  if (requestPro) {window.dispatchEvent(new Event("shieldio:request-pro"));requestPro=false;}
 
   function detectFeatures() {
     const blocks = ["shieldio_setup", "shieldio_loop"].flatMap(type => workspace.getBlocksByType(type, false).flatMap(block => block.getDescendants(false)));
@@ -271,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
       leds,
       buttons,
       servo: types.has("shieldio_servo"),
-      buzzer: types.has("shieldio_buzzer"),
+      buzzer: types.has("shieldio_buzzer") || types.has("shieldio_buzzer_seconds"),
       distance: types.has("shieldio_distance") || types.has("shieldio_distance_valid"),
       display: [...types].some(type => type.startsWith("shieldio_oled_")),
       graphics: [...types].some(type => ["shieldio_oled_pixel","shieldio_oled_line","shieldio_oled_square","shieldio_oled_rect","shieldio_oled_circle"].includes(type)),
@@ -455,8 +487,8 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
       workspace.clear();
       Blockly.serialization.workspaces.load(checked.workspace, workspace);
       fillDefaults(workspace.getAllBlocks(false));
-      profileSelect.value = checked.profile;moduleSelect.value=checked.module || "red";
-      advancedToggle.checked = checked.advanced;updateToolbox();
+      restoreProjectSettings(checked);
+      if (requestPro) {window.dispatchEvent(new Event("shieldio:request-pro"));requestPro=false;}
       workspace.cleanUp();
       regenerate();autosave();
       window.dispatchEvent(new Event("shieldio:project-import"));

@@ -6,11 +6,11 @@ Obě varianty používají ShieldioDisplay 0.3.0 a stejné chování:
 bez stisku ospalá kočka, D11 veselá kočka, D12 překvapený pes.
 D12 má při současném stisku přednost. Servo není potřeba.
 
-Výběr „Chci ovládat“ filtruje konkrétní modul bez mazání programu.
-Všechny moduly jsou rozdělené do kategorií LED, Tlačítka, Vzdálenost,
-Servo, Zvuk, Displej · text, Displej · zvířátka a Displej · kreslení.
-Výběr Displej ukáže všechny tři jeho části. Uložený/importovaný projekt
-zachovává zvolený modul; staré soubory dál fungují.
+Kategorie modulů jsou pod označením Shieldio RED: LED, Tlačítka,
+Vzdálenost, Servo, Zvuk a Displej. Displej obsahuje sekce Text,
+Zvířátka a Kreslení. Redundantní horní filtr byl odstraněn.
+Jednoduchý režim nabízí čekání a délku tónu v sekundách; staré
+milisekundové bloky se načítají se zachováním jejich významu.
 
 ## Co by pomohlo v knihovnách
 
