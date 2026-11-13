@@ -1,0 +1,41 @@
+name: Test OAuth Access integration
+
+on:
+  pull_request:
+    paths:
+      - 'workers/access-auth.mjs'
+      - 'workers/main-web.mjs'
+      - 'tests/access-oauth.test.mjs'
+      - 'tests/oauth-discovery.test.mjs'
+      - 'scripts/verify-oauth-discovery.mjs'
+      - 'docs/deployment/oauth-access.md'
+      - '.github/workflows/test-oauth.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'workers/access-auth.mjs'
+      - 'workers/main-web.mjs'
+      - 'tests/access-oauth.test.mjs'
+      - 'tests/oauth-discovery.test.mjs'
+      - 'scripts/verify-oauth-discovery.mjs'
+      - '.github/workflows/test-oauth.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  oauth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Zkontrolovat syntaxi bez závislostí
+        run: |
+          node --check workers/access-auth.mjs
+          node --check workers/main-web.mjs
+          node --check scripts/verify-oauth-discovery.mjs
+      - name: Spustit testy ověření JWT, MCP a OAuth discovery
+        run: node --test tests/access-oauth.test.mjs tests/oauth-discovery.test.mjs
