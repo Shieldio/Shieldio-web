@@ -223,7 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) {profileSelect.value="red";moduleSelect.value=entryModule === "all" ? "red" : entryModule;}
   if (entryProfile === "universal") profileSelect.value="universal";
   if (presetId === "blikani") {profileSelect.value="red";moduleSelect.value="led";}
-  if (presetId === "zviratko" && !entryModule) {profileSelect.value="red";moduleSelect.value="red";}
   updateToolbox();
   const projectState = () => ({format:"shieldio-blocks-v1",workspace:Blockly.serialization.workspaces.save(workspace),profile:profileSelect.value,module:moduleSelect.value,advanced:advancedToggle.checked});
   let saveTimer;
