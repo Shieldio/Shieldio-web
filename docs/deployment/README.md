@@ -16,6 +16,10 @@ Hlavní web publikuje GitHub Pages workflow. Cloudflare integrace nasazuje hlavn
 
 Learn používá také Durable Object `NOTE_SUBMISSIONS` / `NoteSubmissionGuard`, migraci `notes-v1` a rate limiter. Staging má odlišné proměnné a rate limiter; používej jeho vlastní konfiguraci.
 
+## OAuth pro agenty (zatím není aktivní)
+
+Příprava pro autentizované MCP rozhraní přes Cloudflare Access Managed OAuth je v [návodu k OAuth](oauth-access.md). Veřejný web a `/mcp` zůstávají anonymní; OAuth discovery začne být funkční až po vytvoření Access aplikace, nastavení AUD a team domény. Nikdy se nepublikují fiktivní autorizační/tokenové endpointy.
+
 ## Workflow a spouštěče
 
 | Workflow | Automatické spuštění | Ruční spuštění / výsledek |
