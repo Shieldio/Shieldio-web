@@ -29,6 +29,8 @@ on:
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
+      - 'auth.md'
+      - 'tests/auth-md-discovery.test.mjs'
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
       - 'tests/main-web-markdown.test.mjs'
@@ -84,6 +86,8 @@ on:
       - 'sitemap.xml'
       - '_redirects'
       - 'llms.txt'
+      - 'auth.md'
+      - 'tests/auth-md-discovery.test.mjs'
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
       - 'tests/main-web-markdown.test.mjs'
@@ -132,6 +136,7 @@ jobs:
       - run: node --test tests/readable-guides.test.mjs
       - run: node --test tests/subdomain-seo.test.mjs
       - run: node --test tests/main-web-markdown.test.mjs
+      - run: node --test tests/auth-md-discovery.test.mjs
       - run: node --test tests/security-baseline.test.mjs
       - run: node --test tests/block-project-validation.test.mjs
       - run: node --test tests/site-ai-discovery.test.mjs
