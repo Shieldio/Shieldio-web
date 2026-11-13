@@ -229,6 +229,26 @@ export default {
     // those paths by accident via the root asset binding. This does NOT make
     // content already committed to a public GitHub repository confidential.
     const url = new URL(request.url);
+    // Auth.md discovery for public, anonymous agent access. Pin Markdown MIME
+    // without inventing OAuth/registration endpoints that do not exist.
+    if (url.pathname === "/auth.md") {
+      if (!["GET", "HEAD"].includes(request.method)) {
+        return new Response(null, {
+          status: 405,
+          headers: addSecurityHeaders(new Headers({ "Allow": "GET, HEAD" }), ""),
+        });
+      }
+      const asset = await env.ASSETS.fetch(new Request(url, { method: "GET" }));
+      if (asset.status !== 200) return deniedAsset();
+      const contentType = "text/markdown; charset=utf-8";
+      const headers = addSecurityHeaders(new Headers(asset.headers), contentType);
+      headers.set("Content-Type", contentType);
+      headers.set("Access-Control-Allow-Origin", "*");
+      headers.set("Cache-Control", "public, max-age=300");
+      headers.delete("Content-Encoding");
+      headers.delete("Content-Length");
+      return new Response(request.method === "HEAD" ? null : asset.body, { status: 200, headers });
+    }
     // MCP discovery and stateless public Streamable HTTP interface.
     if (url.pathname === "/.well-known/mcp/server-card.json" ||
         url.pathname === "/mcp/server-card" || url.pathname === "/mcp") {
