@@ -15,6 +15,10 @@ on:
       - 'wrangler.jsonc'
       - 'workers/main-web.mjs'
       - 'workers/mcp-server.mjs'
+      - 'workers/access-auth.mjs'
+      - 'tests/access-oauth.test.mjs'
+      - 'tests/oauth-discovery.test.mjs'
+      - 'scripts/verify-oauth-discovery.mjs'
       - 'tests/mcp-server.test.mjs'
       - 'scripts/generate-readable-guides.mjs'
       - 'tests/readable-guides.test.mjs'
@@ -62,6 +66,8 @@ jobs:
         run: node --test tests/auth-md-discovery.test.mjs
       - name: Ověřit MCP Server Card a veřejný MCP endpoint
         run: node --test tests/mcp-server.test.mjs
+      - name: Ověřit autentizaci přes Cloudflare Access a validaci OAuth discovery
+        run: node --test tests/access-oauth.test.mjs tests/oauth-discovery.test.mjs
       - name: Ověřit API katalog RFC 9727
         run: node --test tests/api-catalog.test.mjs
       - name: Ověřit popisy pro vyhledávače a AI
@@ -83,6 +89,11 @@ jobs:
           accountId: 59bdd3e4bfcd4d55e96cfdf4dc879fc4
           wranglerVersion: '4.158.0'
           command: deploy --config wrangler.jsonc
+      # When real Cloudflare Access Managed OAuth is enabled, turn on the
+      # OAUTH_DISCOVERY_REQUIRED GitHub repository variable.
+      - name: Ověřit skutečné OAuth discovery na produkci
+        if: ${{ vars.OAUTH_DISCOVERY_REQUIRED == 'true' }}
+        run: node scripts/verify-oauth-discovery.mjs https://shieldio.cz
       - name: Ověřit Auth.md na produkci
         shell: bash
         run: |
@@ -157,7 +168,7 @@ jobs:
         run: |
           set -euo pipefail
           curl -fsS --retry 2 --max-time 160 -X POST "https://isitagentready.com/api/scan" -H "Content-Type: application/json" -d '{"url":"https://shieldio.cz"}' -o /tmp/shieldio-agent-scan.json
-          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const catalog=r?.checks?.discovery?.apiCatalog?.status; const links=r?.checks?.discoverability?.linkHeaders?.status; const webmcp=r?.checks?.discovery?.webMcp?.status; const skills=r?.checks?.discovery?.agentSkills?.status; const mcp=r?.checks?.discovery?.mcpServerCard?.status; console.log("checks.discovery.apiCatalog.status:",catalog??"nezískáno"); console.log("checks.discoverability.linkHeaders.status:",links??"nezískáno"); console.log("checks.discovery.webMcp.status:",webmcp??"nezískáno"); console.log("checks.discovery.agentSkills.status:",skills??"nezískáno"); console.log("checks.discovery.mcpServerCard.status:",mcp??"nezískáno"); if(catalog!=="pass"||links!=="pass"||webmcp!=="pass"||skills!=="pass"||mcp!=="pass")process.exit(1)'
+          node -e 'const r=require("/tmp/shieldio-agent-scan.json"); const catalog=r?.checks?.discovery?.apiCatalog?.status; const links=r?.checks?.discoverability?.linkHeaders?.status; const webmcp=r?.checks?.discovery?.webMcp?.status; const skills=r?.checks?.discovery?.agentSkills?.status; const mcp=r?.checks?.discovery?.mcpServerCard?.status; console.log("checks.discovery.apiCatalog.status:",catalog??"nezískáno"); console.log("checks.discoverability.linkHeaders.status:",links??"nezískáno"); console.log("checks.discovery.webMcp.status:",webmcp??"nezískáno"); console.log("checks.discovery.agentSkills.status:",skills??"nezískáno"); console.log("checks.discovery.mcpServerCard.status:",mcp??"nezískáno"); console.log("checks.discovery.oauthDiscovery.status:",r?.checks?.discovery?.oauthDiscovery?.status??"nezískáno"); if(catalog!=="pass"||links!=="pass"||webmcp!=="pass"||skills!=="pass"||mcp!=="pass")process.exit(1)'
       - name: Zkontrolovat HTTP content negotiation na produkci
         shell: bash
         run: |

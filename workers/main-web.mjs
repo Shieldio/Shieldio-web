@@ -1,4 +1,5 @@
 import { handleMcpRequest } from "./mcp-server.mjs";
+import { accessConfigured, verifyAccessAssertion } from "./access-auth.mjs";
 // Serves Markdown to agents while keeping the original HTML for browsers.
 // No package dependencies: the source HTML is the single source of truth.
 const OMIT = new Set([
@@ -248,6 +249,29 @@ export default {
       headers.delete("Content-Encoding");
       headers.delete("Content-Length");
       return new Response(request.method === "HEAD" ? null : asset.body, { status: 200, headers });
+    }
+    // Optional Cloudflare Access protected MCP interface. Never trust raw
+    // Cf-Access-Jwt-Assertion headers without cryptographic verification.
+    // This route is fail-closed until an Access application is configured.
+    if (url.pathname === "/mcp/secure") {
+      if (!accessConfigured(env)) return deniedAsset();
+      if (!await verifyAccessAssertion(request, env)) {
+        return new Response("Invalid or missing Cloudflare Access assertion", {
+          status: 401,
+          headers: addSecurityHeaders(new Headers({
+            "Content-Type": "text/plain; charset=utf-8",
+            "Cache-Control": "no-store",
+            "WWW-Authenticate": 'Bearer realm="Shieldio authenticated MCP"',
+          }), "text/plain"),
+        });
+      }
+      const canonical = new URL(request.url);
+      canonical.pathname = "/mcp";
+      const response = await handleMcpRequest(new Request(canonical, request), env);
+      const type = response.headers.get("Content-Type") || "";
+      const headers = addSecurityHeaders(new Headers(response.headers), type);
+      headers.set("Cache-Control", "no-store");
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
     }
     // MCP discovery and stateless public Streamable HTTP interface.
     if (url.pathname === "/.well-known/mcp/server-card.json" ||
