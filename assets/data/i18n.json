@@ -3785,27 +3785,27 @@
   },
   "programming.moduleLed": {
     "cs": "LED",
-    "en": "LED"
+    "en": "LEDs"
   },
   "programming.moduleButtons": {
     "cs": "Tlačítka",
     "en": "Buttons"
   },
   "programming.moduleDistance": {
-    "cs": "Ultrazvuk HC-SR04",
-    "en": "HC-SR04 ultrasonic"
+    "cs": "Vzdálenost",
+    "en": "Distance"
   },
   "programming.moduleServo": {
     "cs": "Servo",
     "en": "Servo"
   },
   "programming.moduleBuzzer": {
-    "cs": "Bzučák",
-    "en": "Buzzer"
+    "cs": "Zvuk",
+    "en": "Sound"
   },
   "programming.moduleOled": {
-    "cs": "OLED displej",
-    "en": "OLED display"
+    "cs": "Displej",
+    "en": "Display"
   },
   "programming.advancedBlocks": {
     "cs": "Pokročilé bloky",
@@ -5754,5 +5754,81 @@
   "red.audience_link": {
     "cs": "Pro koho je RED vhodná a kdy zvolit jiné řešení",
     "en": "Who RED is for and when to choose a different solution"
+  },
+  "pet.title": {
+    "cs": "Zvířátko na displeji s RED | Shieldio",
+    "en": "An animal on the RED display | Shieldio"
+  },
+  "pet.heading": {
+    "cs": "Zvířátko na displeji",
+    "en": "An animal on the display"
+  },
+  "pet.lead": {
+    "cs": "Kočka spí, stiskem tlačítka se rozveselí a druhým přivoláš psa. Vyzkoušej podmínky, vstupy a OLED s knihovnou ShieldioDisplay 0.3.0.",
+    "en": "The cat sleeps, one button makes it happy and the other brings a dog. Explore conditions, inputs and OLED with ShieldioDisplay 0.3.0."
+  },
+  "pet.needs": {
+    "cs": "<b>Potřebuješ:</b> sestavenou RED s Nano, OLED SSD1306 128 × 64, dvě tlačítka a datový USB kabel. Senzor ani servo pro základní projekt nepotřebuješ.",
+    "en": "<b>You need:</b> an assembled RED with Nano, SSD1306 128 × 64 OLED, two buttons and a USB data cable. The basic project uses no sensor or servo."
+  },
+  "pet.wiring": {
+    "cs": "1. Zkontroluj zapojení",
+    "en": "1. Check the wiring"
+  },
+  "pet.buttons": {
+    "cs": "Tlačítko 1 → D11 · tlačítko 2 → D12. Na RED mají externí pull-up rezistory; stisk znamená LOW. OLED: SDA → A4, SCL → A5, adresa 0x3C. Před připojením odpoj napájení a ověř GND/VCC podle svého modulu.",
+    "en": "Button 1 → D11 · button 2 → D12. RED uses external pull-ups; pressed means LOW. OLED: SDA → A4, SCL → A5, address 0x3C. Disconnect power before connecting and check GND/VCC on your module."
+  },
+  "pet.program": {
+    "cs": "2. Otevři připravený program",
+    "en": "2. Open the starter program"
+  },
+  "pet.instructions": {
+    "cs": "Začni bloky a zvol <b>Spustit na desce</b>. V editoru najdeš zvlášť Tlačítka a Displej · zvířátka. Knihovna je přibalená automaticky. C++ varianta má stejné chování a překresluje jen při změně.",
+    "en": "Start with blocks and choose <b>Run on board</b>. Buttons and Display · animals have separate categories. The library is included automatically. The C++ version behaves the same and redraws only on change."
+  },
+  "pet.blocks": {
+    "cs": "Otevřít blokový projekt",
+    "en": "Open the block project"
+  },
+  "pet.cpp": {
+    "cs": "Otevřít Arduino C++",
+    "en": "Open Arduino C++"
+  },
+  "pet.test": {
+    "cs": "3. Ověř všechny stavy",
+    "en": "3. Test every state"
+  },
+  "pet.checks": {
+    "cs": "<ol><li>Po úvodním logu bez stisku uvidíš ospalou kočku.</li><li>Drž tlačítko 1: kočka je veselá. Po uvolnění zase spí.</li><li>Drž tlačítko 2: zobrazí se překvapený pes.</li><li>Stiskni obě: druhé tlačítko má přednost. Najdi v blocích, proč tomu tak je.</li></ol>",
+    "en": "<ol><li>After the startup logo, a sleepy cat appears with no buttons pressed.</li><li>Hold button 1: the cat is happy. Release it and the cat sleeps.</li><li>Hold button 2: a surprised dog appears.</li><li>Press both: button 2 takes priority. Find the reason in the blocks.</li></ol>"
+  },
+  "pet.challenge": {
+    "cs": "4. Dej zvířátku vlastní povahu",
+    "en": "4. Give your animal a personality"
+  },
+  "pet.change": {
+    "cs": "Změň psa na lva, vyber jinou z pěti nálad nebo nastav zavřené oči. Pro ruční mrknutí zobraz tvář se zavřenýma očima, počkej 150 ms a zobraz stejnou tvář s otevřenýma očima. Pak zkus podmínku z tlačítka nahradit platným měřením vzdálenosti.",
+    "en": "Change the dog to a lion, select another of the five moods or close its eyes. For a manual blink, show closed eyes, wait 150 ms and show the same face with open eyes. Then try replacing a button condition with a valid distance measurement."
+  },
+  "pet.help": {
+    "cs": "Když se nedaří",
+    "en": "Troubleshooting"
+  },
+  "pet.helptext": {
+    "cs": "Prázdný displej? Ověř SDA/A4, SCL/A5, napájení a adresu 0x3C. Nereaguje tlačítko? Ověř D11/D12 a stisk LOW. Funkce <code>face()</code> nahradí celý displej ihned; další <code>render()</code> nepotřebuje. Zvířecí tváře byly ověřené na OLED, tento nový projekt ještě potřebuje ověřit na tvé desce.",
+    "en": "Blank display? Check SDA/A4, SCL/A5, power and address 0x3C. Button not responding? Check D11/D12 and active LOW. <code>face()</code> replaces the whole screen immediately; it needs no extra <code>render()</code>. Animal faces have been tested on an OLED; this new project still needs testing on your board."
+  },
+  "pet.card": {
+    "cs": "Tlačítkem rozvesel kočku nebo zobraz psa. Změň zvíře, náladu a oči v připraveném blokovém programu. Fotografie ukazuje samotný OLED.",
+    "en": "Make a cat happy or show a dog using buttons. Change the animal, mood and eyes in a ready block program. The photo shows the OLED module."
+  },
+  "pet.action": {
+    "cs": "Oživit zvířátko →",
+    "en": "Bring the animal to life →"
+  },
+  "programming.allModulesRed": {
+    "cs": "Všechny moduly RED",
+    "en": "All RED modules"
   }
 }

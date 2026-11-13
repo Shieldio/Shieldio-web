@@ -1,5 +1,10 @@
 [
   {
+    "title": "Zvířátko na displeji",
+    "desc": "Kočka, pes a lev na OLED RED. Nálady, tlačítka, knihovna ShieldioDisplay a připravený blokový i C++ projekt.",
+    "url": "/instructions/baseline/red/zviratko/index.html"
+  },
+  {
     "title": "Editor Shieldio kompiluje a nahrává do RED",
     "desc": "Bloky i Arduino C++, skutečný AVR kompilátor v prohlížeči a přímé USB nahrávání do Nano / Shieldio RED.",
     "url": "/aktuality/editor-shieldio.html"

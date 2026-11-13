@@ -190,6 +190,17 @@
     shape("shieldio_oled_circle", G("kruh střed x %1 y %2 poloměr %3 %4","circle centre x %1 y %2 radius %3 %4"), [input("X"),input("Y"),input("RADIUS"),fill]),
   ]);
 
+  Blockly.Blocks.shieldio_oled_face = {
+    init() {
+      this.appendDummyInput().appendField(G("zvířátko", "animal"))
+        .appendField(new Blockly.FieldDropdown([[G("kočka","cat"),"Cat"],[G("pes","dog"),"Dog"],[G("lev","lion"),"Lion"]]),"ANIMAL")
+        .appendField(new Blockly.FieldDropdown([[G("veselé","happy"),"Happy"],[G("smutné","sad"),"Sad"],[G("překvapené","surprised"),"Surprised"],[G("ospalé","sleepy"),"Sleepy"],[G("naštvané","angry"),"Angry"]]),"MOOD")
+        .appendField(new Blockly.FieldDropdown([[G("otevřené oči","open eyes"),"false"],[G("zavřené oči","closed eyes"),"true"]]),"BLINK");
+      this.setPreviousStatement(true); this.setNextStatement(true); this.setStyle("shieldio_hardware");
+      this.setTooltip(G("Nahradí celý displej. Obrázek se zobrazí hned, bez dalšího vykreslení.","Replaces the whole display immediately; no render command needed."));
+    }
+  };
+
   // ---------- Arduino generator ----------
 
   const arduino = new Blockly.Generator("Arduino");
@@ -257,6 +268,12 @@
   arduino.forBlock["shieldio_oled_text"] = function (block) {
     const quoted = arduino.forBlock["text"](block)[0];
     return `shieldioDisplay.clear();\nshieldioDisplay.text(0, 0, ${quoted});\nshieldioDisplay.render();\n`;
+  };
+  arduino.forBlock.shieldio_oled_face = b => {
+    const animal = ["Cat","Dog","Lion"].includes(b.getFieldValue("ANIMAL")) ? b.getFieldValue("ANIMAL") : "Cat";
+    const mood = ["Happy","Sad","Surprised","Sleepy","Angry"].includes(b.getFieldValue("MOOD")) ? b.getFieldValue("MOOD") : "Happy";
+    const blink = b.getFieldValue("BLINK") === "true";
+    return `shieldioDisplay.face(ShieldioDisplay::Animal::${animal}, ShieldioDisplay::Mood::${mood}, ${blink});\n`;
   };
   const coord = (b, name, fallback = "0") => arduino.valueToCode(b, name, arduino.ORDER_NONE) || fallback;
   const draw = code => code + ";\nshieldioDisplay.render();\n";
@@ -399,9 +416,13 @@
   const block = type => ({kind:"block",type,...(defaults[type] ? {inputs:Object.fromEntries(Object.entries(defaults[type]).map(([name,shadow])=>[name,{shadow}]))} : {})});
   const category = (name,colour,types) => ({kind:"category",name,colour,contents:types.map(block)});
   window.SHIELDIO_CREATE_TOOLBOX = ({profile="red",module="all",advanced=false} = {}) => {
-    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_text",...(advanced?["shieldio_oled_print"]:[]),"shieldio_oled_clear","shieldio_oled_pixel","shieldio_oled_line","shieldio_oled_square","shieldio_oled_rect","shieldio_oled_circle"]};
+    const modules = {led:["shieldio_led"],buttons:["shieldio_button"],distance:["shieldio_distance","shieldio_distance_valid"],servo:["shieldio_servo"],buzzer:["shieldio_buzzer"],oled:["shieldio_oled_text",...(advanced?["shieldio_oled_print"]:[]),"shieldio_oled_clear"],faces:["shieldio_oled_face"],drawing:["shieldio_oled_pixel","shieldio_oled_line","shieldio_oled_square","shieldio_oled_rect","shieldio_oled_circle"]};
+    const names = {led:L("LED","LEDs"),buttons:L("Tlačítka","Buttons"),distance:L("Vzdálenost","Distance"),servo:L("Servo","Servo"),buzzer:L("Zvuk","Sound"),oled:L("Displej · text","Display · text"),faces:L("Displej · zvířátka","Display · animals"),drawing:L("Displej · kreslení","Display · drawing")};
     const contents = [category(L("Události","Events"),GOLD,["shieldio_setup"])];
-    if(profile === "red") contents.push(category(L("Moduly RED","RED modules"),RED,module === "all" ? Object.values(modules).flat() : modules[module] || []));
+    if(profile === "red") {
+      const selected = module === "all" || module === "red" ? Object.keys(modules) : module === "oled" ? ["oled","faces","drawing"] : [module];
+      for (const key of selected) if (modules[key]) contents.push(category(names[key],RED,modules[key]));
+    }
     if(profile === "universal" || advanced) contents.push(category(L("Piny Arduino","Arduino pins"),SENSE_BLUE,["arduino_pin_mode","arduino_digital_write","arduino_digital_read","arduino_analog_read","arduino_pwm","arduino_pin"]));
     contents.push(category(L("Řízení","Control"),ORANGE,["shieldio_loop","shieldio_wait","controls_repeat_ext","shieldio_if","shieldio_if_else",...(advanced?["controls_whileUntil","shieldio_if_elseif_else","arduino_millis"]:[])]));
     contents.push(category(L("Operátory","Operators"),OPERATOR_GREEN,["logic_compare","math_number","text",...(advanced?["logic_operation","logic_negate","logic_boolean","math_arithmetic"]:[])]));
@@ -413,3 +434,4 @@
   };
   window.SHIELDIO_TOOLBOX = window.SHIELDIO_CREATE_TOOLBOX();
 })();
+

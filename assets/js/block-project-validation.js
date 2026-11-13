@@ -77,8 +77,9 @@
         remaining.push(block.next.block);
       }
     }
-    return { workspace, profile: wrapped && state.profile === "universal" ? "universal" : "red", advanced: wrapped && state.advanced === true };
+    return { workspace, module: wrapped && ["red","led","buttons","distance","servo","buzzer","oled"].includes(state.module) ? state.module : "red", profile: wrapped && state.profile === "universal" ? "universal" : "red", advanced: wrapped && state.advanced === true };
   }
 
   root.SHIELDIO_BLOCK_PROJECT = Object.freeze({ LIMITS, validateProject });
 })(typeof window === "object" ? window : globalThis);
+

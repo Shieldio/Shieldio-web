@@ -94,6 +94,18 @@ document.addEventListener("DOMContentLoaded", () => {
     return block;
   }
   const PRESETS = {
+    zviratko(ws, loop) {
+      const face = (animal,mood) => ({type:"shieldio_oled_face",fields:{ANIMAL:animal,MOOD:mood,BLINK:"false"}});
+      const decision = presetBlock(ws,{type:"shieldio_if_else",inputs:{
+        IF0:{block:{type:"shieldio_button",fields:{BTN:"BUTTON2"}}},
+        DO0:{block:face("Dog","Surprised")},
+        ELSE:{block:{type:"shieldio_if_else",inputs:{
+          IF0:{block:{type:"shieldio_button",fields:{BTN:"BUTTON1"}}},
+          DO0:{block:face("Cat","Happy")},ELSE:{block:face("Cat","Sleepy")}
+        }}}
+      },next:{block:{type:"shieldio_wait",inputs:{MS:{shadow:presetNumber(100)}}}}});
+      loop.getInput("LOOP").connection.connect(decision.previousConnection);
+    },
     blikani(ws, loop) {
       let previous = null;
       for (const [type,state] of [["shieldio_led","HIGH"],["shieldio_wait"],["shieldio_led","LOW"],["shieldio_wait"]]) {
@@ -163,9 +175,10 @@ document.addEventListener("DOMContentLoaded", () => {
     universal:["Piny určuješ v blocích. Výběr nabídky nemění hotový program. Kompilace zatím cílí na Nano / ATmega328P.","Choose pins in the blocks. Changing the toolbox keeps your program. Compilation currently targets Nano / ATmega328P."],
   };
   function updateToolbox() {
-    const profile = profileSelect.value || "red", module = "all";
-    // YELLOW and PRO are placeholders; old component filters migrate to the RED family.
-    moduleSelect.value = "red";
+    const profile = profileSelect.value || "red";
+    const module = ["led","buttons","distance","servo","buzzer","oled"].includes(moduleSelect.value) ? moduleSelect.value : "all";
+    // Filter the palette only; existing blocks stay in the workspace.
+    moduleSelect.value = module === "all" ? "red" : module;
     workspace.updateToolbox(window.SHIELDIO_CREATE_TOOLBOX({profile,module,advanced:advancedToggle.checked}));
     document.getElementById("moduleField").hidden = profile !== "red";
     const hint = hints[profile === "universal" ? "universal" : module] || hints.all;
@@ -201,15 +214,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const checked = checkedProject(saved);
         workspace.clear();Blockly.serialization.workspaces.load(checked.workspace, workspace);
         profileSelect.value = checked.profile;
-        moduleSelect.value = "red";advancedToggle.checked = checked.advanced;updateToolbox();
+        moduleSelect.value = checked.module || "red";advancedToggle.checked = checked.advanced;updateToolbox();
       }
     } catch {workspace.clear();Blockly.serialization.workspaces.load(initial,workspace);}
   }
   // Guide links adjust the toolbox without replacing the visitor's existing blocks.
   const entryModule = entryParams.get("module"), entryProfile = entryParams.get("profile");
-  if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) {profileSelect.value="red";moduleSelect.value="red";}
+  if (["all","led","buttons","distance","servo","buzzer","oled"].includes(entryModule)) {profileSelect.value="red";moduleSelect.value=entryModule === "all" ? "red" : entryModule;}
   if (entryProfile === "universal") profileSelect.value="universal";
-  if (presetId === "blikani") {profileSelect.value="red";moduleSelect.value="red";}
+  if (presetId === "blikani") {profileSelect.value="red";moduleSelect.value="led";}
+  if (presetId === "zviratko" && !entryModule) {profileSelect.value="red";moduleSelect.value="red";}
   updateToolbox();
   const projectState = () => ({format:"shieldio-blocks-v1",workspace:Blockly.serialization.workspaces.save(workspace),profile:profileSelect.value,module:moduleSelect.value,advanced:advancedToggle.checked});
   let saveTimer;
@@ -442,7 +456,7 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
       workspace.clear();
       Blockly.serialization.workspaces.load(checked.workspace, workspace);
       fillDefaults(workspace.getAllBlocks(false));
-      profileSelect.value = checked.profile;moduleSelect.value="red";
+      profileSelect.value = checked.profile;moduleSelect.value=checked.module || "red";
       advancedToggle.checked = checked.advanced;updateToolbox();
       workspace.cleanUp();
       regenerate();autosave();
@@ -502,4 +516,5 @@ ${features.distance ? "  shieldioDistanceCm = shieldioReadDistance();\n" : ""}${
     Blockly.svgResize(workspace);
   });
 });
+
 

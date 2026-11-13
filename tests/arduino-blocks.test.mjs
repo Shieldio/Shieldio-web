@@ -74,6 +74,14 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   const roots=()=>{workspace.clear();const setup=make('shieldio_setup'),loop=make('shieldio_loop');return {setup,loop};};
   const regenerate=()=>{workspace.fireChangeListener({isUiEvent:false});assert.equal(api.SHIELDIO_EDITOR.getError(),null);return api.SHIELDIO_EDITOR.getCode();};
   const fixtures={};
+  if(search.includes('preset=zviratko')) {
+    fixtures.animalStarter=api.SHIELDIO_EDITOR.getCode();
+    assert.match(fixtures.animalStarter,/ShieldioDisplay shieldioDisplay;/);
+    assert.ok(!fixtures.animalStarter.includes('ShieldioCanvas'));
+    for (const expression of ['Animal::Dog, ShieldioDisplay::Mood::Surprised','Animal::Cat, ShieldioDisplay::Mood::Happy','Animal::Cat, ShieldioDisplay::Mood::Sleepy']) assert.ok(fixtures.animalStarter.includes(expression));
+    assert.match(fixtures.animalStarter,/#define BUTTON1 11/);
+    assert.match(fixtures.animalStarter,/#define BUTTON2 12/);
+  }
   if(!search && !Object.keys(initialStore).length) {
     assert.equal(api.SHIELDIO_EDITOR.getPresetId(),'blikani','A new visitor gets an observable first program');
     assert.match(api.SHIELDIO_EDITOR.getCode(),/digitalWrite\(LED_GREEN, HIGH\)/);
@@ -83,7 +91,7 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
     assert.equal(storage.get('shieldio-workspace-v1'),initialStore['shieldio-workspace-v1']);
   }
 
-  if(expectedModule)assert.equal(get('moduleSelect').value,'red','Legacy guide links select the RED module family');
+  if(expectedModule)assert.equal(get('moduleSelect').value,expectedModule,'Guide links select the requested RED module');
   if(search.includes('preset=blikani')){
     fixtures.blinkStarter=api.SHIELDIO_EDITOR.getCode();assert.match(fixtures.blinkStarter,/#define LED_GREEN 6/);assert.equal((fixtures.blinkStarter.match(new RegExp('delay\\('+expectedDelay+'\\)','g'))||[]).length,2);
     fixtures.blinkProject={workspace:Blockly.serialization.workspaces.save(workspace),profile:'red',module:'led',advanced:false};
@@ -113,10 +121,11 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   assert.match(regenerate(),/delay\(1250\)/);fixtures.LED=regenerate();
   const count=workspace.getAllBlocks(false).length;get('moduleSelect').value='servo';await get('moduleSelect').emit('change');
   assert.equal(workspace.getAllBlocks(false).length,count,'Module selection preserves the program');
-  assert.ok(toolbox.contents.find(c=>c.name==='Moduly RED').contents.some(b=>b.type==='shieldio_led'),'Old component filters show the RED family');
+  assert.ok(toolbox.contents.find(c=>c.name==='Servo').contents.some(b=>b.type==='shieldio_servo'));
+  assert.ok(!toolbox.contents.some(c=>c.name==='LED'));
   for (const unavailable of ['yellow','pro']) {get('moduleSelect').value=unavailable;await get('moduleSelect').emit('change');assert.equal(get('moduleSelect').value,'red');}
   get('blockProfileSelect').value='universal';await get('blockProfileSelect').emit('change');assert.equal(get('moduleField').hidden,true);assert.equal(workspace.getAllBlocks(false).length,count);
-  assert.ok(!toolbox.contents.some(c=>c.name==='Moduly RED'));
+  assert.ok(!toolbox.contents.some(c=>c.name==='Servo'));
   const arithmetic=make('math_arithmetic');arithmetic.getInputTargetBlock('A').setFieldValue(1000,'NUM');arithmetic.getInputTargetBlock('B').setFieldValue(2,'NUM');wait.getInput('MS').connection.connect(arithmetic.outputConnection);
   assert.match(regenerate(),/delay\(1000 \+ 2\)/,'A formula can replace the editable placeholder');
   arithmetic.dispose();assert.ok(wait.getInputTargetBlock('MS').isShadow(),'Removing a formula restores direct entry');
@@ -149,6 +158,16 @@ export async function runBlockTests(blocklyDir,domPackage,{search="",expectedMod
   assert.ok(!directCode.includes('ShieldioCanvas'));
   assert.ok(!direct.getInput('TEXT'),'Text is edited on the command, without a nested block');
   assert.ok(directCode.includes(api.SHIELDIO_ARDUINO_GENERATOR.forBlock.text(direct)[0]));
+  ({setup,loop}=roots());
+  const face=make('shieldio_oled_face');
+  face.setFieldValue('Lion','ANIMAL');face.setFieldValue('Angry','MOOD');face.setFieldValue('true','BLINK');
+  loop.getInput('LOOP').connection.connect(face.previousConnection);
+  const faceCode=regenerate();
+  assert.match(faceCode,/face\(ShieldioDisplay::Animal::Lion, ShieldioDisplay::Mood::Angry, true\)/);
+  assert.ok(!faceCode.includes('ShieldioCanvas'));
+  assert.ok(!faceCode.includes('.render()'));
+  const displayToolbox=api.SHIELDIO_CREATE_TOOLBOX({module:'oled'});
+  assert.deepEqual(Array.from(displayToolbox.contents.filter(c=>c.name.startsWith('Displej')).map(c=>c.name)),['Displej · text','Displej · zvířátka','Displej · kreslení']);
   ({setup,loop}=roots());
   let last=null;
   for(const type of ['shieldio_oled_clear','shieldio_oled_pixel','shieldio_oled_line','shieldio_oled_square','shieldio_oled_rect','shieldio_oled_circle']){
@@ -190,6 +209,9 @@ if(typeof process !== "undefined" && process.argv[1] && import.meta.url===pathTo
   await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?module=buzzer',expectedModule:'buzzer'});
   const barrier=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=zavora'});
   const parking=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=parkovani'});
+  const pet=await runBlockTests(process.env.BLOCKLY_TEST_DIR,process.env.XMLDOM_TEST_PACKAGE,{search:'?preset=zviratko'});
+  fixtures.animalStarter=pet.animalStarter;
   fixtures.barrierStarter=barrier.barrierStarter;fixtures.parkingStarter=parking.parkingStarter;
   if(process.env.BLOCKLY_FIXTURES)await fs.writeFile(process.env.BLOCKLY_FIXTURES,JSON.stringify(fixtures));
 }
+
