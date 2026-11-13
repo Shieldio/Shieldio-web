@@ -11,6 +11,8 @@
 
 ## How to read the public guides
 
+- [Agent access and registration status](https://shieldio.cz/auth.md): public read-only MCP access is anonymous and requires no credential; agent registration and OAuth are not offered.
+
 - To receive the readable Markdown representation, request any page with `Accept: text/markdown`. Plain HTML is returned by default.
 - The assembly guide and the barrier, parking assistant, timer and theremin guides include complete text instructions and troubleshooting even when JavaScript is unavailable. The interactive step-by-step guide remains available to browsers.
 - Assembly and component positions documented for RED V3 must not be assumed to apply to RED V4. For revision-specific work, verify the board version first.
