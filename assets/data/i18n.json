@@ -6102,5 +6102,161 @@
   "teachers.petRoute": {
     "cs": "Zvířátko: příprava pro učitele",
     "en": "Animal: teacher preparation"
+  },
+  "welcome.eyebrow": {
+    "cs": "ZAČÍNÁME SE SHIELDIO RED",
+    "en": "GETTING STARTED WITH SHIELDIO RED"
+  },
+  "welcome.heading": {
+    "cs": "Vítejte<br>u <em>Shieldio.</em>",
+    "en": "Welcome<br>to <em>Shieldio.</em>"
+  },
+  "welcome.intro": {
+    "cs": "Desku už máte. Teď ji oživíme. Začněte prvním bliknutím a pokračujte vlastním nápadem.",
+    "en": "You have your board. Now bring it to life. Start with a blinking LED, then make it your own."
+  },
+  "welcome.begin": {
+    "cs": "Začít prvním programem <span aria-hidden=\"true\">↗</span>",
+    "en": "Start your first program <span aria-hidden=\"true\">↗</span>"
+  },
+  "welcome.teacherJump": {
+    "cs": "Připravuji výuku <span aria-hidden=\"true\">↓</span>",
+    "en": "I’m preparing a lesson <span aria-hidden=\"true\">↓</span>"
+  },
+  "welcome.requirements": {
+    "cs": "Sestavená RED · datový USB kabel · počítač s Chrome nebo Edge · internet",
+    "en": "Assembled RED · USB data cable · desktop Chrome or Edge · internet"
+  },
+  "welcome.photoCaption": {
+    "cs": "SHIELDIO RED <span>Ukázka sestavené desky</span>",
+    "en": "SHIELDIO RED <span>An assembled board</span>"
+  },
+  "welcome.photoAlt": {
+    "cs": "Sestavená deska Shieldio RED držená v ruce",
+    "en": "An assembled Shieldio RED board held in a hand"
+  },
+  "welcome.studentLabel": {
+    "cs": "PRO ŽÁKY",
+    "en": "FOR STUDENTS"
+  },
+  "welcome.firstHeading": {
+    "cs": "První výsledek.<br>Ve třech krocích.",
+    "en": "Your first result.<br>Three steps."
+  },
+  "welcome.firstIntro": {
+    "cs": "Začni s deskou, kterou připravil učitel. Součástky nech zapojené.",
+    "en": "Start with the board your teacher prepared. Leave the components connected."
+  },
+  "welcome.connectTitle": {
+    "cs": "Připoj desku",
+    "en": "Connect the board"
+  },
+  "welcome.connectText": {
+    "cs": "Propoj sestavenou RED s počítačem datovým USB kabelem.",
+    "en": "Connect your assembled RED to the computer with a USB data cable."
+  },
+  "welcome.runTitle": {
+    "cs": "Spusť program",
+    "en": "Run the program"
+  },
+  "welcome.runText": {
+    "cs": "Otevři připravené blikání. Klikni na <b>Spustit na desce</b>, vyber port RED a počkej na <b>Nahráno</b>.",
+    "en": "Open the blink starter. Click <b>Run on board</b>, select the RED port and wait for <b>Uploaded</b>."
+  },
+  "welcome.changeTitle": {
+    "cs": "Změň rytmus",
+    "en": "Change the rhythm"
+  },
+  "welcome.changeText": {
+    "cs": "Zelená LED půl sekundy svítí a půl sekundy nesvítí. Změň obě čekání na 1 s a program nahraj znovu.",
+    "en": "The green LED is on for half a second, then off for half a second. Change both waits to 1 s and upload again."
+  },
+  "welcome.openEditor": {
+    "cs": "Otevřít blikání LED <span aria-hidden=\"true\">↗</span>",
+    "en": "Open the LED blink starter <span aria-hidden=\"true\">↗</span>"
+  },
+  "welcome.firstHelp": {
+    "cs": "Podrobný návod k prvnímu spuštění",
+    "en": "Step-by-step first-run guide"
+  },
+  "welcome.legacy": {
+    "cs": "Vidíš ve starším programu 500 ms? Změň obě čekání na 1000 ms.",
+    "en": "Does an older program show 500 ms? Change both waits to 1000 ms."
+  },
+  "welcome.nextLabel": {
+    "cs": "AŽ LED BLIKÁ",
+    "en": "ONCE THE LED BLINKS"
+  },
+  "welcome.nextHeading": {
+    "cs": "Co zkusíš dál?",
+    "en": "What will you try next?"
+  },
+  "welcome.animalTitle": {
+    "cs": "Zvířátko na displeji",
+    "en": "Animal on the display"
+  },
+  "welcome.animalText": {
+    "cs": "Tlačítkem rozvesel kočku. Pak z ní udělej lva.",
+    "en": "Make the cat happy with a button. Then turn it into a lion."
+  },
+  "welcome.barrierTitle": {
+    "cs": "Automatická závora",
+    "en": "Automatic barrier"
+  },
+  "welcome.barrierText": {
+    "cs": "Nech závoru reagovat na přiblížení předmětu.",
+    "en": "Make the barrier respond to an approaching object."
+  },
+  "welcome.teacherLabel": {
+    "cs": "PRO UČITELE",
+    "en": "FOR TEACHERS"
+  },
+  "welcome.teacherHeading": {
+    "cs": "Připravte podmínky.<br>Žáci přidají nápady.",
+    "en": "Prepare the classroom.<br>Students bring the ideas."
+  },
+  "welcome.teacherIntro": {
+    "cs": "Před hodinou ověřte nahrávání na školním účtu a na každé desce. Žákům pak stačí poslat tuto stránku.",
+    "en": "Before class, check uploading on the school account and on every board. Then share this page with your students."
+  },
+  "welcome.teacherPrep": {
+    "cs": "Příprava první hodiny <span aria-hidden=\"true\">↗</span>",
+    "en": "Prepare your first lesson <span aria-hidden=\"true\">↗</span>"
+  },
+  "welcome.checkHeading": {
+    "cs": "Před první hodinou",
+    "en": "Before the first lesson"
+  },
+  "welcome.checklist": {
+    "cs": "<ol><li>Chrome nebo Edge a první nahrání na žákovském účtu.</li><li>Na každé desce ověřit LED, displej a obě tlačítka.</li><li>Připravit datové kabely a práci ve dvojicích.</li></ol>",
+    "en": "<ol><li>Chrome or Edge and the first upload on a student account.</li><li>Check the LED, display and both buttons on every board.</li><li>Prepare USB data cables and pair work.</li></ol>"
+  },
+  "welcome.teacherAnimal": {
+    "cs": "Zvířátko: příprava a diagnostika",
+    "en": "Animal: preparation and troubleshooting"
+  },
+  "welcome.worksheet": {
+    "cs": "Závora: metodika a pracovní list",
+    "en": "Barrier: lesson plan and worksheet"
+  },
+  "welcome.helpTitle": {
+    "cs": "Potřebujete pomoc?",
+    "en": "Need a hand?"
+  },
+  "welcome.helpText": {
+    "cs": "S nahráváním začněte v <a href=\"/instructions/programovani/\">návodu na první spuštění</a>. V Safari použijte pro USB nahrávání Chrome nebo Edge na počítači.",
+    "en": "For upload problems, start with the <a href=\"/instructions/programovani/\">first-run guide</a>. If you use Safari, switch to desktop Chrome or Edge for USB uploading."
+  },
+  "welcome.email": {
+    "cs": "Napište na info@shieldio.cz <span aria-hidden=\"true\">↗</span>",
+    "en": "Email info@shieldio.cz <span aria-hidden=\"true\">↗</span>"
+  },
+  "welcome.title": {
+    "cs": "Vítejte u Shieldio | První spuštění RED",
+    "en": "Welcome to Shieldio | First steps with RED"
+  },
+  "welcome.entry": {
+    "cs": "Máte RED? Začněte tady <span aria-hidden=\"true\">↗</span>",
+    "en": "Have a RED? Start here <span aria-hidden=\"true\">↗</span>"
   }
 }

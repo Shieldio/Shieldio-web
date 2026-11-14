@@ -5,7 +5,7 @@ from html import unescape
 from urllib.parse import urlsplit, unquote
 import json, posixpath, re, xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
-SECTIONS = {'index.html','faq.html','404.html','products','instructions','company','edu','aktuality'}
+SECTIONS = {'index.html','faq.html','404.html','products','instructions','company','edu','aktuality','start'}
 PAGES = {p.relative_to(ROOT).as_posix(): p.read_text() for p in ROOT.rglob('*.html') if p.relative_to(ROOT).parts[0] in SECTIONS and '.preview-static' not in p.parts}
 D = json.loads((ROOT/'assets/data/i18n.json').read_text())
 errors = []

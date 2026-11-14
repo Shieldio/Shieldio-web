@@ -1,5 +1,10 @@
 [
   {
+    "title": "Vítejte u Shieldio – první spuštění RED",
+    "desc": "Začněte tady: první blikání LED, projekty pro žáky a příprava první hodiny pro učitele.",
+    "url": "/start/"
+  },
+  {
     "title": "Zvířátko na displeji – pro žáky",
     "desc": "Spusť připravené bloky, vyzkoušej tlačítka a změň zvířátko na sestavené RED.",
     "url": "/instructions/baseline/red/zviratko/index.html"

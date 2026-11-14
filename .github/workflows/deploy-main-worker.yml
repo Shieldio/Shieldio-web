@@ -5,6 +5,7 @@ on:
     paths:
       - 'assets/**'
       - 'instructions/**'
+      - 'start/**'
       - '*.html'
       - 'api/**'
       - 'company/**'
