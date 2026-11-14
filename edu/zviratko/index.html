@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zvířátko na displeji – pro učitele | Shieldio</title>
+<meta name="description" content="Příprava projektu Zvířátko na displeji pro učitele: kontrola desky, USB nahrávání, knihovna a diagnostika.">
+<link rel="canonical" href="https://shieldio.cz/edu/zviratko/">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shieldio.cz/edu/zviratko/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Zvířátko na displeji – pro učitele | Shieldio">
+<meta property="og:description" content="Příprava projektu Zvířátko na displeji pro učitele: kontrola desky, USB nahrávání, knihovna a diagnostika.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zvířátko na displeji – pro učitele | Shieldio">
+<meta name="twitter:description" content="Příprava projektu Zvířátko na displeji pro učitele: kontrola desky, USB nahrávání, knihovna a diagnostika.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+<link rel="stylesheet" href="/assets/css/guide-reference.css?v=20261102">
+</head>
+
+<body data-i18n-title="pet.teacher.title">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="/index.html"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="/products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="/instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="/company/pro-ucitele.html" data-i18n="nav.teachers">Pro učitele</a>
+        <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="/instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
+      </nav>
+      <a class="cta-small" href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <button class="nav-toggle" type="button" aria-label="Otevřít menu" data-i18n-aria-label="nav.menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="red-reference wrap"><a data-i18n="pet.teacher.back" class="guide-back-link" href="/edu/index.html">← Materiály pro učitele</a><header><span data-i18n="pet.teacher.label" class="eyebrow">Pro učitele · příprava projektu</span><h1 data-i18n="pet.teacher.heading">Zvířátko na displeji: příprava hodiny</h1><p data-i18n="pet.teacher.lead" class="lead">Před hodinou ověřte desku a nahrávání. Žákům pošlete jen krátký návod s blokovým programem.</p><div class="reference-actions"><a data-i18n="pet.teacher.studentLink" class="btn btn-primary" href="/instructions/baseline/red/zviratko/">Otevřít návod pro žáky</a></div></header><section class="reference-section"><h2 data-i18n="pet.teacher.prepare">1. Připravte sestavenou desku</h2><p data-i18n="pet.teacher.prepareText">Projekt používá displej a dvě tlačítka na sestavené RED. Žáci k ní nepřidávají další displej ani rezistory. Senzor vzdálenosti a servo se v tomto programu nepoužívají. Ověřte revizi desky; veřejný <a href="/instructions/baseline/red/prehled/">osazovací přehled</a> je určený pro V3, nikoli jako návod k osazení V4.</p><p data-i18n="pet.teacher.pins">Technická kontrola: OLED SSD1306 128 × 64, I²C adresa <code>0x3C</code>, SDA → A4, SCL → A5. Tlačítka 1/2 → D11/D12. Na RED jsou pull-up rezistory již osazené na desce; stisk znamená LOW. Při výměně modulu odpojte napájení a ověřte pořadí GND/VCC podle jeho popisků.</p></section><section class="reference-section"><h2 data-i18n="pet.teacher.upload">2. Ověřte nahrávání na školním účtu</h2><p data-i18n="pet.teacher.uploadText">Použijte desktopový Chrome nebo Edge a datový USB kabel. Safari přímé nahrávání přes Web Serial nepodporuje; pro hodinu přejděte do Chrome/Edge. Ponechte cíl Shieldio RED (klasické Nano s ATmega328P, 16 MHz). Pokud deska neodpovídá, v <b>Pokročilý režim → Nastavení desky</b> vyzkoušejte 115200 nebo starý bootloader 57600. Volba bootloader nepřepisuje. Postupujte podle <a href="/instructions/programovani/">prvního spuštění</a>.</p></section><section class="reference-section"><h2 data-i18n="pet.teacher.library">3. Knihovna a volitelný C++</h2><p data-i18n="pet.teacher.libraryText">Webový editor přidá ShieldioDisplay <b>0.3.0</b> automaticky. Pro základní hodinu nic neinstalujte. Při práci v Arduino IDE použijte tuto verzi nebo novější se stejným API; starší verze nemusí obsahovat <code>Animal</code>, <code>Mood</code> a <code>face()</code>. <a href="https://github.com/Shieldio/ShieldioDisplay">Zdroj a dokumentace knihovny</a>.</p><div class="reference-actions"><a data-i18n="pet.cpp" class="btn btn-ghost" href="/instructions/blokovy-editor.html?example=zviratko">Otevřít Arduino C++</a><a data-i18n="project.download" class="btn btn-ghost" href="/assets/code/zviratko/zviratko.ino">Stáhnout Arduino program (.ino)</a></div><details class="reference-code"><summary data-i18n="project.showcode" >Zobrazit celý program</summary><pre><code>// Shieldio RED: OLED SSD1306 128x64, SDA A4 / SCL A5, address 0x3C.
+// Buttons D11/D12 have external pull-ups on RED; pressed = LOW.
+#include &lt;ShieldioDisplay.h&gt;
+ShieldioDisplay display;
+using Animal = ShieldioDisplay::Animal;
+using Mood = ShieldioDisplay::Mood;
+Animal shownAnimal = Animal::Cat;
+Mood shownMood = Mood::Sleepy;
+
+void setup() {
+  pinMode(11, INPUT);
+  pinMode(12, INPUT);
+  display.begin();
+  display.face(shownAnimal, shownMood);
+}
+
+void loop() {
+  // Button 2 has priority, matching the block starter.
+  bool second = digitalRead(12) == LOW;
+  bool first = digitalRead(11) == LOW;
+  Animal animal = second ? Animal::Dog : Animal::Cat;
+  Mood mood = second ? Mood::Surprised : first ? Mood::Happy : Mood::Sleepy;
+  if (animal != shownAnimal || mood != shownMood) {
+    display.face(animal, mood);
+    shownAnimal = animal;
+    shownMood = mood;
+  }
+  delay(100);
+}
+</code></pre></details></section><section class="reference-section"><h2 data-i18n="pet.teacher.check">4. Přejímací zkouška před hodinou</h2><div data-i18n="pet.teacher.checkText"><ol><li>Nahrajte blokový program na každou používanou desku.</li><li>Ověřte ospalou kočku, veselou kočku při tlačítku 1 a překvapeného psa při tlačítku 2.</li><li>Obě tlačítka současně: má přednost tlačítko 2.</li><li>Změňte psa na lva a znovu nahrajte. Pak vraťte původní program pro žáky.</li><li>Zaznamenejte revizi desky a funkční nastavení bootloaderu. Kompilace sama nepotvrzuje funkci na hardwaru.</li></ol></div></section><section class="reference-section"><h2 data-i18n="pet.teacher.help">Diagnostika pro učitele</h2><p data-i18n="pet.teacher.helpText">Prázdný displej: ověřte napájení, SDA/A4, SCL/A5 a adresu 0x3C. Tlačítko nereaguje: ověřte D11/D12 a stisk LOW. <code>face()</code> nahradí obraz ihned, další <code>render()</code> nepotřebuje. U vlastního textu knihovna podporuje ASCII bez české diakritiky. Zvířecí tváře byly dříve ověřeny na OLED; konkrétní sestavu a tento projekt přesto ověřte před výukou.</p></section></main>
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="/index.html#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="/instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="/edu/index.html" data-i18n="nav.edu">Edu</a>
+      <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="/company/pro-ucitele.html" data-i18n="footer.teachers">Pro učitele</a>
+      <a href="/faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="/aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="/company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
+    </nav>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+</footer>
+
+<script src="/assets/js/animations.js"></script>
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/theme.js?v=20261104-interactions1"></script>
+<script src="/assets/js/search.js?v=20261104-interactions1"></script>
+<script src="/assets/js/lang.js"></script>
+<script src="/assets/js/site-chrome.js?v=20261103-unified"></script>
+</body>
+</html>

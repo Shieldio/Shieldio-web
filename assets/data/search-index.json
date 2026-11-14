@@ -1,8 +1,13 @@
 [
   {
-    "title": "Zvířátko na displeji",
-    "desc": "Kočka, pes a lev na OLED RED. Nálady, tlačítka, knihovna ShieldioDisplay a připravený blokový i C++ projekt.",
+    "title": "Zvířátko na displeji – pro žáky",
+    "desc": "Spusť připravené bloky, vyzkoušej tlačítka a změň zvířátko na sestavené RED.",
     "url": "/instructions/baseline/red/zviratko/index.html"
+  },
+  {
+    "title": "Zvířátko na displeji – pro učitele",
+    "desc": "Příprava desky, displej, tlačítka, USB, ShieldioDisplay 0.3.0 a diagnostika před hodinou.",
+    "url": "/edu/zviratko/"
   },
   {
     "title": "Sériový monitor, plotter a posílání příkazů",

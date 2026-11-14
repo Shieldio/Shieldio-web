@@ -3449,7 +3449,7 @@
   },
   "project.download": {
     "cs": "Stáhnout Arduino program (.ino)",
-    "en": "Download Arduino sketch (.ino)"
+    "en": "Download Arduino program (.ino)"
   },
   "project.showcode": {
     "cs": "Zobrazit celý program",
@@ -3872,8 +3872,8 @@
     "en": "3. Slow the blinking down"
   },
   "start.step4Text": {
-    "cs": "Odhadni, co se stane, když obě čekání <b>0,5 s</b> změníš na <b>1 s</b>. Změň je a znovu klikni na <b>Spustit na desce</b>. Bliká LED podle tvého odhadu? Pak zkus vlastní čas.",
-    "en": "Predict what will happen if you change both <b>0.5 s</b> waits to <b>1 s</b>. Change them and choose <b>Run on board</b> again. Does the LED match your prediction? Then try your own time."
+    "cs": "Odhadni, co se stane, když obě čekání <b>0,5 s</b> změníš na <b>1 s</b>. Změň je a znovu klikni na <b>Spustit na desce</b>. Bliká LED podle tvého odhadu? Pak zkus vlastní čas. Pokud tvůj uložený program ukazuje <b>500 ms</b>, změň obě hodnoty na <b>1000 ms</b>; je to stejné zpomalení.",
+    "en": "Predict what will happen if you change both <b>0.5 s</b> waits to <b>1 s</b>. Change them and choose <b>Run on board</b> again. Does the LED match your prediction? Then try your own time. If your saved program shows <b>500 ms</b>, change both values to <b>1000 ms</b>; this is the same slowdown."
   },
   "start.trouble": {
     "cs": "Port nebo nahrávání nefunguje",
@@ -5289,15 +5289,15 @@
   },
   "guides.hub.assembly.body": {
     "cs": "Fotonávod, pořadí osazování a kontrola spojů před zapnutím.",
-    "en": "Photo guide, component placement order and joint checks before power-up."
+    "en": "Photo guide, assembly order and joint checks before power-up."
   },
   "guides.hub.parts.title": {
     "cs": "Součástky a zapojení RED V3",
-    "en": "RED V3 components and wiring"
+    "en": "RED V3 parts and connections"
   },
   "guides.hub.parts.body": {
     "cs": "Osazovací tabulka, hodnoty součástek a přiřazení pinů.",
-    "en": "Component table, component values and pin assignments."
+    "en": "Component table, values and pin assignments."
   },
   "guides.hub.programming.title": {
     "cs": "První nahrání programu",
@@ -5333,15 +5333,15 @@
   },
   "guides.hub.heading": {
     "cs": "Návody a materiály",
-    "en": "Guides and materials"
+    "en": "Guides and resources"
   },
   "guides.hub.lead": {
-    "cs": "Sestavení desky, programování, projekty a podklady pro výuku.",
-    "en": "Board assembly, programming, projects and classroom resources."
+    "cs": "Vyber si, jestli chceš pracovat na projektu, nebo připravuješ výuku.",
+    "en": "Choose a project to work on, or prepare a lesson."
   },
   "guides.hub.revision": {
     "cs": "Fotonávod a osazovací tabulka se vztahují k RED V3. Před sestavením ověř označení revize na své desce.",
-    "en": "The assembly photo guide and component table cover RED V3. Check the revision printed on your board before assembly."
+    "en": "The photo guide and component table apply to RED V3. Check your board revision before assembly."
   },
   "home.resources.assembly": {
     "cs": "Pájení a sestavení RED V3",
@@ -5761,11 +5761,11 @@
   },
   "pet.heading": {
     "cs": "Zvířátko na displeji",
-    "en": "An animal on the display"
+    "en": "Animal on the display"
   },
   "pet.lead": {
-    "cs": "Kočka spí, stiskem tlačítka se rozveselí a druhým přivoláš psa. Vyzkoušej podmínky, vstupy a OLED s knihovnou ShieldioDisplay 0.3.0.",
-    "en": "The cat sleeps, one button makes it happy and the other brings a dog. Explore conditions, inputs and OLED with ShieldioDisplay 0.3.0."
+    "cs": "Kočka spí. Jedním tlačítkem ji rozveselíš, druhým přivoláš psa. Pak zvířátko změň podle sebe.",
+    "en": "The cat is asleep. One button makes it happy, the other calls a dog. Then change your animal."
   },
   "pet.needs": {
     "cs": "<b>Potřebuješ:</b> sestavenou RED s Nano, OLED SSD1306 128 × 64, dvě tlačítka a datový USB kabel. Senzor ani servo pro základní projekt nepotřebuješ.",
@@ -5789,7 +5789,7 @@
   },
   "pet.blocks": {
     "cs": "Otevřít blokový projekt",
-    "en": "Open the block project"
+    "en": "Open block project"
   },
   "pet.cpp": {
     "cs": "Otevřít Arduino C++",
@@ -5800,8 +5800,8 @@
     "en": "3. Test every state"
   },
   "pet.checks": {
-    "cs": "<ol><li>Po úvodním logu bez stisku uvidíš ospalou kočku.</li><li>Drž tlačítko 1: kočka je veselá. Po uvolnění zase spí.</li><li>Drž tlačítko 2: zobrazí se překvapený pes.</li><li>Stiskni obě: druhé tlačítko má přednost. Najdi v blocích, proč tomu tak je.</li></ol>",
-    "en": "<ol><li>After the startup logo, a sleepy cat appears with no buttons pressed.</li><li>Hold button 1: the cat is happy. Release it and the cat sleeps.</li><li>Hold button 2: a surprised dog appears.</li><li>Press both: button 2 takes priority. Find the reason in the blocks.</li></ol>"
+    "cs": "<ol><li>Po úvodním logu bez stisku uvidíš ospalou kočku.</li><li>Drž tlačítko 1: kočka je veselá. Po uvolnění zase spí.</li><li>Drž tlačítko 2: zobrazí se překvapený pes.</li><li>Stiskni obě. Které zvířátko vidíš? Najdi v blocích, proč tomu tak je.</li></ol>",
+    "en": "<ol><li>After the opening logo, a sleepy cat appears.</li><li>Hold button 1: the cat is happy. Release it and it sleeps again.</li><li>Hold button 2: a surprised dog appears.</li><li>Hold both. Which animal appears? Find the reason in the blocks.</li></ol>"
   },
   "pet.challenge": {
     "cs": "4. Dej zvířátku vlastní povahu",
@@ -5820,8 +5820,8 @@
     "en": "Blank display? Check SDA/A4, SCL/A5, power and address 0x3C. Button not responding? Check D11/D12 and active LOW. <code>face()</code> replaces the whole screen immediately; it needs no extra <code>render()</code>. Animal faces have been tested on an OLED; this new project still needs testing on your board."
   },
   "pet.card": {
-    "cs": "Tlačítkem rozvesel kočku nebo zobraz psa. Změň zvíře, náladu a oči v připraveném blokovém programu. Fotografie ukazuje samotný OLED.",
-    "en": "Make a cat happy or show a dog using buttons. Change the animal, mood and eyes in a ready block program. The photo shows the OLED module."
+    "cs": "Tlačítkem rozvesel kočku nebo zobraz psa. Potom změň zvíře a jeho náladu.",
+    "en": "Make the cat happy or show a dog with a button. Then change the animal and its mood."
   },
   "pet.action": {
     "cs": "Oživit zvířátko →",
@@ -5906,5 +5906,201 @@
   "news.editor.updated": {
     "cs": "Aktualizováno 13. listopadu 2026.",
     "en": "Updated 13 November 2026."
+  },
+  "pet.student.back": {
+    "cs": "← Projekty pro žáky",
+    "en": "← Student projects"
+  },
+  "pet.student.label": {
+    "cs": "Pro žáky · sestavená RED",
+    "en": "For students · assembled RED"
+  },
+  "pet.student.ready": {
+    "cs": "Potřebuješ sestavenou RED s displejem a dvěma tlačítky, datový USB kabel a počítač s Chrome nebo Edge. Desku ti připraví učitel. Nic nerozpojuj ani nepřepojuj.",
+    "en": "You need an assembled RED with its display and two buttons, a USB data cable and a computer with Chrome or Edge. Your teacher prepares the board. Leave its connections in place."
+  },
+  "pet.student.run": {
+    "cs": "Připoj RED k počítači. Otevři připravené bloky a klikni na <b>Spustit na desce</b>. Vyber port desky a počkej na <b>Nahráno</b>.",
+    "en": "Connect RED to your computer. Open the starter blocks and click <b>Run on board</b>. Select the board’s port and wait for <b>Uploaded</b>."
+  },
+  "pet.student.start": {
+    "cs": "1. Spusť zvířátko",
+    "en": "1. Run the animal"
+  },
+  "pet.student.try": {
+    "cs": "2. Vyzkoušej obě tlačítka",
+    "en": "2. Try both buttons"
+  },
+  "pet.student.editText": {
+    "cs": "V editoru najdi blok se psem. Změň <b>pes</b> na <b>lev</b>. Odhadni, co se stane po stisku tlačítka 2, a znovu klikni na <b>Spustit na desce</b>. Potom zkus změnit náladu nebo otevřené oči na zavřené.",
+    "en": "Find the dog block in the editor. Change <b>dog</b> to <b>lion</b>. Predict what button 2 will do and click <b>Run on board</b> again. Then try changing the mood or closing its eyes."
+  },
+  "pet.student.edit": {
+    "cs": "3. Změň zvířátko",
+    "en": "3. Change the animal"
+  },
+  "pet.student.helpText": {
+    "cs": "Nefunguje nahrávání? Otevři <a href=\"/instructions/programovani/\">návod na první spuštění</a>. Pokud po nahrání zůstává displej prázdný nebo tlačítka nereagují, přivolej učitele.",
+    "en": "Upload problems? Open the <a href=\"/instructions/programovani/\">first-run guide</a>. If the screen stays blank or the buttons do not respond after upload, ask your teacher."
+  },
+  "pet.student.help": {
+    "cs": "Když se nedaří",
+    "en": "If something goes wrong"
+  },
+  "pet.student.teacherLink": {
+    "cs": "Pro učitele: příprava a řešení potíží",
+    "en": "For teachers: preparation and troubleshooting"
+  },
+  "pet.teacher.back": {
+    "cs": "← Materiály pro učitele",
+    "en": "← Teacher resources"
+  },
+  "pet.teacher.label": {
+    "cs": "Pro učitele · příprava projektu",
+    "en": "For teachers · project preparation"
+  },
+  "pet.teacher.heading": {
+    "cs": "Zvířátko na displeji: příprava hodiny",
+    "en": "Animal on the display: lesson preparation"
+  },
+  "pet.teacher.lead": {
+    "cs": "Před hodinou ověřte desku a nahrávání. Žákům pošlete jen krátký návod s blokovým programem.",
+    "en": "Check the board and uploading before class. Give students the short guide with its block starter."
+  },
+  "pet.teacher.studentLink": {
+    "cs": "Otevřít návod pro žáky",
+    "en": "Open student guide"
+  },
+  "pet.teacher.prepareText": {
+    "cs": "Projekt používá displej a dvě tlačítka na sestavené RED. Žáci k ní nepřidávají další displej ani rezistory. Senzor vzdálenosti a servo se v tomto programu nepoužívají. Ověřte revizi desky; veřejný <a href=\"/instructions/baseline/red/prehled/\">osazovací přehled</a> je určený pro V3, nikoli jako návod k osazení V4.",
+    "en": "The project uses the display and two buttons on an assembled RED. Students do not add another display or resistors. This program does not use the distance sensor or servo. Check the board revision: the public <a href=\"/instructions/baseline/red/prehled/\">assembly reference</a> is for V3, not a V4 assembly guide."
+  },
+  "pet.teacher.pins": {
+    "cs": "Technická kontrola: OLED SSD1306 128 × 64, I²C adresa <code>0x3C</code>, SDA → A4, SCL → A5. Tlačítka 1/2 → D11/D12. Na RED jsou pull-up rezistory již osazené na desce; stisk znamená LOW. Při výměně modulu odpojte napájení a ověřte pořadí GND/VCC podle jeho popisků.",
+    "en": "Technical check: OLED SSD1306 128 × 64, I²C address <code>0x3C</code>, SDA → A4, SCL → A5. Buttons 1/2 → D11/D12. RED already has pull-up resistors on its PCB; pressed means LOW. Disconnect power before replacing a module and check its GND/VCC labels."
+  },
+  "pet.teacher.prepare": {
+    "cs": "1. Připravte sestavenou desku",
+    "en": "1. Prepare the assembled board"
+  },
+  "pet.teacher.uploadText": {
+    "cs": "Použijte desktopový Chrome nebo Edge a datový USB kabel. Safari přímé nahrávání přes Web Serial nepodporuje; pro hodinu přejděte do Chrome/Edge. Ponechte cíl Shieldio RED (klasické Nano s ATmega328P, 16 MHz). Pokud deska neodpovídá, v <b>Pokročilý režim → Nastavení desky</b> vyzkoušejte 115200 nebo starý bootloader 57600. Volba bootloader nepřepisuje. Postupujte podle <a href=\"/instructions/programovani/\">prvního spuštění</a>.",
+    "en": "Use desktop Chrome or Edge and a USB data cable. Safari does not support direct Web Serial uploading; use Chrome/Edge for class. Keep the Shieldio RED target (classic Nano with ATmega328P, 16 MHz). If the board does not respond, try 115200 or the old 57600 bootloader under <b>Pro mode → Board settings</b>. This setting does not rewrite the bootloader. Follow the <a href=\"/instructions/programovani/\">first-run guide</a>."
+  },
+  "pet.teacher.upload": {
+    "cs": "2. Ověřte nahrávání na školním účtu",
+    "en": "2. Check uploading on the school account"
+  },
+  "pet.teacher.libraryText": {
+    "cs": "Webový editor přidá ShieldioDisplay <b>0.3.0</b> automaticky. Pro základní hodinu nic neinstalujte. Při práci v Arduino IDE použijte tuto verzi nebo novější se stejným API; starší verze nemusí obsahovat <code>Animal</code>, <code>Mood</code> a <code>face()</code>. <a href=\"https://github.com/Shieldio/ShieldioDisplay\">Zdroj a dokumentace knihovny</a>.",
+    "en": "The web editor adds ShieldioDisplay <b>0.3.0</b> automatically. Install nothing for the basic lesson. In Arduino IDE use this version or a later compatible version; older versions may lack <code>Animal</code>, <code>Mood</code> and <code>face()</code>. <a href=\"https://github.com/Shieldio/ShieldioDisplay\">Library source and documentation</a>."
+  },
+  "pet.teacher.library": {
+    "cs": "3. Knihovna a volitelný C++",
+    "en": "3. Library and optional C++"
+  },
+  "pet.teacher.checkText": {
+    "cs": "<ol><li>Nahrajte blokový program na každou používanou desku.</li><li>Ověřte ospalou kočku, veselou kočku při tlačítku 1 a překvapeného psa při tlačítku 2.</li><li>Obě tlačítka současně: má přednost tlačítko 2.</li><li>Změňte psa na lva a znovu nahrajte. Pak vraťte původní program pro žáky.</li><li>Zaznamenejte revizi desky a funkční nastavení bootloaderu. Kompilace sama nepotvrzuje funkci na hardwaru.</li></ol>",
+    "en": "<ol><li>Upload the block program to every board you will use.</li><li>Check the sleepy cat, happy cat with button 1 and surprised dog with button 2.</li><li>Both buttons held: button 2 takes priority.</li><li>Change the dog to a lion and upload again. Restore the starter for students.</li><li>Record the board revision and working bootloader setting. Compilation alone does not verify hardware behaviour.</li></ol>"
+  },
+  "pet.teacher.check": {
+    "cs": "4. Přejímací zkouška před hodinou",
+    "en": "4. Acceptance check before class"
+  },
+  "pet.teacher.helpText": {
+    "cs": "Prázdný displej: ověřte napájení, SDA/A4, SCL/A5 a adresu 0x3C. Tlačítko nereaguje: ověřte D11/D12 a stisk LOW. <code>face()</code> nahradí obraz ihned, další <code>render()</code> nepotřebuje. U vlastního textu knihovna podporuje ASCII bez české diakritiky. Zvířecí tváře byly dříve ověřeny na OLED; konkrétní sestavu a tento projekt přesto ověřte před výukou.",
+    "en": "Blank display: check power, SDA/A4, SCL/A5 and address 0x3C. Unresponsive button: check D11/D12 and active LOW. <code>face()</code> replaces the image immediately; no further <code>render()</code> is needed. Custom text supports ASCII without Czech diacritics. Animal faces were previously checked on an OLED; still test this project on your actual classroom boards."
+  },
+  "pet.teacher.help": {
+    "cs": "Diagnostika pro učitele",
+    "en": "Teacher troubleshooting"
+  },
+  "pet.teacher.title": {
+    "cs": "Zvířátko na displeji – pro učitele | Shieldio",
+    "en": "Animal on the display – teacher guide | Shieldio"
+  },
+  "guides.audience.students": {
+    "cs": "Pro žáky",
+    "en": "For students"
+  },
+  "guides.audience.studentsText": {
+    "cs": "Máš sestavenou RED? Začni prvním programem a potom si vyber projekt.",
+    "en": "Have an assembled RED? Start with your first program, then pick a project."
+  },
+  "guides.student.first.title": {
+    "cs": "1. Rozblikej LED",
+    "en": "1. Blink an LED"
+  },
+  "guides.student.first.body": {
+    "cs": "Připoj desku, spusť program a změň rychlost blikání.",
+    "en": "Connect your board, run the program and change its blink rate."
+  },
+  "guides.student.projects.title": {
+    "cs": "2. Vyber si projekt",
+    "en": "2. Pick a project"
+  },
+  "guides.student.projects.body": {
+    "cs": "Zvířátko na displeji, závora a další úkoly se sestavenou deskou.",
+    "en": "An animal on the display, a barrier and more tasks for an assembled board."
+  },
+  "guides.student.theory.title": {
+    "cs": "Chci vědět, jak to funguje",
+    "en": "I want to know how it works"
+  },
+  "guides.student.theory.body": {
+    "cs": "Vysvětlení součástek, když chceš jít dál.",
+    "en": "Learn about the components when you want to go further."
+  },
+  "guides.audience.teachers": {
+    "cs": "Pro učitele",
+    "en": "For teachers"
+  },
+  "guides.audience.teachersText": {
+    "cs": "Příprava počítačů a desek, vedení hodiny a technické podklady.",
+    "en": "Prepare computers and boards, plan your lesson and find technical references."
+  },
+  "guides.teacher.prep.title": {
+    "cs": "Před první hodinou",
+    "en": "Before the first lesson"
+  },
+  "guides.teacher.prep.body": {
+    "cs": "Co ověřit na školním počítači a jak připravit práci ve skupinách.",
+    "en": "What to check on school computers and how to prepare group work."
+  },
+  "guides.teacher.pet.title": {
+    "cs": "Zvířátko: příprava a diagnostika",
+    "en": "Animal: preparation and troubleshooting"
+  },
+  "guides.teacher.pet.body": {
+    "cs": "Zapojení, kontrola displeje a tlačítek, knihovna a volitelný C++.",
+    "en": "Connections, display and button checks, library and optional C++."
+  },
+  "guides.teacher.resources.title": {
+    "cs": "Metodiky a pracovní listy",
+    "en": "Lesson plans and worksheets"
+  },
+  "guides.teacher.resources.body": {
+    "cs": "Všechny učitelské materiály na jednom místě.",
+    "en": "All teacher resources in one place."
+  },
+  "guides.audience.assembly": {
+    "cs": "Sestavení a technické podklady RED V3",
+    "en": "RED V3 assembly and technical references"
+  },
+  "edu.pet.title": {
+    "cs": "Zvířátko na displeji · pro učitele",
+    "en": "Animal on the display · teacher guide"
+  },
+  "edu.pet.body": {
+    "cs": "Příprava sestavené desky, ověření funkce a samostatný odkaz pro žáky.",
+    "en": "Prepare the assembled board, verify its behaviour and find the separate student guide."
+  },
+  "teachers.studentRoute": {
+    "cs": "Návody pro žáky",
+    "en": "Student guides"
+  },
+  "teachers.petRoute": {
+    "cs": "Zvířátko: příprava pro učitele",
+    "en": "Animal: teacher preparation"
   }
 }
