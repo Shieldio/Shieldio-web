@@ -19,6 +19,7 @@ test('AVR GCC compiles RED peripherals and example projects, and rejects invalid
   try {
     const { buildFirmware, SENSOR } = await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
     const programs = {
+      Experience: await fs.readFile(new URL("../assets/code/experience/experience.ino", import.meta.url), "utf8"),
       LED: 'void setup(){pinMode(5,OUTPUT);} void loop(){digitalWrite(5,HIGH);delay(500);digitalWrite(5,LOW);delay(500);}',
       servo: '#include <Servo.h>\nServo s; void setup(){s.attach(9);} void loop(){s.write(90);}',
       OLED: '#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>\nAdafruit_SSD1306 d(128,64,&Wire,-1); void setup(){d.begin(SSD1306_SWITCHCAPVCC,0x3C);} void loop(){d.clearDisplay();d.print("RED");d.display();}',

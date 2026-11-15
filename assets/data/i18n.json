@@ -6260,5 +6260,10 @@
     "en": "Have a RED? Start here <span aria-hidden=\"true\">↗</span>"
   },
   "programming.functionMap": {"cs": "Funkce", "en": "Functions"},
-  "programming.functionMapLabel": {"cs": "Přejít na definici funkce", "en": "Go to function definition"}
+  "programming.functionMapLabel": {"cs": "Přejít na definici funkce", "en": "Go to function definition"},
+"programming.programs": {"cs": "Programy", "en": "Programs"},
+"programming.exampleMeter": {"cs": "Digitální metr", "en": "Distance meter"},
+"programming.exampleRadar": {"cs": "Ultrazvukový radar", "en": "Ultrasonic radar"},
+"programming.exampleAnimal": {"cs": "Zvířátko", "en": "Pet"},
+"programming.exampleSerial": {"cs": "Sériová linka", "en": "Serial communication"}
 }

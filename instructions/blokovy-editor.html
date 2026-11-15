@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://shieldio.cz/instructions/blokovy-editor.html">
 
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261115-functions">
+<link rel="stylesheet" href="../assets/css/arduino-programming.css?v=20261115-compact">
 
 <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
@@ -162,6 +162,13 @@
     </div>
     <div id="arduinoCodePanel" role="tabpanel" aria-labelledby="codeTab" hidden>
       <div class="programming-code-tools">
+        <details class="programming-programs"><summary data-i18n="programming.programs">Programy</summary><div class="programming-program-list">
+        <a href="?example=experience">RED Experience V9</a>
+        <a href="?example=digitalni_metr" data-i18n="programming.exampleMeter">Digitální metr</a>
+        <a href="?example=ultrazvukovy_radar" data-i18n="programming.exampleRadar">Ultrazvukový radar</a>
+        <a href="?example=zviratko" data-i18n="programming.exampleAnimal">Zvířátko</a>
+        <a href="?example=seriova_linka" data-i18n="programming.exampleSerial">Sériová linka</a>
+        </div></details>
         <label class="programming-function-label" for="sourceFunctionMap" data-i18n="programming.functionMap">Funkce</label>
         <select id="sourceFunctionMap" aria-label="Přejít na definici funkce" data-i18n-aria-label="programming.functionMapLabel"><option value="">Přejít na funkci…</option></select>
         <button type="button" id="formatSourceBtn" class="blockly-toggle-code" data-i18n="programming.formatCode" title="Ctrl/⌘ + Shift + F">Zarovnat kód</button>
@@ -279,7 +286,7 @@
 <script src="../assets/js/shieldio-blocks.js?v=20261113-friendly2"></script>
 <script src="../assets/js/block-project-validation.js?v=20261113-friendly2"></script>
 <script src="../assets/js/blockly-editor.js?v=20261113-friendly2"></script>
-<script type="module" src="../assets/js/arduino-programming.mjs?v=20261115-functions"></script>
+<script type="module" src="../assets/js/arduino-programming.mjs?v=20261115-compact"></script>
 <script src="../assets/js/animations.js"></script>
 <script src="../assets/js/navbar.js"></script>
 <script src="../assets/js/theme.js?v=20261104-interactions1"></script>

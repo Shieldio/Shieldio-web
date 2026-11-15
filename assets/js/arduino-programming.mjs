@@ -93,7 +93,7 @@ const serialPlotter = new SerialPlotter();
 let plotPaused = false, plotTimer = null;
 let lastCompile = null, failedBuild = null, errorLine = null, renderedLineCount = 0;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
-const exampleFiles = {seriova_linka:"/assets/code/seriova_linka/seriova_linka.ino",zviratko:"/assets/code/zviratko/zviratko.ino",digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
+const exampleFiles = {experience:"/assets/code/experience/experience.ino",seriova_linka:"/assets/code/seriova_linka/seriova_linka.ino",zviratko:"/assets/code/zviratko/zviratko.ino",digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
 const entryParams = new URLSearchParams(window.location?.search || "");
 const requestedExample = entryParams.get("example");
 const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExample : null;
