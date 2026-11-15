@@ -338,3 +338,24 @@ console.log('Mode and board UI: target payload, Uno memory, cache invalidation, 
  assert.equal(m.get('programmingStudio').dataset.tools,'open');
  assert.equal(m.get('projectTitle').textContent,'Vyzkoušej sériovou linku.');
 }
+
+{
+  const sketch = 'void setup() {}\n' + '\n'.repeat(25) + 'int helper(int n) { return n; }\nvoid loop() {}';
+  const m = model({savedSource: sketch});
+  m.get('codeTab').click();
+  const map = m.get('sourceFunctionMap'), input = m.get('arduinoSource');
+  assert.equal(map.options.length, 4);
+  map.value = String(sketch.indexOf('helper'));
+  map.listeners.change();
+  assert.equal(input.selectionStart, sketch.indexOf('helper'));
+  assert.equal(input.selectionEnd, sketch.indexOf('helper') + 6);
+  assert.ok(input.scrollTop > 0);
+  assert.equal(m.get('sourceLineNumbers').scrollTop, input.scrollTop);
+  assert.equal(input.value, sketch, 'Navigation preserves source');
+  input.value = 'void renamed() {}'; input.dispatchEvent(new Event('input'));
+  assert.equal(map.options.length, 2);
+  assert.match(map.options[1].textContent, /renamed/);
+  input.value = '// no functions'; input.dispatchEvent(new Event('input'));
+  assert.equal(map.disabled, true);
+}
+console.log('Function map UI: source refresh, selection, scrolling, empty state and source preservation passed.');

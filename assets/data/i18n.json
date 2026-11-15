@@ -6258,5 +6258,7 @@
   "welcome.entry": {
     "cs": "Máte RED? Začněte tady <span aria-hidden=\"true\">↗</span>",
     "en": "Have a RED? Start here <span aria-hidden=\"true\">↗</span>"
-  }
+  },
+  "programming.functionMap": {"cs": "Funkce", "en": "Functions"},
+  "programming.functionMapLabel": {"cs": "Přejít na definici funkce", "en": "Go to function definition"}
 }

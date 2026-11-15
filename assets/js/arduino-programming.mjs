@@ -1,7 +1,7 @@
 import { SerialMonitor } from "./arduino-serial-monitor.mjs?v=20261113-friendly2";
 import { SerialPlotter, drawSerialPlot, PLOT_COLORS } from "./arduino-serial-plotter.mjs?v=20261110-plot1";
 import { importLibrary, validateLibraries } from "./arduino-libraries.mjs";
-import { codeKeyEdit, formatIndentation, toggleLineComment } from "./arduino-source-editor.mjs?v=20261103-assist2";
+import { codeKeyEdit, formatIndentation, toggleLineComment, listFunctions } from "./arduino-source-editor.mjs?v=20261115-functions";
 import { parseCompilerDiagnostics, describeDiagnostic, applyDiagnosticFix } from "./arduino-diagnostics.mjs?v=20261104-status1";
 import { flashArduino, NANO_FLASH_BYTES, UNO_FLASH_BYTES, parseHex } from "./arduino-flasher.mjs?v=20261113-friendly2";
 
@@ -480,7 +480,43 @@ for (const id of ["blocksTab", "codeTab"]) $(id).addEventListener("keydown", eve
   switchMode(next); $(next === "blocks" ? "blocksTab" : "codeTab").focus();
 });
 try { sourceInput.value = localStorage.getItem(sourceStorageKey) || ""; } catch {}
+let outlinedSource = null;
+let sourceFunctions = [];
+function updateFunctionMap() {
+  const map = $("sourceFunctionMap");
+  if (outlinedSource !== sourceInput.value) {
+    outlinedSource = sourceInput.value;
+    sourceFunctions = listFunctions(outlinedSource);
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    map.replaceChildren(placeholder, ...sourceFunctions.map(fn => {
+      const option = document.createElement("option");
+      option.value = String(fn.start);
+      option.textContent = `${fn.name}() · ${fn.line}`;
+      return option;
+    }));
+  }
+  map.options[0].textContent = sourceFunctions.length
+    ? (document.documentElement.lang === "en" ? "Go to function…" : "Přejít na funkci…")
+    : (document.documentElement.lang === "en" ? "No function definitions" : "Žádné definice funkcí");
+  map.disabled = !sourceFunctions.length;
+}
+$("sourceFunctionMap").addEventListener("change", () => {
+  const map = $("sourceFunctionMap");
+  if (map.value === "") return;
+  const fn = sourceFunctions.find(item => String(item.start) === map.value);
+  if (!fn) return;
+  sourceInput.focus();
+  sourceInput.setSelectionRange(fn.start, fn.start + fn.name.length);
+  const height = parseFloat(window.getComputedStyle?.(sourceInput)?.lineHeight) || 22.1;
+  sourceInput.scrollTop = Math.max(0, (fn.line - 3) * height);
+  sourceInput.scrollLeft = 0;
+  $("sourceLineNumbers").scrollTop = sourceInput.scrollTop;
+  map.value = "";
+  updateSourcePosition();
+});
 function updateSourcePosition() {
+  updateFunctionMap();
   const lines = sourceInput.value.split("\n");
   if (renderedLineCount !== lines.length) {
     $("sourceLineNumbers").replaceChildren(...lines.map((_, i) => {

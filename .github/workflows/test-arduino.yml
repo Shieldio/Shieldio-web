@@ -155,6 +155,7 @@ jobs:
       - run: node tests/arduino-serial-plotter.test.mjs
       - run: node tests/arduino-programming-ui.test.mjs
       - run: node tests/arduino-editor-assist.test.mjs
+      - run: node tests/arduino-function-map.test.mjs
       - run: node tests/esp32-studio.test.mjs
       - run: python3 -m unittest discover -s services/esp32-compiler -p 'test_*.py'
       - run: node tests/arduino-libraries.test.mjs

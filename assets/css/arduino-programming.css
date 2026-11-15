@@ -329,3 +329,15 @@
 .programming-page .blocklyTextInputField > .blocklyFieldRect { rx: 12px; ry: 12px; }
 .programming-page .blocklyHtmlInput { border-radius: 12px; }
 .programming-plot-frame canvas { max-height: 280px; }
+
+/* Give the textarea the full flex panel height, including in short viewports. */
+.programming-page .programming-source-wrap { min-height: 360px; }
+.programming-page .programming-source { height: auto; align-self: stretch; box-sizing: border-box; }
+.programming-page .programming-studio #arduinoCodePanel { min-height: 430px; }
+.programming-code-tools { flex: 0 0 auto; flex-wrap: wrap; }
+.programming-function-label { font-size: 12px; color: var(--ink-soft); }
+.programming-code-tools #sourceFunctionMap { width: auto; max-width: min(320px, 100%); min-width: 150px; margin-right: auto; padding: 4px 8px; min-height: 28px; font-size: 12px; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; }
+@media (max-width: 700px) {
+  .programming-page .programming-studio #arduinoCodePanel { flex: 1 0 470px; }
+  .programming-page.programming-focus .programming-studio #arduinoCodePanel { flex: 1 0 430px; }
+}

@@ -145,3 +145,26 @@ export function toggleLineComment(text, start, end) {
   }).join('\n');
   return { text: text.slice(0, first) + edited + text.slice(last), start: first, end: first + edited.length };
 }
+
+// A lightweight outline for sketch functions, not a full C++ parser. Masked
+// literals and balanced parameters keep comments, prototypes and calls out.
+export function listFunctions(text) {
+  const masked = scanCpp(text).masked.replace(/^[ \t]*#(?:[^\n]*\\\n)*[^\n]*/gm, match => match.replace(/[^\n]/g, ' '));
+  const signature = /(?:^|[;{}])\s*((?:[A-Za-z_]\w*(?:::\w+)*(?:\s*<[^;{}()]*>)?[\s*&]+)+)([A-Za-z_]\w*(?:::\w+)*)\s*\(/g;
+  const functions = [];
+  let match;
+  while ((match = signature.exec(masked))) {
+    if (/\b(?:return|new|delete|else|if|while|for|switch|case|throw|typedef|using)\b/.test(match[1])) continue;
+    let end = signature.lastIndex, depth = 1;
+    for (; end < masked.length && depth; end++) {
+      if (masked[end] === '(') depth++;
+      else if (masked[end] === ')') depth--;
+    }
+    if (depth) continue;
+    const tail = masked.slice(end).match(/^\s*(?:(?:const|override|final)\s*|noexcept(?:\s*\([^()]*\))?\s*)*(?:->\s*[\w:<>,*& \t]+\s*)?\{/);
+    if (!tail) continue;
+    const start = signature.lastIndex - 1 - masked.slice(match.index, signature.lastIndex - 1).match(/\s*$/)[0].length - match[2].length;
+    functions.push({ name: match[2], start, line: text.slice(0, start).split('\n').length });
+  }
+  return functions;
+}
