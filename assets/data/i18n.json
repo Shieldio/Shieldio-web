@@ -6265,5 +6265,173 @@
 "programming.exampleMeter": {"cs": "Digitální metr", "en": "Distance meter"},
 "programming.exampleRadar": {"cs": "Ultrazvukový radar", "en": "Ultrasonic radar"},
 "programming.exampleAnimal": {"cs": "Zvířátko", "en": "Pet"},
-"programming.exampleSerial": {"cs": "Sériová linka", "en": "Serial communication"}
+"programming.exampleSerial": {"cs": "Sériová linka", "en": "Serial communication"},
+  "v4.label": {
+    "cs": "RED V4 · zapojení",
+    "en": "RED V4 · wiring"
+  },
+  "v4.heading": {
+    "cs": "RED V4: přehled pinů",
+    "en": "RED V4: pin reference"
+  },
+  "v4.lead": {
+    "cs": "Piny Arduina a moduly na sestavené desce. Tento přehled platí pro RED V4.",
+    "en": "Arduino pins and modules on the assembled board. This reference applies to RED V4."
+  },
+  "v4.pins": {
+    "cs": "Digitální piny",
+    "en": "Digital pins"
+  },
+  "v4.pin": {
+    "cs": "Pin Arduina",
+    "en": "Arduino pin"
+  },
+  "v4.module": {
+    "cs": "Součástka / signál",
+    "en": "Component / signal"
+  },
+  "v4.D5": {
+    "cs": "Červená LED",
+    "en": "Red LED"
+  },
+  "v4.D6": {
+    "cs": "Zelená LED",
+    "en": "Green LED"
+  },
+  "v4.D7": {
+    "cs": "TRIG · ultrazvukový senzor",
+    "en": "TRIG · ultrasonic sensor"
+  },
+  "v4.D8": {
+    "cs": "ECHO · ultrazvukový senzor",
+    "en": "ECHO · ultrasonic sensor"
+  },
+  "v4.D9": {
+    "cs": "Servo · řídicí signál",
+    "en": "Servo · control signal"
+  },
+  "v4.D10": {
+    "cs": "Buzzer · různé tóny pomocí tone()",
+    "en": "Buzzer · different tones with tone()"
+  },
+  "v4.D11": {
+    "cs": "Tlačítko 1 · při stisku HIGH",
+    "en": "Button 1 · HIGH when pressed"
+  },
+  "v4.D12": {
+    "cs": "Tlačítko 2 · při stisku HIGH",
+    "en": "Button 2 · HIGH when pressed"
+  },
+  "v4.buttons": {
+    "cs": "Tlačítka na této V4 čti jako <code>HIGH</code> při stisku a <code>LOW</code> v klidu. Použij <code>pinMode(11, INPUT)</code> a <code>pinMode(12, INPUT)</code>.",
+    "en": "Read buttons on this V4 as <code>HIGH</code> when pressed and <code>LOW</code> when released. Use <code>pinMode(11, INPUT)</code> and <code>pinMode(12, INPUT)</code>."
+  },
+  "v4.oled": {
+    "cs": "OLED přes I²C",
+    "en": "OLED over I²C"
+  },
+  "v4.oledText": {
+    "cs": "OLED SSD1306 má rozlišení 128 × 64 a adresu <code>0x3C</code>. Na klasickém Nano je SDA na <code>A4</code> a SCL na <code>A5</code>. Zapojení a knihovna vycházejí z existujících projektů <a href=\"/edu/zviratko/\">Zvířátko</a> a <a href=\"/assets/code/digitalni_metr/digitalni_metr.ino\">Digitální metr</a>.",
+    "en": "The SSD1306 OLED is 128 × 64 at address <code>0x3C</code>. On a classic Nano, SDA is <code>A4</code> and SCL is <code>A5</code>. Wiring and library are based on the existing <a href=\"/edu/zviratko/\">Animal display</a> and <a href=\"/assets/code/digitalni_metr/digitalni_metr.ino\">Digital ruler</a> projects."
+  },
+  "v4.power": {
+    "cs": "Před manipulací odpoj napájení. GND/VCC ověř podle popisků svého OLED; pořadí vývodů různých modulů se může lišit.",
+    "en": "Disconnect power before handling the board. Check GND/VCC against your OLED labels; pin order may vary between modules."
+  },
+  "v4.revision": {
+    "cs": "Toto je programovací přehled V4, nikoli osazovací návod. Starší <a href=\"../prehled/\">BOM a fotonávod RED V3</a> zůstávají označené V3.",
+    "en": "This is a programming reference for V4, not an assembly guide. The older <a href=\"../prehled/\">RED V3 BOM and photo guide</a> remain labelled V3."
+  },
+  "v4.quiz": {
+    "cs": "Vyzkoušet Zeměpisný kvíz →",
+    "en": "Try the Geography quiz →"
+  },
+  "v4.title": {
+    "cs": "RED V4: přehled pinů | Shieldio",
+    "en": "RED V4 pin reference | Shieldio"
+  },
+  "quiz.label": {
+    "cs": "RED V4 · Arduino C++ · zeměpis",
+    "en": "RED V4 · Arduino C++ · geography"
+  },
+  "quiz.heading": {
+    "cs": "Zeměpisný kvíz",
+    "en": "Geography quiz"
+  },
+  "quiz.lead": {
+    "cs": "20 otázek, dvě možnosti a tvoje skóre na OLED. Tlačítko 1 vybírá A, tlačítko 2 vybírá B.",
+    "en": "20 questions, two choices and your score on the OLED. Button 1 chooses A; button 2 chooses B."
+  },
+  "quiz.hardware": {
+    "cs": "Použij sestavenou RED V4 s OLED SSD1306 128 × 64 (0x3C, SDA A4, SCL A5) a tlačítky D11/D12: <b>stisk = HIGH</b>. <a href=\"../v4/\">Přehled pinů V4 →</a>",
+    "en": "Use an assembled RED V4 with an SSD1306 128 × 64 OLED (0x3C, SDA A4, SCL A5) and D11/D12 buttons: <b>pressed = HIGH</b>. <a href=\"../v4/\">V4 pin reference →</a>"
+  },
+  "quiz.start": {
+    "cs": "1. Nahraj připravený program",
+    "en": "1. Upload the program"
+  },
+  "quiz.upload": {
+    "cs": "Připoj desku datovým USB kabelem. Na počítači v Chrome nebo Edge otevři Arduino projekt a zvol <b>Spustit na desce</b>. Webový editor přidá knihovnu ShieldioDisplay 0.3.0 automaticky.",
+    "en": "Connect the board with a USB data cable. In desktop Chrome or Edge, open the Arduino project and choose <b>Run on board</b>. The web editor adds ShieldioDisplay 0.3.0 automatically."
+  },
+  "quiz.open": {
+    "cs": "Otevřít Arduino projekt",
+    "en": "Open Arduino project"
+  },
+  "quiz.download": {
+    "cs": "Stáhnout projekt pro Arduino IDE (.zip)",
+    "en": "Download Arduino IDE project (.zip)"
+  },
+  "quiz.ide": {
+    "cs": "V Arduino IDE rozbal ZIP a otevři <code>zemepisny_kviz/zemepisny_kviz.ino</code>. Nainstaluj <a href=\"https://github.com/Shieldio/ShieldioDisplay\">ShieldioDisplay</a> 0.3.0 a vyber Arduino Nano (ATmega328P). Program používá pouze OLED a dvě tlačítka. Text na OLED je česky bez diakritiky, protože knihovna vykresluje ASCII.",
+    "en": "In Arduino IDE, extract the ZIP and open <code>zemepisny_kviz/zemepisny_kviz.ino</code>. Install <a href=\"https://github.com/Shieldio/ShieldioDisplay\">ShieldioDisplay</a> 0.3.0 and select Arduino Nano (ATmega328P). The program uses only the OLED and two buttons. OLED text is Czech without diacritics because the library renders ASCII."
+  },
+  "quiz.play": {
+    "cs": "2. Odpovídej a sleduj skóre",
+    "en": "2. Answer and track your score"
+  },
+  "quiz.steps": {
+    "cs": "<li>Nahoře vidíš číslo otázky a průběžné skóre z 20 bodů. D11 = A, D12 = B.</li><li>Po odpovědi se ukáže správná možnost a aktualizované skóre. Uvolni tlačítko a dalším stiskem kteréhokoli pokračuj.</li><li>Po 20. odpovědi pokračuj na finální výsledek s procenty. Dalším stiskem kteréhokoli tlačítka začneš znovu od nuly.</li><li>Držení se počítá jen jednou. Stisk obou tlačítek program ignoruje; obě uvolni a vyber jednu možnost.</li>",
+    "en": "<li>The top shows the question number and current score out of 20. D11 = A, D12 = B.</li><li>After answering, the correct choice and updated score appear. Release the button and press either button again to continue.</li><li>After answer 20, continue to the final result with a percentage. Press either button again to restart from zero.</li><li>Holding a button counts once. Pressing both buttons is ignored; release both and choose one answer.</li>"
+  },
+  "quiz.change": {
+    "cs": "3. Propoj zeměpis a programování",
+    "en": "3. Connect geography and programming"
+  },
+  "quiz.task": {
+    "cs": "Před spuštěním si odpovědi odhadni. Chybné odpovědi ověř v atlasu a vysvětli spolužákovi. Potom v poli <code>questions</code> nahraď jednu otázku vlastní: každý řádek otázky smí mít 16 znaků, odpověď 14 znaků a správná možnost je <code>1</code> (A) nebo <code>2</code> (B). Znovu sestav program a porovnej výsledek.",
+    "en": "Predict your answers first. Check incorrect answers in an atlas and explain them to a classmate. Then replace one question in the <code>questions</code> array with your own: each question line allows 16 characters, each answer 14, and the correct choice is <code>1</code> (A) or <code>2</code> (B). Compile again and compare the result."
+  },
+  "quiz.check": {
+    "cs": "Kontrola na desce",
+    "en": "Board check"
+  },
+  "quiz.checkText": {
+    "cs": "Ověř A i B, delší držení, současný stisk, průchod všech 20 otázek a restart. Prázdný displej: zkontroluj jeho popisky, adresu 0x3C a SDA/A4, SCL/A5. Tlačítka: ověř D11/D12 a stisk HIGH. Kompilace sama nepotvrzuje funkci na fyzické desce. S nahráváním pomůže <a href=\"/instructions/programovani/\">návod na první spuštění</a>.",
+    "en": "Test A and B, holding a button, simultaneous presses, all 20 questions and restart. Blank display: check its labels, address 0x3C, SDA/A4 and SCL/A5. Buttons: check D11/D12 and HIGH when pressed. Compilation alone does not verify physical board operation. See the <a href=\"/instructions/programovani/\">first-run guide</a> for upload help."
+  },
+  "quiz.title": {
+    "cs": "Zeměpisný kvíz pro RED | Shieldio",
+    "en": "Geography quiz for RED | Shieldio"
+  },
+  "quiz.card": {
+    "cs": "20 otázek na OLED, možnosti A/B a skóre. Připravený Arduino program pro RED V4 s tlačítky D11/D12.",
+    "en": "20 OLED questions, A/B choices and a score. A ready Arduino program for RED V4 with D11/D12 buttons."
+  },
+  "quiz.action": {
+    "cs": "Spustit zeměpisný kvíz →",
+    "en": "Start the geography quiz →"
+  },
+  "v4.link": {
+    "cs": "<a href=\"/instructions/baseline/red/v4/\">RED V4: přehled pinů a OLED →</a>",
+    "en": "<a href=\"/instructions/baseline/red/v4/\">RED V4: pins and OLED reference →</a>"
+  },
+  "v4.fromV3": {
+    "cs": "Máš RED V4? Otevři <a href=\"../v4/\">samostatný přehled pinů V4</a>. Níže uvedené osazení je pro V3.",
+    "en": "Using RED V4? Open the <a href=\"../v4/\">separate V4 pin reference</a>. The assembly information below is for V3."
+  },
+  "programming.exampleQuiz": {
+    "cs": "Zeměpisný kvíz",
+    "en": "Geography quiz"
+  }
 }

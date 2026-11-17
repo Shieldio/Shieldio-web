@@ -93,7 +93,7 @@ const serialPlotter = new SerialPlotter();
 let plotPaused = false, plotTimer = null;
 let lastCompile = null, failedBuild = null, errorLine = null, renderedLineCount = 0;
 const sourceInput = $("arduinoSource"), blocksPanel = $("blocksPanel"), codePanel = $("arduinoCodePanel");
-const exampleFiles = {experience:"/assets/code/experience/experience.ino",seriova_linka:"/assets/code/seriova_linka/seriova_linka.ino",zviratko:"/assets/code/zviratko/zviratko.ino",digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
+const exampleFiles = {zemepisny_kviz:"/assets/code/zemepisny_kviz/zemepisny_kviz.ino",experience:"/assets/code/experience/experience.ino",seriova_linka:"/assets/code/seriova_linka/seriova_linka.ino",zviratko:"/assets/code/zviratko/zviratko.ino",digitalni_metr:"/assets/code/digitalni_metr/digitalni_metr.ino",ultrazvukovy_radar:"/assets/code/ultrazvukovy_radar/ultrazvukovy_radar.ino"};
 const entryParams = new URLSearchParams(window.location?.search || "");
 const requestedExample = entryParams.get("example");
 const exampleId = Object.hasOwn(exampleFiles,requestedExample) ? requestedExample : null;
@@ -275,6 +275,11 @@ document.addEventListener("click", event => {
 });
 
 const projectCopy = {
+  zemepisny_kviz: {
+    title: ["Zeměpisný kvíz: 20 otázek.", "Geography quiz: 20 questions."],
+    expected: ["D11 = A, D12 = B; stisk je HIGH. Po odpovědi uvolni tlačítko a novým stiskem pokračuj. Po výsledku restartuj kterýmkoli tlačítkem.", "D11 = A, D12 = B; pressed is HIGH. Release after answering and press again to continue. After the result, either button restarts."],
+    change: ["Nahraď jednu otázku vlastní. OLED: 16 znaků na řádek, odpověď nejvýš 14 znaků, bez diakritiky.", "Replace a question with your own. OLED: 16 characters per line, answers up to 14 characters, ASCII only."]
+  },
   seriova_linka: {
     title: ["Vyzkoušej sériovou linku.", "Try the serial connection."],
     expected: ["Rozbal Sériový monitor a spusť příjem na 9600 baud. Pošli 1 nebo 0 pro vestavěnou LED; plotter zobrazí A0.", "Open Serial monitor and start receiving at 9600 baud. Send 1 or 0 for the built-in LED; the plotter shows A0."],

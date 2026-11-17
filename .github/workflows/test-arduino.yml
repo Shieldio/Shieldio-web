@@ -55,6 +55,8 @@ on:
       - 'assets/js/block-project-validation.js'
       - 'tests/block-project-validation.test.mjs'
       - 'assets/arduino/**'
+      - 'assets/code/**'
+      - 'tests/zemepisny-kviz.test.py'
       - 'assets/css/arduino-programming.css'
       - 'tests/arduino-*.mjs'
       - 'instructions/blokovy-editor.html'
@@ -113,6 +115,8 @@ on:
       - 'assets/js/block-project-validation.js'
       - 'tests/block-project-validation.test.mjs'
       - 'assets/arduino/**'
+      - 'assets/code/**'
+      - 'tests/zemepisny-kviz.test.py'
       - 'assets/css/arduino-programming.css'
       - 'tests/arduino-*.mjs'
       - 'instructions/blokovy-editor.html'
@@ -143,6 +147,7 @@ jobs:
       - run: node --test tests/block-project-validation.test.mjs
       - run: node --test tests/site-ai-discovery.test.mjs
       - run: python3 tests/site-content.test.py
+      - run: python3 tests/zemepisny-kviz.test.py
       - run: python3 tests/legal-guardrails.py
       - run: node tests/site-search.test.mjs
       - run: node --check assets/js/guide-engine.js

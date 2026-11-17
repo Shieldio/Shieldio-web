@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zeměpisný kvíz pro RED | Shieldio</title>
+<meta name="description" content="Arduino kvíz pro RED V4: 20 zeměpisných otázek, OLED, volby A/B, skóre a restart.">
+<link rel="canonical" href="https://shieldio.cz/instructions/baseline/red/zemepisny-kviz/">
+
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shieldio.cz/instructions/baseline/red/zemepisny-kviz/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="Zeměpisný kvíz pro RED | Shieldio">
+<meta property="og:description" content="Arduino kvíz pro RED V4: 20 zeměpisných otázek, OLED, volby A/B, skóre a restart.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zeměpisný kvíz pro RED | Shieldio">
+<meta name="twitter:description" content="Arduino kvíz pro RED V4: 20 zeměpisných otázek, OLED, volby A/B, skóre a restart.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+<link rel="stylesheet" href="/assets/css/guide-reference.css?v=20261102">
+</head>
+
+<body data-i18n-title="quiz.title">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="/index.html"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="/products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="/instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="/company/pro-ucitele.html" data-i18n="nav.teachers">Pro učitele</a>
+        <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="/instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
+      </nav>
+      <a class="cta-small" href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <button class="nav-toggle" type="button" aria-label="Otevřít menu" data-i18n-aria-label="nav.menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="red-reference wrap"><a class="guide-back-link" href="../index.html" data-i18n="pet.student.back">← Projekty pro žáky</a><header><span data-i18n="quiz.label" class="eyebrow">RED V4 · Arduino C++ · zeměpis</span><h1 data-i18n="quiz.heading">Zeměpisný kvíz</h1><p data-i18n="quiz.lead" class="lead">20 otázek, dvě možnosti a tvoje skóre na OLED. Tlačítko 1 vybírá A, tlačítko 2 vybírá B.</p></header><aside class="reference-note"><p data-i18n="quiz.hardware">Použij sestavenou RED V4 s OLED SSD1306 128 × 64 (0x3C, SDA A4, SCL A5) a tlačítky D11/D12: <b>stisk = HIGH</b>. <a href="../v4/">Přehled pinů V4 →</a></p></aside><section class="reference-section"><h2 data-i18n="quiz.start">1. Nahraj připravený program</h2><p data-i18n="quiz.upload">Připoj desku datovým USB kabelem. Na počítači v Chrome nebo Edge otevři Arduino projekt a zvol <b>Spustit na desce</b>. Webový editor přidá knihovnu ShieldioDisplay 0.3.0 automaticky.</p><div class="reference-actions"><a data-i18n="quiz.open" class="btn btn-primary" href="/instructions/blokovy-editor.html?example=zemepisny_kviz">Otevřít Arduino projekt</a><a data-i18n="quiz.download" class="btn btn-ghost" href="/assets/code/zemepisny_kviz.zip" download>Stáhnout projekt pro Arduino IDE (.zip)</a></div><p data-i18n="quiz.ide">V Arduino IDE rozbal ZIP a otevři <code>zemepisny_kviz/zemepisny_kviz.ino</code>. Nainstaluj <a href="https://github.com/Shieldio/ShieldioDisplay">ShieldioDisplay</a> 0.3.0 a vyber Arduino Nano (ATmega328P). Program používá pouze OLED a dvě tlačítka. Text na OLED je česky bez diakritiky, protože knihovna vykresluje ASCII.</p></section><section class="reference-section"><h2 data-i18n="quiz.play">2. Odpovídej a sleduj skóre</h2><ol data-i18n="quiz.steps"><li>Nahoře vidíš číslo otázky a průběžné skóre z 20 bodů. D11 = A, D12 = B.</li><li>Po odpovědi se ukáže správná možnost a aktualizované skóre. Uvolni tlačítko a dalším stiskem kteréhokoli pokračuj.</li><li>Po 20. odpovědi pokračuj na finální výsledek s procenty. Dalším stiskem kteréhokoli tlačítka začneš znovu od nuly.</li><li>Držení se počítá jen jednou. Stisk obou tlačítek program ignoruje; obě uvolni a vyber jednu možnost.</li></ol></section><section class="reference-section"><h2 data-i18n="quiz.change">3. Propoj zeměpis a programování</h2><p data-i18n="quiz.task">Před spuštěním si odpovědi odhadni. Chybné odpovědi ověř v atlasu a vysvětli spolužákovi. Potom v poli <code>questions</code> nahraď jednu otázku vlastní: každý řádek otázky smí mít 16 znaků, odpověď 14 znaků a správná možnost je <code>1</code> (A) nebo <code>2</code> (B). Znovu sestav program a porovnej výsledek.</p></section><section class="reference-section"><h2 data-i18n="quiz.check">Kontrola na desce</h2><p data-i18n="quiz.checkText">Ověř A i B, delší držení, současný stisk, průchod všech 20 otázek a restart. Prázdný displej: zkontroluj jeho popisky, adresu 0x3C a SDA/A4, SCL/A5. Tlačítka: ověř D11/D12 a stisk HIGH. Kompilace sama nepotvrzuje funkci na fyzické desce. S nahráváním pomůže <a href="/instructions/programovani/">návod na první spuštění</a>.</p></section><details class="reference-code"><summary data-i18n="project.showcode">Zobrazit celý program</summary><pre><code>// Shieldio RED V4: SSD1306 128x64, I2C 0x3C, SDA=A4, SCL=A5.
+// ShieldioDisplay 0.3.0. D11/D12: pressed=HIGH (confirmed for V4).
+// Use INPUT, not INPUT_PULLUP. No LED, servo, buzzer or sensor is used.
+#include &lt;ShieldioDisplay.h&gt;
+#include &lt;avr/pgmspace.h&gt;
+#include &lt;stdio.h&gt;
+
+const uint8_t BUTTON_A = 11;
+const uint8_t BUTTON_B = 12;
+const unsigned long DEBOUNCE_MS = 35;
+ShieldioDisplay display(0x3C);
+
+// Each line fits the display&#x27;s 16 ASCII columns. Text lives in flash.
+struct Question {
+  char line1[17];
+  char line2[17];
+  char a[15];
+  char b[15];
+  uint8_t correct; // 1 = A, 2 = B
+};
+const Question questions[] PROGMEM = {
+  {&quot;Hlavni mesto&quot;, &quot;Francie?&quot;, &quot;Pariz&quot;, &quot;Rim&quot;, 1},
+  {&quot;Nejvetsi ocean&quot;, &quot;na Zemi?&quot;, &quot;Atlantsky&quot;, &quot;Tichy&quot;, 2},
+  {&quot;Ve ktere zemi&quot;, &quot;lezi Rim?&quot;, &quot;Italie&quot;, &quot;Spanelsko&quot;, 1},
+  {&quot;Na kterem&quot;, &quot;svetadilu je CR?&quot;, &quot;Asie&quot;, &quot;Evropa&quot;, 2},
+  {&quot;Nejvyssi hora&quot;, &quot;sveta?&quot;, &quot;Mont Blanc&quot;, &quot;Mount Everest&quot;, 2},
+  {&quot;Hlavni mesto&quot;, &quot;Slovenska?&quot;, &quot;Bratislava&quot;, &quot;Kosice&quot;, 1},
+  {&quot;Sahara lezi&quot;, &quot;na svetadilu?&quot;, &quot;Australie&quot;, &quot;Afrika&quot;, 2},
+  {&quot;Ktera reka tece&quot;, &quot;Prahou?&quot;, &quot;Vltava&quot;, &quot;Dunaj&quot;, 1},
+  {&quot;Japonsko lezi&quot;, &quot;na svetadilu?&quot;, &quot;Asie&quot;, &quot;Evropa&quot;, 1},
+  {&quot;Hlavni mesto&quot;, &quot;Nemecka?&quot;, &quot;Mnichov&quot;, &quot;Berlin&quot;, 2},
+  {&quot;Nejvetsi stat&quot;, &quot;podle rozlohy?&quot;, &quot;Rusko&quot;, &quot;Kanada&quot;, 1},
+  {&quot;Kde zije tucnak&quot;, &quot;cisarsky?&quot;, &quot;Arktida&quot;, &quot;Antarktida&quot;, 2},
+  {&quot;Hlavni mesto&quot;, &quot;Australie?&quot;, &quot;Canberra&quot;, &quot;Sydney&quot;, 1},
+  {&quot;Ktery stat ma&quot;, &quot;tvar boty?&quot;, &quot;Norsko&quot;, &quot;Italie&quot;, 2},
+  {&quot;Nejvyssi hora&quot;, &quot;Ceska?&quot;, &quot;Snezka&quot;, &quot;Praded&quot;, 1},
+  {&quot;Ktera zeme lezi&quot;, &quot;v Jizni Americe?&quot;, &quot;Indie&quot;, &quot;Brazilie&quot;, 2},
+  {&quot;Hlavni mesto&quot;, &quot;Velke Britanie?&quot;, &quot;Londyn&quot;, &quot;Dublin&quot;, 1},
+  {&quot;More mezi&quot;, &quot;Evropou/Afrikou?&quot;, &quot;Stredozemni&quot;, &quot;Karibske&quot;, 1},
+  {&quot;Hlavni mesto&quot;, &quot;Egypta?&quot;, &quot;Alexandrie&quot;, &quot;Kahira&quot;, 2},
+  {&quot;Ktery stat je&quot;, &quot;sousedem Ceska?&quot;, &quot;Francie&quot;, &quot;Polsko&quot;, 2}
+};
+const uint8_t QUESTION_COUNT = sizeof(questions) / sizeof(questions[0]);
+Question current;
+enum Screen : uint8_t { ASK, FEEDBACK, RESULT };
+Screen screen = ASK;
+uint8_t questionIndex = 0, score = 0;
+uint8_t rawButtons = 0, stableButtons = 0;
+unsigned long changedAt = 0;
+bool armed = false;
+
+uint8_t readButtons() {
+  return (digitalRead(BUTTON_A) == HIGH ? 1 : 0) |
+         (digitalRead(BUTTON_B) == HIGH ? 2 : 0);
+}
+
+// One event per press; both buttons together are ignored until both release.
+// An initial held button also requires release before the first answer.
+uint8_t buttonEvent() {
+  uint8_t next = readButtons();
+  unsigned long now = millis();
+  if (next != rawButtons) { rawButtons = next; changedAt = now; }
+  if ((unsigned long)(now - changedAt) &lt; DEBOUNCE_MS) return 0;
+  stableButtons = rawButtons;
+  if (stableButtons == 0) { armed = true; return 0; }
+  if (!armed) return 0;
+  armed = false;
+  return stableButtons == 3 ? 0 : stableButtons;
+}
+
+void showScore(uint8_t row) {
+  char line[17];
+  snprintf(line, sizeof(line), &quot;Skore: %u/%u&quot;, score, QUESTION_COUNT);
+  display.text(0, row, line);
+}
+
+void showQuestion() {
+  memcpy_P(&amp;current, &amp;questions[questionIndex], sizeof(current));
+  char line[17];
+  display.clear();
+  snprintf(line, sizeof(line), &quot;Otazka %u/%u&quot;, questionIndex + 1, QUESTION_COUNT);
+  display.text(0, 0, line);
+  showScore(1);
+  display.text(0, 2, current.line1);
+  display.text(0, 3, current.line2);
+  snprintf(line, sizeof(line), &quot;A:%s&quot;, current.a);
+  display.text(0, 5, line);
+  snprintf(line, sizeof(line), &quot;B:%s&quot;, current.b);
+  display.text(0, 6, line);
+  display.text(0, 7, &quot;D11=A  D12=B&quot;);
+  display.render();
+}
+
+void answer(uint8_t choice) {
+  bool correct = choice == current.correct;
+  if (correct) ++score;
+  screen = FEEDBACK;
+  display.clear();
+  display.text(0, 0, correct ? &quot;Spravne!&quot; : &quot;Nespravne.&quot;);
+  display.text(0, 2, current.correct == 1 ? &quot;Spravne: A&quot; : &quot;Spravne: B&quot;);
+  display.text(0, 3, current.correct == 1 ? current.a : current.b);
+  showScore(5);
+  display.text(0, 7, &quot;D11/D12: dale&quot;);
+  display.render();
+}
+
+void showResult() {
+  screen = RESULT;
+  char line[17];
+  display.clear();
+  display.text(0, 0, &quot;Konec kvizu&quot;);
+  showScore(2);
+  snprintf(line, sizeof(line), &quot;Uspesnost: %u%%&quot;, score * 100 / QUESTION_COUNT);
+  display.text(0, 3, line);
+  display.text(0, 5, score &gt;= 16 ? &quot;Skvela prace!&quot; : &quot;Zkus to znovu!&quot;);
+  display.text(0, 7, &quot;D11/D12: restart&quot;);
+  display.render();
+}
+
+void setup() {
+  pinMode(BUTTON_A, INPUT);
+  pinMode(BUTTON_B, INPUT);
+  display.begin();
+  rawButtons = readButtons();
+  changedAt = millis();
+  showQuestion();
+}
+
+void loop() {
+  uint8_t pressed = buttonEvent();
+  if (!pressed) return;
+  if (screen == ASK) answer(pressed);
+  else if (screen == FEEDBACK) {
+    if (++questionIndex == QUESTION_COUNT) showResult();
+    else { screen = ASK; showQuestion(); }
+  } else {
+    questionIndex = 0;
+    score = 0;
+    screen = ASK;
+    showQuestion();
+  }
+}
+</code></pre></details></main>
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="../../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="../../../../index.html#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="../../../../instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="../../../../edu/index.html" data-i18n="nav.edu">Edu</a>
+      <a href="../../../../company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="../../../../company/pro-ucitele.html" data-i18n="footer.teachers">Pro učitele</a>
+      <a href="../../../../faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="../../../../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="../../../../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="../../../../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
+    </nav>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+</footer>
+
+<script src="../../../../assets/js/animations.js"></script>
+<script src="../../../../assets/js/navbar.js"></script>
+<script src="../../../../assets/js/theme.js?v=20261104-interactions1"></script>
+<script src="../../../../assets/js/search.js?v=20261104-interactions1"></script>
+<script src="../../../../assets/js/lang.js"></script>
+<script src="../../../../assets/js/site-chrome.js?v=20261103-unified"></script>
+</body>
+</html>
+
+

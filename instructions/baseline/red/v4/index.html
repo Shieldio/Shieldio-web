@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem("shieldio-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RED V4: přehled pinů | Shieldio</title>
+<meta name="description" content="Piny RED V4: LED, ultrazvuk, servo, buzzer, tlačítka a OLED I²C.">
+<link rel="canonical" href="https://shieldio.cz/instructions/baseline/red/v4/">
+
+<link rel="stylesheet" href="../../../../assets/css/style.css">
+
+<link rel="icon" type="image/svg+xml" href="../../../../assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../../assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../../assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="../../../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../../assets/icons/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shieldio.cz/instructions/baseline/red/v4/">
+<meta property="og:site_name" content="Shieldio">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:title" content="RED V4: přehled pinů | Shieldio">
+<meta property="og:description" content="Piny RED V4: LED, ultrazvuk, servo, buzzer, tlačítka a OLED I²C.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RED V4: přehled pinů | Shieldio">
+<meta name="twitter:description" content="Piny RED V4: LED, ultrazvuk, servo, buzzer, tlačítka a OLED I²C.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+<link rel="stylesheet" href="/assets/css/guide-reference.css?v=20261102">
+</head>
+
+<body data-i18n-title="v4.title">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="/index.html"><img class="logo-full logo-full-light" src="/assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="/assets/icons/logo-full-white.svg" alt="Shieldio"></a>
+    <div class="nav-links">
+      <nav>
+        <a href="/products/index.html" data-i18n="nav.products">Produkty</a>
+        <a href="/instructions/index.html" data-i18n="nav.guides">Návody</a>
+        <a href="/company/pro-ucitele.html" data-i18n="nav.teachers">Pro učitele</a>
+        <a href="/company/about.html" data-i18n="nav.about">O nás</a>
+        <a href="/instructions/blokovy-editor.html" class="nav-code-link" data-i18n="nav.code_editor">Programování</a>
+      </nav>
+      <a class="cta-small" href="/index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <button class="nav-toggle" type="button" aria-label="Otevřít menu" data-i18n-aria-label="nav.menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<main class="red-reference wrap"><a class="guide-back-link" href="../index.html" data-i18n="pet.student.back">← Projekty pro žáky</a><header><span data-i18n="v4.label" class="eyebrow">RED V4 · zapojení</span><h1 data-i18n="v4.heading">RED V4: přehled pinů</h1><p data-i18n="v4.lead" class="lead">Piny Arduina a moduly na sestavené desce. Tento přehled platí pro RED V4.</p></header><section class="reference-section" id="piny"><h2 data-i18n="v4.pins">Digitální piny</h2><div class="reference-table" role="region" tabindex="0" aria-label="RED V4"><table><caption>RED V4</caption><thead><tr><th data-i18n="v4.pin" scope="col">Pin Arduina</th><th data-i18n="v4.module" scope="col">Součástka / signál</th></tr></thead><tbody><tr><th scope="row"><code>D5</code></th><td data-i18n="v4.D5">Červená LED</td></tr><tr><th scope="row"><code>D6</code></th><td data-i18n="v4.D6">Zelená LED</td></tr><tr><th scope="row"><code>D7</code></th><td data-i18n="v4.D7">TRIG · ultrazvukový senzor</td></tr><tr><th scope="row"><code>D8</code></th><td data-i18n="v4.D8">ECHO · ultrazvukový senzor</td></tr><tr><th scope="row"><code>D9</code></th><td data-i18n="v4.D9">Servo · řídicí signál</td></tr><tr><th scope="row"><code>D10</code></th><td data-i18n="v4.D10">Buzzer · různé tóny pomocí tone()</td></tr><tr><th scope="row"><code>D11</code></th><td data-i18n="v4.D11">Tlačítko 1 · při stisku HIGH</td></tr><tr><th scope="row"><code>D12</code></th><td data-i18n="v4.D12">Tlačítko 2 · při stisku HIGH</td></tr></tbody></table></div><p data-i18n="v4.buttons">Tlačítka na této V4 čti jako <code>HIGH</code> při stisku a <code>LOW</code> v klidu. Použij <code>pinMode(11, INPUT)</code> a <code>pinMode(12, INPUT)</code>.</p></section><section class="reference-section"><h2 data-i18n="v4.oled">OLED přes I²C</h2><p data-i18n="v4.oledText">OLED SSD1306 má rozlišení 128 × 64 a adresu <code>0x3C</code>. Na klasickém Nano je SDA na <code>A4</code> a SCL na <code>A5</code>. Zapojení a knihovna vycházejí z existujících projektů <a href="/edu/zviratko/">Zvířátko</a> a <a href="/assets/code/digitalni_metr/digitalni_metr.ino">Digitální metr</a>.</p><p data-i18n="v4.power">Před manipulací odpoj napájení. GND/VCC ověř podle popisků svého OLED; pořadí vývodů různých modulů se může lišit.</p></section><aside class="reference-note"><p data-i18n="v4.revision">Toto je programovací přehled V4, nikoli osazovací návod. Starší <a href="../prehled/">BOM a fotonávod RED V3</a> zůstávají označené V3.</p></aside><div class="reference-actions"><a data-i18n="v4.quiz" class="btn btn-primary" href="../zemepisny-kviz/">Vyzkoušet Zeměpisný kvíz →</a></div></main>
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo"><img class="logo-full logo-full-light" src="../../../../assets/icons/logo-full-color.svg" alt="Shieldio"><img class="logo-full logo-full-dark" src="../../../../assets/icons/logo-full-white.svg" alt="Shieldio"></div>
+    <nav class="footer-nav">
+      <a href="../../../../index.html#reseni" data-i18n="footer.solutions">Řešení</a>
+      <a href="../../../../instructions/index.html" data-i18n="nav.guides">Návody</a>
+      <a href="../../../../edu/index.html" data-i18n="nav.edu">Edu</a>
+      <a href="../../../../company/about.html" data-i18n="nav.about">O nás</a>
+      <a href="../../../../company/pro-ucitele.html" data-i18n="footer.teachers">Pro učitele</a>
+      <a href="../../../../faq.html" data-i18n="footer.faq">FAQ</a>
+      <a href="../../../../aktuality/index.html" data-i18n="footer.news">Aktuality</a>
+      <a href="../../../../company/privacy.html" data-i18n="footer.privacy">Ochrana údajů</a>
+      <a href="../../../../index.html#kontakt" data-i18n="footer.contact">Kontakt</a>
+      <a href="/instructions/blokovy-editor.html" data-i18n="nav.code_editor">Programování</a>
+    </nav>
+    <div class="footer-note" data-i18n="footer.tagline">ELEKTRONIKA A ROBOTIKA SROZUMITELNĚ PRO KAŽDÉHO</div>
+    <div>© 2026 Shieldio</div>
+  </div>
+  <div class="wrap"><p class="form-privacy-note" data-i18n="legal.links"><a href="/company/terms.html">Podmínky používání</a> · <a href="/company/privacy.html">Ochrana osobních údajů</a> · <a href="/index.html#kontakt">Kontakt</a></p><p class="form-privacy-note" data-i18n="legal.trademarks">Arduino® je ochranná známka Arduino SA. Shieldio není oficiální produkt Arduino. Názvy Arduino, mBlock a dalších třetích stran slouží k označení kompatibility nebo referenci, nikoli k tvrzení partnerství, certifikace či podpory.</p></div>
+</footer>
+
+<script src="../../../../assets/js/animations.js"></script>
+<script src="../../../../assets/js/navbar.js"></script>
+<script src="../../../../assets/js/theme.js?v=20261104-interactions1"></script>
+<script src="../../../../assets/js/search.js?v=20261104-interactions1"></script>
+<script src="../../../../assets/js/lang.js"></script>
+<script src="../../../../assets/js/site-chrome.js?v=20261103-unified"></script>
+</body>
+</html>
+
+

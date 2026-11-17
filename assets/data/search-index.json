@@ -1,5 +1,15 @@
 [
   {
+    "title": "RED V4: přehled pinů",
+    "desc": "D5–D12, LED, TRIG/ECHO, servo, buzzer, tlačítka se stiskem HIGH a OLED I²C.",
+    "url": "/instructions/baseline/red/v4/"
+  },
+  {
+    "title": "Zeměpisný kvíz pro RED",
+    "desc": "20 zeměpisných otázek A/B, OLED, tlačítka D11/D12, skóre a restart. Arduino projekt.",
+    "url": "/instructions/baseline/red/zemepisny-kviz/"
+  },
+  {
     "title": "Vítejte u Shieldio – první spuštění RED",
     "desc": "Začněte tady: první blikání LED, projekty pro žáky a příprava první hodiny pro učitele.",
     "url": "/start/"
