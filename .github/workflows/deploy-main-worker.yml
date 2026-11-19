@@ -179,7 +179,7 @@ jobs:
           grep -qi '^x-content-type-options: nosniff' /tmp/shieldio-security-headers || { echo "::error::Chybí ochrana MIME"; exit 1; }
           grep -qi '^x-frame-options: DENY' /tmp/shieldio-security-headers || { echo "::error::Chybí ochrana proti clickjackingu"; exit 1; }
           grep -qi '^content-security-policy:.*frame-ancestors' /tmp/shieldio-security-headers || { echo "::error::Chybí ochrana proti vkládání do cizích iframe"; exit 1; }
-          for restricted in learn/maturita/elektronika/ services/esp32-compiler/server.py; do
+          for restricted in learn/maturita/elektronika/ services/esp32-compiler/server.py esp32/ esp32/studio.mjs api/esp32/status; do
             status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 25 "https://shieldio.cz/$restricted")
             test "$status" = 404 || { echo "::error::Cizí statická větev $restricted vrátila $status místo 404"; exit 1; }
           done

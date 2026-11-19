@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://shieldio.cz/">
 <link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
 <link rel="stylesheet" href="assets/css/style.css?v=20260906">
-<link rel="stylesheet" href="assets/css/home.css?v=20261103-resources1">
+<link rel="stylesheet" href="assets/css/home.css?v=20261119-blocks">
 
 <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
@@ -22,14 +22,16 @@
 <meta property="og:site_name" content="Shieldio">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:title" content="Shieldio RED – výuková elektronika a Arduino projekty">
-<meta property="og:description" content="Shieldio RED propojuje Arduino Nano, ultrazvuk, servo a OLED s webovým editorem a návody pro školy a kroužky. RED V4 se testuje a zatím není v prodeji.">
-<meta property="og:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta property="og:description" content="Jednoduché blokové programování jako ve Scratchi nebo v MakeCode pro micro:bit. Rozsviťte LED, rozhýbejte servo a vyzkoušejte projekty na desce Shieldio RED.">
+<meta property="og:image" content="https://shieldio.cz/assets/images/shieldio-red-social.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Shieldio RED – elektronika a blokové programování. Fotografie desky RED se senzorem a displejem.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shieldio RED – výuková elektronika a Arduino projekty">
-<meta name="twitter:description" content="Shieldio RED propojuje Arduino Nano, ultrazvuk, servo a OLED s webovým editorem a návody pro školy a kroužky. RED V4 se testuje a zatím není v prodeji.">
-<meta name="twitter:image" content="https://shieldio.cz/assets/images/og-image.png">
+<meta name="twitter:description" content="Jednoduché blokové programování jako ve Scratchi nebo v MakeCode pro micro:bit. Rozsviťte LED, rozhýbejte servo a vyzkoušejte projekty na desce Shieldio RED.">
+<meta name="twitter:image" content="https://shieldio.cz/assets/images/shieldio-red-social.jpg">
+<meta name="twitter:image:alt" content="Shieldio RED – elektronika a blokové programování. Fotografie desky RED se senzorem a displejem.">
 
 <script type="application/ld+json">
 {
@@ -82,15 +84,17 @@
   <div class="wrap hero-grid">
     <div class="fade-up">
       <h1 data-i18n="home.simple.hero.h1">Shieldio RED</h1>
-      <p class="lead" data-i18n="home.simple.hero.description">Výuková deska s modulem kompatibilním s Arduino Nano, ultrazvukem, servem a OLED displejem. Pro školy, kroužky i domácí projekty.</p>
+      <p class="lead" data-i18n="home.simple.hero.blocks">Jednoduché blokové programování, jaké znáte ze Scratche nebo z MakeCode pro micro:bit. Skládejte bloky a ovládejte LED, servo i displej.</p>
+      <p class="hero-board-description" data-i18n="home.simple.hero.description">Výuková deska s modulem kompatibilním s Arduino Nano, ultrazvukem, servem a OLED displejem. Pro školy, kroužky i domácí projekty.</p>
       <div class="hero-mobile-product" aria-hidden="true">
         <img src="assets/images/RED_hand_hold_gallery.jpg" width="1448" height="1086" alt="" fetchpriority="high">
       </div>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="instructions/baseline/red/index.html" data-i18n="home.simple.hero.project">Prohlédnout projekty</a>
+        <a class="btn btn-primary" href="/instructions/blokovy-editor.html" data-i18n="home.simple.hero.open_editor">Vyzkoušet blokové programování</a>
         <a class="btn btn-ghost" href="#kontakt" data-i18n="home.simple.hero.interest">Vyzkoušet Shieldio ve výuce</a>
       </div>
       <p class="home-status" data-i18n="home.simple.hero.status">RED V4 testujeme. Zatím se neprodává.</p>
+      <p class="home-audience-guide"><a href="instructions/baseline/red/index.html" data-i18n="home.simple.hero.project">Prohlédnout projekty</a></p>
       <p class="home-audience-guide"><a href="/edu/pro-koho-je-shieldio/" data-i18n="home.simple.hero.audience">Kdy má RED smysl a jak s ním začít</a></p>
     </div>
     <div class="board-figure fade-up">
@@ -217,13 +221,15 @@
   </div>
 </section>
 
-<section id="pro-pokrocile" class="home-section home-divider">
-  <div class="wrap">
-    <div class="section-head"><h2 data-i18n="home.esp32.title">Pro pokročilé</h2></div>
-    <p data-i18n="home.esp32.description">ESP32 Studio: samostatný C++ editor a USB nahrávání sloučeného firmwaru pro vlastní projekty.</p>
-    <p class="home-section-link"><a class="learn-theory-link" href="/esp32/" data-i18n="home.esp32.link">Otevřít ESP32 Studio →</a></p>
-  </div>
-</section>
+<template id="esp32-studio-section">
+  <section id="pro-pokrocile" class="home-section home-divider">
+    <div class="wrap">
+      <div class="section-head"><h2 data-i18n="home.esp32.title">Pro pokročilé</h2></div>
+      <p data-i18n="home.esp32.description">ESP32 Studio: samostatný C++ editor a USB nahrávání sloučeného firmwaru pro vlastní projekty.</p>
+      <p class="home-section-link"><a class="learn-theory-link" href="/esp32/" data-i18n="home.esp32.link">Otevřít ESP32 Studio →</a></p>
+    </div>
+  </section>
+</template>
 
 <section class="cta-section" id="kontakt" style="padding:80px 0;">
   <div class="wrap cta-grid">

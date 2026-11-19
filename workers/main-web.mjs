@@ -203,7 +203,7 @@ const API_CATALOG = JSON.stringify({
   }],
 });
 
-const UNRELATED_STATIC_PATH = /^\/(?:learn|services)(?:\/|$)/i;
+const NONPUBLIC_PATH = /^\/(?:learn|services|esp32|api\/esp32)(?:\/|$)/i;
 
 function deniedAsset() {
   return new Response("Not found", {
@@ -225,11 +225,9 @@ function varyAccept(headers) {
 
 export default {
   async fetch(request, env) {
-    // Learn beta and compiler service files are not public pages of the apex.
-    // They are deployed through their own Workers/services. Do not expose
-    // those paths by accident via the root asset binding. This does NOT make
-    // content already committed to a public GitHub repository confidential.
     const url = new URL(request.url);
+    // Keep Learn beta, compiler sources and ESP32 Studio off this public deployment.
+    if (NONPUBLIC_PATH.test(url.pathname)) return deniedAsset();
     // Auth.md discovery for public, anonymous agent access. Pin Markdown MIME
     // without inventing OAuth/registration endpoints that do not exist.
     if (url.pathname === "/auth.md") {
@@ -326,8 +324,6 @@ export default {
       }), type);
       return new Response(request.method === "HEAD" ? null : API_CATALOG, { status: 200, headers });
     }
-    if (UNRELATED_STATIC_PATH.test(url.pathname)) return deniedAsset();
-
     const original = await env.ASSETS.fetch(request);
     const type = original.headers.get("content-type") || "";
     const headers = addSecurityHeaders(new Headers(original.headers), type);

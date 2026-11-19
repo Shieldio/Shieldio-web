@@ -1,6 +1,7 @@
 /* Homepage layout only; the shared site styles and hero composition stay intact. */
 .home-page .hero h1{font-size:clamp(42px,5.7vw,76px);}
 .home-page .hero .board-photo-frame{opacity:1;transform:rotate(1.5deg);}
+.home-page .hero-board-description{margin:12px 0 0;max-width:520px;color:var(--ink-soft);}
 .home-page .hero-ctas{gap:12px;}
 .home-page .hero-ctas .btn{min-height:48px;text-align:center;}
 .home-page .home-status{margin:18px 0 0;color:var(--ink-soft);font-size:14px;max-width:36em;}

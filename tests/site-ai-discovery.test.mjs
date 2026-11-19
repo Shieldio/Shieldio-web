@@ -19,6 +19,10 @@ function jsonld(html) {
 
 test("úvod popisuje výukové využití RED věcně i bez JavaScriptu", () => {
   const lead = "Výuková deska s modulem kompatibilním s Arduino Nano, ultrazvukem, servem a OLED displejem. Pro školy, kroužky i domácí projekty.";
+  const blocks = i18n["home.simple.hero.blocks"].cs;
+  assert.match(blocks, /Scratche.*micro:bit/);
+  assert.ok(home.indexOf(blocks) > 0 && home.indexOf(blocks) < home.indexOf(lead));
+  assert.match(home, /class="btn btn-primary" href="\/instructions\/blokovy-editor\.html"/);
   assert.ok(home.includes(lead));
   assert.equal(i18n["home.simple.hero.description"].cs, lead);
   assert.ok(home.includes("RED V4 testujeme. Zatím se neprodává."));

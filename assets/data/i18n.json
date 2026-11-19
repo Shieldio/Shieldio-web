@@ -5067,6 +5067,14 @@
     "cs": "Shieldio RED",
     "en": "Shieldio RED"
   },
+  "home.simple.hero.blocks": {
+    "cs": "Jednoduché blokové programování, jaké znáte ze Scratche nebo z MakeCode pro micro:bit. Skládejte bloky a ovládejte LED, servo i displej.",
+    "en": "Simple block coding, just like in Scratch or MakeCode for micro:bit. Snap blocks together to control LEDs, a servo and a display."
+  },
+  "home.simple.hero.open_editor": {
+    "cs": "Vyzkoušet blokové programování",
+    "en": "Try block coding"
+  },
   "home.simple.hero.description": {
     "cs": "Výuková deska s modulem kompatibilním s Arduino Nano, ultrazvukem, servem a OLED displejem. Pro školy, kroužky i domácí projekty.",
     "en": "A learning board with an Arduino Nano-compatible module, ultrasonic sensor, servo and OLED display. For schools, clubs and home projects."

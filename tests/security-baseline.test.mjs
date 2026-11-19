@@ -60,6 +60,7 @@ test("noncanonical source trees are not served on the primary website", async ()
   for (const path of [
     "/learn/", "/learn/maturita/elektronika/",
     "/services/", "/services/esp32-compiler/server.py",
+    "/esp32", "/esp32/", "/esp32/index.html", "/esp32/studio.mjs", "/api/esp32/status", "/api/esp32/compile",
   ]) {
     const runtime = env();
     const reply = await worker.fetch(new Request("https://shieldio.cz" + path), runtime);
@@ -68,7 +69,7 @@ test("noncanonical source trees are not served on the primary website", async ()
     assert.match(reply.headers.get("X-Robots-Tag"), /noindex/);
     assert.deepEqual(runtime.calls, [], "blocked paths must not reach the asset store");
   }
-  for (const path of ["/", "/products/RED.html", "/assets/js/arduino-flasher.mjs", "/esp32/"]) {
+  for (const path of ["/", "/products/RED.html", "/assets/js/arduino-flasher.mjs"]) {
     const runtime = env();
     const reply = await worker.fetch(new Request("https://shieldio.cz" + path), runtime);
     assert.equal(reply.status, 200, path);

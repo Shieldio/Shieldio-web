@@ -11,6 +11,8 @@ wrangler.learn.jsonc
 wrangler.stage.jsonc
 learn/worker.js
 learn/CONTENT.md
+/esp32/
+/services/esp32-compiler/
 workers
 scripts
 docs
