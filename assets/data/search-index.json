@@ -1,5 +1,10 @@
 [
   {
+    "title": "Beta testování RED: pro učitele a vedoucí kroužků",
+    "desc": "Onboarding vedoucích beta testerů: aktuální stav RED V4, příprava, první hodina, bezpečnost a zpětná vazba.",
+    "url": "/company/beta-testovani.html"
+  },
+  {
     "title": "RED V4: přehled pinů",
     "desc": "D5–D12, LED, TRIG/ECHO, servo, buzzer, tlačítka se stiskem HIGH a OLED I²C.",
     "url": "/instructions/baseline/red/v4/"

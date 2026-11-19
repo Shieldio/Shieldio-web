@@ -120,8 +120,8 @@
     "en": "for RED, the only board available now"
   },
   "home.board_tag": {
-    "cs": "RED · prototyp V4",
-    "en": "RED · V4 prototype"
+    "cs": "RED V4 · v testování",
+    "en": "RED V4 · in testing"
   },
   "home.audience.eyebrow": {
     "cs": "Vyberte si svůj začátek",
@@ -332,8 +332,8 @@
     "en": "Currently in development"
   },
   "red.badge_first_batch": {
-    "cs": "Vývojová série · průzkum zájmu",
-    "en": "Development series · interest survey"
+    "cs": "RED V4 · V beta testování",
+    "en": "RED V4 · In beta testing"
   },
   "home.box.in_box_h3": {
     "cs": "Co je v balení",
@@ -696,8 +696,8 @@
     "en": "<span class=\"text-tier-red\">RED V4</span> is currently being tested while V5 is in preparation. PowerAdd is a prototype in development. <span class=\"text-tier-green\">Green</span>, <span class=\"text-tier-yellow\">Yellow</span>, and <span class=\"text-tier-pro\">PRO</span> are still at the concept stage."
   },
   "products_index.group_preorder": {
-    "cs": "Vývojový prototyp",
-    "en": "Development prototype"
+    "cs": "V beta testování",
+    "en": "In beta testing"
   },
   "products_index.group_upcoming": {
     "cs": "Připravujeme",
@@ -716,8 +716,8 @@
     "en": "Baseline · Concept"
   },
   "products_index.status_red": {
-    "cs": "Baseline · Vývojový prototyp",
-    "en": "Baseline · Development prototype"
+    "cs": "Baseline · V beta testování",
+    "en": "Baseline · In beta testing"
   },
   "products_index.status_pro": {
     "cs": "PROline · Koncept",
@@ -5088,8 +5088,8 @@
     "en": "Try Shieldio in the classroom"
   },
   "home.simple.hero.status": {
-    "cs": "RED V4 testujeme. Zatím se neprodává.",
-    "en": "RED V4 is being tested. It is not on sale yet."
+    "cs": "Shieldio RED V4 je v beta testování. Zatím se neprodává.",
+    "en": "Shieldio RED V4 is in beta testing. Not on sale yet."
   },
   "home.simple.hero.photo": {
     "cs": "Deska Shieldio RED se senzorem vzdálenosti, servem a displejem",
@@ -6267,13 +6267,34 @@
     "cs": "Máte RED? Začněte tady <span aria-hidden=\"true\">↗</span>",
     "en": "Have a RED? Start here <span aria-hidden=\"true\">↗</span>"
   },
-  "programming.functionMap": {"cs": "Funkce", "en": "Functions"},
-  "programming.functionMapLabel": {"cs": "Přejít na definici funkce", "en": "Go to function definition"},
-"programming.programs": {"cs": "Programy", "en": "Programs"},
-"programming.exampleMeter": {"cs": "Digitální metr", "en": "Distance meter"},
-"programming.exampleRadar": {"cs": "Ultrazvukový radar", "en": "Ultrasonic radar"},
-"programming.exampleAnimal": {"cs": "Zvířátko", "en": "Pet"},
-"programming.exampleSerial": {"cs": "Sériová linka", "en": "Serial communication"},
+  "programming.functionMap": {
+    "cs": "Funkce",
+    "en": "Functions"
+  },
+  "programming.functionMapLabel": {
+    "cs": "Přejít na definici funkce",
+    "en": "Go to function definition"
+  },
+  "programming.programs": {
+    "cs": "Programy",
+    "en": "Programs"
+  },
+  "programming.exampleMeter": {
+    "cs": "Digitální metr",
+    "en": "Distance meter"
+  },
+  "programming.exampleRadar": {
+    "cs": "Ultrazvukový radar",
+    "en": "Ultrasonic radar"
+  },
+  "programming.exampleAnimal": {
+    "cs": "Zvířátko",
+    "en": "Pet"
+  },
+  "programming.exampleSerial": {
+    "cs": "Sériová linka",
+    "en": "Serial communication"
+  },
   "v4.label": {
     "cs": "RED V4 · zapojení",
     "en": "RED V4 · wiring"
@@ -6441,5 +6462,305 @@
   "programming.exampleQuiz": {
     "cs": "Zeměpisný kvíz",
     "en": "Geography quiz"
+  },
+  "beta.eyebrow": {
+    "cs": "Pro učitele a vedoucí kroužků",
+    "en": "For teachers and club leaders"
+  },
+  "beta.heading": {
+    "cs": "První testování RED.<br>Vítejte na palubě.",
+    "en": "Your first RED pilot.<br>Welcome aboard."
+  },
+  "beta.lead": {
+    "cs": "Jste spojka mezi Shieldio a skupinou, která ho zkouší. Tady najdete, co připravit, jak vést první setkání a co mi potom napsat.",
+    "en": "You connect Shieldio with the group trying it out. Here is what to prepare, how to run the first session and what to tell me afterwards."
+  },
+  "beta.prepareCta": {
+    "cs": "Připravit první testování",
+    "en": "Prepare your first session"
+  },
+  "beta.feedbackCta": {
+    "cs": "Poslat zpětnou vazbu",
+    "en": "Send feedback"
+  },
+  "beta.updated": {
+    "cs": "Stav k 19. listopadu 2026",
+    "en": "Status as of 19 November 2026"
+  },
+  "beta.statusHeading": {
+    "cs": "RED V4 je v beta testování.",
+    "en": "RED V4 is in beta testing."
+  },
+  "beta.statusText": {
+    "cs": "Testujeme skutečnou desku, webový editor a návody při práci s lidmi. V5 připravujeme. RED se zatím neprodává; podmínky zapůjčení nebo předání a délku konkrétního testu si domluvíme individuálně.",
+    "en": "We are testing the physical board, web editor and guides with users. V5 is in preparation. RED is not on sale yet; loan or handover terms and the duration of your pilot are agreed individually."
+  },
+  "beta.readyTitle": {
+    "cs": "Co můžete zkoušet",
+    "en": "What you can try"
+  },
+  "beta.readyText": {
+    "cs": "Sestavenou RED, blokové programování, přípravu a nahrávání programu přes USB, návody a projekty s LED, tlačítky, senzorem, servem a displejem.",
+    "en": "An assembled RED, block programming, compilation and USB upload, guides and projects with LEDs, buttons, the sensor, servo and display."
+  },
+  "beta.testingTitle": {
+    "cs": "Co právě ověřujeme",
+    "en": "What we are checking"
+  },
+  "beta.testingText": {
+    "cs": "Srozumitelnost prvních kroků, spolehlivost připojení ve škole, odolnost při běžném zacházení a to, zda se s deskou dá vést smysluplná hodina.",
+    "en": "Whether the first steps are clear, school USB connections are reliable, normal handling is tolerated and the board supports a useful lesson."
+  },
+  "beta.limitsTitle": {
+    "cs": "S čím počítat",
+    "en": "What to expect"
+  },
+  "beta.limitsText": {
+    "cs": "Mohou se objevit chyby nebo nejasné návody. USB nahrávání vyžaduje Chrome nebo Edge na počítači. První příprava potřebuje internet; školní správce může přístup k portu omezit.",
+    "en": "You may encounter bugs or unclear instructions. USB upload requires desktop Chrome or Edge. Initial preparation needs internet access; school policies may restrict serial ports."
+  },
+  "beta.whyHeading": {
+    "cs": "Proč testujeme a co od vás potřebuji",
+    "en": "Why we are testing and what I need from you"
+  },
+  "beta.whyText": {
+    "cs": "Shieldio má pomoci propojit program s tím, co se děje na skutečné desce. Potřebuji zjistit, jestli to funguje i bez mého vysvětlování: kde se skupina zastaví, co ji zaujme a co musím změnit. Nehodnotíme žáky ani vaše pedagogické schopnosti.",
+    "en": "Shieldio aims to connect a program with what happens on a physical board. I need to know whether it works without my explanations: where the group gets stuck, what engages them and what I should change. We are not assessing pupils or your teaching skills."
+  },
+  "beta.role1": {
+    "cs": "Předem projděte první program a ověřte vybavení na účtu, který budou používat účastníci.",
+    "en": "Try the first program in advance using the account participants will use."
+  },
+  "beta.role2": {
+    "cs": "Veďte skupinu a dohlížejte na bezpečné zacházení. Všímejte si, kde je potřeba vaše pomoc.",
+    "en": "Lead the group and supervise safe handling. Note where your help is needed."
+  },
+  "beta.role3": {
+    "cs": "Po setkání mi pošlete krátké upřímné shrnutí. I neúspěšný pokus nebo důvod, proč se hodina neuskutečnila, je užitečná zpětná vazba.",
+    "en": "Send me a short, honest summary afterwards. An unsuccessful attempt or the reason a session could not take place is useful feedback too."
+  },
+  "beta.prepHeading": {
+    "cs": "Před prvním setkáním",
+    "en": "Before the first session"
+  },
+  "beta.agree": {
+    "cs": "<b>Domluvte si rozsah.</b> Napište, pro jakou věkovou skupinu a kolik účastníků test chystáte, kolik desek máte a kdy chcete začít. Konkrétní předání a vrácení si potvrďte se mnou.",
+    "en": "<b>Agree the scope.</b> Tell me the age group, participant count, available boards and planned start. Confirm handover and return arrangements with me."
+  },
+  "beta.revision": {
+    "cs": "<b>Zkontrolujte revizi a stav.</b> Ověřte označení desky a že nic není uvolněné nebo poškozené. Pokud se dodaná deska liší od návodu, nepřepojujte ji odhadem a napište mi.",
+    "en": "<b>Check the revision and condition.</b> Look for loose or damaged parts. If the board differs from the guide, contact me instead of guessing the wiring."
+  },
+  "beta.computers": {
+    "cs": "<b>Vyzkoušejte školní počítač.</b> Potřebujete aktuální Chrome nebo Edge, internet a datový USB kabel. Otevřete editor a ověřte výběr portu na běžném žákovském účtu. Případné omezení řešte se správcem školy.",
+    "en": "<b>Try a school computer.</b> You need current Chrome or Edge, internet and a data USB cable. Open the editor and check port selection on a normal pupil account. Resolve any restriction with your school administrator."
+  },
+  "beta.first": {
+    "cs": "<b>Nahrajte první program.</b> Projděte <a href=\"/start/\">první spuštění RED</a> a nechte blikat zelenou LED. Před hodinou ověřte každou používanou desku.",
+    "en": "<b>Upload the first program.</b> Follow <a href=\"/start/\">the RED getting-started guide</a> and blink the green LED. Check every board you intend to use."
+  },
+  "beta.lesson": {
+    "cs": "<b>Připravte malou skupinu.</b> Pro první pokus doporučuji práci ve dvojicích a 45 minut se sestavenou deskou. Připravte náhradní datový kabel a pokud ji máte, i záložní desku.",
+    "en": "<b>Start with a small group.</b> For a first attempt I recommend pairs and a 45-minute session with an assembled board. Have a spare data cable and, if available, a spare board."
+  },
+  "beta.openEditor": {
+    "cs": "Otevřít blokový editor",
+    "en": "Open the block editor"
+  },
+  "beta.usbGuide": {
+    "cs": "Postup připojení a nahrávání",
+    "en": "Connection and upload guide"
+  },
+  "beta.teacherGuide": {
+    "cs": "Metodika a pracovní list k závoře",
+    "en": "Barrier lesson plan and worksheet"
+  },
+  "beta.lessonHeading": {
+    "cs": "Jak může vypadat prvních 45 minut",
+    "en": "A possible first 45-minute session"
+  },
+  "beta.lessonIntro": {
+    "cs": "Časy jsou návrh. Pokud se připojení nepodaří, neztrácejte celou hodinu opakováním stejného kroku; poznamenejte problém a ozvěte se.",
+    "en": "The timing is a suggestion. If the connection fails, avoid spending the whole session repeating the same step; note the problem and contact me."
+  },
+  "beta.time": {
+    "cs": "Čas",
+    "en": "Time"
+  },
+  "beta.activity": {
+    "cs": "Aktivita",
+    "en": "Activity"
+  },
+  "beta.observe": {
+    "cs": "Čeho si všímat",
+    "en": "What to observe"
+  },
+  "beta.activity0": {
+    "cs": "Ukažte desku a vysvětlete cíl: rozblikat LED a změnit její chování.",
+    "en": "Show the board and explain the goal: blink an LED and change its behaviour."
+  },
+  "beta.observe0": {
+    "cs": "Rozumí skupina tomu, co má být výsledkem?",
+    "en": "Does the group understand the expected result?"
+  },
+  "beta.activity1": {
+    "cs": "Otevřete první spuštění, připojte RED a nahrajte připravený program.",
+    "en": "Open the getting-started guide, connect RED and upload the starter program."
+  },
+  "beta.observe1": {
+    "cs": "Kde se zastaví připojení nebo výběr portu?",
+    "en": "Where does connection or port selection get stuck?"
+  },
+  "beta.activity2": {
+    "cs": "Nechte dvojice měnit dobu blikání nebo přidat druhou LED.",
+    "en": "Let pairs change the blink interval or add the second LED."
+  },
+  "beta.observe2": {
+    "cs": "Co zvládnou z návodu a s čím potřebují pomoci?",
+    "en": "What can they do with the guide, and where do they need help?"
+  },
+  "beta.activity3": {
+    "cs": "Porovnejte program a výsledek. Pokud zbývá čas, otevřete návod na závoru.",
+    "en": "Compare the code with the result. If time allows, open the barrier guide."
+  },
+  "beta.observe3": {
+    "cs": "Dokážou vysvětlit vztah mezi blokem a chováním desky?",
+    "en": "Can they explain how a block relates to the board’s behaviour?"
+  },
+  "beta.activity4": {
+    "cs": "Uložte práci a zeptejte se, co bylo jasné a co matoucí.",
+    "en": "Save the work and ask what was clear and what was confusing."
+  },
+  "beta.observe4": {
+    "cs": "Co by chtěli zkusit příště a co je brzdilo?",
+    "en": "What would they like to try next, and what slowed them down?"
+  },
+  "beta.safetyHeading": {
+    "cs": "Bezpečná práce a známá omezení",
+    "en": "Safe use and known limitations"
+  },
+  "beta.safe1": {
+    "cs": "Pro první test použijte sestavenou a zkontrolovanou desku pod dohledem učitele nebo vedoucího. Pájení plánujte jako samostatnou aktivitu.",
+    "en": "Use an assembled, checked board under teacher or club-leader supervision for the first test. Plan soldering as a separate activity."
+  },
+  "beta.safe2": {
+    "cs": "Před změnou zapojení odpojte napájení. Používejte domluvené USB napájení; nepřidávejte jiné zdroje ani součástky bez ověření zapojení.",
+    "en": "Disconnect power before changing the wiring. Use the agreed USB power supply; do not add other supplies or components without checking the circuit."
+  },
+  "beta.safe3": {
+    "cs": "Před spuštěním uvolněte prostor pro pohyb serva. Při neobvyklém zahřívání, zápachu nebo poškození desku ihned odpojte a dále ji nepoužívejte.",
+    "en": "Keep the servo’s movement area clear before running a program. Disconnect the board immediately if it heats unusually, smells or is damaged, and stop using it."
+  },
+  "beta.safe4": {
+    "cs": "Úspěšná kompilace neověřuje bezpečnost zapojení ani chování programu. Importovaný projekt nebo vlastní C++ před nahráním zkontrolujte.",
+    "en": "Successful compilation does not verify wiring safety or program behaviour. Review imported projects or custom C++ before upload."
+  },
+  "beta.safe5": {
+    "cs": "Na sdíleném počítači práci exportujte a po skončení smažte data webu v prohlížeči, případně použijte oddělený školní profil. Rozpracované projekty se v prohlížeči uchovávají.",
+    "en": "On a shared computer, export the work and clear site data afterwards, or use a separate school profile. Work in progress is stored in the browser."
+  },
+  "beta.safe6": {
+    "cs": "Při potížích s USB zkontrolujte datový kabel, správný port a zavřete další sériové monitory. V Safari použijte pro nahrávání Chrome nebo Edge na počítači.",
+    "en": "For USB problems, check the data cable and correct port, and close other serial monitors. For uploads, use desktop Chrome or Edge instead of Safari."
+  },
+  "beta.scope": {
+    "cs": "Jde o beta testování prototypu. Tato stránka není potvrzením certifikace ani zárukou bezchybnosti. Případná omezení konkrétního kusu si projdeme při předání.",
+    "en": "This is beta testing of a prototype. This page does not confirm certification or guarantee fault-free operation. We will discuss any limitations of your particular board at handover."
+  },
+  "beta.feedbackHeading": {
+    "cs": "Co mi napsat po testování",
+    "en": "What to send me afterwards"
+  },
+  "beta.feedbackIntro": {
+    "cs": "Stačí krátký e-mail po setkání. Nejvíc mi pomůže konkrétní situace a to, co jí předcházelo. Chybu můžete poslat hned; na souhrn není potřeba čekat.",
+    "en": "A short email after the session is enough. A specific situation and what led to it are most useful. Report a bug immediately if needed; you do not have to wait for the summary."
+  },
+  "beta.feedback1": {
+    "cs": "Věková skupina, počet účastníků a desek, délka setkání a zkoušený projekt. Bez jmen žáků.",
+    "en": "Age group, participant and board counts, session length and the project tried. No pupil names."
+  },
+  "beta.feedback2": {
+    "cs": "Co se podařilo, kde se skupina zastavila a kolik pomoci potřebovala od vás.",
+    "en": "What worked, where the group got stuck and how much help you needed to provide."
+  },
+  "beta.feedback3": {
+    "cs": "U chyby: revize desky, systém a prohlížeč, přesné kroky, očekávaný výsledek a skutečné chování. Přiložte text chyby nebo snímek bez osobních údajů.",
+    "en": "For a bug: board revision, OS and browser, exact steps, expected result and actual behaviour. Include the error text or a screenshot without personal data."
+  },
+  "beta.feedback4": {
+    "cs": "Co byste změnili v návodu nebo editoru a zda byste s RED chtěli pracovat znovu. Klidně napište i proč ne.",
+    "en": "What you would change in the guide or editor and whether you would use RED again. Reasons not to are welcome too."
+  },
+  "beta.templateTitle": {
+    "cs": "Osnova zprávy ke zkopírování",
+    "en": "Copyable feedback outline"
+  },
+  "beta.template": {
+    "cs": "Revize desky a projekt:\nVěková skupina / počet účastníků / počet desek:\nDélka setkání:\nSystém a prohlížeč:\nCo se podařilo:\nKde jsme potřebovali pomoc:\nChyba: kroky → očekávání → skutečnost:\nCo změnit pro příště:\nChtěli bychom RED použít znovu? Proč:",
+    "en": "Board revision and project:\nAge group / participants / boards:\nSession length:\nOS and browser:\nWhat worked:\nWhere we needed help:\nBug: steps → expected → actual:\nWhat to change next time:\nWould we use RED again? Why:"
+  },
+  "beta.sendEmail": {
+    "cs": "Napsat Adamovi na info@shieldio.cz",
+    "en": "Email Adam at info@shieldio.cz"
+  },
+  "beta.feedbackPrivacy": {
+    "cs": "Neposílejte jména žáků, přihlašovací údaje ani fotografie obličejů. Fotka zapojení nebo anonymní citace obvykle stačí. Způsob zpracování zpráv najdete v <a href=\"/company/privacy.html\">ochraně osobních údajů</a>.",
+    "en": "Do not send pupil names, login details or photos of faces. A wiring photo or anonymous quote is usually enough. See the <a href=\"/company/privacy.html\">privacy notice</a> for how messages are processed."
+  },
+  "beta.nextHeading": {
+    "cs": "Co se stane s vaší zpětnou vazbou",
+    "en": "What happens to your feedback"
+  },
+  "beta.nextText": {
+    "cs": "Použiji ji k opravám návodů a editoru a jako podklad pro další revizi desky. Pokud nebude problém jasný, doptám se na kroky nebo navrhnu společné ověření. Po opravě vás můžu požádat o zopakování konkrétního pokusu; rozsah dalšího testování si vždy domluvíme.",
+    "en": "I will use it to improve the guides and editor and inform the next board revision. If an issue is unclear, I will ask about the steps or suggest checking it together. After a fix, I may ask you to repeat a specific attempt; we will agree any further testing together."
+  },
+  "beta.moreProjects": {
+    "cs": "Další projekty RED",
+    "en": "More RED projects"
+  },
+  "beta.title": {
+    "cs": "Beta testování RED: průvodce pro učitele a vedoucí | Shieldio",
+    "en": "RED beta testing: a guide for teachers and club leaders | Shieldio"
+  },
+  "beta.contents": {
+    "cs": "Obsah stránky",
+    "en": "On this page"
+  },
+  "beta.navStatus": {
+    "cs": "Aktuální stav",
+    "en": "Current status"
+  },
+  "beta.navPrep": {
+    "cs": "Příprava",
+    "en": "Preparation"
+  },
+  "beta.navLesson": {
+    "cs": "První hodina",
+    "en": "First session"
+  },
+  "beta.navSafety": {
+    "cs": "Bezpečnost",
+    "en": "Safety"
+  },
+  "beta.navFeedback": {
+    "cs": "Zpětná vazba",
+    "en": "Feedback"
+  },
+  "beta.entry": {
+    "cs": "Vedete beta testování? Začněte tady",
+    "en": "Leading a beta pilot? Start here"
+  },
+  "beta.homeEntry": {
+    "cs": "Průvodce beta testováním pro učitele a vedoucí",
+    "en": "Beta testing guide for teachers and club leaders"
+  },
+  "beta.productStatus": {
+    "cs": "<b>Aktuální stav: RED V4 je v beta testování.</b> Ověřujeme desku, editor i návody; V5 připravujeme. RED se zatím neprodává.",
+    "en": "<b>Current status: RED V4 is in beta testing.</b> We are checking the board, editor and guides; V5 is in preparation. RED is not on sale yet."
+  },
+  "beta.productEntry": {
+    "cs": "Jak vést beta testování RED",
+    "en": "How to lead a RED beta pilot"
   }
 }
