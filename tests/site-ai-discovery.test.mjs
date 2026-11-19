@@ -25,7 +25,10 @@ test("úvod popisuje výukové využití RED věcně i bez JavaScriptu", () => {
   assert.match(home, /class="btn btn-primary" href="\/instructions\/blokovy-editor\.html"/);
   assert.ok(home.includes(lead));
   assert.equal(i18n["home.simple.hero.description"].cs, lead);
-  assert.ok(home.includes("RED V4 testujeme. Zatím se neprodává."));
+  const status = i18n["home.simple.hero.status"].cs;
+  assert.ok(home.includes(status));
+  assert.match(status, /RED V4.*beta testování/);
+  assert.match(status, /Zatím se neprodává\./);
   assert.ok(home.includes('href="/edu/pro-koho-je-shieldio/"'));
   assert.match(home, /name="description" content="[^"]*školy a kroužky/);
 });
