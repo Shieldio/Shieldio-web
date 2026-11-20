@@ -732,12 +732,12 @@
     "en": "Where each board stands right now."
   },
   "products_index.dev_p": {
-    "cs": "Procento orientačně popisuje stav vývoje. RED V4 právě ověřujeme v testování a současně připravujeme V5.",
-    "en": "The percentage is an indicative development status. RED V4 is currently being tested while V5 is in preparation."
+    "cs": "Procento orientačně popisuje stav vývoje. RED V4 je v beta testování a současně připravujeme V5.",
+    "en": "The percentage is an indicative development status. RED V4 is currently in beta testing while V5 is in preparation."
   },
   "products_index.dev_red_sub": {
-    "cs": "V4 v testování · V5 v přípravě",
-    "en": "V4 in testing · V5 in preparation"
+    "cs": "V4 v beta testování · V5 v přípravě",
+    "en": "V4 in beta testing · V5 in preparation"
   },
   "products_index.dev_yellow_sub": {
     "cs": "Koncept, první nápad hotový",
